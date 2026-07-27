@@ -1,0 +1,642 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "research-entry.schema.json",
+  "title": "Indus Open Benchmark research landscape registry",
+  "description": "Normative registry of scoped research claims, resources, institutions, and policy records. A record classifies one claim as an observation, reported result, interpretation, institutional statement, policy announcement, or access/rights assessment; it is not a decipherment label.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "generated_at",
+    "scope_note",
+    "evidence_policy",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "registry_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_policy": {
+      "$ref": "#/$defs/evidence_policy"
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/research_entry"
+      }
+    }
+  },
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "nullable_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "nullable_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "evidence_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "properties": {
+        "A": {
+          "const": "Primary artifact, excavation, collection, catalogue, corpus, or official institutional record"
+        },
+        "B": {
+          "const": "Peer-reviewed structural, statistical, or image-processing research"
+        },
+        "C": {
+          "const": "Peer-reviewed linguistic, semantic, functional, or non-linguistic interpretation"
+        },
+        "D": {
+          "const": "Preprint, conference paper, public code, or unreviewed dataset requiring audit"
+        },
+        "E": {
+          "const": "Self-published, informal, or provenance-poor claim retained only for tracking and falsification"
+        }
+      }
+    },
+    "research_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry_id",
+        "title",
+        "entity_type",
+        "evidence_tier",
+        "tier_rationale",
+        "status",
+        "citation",
+        "claim",
+        "evidence",
+        "limitations",
+        "falsification",
+        "access_rights",
+        "lineage",
+        "dates",
+        "tags"
+      ],
+      "properties": {
+        "entry_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity_type": {
+          "enum": [
+            "corpus",
+            "dataset",
+            "database",
+            "publication",
+            "preprint",
+            "conference_paper",
+            "software",
+            "institution_or_project",
+            "official_record",
+            "policy_or_prize",
+            "other"
+          ]
+        },
+        "evidence_tier": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ]
+        },
+        "tier_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "partially_verified",
+            "unverified",
+            "disputed",
+            "superseded",
+            "retracted"
+          ]
+        },
+        "citation": {
+          "$ref": "#/$defs/citation"
+        },
+        "claim": {
+          "$ref": "#/$defs/claim"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence_item"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/limitation"
+          }
+        },
+        "falsification": {
+          "$ref": "#/$defs/falsification"
+        },
+        "access_rights": {
+          "$ref": "#/$defs/access_rights"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        },
+        "dates": {
+          "$ref": "#/$defs/dates"
+        },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          }
+        }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "creators",
+        "issued",
+        "publisher_or_venue",
+        "doi",
+        "other_identifiers",
+        "links"
+      ],
+      "properties": {
+        "creators": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "issued": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "publisher_or_venue": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "doi": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^10\\.[0-9]{4,9}/\\S+$"
+        },
+        "other_identifiers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "links": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        }
+      }
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "link_type",
+        "url"
+      ],
+      "properties": {
+        "link_type": {
+          "enum": [
+            "landing_page",
+            "full_text",
+            "data",
+            "code",
+            "rights",
+            "official_record",
+            "reproduction"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "attribution",
+        "acceptance",
+        "statement",
+        "scope"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "observation",
+            "reported_empirical_result",
+            "interpretive_hypothesis",
+            "institutional_statement",
+            "policy_announcement",
+            "rights_or_access_statement"
+          ]
+        },
+        "attribution": {
+          "enum": [
+            "source_reported",
+            "registry_assessment"
+          ]
+        },
+        "acceptance": {
+          "enum": [
+            "established",
+            "supported",
+            "unresolved",
+            "disputed",
+            "not_assessed"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "interpretive_hypothesis"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "acceptance": {
+                "enum": [
+                  "supported",
+                  "unresolved",
+                  "disputed",
+                  "not_assessed"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "evidence_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_type",
+        "support",
+        "description",
+        "locator"
+      ],
+      "properties": {
+        "evidence_type": {
+          "enum": [
+            "primary_record",
+            "official_statement",
+            "corpus_metadata",
+            "peer_reviewed_analysis",
+            "published_method",
+            "code_repository",
+            "independent_reproduction",
+            "rights_statement",
+            "absence_search",
+            "secondary_synthesis"
+          ]
+        },
+        "support": {
+          "enum": [
+            "direct",
+            "indirect",
+            "context_only",
+            "contradictory"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "$ref": "#/$defs/nullable_uri"
+        }
+      }
+    },
+    "limitation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "verification",
+        "statement"
+      ],
+      "properties": {
+        "category": {
+          "enum": [
+            "data",
+            "provenance",
+            "rights",
+            "methodology",
+            "representativeness",
+            "validation",
+            "institutional",
+            "temporal",
+            "other"
+          ]
+        },
+        "verification": {
+          "enum": [
+            "verified",
+            "unverified",
+            "not_applicable"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "falsification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicability",
+        "criteria",
+        "current_result",
+        "notes"
+      ],
+      "properties": {
+        "applicability": {
+          "enum": [
+            "testable",
+            "audit_only",
+            "not_applicable"
+          ]
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "current_result": {
+          "enum": [
+            "not_tested",
+            "passed",
+            "failed",
+            "mixed",
+            "not_applicable"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "applicability": {
+                "const": "not_applicable"
+              }
+            },
+            "required": [
+              "applicability"
+            ]
+          },
+          "then": {
+            "properties": {
+              "current_result": {
+                "const": "not_applicable"
+              },
+              "criteria": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "access_rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "access_method",
+        "rights_status",
+        "license_id",
+        "redistribution",
+        "permitted_use",
+        "statement",
+        "rights_evidence_url"
+      ],
+      "properties": {
+        "access_method": {
+          "enum": [
+            "public_download",
+            "public_api",
+            "public_web",
+            "request_only",
+            "on_site",
+            "restricted",
+            "unavailable"
+          ]
+        },
+        "rights_status": {
+          "enum": [
+            "public_domain",
+            "open_licensed",
+            "permission_granted",
+            "metadata_only",
+            "restricted",
+            "unknown"
+          ]
+        },
+        "license_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "redistribution": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "permitted_use": {
+          "enum": [
+            "reusable",
+            "metadata_only",
+            "link_only",
+            "permission_required",
+            "not_assessed"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rights_evidence_url": {
+          "$ref": "#/$defs/nullable_uri"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rights_status": {
+                "enum": [
+                  "restricted",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "rights_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "redistribution": {
+                "enum": [
+                  false,
+                  null
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_registry_ids",
+        "upstream_entry_ids",
+        "notes"
+      ],
+      "properties": {
+        "source_registry_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "upstream_entry_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "dates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accessed_on",
+        "verified_on",
+        "next_review_on"
+      ],
+      "properties": {
+        "accessed_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "next_review_on": {
+          "$ref": "#/$defs/nullable_date"
+        }
+      }
+    }
+  }
+}

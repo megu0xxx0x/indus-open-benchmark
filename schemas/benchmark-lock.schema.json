@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "benchmark-lock.schema.json",
+  "title": "Indus Open Benchmark development definition lock",
+  "description": "An exact-byte, self-consistent local definition for public development evaluation. It cannot claim external anchoring, blind custody, or final evaluation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "canonicalization",
+    "definition_id",
+    "definition_sha256",
+    "created_at",
+    "created_by",
+    "scientific_scope",
+    "assurance",
+    "inputs",
+    "external_anchor"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "canonicalization": {
+      "const": "indus-json-c14n-v1"
+    },
+    "definition_id": {
+      "type": "string",
+      "pattern": "^benchmark-definition:sha256:[0-9a-f]{64}$"
+    },
+    "definition_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "scientific_scope": {
+      "const": "public structural development evaluation only; no phonetic, semantic, translation, decipherment, blind-test, or final-evaluation inference"
+    },
+    "assurance": {
+      "$ref": "#/$defs/assurance"
+    },
+    "inputs": {
+      "$ref": "#/$defs/inputs"
+    },
+    "external_anchor": {
+      "$ref": "#/$defs/external_anchor"
+    }
+  },
+  "$defs": {
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "file_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "bytes"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_class",
+        "blind_claim_allowed",
+        "final_evaluation_eligible",
+        "externally_anchored",
+        "reason_codes"
+      ],
+      "properties": {
+        "claim_class": {
+          "const": "development_reproducibility"
+        },
+        "blind_claim_allowed": {
+          "const": false
+        },
+        "final_evaluation_eligible": {
+          "const": false
+        },
+        "externally_anchored": {
+          "const": false
+        },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "prefixItems": [
+            {
+              "const": "development_membership_public"
+            },
+            {
+              "const": "definition_digest_not_externally_anchored"
+            },
+            {
+              "const": "no_submission_custody_receipt"
+            },
+            {
+              "const": "dependency_lock_without_oci_runtime"
+            },
+            {
+              "const": "evaluator_dependency_closure_not_attested"
+            }
+          ],
+          "items": false
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corpus",
+        "schemas",
+        "registries",
+        "split",
+        "evaluator",
+        "environment"
+      ],
+      "properties": {
+        "corpus": {
+          "$ref": "#/$defs/corpus"
+        },
+        "schemas": {
+          "$ref": "#/$defs/schemas"
+        },
+        "registries": {
+          "$ref": "#/$defs/registries"
+        },
+        "split": {
+          "$ref": "#/$defs/split"
+        },
+        "evaluator": {
+          "$ref": "#/$defs/evaluator"
+        },
+        "environment": {
+          "$ref": "#/$defs/environment"
+        }
+      }
+    },
+    "corpus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "semantic_sha256",
+        "artifact_count"
+      ],
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "semantic_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "artifact_count": {
+          "type": "integer",
+          "minimum": 2
+        }
+      }
+    },
+    "schemas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact",
+        "source-registry",
+        "quarantine-manifest",
+        "split-manifest",
+        "evaluator-config",
+        "benchmark-lock"
+      ],
+      "properties": {
+        "artifact": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "source-registry": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "quarantine-manifest": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "split-manifest": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "evaluator-config": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "benchmark-lock": {
+          "$ref": "#/$defs/file_binding"
+        }
+      }
+    },
+    "registries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sources",
+        "quarantine"
+      ],
+      "properties": {
+        "sources": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "file",
+            "canonical_sha256"
+          ],
+          "properties": {
+            "file": {
+              "$ref": "#/$defs/file_binding"
+            },
+            "canonical_sha256": {
+              "$ref": "#/$defs/checksum"
+            }
+          }
+        },
+        "quarantine": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "file",
+            "manifest_sha256"
+          ],
+          "properties": {
+            "file": {
+              "$ref": "#/$defs/file_binding"
+            },
+            "manifest_sha256": {
+              "$ref": "#/$defs/checksum"
+            }
+          }
+        }
+      }
+    },
+    "split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "files",
+        "claim_class"
+      ],
+      "properties": {
+        "manifest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "file",
+            "split_id",
+            "manifest_sha256"
+          ],
+          "properties": {
+            "file": {
+              "$ref": "#/$defs/file_binding"
+            },
+            "split_id": {
+              "type": "string",
+              "pattern": "^split:sha256:[0-9a-f]{64}$"
+            },
+            "manifest_sha256": {
+              "$ref": "#/$defs/checksum"
+            }
+          }
+        },
+        "files": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/file_binding"
+          }
+        },
+        "claim_class": {
+          "const": "public_development"
+        }
+      }
+    },
+    "evaluator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "config",
+        "files",
+        "inventory_sha256"
+      ],
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/file_binding"
+          }
+        },
+        "inventory_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dependency_lock",
+        "project_manifest",
+        "reproducibility_class",
+        "oci_image_digest",
+        "network_isolation_enforced"
+      ],
+      "properties": {
+        "dependency_lock": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "project_manifest": {
+          "$ref": "#/$defs/file_binding"
+        },
+        "reproducibility_class": {
+          "const": "dependency_lock_only"
+        },
+        "oci_image_digest": {
+          "type": "null"
+        },
+        "network_isolation_enforced": {
+          "const": false
+        }
+      }
+    },
+    "external_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "receipt"
+      ],
+      "properties": {
+        "status": {
+          "const": "unanchored_local"
+        },
+        "receipt": {
+          "type": "null"
+        }
+      }
+    }
+  }
+}

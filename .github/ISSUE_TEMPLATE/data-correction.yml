@@ -1,0 +1,39 @@
+name: Data correction
+description: Report a transcription, provenance, duplicate, metadata, or rights problem.
+title: "[data] "
+labels: ["data", "triage"]
+body:
+  - type: input
+    id: artifact
+    attributes:
+      label: Artifact or source ID
+      placeholder: "artifact:... or source_id"
+    validations:
+      required: true
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Affected layer
+      options:
+        - identity or crosswalk
+        - transcription or order
+        - image or geometry
+        - archaeology or object metadata
+        - provenance
+        - rights or license
+        - duplicate family
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Cite a stable record, publication, image version, or permission statement.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Proposed correction and uncertainty
+    validations:
+      required: true

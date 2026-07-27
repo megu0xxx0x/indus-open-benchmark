@@ -1,0 +1,225 @@
+{
+    "schema_version": "0.1.0",
+    "registry_id": "indus-open-benchmark:quarantine",
+    "generated_at": "2026-07-27T10:05:00+09:00",
+    "default_policy": "deny_unknown_sources",
+    "trusted_internal_source_ids": ["synthetic", "synthetic:metadata-only", "synthetic:registry"],
+    "rules": [
+        {
+            "rule_id": "quarantine:yajnadevam-lipi",
+            "entity_ids": ["yajnadevam-lipi"],
+            "status": "quarantined",
+            "match": {
+                "source_ids": ["yajnadevam-lipi"],
+                "locator_prefixes": ["https://github.com/yajnadevam/lipi"],
+                "revisions": ["98b293971422daba0a94f8c54c1aa4952eea3a8a"]
+            },
+            "reason_codes": [
+                "license_missing_or_unresolved",
+                "record_level_provenance_unresolved",
+                "upstream_interpretation_mixed_with_data"
+            ],
+            "prohibited_purposes": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ],
+            "audit_use_allowed": true,
+            "evidence_entry_id": "software-prabhatchanchal-indusbench-2026",
+            "reviewed_on": "2026-07-27",
+            "next_review_on": "2026-08-27",
+            "notes": "Public visibility is not a licence. The audited upstream mixes corpus rows with proposed readings and translations without artifact-level primary lineage."
+        },
+        {
+            "rule_id": "quarantine:external-indusbench",
+            "entity_ids": ["software-prabhatchanchal-indusbench-2026"],
+            "status": "quarantined",
+            "match": {
+                "source_ids": [
+                    "external-indusbench",
+                    "prabhatchanchal-indusbench",
+                    "software-prabhatchanchal-indusbench-2026"
+                ],
+                "locator_prefixes": ["https://github.com/prabhatchanchal/IndusBench"],
+                "revisions": ["5e21125e4f305b42076a6617f8fd2b1ac658be8b"]
+            },
+            "reason_codes": [
+                "license_missing_or_unresolved",
+                "record_level_provenance_unresolved",
+                "public_test_not_blind",
+                "related_record_split_leakage"
+            ],
+            "prohibited_purposes": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ],
+            "audit_use_allowed": true,
+            "evidence_entry_id": "software-prabhatchanchal-indusbench-2026",
+            "reviewed_on": "2026-07-27",
+            "next_review_on": "2026-08-27",
+            "notes": "The complete test is public, related branch and CISI identifiers cross partitions, and the audited lock does not recompute the input or evaluator commitments."
+        },
+        {
+            "rule_id": "quarantine:hellosindh-synthetic",
+            "entity_ids": ["dataset-hf-hellosindh-indus-script-synthetic-2026"],
+            "status": "quarantined",
+            "match": {
+                "source_ids": [
+                    "hellosindh-indus-script-models",
+                    "hellosindh-indus-script-synthetic"
+                ],
+                "locator_prefixes": [
+                    "https://huggingface.co/datasets/hellosindh/indus-script-synthetic",
+                    "https://huggingface.co/hellosindh/indus-script-models",
+                    "https://huggingface.co/spaces/hellosindh/indus-script-demo"
+                ],
+                "revisions": [
+                    "4a8c284252ab119a80a2b0e27af810a157b650fc",
+                    "4f6155bc56be51ae62676c292afc42096a04f9d8",
+                    "e455cfc7e9069ade81ce994b47b7a7533308627e"
+                ]
+            },
+            "reason_codes": [
+                "record_level_provenance_unresolved",
+                "synthetic_not_observational_ground_truth",
+                "circular_or_nonindependent_evaluation"
+            ],
+            "prohibited_purposes": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ],
+            "audit_use_allowed": true,
+            "evidence_entry_id": "dataset-hf-hellosindh-indus-script-synthetic-2026",
+            "reviewed_on": "2026-07-27",
+            "next_review_on": "2026-08-27",
+            "notes": "The hidden real seed corpus and training lineage are unavailable, generated rows are self-scored, and the release cannot serve as real-inscription truth or independent evaluation."
+        },
+        {
+            "rule_id": "quarantine:ai-epigraphy-hypothesis-labels",
+            "entity_ids": ["software-ai-epigraphy-indiahci2025"],
+            "status": "quarantined",
+            "match": {
+                "source_ids": ["ai-epigraphy-indiahci2025"],
+                "locator_prefixes": ["https://github.com/atulsharma0071/indiahci2025"],
+                "revisions": ["30d02d0431ec12a1dea2a10fc9ca52ee0f8bd1b8"]
+            },
+            "reason_codes": [
+                "license_missing_or_unresolved",
+                "record_level_provenance_unresolved",
+                "hypothesis_labels_not_observations"
+            ],
+            "prohibited_purposes": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ],
+            "audit_use_allowed": true,
+            "evidence_entry_id": "software-ai-epigraphy-indiahci2025",
+            "reviewed_on": "2026-07-27",
+            "next_review_on": "2026-09-27",
+            "notes": "The sound and meaning columns are attributed decipherment hypotheses, not independently established observational labels or ground truth."
+        },
+        {
+            "rule_id": "quarantine:ivc2tyc-third-party-images",
+            "entity_ids": ["software-ivc2tyc-1.0.0"],
+            "status": "quarantined",
+            "match": {
+                "source_ids": ["ivc2tyc-bundled-indus-images"],
+                "locator_prefixes": ["https://github.com/oohalakkadi/ivc2tyc"],
+                "revisions": ["1ab600eef88c4cf85ad9fc0cfe2d272e73eb4821"]
+            },
+            "reason_codes": [
+                "record_level_provenance_unresolved",
+                "third_party_media_rights_unresolved"
+            ],
+            "prohibited_purposes": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ],
+            "audit_use_allowed": true,
+            "evidence_entry_id": "software-ivc2tyc-1.0.0",
+            "reviewed_on": "2026-07-27",
+            "next_review_on": "2026-10-27",
+            "notes": "The MIT method code is separable, but the bundled ICIT-attributed JPEGs have no image-level rights and provenance manifest."
+        },
+        {
+            "rule_id": "quarantine:asda-request-gated-data",
+            "entity_ids": ["paper-dixit-2025-asda", "project-florida-tech-isi-asda"],
+            "status": "quarantined",
+            "match": {
+                "source_ids": ["asda-indus-image-data"],
+                "locator_prefixes": [
+                    "https://github.com/DM-BiCLab/Deep-Learning-in-Archiving-Indus-Script-and-Motif-Information"
+                ],
+                "revisions": ["14bd43147d1421bf13f4f43666175ab5d61a77f7"]
+            },
+            "reason_codes": [
+                "record_level_provenance_unresolved",
+                "third_party_media_rights_unresolved",
+                "request_or_permission_required",
+                "release_artifacts_incomplete"
+            ],
+            "prohibited_purposes": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ],
+            "audit_use_allowed": true,
+            "evidence_entry_id": "paper-dixit-2025-asda",
+            "reviewed_on": "2026-07-27",
+            "next_review_on": "2026-09-26",
+            "notes": "The code licence does not license the complete request-gated image dataset, and the audited release lacks a fixed runnable data and model package."
+        },
+        {
+            "rule_id": "quarantine:reference-corpora-without-reuse-grant",
+            "entity_ids": [
+                "cisi",
+                "corpus-cisi",
+                "corpus-mahadevan-1977",
+                "database-icit",
+                "database-rmrl-indusscript",
+                "icit",
+                "mahadevan-1977",
+                "rmrl-indusscript"
+            ],
+            "status": "quarantined",
+            "match": {
+                "source_ids": ["cisi", "icit", "mahadevan-1977", "rmrl-indusscript"],
+                "locator_prefixes": [
+                    "https://www.epigraphica.de/indus/",
+                    "https://www.rmrl.in/en/irc"
+                ],
+                "revisions": []
+            },
+            "reason_codes": ["license_missing_or_unresolved", "request_or_permission_required"],
+            "prohibited_purposes": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ],
+            "audit_use_allowed": true,
+            "evidence_entry_id": "database-icit",
+            "reviewed_on": "2026-07-27",
+            "next_review_on": "2026-10-27",
+            "notes": "These sources remain bibliographic or link-only until a versioned export and purpose-specific reuse permission are documented."
+        }
+    ],
+    "manifest_sha256": "sha256:857a9a4a2bcac1003db5e09e726cd58f2e8b7030a649035e14e22ef062589d91"
+}

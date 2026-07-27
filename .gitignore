@@ -1,0 +1,30 @@
+.DS_Store
+.cache/
+.coverage
+.pytest_cache/
+.playwright-cli/
+.ruff_cache/
+.serena/
+# Ignore either a local environment directory or a link to one outside a
+# cloud-synchronized checkout.
+.venv
+__pycache__/
+*.egg-info/
+build/
+dist/
+reports/
+
+# Operator-only handoff and machine-specific records stay outside the public
+# source history.
+/.internal/
+/INTERNAL_*.md
+/docs/INTERNAL_*.md
+
+# Source corpora and images are never committed by default. Each source must
+# first pass the provenance and redistribution review documented in DATA_POLICY.md.
+# The whole path is also ignored because local workstations may link `data`
+# to private storage outside a cloud-synchronized project directory.
+/data
+data/raw/
+data/derived/
+data/images/

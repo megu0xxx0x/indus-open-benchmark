@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, cite the exact archived release and corpus manifest."
+title: "Open Indus Benchmark"
+type: software
+version: 0.1.0
+date-released: 2026-07-26
+license: MIT
+repository-code: "https://github.com/megu0xxx0x/indus-open-benchmark"
+authors:
+  - name: "Open Indus Benchmark contributors"
+abstract: >-
+  Rights-aware corpus validation, leakage-resistant public-development
+  tooling, and infrastructure for future independently custodial evaluation
+  of Indus inscription research.

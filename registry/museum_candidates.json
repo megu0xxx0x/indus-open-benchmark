@@ -1,0 +1,1002 @@
+{
+  "schema_version": "0.1.0",
+  "registry_id": "indus-open-benchmark:museum-candidates",
+  "generated_at": "2026-07-27T11:20:42+09:00",
+  "assessed_on": "2026-07-27",
+  "scope": {
+    "description": "MetおよびCleveland Museum of Art以外の、インダス関連資料を持つ可能性がある博物館の公式アクセス手段と権利を、一次情報だけで保守的に評価した候補台帳。",
+    "primary_sources_only": true,
+    "media_downloaded": false,
+    "external_contact_performed": false,
+    "baseline_sources_not_modified": [
+      "met-open-access-indus",
+      "cleveland-open-access-indus"
+    ],
+    "companion_document": "docs/METADATA_SOURCE_AUDIT_2026-07-27.md"
+  },
+  "automation_classes": {
+    "metadata_only": "メタデータの長期保存・再配布だけを公式根拠により許可できる。画像は除外する。",
+    "permission_required": "自動取得、長期保存、計算利用または再配布に必要な明示許可がなく、実行前に書面確認を要する。",
+    "discovery_only_no_retention": "APIは候補発見に利用できるが、保存期限またはホットリンク条件のため持続的な取り込みには使えない。",
+    "watchlist_no_verified_artifact": "オープンアクセス基盤は確認済みだが、対象となるインダス文字資料をまだ確認していないため取得を開始しない。"
+  },
+  "global_media_gate": {
+    "default_action": "exclude",
+    "rules": [
+      "APIまたはIIIFの存在だけではメディアを取得しない。",
+      "個別メディアの権利値が欠落、null、不明、Not determined、Usage Conditions Applyまたは申請制なら除外する。",
+      "商用利用と再配布が明示的に許可されない画像は、CC0主体の公開ベンチマーク本体へ取り込まない。",
+      "原資料、印影、現代の押型、キャスト、複製、模写を別の物理形態として記録する。",
+      "許可済み取得でも、取得時の公式レスポンス、権利根拠、時刻、受信バイト、SHA-256を保存し、公開前に再確認する。"
+    ]
+  },
+  "institutions": [
+    {
+      "institution_id": "museums-of-india-national-museum-new-delhi",
+      "institution_name": "National Museum, New Delhi / Museums of India",
+      "country": "India",
+      "priority": {
+        "rank": 1,
+        "level": "highest",
+        "rationale": "7文字・8文字の印章と封泥を公式記録で確認でき、今回の追加候補中で最も直接的なインダス文字資料を含む。"
+      },
+      "automation_class": "permission_required",
+      "metadata_rights": {
+        "status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": null,
+        "conditions": "公開API、機械可読な個別権利フィールド、メタデータ再配布ライセンスを確認できない。手動で確認したIDと公式URLだけを候補台帳に記録する。",
+        "evidence_url": "https://museumsofindia.gov.in/repository/page/about"
+      },
+      "media_rights": {
+        "status": "restricted_or_unknown",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": null,
+        "local_copy": false,
+        "automated_retrieval": false,
+        "conditions": "個別画像のオープンライセンスを確認できず、サイトは権利留保を表示する。許諾前に画像、ズームタイルまたはページをミラーしない。",
+        "evidence_url": "https://www.indiaculture.gov.in/sites/default/files/circulars/merged_document_2.pdf"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "再配布または一括保存を許可する公式条件が未確認。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "画像保存の許可が未確認。"
+        }
+      },
+      "machine_access": {
+        "supported_api": false,
+        "iiif": false,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "item_level_rights_fields": [],
+        "notes": "公式HTMLと高解像度ズームはあるが、公開API・IIIF・権利フィールドを確認できない。"
+      },
+      "official_urls": [
+        {
+          "purpose": "portal_about",
+          "url": "https://museumsofindia.gov.in/repository/page/about"
+        },
+        {
+          "purpose": "museum_collection",
+          "url": "https://www.museumsofindia.gov.in/repository/museum/nat_del"
+        },
+        {
+          "purpose": "related_nmma_rights_evidence",
+          "url": "https://www.indiaculture.gov.in/sites/default/files/circulars/merged_document_2.pdf"
+        }
+      ],
+      "verified_artifact_candidates": [
+        {
+          "official_record_id": "nat_del-DK-5175-143-4814",
+          "accession_number": "DK5175/143",
+          "title": "Pasupati Seal",
+          "record_url": "https://museumsofindia.gov.in/repository/record/nat_del-DK-5175-143-4814",
+          "physical_status": "original_catalogued_artifact",
+          "inscription_relevance": "公式記録が7文字の銘文を記載する。",
+          "media_action": "permission_required"
+        },
+        {
+          "official_record_id": "nat_del-180-9-8919",
+          "accession_number": "180/9",
+          "title": "Seal with unicorn and eight pictograms",
+          "record_url": "https://museumsofindia.gov.in/repository/record/nat_del-180-9-8919",
+          "physical_status": "original_catalogued_artifact",
+          "inscription_relevance": "公式記録が一角獣と8個の絵文字を記載する。",
+          "media_action": "permission_required"
+        },
+        {
+          "official_record_id": "nat_del-201-33-11909",
+          "accession_number": "201/33",
+          "title": "Sealing with three pictograms",
+          "record_url": "https://www.museumsofindia.gov.in/repository/record/nat_del-201-33-11909",
+          "physical_status": "original_catalogued_artifact",
+          "inscription_relevance": "公式記録が3個の絵文字を持つ封泥として記載する。",
+          "media_action": "permission_required"
+        },
+        {
+          "official_record_id": "nat_del-hr-6163-170-38126",
+          "accession_number": "hr-6163/170",
+          "title": "Swastika seal",
+          "record_url": "https://www.museumsofindia.gov.in/repository/record/nat_del-hr-6163-170-38126",
+          "physical_status": "original_catalogued_artifact",
+          "inscription_relevance": "公式記録上のインダス文明印章候補。文字内容は追加確認を要する。",
+          "media_action": "permission_required"
+        }
+      ],
+      "blockers": [
+        "公開APIまたはIIIFを確認できない。",
+        "メタデータと画像の個別オープンライセンスを確認できない。",
+        "自動取得、ローカル計算、派生注釈、再配布の条件が未確認。"
+      ],
+      "next_action": "4件を最小対象として、機械可読メタデータ、画像、ローカル計算、派生注釈、再配布、商用利用を分けた許諾依頼案を準備する。送信は人間の明示承認まで行わない。"
+    },
+    {
+      "institution_id": "british-museum",
+      "institution_name": "The British Museum",
+      "country": "United Kingdom",
+      "priority": {
+        "rank": 2,
+        "level": "highest",
+        "rationale": "Mohenjo-daroおよびUrに由来するインダス文字印章を公式記録で確認できる。"
+      },
+      "automation_class": "permission_required",
+      "metadata_rights": {
+        "status": "permission_required_for_tdm",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": null,
+        "conditions": "公式Copyright and permissionsページはテキスト・データマイニングについて博物館への連絡を求める。",
+        "evidence_url": "https://www.britishmuseum.org/terms-use/copyright-and-permissions"
+      },
+      "media_rights": {
+        "status": "open_noncommercial_sharealike_item_pages",
+        "license_id": "CC-BY-NC-SA-4.0",
+        "redistribution": false,
+        "commercial_use": false,
+        "local_copy": false,
+        "automated_retrieval": false,
+        "conditions": "確認画像ページはCC BY-NC-SA 4.0。商用利用は別ライセンスを要し、サイト全体の自動TDM許可を意味しないため、公開ベンチマーク本体への自動取り込みは不許可とする。",
+        "evidence_url": "https://www.britishmuseum.org/terms-use/copyright-and-permissions/images-and-photography"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "TDMについて要連絡であり、持続的な自動取得許可を確認できない。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "本プロジェクトの商用利用可能な再配布条件を満たさない。"
+        }
+      },
+      "machine_access": {
+        "supported_api": false,
+        "iiif": false,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "item_level_rights_fields": [
+          "human-readable image licence"
+        ],
+        "notes": "本監査では現行の公式公開JSON APIまたはIIIF仕様を確認できない。"
+      },
+      "official_urls": [
+        {
+          "purpose": "copyright_and_permissions",
+          "url": "https://www.britishmuseum.org/terms-use/copyright-and-permissions"
+        },
+        {
+          "purpose": "images_and_photography",
+          "url": "https://www.britishmuseum.org/terms-use/copyright-and-permissions/images-and-photography"
+        },
+        {
+          "purpose": "item_image_1947_0416_1",
+          "url": "https://www.britishmuseum.org/collection/image/1613597875"
+        },
+        {
+          "purpose": "item_image_1929_1017_725",
+          "url": "https://www.britishmuseum.org/collection/image/1613619551"
+        }
+      ],
+      "verified_artifact_candidates": [
+        {
+          "official_record_id": "A_1947-0416-1",
+          "accession_number": "1947,0416.1",
+          "title": "Stamp-seal",
+          "record_url": "https://www.britishmuseum.org/collection/object/A_1947-0416-1",
+          "physical_status": "original_catalogued_artifact",
+          "inscription_relevance": "Mohenjo-daro出土として記録され、5文字の銘文を持つ。",
+          "media_action": "permission_required"
+        },
+        {
+          "official_record_id": "W_1929-1017-725",
+          "accession_number": "1929,1017.725",
+          "title": "Stamp-seal",
+          "record_url": "https://www.britishmuseum.org/collection/object/W_1929-1017-725",
+          "physical_status": "original_catalogued_artifact",
+          "inscription_relevance": "Ur出土として記録され、インダス文字を持つ。",
+          "media_action": "permission_required"
+        }
+      ],
+      "blockers": [
+        "テキスト・データマイニングは公式条件上、事前連絡を要する。",
+        "確認画像はCC BY-NC-SAで、商用利用可能な公開ベンチマーク本体と非互換。",
+        "現行の公式JSON APIまたはIIIF仕様を確認できない。"
+      ],
+      "next_action": "2件を最小対象として、公式エクスポート、TDM、保存、派生注釈、画像再配布、商用利用について書面確認する依頼案を準備する。"
+    },
+    {
+      "institution_id": "penn-museum",
+      "institution_name": "Penn Museum",
+      "country": "United States",
+      "priority": {
+        "rank": 3,
+        "level": "high",
+        "rationale": "Indus Script 34件に現代の押型とChanhu-Daro出土の石・凍石印章候補が混在し、画像を除く一括メタデータがCC BY 4.0で提供される。"
+      },
+      "automation_class": "metadata_only",
+      "metadata_rights": {
+        "status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "redistribution": true,
+        "commercial_use": true,
+        "conditions": "一括コレクションデータはCC BY 4.0。出典表示を維持し、画像が含まれないことを保持する。",
+        "evidence_url": "https://collections.penn.museum/collections/objects/data.php"
+      },
+      "media_rights": {
+        "status": "noncommercial_limited",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": false,
+        "local_copy": false,
+        "automated_retrieval": false,
+        "conditions": "ウェブ画像は研究・教育・個人的利用等の非商用条件に限定され、高解像度または出版利用は別途の権利処理を要する。公開ベンチマークには含めない。",
+        "evidence_url": "https://www.penn.museum/about/statements-and-policies/terms-and-conditions"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": true,
+          "basis": "CC BY 4.0の一括メタデータ。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "画像の公開再配布権を確認できない。"
+        }
+      },
+      "machine_access": {
+        "supported_api": false,
+        "iiif": false,
+        "bulk_download": true,
+        "human_record_pages": true,
+        "item_level_rights_fields": [],
+        "bulk_metadata_url": "https://collections.penn.museum/collections/assets/data/Penn_Museum_Collections_Data.csv",
+        "notes": "直接取得可能な32列CSV。画像は含まれず、ヘッダー差分時は自動取り込みを停止する。"
+      },
+      "official_urls": [
+      {
+        "purpose": "bulk_metadata",
+        "url": "https://collections.penn.museum/collections/objects/data.php"
+      },
+      {
+        "purpose": "direct_bulk_csv",
+        "url": "https://collections.penn.museum/collections/assets/data/Penn_Museum_Collections_Data.csv"
+      },
+        {
+          "purpose": "terms",
+          "url": "https://www.penn.museum/about/statements-and-policies/terms-and-conditions"
+        },
+        {
+          "purpose": "rights_and_permissions",
+          "url": "https://www.penn.museum/about-collections/rights-and-permissions"
+        }
+      ],
+    "verified_artifact_candidates": [
+      {
+        "official_record_id": "83829",
+        "accession_number": "L-141-159",
+        "title": "Seal fragment",
+        "record_url": "https://collections.penn.museum/collections/object/83829",
+        "physical_status": "physical_status_unknown_pending_review",
+        "inscription_relevance": "Chanhu-Daro、Stone、Carved、2800–2000 BCE、Indus Scriptとして記録された印章断片候補。",
+        "media_action": "exclude_metadata_only"
+      },
+      {
+        "official_record_id": "238862",
+        "accession_number": "L-141-176",
+        "title": "Seal",
+        "record_url": "https://collections.penn.museum/collections/object/238862",
+        "physical_status": "physical_status_unknown_pending_review",
+        "inscription_relevance": "Chanhu-Daro、Steatite、2800–2000 BCE、Indus Scriptとして記録された印章候補。",
+        "media_action": "exclude_metadata_only"
+      },
+      {
+        "official_record_id": "149372",
+        "accession_number": "L-141-92",
+        "title": "Unfinished seal",
+        "record_url": "https://collections.penn.museum/collections/object/149372",
+        "physical_status": "physical_status_unknown_pending_review",
+        "inscription_relevance": "Chanhu-Daro、Steatite、2800–2000 BCE、5文字と記録された未完成印章候補。",
+        "media_action": "exclude_metadata_only"
+      },
+      {
+          "official_record_id": "490764",
+          "accession_number": "89-13-408.2",
+          "title": "Seal impression",
+          "record_url": "https://collections.penn.museum/collections/object/490764",
+          "physical_status": "modern_plaster_impression",
+          "inscription_relevance": "公式記録が動物文様とIndus Valley scriptを記載する。",
+          "media_action": "exclude_metadata_only"
+        }
+      ],
+    "blockers": [
+      "一括メタデータに画像は含まれない。",
+      "Indus Script集合には古代資料候補と現代の押型・キャストが混在するため、人手で物理形態を確認する必要がある。",
+      "2026-07-27取得の公式CSVは末尾に1列だけの不完全行を含み、厳格パーサーが全スナップショットを拒否した。",
+      "画像の公開再配布には別途の許諾が必要。"
+    ],
+    "next_action": "Pennが不完全な末尾行を修正した新CSVを配布したか再監視する。現版を黙って切り詰めず、将来必要なら不正行を明示隔離する別バージョン契約を設計する。"
+    },
+    {
+      "institution_id": "smithsonian-institution",
+      "institution_name": "Smithsonian Institution",
+      "country": "United States",
+      "priority": {
+        "rank": 4,
+        "level": "high",
+        "rationale": "API、AWS JSONL bulk、メディア単位の権利情報を備えるが、確認済みHarappan封印5件はすべてキャストで、Open Accessレコードにメディアがない。"
+      },
+      "automation_class": "metadata_only",
+      "metadata_rights": {
+        "status": "public_domain_item_gated",
+        "license_id": "CC0-1.0",
+        "redistribution": true,
+        "commercial_use": true,
+        "conditions": "当該レコードでMetadata UsageがCC0と明示されたメタデータだけを採用する。制限対象コンテンツにもCC0メタデータ部分があり得るが、レスポンス単位で確認する。",
+        "evidence_url": "https://www.si.edu/openaccess/faq"
+      },
+      "media_rights": {
+      "status": "item_gated_current_candidates_no_media",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": null,
+        "local_copy": false,
+        "automated_retrieval": false,
+      "conditions": "メディア単位のusage.accessが厳密にCC0で、制限表示と矛盾しない場合だけ採用可能。現在確認済みHarappan封印キャスト5件にはonline mediaがないため除外する。",
+      "evidence_url": "https://www.si.edu/openaccess/faq"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": true,
+          "basis": "当該レコードのMetadata UsageがCC0。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+        "basis": "確認済みHarappan封印キャスト5件にはonline mediaがない。"
+        }
+      },
+      "machine_access": {
+        "supported_api": true,
+        "iiif": true,
+        "bulk_download": true,
+        "human_record_pages": true,
+      "api_search_example": "https://api.si.edu/openaccess/api/v1.0/search?q=Harappan&rows=1000&sort=id",
+      "api_content_example": "https://api.si.edu/openaccess/api/v1.0/content/{record_id}",
+      "item_level_rights_fields": [
+        "content.descriptiveNonRepeating.metadata_usage.access",
+        "content.descriptiveNonRepeating.online_media.media[].usage.access"
+      ],
+      "media_admission_expression": "media.usage.access == \"CC0\"",
+      "notes": "bulkはSmithsonian管理AWSの週次JSONLを使用する。v0.2 raw-byteパーサーはcontainer/line/recordを内部で再ハッシュし、metadataと各mediaの権利を別々にfail-closed判定する。API keyはX-Api-Keyヘッダーで送り、URLやログへ保存しない。IIIFやmetadata CC0はmedia CC0を意味しない。"
+      },
+      "official_urls": [
+        {
+          "purpose": "open_access_faq",
+          "url": "https://www.si.edu/openaccess/faq"
+        },
+      {
+        "purpose": "bulk_jsonl",
+        "url": "https://registry.opendata.aws/smithsonian-open-access/"
+      },
+      {
+        "purpose": "bulk_master_index",
+        "url": "https://smithsonian-open-access.s3-us-west-2.amazonaws.com/metadata/edan/index.txt"
+      },
+        {
+          "purpose": "api_helper",
+          "url": "https://github.com/Smithsonian/smithsonian-openaccess"
+        }
+      ],
+    "verified_artifact_candidates": [
+      {
+        "official_record_id": "nmnhanthropology_8238883",
+        "accession_number": null,
+        "title": "Seal, Cast",
+        "record_url": "https://collections.si.edu/search/detail/edanmdm:nmnhanthropology_8238883",
+        "physical_status": "cast_replica",
+        "inscription_relevance": "Multan、Harappanとして記録された封印キャスト。Open Accessレコードにonline mediaなし。",
+        "media_action": "exclude_metadata_only"
+      },
+      {
+        "official_record_id": "nmnhanthropology_8238873",
+        "accession_number": null,
+        "title": "Seal Cast",
+        "record_url": "https://collections.si.edu/search/detail/edanmdm:nmnhanthropology_8238873",
+        "physical_status": "cast_replica",
+        "inscription_relevance": "Mohenjo-Daro、Harappanとして記録された封印キャスト。Open Accessレコードにonline mediaなし。",
+        "media_action": "exclude_metadata_only"
+      },
+      {
+          "official_record_id": "nmnhanthropology_8238874",
+          "accession_number": null,
+          "title": "Seal Cast",
+          "record_url": "https://www.si.edu/object/seal-cast%3Anmnhanthropology_8238874",
+          "physical_status": "cast_replica",
+        "inscription_relevance": "Mohenjo-daro、Harappanとして記録された封印キャスト。Open Accessレコードにonline mediaなし。",
+          "media_action": "exclude_metadata_only"
+        },
+        {
+          "official_record_id": "nmnhanthropology_8238875",
+          "accession_number": "USNM A482807-0",
+          "title": "Seal Cast",
+          "record_url": "https://collections.si.edu/search/detail/edanmdm%3Anmnhanthropology_8238875",
+          "physical_status": "cast_replica",
+        "inscription_relevance": "Harappanとして記録された関連封印キャスト。Open Accessレコードにonline mediaなし。",
+        "media_action": "exclude_metadata_only"
+        },
+      {
+        "official_record_id": "nmnhanthropology_8238876",
+        "accession_number": null,
+        "title": "Seal Cast",
+        "record_url": "https://collections.si.edu/search/detail/edanmdm:nmnhanthropology_8238876",
+        "physical_status": "cast_replica",
+        "inscription_relevance": "Harappanとして記録された関連封印キャスト。Open Accessレコードにonline mediaなし。",
+        "media_action": "exclude_metadata_only"
+      }
+    ],
+    "blockers": [
+      "確認済みHarappan封印キャスト5件にはOpen Accessメディアがない。",
+      "確認資料はキャストまたは複製であり、原資料ではない。",
+      "metadata_usage.accessと各media.usage.accessを分離し、API・IIIFの存在だけでメディアを採用してはならない。"
+    ],
+    "next_action": "実装済みraw-byteパーサーで取得済みAWS shardの候補行を固定し、全shard候補索引を別途構築する。公式APIは差分補完に限定し、現在5件の画像取得は無効のままにする。"
+    },
+    {
+      "institution_id": "brooklyn-museum",
+      "institution_name": "Brooklyn Museum",
+      "country": "United States",
+      "priority": {
+        "rank": 5,
+        "level": "medium",
+        "rationale": "Chanhu-Daro由来資料を持つが、確認資料は文字資料ではなく、現行規約が自動アクセスを制限する。"
+      },
+      "automation_class": "permission_required",
+      "metadata_rights": {
+        "status": "conflicting_item_and_site_terms",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": null,
+        "conditions": "一部個別ページにCC BY表示がある一方、現行サイト規約は自動アクセス、コピー、索引化、処理、保存に書面許可を求める。自動化には厳しいサイト条件を適用する。",
+        "evidence_url": "https://www.brooklynmuseum.org/terms"
+      },
+      "media_rights": {
+        "status": "permission_required_for_automation_and_reuse",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": false,
+        "local_copy": false,
+        "automated_retrieval": false,
+        "conditions": "Image Servicesおよび現行規約の条件下で、書面許可なしの自動取得・公開再配布は行わない。",
+        "evidence_url": "https://www.brooklynmuseum.org/image-services"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "自動アクセスと保存に書面許可が必要。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "自動取得と公開再利用の許可がない。"
+        }
+      },
+      "machine_access": {
+        "supported_api": false,
+        "iiif": false,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "item_level_rights_fields": [
+          "human-readable rights statement"
+        ],
+        "notes": "旧Open Collection API入口は現在の対応API仕様として確認できない。現行規約上、自動アクセスは許諾前に実行しない。"
+      },
+      "official_urls": [
+        {
+          "purpose": "terms",
+          "url": "https://www.brooklynmuseum.org/terms"
+        },
+        {
+          "purpose": "image_services",
+          "url": "https://www.brooklynmuseum.org/image-services"
+        },
+        {
+          "purpose": "legacy_api_entry",
+          "url": "https://www.brooklynmuseum.org/opencollection/api"
+        },
+        {
+          "purpose": "archive_guide",
+          "url": "https://cdn2.brooklynmuseum.org/archives/Asian_final.pdf"
+        }
+      ],
+      "verified_artifact_candidates": [
+        {
+          "official_record_id": "3423",
+          "accession_number": "37.90",
+          "title": "Fragment of a Vessel",
+          "record_url": "https://opencollection.brooklynmuseum.org/objects/3423",
+          "physical_status": "original_catalogued_contextual_artifact",
+          "inscription_relevance": "Chanhu-Daro由来の文脈資料。文字資料とは確認できない。",
+          "media_action": "permission_required"
+        },
+        {
+          "official_record_id": "3425",
+          "accession_number": "37.94",
+          "title": "Small Wheel",
+          "record_url": "https://opencollection.brooklynmuseum.org/objects/3425",
+          "physical_status": "original_catalogued_contextual_artifact",
+          "inscription_relevance": "Chanhu-Daro由来の文脈資料。文字資料とは確認できない。",
+          "media_action": "permission_required"
+        }
+      ],
+      "blockers": [
+        "現行規約が自動アクセス、処理、保存に書面許可を求める。",
+        "個別ページの権利表示とサイト全体条件の適用関係を確認する必要がある。",
+        "確認資料はインダス文字資料ではない。"
+      ],
+      "next_action": "Chanhu-Daro由来所蔵品中の文字資料の有無と、API、一括メタデータ、画像の自動取得・保存・再配布条件を書面で確認する依頼案を準備する。"
+    },
+    {
+      "institution_id": "lacma",
+      "institution_name": "Los Angeles County Museum of Art",
+      "country": "United States",
+      "priority": {
+        "rank": 6,
+        "level": "low_medium",
+        "rationale": "インダス文明の文脈資料は確認できるが、文字資料ではなく、当該画像もPublic Domain表示を持たない。"
+      },
+      "automation_class": "permission_required",
+      "metadata_rights": {
+        "status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": null,
+        "conditions": "公開APIまたは一括メタデータの再配布ライセンスを確認できない。",
+        "evidence_url": "https://www.lacma.org/about/contact-us/terms-use"
+      },
+      "media_rights": {
+        "status": "copyrighted_unless_item_marked_public_domain",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": false,
+        "local_copy": false,
+        "automated_retrieval": false,
+        "conditions": "無制限利用は個別ページでPublic Domain High Resolution Image Availableと明示された画像に限る。確認候補はMuseum Associates/LACMA著作権表示を持つ。",
+        "evidence_url": "https://www.lacma.org/about/contact-us/terms-use"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "機械可読な再配布許可を確認できない。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "確認資料の画像はPublic Domain表示を持たない。"
+        }
+      },
+      "machine_access": {
+        "supported_api": false,
+        "iiif": false,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "item_level_rights_fields": [
+          "human-readable Public Domain High Resolution Image Available marker"
+        ],
+        "notes": "本監査では現行の公式公開APIまたはIIIF仕様を確認できない。"
+      },
+      "official_urls": [
+        {
+          "purpose": "terms",
+          "url": "https://www.lacma.org/about/contact-us/terms-use"
+        }
+      ],
+      "verified_artifact_candidates": [
+        {
+          "official_record_id": "64836",
+          "accession_number": "AC1997.93.1",
+          "title": "Ceremonial Vessel",
+          "record_url": "https://collections.lacma.org/object/64836",
+          "physical_status": "original_catalogued_contextual_artifact",
+          "inscription_relevance": "Indus Valley Civilizationの文脈資料だが、文字資料とは確認できない。",
+          "media_action": "permission_required"
+        }
+      ],
+      "blockers": [
+        "確認資料の画像はPublic Domain表示を持たない。",
+        "公式公開APIまたはIIIFを確認できない。",
+        "確認資料はインダス文字資料ではない。"
+      ],
+      "next_action": "文字資料の所蔵が別に確認されるまで低優先度の手動候補に留め、画像取得を行わない。"
+    },
+    {
+      "institution_id": "harvard-art-museums",
+      "institution_name": "Harvard Art Museums",
+      "country": "United States",
+      "priority": {
+        "rank": 7,
+        "level": "low",
+        "rationale": "優れたAPI・IIIFを持つが、対象資料を確認できず、保存期限とホットリンク条件が長期コーパスに不適合。"
+      },
+      "automation_class": "discovery_only_no_retention",
+      "metadata_rights": {
+        "status": "contract_limited",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": false,
+        "conditions": "API内容を2週間を超えてキャッシュまたは保存できず、非商用利用に限定される。",
+        "evidence_url": "https://github.com/harvardartmuseums/api-docs"
+      },
+      "media_rights": {
+        "status": "hotlink_only_noncommercial",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": false,
+        "local_copy": false,
+        "automated_retrieval": false,
+        "conditions": "画像は返されたURLをホットリンクし、ローカル画像コーパスを作らない。imagepermissionlevelは表示可能サイズであり再配布権ではない。",
+        "evidence_url": "https://github.com/harvardartmuseums/api-docs"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": 14,
+          "long_term_storage_allowed": false,
+          "basis": "API条件が2週間を超えるキャッシュ・保存を禁止する。"
+        },
+        "media": {
+          "duration_days": 0,
+          "long_term_storage_allowed": false,
+          "basis": "画像はホットリンク条件。"
+        }
+      },
+      "machine_access": {
+        "supported_api": true,
+        "iiif": true,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "api_object_example": "https://api.harvardartmuseums.org/object/{id}?apikey={API_KEY}",
+        "iiif_manifest_template": "https://iiif.harvardartmuseums.org/manifests/object/{object_id}",
+        "item_level_rights_fields": [
+          "copyright",
+          "imagepermissionlevel",
+          "images[].copyright",
+          "images[].baseimageurl"
+        ],
+        "notes": "制限画像URLはAPIから除外されるが、返却された画像にも全体の非商用・ホットリンク条件が適用される。"
+      },
+      "official_urls": [
+        {
+          "purpose": "api_documentation",
+          "url": "https://github.com/harvardartmuseums/api-docs"
+        },
+        {
+          "purpose": "object_endpoint_documentation",
+          "url": "https://github.com/harvardartmuseums/api-docs/blob/master/sections/object.md"
+        }
+      ],
+      "verified_artifact_candidates": [],
+      "blockers": [
+        "対象となるインダス文字資料を確認できない。",
+        "API内容は14日を超えて保存できない。",
+        "画像はホットリンク・非商用条件で、ローカル再配布コーパスに不適合。"
+      ],
+      "next_action": "APIを一時的な候補発見にだけ使い、対象レコードを確認できてもレスポンスや画像を長期保存しない。"
+    },
+    {
+      "institution_id": "victoria-and-albert-museum",
+      "institution_name": "Victoria and Albert Museum",
+      "country": "United Kingdom",
+      "priority": {
+        "rank": 8,
+        "level": "low",
+        "rationale": "API・IIIFを持つが対象資料を確認できず、28日保存上限と画像ホットリンク条件がある。"
+      },
+      "automation_class": "discovery_only_no_retention",
+      "metadata_rights": {
+        "status": "contract_limited",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": false,
+        "conditions": "APIは非商用利用に限定され、内容を4週間を超えてキャッシュまたは保存できない。",
+        "evidence_url": "https://www.vam.ac.uk/info/va-websites-terms-conditions"
+      },
+      "media_rights": {
+        "status": "hotlink_only",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": false,
+        "local_copy": false,
+        "automated_retrieval": false,
+        "conditions": "表示する画像はAPIが返したURLをホットリンクし、ローカルコピーを作らない。",
+        "evidence_url": "https://www.vam.ac.uk/info/va-websites-terms-conditions"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": 28,
+          "long_term_storage_allowed": false,
+          "basis": "API条件が4週間を超える保存を禁止する。"
+        },
+        "media": {
+          "duration_days": 0,
+          "long_term_storage_allowed": false,
+          "basis": "画像はホットリンク条件。"
+        }
+      },
+      "machine_access": {
+        "supported_api": true,
+        "iiif": true,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "api_search_example": "https://api.vam.ac.uk/v2/objects/search?q=Indus",
+        "api_object_example": "https://api.vam.ac.uk/v2/object/{systemNumber}",
+        "iiif_manifest_template": "https://iiif.vam.ac.uk/collections/{systemNumber}/manifest.json",
+        "item_level_rights_fields": [],
+        "notes": "IIIFは配信手段であり、ローカル保存や再配布の許可を付与しない。"
+      },
+      "official_urls": [
+        {
+          "purpose": "api_guide",
+          "url": "https://developers.vam.ac.uk/guide/v2/welcome.html"
+        },
+        {
+          "purpose": "api_specification",
+          "url": "https://api.vam.ac.uk/docs"
+        },
+        {
+          "purpose": "iiif_guide",
+          "url": "https://developers.vam.ac.uk/guide/v2/images/iiif.html"
+        },
+        {
+          "purpose": "terms",
+          "url": "https://www.vam.ac.uk/info/va-websites-terms-conditions"
+        }
+      ],
+      "verified_artifact_candidates": [],
+      "blockers": [
+        "対象となるインダス文字資料を確認できない。",
+        "API内容は28日を超えて保存できない。",
+        "画像はローカル複製不可。"
+      ],
+      "next_action": "規約上許される一時的検索で候補の有無だけを確認し、レスポンスまたは画像を持続的に保存しない。"
+    },
+    {
+      "institution_id": "art-institute-of-chicago",
+      "institution_name": "Art Institute of Chicago",
+      "country": "United States",
+      "priority": {
+        "rank": 9,
+        "level": "watchlist",
+        "rationale": "CC0画像と明確なアイテムゲートを持つが、対象となるインダス文字資料を確認できない。"
+      },
+      "automation_class": "watchlist_no_verified_artifact",
+      "metadata_rights": {
+        "status": "open_licensed",
+        "license_id": "CC0-1.0",
+        "redistribution": true,
+        "commercial_use": true,
+        "conditions": "APIドキュメント上、作品データはdescriptionを除きCC0、descriptionはCC BY 4.0。実取得時にフィールド単位の条件を保持する。",
+        "evidence_url": "https://api.artic.edu/docs/"
+      },
+      "media_rights": {
+        "status": "public_domain_item_gated",
+        "license_id": "CC0-1.0",
+        "redistribution": true,
+        "commercial_use": true,
+        "local_copy": true,
+        "automated_retrieval": true,
+        "conditions": "対象レコードのis_public_domainが真でimage_idが存在する場合だけ候補にできる。今回は対象資料を確認できないため取得しない。",
+        "evidence_url": "https://www.artic.edu/open-access/open-access-images"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": true,
+          "basis": "公式APIのCC0またはCC BY 4.0フィールド。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": true,
+          "basis": "is_public_domain=trueの対象画像はCC0。ただし候補資料未確認。"
+        }
+      },
+      "machine_access": {
+        "supported_api": true,
+        "iiif": true,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "api_search_example": "https://api.artic.edu/api/v1/artworks/search?q=Indus",
+        "iiif_image_template": "https://www.artic.edu/iiif/2/{image_id}/full/843,/0/default.jpg",
+        "item_level_rights_fields": [
+          "is_public_domain",
+          "image_id",
+          "copyright_notice"
+        ],
+        "media_admission_expression": "is_public_domain == true && image_id != null",
+        "notes": "対象資料が確認されるまで自動取得を開始しない。"
+      },
+      "official_urls": [
+        {
+          "purpose": "api_documentation",
+          "url": "https://api.artic.edu/docs/"
+        },
+        {
+          "purpose": "public_api",
+          "url": "https://www.artic.edu/open-access/public-api"
+        },
+        {
+          "purpose": "open_access_images",
+          "url": "https://www.artic.edu/open-access/open-access-images"
+        }
+      ],
+      "verified_artifact_candidates": [],
+      "blockers": [
+        "対象となるインダス文字資料を確認できない。"
+      ],
+      "next_action": "将来、公式APIで関連資料が確認された場合だけ、is_public_domain=trueかつimage_idありの個別ゲートを再検証する。"
+    },
+    {
+      "institution_id": "yale-university-art-gallery",
+      "institution_name": "Yale University Art Gallery",
+      "country": "United States",
+      "priority": {
+        "rank": 10,
+        "level": "watchlist",
+        "rationale": "パブリックドメイン画像とIIIFの基盤を持つが、対象となるインダス文字資料を確認できない。"
+      },
+      "automation_class": "watchlist_no_verified_artifact",
+      "metadata_rights": {
+        "status": "potentially_open_item_gated",
+        "license_id": null,
+        "redistribution": false,
+        "commercial_use": null,
+        "conditions": "機械可読形式は提供されるが、具体的な対象レコードとフィールド単位の権利を未確認のため取得を開始しない。",
+        "evidence_url": "https://artgallery.yale.edu/terms-and-conditions"
+      },
+      "media_rights": {
+        "status": "public_domain_item_gated",
+        "license_id": null,
+        "redistribution": true,
+        "commercial_use": true,
+        "local_copy": true,
+        "automated_retrieval": false,
+        "conditions": "パブリックドメインと明示された個別作品画像は許可不要で利用可能。対象資料未確認のため現時点では取得しない。",
+        "evidence_url": "https://artgallery.yale.edu/using-collection/using-images"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": false,
+          "basis": "対象レコードと具体的なメタデータ権利を未確認。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": true,
+          "basis": "個別にパブリックドメインと確認できる場合に限る。現在は対象資料未確認。"
+        }
+      },
+      "machine_access": {
+        "supported_api": false,
+        "iiif": true,
+        "bulk_download": false,
+        "human_record_pages": true,
+        "item_level_rights_fields": [
+          "human-readable rights status"
+        ],
+        "notes": "今回、公式API仕様と対象資料を確認できない。Yale Peabody Museumとは別機関として扱う。"
+      },
+      "official_urls": [
+        {
+          "purpose": "using_images",
+          "url": "https://artgallery.yale.edu/using-collection/using-images"
+        },
+        {
+          "purpose": "terms",
+          "url": "https://artgallery.yale.edu/terms-and-conditions"
+        }
+      ],
+      "verified_artifact_candidates": [],
+      "blockers": [
+        "対象となるインダス文字資料を確認できない。",
+        "具体的な公式API仕様を今回確認できない。"
+      ],
+      "next_action": "対象資料が公式記録で確認されるまで監視候補に留め、Yale Peabody Museumの権利条件と混同しない。"
+    },
+    {
+      "institution_id": "walters-art-museum",
+      "institution_name": "The Walters Art Museum",
+      "country": "United States",
+      "priority": {
+        "rank": 11,
+        "level": "watchlist",
+        "rationale": "パブリックドメイン作品のCC0方針を持つが、対象資料を確認できず、旧APIも終了している。"
+      },
+      "automation_class": "watchlist_no_verified_artifact",
+      "metadata_rights": {
+        "status": "public_domain_item_gated",
+        "license_id": "CC0-1.0",
+        "redistribution": true,
+        "commercial_use": true,
+        "conditions": "パブリックドメイン作品のメタデータはCC0対象となり得る。第三者権利または制限対象は除外する。",
+        "evidence_url": "https://thewalters.org/about/policies/rights-reproductions/"
+      },
+      "media_rights": {
+        "status": "public_domain_item_gated",
+        "license_id": "CC0-1.0",
+        "redistribution": true,
+        "commercial_use": true,
+        "local_copy": true,
+        "automated_retrieval": false,
+        "conditions": "パブリックドメイン作品の画像はCC0対象となり得るが、対象資料未確認かつ現行APIなしのため取得しない。",
+        "evidence_url": "https://thewalters.org/about/policies/rights-reproductions/"
+      },
+      "retention_limit": {
+        "metadata": {
+          "duration_days": null,
+          "long_term_storage_allowed": true,
+          "basis": "個別にCC0対象と確認できる場合に限る。"
+        },
+        "media": {
+          "duration_days": null,
+          "long_term_storage_allowed": true,
+          "basis": "個別にCC0対象と確認できる場合に限る。"
+        }
+      },
+      "machine_access": {
+        "supported_api": false,
+        "iiif": false,
+        "bulk_download": true,
+        "human_record_pages": true,
+        "item_level_rights_fields": [],
+        "notes": "API v1は2023年に終了し、v2提供まで静的データファイルへ移行している。"
+      },
+      "official_urls": [
+        {
+          "purpose": "rights_and_reproductions",
+          "url": "https://thewalters.org/about/policies/rights-reproductions/"
+        },
+        {
+          "purpose": "api_status",
+          "url": "https://api.thewalters.org/"
+        }
+      ],
+      "verified_artifact_candidates": [],
+      "blockers": [
+        "対象となるインダス文字資料を確認できない。",
+        "API v1が終了し、v2を利用できない。"
+      ],
+      "next_action": "公式静的データまたはAPI v2で対象資料が確認された場合にだけ、作品単位のCC0状態を再検証する。"
+    }
+  ]
+}

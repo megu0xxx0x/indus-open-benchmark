@@ -1,0 +1,43 @@
+name: Hypothesis evaluation
+description: Propose a frozen, falsifiable structural or decipherment hypothesis for evaluation.
+title: "[hypothesis] "
+labels: ["hypothesis", "needs-preregistration"]
+body:
+  - type: input
+    id: hypothesis
+    attributes:
+      label: Hypothesis ID and version
+    validations:
+      required: true
+  - type: input
+    id: corpus
+    attributes:
+      label: Corpus manifest SHA-256
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Claimed level
+      options:
+        - transcription
+        - structure
+        - phonetic values
+        - language assignment
+        - translation
+    validations:
+      required: true
+  - type: textarea
+    id: predictions
+    attributes:
+      label: Frozen prospective predictions
+      description: State machine-checkable predictions and the blind target class.
+    validations:
+      required: true
+  - type: textarea
+    id: rejection
+    attributes:
+      label: Failure conditions
+      description: State what result would reject or materially weaken the hypothesis.
+    validations:
+      required: true

@@ -1,0 +1,388 @@
+{
+  "schema_version": "0.1.0",
+  "registry_id": "indus-open-benchmark:sources",
+  "generated_at": "2026-07-26T17:07:59+09:00",
+  "sources": [
+    {
+      "source_id": "met-open-access-indus",
+      "title": "The Metropolitan Museum of Art Open Access Indus records",
+      "source_type": "museum_collection",
+      "citation": {
+        "title": "The Met Collection API and Open Access collection",
+        "creators": [
+          "The Metropolitan Museum of Art"
+        ],
+        "issued": null,
+        "publisher": "The Metropolitan Museum of Art",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://collectionapi.metmuseum.org/public/collection/v1/"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_api",
+        "landing_page": "https://www.metmuseum.org/hubs/open-access",
+        "accessed_at": "2026-07-26T17:52:50+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Query the official object endpoint and admit only item records whose current API response has isPublicDomain=true. Preserve the exact duplicate-key-free API response, exact official policy/API documentation snapshots, retrieval time, and the received bytes and SHA-256 of every downloaded image. Reject redirects and recheck the item flag on every new snapshot."
+      },
+      "rights": {
+        "status": "public_domain",
+        "license_id": "CC0-1.0",
+        "license_uri": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "rights_holder": "The Metropolitan Museum of Art",
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The Met makes images of public-domain artworks identified as Open Access available under CC0. Admission is item-level: a record must retain isPublicDomain=true at retrieval time. This entry does not grant rights to records or images outside that flag.",
+        "evidence_uri": "https://www.metmuseum.org/hubs/open-access",
+        "verified_at": "2026-07-26T17:52:50+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "The Metropolitan Museum of Art",
+        "upstream_source_ids": [],
+        "description": "Official museum metadata and image endpoints for individually reviewed Indus-related collection records.",
+        "transformation_history": [],
+        "quality_notes": "The listed public API object records were reviewed and exposed isPublicDomain=true at review time. Provider image order does not establish a physical side or seal/impression relation. Museum dating and cultural attribution are source assertions; secure findspot and excavation context are absent. Recheck every item flag and exact rights evidence before any release."
+      }
+    },
+    {
+      "source_id": "cleveland-open-access-indus",
+      "title": "Cleveland Museum of Art Open Access Indus records",
+      "source_type": "museum_collection",
+      "citation": {
+        "title": "Cleveland Museum of Art Open Access API",
+        "creators": [
+          "Cleveland Museum of Art"
+        ],
+        "issued": null,
+        "publisher": "Cleveland Museum of Art",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://openaccess-api.clevelandart.org/api/"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_api",
+      "landing_page": "https://www.clevelandart.org/open-access",
+        "accessed_at": "2026-07-26T17:52:50+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Query the official artwork endpoint and admit only records whose current share_license_status is exactly CC0. Preserve the exact duplicate-key-free API response, exact official policy/API documentation snapshots, and every enumerated print/full derivative as a separate provider view with received byte count and SHA-256. Reject redirects and recheck the item flag on every new snapshot."
+      },
+      "rights": {
+        "status": "public_domain",
+        "license_id": "CC0-1.0",
+        "license_uri": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "rights_holder": "Cleveland Museum of Art",
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The reviewed official API records explicitly return share_license_status=CC0 and provide open-access image derivatives. Admission is restricted to item responses retaining that status; other museum content is not covered by this entry.",
+      "evidence_uri": "https://www.clevelandart.org/open-access",
+        "verified_at": "2026-07-26T17:52:50+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "Cleveland Museum of Art",
+        "upstream_source_ids": [],
+        "description": "Official museum metadata, full-resolution TIFFs, and alternate views for individually reviewed Indus seals.",
+        "transformation_history": [],
+        "quality_notes": "The listed public API accession records were reviewed and exposed share_license_status=CC0 at review time. Provider-declared byte counts are metadata rather than integrity evidence, and alternate views have no physical-side label. Secure archaeological findspot and stratigraphy are absent. Recheck every item status and exact rights evidence before any release."
+      }
+    },
+    {
+      "source_id": "mayig-indus-valley-script-corpus",
+      "title": "mayig/indus-valley-script-corpus",
+      "source_type": "derived_dataset",
+      "citation": {
+        "title": "Corpus of Indus Seals and Inscriptions digitization",
+        "creators": [
+          "Michael Carlson"
+        ],
+        "issued": "2024",
+        "publisher": "GitHub",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://github.com/mayig/indus-valley-script-corpus"
+          },
+          {
+            "scheme": "local",
+            "value": "git:ad2f1e218a34b8c33c57de0d6cb8d99272765bbb"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://github.com/mayig/indus-valley-script-corpus",
+        "accessed_at": "2026-07-26T14:40:24+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Clone the repository outside this project, check out revision ad2f1e218a34b8c33c57de0d6cb8d99272765bbb, and run the mayig importer against its corpus directory. Do not vendor upstream files."
+      },
+      "rights": {
+        "status": "metadata_only",
+        "license_id": "MIT",
+        "license_uri": "https://github.com/mayig/indus-valley-script-corpus/blob/ad2f1e218a34b8c33c57de0d6cb8d99272765bbb/LICENSE",
+        "rights_holder": "Michael Carlson",
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The repository declares MIT for its contents. This benchmark imports only structured transcription metadata and no images. CISI-derived record provenance and third-party catalog or image rights still require review.",
+        "evidence_uri": "https://github.com/mayig/indus-valley-script-corpus/blob/ad2f1e218a34b8c33c57de0d6cb8d99272765bbb/LICENSE",
+        "verified_at": "2026-07-26T14:40:24+09:00"
+      },
+      "provenance": {
+        "record_method": "manual_transcription",
+        "maintainer": "Michael Carlson",
+        "upstream_source_ids": [
+          "cisi"
+        ],
+        "description": "Work-in-progress JSON digitization derived from CISI numbering and catalog observations, using upstream P identifiers and feature vectors.",
+        "transformation_history": [],
+        "quality_notes": "Reviewed revision has 179 Mohenjo-daro unicorn-seal records, 1,003 token observations, no images, and no material, period, stratigraphic, findspot, or duplicate-family metadata. Two damage feature values exceed the documented 0-100 range."
+      }
+    },
+    {
+      "source_id": "cisi",
+      "title": "Corpus of Indus Seals and Inscriptions",
+      "source_type": "catalogue",
+      "citation": {
+        "title": "Corpus of Indus Seals and Inscriptions",
+        "creators": [
+          "Asko Parpola",
+          "B. M. Pande",
+          "Petteri Koskikallio"
+        ],
+        "issued": "1987-2010",
+        "publisher": "Suomalainen Tiedeakatemia",
+        "identifiers": [
+          {
+            "scheme": "local",
+            "value": "CISI"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "restricted",
+        "landing_page": null,
+        "accessed_at": null,
+        "snapshot_hash": null,
+        "retrieval_instructions": "Consult the published volumes through a library. Obtain permission before copying or redistributing tables, drawings, or photographs."
+      },
+      "rights": {
+        "status": "unknown",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": null,
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": null,
+        "statement": "No machine-readable data licence or artifact-image redistribution grant was verified. CISI is reference-only until rights evidence is recorded.",
+        "evidence_uri": null,
+        "verified_at": "2026-07-26T14:40:24+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "CISI editors and publishers",
+        "upstream_source_ids": [],
+        "description": "Published catalog volumes containing artifact identifiers, transcriptions, drawings, and photographs used by later digital corpora.",
+        "transformation_history": [],
+        "quality_notes": "Rights may differ by volume, contributor, institution, and content type. A downstream software licence does not establish rights in CISI pages or images."
+      }
+    },
+    {
+      "source_id": "mahadevan-1977",
+      "title": "Mahadevan Indus concordance",
+      "source_type": "publication",
+      "citation": {
+        "title": "The Indus Script: Texts, Concordance and Tables",
+        "creators": [
+          "Iravatham Mahadevan"
+        ],
+        "issued": "1977",
+        "publisher": "Archaeological Survey of India",
+        "identifiers": [
+          {
+            "scheme": "local",
+            "value": "Memoirs of the Archaeological Survey of India 77"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "restricted",
+        "landing_page": "https://www.rmrl.in/en/irc",
+        "accessed_at": "2026-07-26T14:40:24+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Use as a bibliographic reference. Do not extract or redistribute tables or sign artwork without documented permission."
+      },
+      "rights": {
+        "status": "unknown",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": null,
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": null,
+        "statement": "No open machine-readable corpus, table, or glyph-artwork licence was verified for the 1977 publication.",
+        "evidence_uri": "https://www.rmrl.in/en/irc",
+        "verified_at": "2026-07-26T14:40:24+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "Archaeological Survey of India",
+        "upstream_source_ids": [],
+        "description": "Published sign list, text corpus, concordance, and tables later converted into the RMRL IndusScript web application.",
+        "transformation_history": [],
+        "quality_notes": "Observation tables and sign artwork must remain separate from any later linguistic interpretation."
+      }
+    },
+    {
+      "source_id": "rmrl-indusscript",
+      "title": "RMRL IndusScript",
+      "source_type": "database",
+      "citation": {
+        "title": "IndusScript",
+        "creators": [
+          "Roja Muthiah Research Library Indus Research Centre"
+        ],
+        "issued": null,
+        "publisher": "Roja Muthiah Research Library",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://indusscript.in/"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_web",
+        "landing_page": "https://www.rmrl.in/en/irc",
+        "accessed_at": "2026-07-26T14:40:24+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Reference through the public interface only. Do not scrape, bulk-download, or repackage it unless RMRL supplies written terms permitting benchmark use."
+      },
+      "rights": {
+        "status": "restricted",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": "Roja Muthiah Research Library",
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": null,
+        "statement": "The official page describes an open online research tool but publishes no machine-readable corpus, bulk-download, image, or redistribution licence; the reviewed site footer reserves rights.",
+        "evidence_uri": "https://www.rmrl.in/en/irc",
+        "verified_at": "2026-07-26T14:40:24+09:00"
+      },
+      "provenance": {
+        "record_method": "derived_merge",
+        "maintainer": "Roja Muthiah Research Library Indus Research Centre",
+        "upstream_source_ids": [
+          "mahadevan-1977"
+        ],
+        "description": "Web application based on Mahadevan's 1977 corpus and concordance.",
+        "transformation_history": [],
+        "quality_notes": "A future import requires a licensed, versioned export and separate terms for metadata, transcriptions, glyph drawings, and artifact images."
+      }
+    },
+    {
+      "source_id": "icit",
+      "title": "Interactive Corpus of Indus Texts",
+      "source_type": "database",
+      "citation": {
+        "title": "Interactive Corpus of Indus Texts",
+        "creators": [
+          "Bryan K. Wells",
+          "Andreas Fuls"
+        ],
+        "issued": null,
+        "publisher": "epigraphica.de",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://www.epigraphica.de/indus/menueindus.htm"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "request_only",
+        "landing_page": "https://www.epigraphica.de/indus/menueindus.htm",
+        "accessed_at": "2026-07-26T14:40:24+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "The official page directs researchers to request database access from the administrator. Do not automate access or redistribute an individual research export without written permission."
+      },
+      "rights": {
+        "status": "unknown",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": null,
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": null,
+        "statement": "No public corpus licence or benchmark redistribution grant was verified on the official project page.",
+        "evidence_uri": "https://www.epigraphica.de/indus/menueindus.htm",
+        "verified_at": "2026-07-26T14:40:24+09:00"
+      },
+      "provenance": {
+        "record_method": "derived_merge",
+        "maintainer": "Bryan K. Wells and Andreas Fuls",
+        "upstream_source_ids": [
+          "cisi"
+        ],
+        "description": "Research database combining an Indus sign list, digital texts, statistical tools, artifact metadata, and spatial distribution.",
+        "transformation_history": [],
+        "quality_notes": "A permitted export must identify its ICIT version, sign-list version, underlying catalog records, and image-rights scope."
+      }
+    },
+    {
+      "source_id": "yajnadevam-lipi",
+      "title": "yajnadevam/lipi",
+      "source_type": "derived_dataset",
+      "citation": {
+        "title": "lipi",
+        "creators": [
+          "Yajnadevam"
+        ],
+        "issued": null,
+        "publisher": "GitHub",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://github.com/yajnadevam/lipi"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://github.com/yajnadevam/lipi",
+        "accessed_at": "2026-07-26T14:40:24+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Blocked for benchmark ingestion. Do not download or repackage corpus tables unless record-level lineage and data rights are independently established."
+      },
+      "rights": {
+        "status": "unknown",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": null,
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": null,
+        "statement": "No licence establishing redistribution rights for the corpus tables was verified during review.",
+        "evidence_uri": "https://github.com/yajnadevam/lipi",
+        "verified_at": "2026-07-26T14:40:24+09:00"
+      },
+      "provenance": {
+        "record_method": "other",
+        "maintainer": "Yajnadevam",
+        "upstream_source_ids": [],
+        "description": "Public web repository that presents corpus tables together with proposed transliterations and translations.",
+        "transformation_history": [],
+        "quality_notes": "Observation lineage is insufficiently documented for benchmark use, and interpretive outputs are mixed with corpus data. Import would create rights and circular-evaluation risks."
+      }
+    }
+  ]
+}

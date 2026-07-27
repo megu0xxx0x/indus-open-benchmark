@@ -1,0 +1,174 @@
+{
+  "schema_version": "0.1.0",
+  "hypothesis_id": "template:synthetic-preregistration",
+  "version": "0.0-template",
+  "title": "Synthetic preregistration template — no real Indus claim",
+  "status": "draft",
+  "created_at": "2026-07-26T00:00:00Z",
+  "updated_at": "2026-07-26T00:00:00Z",
+  "authors": [
+    {
+      "name": "REPLACE WITH HYPOTHESIS AUTHOR",
+      "orcid": null,
+      "affiliation": null
+    }
+  ],
+  "license_id": "CC0-1.0",
+  "preregistration": {
+    "frozen": false,
+    "registered_at": null,
+    "registry_uri": null,
+    "content_hash": null
+  },
+  "scope": {
+    "artifact_ids": [
+      "synthetic:artifact-001"
+    ],
+    "site_ids": [
+      "synthetic:site-a"
+    ],
+    "period_labels": [
+      "SYNTHETIC PERIOD — REPLACE BEFORE REGISTRATION"
+    ],
+    "object_types": [
+      "synthetic_object"
+    ],
+    "exclusions": [
+      "All real Indus artifacts, signs, languages, readings, and meanings are outside this template."
+    ]
+  },
+  "assumptions": [
+    {
+      "assumption_id": "template:assumption-placeholder",
+      "category": "other",
+      "statement": "Placeholder only: replace this text with a falsifiable assumption before preregistration; it makes no assertion about the Indus script.",
+      "confidence": 0.0,
+      "alternatives_considered": [
+        "No substantive assumption has been entered.",
+        "Delete this template record instead of treating placeholders as evidence."
+      ]
+    }
+  ],
+  "sign_mappings": [
+    {
+      "mapping_id": "template:mapping-placeholder",
+      "sign_id": "SYN:PLACEHOLDER-001",
+      "value_type": "unknown",
+      "proposed_value": "REPLACE_BEFORE_REGISTRATION",
+      "candidate_language": null,
+      "confidence": 0.0,
+      "claim_id": "template:claim-placeholder"
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "template:rule-placeholder",
+      "rule_type": "other",
+      "description": "Synthetic placeholder rule with no asserted linguistic, semantic, numeric, or functional content.",
+      "formalism": null,
+      "applies_to": [
+        {
+          "artifact_id": "synthetic:artifact-001",
+          "side_id": "synthetic:artifact-001/front",
+          "line_id": "synthetic:artifact-001/front/line-1",
+          "token_id": "synthetic:artifact-001/front/line-1/token-1"
+        }
+      ],
+      "claim_id": "template:claim-placeholder"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "template:claim-placeholder",
+      "claim_type": "other",
+      "statement": "Template placeholder only: this record makes no claim about any real Indus sign, language, reading, function, or meaning.",
+      "observation_refs": [
+        {
+          "artifact_id": "synthetic:artifact-001",
+          "side_id": "synthetic:artifact-001/front",
+          "line_id": "synthetic:artifact-001/front/line-1",
+          "token_id": "synthetic:artifact-001/front/line-1/token-1"
+        }
+      ],
+      "proposed_value": {
+        "text": "SYNTHETIC_PLACEHOLDER_NOT_A_DECIPHERMENT",
+        "sign_ids": [
+          "SYN:PLACEHOLDER-001"
+        ],
+        "boundaries": [],
+        "direction": "unknown",
+        "language": null,
+        "value_type": "other",
+        "numeric_value": null
+      },
+      "confidence": 0.0,
+      "falsification_criteria": [
+        "The template is invalid for preregistration until every synthetic placeholder is replaced and independently reviewable falsification criteria are supplied.",
+        "Any use of this placeholder as evidence for a real decipherment falsifies its declared no-claim purpose."
+      ]
+    }
+  ],
+  "predictions": [
+    {
+      "prediction_id": "template:prediction-placeholder",
+      "made_at": "2026-07-26T00:00:00Z",
+      "target": {
+        "observation_ref": null,
+        "withheld_target_id": "synthetic:withheld-target-001",
+        "context_revealed": false
+      },
+      "statement": "Synthetic placeholder prediction only; replace and commit a prospective prediction before revealing a real holdout.",
+      "expected_observation": {
+        "text": "SYNTHETIC_EXPECTATION",
+        "sign_ids": [
+          "SYN:PLACEHOLDER-001"
+        ],
+        "boundaries": [],
+        "direction": "unknown",
+        "language": null,
+        "value_type": "other",
+        "numeric_value": null
+      },
+      "commitment_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "evaluation_status": "sealed",
+      "evaluated_at": null,
+      "evaluation_ref": null
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "template:evidence-placeholder",
+      "source_id": "synthetic:registry",
+      "locator": "https://example.invalid/methodology/synthetic-only",
+      "role": "methodological",
+      "claim_ids": [
+        "template:claim-placeholder"
+      ],
+      "observation_refs": [
+        {
+          "artifact_id": "synthetic:artifact-001",
+          "side_id": "synthetic:artifact-001/front",
+          "line_id": "synthetic:artifact-001/front/line-1",
+          "token_id": "synthetic:artifact-001/front/line-1/token-1"
+        }
+      ],
+      "notes": "Synthetic fixture reference only. It is not archaeological, linguistic, or decipherment evidence."
+    }
+  ],
+  "exceptions": [
+    {
+      "exception_id": "template:exception-placeholder",
+      "claim_id": "template:claim-placeholder",
+      "observation_refs": [
+        {
+          "artifact_id": "synthetic:artifact-001",
+          "side_id": "synthetic:artifact-001/front",
+          "line_id": "synthetic:artifact-001/front/line-1",
+          "token_id": "synthetic:artifact-001/front/line-1/token-1"
+        }
+      ],
+      "reason": "Synthetic placeholder demonstrating that all exceptions must be disclosed before evaluation; replace or remove it before preregistration.",
+      "registered_at": "2026-07-26T00:00:00Z"
+    }
+  ]
+}

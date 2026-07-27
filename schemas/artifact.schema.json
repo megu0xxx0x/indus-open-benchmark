@@ -1,0 +1,876 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "artifact.schema.json",
+  "title": "Indus Open Benchmark artifact observation",
+  "description": "Normative observation-only artifact→side→line→token record. Interpretive claims belong in hypothesis records.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "source_records",
+    "rights",
+    "catalog_crosswalk",
+    "site",
+    "period",
+    "object",
+    "duplicate_family_id",
+    "images",
+    "sides"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "artifact_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "source_records": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/source_record"
+      }
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "catalog_crosswalk": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/catalog_identifier"
+      }
+    },
+    "site": {
+      "$ref": "#/$defs/site"
+    },
+    "period": {
+      "$ref": "#/$defs/period"
+    },
+    "object": {
+      "$ref": "#/$defs/object"
+    },
+    "duplicate_family_id": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/stable_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "images": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/image"
+      }
+    },
+    "sides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/side"
+      }
+    },
+    "observation_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
+    }
+  },
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "nullable_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "nullable_date_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_record_id",
+        "source_id",
+        "upstream_record_id",
+        "role",
+        "locator",
+        "retrieved_at",
+        "revision",
+        "source_path",
+        "record_hash"
+      ],
+      "properties": {
+        "source_record_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "source_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "upstream_record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "enum": [
+            "primary_record",
+            "metadata",
+            "transcription",
+            "image",
+            "provenance",
+            "rights",
+            "crosswalk",
+            "other"
+          ]
+        },
+        "locator": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "retrieved_at": {
+          "$ref": "#/$defs/nullable_date_time"
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "source_path": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "record_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "license_id",
+        "license_uri",
+        "rights_holder",
+        "redistribution",
+        "derivatives",
+        "commercial_use",
+        "statement",
+        "evidence_uri",
+        "verified_at"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "public_domain",
+            "open_licensed",
+            "permission_granted",
+            "metadata_only",
+            "restricted",
+            "unknown"
+          ]
+        },
+        "license_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "license_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "rights_holder": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "redistribution": {
+          "type": "boolean"
+        },
+        "derivatives": {
+          "type": "boolean"
+        },
+        "commercial_use": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "verified_at": {
+          "$ref": "#/$defs/nullable_date_time"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "metadata_only",
+                  "restricted",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "redistribution": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "open_licensed"
+              },
+              "redistribution": {
+                "const": true
+              }
+            },
+            "required": [
+              "status",
+              "redistribution"
+            ]
+          },
+          "then": {
+            "properties": {
+              "license_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "catalog_identifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalog",
+        "identifier",
+        "record_uri",
+        "certainty"
+      ],
+      "properties": {
+        "catalog": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "certainty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "site_id",
+        "name",
+        "modern_country",
+        "administrative_area",
+        "findspot",
+        "certainty"
+      ],
+      "properties": {
+        "site_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/stable_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "modern_country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 2
+        },
+        "administrative_area": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "findspot": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "certainty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "period": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "phase",
+        "earliest_year_bce",
+        "latest_year_bce",
+        "basis",
+        "certainty"
+      ],
+      "properties": {
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "phase": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "earliest_year_bce": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "latest_year_bce": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "basis": {
+          "enum": [
+            "stratigraphy",
+            "radiometric",
+            "typology",
+            "catalogue",
+            "historical_association",
+            "unknown"
+          ]
+        },
+        "certainty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "material",
+        "dimensions_mm",
+        "condition",
+        "collection",
+        "observed_motifs"
+      ],
+      "properties": {
+        "object_type": {
+          "enum": [
+            "seal",
+            "sealing",
+            "tablet",
+            "pottery",
+            "copper_tablet",
+            "token",
+            "amulet",
+            "signboard",
+            "other",
+            "unknown"
+          ]
+        },
+        "material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dimensions_mm": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimensions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "condition": {
+          "enum": [
+            "complete",
+            "fragmentary",
+            "damaged",
+            "restored",
+            "unknown"
+          ]
+        },
+        "collection": {
+          "$ref": "#/$defs/collection"
+        },
+        "observed_motifs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height",
+        "depth"
+      ],
+      "properties": {
+        "width": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "height": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "depth": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "institution",
+        "accession_number"
+      ],
+      "properties": {
+        "institution": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "accession_number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "image_id",
+        "source_id",
+        "image_role",
+        "uri",
+        "iiif_manifest",
+        "image_hash",
+        "pixel_width",
+        "pixel_height",
+        "rights"
+      ],
+      "properties": {
+        "image_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "source_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "image_role": {
+          "enum": [
+            "artifact",
+            "matrix",
+            "impression",
+            "drawing",
+            "rti",
+            "three_dimensional",
+            "multispectral",
+            "other"
+          ]
+        },
+        "uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "iiif_manifest": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "image_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "pixel_width": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "pixel_height": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "rights": {
+          "$ref": "#/$defs/rights"
+        }
+      }
+    },
+    "side": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "side_id",
+        "physical_form",
+        "image_ids",
+        "lines"
+      ],
+      "properties": {
+        "side_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "physical_form": {
+          "enum": [
+            "matrix",
+            "impression",
+            "seal_impression",
+            "direct_inscription",
+            "drawing_only",
+            "unknown"
+          ]
+        },
+        "image_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/line"
+          }
+        }
+      }
+    },
+    "line": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "line_id",
+        "visual_order_basis",
+        "reading_direction",
+        "direction_confidence",
+        "tokens"
+      ],
+      "properties": {
+        "line_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "visual_order_basis": {
+          "const": "left_to_right_in_image"
+        },
+        "reading_direction": {
+          "enum": [
+            "left_to_right",
+            "right_to_left",
+            "top_to_bottom",
+            "bottom_to_top",
+            "boustrophedon",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "direction_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "tokens": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/token"
+          }
+        }
+      }
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token_id",
+        "sign_id",
+        "visual_index",
+        "reading_index",
+        "confidence",
+        "condition",
+        "uncertainty",
+        "geometry",
+        "source_record_ids"
+      ],
+      "properties": {
+        "token_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "sign_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "visual_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reading_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "condition": {
+          "enum": [
+            "clear",
+            "worn",
+            "damaged",
+            "broken",
+            "lost",
+            "unreadable"
+          ]
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/uncertainty"
+        },
+        "geometry": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/geometry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_record_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "alternatives",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "certain",
+            "clear",
+            "uncertain",
+            "ambiguous",
+            "unresolved"
+          ]
+        },
+        "alternatives": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/sign_alternative"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "sign_alternative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sign_id",
+        "probability"
+      ],
+      "properties": {
+        "sign_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "image_id",
+        "coordinate_space",
+        "polygon"
+      ],
+      "properties": {
+        "image_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "coordinate_space": {
+          "enum": [
+            "pixels",
+            "normalized"
+          ]
+        },
+        "polygon": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/point"
+          }
+        }
+      }
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 0
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Lossless, non-normative upstream payloads. Keys must be namespace-qualified; values must not be treated as observations or ground truth without a schema revision.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_.-]*:[A-Za-z0-9_.:/-]+$"
+      },
+      "additionalProperties": true
+    }
+  }
+}

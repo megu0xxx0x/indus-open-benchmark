@@ -1,0 +1,439 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "split-manifest.schema.json",
+  "title": "Indus Open Benchmark public-development split manifest",
+  "description": "A content-addressed artifact split whose complete membership is public. Version 0.2 explicitly forbids blind or final-evaluation claims.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "split_id",
+    "created_at",
+    "created_by",
+    "seed",
+    "corpus_fingerprint",
+    "corpus_file",
+    "source_registry_sha256",
+    "quarantine_manifest_sha256",
+    "strategy",
+    "grouping_keys",
+    "leakage_policy",
+    "evaluation_assurance",
+    "partitions",
+    "membership_frozen",
+    "benchmark_locked",
+    "notes",
+    "manifest_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.2.0"
+    },
+    "split_id": {
+      "type": "string",
+      "pattern": "^split:sha256:[0-9a-f]{64}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "corpus_fingerprint": {
+      "$ref": "#/$defs/checksum"
+    },
+    "corpus_file": {
+      "$ref": "#/$defs/corpus_file"
+    },
+    "source_registry_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "quarantine_manifest_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "strategy": {
+      "$ref": "#/$defs/strategy"
+    },
+    "grouping_keys": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "duplicate_family_id",
+          "image_hash",
+          "normalized_sequence_hash",
+          "catalog_identifier",
+          "source_record"
+        ]
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "duplicate_family_id"
+          }
+        },
+        {
+          "contains": {
+            "const": "image_hash"
+          }
+        },
+        {
+          "contains": {
+            "const": "normalized_sequence_hash"
+          }
+        },
+        {
+          "contains": {
+            "const": "catalog_identifier"
+          }
+        }
+      ]
+    },
+    "leakage_policy": {
+      "$ref": "#/$defs/leakage_policy"
+    },
+    "evaluation_assurance": {
+      "$ref": "#/$defs/evaluation_assurance"
+    },
+    "partitions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/partition"
+      }
+    },
+    "membership_frozen": {
+      "const": true
+    },
+    "benchmark_locked": {
+      "const": false
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "manifest_sha256": {
+      "$ref": "#/$defs/checksum"
+    }
+  },
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "file_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "bytes"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "corpus_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sha256",
+        "bytes",
+        "artifact_count"
+      ],
+      "properties": {
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "artifact_count": {
+          "type": "integer",
+          "minimum": 2
+        }
+      }
+    },
+    "strategy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "holdout_values",
+        "description",
+        "implementation",
+        "parameters"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "grouped_random",
+            "leave_one_site_out",
+            "leave_one_period_out",
+            "leave_one_object_type_out",
+            "temporal_holdout",
+            "institution_holdout",
+            "custom"
+          ]
+        },
+        "holdout_values": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation": {
+          "const": "indusbench.splits:deterministic_leakage_safe_split@0.1"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "seed",
+            "test_fraction"
+          ],
+          "properties": {
+            "seed": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]*)$"
+            },
+            "test_fraction": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            }
+          }
+        }
+      }
+    },
+    "leakage_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duplicate_families_share_partition",
+        "image_hashes_share_partition",
+        "exact_sequences_share_partition",
+        "catalog_crosswalks_share_partition",
+        "normalization",
+        "audit_file",
+        "violations"
+      ],
+      "properties": {
+        "duplicate_families_share_partition": {
+          "const": true
+        },
+        "image_hashes_share_partition": {
+          "const": true
+        },
+        "exact_sequences_share_partition": {
+          "const": true
+        },
+        "catalog_crosswalks_share_partition": {
+          "const": true
+        },
+        "normalization": {
+          "const": "reading_order_sign_ids_v0.1"
+        },
+        "audit_file": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "bytes",
+            "semantic_sha256"
+          ],
+          "properties": {
+            "path": {
+              "const": "leakage-audit.json"
+            },
+            "sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "bytes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "semantic_sha256": {
+              "$ref": "#/$defs/checksum"
+            }
+          }
+        },
+        "violations": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    },
+    "evaluation_assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_class",
+        "test_partition_id",
+        "development_partition_id",
+        "test_visibility",
+        "blind_claim_allowed",
+        "final_evaluation_eligible",
+        "custodian_commitment",
+        "reason_codes"
+      ],
+      "properties": {
+        "claim_class": {
+          "const": "public_development"
+        },
+        "test_partition_id": {
+          "type": "null"
+        },
+        "development_partition_id": {
+          "const": "development"
+        },
+        "test_visibility": {
+          "const": "public"
+        },
+        "blind_claim_allowed": {
+          "const": false
+        },
+        "final_evaluation_eligible": {
+          "const": false
+        },
+        "custodian_commitment": {
+          "type": "null"
+        },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "const": "complete_membership_public"
+            },
+            {
+              "const": "no_external_custodian"
+            }
+          ],
+          "items": false
+        }
+      }
+    },
+    "partition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "partition_id",
+        "role",
+        "visibility",
+        "file",
+        "members",
+        "artifact_count",
+        "membership_commitment"
+      ],
+      "properties": {
+        "partition_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "role": {
+          "enum": [
+            "train",
+            "development"
+          ]
+        },
+        "visibility": {
+          "const": "public"
+        },
+        "file": {
+          "$ref": "#/$defs/file_commitment"
+        },
+        "members": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/member"
+          }
+        },
+        "artifact_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "membership_commitment": {
+          "$ref": "#/$defs/checksum"
+        }
+      }
+    },
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "duplicate_family_id",
+        "image_hashes",
+        "normalized_sequence_hashes"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "duplicate_family_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/stable_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "image_hashes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/checksum"
+          }
+        },
+        "normalized_sequence_hashes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/checksum"
+          }
+        }
+      }
+    }
+  }
+}

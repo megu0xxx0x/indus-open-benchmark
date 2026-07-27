@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "private-review-bundle.schema.json",
+  "title": "IndusBench private corpus review bundle",
+  "description": "An atomic private envelope. Consumers must also validate its policy and structural_quarantine members against their normative schemas.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_kind",
+    "policy",
+    "structural_quarantine",
+    "privacy",
+    "assurance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "bundle_kind": {
+      "const": "private_corpus_review_bundle"
+    },
+    "policy": {
+      "type": "object"
+    },
+    "structural_quarantine": {
+      "type": "object"
+    },
+    "privacy": {
+      "$ref": "#/$defs/privacy"
+    },
+    "assurance": {
+      "$ref": "#/$defs/assurance"
+    }
+  },
+  "$defs": {
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "private_storage_required",
+        "exact_paths_included",
+        "content_digests_included",
+        "source_values_included",
+        "publication_review_required"
+      ],
+      "properties": {
+        "private_storage_required": {
+          "const": true
+        },
+        "exact_paths_included": {
+          "const": true
+        },
+        "content_digests_included": {
+          "const": true
+        },
+        "source_values_included": {
+          "const": false
+        },
+        "publication_review_required": {
+          "const": true
+        }
+      }
+    },
+    "assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "blind_claim_allowed",
+        "final_evaluation_eligible",
+        "independent_custody_attested",
+        "external_custodian_attested",
+        "trusted_timestamp_attested",
+        "access_history_attested",
+        "confidentiality_attested",
+        "rights_ownership_attested",
+        "provenance_authenticity_attested",
+        "future_immutability_attested",
+        "decipherment_claim_allowed",
+        "prize_submission_eligible"
+      ],
+      "properties": {
+        "blind_claim_allowed": {
+          "const": false
+        },
+        "final_evaluation_eligible": {
+          "const": false
+        },
+        "independent_custody_attested": {
+          "const": false
+        },
+        "external_custodian_attested": {
+          "const": false
+        },
+        "trusted_timestamp_attested": {
+          "const": false
+        },
+        "access_history_attested": {
+          "const": false
+        },
+        "confidentiality_attested": {
+          "const": false
+        },
+        "rights_ownership_attested": {
+          "const": false
+        },
+        "provenance_authenticity_attested": {
+          "const": false
+        },
+        "future_immutability_attested": {
+          "const": false
+        },
+        "decipherment_claim_allowed": {
+          "const": false
+        },
+        "prize_submission_eligible": {
+          "const": false
+        }
+      }
+    }
+  }
+}

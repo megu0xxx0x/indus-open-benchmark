@@ -1,0 +1,391 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-registry.schema.json",
+  "title": "Indus Open Benchmark source registry",
+  "description": "Normative registry of upstream catalogues, collections, publications, and derived datasets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "generated_at",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "registry_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    }
+  },
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "nullable_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "nullable_date_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "title",
+        "source_type",
+        "citation",
+        "access",
+        "rights",
+        "provenance"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_type": {
+          "enum": [
+            "catalogue",
+            "database",
+            "museum_collection",
+            "publication",
+            "field_record",
+            "image_repository",
+            "derived_dataset",
+            "other"
+          ]
+        },
+        "citation": {
+          "$ref": "#/$defs/citation"
+        },
+        "access": {
+          "$ref": "#/$defs/access"
+        },
+        "rights": {
+          "$ref": "#/$defs/rights"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "creators",
+        "issued",
+        "publisher",
+        "identifiers"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "creators": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "issued": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "publisher": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "identifiers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/citation_identifier"
+          }
+        }
+      }
+    },
+    "citation_identifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "value"
+      ],
+      "properties": {
+        "scheme": {
+          "enum": [
+            "doi",
+            "isbn",
+            "issn",
+            "uri",
+            "local",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "access_method",
+        "landing_page",
+        "accessed_at",
+        "snapshot_hash",
+        "retrieval_instructions"
+      ],
+      "properties": {
+        "access_method": {
+          "enum": [
+            "public_download",
+            "public_api",
+            "public_web",
+            "request_only",
+            "on_site",
+            "restricted",
+            "unavailable"
+          ]
+        },
+        "landing_page": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "accessed_at": {
+          "$ref": "#/$defs/nullable_date_time"
+        },
+        "snapshot_hash": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/checksum"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieval_instructions": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "license_id",
+        "license_uri",
+        "rights_holder",
+        "redistribution",
+        "derivatives",
+        "commercial_use",
+        "statement",
+        "evidence_uri",
+        "verified_at"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "public_domain",
+            "open_licensed",
+            "permission_granted",
+            "metadata_only",
+            "restricted",
+            "unknown"
+          ]
+        },
+        "license_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "license_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "rights_holder": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "redistribution": {
+          "type": "boolean"
+        },
+        "derivatives": {
+          "type": "boolean"
+        },
+        "commercial_use": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "verified_at": {
+          "$ref": "#/$defs/nullable_date_time"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_method",
+        "maintainer",
+        "upstream_source_ids",
+        "description",
+        "transformation_history",
+        "quality_notes"
+      ],
+      "properties": {
+        "record_method": {
+          "enum": [
+            "primary_catalogue",
+            "manual_transcription",
+            "automated_import",
+            "derived_merge",
+            "other"
+          ]
+        },
+        "maintainer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "upstream_source_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transformation_history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/transformation"
+          }
+        },
+        "quality_notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "transformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "performed_at",
+        "agent",
+        "operation",
+        "software",
+        "input_hash",
+        "output_hash"
+      ],
+      "properties": {
+        "performed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "agent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "software": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "input_hash": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/checksum"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "output_hash": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/checksum"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

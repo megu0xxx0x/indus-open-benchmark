@@ -1,0 +1,690 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "smithsonian-metadata-record.schema.json",
+  "title": "Raw-byte-bound Smithsonian EDAN JSONL intake record",
+  "description": "A closed normalization of one exact line in a committed Smithsonian AWS JSONL container. Semantic verification additionally requires the raw container bytes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "intake_id",
+    "record_state",
+    "candidate_classification",
+    "classification_reasons",
+    "classification_evidence",
+    "source_acquisition",
+    "raw_record_text",
+    "upstream_commitments",
+    "record_context",
+    "rights",
+    "media",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.2.0"
+    },
+    "intake_id": {
+      "type": "string",
+      "pattern": "^smithsonian-jsonl-record:sha256:[0-9a-f]{64}$"
+    },
+    "record_state": {
+      "enum": [
+        "metadata_approved",
+        "quarantined_metadata_rights"
+      ]
+    },
+    "candidate_classification": {
+      "enum": [
+        "original_candidate",
+        "replica_or_modern",
+        "bibliographic_candidate",
+        "noise_or_unresolved"
+      ]
+    },
+    "classification_reasons": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "bibliographic_unit",
+          "natural_history_unit",
+          "artifact_origin_not_established",
+          "civilization_or_site_marker",
+          "artifact_object_marker",
+          "replica_or_modern_marker",
+          "requires_human_originality_review",
+          "missing_artifact_object_marker",
+          "missing_civilization_or_site_marker"
+        ]
+      }
+    },
+    "classification_evidence": {
+      "type": "array",
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/classification_evidence"
+      }
+    },
+    "source_acquisition": {
+      "$ref": "#/$defs/source_acquisition"
+    },
+    "raw_record_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2097152
+    },
+    "upstream_commitments": {
+      "$ref": "#/$defs/upstream_commitments"
+    },
+    "record_context": {
+      "$ref": "#/$defs/record_context"
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "media": {
+      "$ref": "#/$defs/media"
+    },
+    "limitations": {
+      "const": [
+        "raw_source_required_for_semantic_verification",
+        "metadata_and_media_have_separate_mandatory_rights_checks",
+        "candidate_classification_requires_human_review",
+        "media_absence_never_authorizes_web_scraping",
+        "approved_media_url_is_the_only_approved_media_resource",
+        "no_transcription_or_decipherment_claim"
+      ]
+    }
+  },
+  "$defs": {
+    "classification_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "path",
+        "matched_term"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "civilization_or_site",
+            "artifact_object",
+            "replica_or_modern",
+            "bibliographic_unit",
+            "natural_history_unit"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "matched_term": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_acquisition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "distribution",
+        "url",
+        "retrieved_at",
+        "etag",
+        "last_modified",
+        "container",
+        "locator"
+      ],
+      "properties": {
+        "provider": {
+          "const": "Smithsonian Open Access"
+        },
+        "distribution": {
+          "const": "Smithsonian Open Access AWS JSONL"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 512,
+          "pattern": "^https://smithsonian-open-access\\.s3-us-west-2\\.amazonaws\\.com/metadata/edan/[a-z0-9_]+/[0-9a-f]{2}\\.txt$"
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 35,
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,9})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "etag": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "last_modified": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "container": {
+          "$ref": "#/$defs/container_commitment"
+        },
+        "locator": {
+          "$ref": "#/$defs/line_locator"
+        }
+      }
+    },
+    "container_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "sha256"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "line_locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "line_number",
+        "byte_offset",
+        "line_bytes",
+        "line_sha256",
+        "record_text_bytes",
+        "line_ending"
+      ],
+      "properties": {
+        "line_number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "byte_offset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 67108863
+        },
+        "line_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2097154
+        },
+        "line_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "record_text_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2097152
+        },
+        "line_ending": {
+          "enum": [
+            "lf",
+            "crlf",
+            "none"
+          ]
+        }
+      }
+    },
+    "upstream_commitments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "record_ID",
+        "hash",
+        "docSignature",
+        "lastTimeUpdated",
+        "record_sha256"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_ID": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "docSignature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "lastTimeUpdated": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "record_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "record_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_code",
+        "record_url",
+        "record_link",
+        "title"
+      ],
+      "properties": {
+        "unit_code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "record_url": {
+          "type": "string",
+          "pattern": "^edanmdm:.+$"
+        },
+        "record_link": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metadata",
+        "record_restrictions"
+      ],
+      "properties": {
+        "metadata": {
+          "$ref": "#/$defs/metadata_rights"
+        },
+        "record_restrictions": {
+          "$ref": "#/$defs/record_restrictions"
+        }
+      }
+    },
+    "metadata_rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "normalized_access",
+        "reason_codes",
+        "original_metadata_usage"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved_cc0",
+            "quarantined"
+          ]
+        },
+        "normalized_access": {
+          "enum": [
+            "CC0",
+            null
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "metadata_usage_missing",
+              "metadata_usage_malformed",
+              "metadata_usage_unknown_substantive_field",
+              "metadata_access_missing",
+              "metadata_usage_conditions_apply",
+              "metadata_access_not_cc0",
+              "metadata_codes_malformed",
+              "metadata_codes_conflict",
+              "metadata_text_malformed",
+              "metadata_text_conflict"
+            ]
+          }
+        },
+        "original_metadata_usage": {
+          "$ref": "#/$defs/json_value"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "approved_cc0"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_access": {
+                "const": "CC0"
+              },
+              "reason_codes": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "normalized_access": {
+                "type": "null"
+              },
+              "reason_codes": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "record_restrictions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contradictory",
+        "reason_codes",
+        "original_objectRights",
+        "original_userestrict",
+        "original_accessrestrict"
+      ],
+      "properties": {
+        "contradictory": {
+          "type": "boolean"
+        },
+        "reason_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "object_rights_contradiction",
+              "use_restriction_present",
+              "access_restriction_present",
+              "unknown_record_restriction_field"
+            ]
+          }
+        },
+        "original_objectRights": {
+          "$ref": "#/$defs/json_value"
+        },
+        "original_userestrict": {
+          "$ref": "#/$defs/json_value"
+        },
+        "original_accessrestrict": {
+          "$ref": "#/$defs/json_value"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "contradictory": {
+                "const": true
+              }
+            },
+            "required": [
+              "contradictory"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason_codes": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "reason_codes": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "count",
+        "approved_count",
+        "quarantined_count",
+        "items"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "absent_metadata_only",
+            "present"
+          ]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "approved_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "quarantined_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "items": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/media_item"
+          }
+        }
+      }
+    },
+    "media_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "media_id",
+        "media_guid",
+        "media_type",
+        "url",
+        "status",
+        "normalized_access",
+        "reason_codes",
+        "original_usage"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "media_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "media_guid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "media_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "approved_cc0",
+            "quarantined"
+          ]
+        },
+        "normalized_access": {
+          "enum": [
+            "CC0",
+            null
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "media_usage_missing",
+              "media_usage_malformed",
+              "media_usage_unknown_substantive_field",
+              "media_access_missing",
+              "media_usage_conditions_apply",
+              "media_access_not_cc0",
+              "media_codes_malformed",
+              "media_codes_conflict",
+              "media_text_malformed",
+              "media_text_conflict",
+              "record_metadata_not_cc0",
+              "media_type_not_image",
+              "media_url_missing",
+              "media_url_not_approved_smithsonian_image",
+              "object_rights_contradiction",
+              "use_restriction_present",
+              "access_restriction_present",
+              "unknown_record_restriction_field"
+            ]
+          }
+        },
+        "original_usage": {
+          "$ref": "#/$defs/json_value"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "approved_cc0"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "media_type": {
+                "const": "Images"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://ids\\.si\\.edu/ids/deliveryService\\?id=[^&#\\s]+$"
+              },
+              "normalized_access": {
+                "const": "CC0"
+              },
+              "reason_codes": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "normalized_access": {
+                "type": "null"
+              },
+              "reason_codes": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "json_value": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/json_value"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/json_value"
+          }
+        }
+      ]
+    }
+  }
+}

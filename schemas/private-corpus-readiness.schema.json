@@ -1,0 +1,455 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "private-corpus-readiness.schema.json",
+  "title": "IndusBench aggregate private corpus readiness report",
+  "description": "A privacy-minimized aggregate report for a point-in-time local non-public readiness check. It is not a publication, rights grant, custody attestation, blind evaluation, decipherment claim, or prize submission.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_kind",
+    "created_at",
+    "intended_use",
+    "ready",
+    "scan_completed",
+    "reason_codes",
+    "privacy",
+    "assurance",
+    "inventory",
+    "storage",
+    "formats",
+    "duplicates",
+    "signals",
+    "policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.2.0"
+    },
+    "report_kind": {
+      "const": "private_corpus_readiness_aggregate"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "intended_use": {
+      "$ref": "#/$defs/intended_use"
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "scan_completed": {
+      "type": "boolean"
+    },
+    "reason_codes": {
+      "type": "array",
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/reason_code"
+      }
+    },
+    "privacy": {
+      "$ref": "#/$defs/privacy"
+    },
+    "assurance": {
+      "$ref": "#/$defs/assurance"
+    },
+    "inventory": {
+      "$ref": "#/$defs/inventory"
+    },
+    "storage": {
+      "$ref": "#/$defs/storage"
+    },
+    "formats": {
+      "$ref": "#/$defs/formats"
+    },
+    "duplicates": {
+      "$ref": "#/$defs/duplicates"
+    },
+    "signals": {
+      "$ref": "#/$defs/signals"
+    },
+    "policy": {
+      "$ref": "#/$defs/policy"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ready": {
+            "const": true
+          }
+        },
+        "required": [
+          "ready"
+        ]
+      },
+      "then": {
+        "properties": {
+          "scan_completed": {
+            "const": true
+          },
+          "reason_codes": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "reason_codes": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "intended_use": {
+      "enum": [
+        "local_nonpublic_research",
+        "local_nonpublic_normalization"
+      ]
+    },
+    "reason_code": {
+      "enum": [
+        "PLATFORM_UNSUPPORTED",
+        "ROOT_BOUNDARY_INVALID",
+        "PERMISSION_BOUNDARY_INVALID",
+        "ACL_UNVERIFIABLE_OR_PRESENT",
+        "SYMLINK_PRESENT",
+        "HARDLINK_OR_DUPLICATE_INODE",
+        "SPECIAL_OR_UNSUPPORTED_ENTRY",
+        "CROSS_DEVICE_ENTRY",
+        "PATH_PROFILE_INVALID_OR_COLLISION",
+        "RESOURCE_LIMIT_EXCEEDED",
+        "CONCURRENT_MUTATION_DETECTED",
+        "INPUT_UNREADABLE_OR_UNVERIFIABLE",
+        "POLICY_DOCUMENT_INVALID",
+        "POLICY_CONTENT_BINDING_MISMATCH",
+        "POLICY_REVIEW_INCOMPLETE",
+        "RIGHTS_COVERAGE_INCOMPLETE",
+        "RIGHTS_AMBIGUOUS_OR_CONFLICTING",
+        "INTENDED_USE_NOT_PERMITTED",
+        "QUARANTINED_OR_UNKNOWN_SOURCE",
+        "CONTENT_CONTRACT_INVALID",
+        "INTERNAL_ERROR"
+      ]
+    },
+    "nonnegative_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only",
+        "paths_disclosed",
+        "filenames_disclosed",
+        "content_digests_disclosed",
+        "identifiers_disclosed",
+        "private_values_disclosed",
+        "publication_review_required"
+      ],
+      "properties": {
+        "aggregate_only": {
+          "const": true
+        },
+        "paths_disclosed": {
+          "const": false
+        },
+        "filenames_disclosed": {
+          "const": false
+        },
+        "content_digests_disclosed": {
+          "const": false
+        },
+        "identifiers_disclosed": {
+          "const": false
+        },
+        "private_values_disclosed": {
+          "const": false
+        },
+        "publication_review_required": {
+          "const": true
+        }
+      }
+    },
+    "assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "blind_claim_allowed",
+        "final_evaluation_eligible",
+        "independent_custody_attested",
+        "external_custodian_attested",
+        "trusted_timestamp_attested",
+        "access_history_attested",
+        "confidentiality_attested",
+        "rights_ownership_attested",
+        "provenance_authenticity_attested",
+        "future_immutability_attested",
+        "decipherment_claim_allowed",
+        "prize_submission_eligible"
+      ],
+      "properties": {
+        "blind_claim_allowed": {
+          "const": false
+        },
+        "final_evaluation_eligible": {
+          "const": false
+        },
+        "independent_custody_attested": {
+          "const": false
+        },
+        "external_custodian_attested": {
+          "const": false
+        },
+        "trusted_timestamp_attested": {
+          "const": false
+        },
+        "access_history_attested": {
+          "const": false
+        },
+        "confidentiality_attested": {
+          "const": false
+        },
+        "rights_ownership_attested": {
+          "const": false
+        },
+        "provenance_authenticity_attested": {
+          "const": false
+        },
+        "future_immutability_attested": {
+          "const": false
+        },
+        "decipherment_claim_allowed": {
+          "const": false
+        },
+        "prize_submission_eligible": {
+          "const": false
+        }
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_count",
+        "directory_count",
+        "total_bytes"
+      ],
+      "properties": {
+        "file_count": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "directory_count": {
+          "description": "Number of directories in the stable inventory, including the corpus root.",
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "total_bytes": {
+          "$ref": "#/$defs/nonnegative_count"
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_only",
+        "acl_free",
+        "single_device"
+      ],
+      "properties": {
+        "owner_only": {
+          "type": "boolean"
+        },
+        "acl_free": {
+          "type": "boolean"
+        },
+        "single_device": {
+          "type": "boolean"
+        }
+      }
+    },
+    "formats": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jpeg",
+        "tiff",
+        "json",
+        "jsonl",
+        "csv",
+        "html",
+        "plain_text",
+        "unknown_binary",
+        "parseable",
+        "invalid",
+        "structured_records",
+        "csv_rows",
+        "ragged"
+      ],
+      "properties": {
+        "jpeg": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "tiff": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "json": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "jsonl": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "csv": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "html": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "plain_text": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "unknown_binary": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "parseable": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "invalid": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "structured_records": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "csv_rows": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "ragged": {
+          "$ref": "#/$defs/nonnegative_count"
+        }
+      }
+    },
+    "duplicates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duplicate_groups",
+        "duplicate_files"
+      ],
+      "properties": {
+        "duplicate_groups": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "duplicate_files": {
+          "$ref": "#/$defs/nonnegative_count"
+        }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "documented_provenance",
+        "partial_provenance",
+        "unknown_provenance",
+        "disputed_provenance",
+        "public_domain_rights",
+        "open_licensed_rights",
+        "permission_granted_rights",
+        "metadata_only_rights",
+        "restricted_rights",
+        "unknown_rights",
+        "documented_rights_evidence",
+        "missing_rights_evidence",
+        "ambiguous_rights_evidence",
+        "conflicting_rights_evidence"
+      ],
+      "properties": {
+        "documented_provenance": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "partial_provenance": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "unknown_provenance": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "disputed_provenance": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "public_domain_rights": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "open_licensed_rights": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "permission_granted_rights": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "metadata_only_rights": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "restricted_rights": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "unknown_rights": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "documented_rights_evidence": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "missing_rights_evidence": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "ambiguous_rights_evidence": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "conflicting_rights_evidence": {
+          "$ref": "#/$defs/nonnegative_count"
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provided",
+        "valid",
+        "covered_files",
+        "uncovered_files",
+        "extra_entries",
+        "compatible_entries",
+        "blocking_entries"
+      ],
+      "properties": {
+        "provided": {
+          "type": "boolean"
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "covered_files": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "uncovered_files": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "extra_entries": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "compatible_entries": {
+          "$ref": "#/$defs/nonnegative_count"
+        },
+        "blocking_entries": {
+          "$ref": "#/$defs/nonnegative_count"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2930 @@
+{
+  "schema_version": "0.1.0",
+  "registry_id": "indus-open-benchmark:research-landscape",
+  "generated_at": "2026-07-27T09:49:41+09:00",
+  "scope_note": "This registry records scoped source claims and curator assessments. It does not treat sequence regularity, image classification, visual similarity, or a published interpretation as a decipherment.",
+  "evidence_policy": {
+    "A": "Primary artifact, excavation, collection, catalogue, corpus, or official institutional record",
+    "B": "Peer-reviewed structural, statistical, or image-processing research",
+    "C": "Peer-reviewed linguistic, semantic, functional, or non-linguistic interpretation",
+    "D": "Preprint, conference paper, public code, or unreviewed dataset requiring audit",
+    "E": "Self-published, informal, or provenance-poor claim retained only for tracking and falsification"
+  },
+  "entries": [
+    {
+      "entry_id": "official-asi-status-2025",
+      "title": "ASI conference brief: Decipherment of Indus Script — Current Status and Way Forward",
+      "entity_type": "official_record",
+      "evidence_tier": "A",
+      "tier_rationale": "The record was issued by the Archaeological Survey of India for its 2025 conference.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Archaeological Survey of India"
+        ],
+        "issued": "2025",
+        "publisher_or_venue": "Archaeological Survey of India",
+        "doi": null,
+        "other_identifiers": [
+          "ASI document 771"
+        ],
+        "links": [
+          {
+            "link_type": "official_record",
+            "url": "https://asi.nic.in/admin/whatsnew/download/771"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "institutional_statement",
+        "attribution": "source_reported",
+        "acceptance": "supported",
+        "statement": "The official conference brief identifies the absence of a bilingual inscription, short texts, and uncertainty about the writing system and underlying language as central obstacles.",
+        "scope": "ASI's stated remit and problem framing for its August 2025 conference; not a ruling on any proposed decipherment."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "The conference document explicitly lists the principal limitations and invites presentations on the current status and way forward.",
+          "locator": "https://asi.nic.in/admin/whatsnew/download/771"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "institutional",
+          "verification": "verified",
+          "statement": "A conference brief documents institutional framing; it is not a systematic consensus statement or prize-adjudication decision."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Re-check the official record and any later ASI correction or superseding conference report."
+        ],
+        "current_result": "not_tested",
+        "notes": "The entry records what ASI stated, not whether every obstacle is permanent."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The official PDF is publicly downloadable, but no redistribution licence was verified; this registry stores only metadata and a paraphrase.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "Independent official-status record; it does not supply inscription data."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-10-26"
+      },
+      "tags": [
+        "asi",
+        "institutional-status",
+        "research-obstacles"
+      ]
+    },
+    {
+      "entry_id": "corpus-cisi",
+      "title": "Corpus of Indus Seals and Inscriptions",
+      "entity_type": "corpus",
+      "evidence_tier": "A",
+      "tier_rationale": "CISI is a primary photographic and catalogue publication series used by later corpora and analyses.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Asko Parpola",
+          "B. M. Pande",
+          "Petteri Koskikallio",
+          "CISI volume editors and contributors"
+        ],
+        "issued": "1987-present",
+        "publisher_or_venue": "Finnish Academy of Science and Letters",
+        "doi": null,
+        "other_identifiers": [
+          "CISI"
+        ],
+        "links": [
+          {
+            "link_type": "landing_page",
+            "url": "https://researchportal.helsinki.fi/en/projects/corpus-of-indus-seals-and-inscriptions/"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://acadsci.fi/en/publications/the-corpus-of-indus-seals-and-inscriptions-3-2-humaniora-383-has-been-published/"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "established",
+        "statement": "CISI is a core photographic and catalogue reference for inscribed Indus objects and supplies upstream identifiers and images used by multiple digital projects.",
+        "scope": "The published CISI series and its documented project history, not an inferred machine-readable or openly licensed export."
+      },
+      "evidence": [
+        {
+          "evidence_type": "primary_record",
+          "support": "direct",
+          "description": "The University of Helsinki project record and Finnish Academy publication notice document the corpus project and published volumes.",
+          "locator": "https://researchportal.helsinki.fi/en/projects/corpus-of-indus-seals-and-inscriptions/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "rights",
+          "verification": "unverified",
+          "statement": "No comprehensive machine-readable data, photograph, drawing, or transcription redistribution licence was verified."
+        },
+        {
+          "category": "data",
+          "verification": "verified",
+          "statement": "The corpus is primarily distributed as published volumes rather than a versioned open API or bulk dataset."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Verify volume metadata against publisher and library records.",
+          "Replace the rights assessment only when content-specific written terms are obtained."
+        ],
+        "current_result": "not_tested",
+        "notes": "Catalogue observations must be transcribed with page, volume, and artifact-level provenance."
+      },
+      "access_rights": {
+        "access_method": "restricted",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "permission_required",
+        "statement": "Bibliographic access is available, but copying or redistributing tables, drawings, photographs, or a derived bulk corpus requires rights review.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "cisi"
+        ],
+        "upstream_entry_ids": [],
+        "notes": "This research entry reuses the existing source-registry identifier rather than duplicating artifact-level provenance."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2027-01-26"
+      },
+      "tags": [
+        "catalogue",
+        "cisi",
+        "images",
+        "primary-corpus"
+      ]
+    },
+    {
+      "entry_id": "corpus-mahadevan-1977",
+      "title": "The Indus Script: Texts, Concordance and Tables",
+      "entity_type": "corpus",
+      "evidence_tier": "A",
+      "tier_rationale": "Mahadevan's concordance is a primary published transcription and sign-reference corpus.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Iravatham Mahadevan"
+        ],
+        "issued": "1977",
+        "publisher_or_venue": "Archaeological Survey of India",
+        "doi": null,
+        "other_identifiers": [
+          "Memoirs of the Archaeological Survey of India 77"
+        ],
+        "links": [
+          {
+            "link_type": "landing_page",
+            "url": "https://www.rmrl.in/en/irc"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "established",
+        "statement": "Mahadevan 1977 established a widely used text corpus, sign list, concordance, and reference-number system for Indus inscriptions.",
+        "scope": "Bibliographic and corpus role; no linguistic reading is imported as observation."
+      },
+      "evidence": [
+        {
+          "evidence_type": "primary_record",
+          "support": "direct",
+          "description": "RMRL's Indus Research Centre identifies the 1977 publication as the basis for its IndusScript application.",
+          "locator": "https://www.rmrl.in/en/irc"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "rights",
+          "verification": "unverified",
+          "statement": "No open licence was verified for machine-readable tables, sign artwork, or a bulk transcription export."
+        },
+        {
+          "category": "data",
+          "verification": "verified",
+          "statement": "Later discoveries and competing sign classifications require explicit version and crosswalk handling."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Check every cited count and sign identifier against the 1977 edition or a rights-cleared authoritative export."
+        ],
+        "current_result": "not_tested",
+        "notes": "The catalogue's existence and role are verified; individual transcriptions remain artifact-level observations to audit."
+      },
+      "access_rights": {
+        "access_method": "restricted",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "permission_required",
+        "statement": "The publication may be consulted as a reference, but no open bulk-data or glyph-artwork licence was verified.",
+        "rights_evidence_url": "https://www.rmrl.in/en/irc"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [],
+        "notes": "The source registry remains authoritative for source-level rights and provenance."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2027-01-26"
+      },
+      "tags": [
+        "concordance",
+        "mahadevan",
+        "primary-corpus",
+        "sign-list"
+      ]
+    },
+    {
+      "entry_id": "database-rmrl-indusscript",
+      "title": "RMRL IndusScript web application",
+      "entity_type": "database",
+      "evidence_tier": "A",
+      "tier_rationale": "The application is maintained by the RMRL Indus Research Centre and exposes a primary reference corpus through an official interface.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Roja Muthiah Research Library Indus Research Centre"
+        ],
+        "issued": "2021-present",
+        "publisher_or_venue": "Roja Muthiah Research Library",
+        "doi": null,
+        "other_identifiers": [
+          "IndusScript"
+        ],
+        "links": [
+          {
+            "link_type": "landing_page",
+            "url": "https://www.rmrl.in/en/irc"
+          },
+          {
+            "link_type": "data",
+            "url": "https://indusscript.in/"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "rights_or_access_statement",
+        "attribution": "registry_assessment",
+        "acceptance": "established",
+        "statement": "IndusScript is publicly queryable and is based on Mahadevan 1977, but no open machine-readable bulk export or redistribution licence was found on the reviewed official pages.",
+        "scope": "Public interface and published terms observed on 2026-07-26; no automated extraction was attempted."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "RMRL describes the application, its Mahadevan lineage, and its public availability.",
+          "locator": "https://www.rmrl.in/en/irc"
+        },
+        {
+          "evidence_type": "absence_search",
+          "support": "direct",
+          "description": "The reviewed pages did not expose a corpus API, bulk download, or content-specific open-data licence.",
+          "locator": "https://indusscript.in/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "temporal",
+          "verification": "verified",
+          "statement": "Access features and terms can change; the absence finding is bounded to the verification date."
+        },
+        {
+          "category": "rights",
+          "verification": "unverified",
+          "statement": "Rights may differ among metadata, transcriptions, glyph drawings, and artifact images."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Re-audit official pages for a versioned export, API, licence, and content-specific rights statement.",
+          "Record written permission if RMRL supplies terms not posted publicly."
+        ],
+        "current_result": "not_tested",
+        "notes": "Public viewing does not by itself establish redistribution or machine-learning rights."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "restricted",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "Use the public interface as a reference only until RMRL provides content-specific reusable-data terms.",
+        "rights_evidence_url": "https://www.rmrl.in/en/irc"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "mahadevan-1977",
+          "rmrl-indusscript"
+        ],
+        "upstream_entry_ids": [
+          "corpus-mahadevan-1977"
+        ],
+        "notes": "The web application is a downstream presentation of Mahadevan's corpus."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-10-26"
+      },
+      "tags": [
+        "database",
+        "mahadevan",
+        "rmrl",
+        "rights-review"
+      ]
+    },
+    {
+      "entry_id": "database-icit",
+      "title": "Interactive Corpus of Indus Texts",
+      "entity_type": "database",
+      "evidence_tier": "A",
+      "tier_rationale": "ICIT is a specialist research database combining inscriptions, signs, artifact metadata, statistics, and spatial information.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Bryan K. Wells",
+          "Andreas Fuls"
+        ],
+        "issued": null,
+        "publisher_or_venue": "Epigraphica",
+        "doi": null,
+        "other_identifiers": [
+          "ICIT"
+        ],
+        "links": [
+          {
+            "link_type": "landing_page",
+            "url": "https://www.epigraphica.de/indus/menueindus.htm"
+          },
+          {
+            "link_type": "full_text",
+            "url": "https://www.epigraphica.de/indus/help_onlinedatabase.pdf"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "rights_or_access_statement",
+        "attribution": "registry_assessment",
+        "acceptance": "established",
+        "statement": "The official ICIT page directs researchers to request database access; no public bulk download or open corpus redistribution licence was verified.",
+        "scope": "The official project page and database documentation accessed on 2026-07-26."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "The project page describes ICIT and gives instructions for requesting access from the administrator.",
+          "locator": "https://www.epigraphica.de/indus/menueindus.htm"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "data",
+          "verification": "verified",
+          "statement": "Published object, text, occurrence, and sign counts vary by version and classification rules."
+        },
+        {
+          "category": "rights",
+          "verification": "unverified",
+          "statement": "Permission for an individual research account does not establish rights to redistribute an export, source images, or derived glyphs."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Obtain a versioned export description and written rights terms from the maintainers.",
+          "Attach a version and counting policy to every reported corpus statistic."
+        ],
+        "current_result": "not_tested",
+        "notes": "No automated or authenticated access was attempted."
+      },
+      "access_rights": {
+        "access_method": "request_only",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "permission_required",
+        "statement": "Request access from the administrator and obtain separate written terms before ingesting or redistributing any export.",
+        "rights_evidence_url": "https://www.epigraphica.de/indus/menueindus.htm"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "cisi",
+          "icit"
+        ],
+        "upstream_entry_ids": [
+          "corpus-cisi"
+        ],
+        "notes": "ICIT uses published catalogue material including CISI; exact version lineage must accompany any permitted export."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-10-26"
+      },
+      "tags": [
+        "database",
+        "icit",
+        "request-only",
+        "rights-review"
+      ]
+    },
+    {
+      "entry_id": "dataset-mayig-audit-2026",
+      "title": "mayig Indus Valley script corpus, pinned-revision audit",
+      "entity_type": "dataset",
+      "evidence_tier": "D",
+      "tier_rationale": "The resource is a public work-in-progress dataset, and the scoped counts were independently audited from a pinned Git revision.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Michael Carlson"
+        ],
+        "issued": "2024-present",
+        "publisher_or_venue": "GitHub",
+        "doi": null,
+        "other_identifiers": [
+          "git:ad2f1e218a34b8c33c57de0d6cb8d99272765bbb"
+        ],
+        "links": [
+          {
+            "link_type": "data",
+            "url": "https://github.com/mayig/indus-valley-script-corpus"
+          },
+          {
+            "link_type": "rights",
+            "url": "https://github.com/mayig/indus-valley-script-corpus/blob/ad2f1e218a34b8c33c57de0d6cb8d99272765bbb/LICENSE"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "established",
+        "statement": "Revision ad2f1e218a34b8c33c57de0d6cb8d99272765bbb contains 179 records and 1,003 token observations, all scoped to Mohenjo-daro unicorn seals, with no artifact images or stratigraphic, period, material, findspot, or duplicate-family fields.",
+        "scope": "A local deterministic audit of the pinned repository revision; not a claim about later revisions or the complete Indus corpus."
+      },
+      "evidence": [
+        {
+          "evidence_type": "independent_reproduction",
+          "support": "direct",
+          "description": "The repository was pinned, imported, and counted locally with the benchmark's validation pipeline.",
+          "locator": null
+        },
+        {
+          "evidence_type": "code_repository",
+          "support": "direct",
+          "description": "The upstream JSON and revision history are publicly inspectable.",
+          "locator": "https://github.com/mayig/indus-valley-script-corpus"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "representativeness",
+          "verification": "verified",
+          "statement": "The audited subset cannot represent all sites, periods, object classes, motifs, or sign inventories."
+        },
+        {
+          "category": "rights",
+          "verification": "unverified",
+          "statement": "The repository's MIT licence does not by itself settle rights in CISI-derived catalog observations or third-party source content."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Re-run the importer at the pinned revision and compare record, token, site, and motif counts.",
+          "Inspect the upstream fields for any claimed image, period, material, findspot, stratigraphy, or duplicate-family metadata."
+        ],
+        "current_result": "passed",
+        "notes": "The scoped audit is reproducible; scientific conclusions drawn from this narrow sample require separate tests."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "metadata_only",
+        "license_id": "MIT",
+        "redistribution": false,
+        "permitted_use": "metadata_only",
+        "statement": "Use the pinned repository for reproducibility, but do not infer permission for upstream CISI content; this project vendors neither images nor raw upstream files.",
+        "rights_evidence_url": "https://github.com/mayig/indus-valley-script-corpus/blob/ad2f1e218a34b8c33c57de0d6cb8d99272765bbb/LICENSE"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "cisi",
+          "mayig-indus-valley-script-corpus"
+        ],
+        "upstream_entry_ids": [
+          "corpus-cisi"
+        ],
+        "notes": "The pinned derived dataset uses CISI-style identifiers; source and downstream software rights remain separate."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-08-26"
+      },
+      "tags": [
+        "audit",
+        "dataset",
+        "mayig",
+        "open-source"
+      ]
+    },
+    {
+      "entry_id": "paper-rao-2009-markov",
+      "title": "A Markov model of the Indus script",
+      "entity_type": "publication",
+      "evidence_tier": "B",
+      "tier_rationale": "This is peer-reviewed statistical research on sign-sequence structure.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Rajesh P. N. Rao",
+          "Nisha Yadav",
+          "Mayank N. Vahia",
+          "Hrishikesh Joglekar",
+          "Ronojoy Adhikari",
+          "Iravatham Mahadevan"
+        ],
+        "issued": "2009",
+        "publisher_or_venue": "Proceedings of the National Academy of Sciences",
+        "doi": "10.1073/pnas.0906237106",
+        "other_identifiers": [
+          "PMCID:PMC2721819"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2721819/"
+          },
+          {
+            "link_type": "landing_page",
+            "url": "https://doi.org/10.1073/pnas.0906237106"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "supported",
+        "statement": "A Markov analysis reports non-random positional and transition constraints that can rank candidate signs for damaged positions.",
+        "scope": "Sequential structure in the analyzed Mahadevan-derived corpus; it does not identify language, phonetic values, meanings, or translations."
+      },
+      "evidence": [
+        {
+          "evidence_type": "peer_reviewed_analysis",
+          "support": "direct",
+          "description": "The paper reports conditional transition structure and evaluates a Markov restoration task.",
+          "locator": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2721819/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Sequence regularity is compatible with linguistic and non-linguistic rule-governed systems and therefore is not a decipherment."
+        },
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "The reported results have not yet been reproduced in this project with duplicate-family and exact-sequence leakage controls."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Reproduce transition and restoration metrics from a versioned transcription.",
+          "Compare against frequency-preserving linguistic and non-linguistic nulls under artifact-family-separated splits."
+        ],
+        "current_result": "not_tested",
+        "notes": "A successful reproduction would support structural regularity only."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "metadata_only",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The article is publicly readable through PMC; no rights in its underlying corpus or figures are inferred.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [
+          "corpus-mahadevan-1977"
+        ],
+        "notes": "The analysis uses a Mahadevan-derived electronic corpus; an exact machine-readable input snapshot must be recovered for reproduction."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-11-26"
+      },
+      "tags": [
+        "markov",
+        "sequence-structure",
+        "statistics"
+      ]
+    },
+    {
+      "entry_id": "paper-yadav-2010-ngrams",
+      "title": "Statistical Analysis of the Indus Script Using n-Grams",
+      "entity_type": "publication",
+      "evidence_tier": "B",
+      "tier_rationale": "This is peer-reviewed statistical research on frequency, position, n-grams, and restoration.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Nisha Yadav",
+          "Mayank N. Vahia",
+          "Hrishikesh Joglekar",
+          "Ronojoy Adhikari",
+          "Iravatham Mahadevan"
+        ],
+        "issued": "2010",
+        "publisher_or_venue": "PLOS ONE",
+        "doi": "10.1371/journal.pone.0009506",
+        "other_identifiers": [],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0009506"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "supported",
+        "statement": "The study reports Zipf-Mandelbrot-like frequency behavior, initial/final positional asymmetry, recurrent n-grams, and probabilistic restoration of missing signs.",
+        "scope": "Statistical patterns and restoration in the study corpus; the result does not establish a language or translation."
+      },
+      "evidence": [
+        {
+          "evidence_type": "peer_reviewed_analysis",
+          "support": "direct",
+          "description": "The open article presents methods, tables, and restoration experiments.",
+          "locator": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0009506"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Zipf-like distributions and high n-gram restoration scores can also occur in constrained non-linguistic systems or through duplicate leakage."
+        },
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "This project has not yet reproduced the reported restoration rate on a deduplicated, site-held-out corpus."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Reproduce every n-gram table from a pinned corpus and explicit sign normalization.",
+          "Evaluate held-out restoration after grouping duplicate strings, seal impressions, and artifact families.",
+          "Compare with matched administrative, heraldic, and shuffled controls."
+        ],
+        "current_result": "not_tested",
+        "notes": "The target is the reported structural performance, not a language assignment."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "open_licensed",
+        "license_id": "CC-BY",
+        "redistribution": true,
+        "permitted_use": "reusable",
+        "statement": "The PLOS article is open access under a Creative Commons Attribution licence; underlying third-party corpus rights remain separate.",
+        "rights_evidence_url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0009506"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [
+          "corpus-mahadevan-1977"
+        ],
+        "notes": "Reproduction requires the exact electronic transcription and preprocessing rules used by the authors."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-11-26"
+      },
+      "tags": [
+        "n-grams",
+        "restoration",
+        "sequence-structure",
+        "statistics"
+      ]
+    },
+    {
+      "entry_id": "paper-sinha-2009-network",
+      "title": "Network analysis reveals structure indicative of syntax in the corpus of undeciphered Indus civilization inscriptions",
+      "entity_type": "conference_paper",
+      "evidence_tier": "B",
+      "tier_rationale": "This is a peer-reviewed structural analysis published in ACL workshop proceedings.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Sitabhra Sinha",
+          "Raj Kumar Pan",
+          "Nisha Yadav",
+          "Mayank Vahia",
+          "Iravatham Mahadevan"
+        ],
+        "issued": "2009",
+        "publisher_or_venue": "TextGraphs-4, Association for Computational Linguistics",
+        "doi": null,
+        "other_identifiers": [
+          "ACL Anthology W09-3202"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://aclanthology.org/W09-3202/"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "supported",
+        "statement": "A sign-transition network analysis reports non-random organization, positional classes, and hierarchical connectivity described as indicative of syntax-like structure.",
+        "scope": "Graph structure in the analyzed inscription corpus; the wording 'indicative of syntax' is not proof of spoken language."
+      },
+      "evidence": [
+        {
+          "evidence_type": "peer_reviewed_analysis",
+          "support": "direct",
+          "description": "The ACL proceedings paper describes its network construction and structural findings.",
+          "locator": "https://aclanthology.org/W09-3202/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Network hierarchy and recurring subgraphs can arise in non-linguistic rule systems and depend on sign classification and duplicate handling."
+        },
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "No leakage-safe project reproduction has yet been completed."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Reconstruct the graph from a pinned corpus and exact edge rules.",
+          "Test graph statistics against matched non-linguistic systems and frequency-preserving random controls."
+        ],
+        "current_result": "not_tested",
+        "notes": "Any positive result remains a structural finding unless it yields independent language-specific predictions."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "open_licensed",
+        "license_id": "CC-BY-NC-SA-3.0",
+        "redistribution": true,
+        "permitted_use": "reusable",
+        "statement": "ACL Anthology identifies pre-2016 materials under CC BY-NC-SA 3.0; the licence does not transfer to the underlying inscription corpus.",
+        "rights_evidence_url": "https://aclanthology.org/W09-3202/"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [
+          "corpus-mahadevan-1977"
+        ],
+        "notes": "The reported graph derives from the Mahadevan corpus family."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-11-26"
+      },
+      "tags": [
+        "graph-analysis",
+        "sequence-structure",
+        "syntax"
+      ]
+    },
+    {
+      "entry_id": "preprint-palaniappan-2017-deep-learning",
+      "title": "Deep Learning the Indus Script",
+      "entity_type": "preprint",
+      "evidence_tier": "D",
+      "tier_rationale": "This is an arXiv computer-vision preprint with associated public code, requiring dataset and reproduction audit.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Satish Palaniappan",
+          "Ronojoy Adhikari"
+        ],
+        "issued": "2017",
+        "publisher_or_venue": "arXiv",
+        "doi": "10.48550/arXiv.1702.00523",
+        "other_identifiers": [
+          "arXiv:1702.00523"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://arxiv.org/abs/1702.00523"
+          },
+          {
+            "link_type": "code",
+            "url": "https://github.com/tpsatish95/indus-script-ocr"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "supported",
+        "statement": "The pipeline reports segmentation of inscription regions and 92 percent accuracy for presence or absence of the most frequent 'jar' grapheme.",
+        "scope": "A limited image-to-grapheme experiment; it is not comprehensive sign OCR and does not assign meaning or translation."
+      },
+      "evidence": [
+        {
+          "evidence_type": "published_method",
+          "support": "direct",
+          "description": "The preprint specifies the computer-vision stages and the reported jar-sign classification result.",
+          "locator": "https://arxiv.org/abs/1702.00523"
+        },
+        {
+          "evidence_type": "code_repository",
+          "support": "context_only",
+          "description": "A public repository preserves implementation material for inspection.",
+          "locator": "https://github.com/tpsatish95/indus-script-ocr"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "representativeness",
+          "verification": "verified",
+          "statement": "A binary frequent-sign task does not establish performance across the full rare-sign inventory, damaged signs, artifacts, or imaging conditions."
+        },
+        {
+          "category": "rights",
+          "verification": "unverified",
+          "statement": "The original training-image redistribution and reuse rights were not verified."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Recover a rights-cleared test set and reproduce the reported binary classifier without image-family leakage.",
+          "Report per-sign precision and recall on unseen artifacts and sites before describing the system as OCR."
+        ],
+        "current_result": "not_tested",
+        "notes": "Image recognition quality and decipherment validity are separate evaluation axes."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The paper and repository are publicly reachable, but a combined code, model, and source-image licence audit has not been completed.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "Training-image and sign-label lineage must be reconstructed before benchmark ingestion."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-12-26"
+      },
+      "tags": [
+        "computer-vision",
+        "deep-learning",
+        "ocr",
+        "preprint"
+      ]
+    },
+    {
+      "entry_id": "paper-daggumati-2021-allographs",
+      "title": "A method of identifying allographs in undeciphered scripts and its application to the Indus Valley Script",
+      "entity_type": "publication",
+      "evidence_tier": "B",
+      "tier_rationale": "This is peer-reviewed computational research on sign variants and positional distributions.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Shruti Daggumati",
+          "Peter Z. Revesz"
+        ],
+        "issued": "2021",
+        "publisher_or_venue": "Humanities and Social Sciences Communications",
+        "doi": "10.1057/s41599-021-00713-0",
+        "other_identifiers": [],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://www.nature.com/articles/s41599-021-00713-0"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "unresolved",
+        "statement": "The study proposes that 50 sign pairs, including 23 mirrored pairs, are allographic variants that can be grouped without a meaning difference.",
+        "scope": "Candidate allography and directionality in CISI- and ICIT-derived observations; not a validated universal sign merger."
+      },
+      "evidence": [
+        {
+          "evidence_type": "peer_reviewed_analysis",
+          "support": "direct",
+          "description": "The article analyzes positional distributions, mirrored signs, and selected artifact images to motivate pairwise mergers.",
+          "locator": "https://www.nature.com/articles/s41599-021-00713-0"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "The proposed pair identities have not been independently adjudicated against all primary images, periods, media, and scribal variation."
+        },
+        {
+          "category": "rights",
+          "verification": "verified",
+          "statement": "The article is open, but underlying CISI and ICIT data and images retain separate rights and access conditions."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Blindly classify held-out occurrences using image, context, period, and medium without assuming the proposed merger.",
+          "Reject a merger when paired signs show reproducible contrastive distributions or minimal-pair behavior."
+        ],
+        "current_result": "not_tested",
+        "notes": "Allograph decisions should be represented as hypotheses, never silently normalized in artifact observations."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "redistribution": true,
+        "permitted_use": "reusable",
+        "statement": "The article is CC BY 4.0; third-party material and the underlying CISI/ICIT records must be assessed separately.",
+        "rights_evidence_url": "https://www.nature.com/articles/s41599-021-00713-0"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "cisi",
+          "icit",
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [
+          "corpus-cisi",
+          "corpus-mahadevan-1977",
+          "database-icit"
+        ],
+        "notes": "The paper explicitly references CISI, ICIT, and major sign lists."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-11-26"
+      },
+      "tags": [
+        "allographs",
+        "directionality",
+        "sign-inventory"
+      ]
+    },
+    {
+      "entry_id": "paper-farmer-2004-nonscript",
+      "title": "The Collapse of the Indus-Script Thesis: The Myth of a Literate Harappan Civilization",
+      "entity_type": "publication",
+      "evidence_tier": "C",
+      "tier_rationale": "This is a published interpretation of the system's function and linguistic status rather than a primary observation.",
+      "status": "disputed",
+      "citation": {
+        "creators": [
+          "Steve Farmer",
+          "Richard Sproat",
+          "Michael Witzel"
+        ],
+        "issued": "2004",
+        "publisher_or_venue": "Electronic Journal of Vedic Studies",
+        "doi": null,
+        "other_identifiers": [
+          "EJVS 11-2"
+        ],
+        "links": [
+          {
+            "link_type": "landing_page",
+            "url": "https://hasp.ub.uni-heidelberg.de/journals/ejvs/issue/view/87"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "interpretive_hypothesis",
+        "attribution": "source_reported",
+        "acceptance": "disputed",
+        "statement": "The authors argue that Indus signs formed a non-linguistic religious, political, or administrative symbol system rather than a script encoding spoken language.",
+        "scope": "A system-level hypothesis motivated by brevity, sign-frequency behavior, lack of long texts, and the archaeological record."
+      },
+      "evidence": [
+        {
+          "evidence_type": "published_method",
+          "support": "direct",
+          "description": "The article develops the non-script interpretation from corpus length, sign inventory, repetition, and material-culture arguments.",
+          "locator": "https://hasp.ub.uni-heidelberg.de/journals/ejvs/issue/view/87"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Short labels, logographic systems, names, and titles can contain many rare signs, so brevity and rarity do not alone falsify writing."
+        },
+        {
+          "category": "validation",
+          "verification": "verified",
+          "statement": "Published counterarguments dispute the interpretation; neither side has a decisive bilingual or long inscription."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Find a securely provenanced bilingual or long Indus text with consistent language-specific sign values.",
+          "Demonstrate fixed phonological or grammatical predictions that generalize to unseen inscriptions better than matched non-linguistic models."
+        ],
+        "current_result": "not_tested",
+        "notes": "Current sequence regularity by itself does not settle the dispute."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The publication is publicly accessible, but no content-specific redistribution licence was recorded in this audit.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "The entry records the attributed hypothesis separately from corpus observations."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2027-01-26"
+      },
+      "tags": [
+        "interpretation",
+        "non-linguistic",
+        "non-script-thesis"
+      ]
+    },
+    {
+      "entry_id": "paper-parpola-2010-dravidian",
+      "title": "A Dravidian solution to the Indus script problem",
+      "entity_type": "publication",
+      "evidence_tier": "C",
+      "tier_rationale": "This is a language and rebus interpretation, not a primary transcription or structural result.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Asko Parpola"
+        ],
+        "issued": "2010",
+        "publisher_or_venue": "Central Institute of Classical Tamil",
+        "doi": null,
+        "other_identifiers": [
+          "World Classical Tamil Conference lecture"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://tuhat.helsinki.fi/ws/portalfiles/portal/127256525/Parpola_A_2010._A_Dravidian_solution_to_the_Indus_script_problem.pdf"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "interpretive_hypothesis",
+        "attribution": "source_reported",
+        "acceptance": "unresolved",
+        "statement": "Parpola argues that the Indus script encodes an early Dravidian language and develops rebus-based readings, including a fish-sign and star association.",
+        "scope": "A developed Proto-Dravidian interpretation; no fixed full-corpus translation or independently validated phonetic key is established."
+      },
+      "evidence": [
+        {
+          "evidence_type": "published_method",
+          "support": "direct",
+          "description": "The lecture sets out archaeological, linguistic, rebus, sign-position, and comparative arguments for a Dravidian reading.",
+          "locator": "https://tuhat.helsinki.fi/ws/portalfiles/portal/127256525/Parpola_A_2010._A_Dravidian_solution_to_the_Indus_script_problem.pdf"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Pictorial identification, homophone selection, later lexical comparison, and mythological analogy create substantial researcher degrees of freedom."
+        },
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "No preregistered mapping has predicted withheld inscriptions or a newly found text under independent custody."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Freeze sign values, allograph rules, chronology, and sound correspondences before evaluation.",
+          "Measure full-corpus coverage and exception rates against competing language and non-linguistic hypotheses.",
+          "Predict withheld site, object-type, and newly discovered inscriptions under independent scoring."
+        ],
+        "current_result": "not_tested",
+        "notes": "The hypothesis must not receive a lower evidentiary threshold because it is historically influential."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The institutional PDF is publicly downloadable, but no open redistribution licence was verified.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "cisi"
+        ],
+        "upstream_entry_ids": [
+          "corpus-cisi"
+        ],
+        "notes": "The interpretation depends on CISI observations and the author's sign taxonomy; interpretations remain separate from those observations."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2027-01-26"
+      },
+      "tags": [
+        "dravidian",
+        "interpretation",
+        "rebus"
+      ]
+    },
+    {
+      "entry_id": "paper-mukhopadhyay-2023-semantic-scope",
+      "title": "Semantic scope of Indus inscriptions comprising taxation, trade and craft licensing, commodity control and access control",
+      "entity_type": "publication",
+      "evidence_tier": "C",
+      "tier_rationale": "This is a peer-reviewed semantic and functional interpretation using archaeological and script-internal arguments.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Bahata Ansumali Mukhopadhyay"
+        ],
+        "issued": "2023",
+        "publisher_or_venue": "Humanities and Social Sciences Communications",
+        "doi": "10.1057/s41599-023-02320-7",
+        "other_identifiers": [
+          "HSS Communications 10:972"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://www.nature.com/articles/s41599-023-02320-7"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "interpretive_hypothesis",
+        "attribution": "source_reported",
+        "acceptance": "unresolved",
+        "statement": "The article argues that many inscriptions concern taxation, trade and craft licensing, commodity control, and access control rather than individual proper names.",
+        "scope": "Proposed semantic domains for seals, sealings, and tablets; it does not establish phonetic values or translations."
+      },
+      "evidence": [
+        {
+          "evidence_type": "peer_reviewed_analysis",
+          "support": "direct",
+          "description": "The article combines sign distributions with object type, find context, sealings, weights, storage, workshops, and gateways.",
+          "locator": "https://www.nature.com/articles/s41599-023-02320-7"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Functional context narrows plausible message domains but does not uniquely determine the meaning or sound of individual signs."
+        },
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "The proposed domains have not been tested as frozen predictions on independently withheld contexts or new finds."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Preregister context and sign-class predictions for withheld sites and object types.",
+          "Compare likelihood under administrative, ownership-name, commodity, ritual, and mixed-function models.",
+          "Reject domain assignments that fail independently coded archaeological contexts."
+        ],
+        "current_result": "not_tested",
+        "notes": "A successful functional model would still be a step before phonetic decipherment."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "redistribution": true,
+        "permitted_use": "reusable",
+        "statement": "The article is CC BY 4.0; credited third-party figures and upstream corpus data may require separate permission.",
+        "rights_evidence_url": "https://www.nature.com/articles/s41599-023-02320-7"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "cisi",
+          "icit",
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [
+          "corpus-cisi",
+          "corpus-mahadevan-1977",
+          "database-icit"
+        ],
+        "notes": "The article uses published corpora and archaeological reports; the interpretation is not propagated into artifact observations."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-11-26"
+      },
+      "tags": [
+        "administration",
+        "functional-hypothesis",
+        "semantic-scope"
+      ]
+    },
+    {
+      "entry_id": "paper-dixit-2025-asda",
+      "title": "Deep Learning in Archiving Indus Script and Motif Information",
+      "entity_type": "publication",
+      "evidence_tier": "B",
+      "tier_rationale": "This is a peer-reviewed image-processing and archival systems paper.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Vaishnavi Dixit",
+          "Nushrat Hussain",
+          "Shubham Basak",
+          "Deva Atturu",
+          "Debasis Mitra"
+        ],
+        "issued": "2025",
+        "publisher_or_venue": "Journal of Computer Applications in Archaeology",
+        "doi": "10.5334/jcaa.175",
+        "other_identifiers": [],
+        "links": [
+          {
+            "link_type": "landing_page",
+            "url": "https://digitalcommons.isical.ac.in/journal-articles/5303/"
+          },
+          {
+            "link_type": "code",
+            "url": "https://github.com/DM-BiCLab/Deep-Learning-in-Archiving-Indus-Script-and-Motif-Information"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "supported",
+        "statement": "The paper reports an implemented pipeline that detects and recognizes inscription graphemes, identifies motifs, and archives outputs in a linked database.",
+        "scope": "Automated image archiving and recognition; the pipeline does not decipher sign meanings or language."
+      },
+      "evidence": [
+        {
+          "evidence_type": "peer_reviewed_analysis",
+          "support": "direct",
+          "description": "The institutional publication record identifies the article, authors, DOI, journal, and pipeline scope.",
+          "locator": "https://digitalcommons.isical.ac.in/journal-articles/5303/"
+        },
+        {
+          "evidence_type": "code_repository",
+          "support": "context_only",
+          "description": "The public repository was audited at commit 14bd43147d1421bf13f4f43666175ab5d61a77f7. Its code declares CC0-1.0, while the complete source dataset remains request-gated.",
+          "locator": "https://github.com/DM-BiCLab/Deep-Learning-in-Archiving-Indus-Script-and-Motif-Information"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "data",
+          "verification": "unverified",
+          "statement": "A complete rights-cleared training and evaluation image set was not verified as a public download."
+        },
+        {
+          "category": "validation",
+          "verification": "verified",
+          "statement": "Static audit found no fixed environment or released weights, placeholder data paths, a syntax failure in MI.py, a notebook labelled MobileNet that instantiates ResNet50, and no demonstrated artifact-family-blocked split. Reported performance is therefore not reproduced."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Reproduce sign and motif metrics from a versioned, rights-cleared dataset.",
+          "Evaluate on artifact-family- and site-held-out images with per-class metrics and error inspection."
+        ],
+        "current_result": "not_tested",
+        "notes": "Archival accuracy is useful infrastructure but is not translation accuracy."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The audited repository declares CC0-1.0 for code, but this publication entry also refers to request-gated data, upstream artifact images, model weights, and the paper. The combined entry therefore fails closed; only the code licence is recorded in evidence.",
+        "rights_evidence_url": "https://github.com/DM-BiCLab/Deep-Learning-in-Archiving-Indus-Script-and-Motif-Information"
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "Dataset and image provenance must be reconstructed from the paper and repository before integration."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-09-26"
+      },
+      "tags": [
+        "archiving",
+        "computer-vision",
+        "deep-learning",
+        "motifs"
+      ]
+    },
+    {
+      "entry_id": "paper-tiwari-2026-statistical-structure",
+      "title": "Statistical Structure in Indus Sign Sequences",
+      "entity_type": "conference_paper",
+      "evidence_tier": "D",
+      "tier_rationale": "This is a recent conference paper whose corpus provenance, split controls, code, and numerical consistency still require audit.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Tanishk Tiwari"
+        ],
+        "issued": "2026",
+        "publisher_or_venue": "NLP4DH, Association for Computational Linguistics",
+        "doi": "10.18653/v1/2026.nlp4dh-1.28",
+        "other_identifiers": [
+          "ACL Anthology 2026.nlp4dh-1.28"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://aclanthology.org/2026.nlp4dh-1.28/"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "unresolved",
+        "statement": "The paper reports directional asymmetry and structured combinatorial patterns from visual clustering, entropy, divergence, and BiLSTM analyses of 6,579 inscriptions.",
+        "scope": "Reported statistical structure; the paper does not determine whether the signs encode language."
+      },
+      "evidence": [
+        {
+          "evidence_type": "published_method",
+          "support": "direct",
+          "description": "The ACL paper reports its corpus size, methods, results, and stated conclusion.",
+          "locator": "https://aclanthology.org/2026.nlp4dh-1.28/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "provenance",
+          "verification": "unverified",
+          "statement": "The origin and deduplication policy for the reported 6,579 inscriptions are not sufficiently traceable from a public versioned corpus."
+        },
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "The described object-type-stratified split does not document blocking of duplicate strings, impressions, molds, or artifact families."
+        },
+        {
+          "category": "methodology",
+          "verification": "unverified",
+          "statement": "Reported perplexities for modified sequences require reconciliation with the prose interpretation. Although the paper says the 6,579-sequence data and code would be public on publication, no corresponding repository was verified by 2026-07-27."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Publish or obtain the exact 6,579-record manifest, transformations, code, seeds, and sign inventory.",
+          "Re-run every table with duplicate-family-safe partitions and matched linguistic and non-linguistic baselines.",
+          "Resolve any direction-of-effect discrepancy between reported perplexities and the narrative conclusion."
+        ],
+        "current_result": "not_tested",
+        "notes": "Conference publication verifies that the result was reported, not that it has been independently reproduced."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "redistribution": true,
+        "permitted_use": "reusable",
+        "statement": "The ACL paper is CC BY 4.0; the inscription corpus, images, and any unreleased code are not covered by that inference.",
+        "rights_evidence_url": "https://aclanthology.org/2026.nlp4dh-1.28/"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "icit",
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [
+          "corpus-mahadevan-1977",
+          "database-icit"
+        ],
+        "notes": "The paper names Mahadevan- and Wells-family resources, but exact record-level lineage remains unverified."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-08-26"
+      },
+      "tags": [
+        "bilstm",
+        "new-research",
+        "sequence-structure",
+        "visual-clustering"
+      ]
+    },
+    {
+      "entry_id": "preprint-nair-2026-scorecard",
+      "title": "How Non-Linguistic Is the Indus Sign System? A Synthetic-Baseline Scorecard",
+      "entity_type": "preprint",
+      "evidence_tier": "D",
+      "tier_rationale": "This is a 2026 arXiv preprint with an unreviewed derived corpus and partially unresolved code availability.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Ashish Nair"
+        ],
+        "issued": "2026",
+        "publisher_or_venue": "arXiv",
+        "doi": "10.48550/arXiv.2604.17828",
+        "other_identifiers": [
+          "arXiv:2604.17828v1"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://arxiv.org/abs/2604.17828"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "reported_empirical_result",
+        "attribution": "source_reported",
+        "acceptance": "unresolved",
+        "statement": "Across four metrics, the preprint reports that 1,916 deduplicated Indus inscriptions occupy an intermediate position and match neither its heraldic nor administrative non-linguistic baseline cleanly.",
+        "scope": "A multi-metric comparison against selected synthetic and real non-linguistic corpora; not a finding that the system is linguistic."
+      },
+      "evidence": [
+        {
+          "evidence_type": "published_method",
+          "support": "direct",
+          "description": "The arXiv record states the corpus size, baseline families, four metrics, and intermediate result.",
+          "locator": "https://arxiv.org/abs/2604.17828"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "provenance",
+          "verification": "unverified",
+          "statement": "The 1,916-record corpus is described as ICIT/Yajnadevam-derived, so transcription, sign-normalization, rights, and deduplication lineage require audit."
+        },
+        {
+          "category": "validation",
+          "verification": "verified",
+          "statement": "The abstract says code and data are publicly available, while the Data and Code Availability section says they are available on request and will be released after acceptance. No public repository URL was verified by 2026-07-27, so the result is not currently fully reproducible."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Obtain the exact corpus, baseline generators, real comparator data, code, seeds, and deduplication manifest.",
+          "Reproduce all four metrics and stress-test conclusions across alternative sign lists and non-linguistic baselines."
+        ],
+        "current_result": "not_tested",
+        "notes": "An intermediate score is evidence against the tested generators, not a binary classification of the Indus system."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The preprint is downloadable, but its arXiv licence and the derived corpus and code rights were not recorded as reusable.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "icit",
+          "yajnadevam-lipi"
+        ],
+        "upstream_entry_ids": [
+          "database-icit"
+        ],
+        "notes": "The preprint attributes its inscriptions to an ICIT/Yajnadevam digitization; exact record-level lineage is unresolved."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-08-26"
+      },
+      "tags": [
+        "baselines",
+        "new-research",
+        "non-linguistic",
+        "preprint"
+      ]
+    },
+    {
+      "entry_id": "preprint-ross-2026-treewidth",
+      "title": "Reading the Indus Valley Script",
+      "entity_type": "preprint",
+      "evidence_tier": "D",
+      "tier_rationale": "This is a self-deposited Zenodo preprint whose central language-classification claim was amenable to immediate audit from its named public dataset.",
+      "status": "disputed",
+      "citation": {
+        "creators": [
+          "Logan Ross"
+        ],
+        "issued": "2026",
+        "publisher_or_venue": "Zenodo",
+        "doi": "10.5281/zenodo.19362548",
+        "other_identifiers": [
+          "Zenodo record 19362548",
+          "version reviewed: modified 2026-07-21"
+        ],
+        "links": [
+          {
+            "link_type": "full_text",
+            "url": "https://zenodo.org/records/19362548"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "interpretive_hypothesis",
+        "attribution": "source_reported",
+        "acceptance": "disputed",
+        "statement": "The preprint claims that an adjacency-graph treewidth of 26 confirms linguistic status and supports a complete 182-entry sign dictionary and social-class reading.",
+        "scope": "The mayig-derived seal sample and the preprint's stated graph construction and interpretation."
+      },
+      "evidence": [
+        {
+          "evidence_type": "published_method",
+          "support": "direct",
+          "description": "The Zenodo record states the corpus counts, treewidth, threshold, dictionary coverage, and linguistic conclusion.",
+          "locator": "https://zenodo.org/records/19362548"
+        },
+        {
+          "evidence_type": "independent_reproduction",
+          "support": "contradictory",
+          "description": "A local audit reproduced treewidth 26 but obtained medians of 29, 27, and 30 under three matched null models, so the value does not discriminate language in this setup.",
+          "locator": null
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "The asserted non-linguistic treewidth threshold is not supported by the matched null distributions used in the independent audit."
+        },
+        {
+          "category": "provenance",
+          "verification": "verified",
+          "statement": "The reported combination of 178 inscriptions, 1,003 tokens, 182 vertices, and one connected component cannot be produced simultaneously from the pinned public data under one consistent singleton rule."
+        },
+        {
+          "category": "representativeness",
+          "verification": "verified",
+          "statement": "The underlying mayig sample is restricted to Mohenjo-daro unicorn seals and lacks broader archaeological context."
+        }
+      ],
+      "falsification": {
+        "applicability": "testable",
+        "criteria": [
+          "Specify code, singleton rules, graph construction, and a preregistered threshold.",
+          "Show separation from matched non-linguistic and frequency-preserving null distributions on independent corpora.",
+          "Validate the proposed dictionary on unseen inscriptions and externally held archaeological constraints."
+        ],
+        "current_result": "failed",
+        "notes": "The treewidth value reproduced, but the claim that it confirms language failed the current null-model test."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The preprint is public, but the Zenodo record displayed no verified licence; the upstream mayig and CISI rights caveat also remains.",
+        "rights_evidence_url": "https://zenodo.org/records/19362548"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "mayig-indus-valley-script-corpus"
+        ],
+        "upstream_entry_ids": [
+          "dataset-mayig-audit-2026"
+        ],
+        "notes": "The independent audit pins the same public dataset family and records its scoped counts separately."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-08-26"
+      },
+      "tags": [
+        "independent-reproduction",
+        "new-research",
+        "null-model",
+        "treewidth"
+      ]
+    },
+    {
+      "entry_id": "policy-tamil-nadu-prize-2025",
+      "title": "Tamil Nadu one-million-US-dollar Indus-script prize announcement",
+      "entity_type": "policy_or_prize",
+      "evidence_tier": "A",
+      "tier_rationale": "The announcement is documented in a contemporaneous Tamil Nadu DIPR release and later Government of Tamil Nadu publications.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Government of Tamil Nadu"
+        ],
+        "issued": "2025",
+        "publisher_or_venue": "Tamil Virtual Academy, Government of Tamil Nadu",
+        "doi": null,
+        "other_identifiers": [
+          "Announcement attributed to Chief Minister M. K. Stalin on 2025-01-05"
+        ],
+        "links": [
+          {
+            "link_type": "official_record",
+            "url": "https://dipr.tn.gov.in/ords/r/dipr/info-prdept103/press-release1?cs=17R0H-bKZMbOX4AlR_1awqes0TjNMjZfSiguFGs-EZAuLpJ7oTo7mfnIeUQKJYwuwGZWO8x9ra6Rt5S1dG70WFw&p33_file_id=11209&request=APPLICATION_PROCESS%3DGET_FILE"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://tamildigitallibrary.in/assets/docs/uploads/catalogue_article_file/BOK/upload/2026/02/TVA_TVA_BOK_062959/upload_primary_20260220030410912_20260220025734.pdf"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://tamildigitallibrary.in/assets/docs/uploads/catalogue_article_file/PER/upload/2025/09/TVA_TVA_PER_040818/upload_primary_20250919120756159_21250919120047.pdf"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "policy_announcement",
+        "attribution": "source_reported",
+        "acceptance": "established",
+        "statement": "Tamil Nadu Chief Minister M. K. Stalin announced a one-million-US-dollar prize for a breakthrough explanation of the Indus script recognized as valid by archaeologists.",
+        "scope": "Verification of the public announcement only; it does not establish that an operational, presently claimable competition exists."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "The Tamil Nadu DIPR speech collection records the amount, individual-or-organization scope, and requirement that archaeologists accept the proposed solution.",
+          "locator": "https://tamildigitallibrary.in/assets/docs/uploads/catalogue_article_file/BOK/upload/2026/02/TVA_TVA_BOK_062959/upload_primary_20260220030410912_20260220025734.pdf"
+        },
+        {
+          "evidence_type": "absence_search",
+          "support": "context_only",
+          "description": "No application portal, formal rules, deadline, judging panel, implementing Government Order, dedicated budget authorization, administrator, winner, payment, or withdrawal notice was found in the reviewed official channels by 2026-07-27.",
+          "locator": "https://www.tnarch.gov.in/schemes"
+        },
+        {
+          "evidence_type": "official_statement",
+          "support": "context_only",
+          "description": "The separately announced Iravatham Mahadevan Chair is now documented as established; this does not implement the US$1 million prize.",
+          "locator": "https://www.rmrl.in/en/irc"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "institutional",
+          "verification": "unverified",
+          "statement": "Operational eligibility, submission, judging, conflict-of-interest, dedicated budget, administrator, deadline, payment, and withdrawal status remain unverified."
+        },
+        {
+          "category": "temporal",
+          "verification": "verified",
+          "statement": "The absence finding is time-bounded and must be rechecked because formal rules may appear later."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Confirm any later Government Order, Gazette notice, budget line, official application page, or adjudication rules.",
+          "Do not mark the prize operational until official submission and award procedures are verified."
+        ],
+        "current_result": "not_tested",
+        "notes": "Announcement authenticity and contest operability are deliberately separate questions."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The official PDF may be linked and cited; no redistribution licence was verified.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "This policy record is independent of corpus and decipherment evidence."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-08-27"
+      },
+      "tags": [
+        "official-announcement",
+        "prize",
+        "tamil-nadu"
+      ]
+    },
+    {
+      "entry_id": "project-rihn-indus-2007-2012",
+      "title": "RIHN Indus Project",
+      "entity_type": "institution_or_project",
+      "evidence_tier": "A",
+      "tier_rationale": "RIHN's official project report documents a Japanese-led multidisciplinary research program and its fieldwork outputs.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Research Institute for Humanity and Nature",
+          "Toshiki Osada",
+          "RIHN Indus Project collaborators"
+        ],
+        "issued": "2007-2012",
+        "publisher_or_venue": "Research Institute for Humanity and Nature",
+        "doi": null,
+        "other_identifiers": [
+          "RIHN completed research project"
+        ],
+        "links": [
+          {
+            "link_type": "official_record",
+            "url": "https://www.chikyu.ac.jp/rihn/activities/cr/rihnAnnualReport/15en.html"
+          },
+          {
+            "link_type": "landing_page",
+            "url": "https://www.chikyu.ac.jp/rihn/activities/project/detail/49/"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "institutional_statement",
+        "attribution": "source_reported",
+        "acceptance": "established",
+        "statement": "The Japanese-led RIHN project combined archaeology, environment, material culture, subsistence, inherited culture, language mapping, and DNA work, including excavations at Kanmer and Farmana.",
+        "scope": "Documented historical project activity and outputs; not evidence of a current dedicated computational Indus-script consortium."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "RIHN's annual report records the project groups, excavations, inscribed finds, Language Atlas work, and international collaborations.",
+          "locator": "https://www.chikyu.ac.jp/rihn/activities/cr/rihnAnnualReport/15en.html"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "temporal",
+          "verification": "verified",
+          "statement": "This is a completed historical project and cannot be treated as a currently operating script-decipherment center."
+        },
+        {
+          "category": "institutional",
+          "verification": "unverified",
+          "statement": "No 2026 successor program integrating a global open corpus, computational epigraphy, rights governance, and external blind evaluation was verified in this record."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Verify project dates, fieldwork, and outputs against RIHN reports and linked publications.",
+          "Register any current successor separately rather than silently extending the historical project's dates."
+        ],
+        "current_result": "not_tested",
+        "notes": "The record prevents the inaccurate claim that Japan has no Indus-civilization research history."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "Official project descriptions are publicly readable; no blanket licence for reports, excavation data, maps, or images was verified.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "The institutional record is retained as context for Japan's expertise and collaboration history."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2027-01-26"
+      },
+      "tags": [
+        "archaeology",
+        "japan",
+        "rihn"
+      ]
+    },
+    {
+      "entry_id": "project-kaken-uesugi-22h00711",
+      "title": "KAKENHI 22H00711: Dynamism of the Indus Civilization through multidisciplinary craft research",
+      "entity_type": "institution_or_project",
+      "evidence_tier": "A",
+      "tier_rationale": "The active grant period, principal investigator, category, identifier, and project title are documented by Japanese university and public-research-institute records.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Akinori Uesugi",
+          "Japan Society for the Promotion of Science",
+          "Kanazawa University Institute for the Study of Ancient Civilizations and Cultural Resources"
+        ],
+        "issued": "2022-2027",
+        "publisher_or_venue": "JSPS KAKENHI, Grant-in-Aid for Scientific Research (B)",
+        "doi": null,
+        "other_identifiers": [
+          "KAKENHI 22H00711"
+        ],
+        "links": [
+        {
+          "link_type": "official_record",
+          "url": "https://isac.w3.kanazawa-u.ac.jp/en/research/grant-in-aid.html"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://www.chikyu.ac.jp/rihn/events/detail/78/"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "institutional_statement",
+        "attribution": "source_reported",
+        "acceptance": "established",
+        "statement": "Official records list Akinori Uesugi as principal investigator of KAKENHI 22H00711, a Scientific Research (B) project on Indus-civilization social dynamism through multidisciplinary study of craft production, running from 2022-04-01 to 2027-03-31.",
+        "scope": "A currently scheduled Japanese archaeological and material-culture project; the record does not claim a dedicated script-decipherment, open-corpus, or computational benchmark program."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "Kanazawa University's grant list gives the project period, principal investigator, grant category, and English project title.",
+          "locator": "https://isac.w3.kanazawa-u.ac.jp/en/research/grant-in-aid.html"
+        },
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "RIHN's official event record confirms the Japanese title, grant number 22H00711, principal investigator, and funded project participation.",
+          "locator": "https://www.chikyu.ac.jp/rihn/events/detail/78/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "institutional",
+          "verification": "verified",
+          "statement": "The verified scope centers on craft production, exchange, and social dynamism; it must not be relabeled as an Indus-script decipherment project."
+        },
+        {
+          "category": "data",
+          "verification": "unverified",
+          "statement": "No project-level open artifact dataset, inscription corpus, code release, or blind-evaluation deliverable was verified from the reviewed official records."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Recheck the KAKEN and host-institution records for status, annual reports, outputs, and final completion after 2027-03-31.",
+          "Register script, dataset, or computational outputs separately if an official project record later documents them."
+        ],
+        "current_result": "not_tested",
+        "notes": "The project corrects the claim that all Japanese Indus research ended with RIHN while preserving the distinction between archaeology and decipherment."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "Official grant metadata is publicly readable; no blanket reuse licence for reports, images, archaeological records, or future datasets was verified.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "This is a current project-status record, independent of the completed RIHN project entry."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-10-26"
+      },
+      "tags": [
+        "archaeology",
+        "current-project",
+        "japan",
+        "kakenhi",
+        "material-culture"
+      ]
+    },
+    {
+      "entry_id": "project-imsc-icel",
+      "title": "IMSc Computational Epigraphy Lab Indus research program",
+      "entity_type": "institution_or_project",
+      "evidence_tier": "A",
+      "tier_rationale": "IMSc-hosted official workshop pages and an IMSc-hosted program paper directly document the lab, training activities, funding, methods, and current development work.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Computational Epigraphy Lab",
+          "The Institute of Mathematical Sciences",
+          "Sitabhra Sinha",
+          "Md Izhar Ashraf"
+        ],
+        "issued": "active in official 2024-2025 records",
+        "publisher_or_venue": "The Institute of Mathematical Sciences, Chennai",
+        "doi": null,
+        "other_identifiers": [
+          "iCEL",
+          "IMSc Computational Epigraphy Lab"
+        ],
+        "links": [
+          {
+            "link_type": "official_record",
+            "url": "https://www.imsc.res.in/~sitabhra/meetings/bitsscripts25/"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://www.imsc.res.in/~sitabhra/papers/sinha_ashraf_Indus100_confproc_2025.pdf"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "institutional_statement",
+        "attribution": "source_reported",
+        "acceptance": "established",
+        "statement": "IMSc's Computational Epigraphy Lab documents an ongoing data-analytics program on writing systems with special focus on the Indus script, repeated computational-epigraphy workshops, and work toward three-dimensional artifact records and a contextual digital platform.",
+        "scope": "Verified institutional program, training, and stated infrastructure work; not verification of a decipherment or of a released open three-dimensional corpus."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "The official 2025 workshop page identifies iCEL organizers and a twelve-day program focused on computational epigraphy and Indus corpora.",
+          "locator": "https://www.imsc.res.in/~sitabhra/meetings/bitsscripts25/"
+        },
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "The IMSc-hosted 2025 paper describes the funded iCEL program, Mahadevan and Wells corpus use, statistical segmentation, and then-current construction of three-dimensional artifact representations.",
+          "locator": "https://www.imsc.res.in/~sitabhra/papers/sinha_ashraf_Indus100_confproc_2025.pdf"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "data",
+          "verification": "unverified",
+          "statement": "No public versioned release, licence, coverage manifest, or completion status for the described three-dimensional artifact database was verified."
+        },
+        {
+          "category": "institutional",
+          "verification": "unverified",
+          "statement": "A standalone official page specifying the lab's formal start date, current staffing, budget period, and project end date was not located."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Recheck IMSc records for current staff, funding, workshops, publications, and a released versioned platform.",
+          "Audit any future corpus or three-dimensional release independently for provenance, rights, and duplicate control."
+        ],
+        "current_result": "not_tested",
+        "notes": "Institutional activity is established; claimed research outputs still require result-level reproduction."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "Workshop pages and the hosted paper are public; no licence was verified for underlying Mahadevan, Wells, artifact-image, or three-dimensional data.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "icit",
+          "mahadevan-1977"
+        ],
+        "upstream_entry_ids": [
+          "corpus-mahadevan-1977",
+          "database-icit"
+        ],
+        "notes": "The program paper explicitly identifies Mahadevan- and Wells-family corpora as analytical inputs."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-10-26"
+      },
+      "tags": [
+        "computational-epigraphy",
+        "current-project",
+        "icel",
+        "imsc",
+        "training"
+      ]
+    },
+    {
+      "entry_id": "project-cambridge-mahsa-phase2",
+      "title": "Mapping Archaeological Heritage in South Asia, Phase 2",
+      "entity_type": "institution_or_project",
+      "evidence_tier": "A",
+      "tier_rationale": "University of Cambridge project pages identify MAHSA as a current Phase 2 program and document its open geospatial database, methods, team, partners, and regional scope.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "University of Cambridge McDonald Institute for Archaeological Research",
+          "Cameron A. Petrie",
+          "MAHSA project team and partners"
+        ],
+        "issued": "Phase 2 funded through 2029",
+        "publisher_or_venue": "University of Cambridge Department of Archaeology",
+        "doi": null,
+        "other_identifiers": [
+          "MAHSA"
+        ],
+        "links": [
+          {
+            "link_type": "official_record",
+            "url": "https://www.arch.cam.ac.uk/research/projects/current-projects/mapping-archaeological-heritage-south-asia"
+          },
+          {
+            "link_type": "landing_page",
+            "url": "https://www.mahsa.arch.cam.ac.uk/"
+          },
+        {
+          "link_type": "data",
+          "url": "https://www.mahsa.arch.cam.ac.uk/database"
+        },
+        {
+          "link_type": "data",
+          "url": "https://databasemahsa.org/en/"
+        }
+        ]
+      },
+      "claim": {
+        "kind": "institutional_statement",
+        "attribution": "source_reported",
+        "acceptance": "established",
+        "statement": "MAHSA Phase 2 is documenting endangered archaeology across the Indus River Basin and surrounding regions with historical maps, remote sensing, field verification, and machine-assisted methods, and is publishing records through an open-access Arches geospatial database.",
+        "scope": "A current archaeological-site and heritage-mapping infrastructure relevant to Indus research; it is not an inscription corpus or decipherment project."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "Cambridge lists MAHSA among current projects, identifies Phase 2, the Indus-region scope, international team, funder, and open-access Arches output.",
+          "locator": "https://www.arch.cam.ac.uk/research/projects/current-projects/mapping-archaeological-heritage-south-asia"
+        },
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "The official database page documents the Arches data model, site fields, field forms, and continuing georeferencing work.",
+          "locator": "https://www.mahsa.arch.cam.ac.uk/database"
+        },
+        {
+          "evidence_type": "primary_record",
+          "support": "direct",
+          "description": "The live MAHSA database returned 1,804 results for its default public search and exposed public graph listings during the 2026-07-27 audit.",
+          "locator": "https://databasemahsa.org/en/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "representativeness",
+          "verification": "verified",
+          "statement": "MAHSA's unit of work is archaeological and cultural-heritage sites, not sign tokens, sign readings, or inscription translations."
+        },
+        {
+          "category": "rights",
+          "verification": "verified",
+          "statement": "The live database is publicly queryable, but its visible Terms and Privacy links were placeholder '#' targets and no data licence was found. Arches software licensing does not license MAHSA records, maps, photographs, satellite sources, or exports."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Recheck the official project and database pages for Phase 2 status, geographic coverage, export formats, and record-level rights.",
+          "Validate any linkage from MAHSA site records to inscription artifacts at the artifact identifier and provenance level."
+        ],
+        "current_result": "not_tested",
+        "notes": "The project can supply spatial and heritage context but cannot substitute for an inscription benchmark."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The project and database are openly accessible, but record-, map-, image-, satellite-, and export-level reuse terms require separate verification.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "MAHSA is registered as contextual infrastructure rather than as an upstream transcription source."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-10-26"
+      },
+      "tags": [
+        "arches",
+        "current-project",
+        "heritage",
+        "mahsa",
+        "remote-sensing"
+      ]
+    },
+    {
+      "entry_id": "project-florida-tech-isi-asda",
+      "title": "Ancient Script Digitization and Archival of Indus Valley Artifacts using Deep Learning",
+      "entity_type": "institution_or_project",
+      "evidence_tier": "A",
+      "tier_rationale": "Official Florida Tech and Indian Statistical Institute records document the grant-funded collaboration, institutional participants, implemented pipeline, initial database goal, and proposed next phase.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "Florida Institute of Technology",
+          "Indian Statistical Institute",
+          "Debasis Mitra",
+          "ASDA collaborators"
+        ],
+        "issued": "active as documented in 2025",
+        "publisher_or_venue": "Florida Tech and Indian Statistical Institute",
+        "doi": null,
+        "other_identifiers": [
+          "ASDA",
+          "National Endowment for the Humanities grant title: Ancient Script Digitization and Archival of Indus Valley Artifacts using Deep Learning"
+        ],
+        "links": [
+          {
+            "link_type": "official_record",
+            "url": "https://www.fit.edu/media/pprdocs/coes/20250825_FINAL-WEB_COES-Newsletter-Fall-2025---accessible.pdf"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://digitalcommons.isical.ac.in/journal-articles/5303/"
+          },
+          {
+            "link_type": "code",
+            "url": "https://github.com/DM-BiCLab/Deep-Learning-in-Archiving-Indus-Script-and-Motif-Information"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "institutional_statement",
+        "attribution": "source_reported",
+        "acceptance": "supported",
+        "statement": "Florida Tech's Fall 2025 official record documents an NEH-funded ASDA project led by Debasis Mitra with Indian Statistical Institute collaborators to identify and digitize Indus graphemes and motifs into a database, with a field-photo routing system described as the next phase.",
+        "scope": "A project documented as active in 2025 with an implemented research pipeline; continued funding, deployment, and operational status in July 2026 are not independently confirmed."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "Florida Tech's official College of Engineering and Science newsletter names the NEH grant, project lead, collaborator group, initial database objective, and proposed field-use phase.",
+          "locator": "https://www.fit.edu/media/pprdocs/coes/20250825_FINAL-WEB_COES-Newsletter-Fall-2025---accessible.pdf"
+        },
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "ISI's institutional publication record identifies the Florida Tech and ISI authors and describes the implemented three-model archival pipeline.",
+          "locator": "https://digitalcommons.isical.ac.in/journal-articles/5303/"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "temporal",
+          "verification": "unverified",
+          "statement": "The grant's formal award number, start and end dates, 2026 continuation status, and next-phase funding were not verified in the reviewed official records."
+        },
+        {
+          "category": "data",
+          "verification": "unverified",
+          "statement": "No complete public rights-cleared image dataset, production database export, model release, or field-deployment endpoint was verified."
+        },
+        {
+          "category": "validation",
+          "verification": "verified",
+          "statement": "Digitization and recognition are infrastructure outputs and do not constitute semantic or phonetic decipherment."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Verify the NEH award record, formal project dates, current funding status, and next-phase deployment from official grant or university records.",
+          "Audit any released database, images, code, and models for licences, provenance, artifact-family leakage, and per-class performance."
+        ],
+        "current_result": "not_tested",
+        "notes": "The associated 2025 paper remains a separate result-level entry."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "Institutional descriptions and a code link are public; code, model, database, source-image, and third-party corpus licences require independent review.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [
+          "paper-dixit-2025-asda"
+        ],
+        "notes": "This institutional record points to the separate peer-reviewed ASDA result entry without promoting its metrics into a project-status claim."
+      },
+      "dates": {
+        "accessed_on": "2026-07-26",
+        "verified_on": "2026-07-26",
+        "next_review_on": "2026-08-26"
+      },
+      "tags": [
+        "asda",
+        "computer-vision",
+        "current-project",
+        "digitization",
+        "institutional-collaboration"
+      ]
+    },
+    {
+      "entry_id": "software-prabhatchanchal-indusbench-2026",
+      "title": "IndusBench public repository",
+      "entity_type": "software",
+      "evidence_tier": "D",
+      "tier_rationale": "This is public benchmark code and data requiring independent audit; its test set is public and its upstream labels and rights are unresolved.",
+      "status": "disputed",
+      "citation": {
+        "creators": [
+          "prabhatchanchal"
+        ],
+        "issued": "audited 2026",
+        "publisher_or_venue": "GitHub",
+        "doi": null,
+        "other_identifiers": [
+          "Git commit 5e21125e4f305b42076a6617f8fd2b1ac658be8b"
+        ],
+        "links": [
+          {
+            "link_type": "code",
+            "url": "https://github.com/prabhatchanchal/IndusBench"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "disputed",
+        "statement": "The repository contains 3,237 public rows split as 2,664 train and 573 test, but it is not a secret or institution-held blind benchmark and its published split leaks related identifiers and CISI values across partitions.",
+        "scope": "Static audit of benchmark construction and evaluation code; not an assessment of any proposed decipherment."
+      },
+      "evidence": [
+        {
+          "evidence_type": "code_repository",
+          "support": "direct",
+          "description": "The audited commit exposes the complete test set, derives records from an unlicensed upstream repository, and hashes only ID arrays in lock.json without runtime recomputation.",
+          "locator": "https://github.com/prabhatchanchal/IndusBench"
+        },
+        {
+          "evidence_type": "independent_reproduction",
+          "support": "direct",
+          "description": "Static split audit found 43 normalized branch-ID groups and 43 identical nonempty CISI values spanning train and test; metric inspection found tie and fixed-score behavior that can award high scores without predictive evidence.",
+          "locator": "https://github.com/prabhatchanchal/IndusBench"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "provenance",
+          "verification": "verified",
+          "statement": "The repository and its yajnadevam/lipi upstream have no verified licence or artifact-level primary provenance."
+        },
+        {
+          "category": "validation",
+          "verification": "verified",
+          "statement": "A public test set cannot support a genuinely blind prize claim, and the split does not isolate branch-related records or repeated CISI identifiers."
+        },
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "The current DCS grammar tie handling, fixed reproducibility score, and model-name-based simplicity score are not reliable evidence of generalization."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Publish primary record lineage and licences for every row.",
+          "Rebuild partitions by physical artifact, branch family, CISI identity, image near-duplicate, and template family.",
+          "Move final test material to an independent custodian and bind all input bytes, code, environment, and scoring logic."
+        ],
+        "current_result": "failed",
+        "notes": "The audited version must not be represented as this project's blind benchmark or as validated ground truth."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The public repository has no verified licence, and visibility does not authorize redistribution of its code, labels, or upstream materials.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "yajnadevam-lipi"
+        ],
+        "upstream_entry_ids": [],
+        "notes": "The upstream repository mixes its author's interpretation with data and lacks a verified licence and primary record manifest."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-08-27"
+      },
+      "tags": [
+        "benchmark-audit",
+        "data-leakage",
+        "open-source",
+        "public-test"
+      ]
+    },
+    {
+      "entry_id": "dataset-hf-hellosindh-indus-script-synthetic-2026",
+      "title": "Indus Script Synthetic dataset and model family",
+      "entity_type": "dataset",
+      "evidence_tier": "D",
+      "tier_rationale": "This is a public synthetic dataset and model release whose hidden seed corpus, training lineage, and circular evaluation require audit.",
+      "status": "disputed",
+      "citation": {
+        "creators": [
+          "hellosindh"
+        ],
+        "issued": "audited 2026",
+        "publisher_or_venue": "Hugging Face",
+        "doi": null,
+        "other_identifiers": [
+          "dataset commit e455cfc7e9069ade81ce994b47b7a7533308627e",
+          "models commit 4f6155bc56be51ae62676c292afc42096a04f9d8",
+          "demo commit 4a8c284252ab119a80a2b0e27af810a157b650fc"
+        ],
+        "links": [
+          {
+            "link_type": "data",
+            "url": "https://huggingface.co/datasets/hellosindh/indus-script-synthetic"
+          },
+          {
+            "link_type": "code",
+            "url": "https://huggingface.co/hellosindh/indus-script-models"
+          },
+          {
+            "link_type": "landing_page",
+            "url": "https://huggingface.co/spaces/hellosindh/indus-script-demo"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "disputed",
+        "statement": "The release is useful only as author-generated synthetic material; it does not provide an independently verifiable real-inscription ground truth or held-out decipherment benchmark.",
+        "scope": "Audit of dataset lineage, internal consistency, licensing, and evaluation independence."
+      },
+      "evidence": [
+        {
+          "evidence_type": "corpus_metadata",
+          "support": "direct",
+          "description": "The dataset card says 5,000 sequences were generated from 3,310 real sequences, but the 3,310-row seed corpus, source manifest, split, training code, seed, and environment are not public.",
+          "locator": "https://huggingface.co/datasets/hellosindh/indus-script-synthetic"
+        },
+        {
+          "evidence_type": "code_repository",
+          "support": "direct",
+          "description": "The model family evaluates generated sequences with the generating model and then retrains with synthetic outputs; the release also reports 752 exact training-sequence matches as validation.",
+          "locator": "https://huggingface.co/hellosindh/indus-script-models"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "provenance",
+          "verification": "verified",
+          "statement": "The claimed 3,310 real sequences and their artifact, edition, transcription, and rights lineage are not included."
+        },
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Self-scoring, exact training matches, and retraining on generated output are circular and cannot establish independent archaeological or linguistic validity."
+        },
+        {
+          "category": "data",
+          "verification": "verified",
+          "statement": "The README states 641 signs while the released sign_index.json contains 715; it describes JSONL although the audited dataset head exposes CSV."
+        },
+        {
+          "category": "rights",
+          "verification": "unverified",
+          "statement": "The CC-BY-4.0 card does not establish rights in unprovided real-source rows or Private Use Area glyph designs."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Release the exact real seed corpus with record-level provenance and rights.",
+          "Release training code, immutable splits, environment, parameters, and random seeds.",
+          "Evaluate only on artifact-family-held-out real inscriptions and unrelated generators."
+        ],
+        "current_result": "failed",
+        "notes": "Synthetic rows must be isolated from all corpus truth, crosswalk, training-evidence, and final-evaluation layers."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The dataset card displays CC-BY-4.0, but upstream real-data and glyph rights are unresolved; the benchmark therefore does not redistribute the release.",
+        "rights_evidence_url": "https://huggingface.co/datasets/hellosindh/indus-script-synthetic"
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "The claimed real seed corpus is not public, so record-level upstream lineage cannot be resolved."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-08-27"
+      },
+      "tags": [
+        "circular-evaluation",
+        "hugging-face",
+        "synthetic-data",
+        "training-leakage"
+      ]
+    },
+    {
+      "entry_id": "software-ai-epigraphy-indiahci2025",
+      "title": "AI-EPIGRAPHY Indus research interface",
+      "entity_type": "software",
+      "evidence_tier": "D",
+      "tier_rationale": "This is public prototype code containing exploratory statistics and interpretation fields, without a verified software licence or ground-truth corpus.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "atulsharma0071"
+        ],
+        "issued": "2025",
+        "publisher_or_venue": "GitHub",
+        "doi": null,
+        "other_identifiers": [
+          "Git commit 30d02d0431ec12a1dea2a10fc9ca52ee0f8bd1b8"
+        ],
+        "links": [
+          {
+            "link_type": "code",
+            "url": "https://github.com/atulsharma0071/indiahci2025"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "supported",
+        "statement": "The repository is an exploratory research UI for frequency, position, transition, and hypothesis inspection; its 45-sign sound and meaning fields are proposed readings rather than verified labels.",
+        "scope": "Software capability and data-boundary assessment; not validation of the displayed phonetic or semantic assignments."
+      },
+      "evidence": [
+        {
+          "evidence_type": "code_repository",
+          "support": "direct",
+          "description": "The audited commit exposes the prototype and a 45-sign CSV containing interpretive sound and meaning values associated with hypotheses including S. R. Rao's.",
+          "locator": "https://github.com/atulsharma0071/indiahci2025"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "rights",
+          "verification": "verified",
+          "statement": "No repository licence was found at the audited commit."
+        },
+        {
+          "category": "validation",
+          "verification": "verified",
+          "statement": "The displayed sound and meaning assignments are not independently established ground truth and must remain in a hypothesis layer."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Add a licence and record-level provenance for every observational field.",
+          "Separate source observations from author-attributed phonetic and semantic hypotheses.",
+          "Evaluate structural tools on immutable, leakage-controlled corpus revisions."
+        ],
+        "current_result": "mixed",
+        "notes": "The UI may be useful for exploration after data and hypothesis layers are separated."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The repository is visible but no licence was verified; its code and bundled data are not redistributed.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "Hypothesis sources are named in the prototype, but primary artifact and transcription lineage remains unresolved."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-09-27"
+      },
+      "tags": [
+        "exploratory-ui",
+        "hypothesis-separation",
+        "open-source",
+        "visualization"
+      ]
+    },
+    {
+      "entry_id": "software-ivc2tyc-1.0.0",
+      "title": "ivc2tyc comparative image-embedding reproduction package",
+      "entity_type": "software",
+      "evidence_tier": "D",
+      "tier_rationale": "This is a versioned public method and archive with reusable code, while the bundled third-party ICIT images lack a record-level rights manifest.",
+      "status": "partially_verified",
+      "citation": {
+        "creators": [
+          "oohalakkadi"
+        ],
+        "issued": "v1.0.0",
+        "publisher_or_venue": "GitHub and Zenodo",
+        "doi": "10.5281/zenodo.20755243",
+        "other_identifiers": [
+          "Git commit 1ab600eef88c4cf85ad9fc0cfe2d272e73eb4821",
+          "PCI Archaeology recommendation 10.24072/pci.archaeo.100711"
+        ],
+        "links": [
+          {
+            "link_type": "code",
+            "url": "https://github.com/oohalakkadi/ivc2tyc/tree/v1.0.0"
+          },
+          {
+            "link_type": "data",
+            "url": "https://doi.org/10.5281/zenodo.20755243"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://doi.org/10.24072/pci.archaeo.100711"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "supported",
+        "statement": "The package is a useful pinned reproduction resource for a comparative image-embedding method, but its 715 ICIT-attributed JPEGs are not a rights-cleared primary inscription corpus.",
+        "scope": "Method reproduction only; no adoption of the bundled images as benchmark evidence."
+      },
+      "evidence": [
+        {
+          "evidence_type": "code_repository",
+          "support": "direct",
+          "description": "The v1.0.0 repository pins method code under MIT and includes 715 JPEGs plus an ICIT.html source copy.",
+          "locator": "https://github.com/oohalakkadi/ivc2tyc/tree/v1.0.0"
+        },
+        {
+          "evidence_type": "published_method",
+          "support": "context_only",
+          "description": "The Zenodo archive and PCI recommendation provide versioned scholarly context for the method.",
+          "locator": "https://doi.org/10.5281/zenodo.20755243"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "rights",
+          "verification": "verified",
+          "statement": "The repository and Zenodo MIT declarations cannot be presumed to relicense third-party ICIT images; no image-level provenance and rights manifest was found."
+        },
+        {
+          "category": "representativeness",
+          "verification": "verified",
+          "statement": "A comparative image set is not a complete artifact-, side-, context-, and transcription-linked Indus corpus."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Obtain image-level ICIT provenance and reuse permission.",
+          "Re-run the pinned method without importing unlicensed images into a released corpus.",
+          "Evaluate on artifact-family-held-out, rights-cleared images."
+        ],
+        "current_result": "mixed",
+        "notes": "Code-level reproduction is separable from image redistribution."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "Method code declares MIT, but the combined package includes third-party ICIT-attributed images with unresolved rights; only links and audit metadata are retained here.",
+        "rights_evidence_url": "https://github.com/oohalakkadi/ivc2tyc/tree/v1.0.0"
+      },
+      "lineage": {
+        "source_registry_ids": [
+          "icit"
+        ],
+        "upstream_entry_ids": [
+          "database-icit"
+        ],
+        "notes": "The package attributes images to ICIT but does not provide a record-level licence or custody manifest."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-10-27"
+      },
+      "tags": [
+        "computer-vision",
+        "image-rights",
+        "reproduction",
+        "versioned-code"
+      ]
+    },
+    {
+      "entry_id": "preprint-kriger-hunt-2026-functional",
+      "title": "Kriger and Hunt 2026 Indus functional hypothesis record",
+      "entity_type": "preprint",
+      "evidence_tier": "D",
+      "tier_rationale": "This is a 2026 Zenodo-hosted interpretation whose record advertises open code/data but whose downloadable files did not contain them at audit time.",
+      "status": "disputed",
+      "citation": {
+        "creators": [
+          "Kriger",
+          "Hunt"
+        ],
+        "issued": "2026",
+        "publisher_or_venue": "Zenodo",
+        "doi": "10.5281/zenodo.19103880",
+        "other_identifiers": [
+          "Zenodo record 19103880"
+        ],
+        "links": [
+          {
+            "link_type": "landing_page",
+            "url": "https://zenodo.org/records/19103880"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "rights_or_access_statement",
+        "attribution": "source_reported",
+        "acceptance": "disputed",
+        "statement": "The record describes its code and data as fully open and says code is attached, but the audited file inventory contained one PDF and no code or data archive.",
+        "scope": "Availability and reproducibility statement only; the work's functional interpretation is not assessed as established."
+      },
+      "evidence": [
+        {
+          "evidence_type": "corpus_metadata",
+          "support": "contradictory",
+          "description": "The Zenodo description promises code/data while the public file inventory exposed only a PDF at the 2026-07-27 audit.",
+          "locator": "https://zenodo.org/records/19103880"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "data",
+          "verification": "verified",
+          "statement": "No downloadable code or data file was present in the audited record."
+        },
+        {
+          "category": "rights",
+          "verification": "verified",
+          "statement": "The record metadata exposed no verified licence value."
+        },
+        {
+          "category": "validation",
+          "verification": "unverified",
+          "statement": "The functional hypothesis has not been independently reproduced against fixed corpus lineage and matched alternatives."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Attach the promised versioned code and data with licences and provenance.",
+          "Reproduce every reported result from the attached package.",
+          "Test the functional hypothesis prospectively against competing linguistic and non-linguistic accounts."
+        ],
+        "current_result": "failed",
+        "notes": "A repository description is not evidence that its promised replication files exist."
+      },
+      "access_rights": {
+        "access_method": "public_download",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "The PDF is publicly downloadable, but the record showed no verified licence and no attached code or data package.",
+        "rights_evidence_url": "https://zenodo.org/records/19103880"
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "Code, data, corpus, and image lineage cannot be audited until the promised files are attached."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2026-08-27"
+      },
+      "tags": [
+        "availability-audit",
+        "functional-hypothesis",
+        "preprint",
+        "zenodo"
+      ]
+    },
+    {
+      "entry_id": "official-unicode-indus-roadmap-2026",
+      "title": "Unicode SMP Roadmap status for Indus signs",
+      "entity_type": "official_record",
+      "evidence_tier": "A",
+      "tier_rationale": "The Unicode Consortium roadmap is the authoritative current status page for proposed and allocated supplementary-plane scripts.",
+      "status": "verified",
+      "citation": {
+        "creators": [
+          "Unicode Consortium"
+        ],
+        "issued": "current roadmap audited 2026-07-27",
+        "publisher_or_venue": "Unicode Consortium",
+        "doi": null,
+        "other_identifiers": [
+          "L2/99-072",
+          "N1959"
+        ],
+        "links": [
+          {
+            "link_type": "official_record",
+            "url": "https://www.unicode.org/roadmaps/smp/"
+          },
+          {
+            "link_type": "official_record",
+            "url": "https://www.unicode.org/L2/L1999/n1959.pdf"
+          }
+        ]
+      },
+      "claim": {
+        "kind": "observation",
+        "attribution": "registry_assessment",
+        "acceptance": "established",
+        "statement": "Indus signs appear only as a provisional roadmap proposal, not as an allocated Unicode block; the linked proposal is a 1999 document for 386 characters.",
+        "scope": "Encoding status only; this record does not endorse a sign inventory or decipherment."
+      },
+      "evidence": [
+        {
+          "evidence_type": "official_statement",
+          "support": "direct",
+          "description": "The current Supplementary Multilingual Plane roadmap marks Indus as proposed rather than allocated.",
+          "locator": "https://www.unicode.org/roadmaps/smp/"
+        },
+        {
+          "evidence_type": "official_statement",
+          "support": "context_only",
+          "description": "The roadmap links to the 1999 proposal for 386 characters.",
+          "locator": "https://www.unicode.org/L2/L1999/n1959.pdf"
+        }
+      ],
+      "limitations": [
+        {
+          "category": "methodology",
+          "verification": "verified",
+          "statement": "Private Use Area code points used by fonts are local conventions and cannot serve as globally stable sign identities."
+        },
+        {
+          "category": "temporal",
+          "verification": "verified",
+          "statement": "Roadmap status can change and must be rechecked against the Unicode code charts and pipeline."
+        }
+      ],
+      "falsification": {
+        "applicability": "audit_only",
+        "criteria": [
+          "Recheck the current SMP roadmap, proposal pipeline, and published Unicode code charts.",
+          "Record any future allocation, code-point changes, inventory revision, and normalization guidance."
+        ],
+        "current_result": "not_tested",
+        "notes": "Internal records must use inventory ID, sign ID, version, and explicit crosswalk rather than bare PUA code points."
+      },
+      "access_rights": {
+        "access_method": "public_web",
+        "rights_status": "unknown",
+        "license_id": null,
+        "redistribution": false,
+        "permitted_use": "link_only",
+        "statement": "This registry links and paraphrases Unicode's official materials; no redistribution licence for the proposal PDF is asserted here.",
+        "rights_evidence_url": null
+      },
+      "lineage": {
+        "source_registry_ids": [],
+        "upstream_entry_ids": [],
+        "notes": "Encoding status is independent of the Mahadevan, Wells/ICIT, CISI, and font-specific sign inventories."
+      },
+      "dates": {
+        "accessed_on": "2026-07-27",
+        "verified_on": "2026-07-27",
+        "next_review_on": "2027-01-27"
+      },
+      "tags": [
+        "encoding",
+        "inventory-versioning",
+        "unicode"
+      ]
+    }
+  ]
+}

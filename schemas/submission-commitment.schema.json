@@ -1,0 +1,356 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "submission-commitment.schema.json",
+  "title": "IndusBench local submission content commitment",
+  "description": "A deterministic exact-byte commitment to the complete inventory below a selected local root, declared roles, an entrypoint, and a caller-declared digest of a separately verified benchmark definition. It cannot attest blindness, custody, trusted time, authorship, confidentiality, execution, or results.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "canonicalization",
+    "digest_suite",
+    "commitment_id",
+    "commitment_sha256",
+    "scientific_scope",
+    "target",
+    "tree",
+    "entrypoint",
+    "assurance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "canonicalization": {
+      "const": "indus-json-c14n-v1"
+    },
+    "digest_suite": {
+      "const": "indusbench-submission-sha256-v0.1"
+    },
+    "commitment_id": {
+      "type": "string",
+      "pattern": "^submission-commitment:sha256:[0-9a-f]{64}$"
+    },
+    "commitment_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "scientific_scope": {
+      "const": "submission tree bytes, declared roles, a declared entrypoint, and a caller-declared target benchmark-definition digest only; no blind, custody, trusted-time, authorship, confidentiality, runtime, result, decipherment, or translation inference"
+    },
+    "target": {
+      "$ref": "#/$defs/target"
+    },
+    "tree": {
+      "$ref": "#/$defs/tree"
+    },
+    "entrypoint": {
+      "$ref": "#/$defs/entrypoint"
+    },
+    "assurance": {
+      "$ref": "#/$defs/assurance"
+    }
+  },
+  "$defs": {
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "safe_path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^[A-Za-z0-9._+@-]+(?:/[A-Za-z0-9._+@-]+)*$"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "benchmark_definition_sha256"
+      ],
+      "properties": {
+        "benchmark_definition_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      }
+    },
+    "role": {
+      "enum": [
+        "entrypoint",
+        "source",
+        "configuration",
+        "model_weight",
+        "dependency",
+        "runtime_input"
+      ]
+    },
+    "directory_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "type"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/safe_path"
+        },
+        "type": {
+          "const": "directory"
+        }
+      }
+    },
+    "file_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "type",
+        "bytes",
+        "content_sha256",
+        "executable",
+        "roles"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/safe_path"
+        },
+        "type": {
+          "const": "file"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8589934592
+        },
+        "content_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "executable": {
+          "type": "boolean"
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/role"
+          }
+        }
+      }
+    },
+    "role_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entrypoint",
+        "source",
+        "configuration",
+        "model_weight",
+        "dependency",
+        "runtime_input"
+      ],
+      "properties": {
+        "entrypoint": {
+          "const": 1
+        },
+        "source": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        "configuration": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "model_weight": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "dependency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "runtime_input": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        }
+      }
+    },
+    "tree": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tree_sha256",
+        "entry_count",
+        "file_count",
+        "directory_count",
+        "total_bytes",
+        "role_counts",
+        "entries"
+      ],
+      "properties": {
+        "tree_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "entry_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        "file_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        "directory_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "total_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 17179869184
+        },
+        "role_counts": {
+          "$ref": "#/$defs/role_counts"
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4096,
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/directory_entry"
+              },
+              {
+                "$ref": "#/$defs/file_entry"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "entrypoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "path",
+        "working_directory",
+        "static_arguments"
+      ],
+      "properties": {
+        "kind": {
+          "const": "declared_tree_file"
+        },
+        "path": {
+          "$ref": "#/$defs/safe_path"
+        },
+        "working_directory": {
+          "const": "."
+        },
+        "static_arguments": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        }
+      }
+    },
+    "assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_class",
+        "blind_claim_allowed",
+        "final_evaluation_eligible",
+        "externally_anchored",
+        "custody_attested",
+        "trusted_timestamp_attested",
+        "authorship_attested",
+        "access_history_attested",
+        "confidentiality_attested",
+        "runtime_isolation_attested",
+        "execution_result_attested",
+        "reason_codes"
+      ],
+      "properties": {
+        "claim_class": {
+          "const": "submission_content_commitment"
+        },
+        "blind_claim_allowed": {
+          "const": false
+        },
+        "final_evaluation_eligible": {
+          "const": false
+        },
+        "externally_anchored": {
+          "const": false
+        },
+        "custody_attested": {
+          "const": false
+        },
+        "trusted_timestamp_attested": {
+          "const": false
+        },
+        "authorship_attested": {
+          "const": false
+        },
+        "access_history_attested": {
+          "const": false
+        },
+        "confidentiality_attested": {
+          "const": false
+        },
+        "runtime_isolation_attested": {
+          "const": false
+        },
+        "execution_result_attested": {
+          "const": false
+        },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "prefixItems": [
+            {
+              "const": "content_identity_only"
+            },
+            {
+              "const": "manifest_not_confidential_or_unlinkable"
+            },
+            {
+              "const": "no_external_anchor_in_commitment"
+            },
+            {
+              "const": "no_custody_receipt_in_commitment"
+            },
+            {
+              "const": "no_trusted_timestamp_in_commitment"
+            },
+            {
+              "const": "author_identity_not_attested"
+            },
+            {
+              "const": "hidden_data_access_not_observed"
+            },
+            {
+              "const": "runtime_not_executed_or_attested"
+            }
+          ],
+          "items": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "M-9001A",
+    "description": "synthetic unicorn seal",
+    "graphemes": [
+      {
+        "id": "P901",
+        "features": [0, 1, 0, 7]
+      },
+      {
+        "id": "P902",
+        "features": [25, 1, 20]
+      },
+      {
+        "id": "P903",
+        "features": [0, 2, 0]
+      }
+    ]
+  },
+  {
+    "id": "M-9001B",
+    "description": "synthetic unicorn seal",
+    "graphemes": [
+      {
+        "id": "P904",
+        "features": [0, 1, 10]
+      }
+    ]
+  }
+]

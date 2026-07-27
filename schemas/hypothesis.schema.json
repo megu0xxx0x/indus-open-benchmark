@@ -1,0 +1,726 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hypothesis.schema.json",
+  "title": "Indus Open Benchmark hypothesis record",
+  "description": "Normative, versioned record for interpretations and prospective predictions. It is intentionally separate from artifact observations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "hypothesis_id",
+    "version",
+    "title",
+    "status",
+    "created_at",
+    "updated_at",
+    "authors",
+    "license_id",
+    "preregistration",
+    "scope",
+    "assumptions",
+    "sign_mappings",
+    "rules",
+    "claims",
+    "predictions",
+    "evidence",
+    "exceptions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "hypothesis_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "preregistered",
+        "testing",
+        "supported",
+        "rejected",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/author"
+      }
+    },
+    "license_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preregistration": {
+      "$ref": "#/$defs/preregistration"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assumption"
+      }
+    },
+    "sign_mappings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sign_mapping"
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "predictions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/prediction"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/exception"
+      }
+    }
+  },
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "nullable_stable_id": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/stable_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullable_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "nullable_date_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "author": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "orcid",
+        "affiliation"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "orcid": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "affiliation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "preregistration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frozen",
+        "registered_at",
+        "registry_uri",
+        "content_hash"
+      ],
+      "properties": {
+        "frozen": {
+          "type": "boolean"
+        },
+        "registered_at": {
+          "$ref": "#/$defs/nullable_date_time"
+        },
+        "registry_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "content_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_ids",
+        "site_ids",
+        "period_labels",
+        "object_types",
+        "exclusions"
+      ],
+      "properties": {
+        "artifact_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "site_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "period_labels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "object_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "exclusions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "assumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assumption_id",
+        "category",
+        "statement",
+        "confidence",
+        "alternatives_considered"
+      ],
+      "properties": {
+        "assumption_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "category": {
+          "enum": [
+            "writing_system",
+            "reading_direction",
+            "sign_inventory",
+            "segmentation",
+            "language",
+            "chronology",
+            "function",
+            "other"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "alternatives_considered": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "sign_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapping_id",
+        "sign_id",
+        "value_type",
+        "proposed_value",
+        "candidate_language",
+        "confidence",
+        "claim_id"
+      ],
+      "properties": {
+        "mapping_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "sign_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value_type": {
+          "enum": [
+            "phonetic",
+            "syllabic",
+            "logographic",
+            "determinative",
+            "numeric",
+            "structural",
+            "nonlinguistic",
+            "unknown"
+          ]
+        },
+        "proposed_value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_language": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "claim_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "rule_type",
+        "description",
+        "formalism",
+        "applies_to",
+        "claim_id"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "rule_type": {
+          "enum": [
+            "segmentation",
+            "ordering",
+            "morphological",
+            "phonological",
+            "syntactic",
+            "numeric",
+            "contextual",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formalism": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "applies_to": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation_ref"
+          }
+        },
+        "claim_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_id",
+        "claim_type",
+        "statement",
+        "observation_refs",
+        "proposed_value",
+        "confidence",
+        "falsification_criteria"
+      ],
+      "properties": {
+        "claim_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "claim_type": {
+          "enum": [
+            "reading_direction",
+            "sign_equivalence",
+            "sign_value",
+            "segmentation",
+            "language_assignment",
+            "lexical_mapping",
+            "grammatical_rule",
+            "numeric_interpretation",
+            "functional_interpretation",
+            "nonlinguistic_interpretation",
+            "other"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation_ref"
+          }
+        },
+        "proposed_value": {
+          "$ref": "#/$defs/proposed_value"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "falsification_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "proposed_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "sign_ids",
+        "boundaries",
+        "direction",
+        "language",
+        "value_type",
+        "numeric_value"
+      ],
+      "properties": {
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sign_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "boundaries": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "direction": {
+          "enum": [
+            "left_to_right",
+            "right_to_left",
+            "top_to_bottom",
+            "bottom_to_top",
+            "boustrophedon",
+            "mixed",
+            "unknown",
+            null
+          ]
+        },
+        "language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value_type": {
+          "enum": [
+            "transcription",
+            "phonetic",
+            "lexical",
+            "grammatical",
+            "numeric",
+            "semantic",
+            "functional",
+            "nonlinguistic",
+            "other",
+            null
+          ]
+        },
+        "numeric_value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "prediction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prediction_id",
+        "made_at",
+        "target",
+        "statement",
+        "expected_observation",
+        "commitment_hash",
+        "evaluation_status",
+        "evaluated_at",
+        "evaluation_ref"
+      ],
+      "properties": {
+        "prediction_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "made_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "target": {
+          "$ref": "#/$defs/prediction_target"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_observation": {
+          "$ref": "#/$defs/proposed_value"
+        },
+        "commitment_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "evaluation_status": {
+          "enum": [
+            "sealed",
+            "pending",
+            "matched",
+            "failed",
+            "indeterminate"
+          ]
+        },
+        "evaluated_at": {
+          "$ref": "#/$defs/nullable_date_time"
+        },
+        "evaluation_ref": {
+          "$ref": "#/$defs/nullable_uri"
+        }
+      }
+    },
+    "prediction_target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_ref",
+        "withheld_target_id",
+        "context_revealed"
+      ],
+      "properties": {
+        "observation_ref": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/observation_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "withheld_target_id": {
+          "$ref": "#/$defs/nullable_stable_id"
+        },
+        "context_revealed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "source_id",
+        "locator",
+        "role",
+        "claim_ids",
+        "observation_refs",
+        "notes"
+      ],
+      "properties": {
+        "evidence_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "source_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "locator": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "role": {
+          "enum": [
+            "supporting",
+            "contradicting",
+            "contextual",
+            "methodological"
+          ]
+        },
+        "claim_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "observation_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation_ref"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "exception": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exception_id",
+        "claim_id",
+        "observation_refs",
+        "reason",
+        "registered_at"
+      ],
+      "properties": {
+        "exception_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "claim_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "observation_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/observation_ref"
+          }
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registered_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "observation_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "side_id",
+        "line_id",
+        "token_id"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "side_id": {
+          "$ref": "#/$defs/nullable_stable_id"
+        },
+        "line_id": {
+          "$ref": "#/$defs/nullable_stable_id"
+        },
+        "token_id": {
+          "$ref": "#/$defs/nullable_stable_id"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,630 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/museum-review.schema.json",
+  "title": "Append-only museum human-observation review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_state",
+    "review_id",
+    "packet_id",
+    "assignment_id",
+    "review_stage",
+    "subject_id",
+    "scientific_scope",
+    "source_commitment",
+    "actor",
+    "input_reviews",
+    "entity_observations",
+    "relationship_assertions",
+    "catalog_crosswalk_assertions",
+    "disagreements",
+    "outcome",
+    "limitations",
+    "supersedes_review_id",
+    "supersedes_review_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.2.0"
+    },
+    "record_state": {
+      "const": "human_observation_review"
+    },
+    "review_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "packet_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "assignment_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "review_stage": {
+      "enum": [
+        "independent",
+        "adjudication"
+      ]
+    },
+    "subject_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "scientific_scope": {
+      "const": "physical and catalog observation only; no sign reading, phonetic, language, semantic, or translation inference"
+    },
+    "source_commitment": {
+      "$ref": "#/$defs/source_commitment"
+    },
+    "actor": {
+      "$ref": "#/$defs/actor"
+    },
+    "input_reviews": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/checksum"
+      }
+    },
+    "entity_observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entity_observation"
+      }
+    },
+    "relationship_assertions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relationship_assertion"
+      }
+    },
+    "catalog_crosswalk_assertions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/catalog_crosswalk"
+      }
+    },
+    "disagreements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "outcome": {
+      "enum": [
+        "complete",
+        "needs_more_evidence",
+        "abstain"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "supersedes_review_id": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/stable_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "supersedes_review_sha256": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/checksum"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "supersedes_review_id": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "supersedes_review_id"
+        ]
+      },
+      "then": {
+        "properties": {
+          "supersedes_review_sha256": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "supersedes_review_sha256": {
+            "$ref": "#/$defs/checksum"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_stage": {
+            "const": "independent"
+          }
+        },
+        "required": [
+          "review_stage"
+        ]
+      },
+      "then": {
+        "properties": {
+          "input_reviews": {
+            "maxItems": 0
+          },
+          "actor": {
+            "properties": {
+              "independent_pass": {
+                "const": true
+              },
+              "role": {
+                "not": {
+                  "const": "adjudicator"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_stage": {
+            "const": "adjudication"
+          }
+        },
+        "required": [
+          "review_stage"
+        ]
+      },
+      "then": {
+        "properties": {
+          "input_reviews": {
+            "minItems": 2
+          },
+          "actor": {
+            "properties": {
+              "independent_pass": {
+                "const": false
+              },
+              "role": {
+                "const": "adjudicator"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity_observations": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewer_manifest_sha256",
+        "subject_record_sha256",
+        "evidence_sha256s"
+      ],
+      "properties": {
+        "reviewer_manifest_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "subject_record_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "evidence_sha256s": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/checksum"
+          }
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "role",
+        "expertise",
+        "reviewed_at",
+        "independent_pass",
+        "conflict_status",
+        "prior_familiarity",
+        "viewing_methods"
+      ],
+      "properties": {
+        "actor_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "role": {
+          "enum": [
+            "visual_reviewer",
+            "collection_specialist",
+            "archaeologist",
+            "adjudicator"
+          ]
+        },
+        "expertise": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "visual",
+              "collections",
+              "archaeology"
+            ]
+          }
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "independent_pass": {
+          "type": "boolean"
+        },
+        "conflict_status": {
+          "enum": [
+            "none_declared",
+            "declared",
+            "unknown"
+          ]
+        },
+        "prior_familiarity": {
+          "enum": [
+            "none",
+            "possible",
+            "known",
+            "unknown"
+          ]
+        },
+        "viewing_methods": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "confidence",
+        "basis_codes",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "clear",
+            "uncertain",
+            "ambiguous",
+            "unresolved",
+            "not_assessable"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "basis_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "point": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "inscription_region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "region_id",
+        "image_id",
+        "image_sha256",
+        "coordinate_space",
+        "presence",
+        "polygon",
+        "uncertainty"
+      ],
+      "properties": {
+        "region_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "image_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "image_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "coordinate_space": {
+          "const": "normalized_original_image"
+        },
+        "presence": {
+          "enum": [
+            "present",
+            "possible",
+            "not_visible",
+            "absent",
+            "unresolved"
+          ]
+        },
+        "polygon": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/point"
+          }
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/uncertainty"
+        }
+      }
+    },
+    "entity_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity_id",
+        "image_id",
+        "image_sha256",
+        "depicted_carrier",
+        "physical_surface",
+        "inscription_regions",
+        "damage_or_occlusion",
+        "notes"
+      ],
+      "properties": {
+        "entity_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "image_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "image_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "depicted_carrier": {
+          "enum": [
+            "seal_matrix",
+            "ancient_impression",
+            "modern_impression",
+            "modern_cast",
+            "direct_inscribed_object",
+            "drawing",
+            "unknown"
+          ]
+        },
+        "physical_surface": {
+          "enum": [
+            "inscribed_surface",
+            "back_surface",
+            "edge",
+            "other_surface",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "inscription_regions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inscription_region"
+          }
+        },
+        "damage_or_occlusion": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "relationship_assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertion_id",
+        "left_entity_id",
+        "right_entity_id",
+        "relationship",
+        "uncertainty",
+        "evidence",
+        "counterevidence"
+      ],
+      "properties": {
+        "assertion_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "left_entity_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "right_entity_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "relationship": {
+          "enum": [
+            "same_physical_artifact",
+            "seal_to_impression",
+            "modern_cast_of",
+            "fragment_of",
+            "joins_with",
+            "same_mold_or_template_family",
+            "possible_same_artifact",
+            "rejected_same_artifact",
+            "unresolved"
+          ]
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/uncertainty"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "counterevidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "catalog_crosswalk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertion_id",
+        "target_source_id",
+        "target_edition",
+        "target_record_id",
+        "relationship",
+        "strength",
+        "evidence",
+        "counterevidence",
+        "counterevidence_checked"
+      ],
+      "properties": {
+        "assertion_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "target_source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_edition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relationship": {
+          "enum": [
+            "same_physical_artifact",
+            "impression_of",
+            "cast_of",
+            "catalog_representation_of",
+            "possible_match",
+            "rejected_match"
+          ]
+        },
+        "strength": {
+          "enum": [
+            "possible",
+            "probable",
+            "exact",
+            "rejected"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "counterevidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "counterevidence_checked": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

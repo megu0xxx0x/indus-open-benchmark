@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/museum-review-ledger.schema.json",
+  "title": "Private append-only museum review ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ledger_id",
+    "packet_id",
+    "created_at",
+    "privacy_classification",
+    "scientific_scope",
+    "source_commitment",
+    "storage",
+    "append_only"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "ledger_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "packet_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "privacy_classification": {
+      "const": "private_append_only_review_ledger"
+    },
+    "scientific_scope": {
+      "const": "physical and catalog observation only; no sign reading, phonetic, language, semantic, or translation inference"
+    },
+    "source_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packet_manifest_sha256",
+        "reviewer_manifest_sha256"
+      ],
+      "properties": {
+        "packet_manifest_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "reviewer_manifest_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "submissions_directory",
+        "adjudications_directory",
+        "filename_rule"
+      ],
+      "properties": {
+        "submissions_directory": {
+          "const": "submissions"
+        },
+        "adjudications_directory": {
+          "const": "adjudications"
+        },
+        "filename_rule": {
+          "const": "sha256-<64 lowercase hex>.json"
+        }
+      }
+    },
+    "append_only": {
+      "const": true
+    }
+  },
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

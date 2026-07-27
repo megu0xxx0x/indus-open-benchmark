@@ -1,0 +1,152 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "quarantine-manifest.schema.json",
+    "title": "Indus Open Benchmark quarantine manifest",
+    "description": "Content-addressed, fail-closed rules that keep rights-, provenance-, leakage-, and hypothesis-risk material out of normal corpus, training, and evaluation paths while preserving explicit audit-only inspection.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "schema_version",
+        "registry_id",
+        "generated_at",
+        "default_policy",
+        "trusted_internal_source_ids",
+        "rules",
+        "manifest_sha256"
+    ],
+    "properties": {
+        "schema_version": {"const": "0.1.0"},
+        "registry_id": {"const": "indus-open-benchmark:quarantine"},
+        "generated_at": {"type": "string", "format": "date-time"},
+        "default_policy": {"const": "deny_unknown_sources"},
+        "trusted_internal_source_ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "uniqueItems": true,
+            "items": {"$ref": "#/$defs/stable_id"}
+        },
+        "rules": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 256,
+            "items": {"$ref": "#/$defs/rule"}
+        },
+        "manifest_sha256": {"$ref": "#/$defs/checksum"}
+    },
+    "$defs": {
+        "stable_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        },
+        "checksum": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "rule": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "rule_id",
+                "entity_ids",
+                "status",
+                "match",
+                "reason_codes",
+                "prohibited_purposes",
+                "audit_use_allowed",
+                "evidence_entry_id",
+                "reviewed_on",
+                "next_review_on",
+                "notes"
+            ],
+            "properties": {
+                "rule_id": {"$ref": "#/$defs/stable_id"},
+                "entity_ids": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 32,
+                    "uniqueItems": true,
+                    "items": {"$ref": "#/$defs/stable_id"}
+                },
+                "status": {"const": "quarantined"},
+                "match": {"$ref": "#/$defs/match"},
+                "reason_codes": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 16,
+                    "uniqueItems": true,
+                    "items": {
+                        "enum": [
+                            "license_missing_or_unresolved",
+                            "record_level_provenance_unresolved",
+                            "third_party_media_rights_unresolved",
+                            "request_or_permission_required",
+                            "public_test_not_blind",
+                            "related_record_split_leakage",
+                            "synthetic_not_observational_ground_truth",
+                            "circular_or_nonindependent_evaluation",
+                            "hypothesis_labels_not_observations",
+                            "upstream_interpretation_mixed_with_data",
+                            "release_artifacts_incomplete",
+                            "unicode_or_pua_not_stable_sign_identity"
+                        ]
+                    }
+                },
+                "prohibited_purposes": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {"$ref": "#/$defs/normal_purpose"}
+                },
+                "audit_use_allowed": {"const": true},
+                "evidence_entry_id": {"$ref": "#/$defs/stable_id"},
+                "reviewed_on": {"type": "string", "format": "date"},
+                "next_review_on": {"type": ["string", "null"], "format": "date"},
+                "notes": {"type": "string", "minLength": 1, "maxLength": 2000}
+            }
+        },
+        "match": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_ids", "locator_prefixes", "revisions"],
+            "properties": {
+                "source_ids": {
+                    "type": "array",
+                    "maxItems": 64,
+                    "uniqueItems": true,
+                    "items": {"$ref": "#/$defs/stable_id"}
+                },
+                "locator_prefixes": {
+                    "type": "array",
+                    "maxItems": 64,
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "format": "uri",
+                        "pattern": "^https://",
+                        "maxLength": 500
+                    }
+                },
+                "revisions": {
+                    "type": "array",
+                    "maxItems": 64,
+                    "uniqueItems": true,
+                    "items": {"type": "string", "minLength": 7, "maxLength": 160}
+                }
+            },
+            "anyOf": [
+                {"properties": {"source_ids": {"minItems": 1}}},
+                {"properties": {"locator_prefixes": {"minItems": 1}}},
+                {"properties": {"revisions": {"minItems": 1}}}
+            ]
+        },
+        "normal_purpose": {
+            "enum": [
+                "corpus_ingestion",
+                "training",
+                "development_evaluation",
+                "final_evaluation",
+                "redistribution"
+            ]
+        }
+    }
+}
