@@ -49,10 +49,69 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   exception text.
 - `schemas/private-review-bundle.schema.json` (v0.1.0) — the closed atomic
   envelope for one policy draft and its structural quarantine ledger.
+- `schemas/kp1982-batch0-source.schema.json` (v0.1.0) — the exact official
+  KP1982 PDF identity, target-page indices, embedded-image geometry, and
+  canonical PBM commitments; it contains no transcription.
+- `schemas/kp1982-layout-seed.schema.json` (v0.1.0) — provisional lane and
+  per-lane row-fit measurements for visual double review; every acceptance
+  assurance is fixed false.
+- `schemas/kp1982-layout-proposal.schema.json` (v0.1.0) — a private,
+  deterministic 700-cell proposal with fixed source/seed/page commitments,
+  integer cell/context rectangles, and exact crop hashes; every human-review,
+  identifier, and decipherment assurance is fixed false.
+- `schemas/sign-inventory.schema.json` (v0.1.0) — a versioned visual sign
+  inventory that keeps primary published identifiers, repeated catalog ranks,
+  graphic evidence, and doubt marks separate from interpretation.
+- `schemas/transcription-review.schema.json` (v0.1.0) — unsealed,
+  image-bound independent transcription and adjudication drafts for private
+  staging only.
 
 The key words **MUST**, **MUST NOT**, **SHOULD**, and **MAY** are normative.
 JSON objects use UTF-8. Times use RFC 3339 UTC where possible. Corpus files use
 JSON Lines: one complete artifact object per non-blank line.
+
+## KP1982 fixed source and transcription bootstrap
+
+`registry/kp1982_batch0.json` binds the official PDF and one-based pages 20–21
+(zero-based indices 19–20). Each target is a 4888×6705 one-bit embedded image
+with a canonical raw PBM commitment. The PBM coordinate origin is top-left;
+rectangles use integer half-open bounds. Normalized coordinates are derived,
+not normative.
+
+The source verifier checks caller-supplied PDF and optional PBM bytes without
+network access. Exact byte identity does not reparse PDF page structure,
+validate crop coordinates, prove external rights, or create a sign inventory.
+The sign-list pages have no text layer, and OCR output is proposal-only.
+
+`propose-kp1982-layout` accepts only the byte-pinned provisional layout seed
+and verified target PBMs. It deterministically derives 35 half-pitch row slots
+for each of ten lanes on both pages and hashes both the non-overlapping cell
+crop and fixed 32-pixel padded context crop. It writes a new private file
+without replacing an existing destination. A cell crop is only a locator and
+may split foreground. The context is a reviewer aid, not accepted glyph
+evidence. `verify-kp1982-layout` MUST rebuild the complete proposal from the
+fixed PBMs and require its canonical exact bytes before any downstream use;
+schema validation alone does not prove cell coverage, rectangle semantics, or
+crop hashes. The V1 canonical manifest byte size and digest are pinned in the
+implementation so an algorithm change must use a new manifest version.
+The CLI verifier additionally requires a stable single-link owner-owned `0600`
+proposal below a physical, pinned, owner-only `0700` parent. Generated
+rectangles and provisional occupancy labels remain review prompts, not
+accepted observations.
+
+The 32-pixel context was selected by an eight-connected-component audit of the
+two fixed pages. Under the proposal-only rule assigning a component to the cell
+with maximum black-pixel overlap (ties by manifest order), it contains each
+owner component on these pages. The proposal records this as the padding basis,
+while its machine-recomputed component-coverage assurance remains false. It
+does not determine the semantic ownership of disconnected quotation-like or
+doubt-like marks, and it must not replace visual double review.
+
+The sign-inventory bootstrap must precede `transcription-review.schema.json`.
+Using an already-created inventory to “review” the pages from which that same
+inventory was derived would be circular. The remaining bootstrap contract
+must independently preserve the upper catalog rank, lower primary identifier,
+glyph-with-marks crop, surrounding printed marks, and unresolved readings.
 
 ## Private corpus readiness
 

@@ -11,7 +11,15 @@ from heapq import heapify, heappop, heappush
 from itertools import count, pairwise
 from typing import Any, Literal, TypeAlias
 
-from indusbench.baseline import CorpusInput, SignSequence, extract_sequences
+from indusbench.baseline import (
+    CorpusInput,
+    SignSequence,
+    extract_evaluation_sequences,
+)
+from indusbench.transcription_admission import (
+    require_admitted_transcription_artifact,
+    require_admitted_transcription_corpus,
+)
 
 AdjacencyGraph: TypeAlias = dict[str, set[str]]
 NullGenerator: TypeAlias = Callable[[CorpusInput, int], list[SignSequence]]
@@ -25,7 +33,7 @@ def build_undirected_adjacency_graph(data: CorpusInput) -> AdjacencyGraph:
     Consecutive equal signs do not create self-loops.
     """
 
-    sequences = extract_sequences(data)
+    sequences = extract_evaluation_sequences(data)
     graph: AdjacencyGraph = {}
     for sequence in sequences:
         for sign in sequence:
@@ -101,6 +109,7 @@ def _artifact_flat_sequence(
     record: Mapping[str, object],
     record_index: int,
 ) -> tuple[SignSequence | None, str]:
+    require_admitted_transcription_artifact(record)
     artifact_id = record.get("artifact_id")
     record_label = artifact_id if isinstance(artifact_id, str) else f"record[{record_index}]"
     sides = record.get("sides")
@@ -190,11 +199,15 @@ def extract_treewidth_sequences(
         raise ValueError("min_length must be at least 1")
 
     materialized: list[object] = [data] if isinstance(data, Mapping) else list(data)
+    if all(isinstance(item, Mapping) for item in materialized):
+        require_admitted_transcription_corpus(
+            item for item in materialized if isinstance(item, Mapping)
+        )
 
     order_basis_counts: Counter[str] = Counter()
     if materialized and all(isinstance(item, Mapping) for item in materialized):
         if sequence_unit == "canonical_line":
-            sequences = extract_sequences(materialized)
+            sequences = extract_evaluation_sequences(materialized)
             order_basis_counts["canonical_reading_order_per_line"] = len(sequences)
         else:
             sequences = []
@@ -206,7 +219,7 @@ def extract_treewidth_sequences(
                     sequences.append(sequence)
                     order_basis_counts[order_basis] += 1
     else:
-        sequences = extract_sequences(materialized)
+        sequences = extract_evaluation_sequences(materialized)
         order_basis_counts["explicit_input_sequences"] = len(sequences)
 
     before_sequence_count = len(sequences)
@@ -237,7 +250,7 @@ def extract_treewidth_sequences(
 def global_frequency_preserving_shuffle(data: CorpusInput, seed: int) -> list[SignSequence]:
     """Shuffle all signs globally while preserving sequence lengths and total counts."""
 
-    sequences = extract_sequences(data)
+    sequences = extract_evaluation_sequences(data)
     signs = [sign for sequence in sequences for sign in sequence]
     random.Random(seed).shuffle(signs)
 
@@ -253,7 +266,7 @@ def global_frequency_preserving_shuffle(data: CorpusInput, seed: int) -> list[Si
 def within_sequence_order_shuffle(data: CorpusInput, seed: int) -> list[SignSequence]:
     """Shuffle order independently inside each extracted inscription sequence."""
 
-    sequences = extract_sequences(data)
+    sequences = extract_evaluation_sequences(data)
     generator = random.Random(seed)
     shuffled: list[SignSequence] = []
     for sequence in sequences:
@@ -266,7 +279,7 @@ def within_sequence_order_shuffle(data: CorpusInput, seed: int) -> list[SignSequ
 def empirical_frequency_iid(data: CorpusInput, seed: int) -> list[SignSequence]:
     """Draw IID signs from observed integer frequencies at the observed lengths."""
 
-    sequences = extract_sequences(data)
+    sequences = extract_evaluation_sequences(data)
     counts = Counter(sign for sequence in sequences for sign in sequence)
     if not counts:
         return []

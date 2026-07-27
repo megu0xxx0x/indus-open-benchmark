@@ -17,7 +17,7 @@ import stat
 import sys
 import tempfile
 from collections.abc import Iterator
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from dataclasses import asdict, dataclass, is_dataclass
 from datetime import UTC, date, datetime
 from pathlib import Path, PurePosixPath
@@ -44,6 +44,27 @@ from indusbench.io import (
     read_jsonl,
     write_json,
     write_jsonl,
+)
+from indusbench.kp1982 import (
+    MAX_CONTRACT_BYTES as KP1982_MAX_CONTRACT_BYTES,
+)
+from indusbench.kp1982 import (
+    MAX_PAGE_PBM_BYTES as KP1982_MAX_PAGE_PBM_BYTES,
+)
+from indusbench.kp1982 import (
+    MAX_SOURCE_BYTES as KP1982_MAX_SOURCE_BYTES,
+)
+from indusbench.kp1982 import KP1982SourceError, verify_kp1982_source
+from indusbench.kp1982_layout import (
+    MAX_PROPOSAL_BYTES as KP1982_MAX_LAYOUT_PROPOSAL_BYTES,
+)
+from indusbench.kp1982_layout import (
+    MAX_SEED_BYTES as KP1982_MAX_LAYOUT_SEED_BYTES,
+)
+from indusbench.kp1982_layout import (
+    KP1982LayoutError,
+    build_layout_proposal,
+    verify_layout_proposal_bytes,
 )
 from indusbench.manifest import build_manifest, corpus_digest, sha256_json
 from indusbench.museum_intake import (
@@ -92,6 +113,9 @@ from indusbench.private_readiness import (
 )
 from indusbench.private_readiness import (
     PrivateReadinessError,
+    _close_pinned_directory,
+    _open_pinned_directory,
+    _verify_pinned_directory,
     audit_private_corpus,
     read_private_policy,
     safe_failure_summary,
@@ -129,6 +153,15 @@ from indusbench.submission_commitment import (
     build_submission_commitment,
     read_submission_commitment,
     verify_submission_commitment,
+)
+from indusbench.transcription_admission import require_admitted_transcription_corpus
+from indusbench.transcription_review import (
+    TranscriptionReviewError,
+    compare_independent_transcriptions,
+    promote_adjudicated_transcription,
+    sha256_bytes,
+    validate_sign_inventory,
+    validate_transcription_review,
 )
 from indusbench.treewidth_audit import evaluate_treewidth_nulls
 from indusbench.validation import SCHEMA_VERSION, has_errors, validate_corpus
@@ -213,6 +246,28 @@ def _default_source_registry() -> Path:
     return Path(str(package_candidate))
 
 
+def _default_kp1982_contract() -> Path:
+    project_candidate = Path(__file__).resolve().parents[2] / "registry" / "kp1982_batch0.json"
+    if project_candidate.is_file():
+        return project_candidate
+    package_candidate = importlib.resources.files("indusbench").joinpath(
+        "registry/kp1982_batch0.json"
+    )
+    return Path(str(package_candidate))
+
+
+def _default_kp1982_layout_seed() -> Path:
+    project_candidate = (
+        Path(__file__).resolve().parents[2] / "registry" / "kp1982_batch0_layout_seed.json"
+    )
+    if project_candidate.is_file():
+        return project_candidate
+    package_candidate = importlib.resources.files("indusbench").joinpath(
+        "registry/kp1982_batch0_layout_seed.json"
+    )
+    return Path(str(package_candidate))
+
+
 def _default_quarantine_registry() -> Path:
     project_candidate = Path(__file__).resolve().parents[2] / "registry" / "quarantine.json"
     if project_candidate.is_file():
@@ -249,6 +304,8 @@ def _inspect_quarantine(
     *,
     purpose: str,
 ) -> QuarantineReport:
+    if purpose != "schema_validation":
+        require_admitted_transcription_corpus(records)
     source_registry, quarantine_registry = _quarantine_policy(args)
     return inspect_corpus_quarantine(
         records,
@@ -264,6 +321,7 @@ def _require_quarantine(
     *,
     purpose: str,
 ) -> QuarantineReport:
+    require_admitted_transcription_corpus(records)
     source_registry, quarantine_registry = _quarantine_policy(args)
     return require_corpus_permitted(
         records,
@@ -517,6 +575,83 @@ def _read_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
             os.close(descriptor)
 
 
+def _read_private_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
+    """Read one stable owner-only file through a pinned physical parent."""
+
+    absolute = Path(os.path.abspath(path))
+    if (
+        not absolute.name
+        or absolute.name in {".", ".."}
+        or "/" in absolute.name
+        or "\x00" in absolute.name
+    ):
+        raise ValueError("private input filename is invalid")
+    pinned = _open_pinned_directory(absolute.parent, private_target=True)
+    descriptor: int | None = None
+    try:
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NOFOLLOW", 0)
+            | getattr(os, "O_NONBLOCK", 0)
+        )
+        descriptor = os.open(absolute.name, flags, dir_fd=pinned.descriptor)
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or before.st_nlink != 1
+            or before.st_uid != os.geteuid()
+            or stat.S_IMODE(before.st_mode) != 0o600
+            or before.st_size > max_bytes
+            or _descriptor_has_extended_acl(descriptor)
+        ):
+            raise ValueError("private input is not a bounded owner-only regular file")
+        chunks: list[bytes] = []
+        byte_count = 0
+        while True:
+            chunk = os.read(descriptor, min(1024 * 1024, max_bytes + 1 - byte_count))
+            if not chunk:
+                break
+            byte_count += len(chunk)
+            if byte_count > max_bytes:
+                raise ValueError("private input exceeds its byte limit")
+            chunks.append(chunk)
+        after = os.fstat(descriptor)
+        namespace = os.stat(
+            absolute.name,
+            dir_fd=pinned.descriptor,
+            follow_symlinks=False,
+        )
+        fingerprint_fields = (
+            "st_dev",
+            "st_ino",
+            "st_mode",
+            "st_uid",
+            "st_gid",
+            "st_nlink",
+            "st_size",
+            "st_mtime_ns",
+            "st_ctime_ns",
+        )
+        before_fingerprint = tuple(getattr(before, field) for field in fingerprint_fields)
+        if (
+            tuple(getattr(after, field) for field in fingerprint_fields) != before_fingerprint
+            or tuple(getattr(namespace, field) for field in fingerprint_fields)
+            != before_fingerprint
+            or _descriptor_has_extended_acl(descriptor)
+        ):
+            raise ValueError("private input changed during its bounded read")
+        _verify_pinned_directory(pinned)
+        return b"".join(chunks)
+    except (OSError, PrivateReadinessError) as error:
+        raise ValueError("private input could not be read safely") from error
+    finally:
+        if descriptor is not None:
+            with suppress(OSError):
+                os.close(descriptor)
+        _close_pinned_directory(pinned)
+
+
 def _museum_json_value(raw_bytes: bytes, *, label: str) -> Any:
     def unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
         value: dict[str, Any] = {}
@@ -526,12 +661,23 @@ def _museum_json_value(raw_bytes: bytes, *, label: str) -> Any:
             value[key] = item
         return value
 
+    def reject_constant(value: str) -> None:
+        raise ValueError(f"{label} contains non-finite JSON number {value!r}")
+
+    def finite_float(value: str) -> float:
+        parsed = float(value)
+        if not math.isfinite(parsed):
+            raise ValueError(f"{label} contains non-finite JSON number {value!r}")
+        return parsed
+
     try:
         return json.loads(
             raw_bytes.decode("utf-8"),
             object_pairs_hook=unique_object,
+            parse_constant=reject_constant,
+            parse_float=finite_float,
         )
-    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+    except (UnicodeDecodeError, json.JSONDecodeError, ValueError) as error:
         raise ValueError(f"{label} is not valid UTF-8 JSON: {error}") from error
 
 
@@ -1106,6 +1252,177 @@ def _write_json_no_replace(
             os.close(descriptor)
         if temporary_path.exists():
             temporary_path.unlink()
+
+
+def _write_private_json_no_replace(
+    destination: Path,
+    value: dict[str, Any],
+) -> tuple[bool, bool]:
+    """Publish private JSON relative to one pinned, owner-only directory."""
+
+    absolute = Path(os.path.abspath(destination))
+    if not absolute.name or absolute.name in {".", ".."} or "\x00" in absolute.name:
+        raise ValueError("private output filename is invalid")
+    raw_bytes = encode_json(value)
+    pinned = _open_pinned_directory(absolute.parent, private_target=True)
+    staging_name = f".indusbench-private-{secrets.token_hex(16)}.tmp"
+    descriptor: int | None = None
+    published = False
+    content_verified = False
+    try:
+        flags = (
+            os.O_RDWR
+            | os.O_CREAT
+            | os.O_EXCL
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NOFOLLOW", 0)
+        )
+        descriptor = os.open(
+            staging_name,
+            flags,
+            0o600,
+            dir_fd=pinned.descriptor,
+        )
+        os.fchmod(descriptor, 0o600)
+        pending = memoryview(raw_bytes)
+        while pending:
+            written = os.write(descriptor, pending)
+            if written <= 0:
+                raise OSError(errno.EIO, "private JSON staging write failed")
+            pending = pending[written:]
+        os.fsync(descriptor)
+        os.lseek(descriptor, 0, os.SEEK_SET)
+        observed = bytearray()
+        while len(observed) < len(raw_bytes):
+            chunk = os.read(descriptor, len(raw_bytes) - len(observed))
+            if not chunk:
+                break
+            observed.extend(chunk)
+        content_verified = bytes(observed) == raw_bytes
+        metadata = os.fstat(descriptor)
+        if (
+            not content_verified
+            or not stat.S_ISREG(metadata.st_mode)
+            or metadata.st_nlink != 1
+            or metadata.st_uid != os.geteuid()
+            or stat.S_IMODE(metadata.st_mode) != 0o600
+            or _descriptor_has_extended_acl(descriptor)
+        ):
+            raise OSError(errno.EIO, "private JSON staging verification failed")
+
+        _verify_pinned_directory(pinned)
+        _rename_private_name_no_replace(
+            pinned.descriptor,
+            staging_name,
+            absolute.name,
+        )
+        published = True
+        published_metadata = os.stat(
+            absolute.name,
+            dir_fd=pinned.descriptor,
+            follow_symlinks=False,
+        )
+        descriptor_metadata = os.fstat(descriptor)
+        os.lseek(descriptor, 0, os.SEEK_SET)
+        published_bytes = bytearray()
+        while len(published_bytes) <= len(raw_bytes):
+            chunk = os.read(descriptor, len(raw_bytes) + 1 - len(published_bytes))
+            if not chunk:
+                break
+            published_bytes.extend(chunk)
+        content_verified = bytes(published_bytes) == raw_bytes
+        if (
+            not content_verified
+            or not stat.S_ISREG(published_metadata.st_mode)
+            or published_metadata.st_dev != metadata.st_dev
+            or published_metadata.st_ino != metadata.st_ino
+            or not stat.S_ISREG(descriptor_metadata.st_mode)
+            or descriptor_metadata.st_dev != metadata.st_dev
+            or descriptor_metadata.st_ino != metadata.st_ino
+            or descriptor_metadata.st_nlink != 1
+            or descriptor_metadata.st_uid != os.geteuid()
+            or stat.S_IMODE(descriptor_metadata.st_mode) != 0o600
+            or _descriptor_has_extended_acl(descriptor)
+        ):
+            raise OSError(errno.EIO, "private JSON publication verification failed")
+        os.fsync(pinned.descriptor)
+        _verify_pinned_directory(pinned)
+        return True, True
+    except _CommittedDurabilityUnknown as error:
+        return False, error.content_verified
+    except (OSError, PrivateReadinessError):
+        if published:
+            return False, content_verified
+        raise
+    finally:
+        if descriptor is not None:
+            with suppress(OSError):
+                os.close(descriptor)
+        if not published:
+            with suppress(OSError):
+                os.unlink(staging_name, dir_fd=pinned.descriptor)
+        _close_pinned_directory(pinned)
+
+
+def _rename_private_name_no_replace(
+    parent_descriptor: int,
+    source_name: str,
+    destination_name: str,
+) -> None:
+    """Atomically rename two basenames under one pinned directory descriptor."""
+
+    for name in (source_name, destination_name):
+        if not name or name in {".", ".."} or "/" in name or "\x00" in name:
+            raise ValueError("private output filename is invalid")
+    encoded_source = os.fsencode(source_name)
+    encoded_destination = os.fsencode(destination_name)
+    ctypes.set_errno(0)
+    if sys.platform == "darwin":
+        renameatx = ctypes.CDLL(None, use_errno=True).renameatx_np
+        renameatx.argtypes = [
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_uint,
+        ]
+        renameatx.restype = ctypes.c_int
+        result = int(
+            renameatx(
+                parent_descriptor,
+                encoded_source,
+                parent_descriptor,
+                encoded_destination,
+                0x00000004 | 0x00000010,
+            )
+        )
+    elif sys.platform.startswith("linux"):
+        libc = ctypes.CDLL(None, use_errno=True)
+        renameat2 = getattr(libc, "renameat2", None)
+        if renameat2 is None:
+            raise OSError(errno.ENOTSUP, "atomic private publication is unavailable")
+        renameat2.argtypes = [
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_uint,
+        ]
+        renameat2.restype = ctypes.c_int
+        result = int(
+            renameat2(
+                parent_descriptor,
+                encoded_source,
+                parent_descriptor,
+                encoded_destination,
+                1,
+            )
+        )
+    else:
+        raise OSError(errno.ENOTSUP, "atomic private publication is unavailable")
+    if result != 0:
+        error_number = ctypes.get_errno()
+        raise OSError(error_number, os.strerror(error_number))
 
 
 def _validate_review_destination(bundle_dir: Path, output_dir: Path) -> None:
@@ -3154,6 +3471,336 @@ def _command_validate(args: argparse.Namespace) -> int:
     return 2 if has_errors(issues) or not quarantine.allowed else 0
 
 
+def _require_schema_valid(
+    value: Any,
+    schema: Path,
+    *,
+    label: str,
+) -> None:
+    issues = validate_schema_instance(value, schema)
+    if issues:
+        first = issues[0]
+        raise TranscriptionReviewError(f"{label} schema invalid at {first.path}")
+
+
+def _command_verify_kp1982_source(args: argparse.Namespace) -> int:
+    try:
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1982_MAX_CONTRACT_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1982_MAX_SOURCE_BYTES,
+        )
+        page_pbm_bytes = (
+            [
+                _read_regular_bytes(
+                    path,
+                    max_bytes=KP1982_MAX_PAGE_PBM_BYTES,
+                )
+                for path in args.page_pbm
+            ]
+            if args.page_pbm is not None
+            else None
+        )
+        summary = verify_kp1982_source(
+            contract_bytes,
+            source_bytes,
+            page_pbm_bytes=page_pbm_bytes,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1982SourceError("KP1982 fixed source verification failed") from error
+    _print_json(summary)
+    return 0
+
+
+def _command_propose_kp1982_layout(args: argparse.Namespace) -> int:
+    try:
+        source_contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1982_MAX_CONTRACT_BYTES,
+        )
+        layout_seed_bytes = _read_regular_bytes(
+            args.layout_seed,
+            max_bytes=KP1982_MAX_LAYOUT_SEED_BYTES,
+        )
+        page_pbm_bytes = [
+            _read_regular_bytes(
+                path,
+                max_bytes=KP1982_MAX_PAGE_PBM_BYTES,
+            )
+            for path in (args.page20_pbm, args.page21_pbm)
+        ]
+        proposal = build_layout_proposal(
+            source_contract_bytes,
+            layout_seed_bytes,
+            page_pbm_bytes,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1982LayoutError("KP1982 layout proposal generation failed") from error
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.output,
+            proposal,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1982LayoutError(
+            "private KP1982 layout proposal could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        _print_json(
+            {
+                "valid": False,
+                "written": False,
+                "claim_class": "private_layout_proposal_only",
+                "output_content_verified": content_verified,
+                "durability_confirmed": durability_confirmed,
+                "postcondition": "committed_durability_unknown",
+                "counts_disclosed": False,
+                "private_storage_verified": False,
+                "canonical_manifest_bytes_verified": True,
+                "context_component_coverage_recomputed": False,
+                "layout_accepted": False,
+                "human_double_review_complete": False,
+                "identifiers_transcribed": False,
+                "decipherment": False,
+            }
+        )
+        return 1
+    _print_json(
+        {
+            "valid": True,
+            "written": True,
+            "claim_class": "private_layout_proposal_only",
+            "counts_disclosed": False,
+            "private_storage_verified": True,
+            "canonical_manifest_bytes_verified": True,
+            "context_component_coverage_recomputed": False,
+            "layout_accepted": False,
+            "human_double_review_complete": False,
+            "identifiers_transcribed": False,
+            "decipherment": False,
+        }
+    )
+    return 0
+
+
+def _command_verify_kp1982_layout(args: argparse.Namespace) -> int:
+    try:
+        source_contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1982_MAX_CONTRACT_BYTES,
+        )
+        layout_seed_bytes = _read_regular_bytes(
+            args.layout_seed,
+            max_bytes=KP1982_MAX_LAYOUT_SEED_BYTES,
+        )
+        page_pbm_bytes = [
+            _read_regular_bytes(
+                path,
+                max_bytes=KP1982_MAX_PAGE_PBM_BYTES,
+            )
+            for path in (args.page20_pbm, args.page21_pbm)
+        ]
+        proposal_bytes = _read_private_regular_bytes(
+            args.proposal,
+            max_bytes=KP1982_MAX_LAYOUT_PROPOSAL_BYTES,
+        )
+        summary = verify_layout_proposal_bytes(
+            source_contract_bytes,
+            layout_seed_bytes,
+            page_pbm_bytes,
+            proposal_bytes,
+        )
+        summary["private_storage_verified"] = True
+    except (OSError, ValueError) as error:
+        raise KP1982LayoutError("KP1982 layout proposal verification failed") from error
+    _print_json(summary)
+    return 0
+
+
+def _read_transcription_json(path: Path) -> tuple[dict[str, Any], bytes, str]:
+    """Read and hash one bounded, immutable transcription input snapshot."""
+
+    try:
+        raw_bytes = _read_regular_bytes(path, max_bytes=MUSEUM_MAX_INDEX_BYTES)
+        value = _museum_json_value(raw_bytes, label="transcription input")
+    except ValueError as error:
+        raise TranscriptionReviewError(
+            "transcription input could not be read as a safe finite JSON object"
+        ) from error
+    if not isinstance(value, dict):
+        raise TranscriptionReviewError("transcription input must be an object")
+    return value, raw_bytes, sha256_bytes(raw_bytes)
+
+
+def _command_audit_transcription_agreement(args: argparse.Namespace) -> int:
+    inventory, _inventory_bytes, inventory_sha256 = _read_transcription_json(args.inventory)
+    left, _left_bytes, _left_sha256 = _read_transcription_json(args.left)
+    right, _right_bytes, _right_sha256 = _read_transcription_json(args.right)
+    inventory_schema = args.inventory_schema or _default_schema("sign-inventory.schema.json")
+    review_schema = args.review_schema or _default_schema("transcription-review.schema.json")
+    _require_schema_valid(inventory, inventory_schema, label="sign inventory")
+    _require_schema_valid(left, review_schema, label="left transcription")
+    _require_schema_valid(right, review_schema, label="right transcription")
+    validate_sign_inventory(inventory)
+    validate_transcription_review(
+        left,
+        inventory,
+        inventory_sha256=inventory_sha256,
+    )
+    validate_transcription_review(
+        right,
+        inventory,
+        inventory_sha256=inventory_sha256,
+    )
+    summary = compare_independent_transcriptions(
+        left,
+        right,
+        minimum_bbox_iou=args.minimum_bbox_iou,
+    )
+    summary["inventory_bytes_verified"] = True
+    summary["source_commitment_cross_record_consistent"] = True
+    summary["source_image_bytes_present_or_rehashed"] = False
+    private_report_written = False
+    if args.private_report is not None:
+        try:
+            durability_confirmed, content_verified = _write_private_json_no_replace(
+                args.private_report,
+                summary,
+            )
+        except (OSError, PrivateReadinessError, ValueError) as error:
+            raise TranscriptionReviewError(
+                "private transcription report could not be created safely"
+            ) from error
+        if not durability_confirmed or not content_verified:
+            _print_json(
+                {
+                    "valid": False,
+                    "claim_class": "private_draft_validation",
+                    "private_report_written": False,
+                    "output_content_verified": content_verified,
+                    "durability_confirmed": durability_confirmed,
+                    "postcondition": "committed_durability_unknown",
+                    "counts_disclosed": False,
+                    "agreement_result_disclosed": False,
+                    "real_world_independence_verified": False,
+                    "decipherment": False,
+                }
+            )
+            return 1
+        private_report_written = True
+    _print_json(
+        {
+            "valid": True,
+            "claim_class": "private_draft_validation",
+            "private_report_written": private_report_written,
+            "counts_disclosed": False,
+            "agreement_result_disclosed": False,
+            "real_world_independence_verified": False,
+            "decipherment": False,
+        }
+    )
+    return 0
+
+
+def _command_promote_transcription(args: argparse.Namespace) -> int:
+    inventory, inventory_bytes, _inventory_sha256 = _read_transcription_json(args.inventory)
+    artifact_template, _template_bytes, _template_sha256 = _read_transcription_json(
+        args.artifact_template
+    )
+    adjudication, adjudication_bytes, _adjudication_sha256 = _read_transcription_json(
+        args.adjudication
+    )
+    independent_evidence = [_read_transcription_json(path) for path in args.review]
+    independent_reviews = [review for review, _raw_bytes, _digest in independent_evidence]
+    independent_review_bytes = [raw_bytes for _review, raw_bytes, _digest in independent_evidence]
+
+    inventory_schema = args.inventory_schema or _default_schema("sign-inventory.schema.json")
+    review_schema = args.review_schema or _default_schema("transcription-review.schema.json")
+    artifact_schema = args.artifact_schema or _default_artifact_schema()
+    if artifact_schema is None:
+        raise TranscriptionReviewError("artifact schema not found")
+
+    _require_schema_valid(inventory, inventory_schema, label="sign inventory")
+    _require_schema_valid(
+        artifact_template,
+        artifact_schema,
+        label="artifact template",
+    )
+    _require_schema_valid(
+        adjudication,
+        review_schema,
+        label="transcription adjudication",
+    )
+    for index, review in enumerate(independent_reviews):
+        _require_schema_valid(
+            review,
+            review_schema,
+            label=f"independent transcription {index}",
+        )
+
+    promotion = promote_adjudicated_transcription(
+        artifact_template,
+        inventory_bytes=inventory_bytes,
+        independent_review_bytes=independent_review_bytes,
+        adjudication_bytes=adjudication_bytes,
+        side_id=args.side_id,
+        line_id=args.line_id,
+        release_scope=args.release_scope,
+    )
+    artifact = promotion.artifact
+    _require_schema_valid(artifact, artifact_schema, label="promoted artifact")
+    semantic_issues = validate_corpus([artifact])
+    if has_errors(semantic_issues):
+        first = next(issue for issue in semantic_issues if issue.severity == "error")
+        raise TranscriptionReviewError(f"promoted artifact invalid at {first.path}")
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.output,
+            artifact,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise TranscriptionReviewError(
+            "private transcription artifact could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        _print_json(
+            {
+                "valid": False,
+                "written": False,
+                "claim_class": "private_staging_only",
+                "output_content_verified": content_verified,
+                "durability_confirmed": durability_confirmed,
+                "postcondition": "committed_durability_unknown",
+                "counts_disclosed": False,
+                "private_evidence_disclosed": False,
+                "evaluation_admissible": False,
+                "real_world_reviewer_independence_verified": False,
+                "blind_evaluation": False,
+                "decipherment": False,
+            }
+        )
+        return 1
+    _print_json(
+        {
+            "valid": True,
+            "written": True,
+            "claim_class": "private_staging_only",
+            "counts_disclosed": False,
+            "private_evidence_disclosed": False,
+            "evaluation_admissible": False,
+            "real_world_reviewer_independence_verified": False,
+            "blind_evaluation": False,
+            "decipherment": False,
+        }
+    )
+    return 0
+
+
 def _command_audit_private_readiness(args: argparse.Namespace) -> int:
     """Run a redacted private-corpus readiness audit."""
 
@@ -5171,6 +5818,122 @@ def build_parser() -> argparse.ArgumentParser:
     validate_parser.add_argument("--schema", type=_path)
     _add_quarantine_arguments(validate_parser)
     validate_parser.set_defaults(handler=_command_validate)
+
+    kp1982_source_parser = subparsers.add_parser(
+        "verify-kp1982-source",
+        help="verify exact local bytes of the fixed official KP1982 Batch 0 PDF",
+    )
+    kp1982_source_parser.add_argument("pdf", type=_path)
+    kp1982_source_parser.add_argument(
+        "--page-pbm",
+        type=_path,
+        nargs=2,
+        metavar=("PAGE20_PBM", "PAGE21_PBM"),
+        help="optional canonical PBM pages in contract order for pixel verification",
+    )
+    kp1982_source_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1982_contract(),
+        help="closed checked-in KP1982 Batch 0 source contract",
+    )
+    kp1982_source_parser.set_defaults(handler=_command_verify_kp1982_source)
+
+    kp1982_layout_parser = subparsers.add_parser(
+        "propose-kp1982-layout",
+        help="create a private deterministic crop proposal for KP1982 Batch 0 review",
+    )
+    kp1982_layout_parser.add_argument("page20_pbm", type=_path)
+    kp1982_layout_parser.add_argument("page21_pbm", type=_path)
+    kp1982_layout_parser.add_argument(
+        "output",
+        type=_path,
+        help="new 0600 proposal under a pre-existing physical 0700 directory",
+    )
+    kp1982_layout_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1982_contract(),
+        help="closed checked-in KP1982 Batch 0 source contract",
+    )
+    kp1982_layout_parser.add_argument(
+        "--layout-seed",
+        type=_path,
+        default=_default_kp1982_layout_seed(),
+        help="closed checked-in provisional KP1982 Batch 0 layout seed",
+    )
+    kp1982_layout_parser.set_defaults(handler=_command_propose_kp1982_layout)
+
+    kp1982_layout_verify_parser = subparsers.add_parser(
+        "verify-kp1982-layout",
+        help="recompute a private KP1982 layout proposal from the fixed page pixels",
+    )
+    kp1982_layout_verify_parser.add_argument("page20_pbm", type=_path)
+    kp1982_layout_verify_parser.add_argument("page21_pbm", type=_path)
+    kp1982_layout_verify_parser.add_argument("proposal", type=_path)
+    kp1982_layout_verify_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1982_contract(),
+        help="closed checked-in KP1982 Batch 0 source contract",
+    )
+    kp1982_layout_verify_parser.add_argument(
+        "--layout-seed",
+        type=_path,
+        default=_default_kp1982_layout_seed(),
+        help="closed checked-in provisional KP1982 Batch 0 layout seed",
+    )
+    kp1982_layout_verify_parser.set_defaults(handler=_command_verify_kp1982_layout)
+
+    transcription_audit_parser = subparsers.add_parser(
+        "audit-transcription-agreement",
+        help="compare two image-bound independent sign transcriptions",
+    )
+    transcription_audit_parser.add_argument("inventory", type=_path)
+    transcription_audit_parser.add_argument("left", type=_path)
+    transcription_audit_parser.add_argument("right", type=_path)
+    transcription_audit_parser.add_argument(
+        "--minimum-bbox-iou",
+        type=float,
+        default=0.5,
+        help="minimum token bounding-box IoU for monotonic alignment",
+    )
+    transcription_audit_parser.add_argument("--inventory-schema", type=_path)
+    transcription_audit_parser.add_argument("--review-schema", type=_path)
+    transcription_audit_parser.add_argument(
+        "--private-report",
+        type=_path,
+        help="optional new 0600 detailed report under a pre-existing physical 0700 directory",
+    )
+    transcription_audit_parser.set_defaults(handler=_command_audit_transcription_agreement)
+
+    transcription_promote_parser = subparsers.add_parser(
+        "promote-transcription",
+        help="verify adjudication evidence and create one artifact observation",
+    )
+    transcription_promote_parser.add_argument("inventory", type=_path)
+    transcription_promote_parser.add_argument("artifact_template", type=_path)
+    transcription_promote_parser.add_argument("adjudication", type=_path)
+    transcription_promote_parser.add_argument("output", type=_path)
+    transcription_promote_parser.add_argument(
+        "--review",
+        action="append",
+        required=True,
+        type=_path,
+        help="independent review file; repeat at least twice",
+    )
+    transcription_promote_parser.add_argument("--side-id", required=True)
+    transcription_promote_parser.add_argument("--line-id", required=True)
+    transcription_promote_parser.add_argument(
+        "--release-scope",
+        choices=("private_research",),
+        default="private_research",
+        help="public export is disabled until an allowlist-only exporter exists",
+    )
+    transcription_promote_parser.add_argument("--inventory-schema", type=_path)
+    transcription_promote_parser.add_argument("--review-schema", type=_path)
+    transcription_promote_parser.add_argument("--artifact-schema", type=_path)
+    transcription_promote_parser.set_defaults(handler=_command_promote_transcription)
 
     private_readiness_parser = subparsers.add_parser(
         "audit-private-readiness",

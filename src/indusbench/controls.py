@@ -7,6 +7,8 @@ import random
 from collections.abc import Iterable, Mapping
 from typing import Any
 
+from indusbench.transcription_admission import require_admitted_transcription_corpus
+
 
 def _tokens_in_storage_order(record: Mapping[str, Any]) -> list[dict[str, Any]]:
     tokens: list[dict[str, Any]] = []
@@ -24,7 +26,11 @@ def global_sign_shuffle(records: Iterable[Mapping[str, Any]], seed: int) -> list
     null control, never a replacement for the observed corpus.
     """
 
-    shuffled_records: list[dict[str, Any]] = [copy.deepcopy(dict(record)) for record in records]
+    materialized = list(records)
+    require_admitted_transcription_corpus(materialized)
+    shuffled_records: list[dict[str, Any]] = [
+        copy.deepcopy(dict(record)) for record in materialized
+    ]
     tokens = [
         token
         for record in shuffled_records

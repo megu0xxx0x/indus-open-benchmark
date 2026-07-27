@@ -10,6 +10,8 @@ from collections import Counter
 from collections.abc import Iterable, Mapping
 from typing import Any
 
+from indusbench.transcription_admission import require_admitted_transcription_corpus
+
 
 def canonical_json(value: Any) -> bytes:
     """Serialize JSON-compatible data deterministically."""
@@ -47,7 +49,9 @@ def build_manifest(
 ) -> dict[str, Any]:
     """Build a deterministic release description plus environment metadata."""
 
-    rows = [dict(record) for record in records]
+    materialized = list(records)
+    require_admitted_transcription_corpus(materialized)
+    rows = [dict(record) for record in materialized]
     sites: Counter[str] = Counter()
     periods: Counter[str] = Counter()
     object_types: Counter[str] = Counter()

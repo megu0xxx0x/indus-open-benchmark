@@ -2,6 +2,8 @@
 
 **Status date:** 2026-07-28
 
+**Last source-level update:** 2026-07-28 04:22 JST (Asia/Tokyo)
+
 **Project:** Open Indus Benchmark
 
 **Public source:** <https://github.com/megu0xxx0x/indus-open-benchmark>
@@ -60,6 +62,8 @@ separate and traceable.
 5. **Private-workflow software boundary**
    - Network-free readiness scanning and deny-all review-bundle generation.
    - Fail-closed museum intake and catalog-blind review tooling.
+   - Exact-byte sign-inventory, double-review, adjudication, and private
+     transcription-promotion tooling.
    - Public schemas and synthetic fixtures only; real private execution details
      are not public records.
 
@@ -115,11 +119,47 @@ Blocked. Work may begin only after all of the following exist:
 
 Blocked on P2, a fixed runtime contract, and independent execution authority.
 
+### T1 — Private transcription evidence bridge
+
+Implemented as an unsealed v0.1 draft workflow. It verifies exact inventory,
+independent-review, and adjudication bytes; separates left-to-right visual
+indexing from reading direction; restricts geometry to normalized
+axis-aligned rectangles; and creates at most one non-overwriting receipt in an
+unresolved artifact template.
+
+Detailed reports and promoted artifacts are private-only `0600` outputs under
+a pre-existing physical, descriptor-pinned, owner-only `0700` parent. Public
+export and evaluation admission are disabled. The software does not verify
+source-document, crop, or source-image bytes; external rights; actual reviewer
+independence; blindness; translation; or decipherment.
+
+### T2 — Helsinki 1982 Batch 0
+
+Source identity and target-page pixels are now mechanically fixed, but Batch 0
+is not transcribed. The first target is the sign list on one-based PDF pages
+20–21 (zero-based indices 19–20) of the official University of Helsinki 1982
+CC BY concordance snapshot. A network-free command verifies the exact PDF and
+optional canonical PBM bytes. Independent Poppler and MuPDF decoding produced
+pixel-identical 4888×6705 one-bit pages.
+
+The next gate is to freeze visually audited per-lane row boundaries and padded
+context crops. A fixed-seed generator now recomputes all 700 cell and padded
+context crop hashes from the verified PBMs and writes only a private,
+no-replace proposal. Every geometry, occupancy, identifier, human-review, and
+decipherment assurance remains false. The upper catalog rank, lower primary
+source identifier, glyph, and printed marks must be independently observed and
+adjudicated under the not-yet-implemented bootstrap contract before an
+inventory exists. OCR proposals cannot become accepted identifiers. No actual
+Batch 0 review, promotion, rights verification, or decipherment result is part
+of this public update.
+
 ### Data and source work
 
 Safe next work:
 
 - curate public source/provenance/rights evidence;
+- finish the Helsinki 1982 crop and bootstrap-review verifier using the fixed
+  public PDF/PBM contract;
 - improve parsers and validation using public or synthetic fixtures;
 - strengthen leakage and null-model tests;
 - document unresolved rights or provenance as unknown;

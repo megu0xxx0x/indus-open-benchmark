@@ -48,6 +48,8 @@ packages = ["src/indusbench"]
 "registry/museum_candidates.json" = "indusbench/registry/museum_candidates.json"
 "registry/quarantine.json" = "indusbench/registry/quarantine.json"
 "registry/sources.json" = "indusbench/registry/sources.json"
+"registry/kp1982_batch0.json" = "indusbench/registry/kp1982_batch0.json"
+"registry/kp1982_batch0_layout_seed.json" = "indusbench/registry/kp1982_batch0_layout_seed.json"
 "benchmark/development-evaluator.json" = "indusbench/benchmark/development-evaluator.json"
 
 [tool.hatch.build.targets.sdist]

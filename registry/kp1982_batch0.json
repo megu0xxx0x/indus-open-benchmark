@@ -1,0 +1,111 @@
+{
+  "assurances": {
+    "crop_coordinates_verified": false,
+    "decipherment": false,
+    "human_double_transcription_complete": false,
+    "page_structure_reparsed": false,
+    "rights_evidence_externally_verified": false,
+    "source_bytes_verified_by_contract": false
+  },
+  "contract_id": "KP1982:BATCH0:SOURCE:V1",
+  "coordinate_contract": {
+    "bounds": [
+      0,
+      0,
+      4888,
+      6705
+    ],
+    "normalization_status": "native_pixels_first_transform_not_yet_admitted",
+    "observation_space": "decoded_embedded_page_image_pixels",
+    "origin": "top_left",
+    "rectangle_encoding": "half_open_xyxy_integer"
+  },
+  "layout_contract": {
+    "lane_count_per_page": 10,
+    "ocr_authority": "proposal_only_never_authoritative",
+    "record_components": [
+      "upper_catalog_rank",
+      "glyph",
+      "lower_primary_identifier",
+      "punctuation_or_doubt_marks"
+    ],
+    "row_anchor_status": "pending_deterministic_detection_and_double_review"
+  },
+  "schema_version": "0.1.0",
+  "scientific_scope": "source identity and page geometry only; no sign transcription, phonetic, language, semantic, translation, or decipherment inference",
+  "source": {
+    "byte_size": 16767043,
+    "download_uri": "https://tuhat.helsinki.fi/ws/portalfiles/portal/209717802/indus_concordance_1982.pdf",
+    "embedded_text_layer": false,
+    "landing_page": "https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/",
+    "license_id": "CC-BY-4.0",
+    "media_box_points": [
+      595,
+      841
+    ],
+    "media_type": "application/pdf",
+    "pdf_page_count": 201,
+    "rights_evidence_uri": "https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/",
+    "rotation_degrees": 0,
+    "sha256": "sha256:07d24564cd3abf23620a3cd9d417c9931c9d3e1aafb204d7c4fd49b4022d043c",
+    "source_id": "helsinki-indus-concordance-1982",
+    "title": "A Concordande to the Texts in the Indus Script"
+  },
+  "status": "fixed_source_only_untranscribed",
+  "target_pages": [
+    {
+      "embedded_image": {
+        "bits_per_component": 1,
+        "color_space": "DeviceGray",
+        "canonical_pbm_byte_size": 4096768,
+        "canonical_pbm_encoding": "P4 newline 4888 space 6705 newline; row-major top-to-bottom, left-to-right, black=1, MSB-first",
+        "canonical_pbm_sha256": "sha256:092fa7fc48434e68e71aba57db858db5c82151d12692d6018fa836b66ee992cc",
+        "decoder_crosscheck": "pixel_equal_poppler_pdfimages_26.04.0_and_mupdf_mutool_1.27.2",
+        "filter": "CCITTFaxDecode",
+        "height": 6705,
+        "placement_matrix": [
+          594,
+          0,
+          0,
+          814.8056464811784,
+          0,
+          13
+        ],
+        "pixel_payload_byte_size": 4096755,
+        "pixel_payload_sha256": "sha256:5e66e4d435cde3db56658b94309a232096d3fa951c56730cbb22f7d69b088f91",
+        "width": 4888
+      },
+      "page_index": 19,
+      "pdf_image_object_number": 63,
+      "pdf_page_number": 20,
+      "printed_page_label": "20"
+    },
+    {
+      "embedded_image": {
+        "bits_per_component": 1,
+        "color_space": "DeviceGray",
+        "canonical_pbm_byte_size": 4096768,
+        "canonical_pbm_encoding": "P4 newline 4888 space 6705 newline; row-major top-to-bottom, left-to-right, black=1, MSB-first",
+        "canonical_pbm_sha256": "sha256:c6313d5e597e723f8d3f9c4118d1aaf5d53a05c22b3dc557a8c2b65178445330",
+        "decoder_crosscheck": "pixel_equal_poppler_pdfimages_26.04.0_and_mupdf_mutool_1.27.2",
+        "filter": "CCITTFaxDecode",
+        "height": 6705,
+        "placement_matrix": [
+          594,
+          0,
+          0,
+          814.8056464811784,
+          0,
+          13
+        ],
+        "pixel_payload_byte_size": 4096755,
+        "pixel_payload_sha256": "sha256:e4d3a1b7f6889cf1f39f4ddbcf2f5919922e7b433a5d2a6960a86e4de30658e8",
+        "width": 4888
+      },
+      "page_index": 20,
+      "pdf_image_object_number": 66,
+      "pdf_page_number": 21,
+      "printed_page_label": "21"
+    }
+  ]
+}

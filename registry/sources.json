@@ -1,8 +1,114 @@
 {
   "schema_version": "0.1.0",
   "registry_id": "indus-open-benchmark:sources",
-  "generated_at": "2026-07-26T17:07:59+09:00",
+  "generated_at": "2026-07-28T03:06:28+09:00",
   "sources": [
+    {
+      "source_id": "helsinki-indus-concordance-1982",
+      "title": "A Concordande to the Texts in the Indus Script",
+      "source_type": "publication",
+      "citation": {
+        "title": "A Concordande to the Texts in the Indus Script",
+        "creators": [
+          "Kimmo Koskenniemi",
+          "Asko Parpola"
+        ],
+        "issued": "1982",
+        "publisher": "Department of Asian and African Studies, University of Helsinki",
+        "identifiers": [
+          {
+            "scheme": "isbn",
+            "value": "951-45-2822-0"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://tuhat.helsinki.fi/ws/portalfiles/portal/209717802/indus_concordance_1982.pdf"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/",
+        "accessed_at": "2026-07-28T03:06:28+09:00",
+        "snapshot_hash": "sha256:07d24564cd3abf23620a3cd9d417c9931c9d3e1aafb204d7c4fd49b4022d043c",
+        "retrieval_instructions": "Download the official final published PDF from the University of Helsinki portal. Require application/pdf content, a PDF signature, 201 pages, exactly 16,767,043 bytes, and the pinned SHA-256 before use. Keep rank numbers, invariant identification numbers, page coordinates, doubt marks, and printed sign forms as separate source observations."
+      },
+      "rights": {
+        "status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "license_uri": "https://creativecommons.org/licenses/by/4.0/",
+        "rights_holder": null,
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The official University of Helsinki research-portal record labels the final published version CC BY. Attribution, a license link, and an indication of changes are required. The licence does not make the publication's catalog assertions ground truth.",
+        "evidence_uri": "https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/",
+        "verified_at": "2026-07-28T03:06:28+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "University of Helsinki Research Portal",
+        "upstream_source_ids": [],
+        "description": "Official scan of the 1982 sign list and concordance by Kimmo Koskenniemi and Asko Parpola.",
+        "transformation_history": [],
+        "quality_notes": "Printed pages 20-21 contain a sign list with repeated rank numbers above distinct invariant identification numbers. These are separate source fields, not proof of linguistic identity or allography. Concordance renderings are catalog evidence rather than direct artifact images, and their layout does not establish reading direction."
+      }
+    },
+    {
+      "source_id": "helsinki-indus-corpus-1979",
+      "title": "Corpus of Texts in the Indus Script",
+      "source_type": "publication",
+      "citation": {
+        "title": "Corpus of Texts in the Indus Script",
+        "creators": [
+          "Kimmo Koskenniemi",
+          "Asko Parpola"
+        ],
+        "issued": "1979",
+        "publisher": "Department of Asian and African Studies, University of Helsinki",
+        "identifiers": [
+          {
+            "scheme": "isbn",
+            "value": "951-45-1627-3"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/",
+        "accessed_at": "2026-07-28T03:06:28+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Use only the official final published file linked by the University of Helsinki record. Before transcription, reject HTML or redirect bodies masquerading as the approximately 16.2 MB PDF and pin the received PDF bytes, media type, page count, and SHA-256. Do not treat agreement with the 1982 concordance as independent evidence."
+      },
+      "rights": {
+        "status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "license_uri": "https://creativecommons.org/licenses/by/4.0/",
+        "rights_holder": null,
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The official University of Helsinki research-portal record labels the final published version CC BY. Attribution, a license link, and an indication of changes are required. No exact PDF snapshot is admitted until its bytes and type are independently fixed.",
+        "evidence_uri": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/",
+        "verified_at": "2026-07-28T03:06:28+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "University of Helsinki Research Portal",
+        "upstream_source_ids": [],
+        "description": "Official publication record for the 1979 corpus by Kimmo Koskenniemi and Asko Parpola.",
+        "transformation_history": [],
+        "quality_notes": "Use as a later edition-level cross-check only after exact official PDF bytes are pinned. It shares authorship and catalog lineage with the 1982 concordance and therefore is not a statistically independent validation source."
+      }
+    },
     {
       "source_id": "met-open-access-indus",
       "title": "The Metropolitan Museum of Art Open Access Indus records",

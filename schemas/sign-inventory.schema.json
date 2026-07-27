@@ -1,0 +1,450 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/sign-inventory.schema.json",
+  "title": "Versioned sign inventory for visual transcription",
+  "description": "A sign-identity inventory without phonetic, language, semantic, or translation assignments.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "inventory_id",
+    "edition",
+    "title",
+    "source_id",
+    "revision",
+    "primary_identifier_scheme",
+    "scientific_scope",
+    "rights",
+    "source_documents",
+    "signs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "inventory_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "edition": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "source_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "primary_identifier_scheme": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "scientific_scope": {
+      "const": "graphic sign identity only; no phonetic, language, semantic, translation, or decipherment assignment"
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "source_documents": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "items": {
+        "$ref": "#/$defs/source_document"
+      }
+    },
+    "signs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4096,
+      "items": {
+        "$ref": "#/$defs/sign"
+      }
+    }
+  },
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "nullable_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "point": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      ],
+      "items": false
+    },
+    "polygon": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/point"
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "analysis_use",
+        "redistribution",
+        "derivatives",
+        "license_id",
+        "evidence_uri",
+        "statement"
+      ],
+      "properties": {
+        "analysis_use": {
+          "enum": [
+            "permitted",
+            "denied",
+            "unknown"
+          ]
+        },
+        "redistribution": {
+          "type": "boolean"
+        },
+        "derivatives": {
+          "type": "boolean"
+        },
+        "license_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "evidence_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "analysis_use": {
+                "enum": [
+                  "denied",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "analysis_use"
+            ]
+          },
+          "then": {
+            "properties": {
+              "redistribution": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source_document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id",
+        "source_record_id",
+        "title",
+        "creators",
+        "publication_year",
+        "uri",
+        "sha256",
+        "media_type",
+        "page_count",
+        "license_id",
+        "license_uri",
+        "rights_evidence_uri"
+      ],
+      "properties": {
+        "document_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "source_record_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "creators": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          }
+        },
+        "publication_year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1800,
+          "maximum": 2200
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$"
+        },
+        "page_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "license_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "license_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        },
+        "rights_evidence_uri": {
+          "$ref": "#/$defs/nullable_uri"
+        }
+      }
+    },
+    "published_identifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme_id",
+        "value",
+        "role",
+        "document_id",
+        "evidence_id"
+      ],
+      "properties": {
+        "scheme_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "role": {
+          "enum": [
+            "primary_source_identifier",
+            "catalog_rank",
+            "published_grouping",
+            "variant_label",
+            "other"
+          ]
+        },
+        "document_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "evidence_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "graphic_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "document_id",
+        "page_index",
+        "printed_page_label",
+        "coordinate_space",
+        "polygon",
+        "crop_sha256",
+        "extraction_method",
+        "doubt_markers",
+        "doubt_notes"
+      ],
+      "properties": {
+        "evidence_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "document_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "page_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "printed_page_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "coordinate_space": {
+          "const": "normalized_page"
+        },
+        "polygon": {
+          "$ref": "#/$defs/polygon"
+        },
+        "crop_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/checksum"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extraction_method": {
+          "enum": [
+            "human_double_transcription",
+            "source_supplied",
+            "legacy_import",
+            "unknown"
+          ]
+        },
+        "doubt_markers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "underline",
+              "quotation_mark",
+              "broken_outline",
+              "source_question_mark",
+              "other"
+            ]
+          }
+        },
+        "doubt_notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    },
+    "sign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sign_id",
+        "project_sign_id",
+        "graphic_label",
+        "published_identifiers",
+        "graphic_sources",
+        "deprecated",
+        "superseded_by",
+        "notes"
+      ],
+      "properties": {
+        "sign_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "project_sign_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "graphic_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "published_identifiers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/published_identifier"
+          }
+        },
+        "graphic_sources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/graphic_source"
+          }
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "superseded_by": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/stable_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    }
+  }
+}

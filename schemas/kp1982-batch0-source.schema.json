@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1982-batch0-source.schema.json",
+  "title": "Fixed KP1982 Batch 0 source contract",
+  "description": "A closed public-source identity and page-geometry contract. It contains no transcription, interpretation, or decipherment result.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "status",
+    "scientific_scope",
+    "source",
+    "target_pages",
+    "coordinate_contract",
+    "layout_contract",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "contract_id": {
+      "const": "KP1982:BATCH0:SOURCE:V1"
+    },
+    "status": {
+      "const": "fixed_source_only_untranscribed"
+    },
+    "scientific_scope": {
+      "const": "source identity and page geometry only; no sign transcription, phonetic, language, semantic, translation, or decipherment inference"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "target_pages": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/page"
+            },
+            {
+              "properties": {
+                "pdf_page_number": {
+                  "const": 20
+                },
+                "page_index": {
+                  "const": 19
+                },
+                "printed_page_label": {
+                  "const": "20"
+                },
+                "pdf_image_object_number": {
+                  "const": 63
+                },
+                "embedded_image": {
+                  "properties": {
+                    "canonical_pbm_sha256": {
+                      "const": "sha256:092fa7fc48434e68e71aba57db858db5c82151d12692d6018fa836b66ee992cc"
+                    },
+                    "pixel_payload_sha256": {
+                      "const": "sha256:5e66e4d435cde3db56658b94309a232096d3fa951c56730cbb22f7d69b088f91"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/page"
+            },
+            {
+              "properties": {
+                "pdf_page_number": {
+                  "const": 21
+                },
+                "page_index": {
+                  "const": 20
+                },
+                "printed_page_label": {
+                  "const": "21"
+                },
+                "pdf_image_object_number": {
+                  "const": 66
+                },
+                "embedded_image": {
+                  "properties": {
+                    "canonical_pbm_sha256": {
+                      "const": "sha256:c6313d5e597e723f8d3f9c4118d1aaf5d53a05c22b3dc557a8c2b65178445330"
+                    },
+                    "pixel_payload_sha256": {
+                      "const": "sha256:e4d3a1b7f6889cf1f39f4ddbcf2f5919922e7b433a5d2a6960a86e4de30658e8"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "items": false
+    },
+    "coordinate_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_space",
+        "origin",
+        "rectangle_encoding",
+        "bounds",
+        "normalization_status"
+      ],
+      "properties": {
+        "observation_space": {
+          "const": "decoded_embedded_page_image_pixels"
+        },
+        "origin": {
+          "const": "top_left"
+        },
+        "rectangle_encoding": {
+          "const": "half_open_xyxy_integer"
+        },
+        "bounds": {
+          "const": [
+            0,
+            0,
+            4888,
+            6705
+          ]
+        },
+        "normalization_status": {
+          "const": "native_pixels_first_transform_not_yet_admitted"
+        }
+      }
+    },
+    "layout_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lane_count_per_page",
+        "record_components",
+        "row_anchor_status",
+        "ocr_authority"
+      ],
+      "properties": {
+        "lane_count_per_page": {
+          "const": 10
+        },
+        "record_components": {
+          "const": [
+            "upper_catalog_rank",
+            "glyph",
+            "lower_primary_identifier",
+            "punctuation_or_doubt_marks"
+          ]
+        },
+        "row_anchor_status": {
+          "const": "pending_deterministic_detection_and_double_review"
+        },
+        "ocr_authority": {
+          "const": "proposal_only_never_authoritative"
+        }
+      }
+    },
+    "assurances": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_bytes_verified_by_contract",
+        "page_structure_reparsed",
+        "crop_coordinates_verified",
+        "human_double_transcription_complete",
+        "rights_evidence_externally_verified",
+        "decipherment"
+      ],
+      "properties": {
+        "source_bytes_verified_by_contract": {
+          "const": false
+        },
+        "page_structure_reparsed": {
+          "const": false
+        },
+        "crop_coordinates_verified": {
+          "const": false
+        },
+        "human_double_transcription_complete": {
+          "const": false
+        },
+        "rights_evidence_externally_verified": {
+          "const": false
+        },
+        "decipherment": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "title",
+        "landing_page",
+        "download_uri",
+        "sha256",
+        "byte_size",
+        "media_type",
+        "pdf_page_count",
+        "media_box_points",
+        "rotation_degrees",
+        "embedded_text_layer",
+        "license_id",
+        "rights_evidence_uri"
+      ],
+      "properties": {
+        "source_id": {
+          "const": "helsinki-indus-concordance-1982"
+        },
+        "title": {
+          "const": "A Concordande to the Texts in the Indus Script"
+        },
+        "landing_page": {
+          "const": "https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/"
+        },
+        "download_uri": {
+          "const": "https://tuhat.helsinki.fi/ws/portalfiles/portal/209717802/indus_concordance_1982.pdf"
+        },
+        "sha256": {
+          "const": "sha256:07d24564cd3abf23620a3cd9d417c9931c9d3e1aafb204d7c4fd49b4022d043c"
+        },
+        "byte_size": {
+          "const": 16767043
+        },
+        "media_type": {
+          "const": "application/pdf"
+        },
+        "pdf_page_count": {
+          "const": 201
+        },
+        "media_box_points": {
+          "const": [
+            595,
+            841
+          ]
+        },
+        "rotation_degrees": {
+          "const": 0
+        },
+        "embedded_text_layer": {
+          "const": false
+        },
+        "license_id": {
+          "const": "CC-BY-4.0"
+        },
+        "rights_evidence_uri": {
+          "const": "https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/"
+        }
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pdf_page_number",
+        "page_index",
+        "printed_page_label",
+        "pdf_image_object_number",
+        "embedded_image"
+      ],
+      "properties": {
+        "pdf_page_number": {
+          "type": "integer"
+        },
+        "page_index": {
+          "type": "integer"
+        },
+        "printed_page_label": {
+          "type": "string"
+        },
+        "pdf_image_object_number": {
+          "type": "integer"
+        },
+        "embedded_image": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height",
+            "bits_per_component",
+            "color_space",
+            "filter",
+            "placement_matrix",
+            "canonical_pbm_encoding",
+            "canonical_pbm_byte_size",
+            "canonical_pbm_sha256",
+            "pixel_payload_byte_size",
+            "pixel_payload_sha256",
+            "decoder_crosscheck"
+          ],
+          "properties": {
+            "width": {
+              "const": 4888
+            },
+            "height": {
+              "const": 6705
+            },
+            "bits_per_component": {
+              "const": 1
+            },
+            "color_space": {
+              "const": "DeviceGray"
+            },
+            "filter": {
+              "const": "CCITTFaxDecode"
+            },
+            "placement_matrix": {
+              "const": [
+                594,
+                0,
+                0,
+                814.8056464811784,
+                0,
+                13
+              ]
+            },
+            "canonical_pbm_encoding": {
+              "const": "P4 newline 4888 space 6705 newline; row-major top-to-bottom, left-to-right, black=1, MSB-first"
+            },
+            "canonical_pbm_byte_size": {
+              "const": 4096768
+            },
+            "canonical_pbm_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "pixel_payload_byte_size": {
+              "const": 4096755
+            },
+            "pixel_payload_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "decoder_crosscheck": {
+              "const": "pixel_equal_poppler_pdfimages_26.04.0_and_mupdf_mutool_1.27.2"
+            }
+          }
+        }
+      }
+    }
+  }
+}

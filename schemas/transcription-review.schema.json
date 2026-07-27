@@ -1,0 +1,787 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/transcription-review.schema.json",
+  "title": "Image-bound independent sign-transcription review",
+  "description": "An unsealed visual transcription draft or adjudication draft kept separate from phonetic, language, semantic, translation, and decipherment hypotheses.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_state",
+    "review_id",
+    "assignment_id",
+    "review_stage",
+    "subject_id",
+    "scientific_scope",
+    "visual_order_basis",
+    "sign_inventory",
+    "source_commitment",
+    "actor",
+    "input_reviews",
+    "promotion_target",
+    "reading_direction",
+    "tokens",
+    "outcome",
+    "disagreements",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "record_state": {
+      "const": "sign_transcription_review"
+    },
+    "review_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "assignment_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "review_stage": {
+      "enum": [
+        "independent",
+        "adjudication"
+      ]
+    },
+    "subject_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "scientific_scope": {
+      "const": "visual sign segmentation and inventory identification only; no phonetic, language, semantic, translation, or decipherment inference"
+    },
+    "visual_order_basis": {
+      "const": "left_to_right_in_image",
+      "description": "Token visual_index is fixed to strictly increasing horizontal center in the original, unmirrored image."
+    },
+    "sign_inventory": {
+      "$ref": "#/$defs/sign_inventory_commitment"
+    },
+    "source_commitment": {
+      "$ref": "#/$defs/source_commitment"
+    },
+    "actor": {
+      "$ref": "#/$defs/actor"
+    },
+    "input_reviews": {
+      "type": "array",
+      "maxItems": 16,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/input_review"
+      }
+    },
+    "promotion_target": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/artifact_target"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reading_direction": {
+      "$ref": "#/$defs/reading_direction"
+    },
+    "tokens": {
+      "type": "array",
+      "maxItems": 512,
+      "items": {
+        "$ref": "#/$defs/token"
+      }
+    },
+    "outcome": {
+      "enum": [
+        "complete",
+        "needs_more_evidence",
+        "abstain"
+      ]
+    },
+    "disagreements": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/disagreement"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "review_stage": {
+            "const": "independent"
+          }
+        },
+        "required": [
+          "review_stage"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disagreements": {
+            "maxItems": 0
+          },
+          "input_reviews": {
+            "maxItems": 0
+          },
+          "promotion_target": {
+            "type": "null"
+          },
+          "actor": {
+            "properties": {
+              "role": {
+                "const": "transcriber"
+              },
+              "independent_pass": {
+                "const": true
+              }
+            }
+          },
+          "reading_direction": {
+            "properties": {
+              "adjudication_reason": {
+                "type": "null"
+              }
+            }
+          },
+          "tokens": {
+            "items": {
+              "properties": {
+                "input_token_refs": {
+                  "maxItems": 0
+                },
+                "adjudication_reason": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_stage": {
+            "const": "adjudication"
+          }
+        },
+        "required": [
+          "review_stage"
+        ]
+      },
+      "then": {
+        "properties": {
+          "input_reviews": {
+            "minItems": 2
+          },
+          "promotion_target": {
+            "$ref": "#/$defs/artifact_target"
+          },
+          "actor": {
+            "properties": {
+              "role": {
+                "const": "adjudicator"
+              },
+              "independent_pass": {
+                "const": false
+              }
+            }
+          },
+          "reading_direction": {
+            "properties": {
+              "adjudication_reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              }
+            }
+          },
+          "tokens": {
+            "items": {
+              "properties": {
+                "input_token_refs": {
+                  "minItems": 1
+                },
+                "adjudication_reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1000
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "properties": {
+          "tokens": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "point": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      ],
+      "items": false
+    },
+    "polygon": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/point"
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transcription_use",
+        "derived_observation_redistribution",
+        "evidence_id"
+      ],
+      "properties": {
+        "transcription_use": {
+          "enum": [
+            "permitted",
+            "denied",
+            "unknown"
+          ]
+        },
+        "derived_observation_redistribution": {
+          "enum": [
+            "permitted",
+            "denied",
+            "unknown"
+          ]
+        },
+        "evidence_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "view_transform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mirrored",
+        "rotation_degrees"
+      ],
+      "properties": {
+        "mirrored": {
+          "type": "boolean"
+        },
+        "rotation_degrees": {
+          "enum": [
+            0,
+            90,
+            180,
+            270
+          ]
+        }
+      }
+    },
+    "source_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject_id",
+        "source_record_ids",
+        "image_id",
+        "image_sha256",
+        "region_id",
+        "coordinate_space",
+        "region_polygon",
+        "carrier_view",
+        "view_transform",
+        "rights"
+      ],
+      "properties": {
+        "subject_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "source_record_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "image_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "image_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "region_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "coordinate_space": {
+          "const": "normalized_original_image"
+        },
+        "region_polygon": {
+          "$ref": "#/$defs/polygon"
+        },
+        "carrier_view": {
+          "enum": [
+            "matrix",
+            "impression",
+            "seal_impression",
+            "direct_inscription",
+            "drawing_only",
+            "unknown"
+          ]
+        },
+        "view_transform": {
+          "$ref": "#/$defs/view_transform"
+        },
+        "rights": {
+          "$ref": "#/$defs/rights"
+        }
+      }
+    },
+    "artifact_target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "side_id",
+        "line_id"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "side_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "line_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "sign_inventory_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inventory_id",
+        "edition",
+        "sha256"
+      ],
+      "properties": {
+        "inventory_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "edition": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "role",
+        "independent_pass",
+        "sign_inventory_access",
+        "artifact_identity_blind",
+        "expertise"
+      ],
+      "properties": {
+        "actor_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "role": {
+          "enum": [
+            "transcriber",
+            "adjudicator"
+          ]
+        },
+        "independent_pass": {
+          "type": "boolean"
+        },
+        "sign_inventory_access": {
+          "type": "boolean"
+        },
+        "artifact_identity_blind": {
+          "type": "boolean"
+        },
+        "expertise": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "epigraphy",
+              "palaeography",
+              "archaeology",
+              "collections",
+              "computer_vision",
+              "none_declared"
+            ]
+          }
+        }
+      }
+    },
+    "input_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_id",
+        "review_sha256",
+        "assignment_id",
+        "actor_id"
+      ],
+      "properties": {
+        "review_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "review_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "assignment_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "actor_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "reading_direction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "confidence",
+        "evidence",
+        "adjudication_reason"
+      ],
+      "properties": {
+        "value": {
+          "enum": [
+            "left_to_right",
+            "right_to_left",
+            "top_to_bottom",
+            "bottom_to_top",
+            "boustrophedon",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "edge_crowding",
+              "sign_orientation",
+              "carrier_context",
+              "publication_assertion",
+              "unknown"
+            ]
+          }
+        },
+        "adjudication_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    },
+    "sign_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inventory_id",
+        "edition",
+        "sign_id"
+      ],
+      "properties": {
+        "inventory_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "edition": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "sign_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "sign_alternative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sign",
+        "probability"
+      ],
+      "properties": {
+        "sign": {
+          "$ref": "#/$defs/sign_ref"
+        },
+        "probability": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "input_token_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_id",
+        "token_id"
+      ],
+      "properties": {
+        "review_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "token_id": {
+          "$ref": "#/$defs/stable_id"
+        }
+      }
+    },
+    "disagreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_ids",
+        "comparison_sha256",
+        "resolution"
+      ],
+      "properties": {
+        "review_ids": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "comparison_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "resolution": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "image_id",
+        "image_sha256",
+        "coordinate_space",
+        "polygon"
+      ],
+      "properties": {
+        "image_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "image_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "coordinate_space": {
+          "const": "normalized_original_image"
+        },
+        "polygon": {
+          "$ref": "#/$defs/polygon"
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "certain",
+            "clear",
+            "uncertain",
+            "ambiguous",
+            "unresolved"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token_id",
+        "visual_index",
+        "reading_index",
+        "geometry",
+        "segmentation",
+        "condition",
+        "selected_sign",
+        "alternatives",
+        "confidence",
+        "uncertainty",
+        "input_token_refs",
+        "adjudication_reason"
+      ],
+      "properties": {
+        "token_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "visual_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reading_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "geometry": {
+          "$ref": "#/$defs/geometry"
+        },
+        "segmentation": {
+          "enum": [
+            "single",
+            "compound_candidate",
+            "ligature_candidate",
+            "fragment",
+            "unresolved"
+          ]
+        },
+        "condition": {
+          "enum": [
+            "clear",
+            "worn",
+            "damaged",
+            "broken",
+            "lost",
+            "unreadable"
+          ]
+        },
+        "selected_sign": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sign_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alternatives": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/sign_alternative"
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/uncertainty"
+        },
+        "input_token_refs": {
+          "type": "array",
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/input_token_ref"
+          }
+        },
+        "adjudication_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    }
+  }
+}

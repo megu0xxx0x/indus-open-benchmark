@@ -13,6 +13,7 @@ from indusbench.baseline import (
     extract_sequences,
     score_missing_signs,
 )
+from indusbench.transcription_admission import require_admitted_transcription_corpus
 
 
 def _percentile(values: list[float], probability: float) -> float:
@@ -69,6 +70,8 @@ def evaluate_shuffle_null(
         raise ValueError("runs must be at least 1")
     train_rows = list(train)
     test_rows = list(test)
+    require_admitted_transcription_corpus(train_rows)
+    require_admitted_transcription_corpus(test_rows)
     train_sequences = extract_sequences(train_rows)
     test_sequences = extract_sequences(test_rows)
 

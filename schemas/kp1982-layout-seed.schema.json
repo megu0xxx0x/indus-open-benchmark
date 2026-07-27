@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1982-layout-seed.schema.json",
+  "title": "KP1982 Batch 0 provisional layout seed",
+  "description": "Machine-readable lane and row-fit proposals for later visual audit. These values are not accepted crop evidence or transcription.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "seed_id",
+    "status",
+    "scientific_scope",
+    "source_contract",
+    "coordinate_space",
+    "pages",
+    "crop_contract",
+    "required_observation_fields",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "seed_id": {
+      "const": "KP1982:BATCH0:LAYOUT-SEED:V1"
+    },
+    "status": {
+      "const": "proposal_only_requires_visual_double_review"
+    },
+    "scientific_scope": {
+      "const": "provisional page segmentation only; no accepted crop, sign identity, phonetic, language, semantic, translation, or decipherment inference"
+    },
+    "source_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_id",
+        "sha256",
+        "byte_size"
+      ],
+      "properties": {
+        "contract_id": {
+          "const": "KP1982:BATCH0:SOURCE:V1"
+        },
+        "sha256": {
+          "const": "sha256:83ac4be31eb5be146508534df752c7531b5c14caadc20cdd210556644ccc36ab"
+        },
+        "byte_size": {
+          "const": 4029
+        }
+      }
+    },
+    "coordinate_space": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "origin",
+        "width",
+        "height",
+        "rectangle_encoding"
+      ],
+      "properties": {
+        "name": {
+          "const": "decoded_embedded_page_image_pixels"
+        },
+        "origin": {
+          "const": "top_left"
+        },
+        "width": {
+          "const": 4888
+        },
+        "height": {
+          "const": 6705
+        },
+        "rectangle_encoding": {
+          "const": "half_open_xyxy_integer"
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/page"
+      }
+    },
+    "crop_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cell_authority",
+        "guide_split_authority",
+        "context_requirement",
+        "canonical_crop_encoding",
+        "normalization"
+      ],
+      "properties": {
+        "cell_authority": {
+          "const": "freeze_integer_lane_and_per_lane_row_boundaries_after_visual_double_review"
+        },
+        "guide_split_authority": {
+          "const": "proposal_only_never_a_clipping_boundary"
+        },
+        "context_requirement": {
+          "const": "padded_context_must_preserve_marks_crossing_internal_guides"
+        },
+        "canonical_crop_encoding": {
+          "const": "P4 with exact dimensions; row-major top-to-bottom, left-to-right, black=1, MSB-first, zero unused low bits"
+        },
+        "normalization": {
+          "const": "derived_only_divide_x_by_4888_and_y_by_6705"
+        }
+      }
+    },
+    "required_observation_fields": {
+      "const": [
+        "page_identity",
+        "lane_index",
+        "row_index",
+        "occupancy",
+        "cell_bbox",
+        "context_bbox",
+        "upper_catalog_rank_raw",
+        "upper_catalog_rank_value",
+        "upper_catalog_rank_bbox",
+        "lower_primary_identifier_raw",
+        "lower_primary_identifier_value",
+        "lower_primary_identifier_bbox",
+        "glyph_with_printed_marks_bbox",
+        "glyph_with_printed_marks_crop_sha256",
+        "optional_glyph_core_bbox",
+        "printed_marks",
+        "uncertainty",
+        "review_commitments"
+      ]
+    },
+    "assurances": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lane_edges_accepted",
+        "row_boundaries_accepted",
+        "occupancy_accepted",
+        "crop_hashes_computed",
+        "human_double_review_complete",
+        "ocr_authoritative",
+        "decipherment"
+      ],
+      "properties": {
+        "lane_edges_accepted": {
+          "const": false
+        },
+        "row_boundaries_accepted": {
+          "const": false
+        },
+        "occupancy_accepted": {
+          "const": false
+        },
+        "crop_hashes_computed": {
+          "const": false
+        },
+        "human_double_review_complete": {
+          "const": false
+        },
+        "ocr_authoritative": {
+          "const": false
+        },
+        "decipherment": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pdf_page_number",
+        "page_index",
+        "printed_page_label",
+        "lane_edges_x",
+        "internal_guide_x",
+        "row_slot_count_per_lane",
+        "lanes"
+      ],
+      "properties": {
+        "pdf_page_number": {
+          "enum": [
+            20,
+            21
+          ]
+        },
+        "page_index": {
+          "enum": [
+            19,
+            20
+          ]
+        },
+        "printed_page_label": {
+          "enum": [
+            "20",
+            "21"
+          ]
+        },
+        "lane_edges_x": {
+          "type": "array",
+          "minItems": 11,
+          "maxItems": 11,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4888
+          }
+        },
+        "internal_guide_x": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4888
+          }
+        },
+        "row_slot_count_per_lane": {
+          "const": 35
+        },
+        "lanes": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/lane"
+          }
+        }
+      }
+    },
+    "lane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lane_index",
+        "row_center_model",
+        "provisional_occupied_row_slots"
+      ],
+      "properties": {
+        "lane_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9
+        },
+        "row_center_model": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "intercept_y",
+            "pitch_y",
+            "formula"
+          ],
+          "properties": {
+            "intercept_y": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 6705
+            },
+            "pitch_y": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 500
+            },
+            "formula": {
+              "const": "center_y(row_index)=intercept_y+pitch_y*row_index"
+            }
+          }
+        },
+        "provisional_occupied_row_slots": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 35
+        }
+      }
+    }
+  }
+}

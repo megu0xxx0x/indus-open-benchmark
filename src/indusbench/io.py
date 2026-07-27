@@ -48,15 +48,22 @@ def _strict_json_loads(value: str) -> Any:
     )
 
 
+def decode_json(value: str | bytes, *, source: str = "<bytes>") -> Any:
+    """Decode one strict finite UTF-8 JSON document."""
+
+    try:
+        text = value.decode("utf-8") if isinstance(value, bytes) else value
+        return _strict_json_loads(text)
+    except (json.JSONDecodeError, UnicodeError, _StrictJsonError) as error:
+        raise CorpusFormatError(f"{source}: invalid JSON: {error}") from error
+
+
 def read_json(path: str | Path) -> Any:
     """Read one strict UTF-8 JSON document."""
 
     source = Path(path)
-    try:
-        with source.open(encoding="utf-8") as handle:
-            return _strict_json_loads(handle.read())
-    except (json.JSONDecodeError, UnicodeError, _StrictJsonError) as error:
-        raise CorpusFormatError(f"{source}: invalid JSON: {error}") from error
+    with source.open("rb") as handle:
+        return decode_json(handle.read(), source=str(source))
 
 
 def encode_json(value: Any) -> bytes:

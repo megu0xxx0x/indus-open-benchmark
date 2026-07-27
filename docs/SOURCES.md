@@ -49,6 +49,29 @@ rights-and-publication review approves exact release bytes.
 
 ## Current importable source
 
+### University of Helsinki 1982 concordance
+
+- Official record:
+  <https://researchportal.helsinki.fi/en/publications/a-concordande-to-the-texts-in-the-indus-script/>
+- Official PDF:
+  <https://tuhat.helsinki.fi/ws/portalfiles/portal/209717802/indus_concordance_1982.pdf>
+- Rights status: official record marked CC BY
+- Current use: fixed-source sign-list bootstrap only; no accepted
+  transcription or decipherment
+
+The checked-in KP1982 Batch 0 contract fixes the exact PDF, one-based pages
+20–21, zero-based indices 19–20, and canonical 4888×6705 one-bit page images.
+Poppler and MuPDF independently decoded identical pixels. The pages contain no
+embedded text layer. Generic OCR produced incorrect numerals even on clear
+labels, so OCR may propose candidates but cannot populate accepted
+identifiers.
+
+The upper catalog rank and lower primary source identifier are distinct source
+fields; the upper value may repeat. Glyphs and surrounding printed
+punctuation/doubt marks need separate evidence rectangles and crop
+commitments. A fixed PDF or page hash does not establish the correctness of
+those future crops or human readings.
+
 ### mayig/indus-valley-script-corpus
 
 - Landing page: <https://github.com/mayig/indus-valley-script-corpus>

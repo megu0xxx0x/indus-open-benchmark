@@ -1,0 +1,142 @@
+{
+  "assurances": {
+    "crop_hashes_computed": false,
+    "decipherment": false,
+    "human_double_review_complete": false,
+    "lane_edges_accepted": false,
+    "occupancy_accepted": false,
+    "ocr_authoritative": false,
+    "row_boundaries_accepted": false
+  },
+  "coordinate_space": {
+    "height": 6705,
+    "name": "decoded_embedded_page_image_pixels",
+    "origin": "top_left",
+    "rectangle_encoding": "half_open_xyxy_integer",
+    "width": 4888
+  },
+  "crop_contract": {
+    "canonical_crop_encoding": "P4 with exact dimensions; row-major top-to-bottom, left-to-right, black=1, MSB-first, zero unused low bits",
+    "cell_authority": "freeze_integer_lane_and_per_lane_row_boundaries_after_visual_double_review",
+    "context_requirement": "padded_context_must_preserve_marks_crossing_internal_guides",
+    "guide_split_authority": "proposal_only_never_a_clipping_boundary",
+    "normalization": "derived_only_divide_x_by_4888_and_y_by_6705"
+  },
+  "pages": [
+    {
+      "internal_guide_x": [
+        563,
+        973,
+        1380,
+        1792,
+        2205,
+        2614,
+        3024,
+        3436,
+        3844,
+        4255
+      ],
+      "lane_edges_x": [
+        400,
+        808,
+        1229,
+        1615,
+        2026,
+        2467,
+        2854,
+        3291,
+        3685,
+        4099,
+        4450
+      ],
+      "lanes": [
+        {"lane_index": 0, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 468.38, "pitch_y": 164.7619}},
+        {"lane_index": 1, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 463.17, "pitch_y": 164.7993}},
+        {"lane_index": 2, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 459.94, "pitch_y": 164.7783}},
+        {"lane_index": 3, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 457.33, "pitch_y": 164.7385}},
+        {"lane_index": 4, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 454.87, "pitch_y": 164.7186}},
+        {"lane_index": 5, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 453.59, "pitch_y": 164.6251}},
+        {"lane_index": 6, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 450.37, "pitch_y": 164.6169}},
+        {"lane_index": 7, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 449.9, "pitch_y": 164.5329}},
+        {"lane_index": 8, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 447.12, "pitch_y": 164.5641}},
+        {"lane_index": 9, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 445.43, "pitch_y": 164.5594}}
+      ],
+      "page_index": 19,
+      "pdf_page_number": 20,
+      "printed_page_label": "20",
+      "row_slot_count_per_lane": 35
+    },
+    {
+      "internal_guide_x": [
+        420,
+        830,
+        1240,
+        1649,
+        2060,
+        2468,
+        2876,
+        3284,
+        3695,
+        4098
+      ],
+      "lane_edges_x": [
+        250,
+        649,
+        1057,
+        1478,
+        1870,
+        2292,
+        2679,
+        3099,
+        3531,
+        3948,
+        4330
+      ],
+      "lanes": [
+        {"lane_index": 0, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 522.89, "pitch_y": 164.3483}},
+        {"lane_index": 1, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 519.16, "pitch_y": 164.3359}},
+        {"lane_index": 2, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 515.75, "pitch_y": 164.3048}},
+        {"lane_index": 3, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 512.81, "pitch_y": 164.2783}},
+        {"lane_index": 4, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 510.55, "pitch_y": 164.2374}},
+        {"lane_index": 5, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 507.92, "pitch_y": 164.2108}},
+        {"lane_index": 6, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 505.8, "pitch_y": 164.1725}},
+        {"lane_index": 7, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 503.6, "pitch_y": 164.1464}},
+        {"lane_index": 8, "provisional_occupied_row_slots": 35, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 501.36, "pitch_y": 164.157}},
+        {"lane_index": 9, "provisional_occupied_row_slots": 25, "row_center_model": {"formula": "center_y(row_index)=intercept_y+pitch_y*row_index", "intercept_y": 500.68, "pitch_y": 163.8535}}
+      ],
+      "page_index": 20,
+      "pdf_page_number": 21,
+      "printed_page_label": "21",
+      "row_slot_count_per_lane": 35
+    }
+  ],
+  "required_observation_fields": [
+    "page_identity",
+    "lane_index",
+    "row_index",
+    "occupancy",
+    "cell_bbox",
+    "context_bbox",
+    "upper_catalog_rank_raw",
+    "upper_catalog_rank_value",
+    "upper_catalog_rank_bbox",
+    "lower_primary_identifier_raw",
+    "lower_primary_identifier_value",
+    "lower_primary_identifier_bbox",
+    "glyph_with_printed_marks_bbox",
+    "glyph_with_printed_marks_crop_sha256",
+    "optional_glyph_core_bbox",
+    "printed_marks",
+    "uncertainty",
+    "review_commitments"
+  ],
+  "schema_version": "0.1.0",
+  "scientific_scope": "provisional page segmentation only; no accepted crop, sign identity, phonetic, language, semantic, translation, or decipherment inference",
+  "seed_id": "KP1982:BATCH0:LAYOUT-SEED:V1",
+  "source_contract": {
+    "byte_size": 4029,
+    "contract_id": "KP1982:BATCH0:SOURCE:V1",
+    "sha256": "sha256:83ac4be31eb5be146508534df752c7531b5c14caadc20cdd210556644ccc36ab"
+  },
+  "status": "proposal_only_requires_visual_double_review"
+}

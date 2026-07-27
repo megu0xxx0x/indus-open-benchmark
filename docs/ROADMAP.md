@@ -32,6 +32,8 @@ Current assets:
 - [global museum rights/API audit](GLOBAL_MUSEUM_RIGHTS_AUDIT_2026-07-26.md)
 - [machine-readable museum candidate ledger](../registry/museum_candidates.json)
 - [private catalog-blind museum review contract](MUSEUM_REVIEW.md)
+- [private transcription evidence bridge](TRANSCRIPTION_BRIDGE.md)
+- [Helsinki 1982 sign-list Batch 0 protocol](KP1982_BATCH0_PROTOCOL.md)
 
 ## v0.1 — Public, non-blind engineering seed
 
@@ -68,6 +70,32 @@ Current assets:
   accepted as rights evidence.
 - [ ] Normalize only policy-compatible layers, retain duplicate aliases, and
   quarantine malformed records without deletion.
+
+## Current transcription track — Evidence before interpretation (Unreleased)
+
+- [x] Closed sign-inventory and unsealed review/adjudication draft contracts,
+  exact-byte and semantic verification, double-review comparison, and one
+  non-overwriting private promotion receipt.
+- [x] Keep left-to-right visual indexing separate from reading direction,
+  restrict v0.1 geometry to normalized axis-aligned rectangles, and preserve
+  unknown direction and unresolved signs.
+- [x] Disable public export and evaluation admission; write detailed reports
+  and promoted artifacts only as new `0600` files under a pre-existing
+  physical owner-only `0700` parent.
+- [x] Implement a closed fixed-source contract and network-free exact-byte
+  verifier for the official Helsinki 1982 PDF and canonical target-page PBMs.
+- [x] Generate a deterministic private proposal for all 700 fixed row slots,
+  including exact cell/context rectangles and crop hashes, from a byte-pinned
+  provisional seed and the verified page pixels.
+- [ ] Freeze visually audited per-lane row boundaries, context crops, and crop
+  commitments; generated values remain proposals until independent review.
+- [ ] Implement the non-circular sign-inventory bootstrap review contract
+  before creating an inventory from the sign-list pages.
+- [ ] Execute the pages 20–21 Batch 0 sign-list protocol with two genuinely
+  independent reviewers and a distinct adjudicator. No such execution or
+  reviewer-independence claim is part of the public source tree.
+- [ ] Design an allowlist-only exporter and separate corpus-admission review.
+  Neither becomes authorized merely because a private receipt validates.
 
 ## v0.2 — Rights-cleared image workflow
 

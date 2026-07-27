@@ -8,6 +8,8 @@ from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from typing import TypeAlias, TypeVar
 
+from indusbench.transcription_admission import require_admitted_transcription_artifact
+
 ArtifactRecord: TypeAlias = Mapping[str, object]
 
 _DIRECT_IMAGE_HASH_FIELDS = frozenset({"image_hash", "image_sha256"})
@@ -101,6 +103,7 @@ def _normalize_hash(value: object) -> str | None:
 
 
 def _extract_image_hashes(record: ArtifactRecord) -> set[str]:
+    require_admitted_transcription_artifact(record)
     hashes: set[str] = set()
 
     def visit(node: object, *, image_context: bool = False) -> None:
@@ -133,6 +136,7 @@ def extract_catalog_crosswalks(
     record: ArtifactRecord,
 ) -> frozenset[tuple[str, str]]:
     """Return complete catalog/identifier aliases attached to an artifact."""
+    require_admitted_transcription_artifact(record)
     aliases: set[tuple[str, str]] = set()
     crosswalk = record.get("catalog_crosswalk")
     if not isinstance(crosswalk, Sequence) or isinstance(crosswalk, (str, bytes)):
@@ -208,6 +212,7 @@ def _normalize_token_sequence(
 
 
 def _extract_sequences(record: ArtifactRecord) -> set[tuple[str, ...]]:
+    require_admitted_transcription_artifact(record)
     sequences: set[tuple[str, ...]] = set()
 
     def add_line(line: object) -> None:
@@ -262,6 +267,7 @@ def _partition_index(
     sequences: dict[tuple[str, ...], set[str]] = defaultdict(set)
     catalog_crosswalks: dict[tuple[str, str], set[str]] = defaultdict(set)
     for index, record in enumerate(records):
+        require_admitted_transcription_artifact(record)
         artifact_id = _artifact_id(record, f"<{partition_name}:{index}>")
         family_key = _family_key(record)
         if family_key:

@@ -19,6 +19,10 @@ from indusbench.audit import (
     extract_image_hashes,
     extract_normalized_sequences,
 )
+from indusbench.transcription_admission import (
+    require_admitted_transcription_artifact,
+    require_admitted_transcription_corpus,
+)
 
 ArtifactRecord: TypeAlias = Mapping[str, object]
 DatasetSplit: TypeAlias = tuple[list[ArtifactRecord], list[ArtifactRecord]]
@@ -68,6 +72,7 @@ def duplicate_family_key(record: ArtifactRecord) -> str:
     ``artifact_id``. Prefixes prevent a real family identifier from colliding
     with that fallback.
     """
+    require_admitted_transcription_artifact(record)
     family_id = _stable_text(record.get("duplicate_family_id"))
     if family_id != MISSING_GROUP:
         return f"family:{family_id}"
@@ -115,6 +120,7 @@ def deterministic_family_split(
     _validate_test_fraction(test_fraction)
 
     materialized = list(records)
+    require_admitted_transcription_corpus(materialized)
     if not materialized:
         return [], []
 
@@ -170,6 +176,7 @@ def deterministic_leakage_safe_split(
     """
     _validate_test_fraction(test_fraction)
     materialized = list(records)
+    require_admitted_transcription_corpus(materialized)
     if not materialized:
         return [], []
 
@@ -236,6 +243,7 @@ def _leave_one_group_out(
     candidates: tuple[str, ...],
 ) -> dict[str, DatasetSplit]:
     materialized = list(records)
+    require_admitted_transcription_corpus(materialized)
     group_by_record = [_nested_group_value(record, candidates) for record in materialized]
     family_by_record = [duplicate_family_key(record) for record in materialized]
     result: dict[str, DatasetSplit] = {}

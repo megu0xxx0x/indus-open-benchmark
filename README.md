@@ -83,6 +83,10 @@ permission by itself.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
+- A private transcription evidence bridge that verifies exact sign-inventory,
+  independent-review, and adjudication bytes, then creates a non-overwriting
+  private staging receipt. Its drafts are unsealed, public export is disabled,
+  and promoted observations are excluded from evaluation.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.
@@ -212,6 +216,45 @@ The manifest is not confidential: it exposes paths, roles, sizes, static
 arguments, and deterministic hashes. Do not publish one containing secrets,
 hidden identifiers/hashes, custodian nonces, or rights-restricted metadata.
 
+Compare two independent visual-transcription drafts and promote a complete
+adjudication to private staging:
+
+```bash
+uv run indusbench verify-kp1982-source indus_concordance_1982.pdf \
+  --page-pbm page-20.pbm page-21.pbm
+
+install -d -m 700 /private/kp1982-layout
+uv run indusbench propose-kp1982-layout \
+  page-20.pbm page-21.pbm /private/kp1982-layout/proposal.json
+uv run indusbench verify-kp1982-layout \
+  page-20.pbm page-21.pbm /private/kp1982-layout/proposal.json
+
+install -d -m 700 /private/transcription-reports /private/transcription-artifacts
+uv run indusbench audit-transcription-agreement \
+  sign-inventory.json review-a.json review-b.json \
+  --private-report /private/transcription-reports/new-agreement.json
+uv run indusbench promote-transcription \
+  sign-inventory.json unresolved-artifact.json adjudication.json \
+  /private/transcription-artifacts/new-artifact.json \
+  --review review-a.json --review review-b.json \
+  --side-id <side-id> --line-id <line-id>
+```
+
+The layout commands deterministically bind all cell and fixed 32-pixel
+padded-context rectangles to the page pixels, write only a new private `0600`
+proposal, and independently recompute it before later use. A cell crop is only
+a locator and may split foreground; its context crop is a review view, not
+accepted glyph evidence. Every layout-acceptance, identifier, and decipherment
+claim remains false. Verification also requires the proposal to remain a
+single-link owner-owned `0600` file under a physical owner-only `0700` parent.
+
+Left-to-right numbering is a visual-coordinate convention, not an inferred
+reading direction; direction and signs may remain unresolved. Outputs are new
+`0600` files below pre-existing physical owner-only `0700` parents. The v0.1
+records are unsealed, private-only, and evaluation-inadmissible. See the
+[transcription bridge boundary](docs/TRANSCRIPTION_BRIDGE.md) and the
+[Helsinki 1982 Batch 0 protocol](docs/KP1982_BATCH0_PROTOCOL.md).
+
 Stage explicitly selected Open Access museum objects in the ignored private
 data tree:
 
@@ -287,6 +330,7 @@ Read the [scientific standard](docs/BENCHMARK.md), [schema contract](docs/SCHEMA
 [benchmark-definition lock boundary](docs/BENCHMARK_LOCK.md),
 [submission commitment boundary](docs/SUBMISSION_COMMITMENT.md),
 [private corpus readiness boundary](docs/PRIVATE_CORPUS_READINESS.md),
+[private transcription bridge](docs/TRANSCRIPTION_BRIDGE.md),
 [annotation guide](docs/ANNOTATION_GUIDE.md), [data policy](DATA_POLICY.md), and
 [contribution guide](CONTRIBUTING.md) before adding data or models. Institutional access work can
 start from the bilingual [permission templates](docs/PERMISSION_REQUESTS.md); hypothesis teams use

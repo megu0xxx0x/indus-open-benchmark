@@ -33,6 +33,7 @@ from indusbench.split_manifest import (
     split_member,
     validate_split_manifest,
 )
+from indusbench.transcription_admission import require_admitted_transcription_corpus
 from indusbench.validation import has_errors, validate_corpus
 
 CANONICALIZATION = "indus-json-c14n-v1"
@@ -440,6 +441,9 @@ def _load_inputs(
         raw["split/development.jsonl"],
         "split/development.jsonl",
     )
+    require_admitted_transcription_corpus(corpus)
+    require_admitted_transcription_corpus(train)
+    require_admitted_transcription_corpus(development)
     corpus_issues = validate_corpus(corpus)
     corpus_issues.extend(validate_artifact_rows(corpus, artifact_schema))
     if has_errors(corpus_issues):

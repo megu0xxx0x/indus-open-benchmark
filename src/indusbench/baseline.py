@@ -12,6 +12,12 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from typing import Protocol, Self, TypeAlias, cast
 
+from indusbench.transcription_admission import (
+    has_unadmitted_transcription_bridge,
+    require_admitted_transcription_artifact,
+    require_admitted_transcription_corpus,
+)
+
 ArtifactRecord: TypeAlias = Mapping[str, object]
 SignSequence: TypeAlias = tuple[str, ...]
 CorpusInput: TypeAlias = ArtifactRecord | Iterable[object]
@@ -139,6 +145,8 @@ def _observed_segments(slots: Sequence[str | None]) -> list[SignSequence]:
 
 def _extract_record_sequences(record: ArtifactRecord) -> list[SignSequence]:
     sequences: list[SignSequence] = []
+    if has_unadmitted_transcription_bridge(record):
+        return []
 
     def add_line(line: object) -> None:
         tokens = line.get("tokens") if isinstance(line, Mapping) else line
@@ -194,6 +202,28 @@ def extract_sequences(data: CorpusInput) -> list[SignSequence]:
     return sequences
 
 
+def extract_evaluation_sequences(data: CorpusInput) -> list[SignSequence]:
+    """Extract sequences after rejecting every private transcription artifact.
+
+    ``extract_sequences`` remains a safe low-level reader that silently omits
+    marked records.  Evaluation entry points use this stricter wrapper so a
+    mixed corpus cannot be mistaken for a complete one after silent omission.
+    """
+
+    if isinstance(data, Mapping):
+        require_admitted_transcription_artifact(cast(ArtifactRecord, data))
+        return extract_sequences(data)
+
+    materialized: list[object] = list(data)
+    require_admitted_transcription_corpus(
+        cast(
+            Iterable[Mapping[str, object]],
+            (item for item in materialized if isinstance(item, Mapping)),
+        )
+    )
+    return extract_sequences(materialized)
+
+
 def _require_fitted(token_count: int) -> None:
     if token_count == 0:
         raise RuntimeError("baseline is not fitted")
@@ -244,7 +274,7 @@ class UnigramBaseline:
         return tuple(sorted(self._counts))
 
     def fit(self, data: CorpusInput) -> Self:
-        sequences = extract_sequences(data)
+        sequences = extract_evaluation_sequences(data)
         counts = Counter(sign for sequence in sequences for sign in sequence)
         if not counts:
             raise ValueError("training data contains no sign tokens")
@@ -279,7 +309,7 @@ class UnigramBaseline:
         return {sign: self._counts[sign] / self._token_count for sign in self.vocabulary}
 
     def score_heldout(self, data: CorpusInput) -> HeldoutScore:
-        sequences = extract_sequences(data)
+        sequences = extract_evaluation_sequences(data)
         token_logs: list[float] = []
         for sequence in sequences:
             for sign in sequence:
@@ -321,7 +351,7 @@ class AddOneNGramBaseline:
         return tuple(padded[-(self.order - 1) :])
 
     def fit(self, data: CorpusInput) -> Self:
-        sequences = extract_sequences(data)
+        sequences = extract_evaluation_sequences(data)
         vocabulary = sorted({sign for sequence in sequences for sign in sequence})
         if not vocabulary:
             raise ValueError("training data contains no sign tokens")
@@ -404,7 +434,7 @@ class AddOneNGramBaseline:
         return {sign: weight / normalizer for sign, weight in weights.items()}
 
     def score_heldout(self, data: CorpusInput) -> HeldoutScore:
-        sequences = extract_sequences(data)
+        sequences = extract_evaluation_sequences(data)
         token_logs: list[float] = []
         for sequence in sequences:
             for index, sign in enumerate(sequence):
@@ -422,7 +452,7 @@ def score_missing_signs(
     skip_oov: bool = True,
 ) -> MissingSignScore:
     """Evaluate masked-sign top-1 accuracy, log score, and reciprocal rank."""
-    sequences = extract_sequences(data)
+    sequences = extract_evaluation_sequences(data)
     vocabulary = set(model.vocabulary)
     evaluated = 0
     skipped = 0

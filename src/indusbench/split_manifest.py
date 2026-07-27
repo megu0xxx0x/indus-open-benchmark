@@ -22,6 +22,7 @@ from indusbench.audit import (
 )
 from indusbench.io import encode_json, encode_jsonl_record
 from indusbench.manifest import corpus_digest, sha256_json
+from indusbench.transcription_admission import require_admitted_transcription_artifact
 
 CHECKSUM_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 
@@ -43,6 +44,7 @@ def _require_checksum(value: object, path: str) -> str:
 def split_member(record: Mapping[str, Any]) -> dict[str, Any]:
     """Derive the public membership evidence for one exact artifact record."""
 
+    require_admitted_transcription_artifact(record)
     artifact_id = record.get("artifact_id")
     if not isinstance(artifact_id, str) or not artifact_id:
         raise ValueError("split member is missing a non-empty artifact_id")

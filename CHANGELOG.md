@@ -7,6 +7,22 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- Closed sign-inventory and unsealed visual-transcription review/adjudication
+  schemas, exact-byte evidence verification, double-independent-review
+  comparison, and one non-overwriting private promotion receipt.
+- A fixed Helsinki 1982 pages 20–21 sign-list Batch 0 protocol that preserves
+  repeated catalog rank separately from the lower primary source identifier.
+  No Batch 0 transcription or adjudication is claimed.
+- A closed KP1982 source contract and network-free verifier for the exact
+  official PDF plus canonical page-20/page-21 PBM pixels. Two independent
+  decoders produced pixel-identical source pages.
+- A fixed-seed, deterministic KP1982 layout proposal generator that commits
+  all 700 cell and padded-context crops to the verified page pixels and writes
+  only a private no-replace `0600` manifest, plus a semantic verifier that
+  rebuilds the complete proposal instead of trusting its assurance fields.
+  The canonical V1 manifest bytes are pinned against implementation drift.
+  Cell crops are locator-only; geometry, occupancy, identifiers, and human
+  transcription remain unaccepted.
 - Private museum bundle format 0.2 with exact official policy/API evidence
   snapshots and reproducible, fail-closed verification.
 - Optional external manifest-anchor verification, explicitly separated from
@@ -60,6 +76,14 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Security
 
+- Keep detailed transcription agreement reports and promoted artifacts in new
+  `0600` files below pre-existing physical owner-only `0700` parents, while
+  emitting a fixed count-free terminal summary. Public export and evaluation
+  admission are disabled.
+- Strictly decode and schema-check exact inventory, review, and adjudication
+  bytes; reject duplicate keys, non-finite values, inconsistent commitments,
+  incomplete token coverage, unsafe geometry, and replacement of an existing
+  promotion receipt.
 - Rebuild provider records from duplicate-key-free raw API bytes during
   verification instead of trusting the staged rights fields.
 - Reject redirects, unknown hosts, malformed image signatures, unsafe paths,
@@ -123,6 +147,12 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Scientific limitations
 
+- Transcription bridge v0.1 records are unsealed private drafts. Left-to-right
+  indexing describes image coordinates only; reading direction and signs may
+  remain unknown. Source-document, crop, and source-image bytes are not
+  independently rehashed by promotion, and rights, real-world reviewer
+  independence, blind evaluation, translation, and decipherment are not
+  established.
 - A local `S` creates no trusted-time, authorship, confidentiality, custody,
   hidden-access, blindness, runtime-execution, result, or decipherment
   evidence. It is deterministic and linkable, and it does not prove complete

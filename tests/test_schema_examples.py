@@ -21,6 +21,9 @@ SCHEMA_FILES = (
     "benchmark-lock.schema.json",
     "evaluator-config.schema.json",
     "hypothesis.schema.json",
+    "kp1982-batch0-source.schema.json",
+    "kp1982-layout-seed.schema.json",
+    "kp1982-layout-proposal.schema.json",
     "research-entry.schema.json",
     "museum-intake.schema.json",
     "museum-review-subject.schema.json",
@@ -32,9 +35,11 @@ SCHEMA_FILES = (
     "private-review-bundle.schema.json",
     "private-structural-quarantine.schema.json",
     "quarantine-manifest.schema.json",
+    "sign-inventory.schema.json",
     "smithsonian-metadata-record.schema.json",
     "split-manifest.schema.json",
     "submission-commitment.schema.json",
+    "transcription-review.schema.json",
 )
 SHA256_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 EXTENSION_KEY_RE = re.compile(r"^[a-z][a-z0-9_.-]*:[A-Za-z0-9_.:/-]+$")
