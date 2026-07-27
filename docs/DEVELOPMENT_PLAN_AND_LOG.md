@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-28
 
-**Last source-level update:** 2026-07-28 04:22 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-28 04:52 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -64,6 +64,8 @@ separate and traceable.
    - Fail-closed museum intake and catalog-blind review tooling.
    - Exact-byte sign-inventory, double-review, adjudication, and private
      transcription-promotion tooling.
+   - Exact-byte KP1982 layout and proposal-value-stripped 700-cell bootstrap
+     assignment preparation/verification tooling.
    - Public schemas and synthetic fixtures only; real private execution details
      are not public records.
 
@@ -142,24 +144,29 @@ CC BY concordance snapshot. A network-free command verifies the exact PDF and
 optional canonical PBM bytes. Independent Poppler and MuPDF decoding produced
 pixel-identical 4888×6705 one-bit pages.
 
-The next gate is to freeze visually audited per-lane row boundaries and padded
-context crops. A fixed-seed generator now recomputes all 700 cell and padded
-context crop hashes from the verified PBMs and writes only a private,
-no-replace proposal. Every geometry, occupancy, identifier, human-review, and
-decipherment assurance remains false. The upper catalog rank, lower primary
-source identifier, glyph, and printed marks must be independently observed and
-adjudicated under the not-yet-implemented bootstrap contract before an
-inventory exists. OCR proposals cannot become accepted identifiers. No actual
-Batch 0 review, promotion, rights verification, or decipherment result is part
-of this public update.
+A fixed-seed generator recomputes all 700 cell and padded-context crop hashes
+from the verified PBMs and writes only a private, no-replace proposal. The next
+software layer now rebuilds that canonical proposal and prepares or verifies a
+closed 700-cell reviewer assignment. It retains proposed locator/context
+rectangles and crop commitments while structurally withholding machine
+occupancy, OCR, identifier, and accepted-observation values.
+
+This is preparation, not execution. Every geometry, occupancy, identifier,
+human-review, real-world reviewer-independence/blinding, public-release,
+evaluation-admission, and decipherment assurance remains false. The upper
+catalog rank, lower primary source identifier, glyph, and printed marks must
+still be observed in two genuinely independent human passes and resolved by a
+distinct adjudicator under human-review contracts that are not yet
+implemented. No actual Batch 0 review, promotion, rights verification,
+decipherment, or prize result is part of this public update.
 
 ### Data and source work
 
 Safe next work:
 
 - curate public source/provenance/rights evidence;
-- finish the Helsinki 1982 crop and bootstrap-review verifier using the fixed
-  public PDF/PBM contract;
+- implement the Helsinki 1982 human bootstrap-review and adjudication
+  contracts over the fixed, proposal-value-stripped assignment;
 - improve parsers and validation using public or synthetic fixtures;
 - strengthen leakage and null-model tests;
 - document unresolved rights or provenance as unknown;

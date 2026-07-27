@@ -23,6 +23,11 @@ immutable content-addressed identifiers for corpus and split releases.
   The canonical V1 manifest bytes are pinned against implementation drift.
   Cell crops are locator-only; geometry, occupancy, identifiers, and human
   transcription remain unaccepted.
+- A closed KP1982 bootstrap-assignment contract plus deterministic preparation
+  and exact-byte verification for all 700 proposal cells. Reviewer assignments
+  retain only proposed locator/context rectangles and crop commitments;
+  machine occupancy, OCR, identifier, and accepted-observation values are
+  structurally excluded. Human double review and adjudication remain pending.
 - Private museum bundle format 0.2 with exact official policy/API evidence
   snapshots and reproducible, fail-closed verification.
 - Optional external manifest-anchor verification, explicitly separated from
@@ -80,6 +85,10 @@ immutable content-addressed identifiers for corpus and split releases.
   `0600` files below pre-existing physical owner-only `0700` parents, while
   emitting a fixed count-free terminal summary. Public export and evaluation
   admission are disabled.
+- Rebuild the canonical KP1982 layout proposal before preparing or verifying a
+  bootstrap assignment, recursively reject machine-answer keys, and keep
+  geometry acceptance, human review, reviewer independence/blinding, public
+  release, evaluation admission, and decipherment assurances false.
 - Strictly decode and schema-check exact inventory, review, and adjudication
   bytes; reject duplicate keys, non-finite values, inconsistent commitments,
   incomplete token coverage, unsafe geometry, and replacement of an existing
@@ -153,6 +162,10 @@ immutable content-addressed identifiers for corpus and split releases.
   independently rehashed by promotion, and rights, real-world reviewer
   independence, blind evaluation, translation, and decipherment are not
   established.
+- KP1982 bootstrap assignments are preparation artifacts, not completed
+  reviews. Proposed rectangles and crop commitments are not accepted geometry;
+  no human double review, adjudication, sign inventory, decipherment, or prize
+  result is established.
 - A local `S` creates no trusted-time, authorship, confidentiality, custody,
   hidden-access, blindness, runtime-execution, result, or decipherment
   evidence. It is deterministic and linkable, and it does not prove complete

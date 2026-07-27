@@ -55,6 +55,14 @@ from indusbench.kp1982 import (
     MAX_SOURCE_BYTES as KP1982_MAX_SOURCE_BYTES,
 )
 from indusbench.kp1982 import KP1982SourceError, verify_kp1982_source
+from indusbench.kp1982_bootstrap import (
+    MAX_ASSIGNMENT_BYTES as KP1982_MAX_BOOTSTRAP_ASSIGNMENT_BYTES,
+)
+from indusbench.kp1982_bootstrap import (
+    KP1982BootstrapError,
+    build_bootstrap_assignment,
+    verify_bootstrap_assignment_bytes,
+)
 from indusbench.kp1982_layout import (
     MAX_PROPOSAL_BYTES as KP1982_MAX_LAYOUT_PROPOSAL_BYTES,
 )
@@ -3621,6 +3629,141 @@ def _command_verify_kp1982_layout(args: argparse.Namespace) -> int:
     return 0
 
 
+def _command_prepare_kp1982_bootstrap_assignment(args: argparse.Namespace) -> int:
+    try:
+        source_contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1982_MAX_CONTRACT_BYTES,
+        )
+        layout_seed_bytes = _read_regular_bytes(
+            args.layout_seed,
+            max_bytes=KP1982_MAX_LAYOUT_SEED_BYTES,
+        )
+        page_pbm_bytes = [
+            _read_regular_bytes(
+                path,
+                max_bytes=KP1982_MAX_PAGE_PBM_BYTES,
+            )
+            for path in (args.page20_pbm, args.page21_pbm)
+        ]
+        proposal_bytes = _read_private_regular_bytes(
+            args.proposal,
+            max_bytes=KP1982_MAX_LAYOUT_PROPOSAL_BYTES,
+        )
+        assignment = build_bootstrap_assignment(
+            source_contract_bytes,
+            layout_seed_bytes,
+            page_pbm_bytes,
+            proposal_bytes,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1982BootstrapError("KP1982 bootstrap assignment preparation failed") from error
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.output,
+            assignment,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1982BootstrapError(
+            "private KP1982 bootstrap assignment could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        _print_json(
+            {
+                "valid": False,
+                "written": False,
+                "claim_class": "private_bootstrap_assignment_only",
+                "output_content_verified": content_verified,
+                "durability_confirmed": durability_confirmed,
+                "postcondition": (
+                    "committed_content_verified_durability_unknown"
+                    if content_verified
+                    else "committed_content_unknown"
+                ),
+                "destination_may_exist": True,
+                "counts_disclosed": False,
+                "private_storage_verified": False,
+                "source_page_pixels_verified": True,
+                "layout_proposal_canonical_bytes_verified": True,
+                "assignment_canonical_bytes_verified": content_verified,
+                "machine_answer_values_withheld": content_verified,
+                "cell_geometry_accepted": False,
+                "occupancy_accepted": False,
+                "human_review_complete": False,
+                "reviewer_independence_verified": False,
+                "reviewer_blinding_verified": False,
+                "identifiers_transcribed": False,
+                "public_release_authorized": False,
+                "evaluation_admissible": False,
+                "decipherment": False,
+            }
+        )
+        return 1
+    _print_json(
+        {
+            "valid": True,
+            "written": True,
+            "claim_class": "private_bootstrap_assignment_only",
+            "counts_disclosed": False,
+            "private_storage_verified": True,
+            "source_page_pixels_verified": True,
+            "layout_proposal_canonical_bytes_verified": True,
+            "assignment_canonical_bytes_verified": True,
+            "machine_answer_values_withheld": True,
+            "cell_geometry_accepted": False,
+            "occupancy_accepted": False,
+            "human_review_complete": False,
+            "reviewer_independence_verified": False,
+            "reviewer_blinding_verified": False,
+            "identifiers_transcribed": False,
+            "public_release_authorized": False,
+            "evaluation_admissible": False,
+            "decipherment": False,
+        }
+    )
+    return 0
+
+
+def _command_verify_kp1982_bootstrap_assignment(args: argparse.Namespace) -> int:
+    try:
+        source_contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1982_MAX_CONTRACT_BYTES,
+        )
+        layout_seed_bytes = _read_regular_bytes(
+            args.layout_seed,
+            max_bytes=KP1982_MAX_LAYOUT_SEED_BYTES,
+        )
+        page_pbm_bytes = [
+            _read_regular_bytes(
+                path,
+                max_bytes=KP1982_MAX_PAGE_PBM_BYTES,
+            )
+            for path in (args.page20_pbm, args.page21_pbm)
+        ]
+        proposal_bytes = _read_private_regular_bytes(
+            args.proposal,
+            max_bytes=KP1982_MAX_LAYOUT_PROPOSAL_BYTES,
+        )
+        assignment_bytes = _read_private_regular_bytes(
+            args.assignment,
+            max_bytes=KP1982_MAX_BOOTSTRAP_ASSIGNMENT_BYTES,
+        )
+        summary = verify_bootstrap_assignment_bytes(
+            source_contract_bytes,
+            layout_seed_bytes,
+            page_pbm_bytes,
+            proposal_bytes,
+            assignment_bytes,
+        )
+        summary["private_storage_verified"] = True
+    except (OSError, ValueError) as error:
+        raise KP1982BootstrapError("KP1982 bootstrap assignment verification failed") from error
+    _print_json(summary)
+    return 0
+
+
 def _read_transcription_json(path: Path) -> tuple[dict[str, Any], bytes, str]:
     """Read and hash one bounded, immutable transcription input snapshot."""
 
@@ -5884,6 +6027,68 @@ def build_parser() -> argparse.ArgumentParser:
         help="closed checked-in provisional KP1982 Batch 0 layout seed",
     )
     kp1982_layout_verify_parser.set_defaults(handler=_command_verify_kp1982_layout)
+
+    kp1982_bootstrap_prepare_parser = subparsers.add_parser(
+        "prepare-kp1982-bootstrap-assignment",
+        help="create a private value-stripped KP1982 Batch 0 reviewer assignment",
+    )
+    kp1982_bootstrap_prepare_parser.add_argument("page20_pbm", type=_path)
+    kp1982_bootstrap_prepare_parser.add_argument("page21_pbm", type=_path)
+    kp1982_bootstrap_prepare_parser.add_argument(
+        "proposal",
+        type=_path,
+        help="canonical 0600 layout proposal under a physical owner-only directory",
+    )
+    kp1982_bootstrap_prepare_parser.add_argument(
+        "output",
+        type=_path,
+        help="new 0600 assignment under a pre-existing physical 0700 directory",
+    )
+    kp1982_bootstrap_prepare_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1982_contract(),
+        help="closed checked-in KP1982 Batch 0 source contract",
+    )
+    kp1982_bootstrap_prepare_parser.add_argument(
+        "--layout-seed",
+        type=_path,
+        default=_default_kp1982_layout_seed(),
+        help="closed checked-in provisional KP1982 Batch 0 layout seed",
+    )
+    kp1982_bootstrap_prepare_parser.set_defaults(
+        handler=_command_prepare_kp1982_bootstrap_assignment
+    )
+
+    kp1982_bootstrap_verify_parser = subparsers.add_parser(
+        "verify-kp1982-bootstrap-assignment",
+        help="recompute a private value-stripped KP1982 Batch 0 reviewer assignment",
+    )
+    kp1982_bootstrap_verify_parser.add_argument("page20_pbm", type=_path)
+    kp1982_bootstrap_verify_parser.add_argument("page21_pbm", type=_path)
+    kp1982_bootstrap_verify_parser.add_argument(
+        "proposal",
+        type=_path,
+        help="canonical 0600 layout proposal under a physical owner-only directory",
+    )
+    kp1982_bootstrap_verify_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1982_bootstrap_verify_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1982_contract(),
+        help="closed checked-in KP1982 Batch 0 source contract",
+    )
+    kp1982_bootstrap_verify_parser.add_argument(
+        "--layout-seed",
+        type=_path,
+        default=_default_kp1982_layout_seed(),
+        help="closed checked-in provisional KP1982 Batch 0 layout seed",
+    )
+    kp1982_bootstrap_verify_parser.set_defaults(handler=_command_verify_kp1982_bootstrap_assignment)
 
     transcription_audit_parser = subparsers.add_parser(
         "audit-transcription-agreement",

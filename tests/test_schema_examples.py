@@ -22,6 +22,7 @@ SCHEMA_FILES = (
     "evaluator-config.schema.json",
     "hypothesis.schema.json",
     "kp1982-batch0-source.schema.json",
+    "kp1982-bootstrap-assignment.schema.json",
     "kp1982-layout-seed.schema.json",
     "kp1982-layout-proposal.schema.json",
     "research-entry.schema.json",

@@ -59,6 +59,11 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   deterministic 700-cell proposal with fixed source/seed/page commitments,
   integer cell/context rectangles, and exact crop hashes; every human-review,
   identifier, and decipherment assurance is fixed false.
+- `schemas/kp1982-bootstrap-assignment.schema.json` (v0.1.0) — a closed,
+  proposal-value-stripped 700-cell reviewer assignment bound to the exact
+  source, seed, canonical layout proposal, and page pixels. It retains only
+  proposed locator/context rectangles and crop commitments while structurally
+  excluding machine answer and accepted-observation values.
 - `schemas/sign-inventory.schema.json` (v0.1.0) — a versioned visual sign
   inventory that keeps primary published identifiers, repeated catalog ranks,
   graphic evidence, and doubt marks separate from interpretation.
@@ -107,11 +112,24 @@ while its machine-recomputed component-coverage assurance remains false. It
 does not determine the semantic ownership of disconnected quotation-like or
 doubt-like marks, and it must not replace visual double review.
 
+The bootstrap-assignment preparation layer rebuilds the canonical layout
+proposal and derives exactly 700 assignment cells. Each cell may carry only
+its stable page/lane/row identity, proposed cell/context rectangles, and the
+two crop commitments. Machine occupancy and accepted-occupancy values, OCR
+output, machine identifier proposals, and accepted observation fields are
+forbidden recursively. Exact-byte verification rebuilds the assignment rather
+than trusting its assurance fields. Schema validity alone does not accept
+geometry, establish reviewer independence or blinding, authorize public
+release, admit evaluation data, establish a decipherment, or support a prize
+claim.
+
 The sign-inventory bootstrap must precede `transcription-review.schema.json`.
 Using an already-created inventory to “review” the pages from which that same
-inventory was derived would be circular. The remaining bootstrap contract
-must independently preserve the upper catalog rank, lower primary identifier,
+inventory was derived would be circular. Assignment preparation is now
+implemented; the remaining human-review and adjudication contracts must
+independently preserve the upper catalog rank, lower primary identifier,
 glyph-with-marks crop, surrounding printed marks, and unresolved readings.
+No such human review or adjudication is claimed complete.
 
 ## Private corpus readiness
 

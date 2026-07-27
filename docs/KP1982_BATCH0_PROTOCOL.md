@@ -7,8 +7,10 @@ evidence bridge against a published sign list. It is a protocol and source
 pin, not a completed transcription, authoritative sign inventory, corpus
 release, reading, translation, or decipherment.
 
-No Batch 0 independent review, adjudication, or promotion is claimed to have
-occurred.
+The source, layout proposal, and proposal-value-stripped reviewer-assignment
+preparation layers are implemented. No Batch 0 independent human review,
+adjudication, inventory promotion, decipherment, or prize result is claimed to
+have occurred.
 
 ## Fixed public source
 
@@ -107,25 +109,51 @@ same source evidence.
    only a deterministic padding basis, not a machine-recomputed coverage
    assurance. It cannot assign disconnected printed marks semantically, so
    human review remains mandatory.
-3. **Run two independent bootstrap passes.** This step creates the inventory;
-   it must not use the artifact-transcription review schema or a pre-existing
-   version of the inventory being derived. Each reviewer independently records
+3. **Prepare a proposal-value-stripped reviewer assignment.** Rebuild and
+   verify the canonical layout proposal, then derive its complete 700-cell
+   locator roster:
+
+   ```bash
+   uv run indusbench prepare-kp1982-bootstrap-assignment \
+     page-20.pbm page-21.pbm \
+     /private/kp1982-layout/proposal.json \
+     /private/kp1982-layout/bootstrap-assignment.json
+   uv run indusbench verify-kp1982-bootstrap-assignment \
+     page-20.pbm page-21.pbm \
+     /private/kp1982-layout/proposal.json \
+     /private/kp1982-layout/bootstrap-assignment.json
+   ```
+
+   Each assignment cell contains only its stable roster coordinates, proposed
+   cell/context rectangles, and exact crop commitments. The closed schema and
+   semantic builder structurally exclude machine occupancy values, accepted
+   occupancy, OCR output, machine identifier proposals, and accepted
+   observation fields. The cell crop remains a locator that may split
+   foreground, and the context crop remains an unaccepted reviewer aid.
+   Successful preparation verifies the fixed input bytes and stripping rule;
+   it does not accept geometry or prove actual reviewer separation, blindness,
+   or private custody.
+4. **Run two independent bootstrap passes.** These passes provide the evidence
+   from which an inventory may be created only after adjudication. They must
+   not use the artifact-transcription review schema or a pre-existing version
+   of the inventory being derived. Each reviewer independently records
    occupancy, the raw upper catalog rank, raw lower primary identifier,
    glyph-with-marks crop, any optional glyph-core rectangle, every surrounding
-   printed mark, condition, uncertainty, and exact crop commitment.
-4. **Keep OCR proposals hidden and non-authoritative.** The pages have no text
+   printed mark, condition, uncertainty, and exact crop commitment. These
+   human passes have not yet been executed.
+5. **Keep OCR proposals hidden and non-authoritative.** The pages have no text
    layer, and generic OCR misread clear numerals during the source audit.
    Machine proposals may be retained with separate provenance but cannot
    populate accepted identifiers or be shown between independent passes.
-5. **Adjudicate the bootstrap.** A distinct adjudicator resolves every
+6. **Adjudicate the bootstrap.** A distinct adjudicator resolves every
    identifier, crop, occupancy, and printed-mark conflict while retaining
    unresolved observations. Only this output may generate a draft
    `sign-inventory.schema.json` object.
-6. **Validate the generated inventory.** Keep the upper rank and lower primary
+7. **Validate the generated inventory.** Keep the upper rank and lower primary
    identifier as separate published-identifier roles and bind every value to
    its source page, component rectangle, and crop. Do not assign sound,
    language, meaning, or translation.
-7. **Use the transcription bridge only afterward.** Once the inventory has
+8. **Use the transcription bridge only afterward.** Once the inventory has
    independent bootstrap evidence, inscription images can receive two
    independent sign-identification reviews and a distinct adjudication. That
    later artifact receipt remains private and
@@ -142,9 +170,12 @@ private evidence exists and verifies:
 
 - one exact source snapshot accepted by the current byte verifier;
 - both canonical page images accepted by the current byte verifier;
+- one canonical, proposal-value-stripped 700-cell bootstrap assignment
+  accepted by its exact-byte verifier;
 - visually audited page and crop coordinates for all selected entries;
 - two independent sign-list bootstrap drafts and one complete bootstrap
-  adjudication under the not-yet-implemented bootstrap contract;
+  adjudication under the not-yet-implemented human-review and adjudication
+  contracts;
 - one schema- and semantics-valid inventory;
 - two complete artifact-transcription drafts over a later fixed inscription
   target;
@@ -159,9 +190,9 @@ translation, or decipherment.
 
 ## Immediate engineering next step
 
-Implement the non-circular bootstrap review and adjudication schema, then use
-two genuinely independent visual passes to accept or correct every proposed
-rectangle, occupancy, identifier, glyph crop, and printed mark. The PDF/PBM
-verifier and deterministic private crop proposal are implemented, but no
-proposal is accepted evidence. Until the review gates are implemented and
-executed, Batch 0 remains unexecuted.
+Implement the non-circular human-review and adjudication schemas, then use two
+genuinely independent visual passes to accept or correct every proposed
+rectangle, occupancy, identifier, glyph crop, and printed mark. The PDF/PBM,
+layout-proposal, and proposal-value-stripped assignment preparation/verifier
+layers are implemented. No proposal is accepted evidence, no human review has
+been executed, and Batch 0 remains unexecuted.

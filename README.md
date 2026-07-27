@@ -87,6 +87,11 @@ permission by itself.
   independent-review, and adjudication bytes, then creates a non-overwriting
   private staging receipt. Its drafts are unsealed, public export is disabled,
   and promoted observations are excluded from evaluation.
+- A proposal-value-stripped KP1982 bootstrap-assignment builder and verifier.
+  It derives an exact 700-cell reviewer roster from the fixed page pixels and
+  canonical layout proposal while structurally excluding machine occupancy,
+  OCR, identifier, and accepted-observation values. Proposed rectangles and
+  crop commitments remain reviewer aids, not accepted observations.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.
@@ -228,6 +233,14 @@ uv run indusbench propose-kp1982-layout \
   page-20.pbm page-21.pbm /private/kp1982-layout/proposal.json
 uv run indusbench verify-kp1982-layout \
   page-20.pbm page-21.pbm /private/kp1982-layout/proposal.json
+uv run indusbench prepare-kp1982-bootstrap-assignment \
+  page-20.pbm page-21.pbm \
+  /private/kp1982-layout/proposal.json \
+  /private/kp1982-layout/bootstrap-assignment.json
+uv run indusbench verify-kp1982-bootstrap-assignment \
+  page-20.pbm page-21.pbm \
+  /private/kp1982-layout/proposal.json \
+  /private/kp1982-layout/bootstrap-assignment.json
 
 install -d -m 700 /private/transcription-reports /private/transcription-artifacts
 uv run indusbench audit-transcription-agreement \
@@ -248,12 +261,21 @@ accepted glyph evidence. Every layout-acceptance, identifier, and decipherment
 claim remains false. Verification also requires the proposal to remain a
 single-link owner-owned `0600` file under a physical owner-only `0700` parent.
 
+The bootstrap-assignment commands rebuild the fixed proposal before preparing
+or verifying an exact 700-cell locator roster. The assignment exposes proposed
+cell/context rectangles and their crop commitments, but its closed structure
+contains no machine occupancy answer, accepted occupancy, OCR output, machine
+identifier proposal, or accepted observation field. This prepares independent
+human work; it does not prove that reviewers were independent or blinded, and
+no human pass or adjudication has yet been completed.
+
 Left-to-right numbering is a visual-coordinate convention, not an inferred
 reading direction; direction and signs may remain unresolved. Outputs are new
 `0600` files below pre-existing physical owner-only `0700` parents. The v0.1
 records are unsealed, private-only, and evaluation-inadmissible. See the
 [transcription bridge boundary](docs/TRANSCRIPTION_BRIDGE.md) and the
-[Helsinki 1982 Batch 0 protocol](docs/KP1982_BATCH0_PROTOCOL.md).
+[Helsinki 1982 Batch 0 protocol](docs/KP1982_BATCH0_PROTOCOL.md). None of these
+preparation steps is a decipherment result or a prize claim.
 
 Stage explicitly selected Open Access museum objects in the ignored private
 data tree:

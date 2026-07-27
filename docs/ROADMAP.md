@@ -87,10 +87,14 @@ Current assets:
 - [x] Generate a deterministic private proposal for all 700 fixed row slots,
   including exact cell/context rectangles and crop hashes, from a byte-pinned
   provisional seed and the verified page pixels.
+- [x] Prepare and exact-byte-verify a closed 700-cell bootstrap assignment
+  that retains proposed locator/context rectangles and crop commitments while
+  structurally withholding machine occupancy, OCR, identifier, and accepted
+  observation values.
 - [ ] Freeze visually audited per-lane row boundaries, context crops, and crop
   commitments; generated values remain proposals until independent review.
-- [ ] Implement the non-circular sign-inventory bootstrap review contract
-  before creating an inventory from the sign-list pages.
+- [ ] Implement the non-circular human bootstrap-review and adjudication
+  contracts before creating an inventory from the sign-list pages.
 - [ ] Execute the pages 20–21 Batch 0 sign-list protocol with two genuinely
   independent reviewers and a distinct adjudicator. No such execution or
   reviewer-independence claim is part of the public source tree.
