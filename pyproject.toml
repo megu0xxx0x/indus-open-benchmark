@@ -27,7 +27,7 @@ dependencies = ["jsonschema[format]>=4.25.1,<5"]
 
 [project.optional-dependencies]
 dev = [
-  "pyright==1.1.409",
+  "pyright==1.1.411",
   "ruff==0.15.13",
 ]
 
