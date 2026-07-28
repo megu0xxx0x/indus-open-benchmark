@@ -35,6 +35,7 @@ Current assets:
 - [private transcription evidence bridge](TRANSCRIPTION_BRIDGE.md)
 - [Helsinki 1982 sign-list Batch 0 protocol](KP1982_BATCH0_PROTOCOL.md)
 - [2026-07-28 decipherment-efficiency audit](DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
+- [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 
 ## v0.1 — Public, non-blind engineering seed
 
@@ -55,17 +56,32 @@ Current assets:
 - [x] Complete the KP1982 source/layout/assignment/review/adjudication verifier
   V1. After publication, freeze it unless a downstream experiment exposes a
   reproducible defect or evidence-loss problem.
-- [ ] Freeze the exact KP1982 page map: pages 20–21 sign list, page 22 section
-  title/negative control, and pages 23–201 as 179 concordance data pages.
+- [x] Pin the official KP1979 PDF and all 179 native page images, freeze its
+  section/page map, and implement the pixel-only abstaining two-column audit.
+- [x] Confirm the official 1980 continuation's exact bytes and data-bearing
+  ranges for revisions, bidirectional Mahadevan cross-reference,
+  documentation, and strict/loose duplicate assertions.
+- [ ] Freeze independently prepared label y-positions for the 12-page KP1979
+  development/future-evaluation protocol. Page identities and pixels are
+  public; require exact label-position precision/recall before accepting any
+  label-slot geometry, then validate full-row segmentation separately.
+- [ ] Extract the 57-page KP1979 identifier-order base lane first, then
+  reconcile records against the sorted-from-end and sorted-from-beginning
+  reprints without using sign sequences as join keys.
+- [ ] Implement the 1980 versioned-delta, bidirectional cross-reference, and
+  state-carrying duplicate-list parsers. Preserve strict, loose,
+  exact-sequence, ancient repetition, and physical-object relations
+  separately.
+- [ ] Freeze the exact KP1982 concordance page map after the KP1979/1980
+  record spine exists; use page 22 as the negative control and pages 23–201
+  as occurrence-level consistency evidence.
 - [ ] Define a deterministic 80–120-slot stratified calibration tranche.
   This fast lane does not complete or weaken the separate full-700 Batch 0
   contract.
-- [ ] Build a separate stratified 8–12-page, 300–500-row concordance
-  development/sealed reference. Cell calibration alone cannot validate
-  end-to-end row or sequence accuracy.
 - [ ] Generate source-bound, abstaining machine proposals over pages 23–201,
   require empty output on page 22, and freeze the recognizer before sealed
-  evaluation. Do not auto-admit unreviewed output.
+  evaluation. This is a later occurrence-audit lane; do not auto-admit
+  unreviewed output.
 - [ ] Implement edition-preserving corpus adapters and uncertainty-bearing
   crosswalks before importing any rights-compatible export.
 - [ ] Preregister numeral/metrology and repeated-tablet functional-anchor

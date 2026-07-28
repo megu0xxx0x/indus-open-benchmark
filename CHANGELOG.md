@@ -39,9 +39,20 @@ immutable content-addressed identifiers for corpus and split releases.
   source-bound/abstaining concordance proposals, corpus federation, functional
   anchors, and equal-budget hypothesis tournaments. The full Batch 0 contract
   remains available as a high-assurance path and no extraction or reading is
-  claimed. The plan separately requires a concordance-row reference and frozen
-  sealed evaluation; sign-list cells alone cannot establish end-to-end
-  accuracy.
+  claimed. The plan separately requires a concordance-row reference and a
+  genuinely label-withheld evaluation; sign-list cells alone cannot establish
+  end-to-end accuracy.
+- A follow-up Helsinki corpus fast-path audit and implementation that moves
+  the first corpus lane to the official 1979 identifier-order pages, followed
+  by its two sorted internal reprints, the official 1980
+  revision/cross-reference/duplicate delta, and only then the 1982 occurrence
+  concordance. The exact 1979 PDF and all 179 native page pixels are pinned.
+  A streaming pixel-only detector proposes label-lattice slots on every normal
+  two-column page while
+  abstaining on dense prose, both ten-column sign-list pages, and the
+  eight-/six-column auxiliary grids. A predeclared mask, not the detector,
+  removes terminal-page prose intersections. It does not segment full rows and
+  accepts no label slot, row, identifier, sign, reading, or decipherment value.
 - Private museum bundle format 0.2 with exact official policy/API evidence
   snapshots and reproducible, fail-closed verification.
 - Optional external manifest-anchor verification, explicitly separated from

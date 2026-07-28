@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1979-page-map.schema.json",
+  "title": "Fixed KP1979 native-page map",
+  "description": "Exact native PBM commitments and audited page classes for PDF pages 2 through 180. No printed identifier or sign value is represented.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "map_id",
+    "status",
+    "scientific_scope",
+    "source_contract",
+    "canonicalization",
+    "pages",
+    "layout_evaluation_page_protocol",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "map_id": {
+      "const": "KP1979:CORPUS:PAGE-MAP:V1"
+    },
+    "status": {
+      "const": "fixed_page_pixels_and_layout_classes_only_untranscribed"
+    },
+    "scientific_scope": {
+      "const": "page identity, native pixels, source section, and proposal-only detector scan bands; no OCR value, accepted identifier, sign transcription, reading direction, language, meaning, translation, or decipherment"
+    },
+    "source_contract": {
+      "$ref": "#/$defs/commitment"
+    },
+    "canonicalization": {
+      "const": {
+        "encoding": "P4 newline 4880 space 7010 newline; row-major top-to-bottom, left-to-right, black=1, MSB-first",
+        "width": 4880,
+        "height": 7010,
+        "pixel_payload_byte_size": 4276100,
+        "canonical_pbm_byte_size": 4276113,
+        "decoder_crosscheck": "pixel_equal_poppler_pdfimages_26.04.0_and_mupdf_mutool_1.27.2_png_via_pillow_11.3.0"
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 179,
+      "maxItems": 179,
+      "items": {
+        "$ref": "#/$defs/page"
+      }
+    },
+    "layout_evaluation_page_protocol": {
+      "const": {
+        "development_pdf_pages": [
+          20,
+          22,
+          79,
+          129,
+          131,
+          180
+        ],
+        "future_evaluation_pdf_pages": [
+          8,
+          78,
+          99,
+          128,
+          130,
+          175
+        ],
+        "manual_row_values_present": false,
+        "selection_scope": "layout-class and boundary coverage only; page identities and pixels are public, manual row labels remain external and absent, and no blind evaluation is claimed"
+      }
+    },
+    "assurances": {
+      "const": {
+        "source_page_pixels_crosschecked": true,
+        "page_classes_visually_audited": true,
+        "detector_scan_bands_proposal_only": true,
+        "layout_candidates_accepted": false,
+        "identifiers_transcribed": false,
+        "sign_sequences_transcribed": false,
+        "decipherment": false
+      }
+    }
+  },
+  "$defs": {
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_id",
+        "sha256",
+        "byte_size"
+      ],
+      "properties": {
+        "contract_id": {
+          "const": "KP1979:CORPUS:SOURCE:V1"
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "byte_size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "bbox": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4879
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7009
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4880
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7010
+        }
+      ],
+      "items": false
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_index",
+        "pdf_page_number",
+        "printed_page_label",
+        "pdf_image_object_number",
+        "page_role",
+        "layout_class",
+        "corpus_sequence_role",
+        "label_side",
+        "proposal_scan_bands",
+        "proposal_exclusion_bboxes",
+        "contains_linguistic_sequence_candidates",
+        "canonical_pbm_filename",
+        "canonical_pbm_sha256",
+        "pixel_payload_sha256"
+      ],
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 179
+        },
+        "pdf_page_number": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 180
+        },
+        "printed_page_label": {
+          "type": "string",
+          "pattern": "^(?:[1-9]|[1-9][0-9]|1[0-7][0-9])$"
+        },
+        "pdf_image_object_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_role": {
+          "enum": [
+            "non_corpus_negative",
+            "sign_list_negative",
+            "corpus_data",
+            "auxiliary_catalog_only"
+          ]
+        },
+        "layout_class": {
+          "enum": [
+            "non_corpus",
+            "sign_list_10_column",
+            "identifier_order_2_column_labels_right",
+            "sorted_end_2_column_labels_left",
+            "sorted_end_auxiliary_grid_8",
+            "sorted_end_auxiliary_grid_6",
+            "sorted_beginning_2_column_labels_right"
+          ]
+        },
+        "corpus_sequence_role": {
+          "enum": [
+            "none",
+            "base_rendering",
+            "internal_crosscheck",
+            "catalog_metadata_only"
+          ]
+        },
+        "label_side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ]
+        },
+        "proposal_scan_bands": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/bbox"
+          }
+        },
+        "proposal_exclusion_bboxes": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/bbox"
+          }
+        },
+        "contains_linguistic_sequence_candidates": {
+          "type": "boolean",
+          "description": "Page-level discovery flag only. True means that the page may contain linguistic sequence candidates; it never admits every row or any individual sequence, including on mixed page 128."
+        },
+        "canonical_pbm_filename": {
+          "type": "string",
+          "pattern": "^page-[0-9]{3}\\.pbm$"
+        },
+        "canonical_pbm_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "pixel_payload_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      }
+    }
+  }
+}

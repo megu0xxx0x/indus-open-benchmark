@@ -49,6 +49,55 @@ rights-and-publication review approves exact release bytes.
 
 ## Current importable source
 
+### University of Helsinki 1979 corpus
+
+- Official record:
+  <https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/>
+- Official PDF:
+  <https://tuhat.helsinki.fi/ws/portalfiles/portal/176353520/indus_corpus_1979.pdf>
+- Rights status: official record marked CC BY
+- Exact PDF identity: 180 pages, 16,935,356 bytes,
+  SHA-256 `e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa`
+- Current use: fixed source, section/page map, and proposal-only layout audit;
+  no accepted transcription or decipherment
+
+The identifier-order base corpus is on PDF pages 22–78. Normal
+sorted-from-end pages are 79–128; pages 129 and 130 are eight- and six-column
+auxiliary catalog grids and are not linguistic sign sequences. The
+sorted-from-beginning rendering is on pages 131–180.
+
+`registry/kp1979_page_map.json` commits every native page image from PDF pages
+2–180. Poppler and MuPDF produced pixel-identical 4880×7010 one-bit results.
+The network-free audit applies one pixel-only detector to normal pages and
+hard controls. It accepts no identifier or sign value and withholds candidate
+counts.
+
+The three renderings are valuable internal extraction checks, but they share
+authors and source lineage. Agreement is not independent archaeological
+confirmation.
+
+### University of Helsinki 1980 documentation and duplicates
+
+- Official record:
+  <https://researchportal.helsinki.fi/en/publications/documentation-and-duplicates-of-the-texts-in-the-indus-script/>
+- Official PDF:
+  <https://tuhat.helsinki.fi/ws/portalfiles/portal/207886811/indus_duplicates_1980.pdf>
+- Rights status: official record marked CC BY
+- Exact PDF identity: 98 pages, 8,143,483 bytes,
+  SHA-256 `0ced4102dc6197246df6c84e4b730ed380f41085a4a1ea8dd8a6459332da37d1`
+- Current use: pinned revision/cross-reference/documentation/duplicate
+  specification; canonical extraction pending
+
+Data-bearing ranges are PDF pages 20–23, 27–32, 40–51, and 59–98. The
+embedded OCR layer demonstrably confuses digits and section numbers and may
+locate rows only. Every canonical value requires page-image verification.
+
+The duplicate list carries group state across columns and pages. Its `strict`
+and `loose` relations describe information redundancy under the authors'
+rules, not necessarily one physical object, one ancient matrix, or exact text
+identity. Preserve all these relations separately and never delete the raw
+1979 observation.
+
 ### University of Helsinki 1982 concordance
 
 - Official record:

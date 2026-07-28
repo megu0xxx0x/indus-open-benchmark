@@ -1,0 +1,94 @@
+{
+  "assurances": {
+    "decipherment": false,
+    "human_double_review_complete": false,
+    "identifiers_transcribed": false,
+    "layout_candidates_accepted": false,
+    "page_pixels_verified_by_page_map": false,
+    "sign_sequences_transcribed": false,
+    "source_bytes_verified_by_contract": false,
+    "three_way_reconciliation_complete": false
+  },
+  "contract_id": "KP1979:CORPUS:SOURCE:V1",
+  "coordinate_contract": {
+    "bits_per_component": 1,
+    "color_space": "DeviceGray",
+    "covered_pdf_page_numbers": [
+      2,
+      180
+    ],
+    "filter": "CCITTFaxDecode",
+    "height": 7010,
+    "normalization_status": "native_pixels_first_transform_not_yet_admitted",
+    "observation_space": "decoded_embedded_page_image_pixels",
+    "origin": "top_left",
+    "rectangle_encoding": "half_open_xyxy_integer",
+    "width": 4880
+  },
+  "page_numbering": {
+    "cover_pdf_page_number": 1,
+    "first_printed_pdf_page_number": 2,
+    "printed_page_label_offset_from_pdf_page": -1
+  },
+  "page_sections": [
+    {
+      "corpus_sequence_role": "none",
+      "first_pdf_page_number": 2,
+      "last_pdf_page_number": 19,
+      "section_id": "front_matter_and_introduction"
+    },
+    {
+      "corpus_sequence_role": "none",
+      "first_pdf_page_number": 20,
+      "last_pdf_page_number": 21,
+      "section_id": "sign_list"
+    },
+    {
+      "corpus_sequence_role": "base_rendering",
+      "first_pdf_page_number": 22,
+      "last_pdf_page_number": 78,
+      "section_id": "corpus_identifier_order"
+    },
+    {
+      "corpus_sequence_role": "internal_crosscheck",
+      "first_pdf_page_number": 79,
+      "last_pdf_page_number": 128,
+      "section_id": "corpus_sorted_from_end_normal"
+    },
+    {
+      "corpus_sequence_role": "catalog_metadata_only",
+      "first_pdf_page_number": 129,
+      "last_pdf_page_number": 129,
+      "section_id": "sorted_from_end_auxiliary_grid_8"
+    },
+    {
+      "corpus_sequence_role": "catalog_metadata_only",
+      "first_pdf_page_number": 130,
+      "last_pdf_page_number": 130,
+      "section_id": "sorted_from_end_auxiliary_grid_6"
+    },
+    {
+      "corpus_sequence_role": "internal_crosscheck",
+      "first_pdf_page_number": 131,
+      "last_pdf_page_number": 180,
+      "section_id": "corpus_sorted_from_beginning"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scientific_scope": "source identity, page classes, and native image geometry only; no accepted identifier, sign transcription, reading direction, phonetic, language, semantic, translation, or decipherment inference",
+  "source": {
+    "byte_size": 16935356,
+    "download_uri": "https://tuhat.helsinki.fi/ws/portalfiles/portal/176353520/indus_corpus_1979.pdf",
+    "embedded_text_layer": false,
+    "landing_page": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/",
+    "license_id": "CC-BY-4.0",
+    "media_type": "application/pdf",
+    "pdf_page_count": 180,
+    "printed_page_count": 179,
+    "rights_evidence_uri": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/",
+    "sha256": "sha256:e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa",
+    "source_id": "helsinki-indus-corpus-1979",
+    "title": "Corpus of Texts in the Indus Script"
+  },
+  "status": "fixed_source_and_section_map_only_untranscribed"
+}

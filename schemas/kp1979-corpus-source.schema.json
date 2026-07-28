@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1979-corpus-source.schema.json",
+  "title": "Fixed KP1979 corpus source contract",
+  "description": "A closed public-source identity and section contract. It contains no transcription, interpretation, or decipherment result.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "status",
+    "scientific_scope",
+    "source",
+    "page_numbering",
+    "page_sections",
+    "coordinate_contract",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "contract_id": {
+      "const": "KP1979:CORPUS:SOURCE:V1"
+    },
+    "status": {
+      "const": "fixed_source_and_section_map_only_untranscribed"
+    },
+    "scientific_scope": {
+      "const": "source identity, page classes, and native image geometry only; no accepted identifier, sign transcription, reading direction, phonetic, language, semantic, translation, or decipherment inference"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "title",
+        "landing_page",
+        "download_uri",
+        "sha256",
+        "byte_size",
+        "media_type",
+        "pdf_page_count",
+        "printed_page_count",
+        "embedded_text_layer",
+        "license_id",
+        "rights_evidence_uri"
+      ],
+      "properties": {
+        "source_id": {
+          "const": "helsinki-indus-corpus-1979"
+        },
+        "title": {
+          "const": "Corpus of Texts in the Indus Script"
+        },
+        "landing_page": {
+          "const": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/"
+        },
+        "download_uri": {
+          "const": "https://tuhat.helsinki.fi/ws/portalfiles/portal/176353520/indus_corpus_1979.pdf"
+        },
+        "sha256": {
+          "const": "sha256:e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa"
+        },
+        "byte_size": {
+          "const": 16935356
+        },
+        "media_type": {
+          "const": "application/pdf"
+        },
+        "pdf_page_count": {
+          "const": 180
+        },
+        "printed_page_count": {
+          "const": 179
+        },
+        "embedded_text_layer": {
+          "const": false
+        },
+        "license_id": {
+          "const": "CC-BY-4.0"
+        },
+        "rights_evidence_uri": {
+          "const": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/"
+        }
+      }
+    },
+    "page_numbering": {
+      "const": {
+        "cover_pdf_page_number": 1,
+        "first_printed_pdf_page_number": 2,
+        "printed_page_label_offset_from_pdf_page": -1
+      }
+    },
+    "page_sections": {
+      "const": [
+        {
+          "first_pdf_page_number": 2,
+          "last_pdf_page_number": 19,
+          "section_id": "front_matter_and_introduction",
+          "corpus_sequence_role": "none"
+        },
+        {
+          "first_pdf_page_number": 20,
+          "last_pdf_page_number": 21,
+          "section_id": "sign_list",
+          "corpus_sequence_role": "none"
+        },
+        {
+          "first_pdf_page_number": 22,
+          "last_pdf_page_number": 78,
+          "section_id": "corpus_identifier_order",
+          "corpus_sequence_role": "base_rendering"
+        },
+        {
+          "first_pdf_page_number": 79,
+          "last_pdf_page_number": 128,
+          "section_id": "corpus_sorted_from_end_normal",
+          "corpus_sequence_role": "internal_crosscheck"
+        },
+        {
+          "first_pdf_page_number": 129,
+          "last_pdf_page_number": 129,
+          "section_id": "sorted_from_end_auxiliary_grid_8",
+          "corpus_sequence_role": "catalog_metadata_only"
+        },
+        {
+          "first_pdf_page_number": 130,
+          "last_pdf_page_number": 130,
+          "section_id": "sorted_from_end_auxiliary_grid_6",
+          "corpus_sequence_role": "catalog_metadata_only"
+        },
+        {
+          "first_pdf_page_number": 131,
+          "last_pdf_page_number": 180,
+          "section_id": "corpus_sorted_from_beginning",
+          "corpus_sequence_role": "internal_crosscheck"
+        }
+      ]
+    },
+    "coordinate_contract": {
+      "const": {
+        "covered_pdf_page_numbers": [
+          2,
+          180
+        ],
+        "width": 4880,
+        "height": 7010,
+        "bits_per_component": 1,
+        "color_space": "DeviceGray",
+        "filter": "CCITTFaxDecode",
+        "observation_space": "decoded_embedded_page_image_pixels",
+        "origin": "top_left",
+        "rectangle_encoding": "half_open_xyxy_integer",
+        "normalization_status": "native_pixels_first_transform_not_yet_admitted"
+      }
+    },
+    "assurances": {
+      "const": {
+        "source_bytes_verified_by_contract": false,
+        "page_pixels_verified_by_page_map": false,
+        "layout_candidates_accepted": false,
+        "identifiers_transcribed": false,
+        "sign_sequences_transcribed": false,
+        "three_way_reconciliation_complete": false,
+        "human_double_review_complete": false,
+        "decipherment": false
+      }
+    }
+  }
+}

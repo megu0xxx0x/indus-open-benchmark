@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
   "registry_id": "indus-open-benchmark:sources",
-  "generated_at": "2026-07-28T03:06:28+09:00",
+  "generated_at": "2026-07-28T11:54:04+09:00",
   "sources": [
     {
       "source_id": "helsinki-indus-concordance-1982",
@@ -78,15 +78,19 @@
           {
             "scheme": "uri",
             "value": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://tuhat.helsinki.fi/ws/portalfiles/portal/176353520/indus_corpus_1979.pdf"
           }
         ]
       },
       "access": {
         "access_method": "public_download",
         "landing_page": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/",
-        "accessed_at": "2026-07-28T03:06:28+09:00",
-        "snapshot_hash": null,
-        "retrieval_instructions": "Use only the official final published file linked by the University of Helsinki record. Before transcription, reject HTML or redirect bodies masquerading as the approximately 16.2 MB PDF and pin the received PDF bytes, media type, page count, and SHA-256. Do not treat agreement with the 1982 concordance as independent evidence."
+        "accessed_at": "2026-07-28T11:54:04+09:00",
+        "snapshot_hash": "sha256:e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa",
+        "retrieval_instructions": "Download only the official final PDF linked by the University of Helsinki record. Require application/pdf content, a PDF signature, 180 PDF pages, exactly 16,935,356 bytes, and the pinned SHA-256. PDF pages 2-180 each contain one 4880 by 7010 one-bit image; verify native page pixels against the closed page map before layout work."
       },
       "rights": {
         "status": "open_licensed",
@@ -96,17 +100,78 @@
         "redistribution": true,
         "derivatives": true,
         "commercial_use": true,
-        "statement": "The official University of Helsinki research-portal record labels the final published version CC BY. Attribution, a license link, and an indication of changes are required. No exact PDF snapshot is admitted until its bytes and type are independently fixed.",
+        "statement": "The official University of Helsinki research-portal record labels the final published version CC BY. Attribution, a license link, and an indication of changes are required. Open licensing permits reproducible source processing but does not make catalog assertions or machine proposals ground truth.",
         "evidence_uri": "https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/",
-        "verified_at": "2026-07-28T03:06:28+09:00"
+        "verified_at": "2026-07-28T11:54:04+09:00"
       },
       "provenance": {
         "record_method": "primary_catalogue",
         "maintainer": "University of Helsinki Research Portal",
         "upstream_source_ids": [],
-        "description": "Official publication record for the 1979 corpus by Kimmo Koskenniemi and Asko Parpola.",
+        "description": "Official scan of the 1979 base corpus and its sorted-from-end and sorted-from-beginning reprints by Kimmo Koskenniemi and Asko Parpola.",
         "transformation_history": [],
-        "quality_notes": "Use as a later edition-level cross-check only after exact official PDF bytes are pinned. It shares authorship and catalog lineage with the 1982 concordance and therefore is not a statistically independent validation source."
+        "quality_notes": "PDF pages 22-78 contain the base identifier-order corpus, 79-128 the normal sorted-from-end rendering, 129-130 auxiliary catalog grids rather than linguistic sequences, and 131-180 the sorted-from-beginning rendering. The three renderings provide a high-value internal consistency check but share authorship and catalog lineage and are not independent historical evidence."
+      }
+    },
+    {
+      "source_id": "helsinki-indus-documentation-duplicates-1980",
+      "title": "Documentation and Duplicates of the Texts in the Indus Script",
+      "source_type": "publication",
+      "citation": {
+        "title": "Documentation and Duplicates of the Texts in the Indus Script",
+        "creators": [
+          "Kimmo Koskenniemi",
+          "Asko Parpola"
+        ],
+        "issued": "1980",
+        "publisher": "Department of Asian and African Studies, University of Helsinki",
+        "identifiers": [
+          {
+            "scheme": "isbn",
+            "value": "951-45-2149-8"
+          },
+          {
+            "scheme": "issn",
+            "value": "0357-3788"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://researchportal.helsinki.fi/en/publications/documentation-and-duplicates-of-the-texts-in-the-indus-script/"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://tuhat.helsinki.fi/ws/portalfiles/portal/207886811/indus_duplicates_1980.pdf"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://researchportal.helsinki.fi/en/publications/documentation-and-duplicates-of-the-texts-in-the-indus-script/",
+        "accessed_at": "2026-07-28T11:54:04+09:00",
+        "snapshot_hash": "sha256:0ced4102dc6197246df6c84e4b730ed380f41085a4a1ea8dd8a6459332da37d1",
+        "retrieval_instructions": "Download only the official final PDF linked by the University of Helsinki record. Require application/pdf content, a PDF signature, 98 PDF pages, exactly 8,143,483 bytes, and the pinned SHA-256. Treat the embedded OCR layer as search assistance only; identifiers, punctuation, ranges, suffixes, and group boundaries require page-image verification."
+      },
+      "rights": {
+        "status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "license_uri": "https://creativecommons.org/licenses/by/4.0/",
+        "rights_holder": null,
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The official University of Helsinki research-portal record labels the final published version CC BY. Attribution, a license link, and an indication of changes are required. The publication's strict and loose duplicate relations are source assertions, not automatic physical-object identities.",
+        "evidence_uri": "https://researchportal.helsinki.fi/en/publications/documentation-and-duplicates-of-the-texts-in-the-indus-script/",
+        "verified_at": "2026-07-28T11:54:04+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "University of Helsinki Research Portal",
+        "upstream_source_ids": [
+          "helsinki-indus-corpus-1979"
+        ],
+        "description": "Official 1980 continuation containing corrections and additions, Finnish-Mahadevan cross-references, documentation, and strict/loose duplicate lists.",
+        "transformation_history": [],
+        "quality_notes": "Data-bearing ranges are PDF pages 20-23, 27-32, 40-51, and 59-98. The OCR layer demonstrably confuses digits and section numbers. Duplicate groups can continue across columns and pages and include information-redundancy relations that must not be collapsed into same-physical-object identity."
       }
     },
     {

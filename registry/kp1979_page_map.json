@@ -1,0 +1,5027 @@
+{
+  "assurances": {
+    "decipherment": false,
+    "detector_scan_bands_proposal_only": true,
+    "identifiers_transcribed": false,
+    "layout_candidates_accepted": false,
+    "page_classes_visually_audited": true,
+    "sign_sequences_transcribed": false,
+    "source_page_pixels_crosschecked": true
+  },
+  "canonicalization": {
+    "canonical_pbm_byte_size": 4276113,
+    "decoder_crosscheck": "pixel_equal_poppler_pdfimages_26.04.0_and_mupdf_mutool_1.27.2_png_via_pillow_11.3.0",
+    "encoding": "P4 newline 4880 space 7010 newline; row-major top-to-bottom, left-to-right, black=1, MSB-first",
+    "height": 7010,
+    "pixel_payload_byte_size": 4276100,
+    "width": 4880
+  },
+  "layout_evaluation_page_protocol": {
+    "development_pdf_pages": [
+      20,
+      22,
+      79,
+      129,
+      131,
+      180
+    ],
+    "future_evaluation_pdf_pages": [
+      8,
+      78,
+      99,
+      128,
+      130,
+      175
+    ],
+    "manual_row_values_present": false,
+    "selection_scope": "layout-class and boundary coverage only; page identities and pixels are public, manual row labels remain external and absent, and no blind evaluation is claimed"
+  },
+  "map_id": "KP1979:CORPUS:PAGE-MAP:V1",
+  "pages": [
+    {
+      "canonical_pbm_filename": "page-002.pbm",
+      "canonical_pbm_sha256": "sha256:8cfaa902bfc42d2b2d5f5a31edd6755906f6f479763ed2b75e9027958fe30ba6",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 1,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 4961,
+      "pdf_page_number": 2,
+      "pixel_payload_sha256": "sha256:df4fae399c2a3f809a29e2d55efe38364ef43552232870b8da5bbfde28c11ca0",
+      "printed_page_label": "1",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-003.pbm",
+      "canonical_pbm_sha256": "sha256:127910470c1de0b3c195a8f071125776b3e946d570338ccbe87562c6c46960cd",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 2,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 10,
+      "pdf_page_number": 3,
+      "pixel_payload_sha256": "sha256:51abff3a7883532a24312b5fa746a03e8da11f29aa3d2fa33bd66974106e070d",
+      "printed_page_label": "2",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-004.pbm",
+      "canonical_pbm_sha256": "sha256:d23a95085d9e0522fc4ca2b285cfaaf0f0b6fe59efbbd2c25cdeee2b0cbc3243",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 3,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 13,
+      "pdf_page_number": 4,
+      "pixel_payload_sha256": "sha256:3cbb162b6cc9efeb146876a2e5361553a73db39872449bbe5ec0a4be892a6dd6",
+      "printed_page_label": "3",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-005.pbm",
+      "canonical_pbm_sha256": "sha256:07edf00761e2f5594cfca13dda94df0ca0112fcf22c8b91c393430e4ff61afb7",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 4,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 16,
+      "pdf_page_number": 5,
+      "pixel_payload_sha256": "sha256:a0ef18c706c2ce31e31a6ae7676539db5120160a96288e1141e0d0b8ed9d8bd9",
+      "printed_page_label": "4",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-006.pbm",
+      "canonical_pbm_sha256": "sha256:7c2eeaed5b5ab2045ecabfc127b461c9a02b7c289f702880c86ac1670d9e6ce2",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 5,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 19,
+      "pdf_page_number": 6,
+      "pixel_payload_sha256": "sha256:693bbb81e0efa9a596b7e04b5c4b31efbb2a7d4bad53911fa7a2aff84b74c8a6",
+      "printed_page_label": "5",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-007.pbm",
+      "canonical_pbm_sha256": "sha256:33e9b7920dad0c9818a0f3ab03700affab517588a2a7bda5d041706153b86b55",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 6,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 22,
+      "pdf_page_number": 7,
+      "pixel_payload_sha256": "sha256:511febd30e3589d4327a7f035bab5020293a87d1e52b36994e0ab520f777f751",
+      "printed_page_label": "6",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-008.pbm",
+      "canonical_pbm_sha256": "sha256:a79bd28420268295fde099121113422cc29f6d0745e37ffcf762f948a513a2d4",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 7,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 25,
+      "pdf_page_number": 8,
+      "pixel_payload_sha256": "sha256:a7cd4ee593dc308c1d96668c41ed56a1c571453c4d8a01652c16e895be016fc2",
+      "printed_page_label": "7",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-009.pbm",
+      "canonical_pbm_sha256": "sha256:2e3bda45578db44206625f7f80cf15d636e709e74e0a057acb3e9a5c9e07cfbd",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 8,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 28,
+      "pdf_page_number": 9,
+      "pixel_payload_sha256": "sha256:570bfefd2e8c03b2297cbfb3a3ff27d0357a6b0204e58ac983a72a1a150b05ae",
+      "printed_page_label": "8",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-010.pbm",
+      "canonical_pbm_sha256": "sha256:b93722a2e4dc02ca21ce7f6b985769a60a1c1835bd3884aaed0fe9237e267408",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 9,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 31,
+      "pdf_page_number": 10,
+      "pixel_payload_sha256": "sha256:a0aa730593590867416143e5df171f8eeb7b7ba40c3152b94e4755907801f795",
+      "printed_page_label": "9",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-011.pbm",
+      "canonical_pbm_sha256": "sha256:86802f95c19a75c66a4fabc46433b27d6f7aa69ced6e5a26aee70800914a7211",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 10,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 34,
+      "pdf_page_number": 11,
+      "pixel_payload_sha256": "sha256:6ae4b6b8d980f02c0ce7ce4c0792f3acd0dc5877f9c19e034e343e44dc08b65a",
+      "printed_page_label": "10",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-012.pbm",
+      "canonical_pbm_sha256": "sha256:064e5a227179c62ae8f2c2fab4af7667bac9e406db50f3bb4ca2280ac8385092",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 11,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 37,
+      "pdf_page_number": 12,
+      "pixel_payload_sha256": "sha256:a1a70d43fc77fe5c5d0f85c260a02a4baf6ec29e509e0a89bb24b306c4a56c44",
+      "printed_page_label": "11",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-013.pbm",
+      "canonical_pbm_sha256": "sha256:5b32d61e8e55a998a4bf0175ab77f8004492e06316d11cfb24c4577239d4eae4",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 12,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 40,
+      "pdf_page_number": 13,
+      "pixel_payload_sha256": "sha256:a87edc1389727a9b9e714973b091dc7446bd09023f6064bd7143d459c2f5160b",
+      "printed_page_label": "12",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-014.pbm",
+      "canonical_pbm_sha256": "sha256:1f9514de5e4d9e9cfd5ff701a399070b2d1c31d9c25cfdfd61dd2f4dc15a92ef",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 13,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 43,
+      "pdf_page_number": 14,
+      "pixel_payload_sha256": "sha256:e9c66c4e46ca7e0a75b2d7d5c5b49f2a2ba19bbbed7786ee3a8a763a12cfa6ba",
+      "printed_page_label": "13",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-015.pbm",
+      "canonical_pbm_sha256": "sha256:bf2e629cd6267c1a2082615a97325ee310519382d4879e445b51981e7bfea4fd",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 14,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 46,
+      "pdf_page_number": 15,
+      "pixel_payload_sha256": "sha256:f62d24c8af45a53815750b23d5f73c414618f7b5568015eac8660039679fe932",
+      "printed_page_label": "14",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-016.pbm",
+      "canonical_pbm_sha256": "sha256:ca888f2fdb95404c44992d4b541881355bc3daa89b7566bffba9cee1704c037f",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 15,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 49,
+      "pdf_page_number": 16,
+      "pixel_payload_sha256": "sha256:ff2bb9ae34b21154a67ca09cd9621d9cfccb11a66e6382a9c744b42d7e9f0397",
+      "printed_page_label": "15",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-017.pbm",
+      "canonical_pbm_sha256": "sha256:73d692f50250820d8db625bdd0a46ff9af471e6c55bec7dc8f1ed414b16321c9",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 16,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 52,
+      "pdf_page_number": 17,
+      "pixel_payload_sha256": "sha256:814c12ae08a24d3c20551a7b31f6c70435a47e68c515f2ed30d80c608634ba9e",
+      "printed_page_label": "16",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-018.pbm",
+      "canonical_pbm_sha256": "sha256:294db6f19edb029a2479dafde28457bd3b0f701b2de265d66110452cefea9bed",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 17,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 55,
+      "pdf_page_number": 18,
+      "pixel_payload_sha256": "sha256:136edff84958b158284993164cf189f40fdadab8c20b6301f8b72981f4a68ed6",
+      "printed_page_label": "17",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-019.pbm",
+      "canonical_pbm_sha256": "sha256:505964fa3f0684de158fae3223f50519d108ff2602f68c589c585d88525580db",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "non_corpus",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 18,
+      "page_role": "non_corpus_negative",
+      "pdf_image_object_number": 58,
+      "pdf_page_number": 19,
+      "pixel_payload_sha256": "sha256:0f5237affaec3ccf4645a406033739658f53ae3036c11ca5dae6532f2862e9f8",
+      "printed_page_label": "18",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": []
+    },
+    {
+      "canonical_pbm_filename": "page-020.pbm",
+      "canonical_pbm_sha256": "sha256:6071b88ccab847115286c8f165841f256141fa5a95d28a92351fd9ee78069323",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "sign_list_10_column",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 19,
+      "page_role": "sign_list_negative",
+      "pdf_image_object_number": 61,
+      "pdf_page_number": 20,
+      "pixel_payload_sha256": "sha256:fc57301c06b91279b160ef9b779d2882b989667ffff924adf1175f0711b2edf1",
+      "printed_page_label": "19",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-021.pbm",
+      "canonical_pbm_sha256": "sha256:ef2a3db19cec9c9e450396aad46432dde03cd74354f12e03f4960ea88b1728d4",
+      "corpus_sequence_role": "none",
+      "label_side": null,
+      "layout_class": "sign_list_10_column",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 20,
+      "page_role": "sign_list_negative",
+      "pdf_image_object_number": 64,
+      "pdf_page_number": 21,
+      "pixel_payload_sha256": "sha256:83a058ed5b12408fb32fed006e57134c992bce1bdd101e53690a30f271e38d38",
+      "printed_page_label": "20",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-022.pbm",
+      "canonical_pbm_sha256": "sha256:f37daac46990ee74d00662c3587cb64338f0eaad74b89a8cbce7b91362101f24",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 21,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 67,
+      "pdf_page_number": 22,
+      "pixel_payload_sha256": "sha256:56ce3fbd261cd10199e911c8986c2916d6eccdd3501dc479aa915aa979190cb9",
+      "printed_page_label": "21",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-023.pbm",
+      "canonical_pbm_sha256": "sha256:7a17b466b37c1180ba55e3d6596665a276807c6ef252f3e3354b5518d0a19a8e",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 22,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 70,
+      "pdf_page_number": 23,
+      "pixel_payload_sha256": "sha256:92fd1340db8130a730afb92a571e7182570e964036f5e546ade0e07634eeafdc",
+      "printed_page_label": "22",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-024.pbm",
+      "canonical_pbm_sha256": "sha256:04c69981a4853a602975f07fdda492e0de10ed674c04dbeb7b64503e4205c2f5",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 23,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 73,
+      "pdf_page_number": 24,
+      "pixel_payload_sha256": "sha256:9886ccfebe6f233d90d461ed019f658deedd4eb7ce0c3ea09b804f81628b1c4b",
+      "printed_page_label": "23",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-025.pbm",
+      "canonical_pbm_sha256": "sha256:46fbdc411050bb176a8cc01b99ef3e221fb9f8c3fb6eb04fd815b7c8c2110d5e",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 24,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 76,
+      "pdf_page_number": 25,
+      "pixel_payload_sha256": "sha256:5ac8ab8eb868505c93311dc358a33c5cc773c8eabb478014183179cd43374b5b",
+      "printed_page_label": "24",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-026.pbm",
+      "canonical_pbm_sha256": "sha256:af9e33917d9d22a4435bbfed985d9b021fbb8a560eb873359b592cceea24282c",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 25,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 79,
+      "pdf_page_number": 26,
+      "pixel_payload_sha256": "sha256:963cc096476f803d9fc74601cf02788beaf39e22c304292cb311b8e668ff22b3",
+      "printed_page_label": "25",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-027.pbm",
+      "canonical_pbm_sha256": "sha256:3ec623e49344c3ddb96b25d280c06c72eb584f39dce26a2c098175ecc0290191",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 26,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 82,
+      "pdf_page_number": 27,
+      "pixel_payload_sha256": "sha256:f4fb774891865e079b5241e29d8dc21495da1831c45f86fd5e485ce928e94794",
+      "printed_page_label": "26",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-028.pbm",
+      "canonical_pbm_sha256": "sha256:e9ce1ef20aa87baec78d59309a594cbf2289965a3e48e9630e5739febfb8787a",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 27,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 85,
+      "pdf_page_number": 28,
+      "pixel_payload_sha256": "sha256:263a8d137531f4f8c0d470ca8afa62ecbd6e0571cfbcc9d155d71a0f3c255760",
+      "printed_page_label": "27",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-029.pbm",
+      "canonical_pbm_sha256": "sha256:ad511d3caba573e1525ab48d70fb453fcd841a0bc15fbe0cffdfef789ab6c959",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 28,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 88,
+      "pdf_page_number": 29,
+      "pixel_payload_sha256": "sha256:289cbbf7edce72d0614b4754fe1584e961e717f2ba6c4fb0ed34e917222e1529",
+      "printed_page_label": "28",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-030.pbm",
+      "canonical_pbm_sha256": "sha256:e1ced7353c94fabfd7c995f5f939cfdf56934468af7de940659479783b41cc7d",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 29,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 91,
+      "pdf_page_number": 30,
+      "pixel_payload_sha256": "sha256:c79fc33aef35aa79621d704bdd60aedaea803fcf92c3193ee510cbfedbb599fc",
+      "printed_page_label": "29",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-031.pbm",
+      "canonical_pbm_sha256": "sha256:f14b90b9baea117bdc0fa626ddcd34284d4bcbc3b76eedeb845df83a292a8de4",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 30,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 94,
+      "pdf_page_number": 31,
+      "pixel_payload_sha256": "sha256:33afc07142b225276883ef1adfb96ac804ceae413b8ddfe73e1287b2e79bbcc7",
+      "printed_page_label": "30",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-032.pbm",
+      "canonical_pbm_sha256": "sha256:4c92d634b6b03948d90d49890f213ab0e175e2a095c620527867fb6f1267e1f0",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 31,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 97,
+      "pdf_page_number": 32,
+      "pixel_payload_sha256": "sha256:88ead46f3a8b52d1a06f1c8f2b76e3ef9022ade6d47ebc1e4a18686e830142ab",
+      "printed_page_label": "31",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-033.pbm",
+      "canonical_pbm_sha256": "sha256:0825f73fe4bc7c6f9252b6b6bc130973fd36a0e215427dbe9d9252d1f6336296",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 32,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 100,
+      "pdf_page_number": 33,
+      "pixel_payload_sha256": "sha256:eed3dbe0f7d1c3bed90665decb3d5be172699bacc0cfa12f36fef53856c5fab5",
+      "printed_page_label": "32",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-034.pbm",
+      "canonical_pbm_sha256": "sha256:890850af6f6421ea06dbb79505fd28a2bd440bb6c5036b8dd981b910639cd8f0",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 33,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 103,
+      "pdf_page_number": 34,
+      "pixel_payload_sha256": "sha256:34a1454a45e1658873c75e302040ec3985da63cff7d93b44fb50d2ff510a109c",
+      "printed_page_label": "33",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-035.pbm",
+      "canonical_pbm_sha256": "sha256:b2a43ea3710efccd110002fe2c71bbd697045b6de64f4c13807c55b4edc3c460",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 34,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 106,
+      "pdf_page_number": 35,
+      "pixel_payload_sha256": "sha256:782bce8a480f884b9319cb366e080cb8f761fe58cf69250e291d05d5cc9b3389",
+      "printed_page_label": "34",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-036.pbm",
+      "canonical_pbm_sha256": "sha256:26470d9e14d6d75210ef97f18be9662c05edb8096e25ad87220f024d790378e6",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 35,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 109,
+      "pdf_page_number": 36,
+      "pixel_payload_sha256": "sha256:f74d9466f5da7059a3ae6ba2c44dd11cd8deb203e45e1f5d1c787b88a7954ad8",
+      "printed_page_label": "35",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-037.pbm",
+      "canonical_pbm_sha256": "sha256:b055c968483ae23981dd66bea5d86b0a04e51e49e3c5764458ed57980ed6eb92",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 36,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 112,
+      "pdf_page_number": 37,
+      "pixel_payload_sha256": "sha256:4e170a90c7517b40e063c847624bb586ab3ec9c9ddac4796465b5a379cc85099",
+      "printed_page_label": "36",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-038.pbm",
+      "canonical_pbm_sha256": "sha256:9437fa0038baaa496f3e814a81cc483012890f14f43990db8f4f78511b28811a",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 37,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 115,
+      "pdf_page_number": 38,
+      "pixel_payload_sha256": "sha256:ddbc8cc1eac8703031c837f8e3149ff71b25d1667b762e15a283cc30758cf9e0",
+      "printed_page_label": "37",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-039.pbm",
+      "canonical_pbm_sha256": "sha256:ad3659124abf11eb7c3725b703064e327c73d694e0943cd43b6cb7d2dfe8ab03",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 38,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 118,
+      "pdf_page_number": 39,
+      "pixel_payload_sha256": "sha256:c97d7bedbce2d01213058739d99c38a449ae815e76a533b12b95ffc09b5df266",
+      "printed_page_label": "38",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-040.pbm",
+      "canonical_pbm_sha256": "sha256:ca49287ebcd316bd630334302efc4b1e97738d6ac1544579c88f76ef0f086917",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 39,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 121,
+      "pdf_page_number": 40,
+      "pixel_payload_sha256": "sha256:40061a3b0050bca3cf0cee0cac26e7201a85ca299a2df11f5b736b1e696fa047",
+      "printed_page_label": "39",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-041.pbm",
+      "canonical_pbm_sha256": "sha256:19593a3534b3cbe82fdd4dea0d7e2040381169af5fc9ae5fc280c10f8b57db3a",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 40,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 124,
+      "pdf_page_number": 41,
+      "pixel_payload_sha256": "sha256:dde91c7a0c103e37b325c17dc220ed9e262494a8cbfa14b17723581482b519e3",
+      "printed_page_label": "40",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-042.pbm",
+      "canonical_pbm_sha256": "sha256:2fa95e34c44c676516791fcf2f0c772007bc54db3ae8289e2107e9fc6bef543b",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 41,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 127,
+      "pdf_page_number": 42,
+      "pixel_payload_sha256": "sha256:abf86acee0bf48307185042c7dcbbb0c0137fa7cbc3cf3fee0128a9bfc2364d9",
+      "printed_page_label": "41",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-043.pbm",
+      "canonical_pbm_sha256": "sha256:7bcea09fe9a4ae0d033aeda14ea02493c42ae8ccc39b96eb6e2af3dc6aba0025",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 42,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 130,
+      "pdf_page_number": 43,
+      "pixel_payload_sha256": "sha256:4bb50dfa55caf0e857f24bf73be0a50a9df23317ab5a4692e5c1b2828bfb9db7",
+      "printed_page_label": "42",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-044.pbm",
+      "canonical_pbm_sha256": "sha256:0cd643e249db39ffe3c511c2d2881dbb0c86692adf5bd2e34ee07c79864ffe77",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 43,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 133,
+      "pdf_page_number": 44,
+      "pixel_payload_sha256": "sha256:a84c2c99c68efbb8475531aab327dfb3ad195a62fc21a491a01fd0f87555d92e",
+      "printed_page_label": "43",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-045.pbm",
+      "canonical_pbm_sha256": "sha256:76a8c3162c7da9514762f0aec02a9d174b8dae62db3f077f7c37de69f5ae4bdf",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 44,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 136,
+      "pdf_page_number": 45,
+      "pixel_payload_sha256": "sha256:d1511492ff63d6956a52fa7cba7a2392e4125fc0fdaea57832ecb4ecaae2a424",
+      "printed_page_label": "44",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-046.pbm",
+      "canonical_pbm_sha256": "sha256:9ac3609e389df1431dcd7ef4b2cf3b6bc2c338787d9f3dbda294a9c83f785733",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 45,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 139,
+      "pdf_page_number": 46,
+      "pixel_payload_sha256": "sha256:8a26504b7142f76fe52ae81bfc66915530481ebf9bffc474c0abc0c514e73729",
+      "printed_page_label": "45",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-047.pbm",
+      "canonical_pbm_sha256": "sha256:3ec83e27209ffa9f3450bfe850c4483ae9d569b8399159df95b1e80180812359",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 46,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 142,
+      "pdf_page_number": 47,
+      "pixel_payload_sha256": "sha256:6fc2ba19f2fd75c3dfbf4f5418f7a8dbe4c03eb88b39c3c5580f094fcdbea5a2",
+      "printed_page_label": "46",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-048.pbm",
+      "canonical_pbm_sha256": "sha256:5d9f767bddfe2c6c8b0f29f733dc22a96438a3c0170d4df6ed8385953bc896cd",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 47,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 145,
+      "pdf_page_number": 48,
+      "pixel_payload_sha256": "sha256:35a23dd23a14c8afa695563147a538779d2b970615f22fd0161be9fc2705363a",
+      "printed_page_label": "47",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-049.pbm",
+      "canonical_pbm_sha256": "sha256:d4628712d82fd3279e986534e2e04f661ed04396662855b859b974c3e24f0fb5",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 48,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 148,
+      "pdf_page_number": 49,
+      "pixel_payload_sha256": "sha256:32cae6873e5d66f0c1e2eda3698f8fd47c102943dc7359463976e871be94b287",
+      "printed_page_label": "48",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-050.pbm",
+      "canonical_pbm_sha256": "sha256:3d41be8bc950987e7a8ef2cc879523bfbb25055b7ae49a2321770007aae79c2a",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 49,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 151,
+      "pdf_page_number": 50,
+      "pixel_payload_sha256": "sha256:0b34d346f6c6076f3cfcee14d8cd377b895bebb69378c01004f2cfa699d6191e",
+      "printed_page_label": "49",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-051.pbm",
+      "canonical_pbm_sha256": "sha256:cf147fe89b6c394d6e126aef4dcf940e8909d27cba86d7b661ce6f71fbb74e60",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 50,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 154,
+      "pdf_page_number": 51,
+      "pixel_payload_sha256": "sha256:1c87e74942be83d1fe750b4017094ad4e5c70244eea0c2be0db2c7cba956bb83",
+      "printed_page_label": "50",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-052.pbm",
+      "canonical_pbm_sha256": "sha256:2c838045a0e8a548a3e8a1433235f770b83269a247c4f0352cd697d34b196f06",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 51,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 157,
+      "pdf_page_number": 52,
+      "pixel_payload_sha256": "sha256:1c77945f7aec538f705dc1bc0fb6f59387b1d71aa464b5165a8d34334efdf3f7",
+      "printed_page_label": "51",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-053.pbm",
+      "canonical_pbm_sha256": "sha256:15448f35e8f15167eed1f1c93252563f132ad3ecfcf02633816a538708559a0c",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 52,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 160,
+      "pdf_page_number": 53,
+      "pixel_payload_sha256": "sha256:d8e653442b45e6265e2414522b1a4635001949011df409fabd7c4ca328431cf1",
+      "printed_page_label": "52",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-054.pbm",
+      "canonical_pbm_sha256": "sha256:d9d6b78971f8dfe1272265e684213267c50a8c8f77cbf9eaaeac89da69376660",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 53,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 163,
+      "pdf_page_number": 54,
+      "pixel_payload_sha256": "sha256:4755c95c9a97dbad235ccb59854a97b7a45cf0d90212444eeb79bd00f5df62d3",
+      "printed_page_label": "53",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-055.pbm",
+      "canonical_pbm_sha256": "sha256:2ec875ecfb4a085d1531026fde83826f59067e2094fdc1fad805c5e549d89df5",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 54,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 166,
+      "pdf_page_number": 55,
+      "pixel_payload_sha256": "sha256:62ed2b33544e61e79fbc720de187de38844c483c8b6a368918bbc325ae6fff90",
+      "printed_page_label": "54",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-056.pbm",
+      "canonical_pbm_sha256": "sha256:b4b29964183205f1b3925cd2b2148ee855943ab2c3381ed6e0ece645212c215c",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 55,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 169,
+      "pdf_page_number": 56,
+      "pixel_payload_sha256": "sha256:0a6493d13215dc0a5cf2ccd8529ec5c91f62e183b6ad5510c24ed6f393e3954f",
+      "printed_page_label": "55",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-057.pbm",
+      "canonical_pbm_sha256": "sha256:38bcd5f386db2c8cbd154fce7f98add6485570a602650a1a3c5db9e5fc48e4d0",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 56,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 172,
+      "pdf_page_number": 57,
+      "pixel_payload_sha256": "sha256:f9b3da5dfec6506c532cb04a2f93b913979de49ef54000d46e9e2ff5ee3d85b1",
+      "printed_page_label": "56",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-058.pbm",
+      "canonical_pbm_sha256": "sha256:13cb37bdec943be2c868c592f57c0104dff4506a7a0104853a4b1115e7dcda20",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 57,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 175,
+      "pdf_page_number": 58,
+      "pixel_payload_sha256": "sha256:8fa700cbdf2e13340cd36818b3238a88a85908f385d9e334d0af36b0953fbda6",
+      "printed_page_label": "57",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-059.pbm",
+      "canonical_pbm_sha256": "sha256:1356d9c59bea88cc227d903c21bf7e54b1e7f254c05e008c753ad4b7fb0278da",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 58,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 178,
+      "pdf_page_number": 59,
+      "pixel_payload_sha256": "sha256:1ee404baa322707835d11dccbb840a4b135646ce49112b298fb7c2fa956f627e",
+      "printed_page_label": "58",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-060.pbm",
+      "canonical_pbm_sha256": "sha256:5ab69bbbb7c3d37dc7568fdfb50a02986190d3e5686ba27b49817c3466f71401",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 59,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 181,
+      "pdf_page_number": 60,
+      "pixel_payload_sha256": "sha256:580a13dda73f52ecf62818ee21de0801871d84a35f4d6f52d3f98e392cbaf6ac",
+      "printed_page_label": "59",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-061.pbm",
+      "canonical_pbm_sha256": "sha256:c9824657ca30e6af826290570d3b8707a2432a59774f8934916346a2541bc253",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 60,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 184,
+      "pdf_page_number": 61,
+      "pixel_payload_sha256": "sha256:19f9844e62dc1f42877daf1a5a81c6f43a9f061a120f5a7a5a1757df176e3fd5",
+      "printed_page_label": "60",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-062.pbm",
+      "canonical_pbm_sha256": "sha256:d5edca7ddca548e1f47dfc7a9cabc09670e39bc62e0d9c078ccd49b16b24b48d",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 61,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 187,
+      "pdf_page_number": 62,
+      "pixel_payload_sha256": "sha256:922944f46e8e608fc29deb369015ad5bd2a02540cf7858ea87cd15309fa22796",
+      "printed_page_label": "61",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-063.pbm",
+      "canonical_pbm_sha256": "sha256:3731cdb5984e3cb68684dd29b8c0fff6094cdf5a0974b76b340dec97f6580933",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 62,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 190,
+      "pdf_page_number": 63,
+      "pixel_payload_sha256": "sha256:a165c12b9eaf985aac9c55a5a3628fda170c81140ae3c625abecaa021233db42",
+      "printed_page_label": "62",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-064.pbm",
+      "canonical_pbm_sha256": "sha256:4b76efcab6911e5f725f4a2ec22a6c2c70d70ca702f570605ed66235ed429a58",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 63,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 193,
+      "pdf_page_number": 64,
+      "pixel_payload_sha256": "sha256:ca8c8be213e4c539bcfecb50b4172444f6078a857f34528d2e372c3536cdee9d",
+      "printed_page_label": "63",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-065.pbm",
+      "canonical_pbm_sha256": "sha256:d7650f2dc55f58efe546d76418275441f389c479b8fd03d49036c4961a93c6ec",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 64,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 196,
+      "pdf_page_number": 65,
+      "pixel_payload_sha256": "sha256:cd6c6d7c21bf04e64d7a2467e36ef6f44cfbe8ef226eb9c55719fb0c88ca36f7",
+      "printed_page_label": "64",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-066.pbm",
+      "canonical_pbm_sha256": "sha256:56d7046477984769984bd9fbd33fb7a4f5946d14bf17d451bce0c4133b57832a",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 65,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 199,
+      "pdf_page_number": 66,
+      "pixel_payload_sha256": "sha256:5d94cb023792c6f5ffe526d0beaf27f35198f2cdd6be9568af6028e9763f0bd6",
+      "printed_page_label": "65",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-067.pbm",
+      "canonical_pbm_sha256": "sha256:91fbfcb512152b9693c6760eed897aefdcf3170e5c0b4d55d5245cdaddc69338",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 66,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 202,
+      "pdf_page_number": 67,
+      "pixel_payload_sha256": "sha256:f4810da72101c3efa73e2a1dfdb53152d0b5bc4952d7dd1837661ab515b77519",
+      "printed_page_label": "66",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-068.pbm",
+      "canonical_pbm_sha256": "sha256:4c29f64ad36fcf450fe3f42db3b0c1178508638643c1e2a07cae94594e4015cd",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 67,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 205,
+      "pdf_page_number": 68,
+      "pixel_payload_sha256": "sha256:222a04becd43fd8c9c96822305924a4ee1a2af1b6cda90515d5ff30136dd4d9f",
+      "printed_page_label": "67",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-069.pbm",
+      "canonical_pbm_sha256": "sha256:500a8f6f6279131c887c4453ef9ed088d08f3b88e8f7a9414b530065fc7d3cb1",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 68,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 208,
+      "pdf_page_number": 69,
+      "pixel_payload_sha256": "sha256:545da095e84e31e1789f546fd65534a7e4ee7c74634d603e44a1c661728e8310",
+      "printed_page_label": "68",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-070.pbm",
+      "canonical_pbm_sha256": "sha256:6cea24963553f0950268c2335b3283bdd1b6fb3d481e1b72eb7b8519f22f87e9",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 69,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 211,
+      "pdf_page_number": 70,
+      "pixel_payload_sha256": "sha256:32ed467a43f8cf034c2efdfcf407d98927baa4f146b356884cff0cacff16c9ac",
+      "printed_page_label": "69",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-071.pbm",
+      "canonical_pbm_sha256": "sha256:a8e54c8f67ac917b2cc11d92b0147e7b8066a16d7cea5f7c986b5952245f2ca0",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 70,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 214,
+      "pdf_page_number": 71,
+      "pixel_payload_sha256": "sha256:8e7966f0f1f9367a4219e71486911297d8bb00a5f2fe8996f3214af352faf977",
+      "printed_page_label": "70",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-072.pbm",
+      "canonical_pbm_sha256": "sha256:f34a40da9d5464e1a8edd5541c3ae2388f89c84ef3b3e58cf4d5d5d42403f6cd",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 71,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 217,
+      "pdf_page_number": 72,
+      "pixel_payload_sha256": "sha256:212143b12e460d850d4dd860e3c96ae76b1aa82c79852cbdd5dca78161f7cda7",
+      "printed_page_label": "71",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-073.pbm",
+      "canonical_pbm_sha256": "sha256:1f42bf23b109dc8d255bdc96250c313ea5999c75ea58dcd0d34fcff8048bb26e",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 72,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 220,
+      "pdf_page_number": 73,
+      "pixel_payload_sha256": "sha256:b13710f609996436899dcef77f5be36ceeb4e1400df38b16462129ac093f5fe5",
+      "printed_page_label": "72",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-074.pbm",
+      "canonical_pbm_sha256": "sha256:24463dde1ca65645f03bb1f5e675465064d90ab6ccf60928cf870499774bb72f",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 73,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 223,
+      "pdf_page_number": 74,
+      "pixel_payload_sha256": "sha256:e4991611dd768dcee10730e6fcdf4f3489f243909a0b69de865344bdcd78c084",
+      "printed_page_label": "73",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-075.pbm",
+      "canonical_pbm_sha256": "sha256:0817ec40f49b9d35100c0959cf0800d80017538e4eb1bef41128e56b622c303d",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 74,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 226,
+      "pdf_page_number": 75,
+      "pixel_payload_sha256": "sha256:f03a6f555bedfc2b009fa5e7b0ee8d9dd034c7dc2e95ce1358d014c278cbfd78",
+      "printed_page_label": "74",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-076.pbm",
+      "canonical_pbm_sha256": "sha256:2836022bc41fc563578ac1d5705aeef85a5bc5303ac927d4df1c0ede50ad0a15",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 75,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 229,
+      "pdf_page_number": 76,
+      "pixel_payload_sha256": "sha256:0a7c078e43b367fcdd776dc288a76646ea6ae1ab80a09cae1487740eb8941cc0",
+      "printed_page_label": "75",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-077.pbm",
+      "canonical_pbm_sha256": "sha256:82f5157188c020b364937c8da406a7fc218ac5c0442614f0dc98bca11b491b7b",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 76,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 232,
+      "pdf_page_number": 77,
+      "pixel_payload_sha256": "sha256:0e909dc173e3a250f34dba6a35022b9f29f316b32910d5a6eb9736c867bead7c",
+      "printed_page_label": "76",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-078.pbm",
+      "canonical_pbm_sha256": "sha256:c431889100b0030f5b5ce47b7716b23fa7237e468df4525a4c12084b86f44b97",
+      "corpus_sequence_role": "base_rendering",
+      "label_side": "right",
+      "layout_class": "identifier_order_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 77,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 235,
+      "pdf_page_number": 78,
+      "pixel_payload_sha256": "sha256:37261d6a438c76d2417bec5a8bf08f5885bee5c3e7c0368b5cbcce6bcd14b49e",
+      "printed_page_label": "77",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2056,
+          550,
+          2316,
+          6600
+        ],
+        [
+          4232,
+          550,
+          4492,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-079.pbm",
+      "canonical_pbm_sha256": "sha256:f2e8f57c7f8cd8260ecb476938544f36ccb9f2104d615e3c2c91af6dad8fc733",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 78,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 238,
+      "pdf_page_number": 79,
+      "pixel_payload_sha256": "sha256:4f7af697b87409dfb2ab61317a2823b0371bc43aa0acfa5a040a99b9a0786c3e",
+      "printed_page_label": "78",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-080.pbm",
+      "canonical_pbm_sha256": "sha256:d72ba4f3ee7d53ca38f3f541c18208f43ab547c5c2718a2e3b07b6d3fd3d5086",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 79,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 241,
+      "pdf_page_number": 80,
+      "pixel_payload_sha256": "sha256:5c428ea231b4f398caf4298f81243b7d25ed41e45876015b850e7f59cbc68039",
+      "printed_page_label": "79",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-081.pbm",
+      "canonical_pbm_sha256": "sha256:471493b590547de6bf747101689c15f3e67be8eec29f10ddfa8a2abc57afe90b",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 80,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 244,
+      "pdf_page_number": 81,
+      "pixel_payload_sha256": "sha256:243da33a14c4d4ebb369d381b73cfb50ffa9a1ff8cd4719559bad58ac0db169c",
+      "printed_page_label": "80",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-082.pbm",
+      "canonical_pbm_sha256": "sha256:4f3f1315086303b41e9345316e67e725c04c8b06bf0dbbadbcca41cd5336d05c",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 81,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 247,
+      "pdf_page_number": 82,
+      "pixel_payload_sha256": "sha256:85cc7d64fa15bf64eb971536ba878924e4cea62b0e5c5c427a75630b5741d1cd",
+      "printed_page_label": "81",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-083.pbm",
+      "canonical_pbm_sha256": "sha256:b213a288aaf70528e80e81c3fc7d996a7b50129eb4059454300f2feb80ce4eec",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 82,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 250,
+      "pdf_page_number": 83,
+      "pixel_payload_sha256": "sha256:943472ceb3ec21d23fa21fd801a236ca221d67cacc5e792ba9ae6bbc669597ed",
+      "printed_page_label": "82",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-084.pbm",
+      "canonical_pbm_sha256": "sha256:ea18e9b27b4e73ac56f14e7facb5b91954420ddeec6b349639572e2164cef58f",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 83,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 253,
+      "pdf_page_number": 84,
+      "pixel_payload_sha256": "sha256:dd13d5153db2fb8d73d0b3e71a8f5a23caa8196cc48301ccb562ee5a51015d80",
+      "printed_page_label": "83",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-085.pbm",
+      "canonical_pbm_sha256": "sha256:f6c4e479648f8d76b7608ac2f2463c879f7ff299c97cb51b4dc1efbccb9e0065",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 84,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 256,
+      "pdf_page_number": 85,
+      "pixel_payload_sha256": "sha256:3da8884b57642cee6e147c54d4b30cc6a00d8e90b6393397601c97590f4c8f84",
+      "printed_page_label": "84",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-086.pbm",
+      "canonical_pbm_sha256": "sha256:22793f29f9a546f92bdeb7b57ea25aa21d0ec0208619b953021e28e67ff21490",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 85,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 259,
+      "pdf_page_number": 86,
+      "pixel_payload_sha256": "sha256:4065faef52468344aa7381df44d8a39b9d6f38790a61ee339dea3a301554e186",
+      "printed_page_label": "85",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-087.pbm",
+      "canonical_pbm_sha256": "sha256:3fbdc36f4684789c512f20c6ebaa8c9382fe9701ecaaaa6c7d315621452f4afd",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 86,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 262,
+      "pdf_page_number": 87,
+      "pixel_payload_sha256": "sha256:c2475a1f799108e4452c5f1d4029ad1701beff78cd7d7e99274fc8b383b3bc45",
+      "printed_page_label": "86",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-088.pbm",
+      "canonical_pbm_sha256": "sha256:9d030e637e0aec3a3ac51e4ef630018b4872f73fa3bc9d4d108b687afaab4acf",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 87,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 265,
+      "pdf_page_number": 88,
+      "pixel_payload_sha256": "sha256:2ebd3695dc48491ddcf80957ff2cf2466af17e8ccfacc3751a4e9a3926687ea6",
+      "printed_page_label": "87",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-089.pbm",
+      "canonical_pbm_sha256": "sha256:7029a9e40eedc94a0981abf5158e2b87abe852401a82738333ccf37dee671831",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 88,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 268,
+      "pdf_page_number": 89,
+      "pixel_payload_sha256": "sha256:e823e024cbe0cad9e1882361b52121ed2bdb96b896b70d7eac809bf53a266460",
+      "printed_page_label": "88",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-090.pbm",
+      "canonical_pbm_sha256": "sha256:95d513ee7daf977d8181791a3c675a9148f77b8d1ee4e1000cfef1e842f1b631",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 89,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 271,
+      "pdf_page_number": 90,
+      "pixel_payload_sha256": "sha256:e5b880f134fc3fedcbd62147b37b88c9f17a2255b323ef2816c3c756cb02064b",
+      "printed_page_label": "89",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-091.pbm",
+      "canonical_pbm_sha256": "sha256:a01cea9696c36efa3d5bd0f9032a77dc4af5feca24609125946742d889644e22",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 90,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 274,
+      "pdf_page_number": 91,
+      "pixel_payload_sha256": "sha256:6be3d69a5746c85e3244ba63b3599300f6d6bc2a8ac7e0e0533a7ef872744d12",
+      "printed_page_label": "90",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-092.pbm",
+      "canonical_pbm_sha256": "sha256:840073017eb2283dd7cbfe00ef46c527c9ad82449dfb4bbb31de0ea3b1999c91",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 91,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 277,
+      "pdf_page_number": 92,
+      "pixel_payload_sha256": "sha256:08e8b2a5c4d3145cb2172680d1cfa15721226024d78ac81d9dfc920fbcd3a78c",
+      "printed_page_label": "91",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-093.pbm",
+      "canonical_pbm_sha256": "sha256:db3e32b1fb3a103fe59a1e630ff0c90f32cc1a095349538295671ec9c55bbb99",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 92,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 280,
+      "pdf_page_number": 93,
+      "pixel_payload_sha256": "sha256:bcceff1aebecd69ede5e37b957600f54ad6e3d3bb094f5221b322412fc95bd66",
+      "printed_page_label": "92",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-094.pbm",
+      "canonical_pbm_sha256": "sha256:9ebd5a3e49022b4a386acc282a8b7cace7b79f48b4745daa45b39654361ac8a9",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 93,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 283,
+      "pdf_page_number": 94,
+      "pixel_payload_sha256": "sha256:ff2e44ed1531cc57bfb0407bd1283b542eaaf1fa98e3b18de915596fbeca8efc",
+      "printed_page_label": "93",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-095.pbm",
+      "canonical_pbm_sha256": "sha256:300c35c88878fa73b38bd7d9d779549e7a64d5e59b03ed6e6a8b5b7fba6183ff",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 94,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 286,
+      "pdf_page_number": 95,
+      "pixel_payload_sha256": "sha256:16b46d68ccea787ccecd0b116a9df41e1a304770661295616365e83ea5063dd3",
+      "printed_page_label": "94",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-096.pbm",
+      "canonical_pbm_sha256": "sha256:679236882f51f1c335b28eca8234fc795d2dfcf2df8f229d02df9f9783ec6383",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 95,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 289,
+      "pdf_page_number": 96,
+      "pixel_payload_sha256": "sha256:a3ae92a0bec0931341943a1ef84cae7c99ffc0a31ca2d6d8e8e38ce0f6cc43c2",
+      "printed_page_label": "95",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-097.pbm",
+      "canonical_pbm_sha256": "sha256:c2fe06a67f207b51b7ee83743d414b49a754edfefbb5930945f76d3c3f7e1827",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 96,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 292,
+      "pdf_page_number": 97,
+      "pixel_payload_sha256": "sha256:9c6bcf75b968f093e6496d9a8c2f234a084d25c921c71dba20976bf418f79512",
+      "printed_page_label": "96",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-098.pbm",
+      "canonical_pbm_sha256": "sha256:8e50be09e29eec1aa1e73ee4af7fdb2f710ec0ef37ac9e846dfd9f92ca94d79a",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 97,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 295,
+      "pdf_page_number": 98,
+      "pixel_payload_sha256": "sha256:d5a186e93a0a55e42c903c0b9b6fc4f002ad1c58f544a92a9666b6ed49557147",
+      "printed_page_label": "97",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-099.pbm",
+      "canonical_pbm_sha256": "sha256:f64a746a08ce8339cb4f37effb2ed3107404f7612cb9170fc30269078a66e2e4",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 98,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 298,
+      "pdf_page_number": 99,
+      "pixel_payload_sha256": "sha256:081182e0003bfa940f642d474ff91d245f2118e4776f39075b5f8cb9b2fb0083",
+      "printed_page_label": "98",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-100.pbm",
+      "canonical_pbm_sha256": "sha256:75831a35985148f99ddcdbbebc6c5faab72d65209ca7ad7e15b593f017822368",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 99,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 301,
+      "pdf_page_number": 100,
+      "pixel_payload_sha256": "sha256:b684cb8fe470e1eb1f19bb038e3ecf4e692ff0d1cf0df4112140896d90168e58",
+      "printed_page_label": "99",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-101.pbm",
+      "canonical_pbm_sha256": "sha256:405e5ef3bcc8cae6685e25f00f364fdfeeaa1fcb0ba3bd9914b0879a95fbd905",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 100,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 304,
+      "pdf_page_number": 101,
+      "pixel_payload_sha256": "sha256:190c6137ca3bd0b35b1bc9884a974a4ba6c087a1b3ba4f7875ff1e41d55d62fd",
+      "printed_page_label": "100",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-102.pbm",
+      "canonical_pbm_sha256": "sha256:11bca4b8c7945fad7b372b56a2658d800ad15c37a5799118e02ff894c43ca6d6",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 101,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 307,
+      "pdf_page_number": 102,
+      "pixel_payload_sha256": "sha256:8a35a3fa35e79f57e8c8a3c2335f22e39ced1a8e5e49c3c3104a6741fa528bd3",
+      "printed_page_label": "101",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-103.pbm",
+      "canonical_pbm_sha256": "sha256:7bd08ee7b04bed80185f876788ae7d14e4933f51440b8f72c2e193b9b0070f53",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 102,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 310,
+      "pdf_page_number": 103,
+      "pixel_payload_sha256": "sha256:73c4b9614be1765df18113f9a9abcc86a63283e418366d5e0f9327ce2c2f7dce",
+      "printed_page_label": "102",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-104.pbm",
+      "canonical_pbm_sha256": "sha256:aa0d2e8c534aacadb6a22b7f50aac1723bdadaf6c1e5495252936423e08bf45d",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 103,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 313,
+      "pdf_page_number": 104,
+      "pixel_payload_sha256": "sha256:36aee86179b20e134751284ceb00ed32c46f2873b6e541289b400b6a201d8a32",
+      "printed_page_label": "103",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-105.pbm",
+      "canonical_pbm_sha256": "sha256:8f8b280cb6996f8e888b5b736e1f8a582ebdbcb37d1b7a1ac58ad3535398ea79",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 104,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 316,
+      "pdf_page_number": 105,
+      "pixel_payload_sha256": "sha256:760b23b9aec34568f307af7fe5f54cec30994324549509b4cec79206024ead00",
+      "printed_page_label": "104",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-106.pbm",
+      "canonical_pbm_sha256": "sha256:d69e1ece63dce8d98022fd3343881535b27d3fefbcaf55a1aef2144eb2e4a025",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 105,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 319,
+      "pdf_page_number": 106,
+      "pixel_payload_sha256": "sha256:819561fa5b57afacb00cf8e1d7e326d6999cd30c281372c09881e63a1e7a1add",
+      "printed_page_label": "105",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-107.pbm",
+      "canonical_pbm_sha256": "sha256:60a57259fbc9049cf6d20d8c7c37d5e96eb9ea87cf02aa8d243c2854c8942cf1",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 106,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 322,
+      "pdf_page_number": 107,
+      "pixel_payload_sha256": "sha256:720244f7e1b7337da2522a3acc33daa76ac283df8a5ed94615f1022b120750ee",
+      "printed_page_label": "106",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-108.pbm",
+      "canonical_pbm_sha256": "sha256:857e37c37b486452602952b7eeeb84af5dae3e15ca741ca525fa9691e5386180",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 107,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 325,
+      "pdf_page_number": 108,
+      "pixel_payload_sha256": "sha256:f07a61f4bcc3cdd3f92a1b1fe615bd4803671f51d02d344950bf64f03c97154f",
+      "printed_page_label": "107",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-109.pbm",
+      "canonical_pbm_sha256": "sha256:dfb52bff07898843528b3502c9b46d576e602337b0faf05125191ad9ad238e84",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 108,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 328,
+      "pdf_page_number": 109,
+      "pixel_payload_sha256": "sha256:b9611992259c636205b94c47b3b9ed9c2d1d6f5dc81ec5b9c36432db6fa23dfb",
+      "printed_page_label": "108",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-110.pbm",
+      "canonical_pbm_sha256": "sha256:75761f588226e50a464575c185948c1fb4e1eabeb9582f939c090af6d22e1dae",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 109,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 331,
+      "pdf_page_number": 110,
+      "pixel_payload_sha256": "sha256:91fa0a00991e757544cacd9de5cde4995d5d661c5896aa4d35a21b1b807c176b",
+      "printed_page_label": "109",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-111.pbm",
+      "canonical_pbm_sha256": "sha256:44ce5b7707d6a772ca2df0999ef47079ec0619313a0d3145345ab26941473e95",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 110,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 334,
+      "pdf_page_number": 111,
+      "pixel_payload_sha256": "sha256:174418ab76340d0d3f08920ec54a3147eb03a5e50a9a81474977f0e1f75b7bc6",
+      "printed_page_label": "110",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-112.pbm",
+      "canonical_pbm_sha256": "sha256:3ab59b334b413a3617eb1077b10a0af3788c921cb2f97b53f9a55cdcd855a30c",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 111,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 337,
+      "pdf_page_number": 112,
+      "pixel_payload_sha256": "sha256:e65bd7b54d9d919aefb5474c4c9689fe71715b042f8e8688adb1728bcbe466be",
+      "printed_page_label": "111",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-113.pbm",
+      "canonical_pbm_sha256": "sha256:ffe284e9cf34d00fcdaf6eacd989a1391662ea38f79e48c6ca2ade7e94610e47",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 112,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 340,
+      "pdf_page_number": 113,
+      "pixel_payload_sha256": "sha256:b9d47e590deeaf0097814fa02522c59788861a17663c4f08195277093c860782",
+      "printed_page_label": "112",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-114.pbm",
+      "canonical_pbm_sha256": "sha256:3b1e48c4a00840834359473c00e968be04eec18519c0c121cca0f13c4ae98867",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 113,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 343,
+      "pdf_page_number": 114,
+      "pixel_payload_sha256": "sha256:952550c216f197e55a9326897cc0e99d270804d89e868913873bb27d5faffa5c",
+      "printed_page_label": "113",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-115.pbm",
+      "canonical_pbm_sha256": "sha256:c678d63c918a4dd5249725d28edfec619ef5b36e362bba99784a47b20e53dc39",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 114,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 346,
+      "pdf_page_number": 115,
+      "pixel_payload_sha256": "sha256:e674b77b7cee717f0a87bbf3f59592a7c751ff0c9da99987f18d0c05ef1bd32f",
+      "printed_page_label": "114",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-116.pbm",
+      "canonical_pbm_sha256": "sha256:ff57e588b11b0b7bba1ef7652f23c902c87d429ecd5388409b8a05ebee398ba6",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 115,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 349,
+      "pdf_page_number": 116,
+      "pixel_payload_sha256": "sha256:62087938c6b320a13fdc3926b3d7519b045479ccd0f468ab1668e5ff1c10f42a",
+      "printed_page_label": "115",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-117.pbm",
+      "canonical_pbm_sha256": "sha256:261041ff7c0c101dc1a79fdfebd8c5d78f6b84cbe3d3a77acb702e0075339acd",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 116,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 352,
+      "pdf_page_number": 117,
+      "pixel_payload_sha256": "sha256:477f8c7546c77f64fcbd76962593ad2a1463f9989f2f1e93c0ddc5f27d7b7980",
+      "printed_page_label": "116",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-118.pbm",
+      "canonical_pbm_sha256": "sha256:67ea4ed74411da9bad13cc5efe3381d31a60ec57f9eae0c337f9acf57cccdd8e",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 117,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 355,
+      "pdf_page_number": 118,
+      "pixel_payload_sha256": "sha256:1e4288308268b900f70a14b3de1d7f9052b6e1d66774c0cea71afeb4a9d417a3",
+      "printed_page_label": "117",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-119.pbm",
+      "canonical_pbm_sha256": "sha256:371a3314b023dc8a3b76a009e5af6eb02ca382c3eeb0aff4561b39915d925082",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 118,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 358,
+      "pdf_page_number": 119,
+      "pixel_payload_sha256": "sha256:1081288ee2952811f3590d768a234ed19baacac86f979d95fa6ba89c19bd5b8f",
+      "printed_page_label": "118",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-120.pbm",
+      "canonical_pbm_sha256": "sha256:58b486348673c371efac6679349e8ee55d6503ba5b9c7b2111cef972dce419d4",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 119,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 361,
+      "pdf_page_number": 120,
+      "pixel_payload_sha256": "sha256:eff7d0fbe8b00092c68b8ba2e14d26ea9e34511dc3558e02f9d27578f5bad89d",
+      "printed_page_label": "119",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-121.pbm",
+      "canonical_pbm_sha256": "sha256:1137b8b0e0c1832e0be84bd9ba6ae1db1553890b5e86381ec96ed63e28ba9ec7",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 120,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 364,
+      "pdf_page_number": 121,
+      "pixel_payload_sha256": "sha256:0458fb201a7b4302eb739dff868d2a425a3b1148918dfc5b94004abc141de5a7",
+      "printed_page_label": "120",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-122.pbm",
+      "canonical_pbm_sha256": "sha256:21a958834cf0c4634aff8d12dc826bef1538fb7e69b2ea5e413c77af668dbf1e",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 121,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 367,
+      "pdf_page_number": 122,
+      "pixel_payload_sha256": "sha256:c6fdce8c92cda0c44716b97bbbf1e93edf643614845d0ac05b64d0414acfd5eb",
+      "printed_page_label": "121",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-123.pbm",
+      "canonical_pbm_sha256": "sha256:4c1b19ec310bb43205e9e1838e281697dac5513ed54159535fe3c30a294bf74d",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 122,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 370,
+      "pdf_page_number": 123,
+      "pixel_payload_sha256": "sha256:8b774521abfe1e49bda3ecd39fd70407fa9e818aaf543a75ff20912159d3dd2a",
+      "printed_page_label": "122",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-124.pbm",
+      "canonical_pbm_sha256": "sha256:e8ac814e638d69a1008b309422e91c626042fc0ce471dda6dcb0e67c8a5bc22c",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 123,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 373,
+      "pdf_page_number": 124,
+      "pixel_payload_sha256": "sha256:873a3b87579a976b6e4d948ffea3978778bc87cb40ac3ebea341a62d2d4f21b2",
+      "printed_page_label": "123",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-125.pbm",
+      "canonical_pbm_sha256": "sha256:61c98cde20e479e3c667e36691f6da9477176dfd41be270601d91725a2c5d4d2",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 124,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 376,
+      "pdf_page_number": 125,
+      "pixel_payload_sha256": "sha256:33c59421c9fa0cc1a57ff5cddef587cd9aaa5ef53618d838288ae3ecd7ba6c95",
+      "printed_page_label": "124",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-126.pbm",
+      "canonical_pbm_sha256": "sha256:9708ff9c668e108de19ad34a3025609d589db8ffb3375436213e581cb157c295",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 125,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 379,
+      "pdf_page_number": 126,
+      "pixel_payload_sha256": "sha256:f3af9360cbd60373d216daaccf2594ccbd0ad98328422c00ae1e9a0861ef80b0",
+      "printed_page_label": "125",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-127.pbm",
+      "canonical_pbm_sha256": "sha256:39e26c9cc1234dd5c4c0bc57b8d1d90e26c68d602375abd04079256440dcf94d",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 126,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 382,
+      "pdf_page_number": 127,
+      "pixel_payload_sha256": "sha256:3ae36b731082d95920a46334f4c48609bb797973f6d0145e317df24ac076e8fe",
+      "printed_page_label": "126",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-128.pbm",
+      "canonical_pbm_sha256": "sha256:ddad653cf4f973d6827141a7062b1354f5993ac87e97d7de122eb7e85d84ba5b",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "left",
+      "layout_class": "sorted_end_2_column_labels_left",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 127,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 385,
+      "pdf_page_number": 128,
+      "pixel_payload_sha256": "sha256:80bd1b72831a576b22485f36a86ace5dcddd3022a6a2631f5c6eecae4e5da58e",
+      "printed_page_label": "127",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-129.pbm",
+      "canonical_pbm_sha256": "sha256:d77c97b2b923922e36734365ea995b6a2a1af5443972e10df4ecb274a1fd677c",
+      "corpus_sequence_role": "catalog_metadata_only",
+      "label_side": null,
+      "layout_class": "sorted_end_auxiliary_grid_8",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 128,
+      "page_role": "auxiliary_catalog_only",
+      "pdf_image_object_number": 388,
+      "pdf_page_number": 129,
+      "pixel_payload_sha256": "sha256:454466131e129eceddf332dfe5e1901c569216a04bc119a2c0d4634971e2f58f",
+      "printed_page_label": "128",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-130.pbm",
+      "canonical_pbm_sha256": "sha256:28481b60dec54dde1e6f8a8901a5b7ee41bb92e452fb5fbb86665dd2766c3429",
+      "corpus_sequence_role": "catalog_metadata_only",
+      "label_side": null,
+      "layout_class": "sorted_end_auxiliary_grid_6",
+      "contains_linguistic_sequence_candidates": false,
+      "page_index": 129,
+      "page_role": "auxiliary_catalog_only",
+      "pdf_image_object_number": 391,
+      "pdf_page_number": 130,
+      "pixel_payload_sha256": "sha256:1dc1ad8447e3641c1e1e7afc06046d2d6daf042a2368f4da5f5cc2f87692ea00",
+      "printed_page_label": "129",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          427,
+          550,
+          687,
+          6600
+        ],
+        [
+          2608,
+          550,
+          2868,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-131.pbm",
+      "canonical_pbm_sha256": "sha256:36aa46df39d4611c69b5eef0cf27f917203821d5fe61939d6ac087d3f5e6fa5d",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 130,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 394,
+      "pdf_page_number": 131,
+      "pixel_payload_sha256": "sha256:85c9dc69799cdfe76e6fdcd21120f119dd9f6f14078ddf175ca0ccc79dfa6aab",
+      "printed_page_label": "130",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-132.pbm",
+      "canonical_pbm_sha256": "sha256:b00f883d0d9b712b9247c35af6515edaf4ef204e704d257e56176c3e6f1419ce",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 131,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 397,
+      "pdf_page_number": 132,
+      "pixel_payload_sha256": "sha256:f4ce6bfbfb3c84b68fd866fdf9c54991b9fd91834a0fb6f4787f8172bd6071c3",
+      "printed_page_label": "131",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-133.pbm",
+      "canonical_pbm_sha256": "sha256:6587535f4f7d30540d242c659c90785e590d52f57b60d463eab13ab243be729d",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 132,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 400,
+      "pdf_page_number": 133,
+      "pixel_payload_sha256": "sha256:1a1c3eb0de81ba29274abb696e8437a75f289e7f33561d3b70f489f40f66dff1",
+      "printed_page_label": "132",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-134.pbm",
+      "canonical_pbm_sha256": "sha256:daad8aaaa7db0c12b89c5f04d7401e68eb0fe8dcb05ac7b47ea0a1367a1aeca0",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 133,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 403,
+      "pdf_page_number": 134,
+      "pixel_payload_sha256": "sha256:c12278edf52e799ff3b6a0d2c95f2e3a3b7d5d66cc304beb12e0396d756db571",
+      "printed_page_label": "133",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-135.pbm",
+      "canonical_pbm_sha256": "sha256:6ab290cf49aab3437a204b51e22defdcfe5f34152400b929dc4ededbbb50bc86",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 134,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 406,
+      "pdf_page_number": 135,
+      "pixel_payload_sha256": "sha256:40e9d5a8be12d3aceed7d59a503d5b97eb001a91889368a9cc7187a75de12e82",
+      "printed_page_label": "134",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-136.pbm",
+      "canonical_pbm_sha256": "sha256:c113d0f3ea7499f16ed1d331b491d53b32d9a655cfa28f251a93df9ce72b18a2",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 135,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 409,
+      "pdf_page_number": 136,
+      "pixel_payload_sha256": "sha256:2c0ada62e6c994a03d3725ce866fea38476e577af5c077e08cbe7435f6fd3c46",
+      "printed_page_label": "135",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-137.pbm",
+      "canonical_pbm_sha256": "sha256:8ceb4ff0fcf92fb2df79fad96d2bb3dcdeaa5a1599e5797f610e60a22bb71c00",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 136,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 412,
+      "pdf_page_number": 137,
+      "pixel_payload_sha256": "sha256:5e47f8794bd676e0fa5efd3abfa681db41d604011ba9f7a8438acfe37df58bbc",
+      "printed_page_label": "136",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-138.pbm",
+      "canonical_pbm_sha256": "sha256:51b33551bbcdd793cae4139a93053a38324e55bf2bb90748d7fdadd7b1ceeca5",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 137,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 415,
+      "pdf_page_number": 138,
+      "pixel_payload_sha256": "sha256:94d3e3e6d0ffcdfa537e6cf462f789ae113e2598c3589e7097f681b558997b54",
+      "printed_page_label": "137",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-139.pbm",
+      "canonical_pbm_sha256": "sha256:cde5640488fd2abbe914fe0627fee75de563061042fc6e71d130e75a9647ca99",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 138,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 418,
+      "pdf_page_number": 139,
+      "pixel_payload_sha256": "sha256:44ef5a35d0a51d5740b417b2c657a737abf5cf6837523303962257b0270ce564",
+      "printed_page_label": "138",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-140.pbm",
+      "canonical_pbm_sha256": "sha256:18ea8b7dd57d8fe4a2ad8da79d2a2ee06b7506ec222631ba9619ab246558a629",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 139,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 421,
+      "pdf_page_number": 140,
+      "pixel_payload_sha256": "sha256:5c1818589a0b051a5ff36ca115f1cf085d65ca14fcd31929247243f06d0cbdf3",
+      "printed_page_label": "139",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-141.pbm",
+      "canonical_pbm_sha256": "sha256:ecb14b4f40506624806e4d1e3d9837259ec926be00fefe5f8285e2bb27923435",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 140,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 424,
+      "pdf_page_number": 141,
+      "pixel_payload_sha256": "sha256:2b8ecd85e4cb530a83e8031c86ea48bf28563d5efa4a2f6ce5925b2a1153dc9c",
+      "printed_page_label": "140",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-142.pbm",
+      "canonical_pbm_sha256": "sha256:89bd5c93715912f0c3b2e271daf0f27767008b905e5231b83533d6f93804abd0",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 141,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 427,
+      "pdf_page_number": 142,
+      "pixel_payload_sha256": "sha256:436e5b8485079171cf159f3eefbdb633cf300986748a299b453e75d67be9fcc5",
+      "printed_page_label": "141",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-143.pbm",
+      "canonical_pbm_sha256": "sha256:608936ec7afc15c217ce58225eaa15eb0398002cbb4489b370a7e5803d691682",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 142,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 430,
+      "pdf_page_number": 143,
+      "pixel_payload_sha256": "sha256:3f5d64cd5460caf5a251ce9b6049ee23cd57af36514f6b5e9d97bbf285e2b758",
+      "printed_page_label": "142",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-144.pbm",
+      "canonical_pbm_sha256": "sha256:422dfbb01e359b7c9e89a6fa713114d90254b443017dd9d13b4b250792adf7c7",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 143,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 433,
+      "pdf_page_number": 144,
+      "pixel_payload_sha256": "sha256:94afadb19921be2caba3fdee8a2cd6f11fe62df7e0e0714cad91fc22eec3da77",
+      "printed_page_label": "143",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-145.pbm",
+      "canonical_pbm_sha256": "sha256:94cf8793f191c3641a26b272fb168be80cf8998a2687cea55d8b3fa6259c9514",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 144,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 436,
+      "pdf_page_number": 145,
+      "pixel_payload_sha256": "sha256:2cf8fd1637b2e53d459073963ffb1944fc5a0abbc7f1daf15def1d8f25573e4d",
+      "printed_page_label": "144",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-146.pbm",
+      "canonical_pbm_sha256": "sha256:b9bce3ab19b47c6b826ed82f0187e5bc34cc5cf063f21a387b505eb8f9e7f025",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 145,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 439,
+      "pdf_page_number": 146,
+      "pixel_payload_sha256": "sha256:a77dceb6643bf063cb30ce53610ac50e10c155014199a361a7018aad1232c609",
+      "printed_page_label": "145",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-147.pbm",
+      "canonical_pbm_sha256": "sha256:f80e0a04e48be05dfbc21b9bedbcb68dc3629bd8f96d49b90a6b9c2a372e4fbf",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 146,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 442,
+      "pdf_page_number": 147,
+      "pixel_payload_sha256": "sha256:3a1615dcbc2afeb819df462c12a75eac9ec495dd2efb9900f5367ace759cc477",
+      "printed_page_label": "146",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-148.pbm",
+      "canonical_pbm_sha256": "sha256:36d2d4e95a6b40e693f363d4ca600dafe4bb95660f9719cb1fd47743bcc541de",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 147,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 445,
+      "pdf_page_number": 148,
+      "pixel_payload_sha256": "sha256:98485497acd6478777564d25fdfc1bc9dd95a2fc8f9161a77a0f8caf7d791e39",
+      "printed_page_label": "147",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-149.pbm",
+      "canonical_pbm_sha256": "sha256:c2aec078b2ccdfb45ca0897e25569c819e5d47d0d4f45b96a2801b96f0a4704c",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 148,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 448,
+      "pdf_page_number": 149,
+      "pixel_payload_sha256": "sha256:af7f65d4f9eb82b00e26a3ae94e3f56d5d28dfdb3d317f52412d34826e8c5f08",
+      "printed_page_label": "148",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-150.pbm",
+      "canonical_pbm_sha256": "sha256:4156bf74456aa10ab70f7b245ead4a205734bc24e7a051188f7ad919988b49dd",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 149,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 451,
+      "pdf_page_number": 150,
+      "pixel_payload_sha256": "sha256:d990cc448f2cbcff049548968b32efc6dc9880129840c5436a2a182cbdec6ca9",
+      "printed_page_label": "149",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-151.pbm",
+      "canonical_pbm_sha256": "sha256:f105b6a0dd2c6bb068c2aa4d2b34ce4c83eed39a3d1d945bc56ced915cc2ff77",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 150,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 454,
+      "pdf_page_number": 151,
+      "pixel_payload_sha256": "sha256:ec8600ac98f366ecd0dbb4834ce0db006990cb16b72360d2a76fdacffbe56dd3",
+      "printed_page_label": "150",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-152.pbm",
+      "canonical_pbm_sha256": "sha256:f2ca4e11ccd1453d70f85b62cab74147ce4495a2b2abf4f040916a3fe0d32637",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 151,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 457,
+      "pdf_page_number": 152,
+      "pixel_payload_sha256": "sha256:3f3ef37653fbfb1fc47124b0b302ef8682c135f3c34dedbf53a39b7c69473552",
+      "printed_page_label": "151",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-153.pbm",
+      "canonical_pbm_sha256": "sha256:3beabf84024820acf2cc8a775a7499a9bfe091e12c4b80025d4f4b832ae078b4",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 152,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 460,
+      "pdf_page_number": 153,
+      "pixel_payload_sha256": "sha256:92e793c2720ca9bf34be5b5e617cf9bae537cee9680f33a320dbdbed99c374e9",
+      "printed_page_label": "152",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-154.pbm",
+      "canonical_pbm_sha256": "sha256:d1deb0abb399b7432f0a3a0ece6f8fbfb123745974b247b8dd973293b752af90",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 153,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 463,
+      "pdf_page_number": 154,
+      "pixel_payload_sha256": "sha256:c1f0a4a826b43eeec6ea5ece1327abe727bb748efa97a143d3e5cadbe34f07b7",
+      "printed_page_label": "153",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-155.pbm",
+      "canonical_pbm_sha256": "sha256:3fda119f7ade51016bb10aab9952401fc4a76e8d66cb163fcf207f0c0dd2c333",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 154,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 466,
+      "pdf_page_number": 155,
+      "pixel_payload_sha256": "sha256:591ae64f185141e7fcc9d22aa2b4d062de762f5584a548078519473f756e12c2",
+      "printed_page_label": "154",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-156.pbm",
+      "canonical_pbm_sha256": "sha256:5b03cbc680259bd67f0c7323e79287190ffb7c32d844bed2bef13ffe88d9e8fa",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 155,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 469,
+      "pdf_page_number": 156,
+      "pixel_payload_sha256": "sha256:45be127f79e3f94109fb8e0869171038bd9801cfaf43b5bb31fc778416f1c18e",
+      "printed_page_label": "155",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-157.pbm",
+      "canonical_pbm_sha256": "sha256:1c128f9d098bac7166b5008bbf0327778b4d5f5c38bedd5dd49da5e2f9e5e3b6",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 156,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 472,
+      "pdf_page_number": 157,
+      "pixel_payload_sha256": "sha256:1b4133a5dcce6c72b89b65031ddb840a776c16250946b5b3fce20233882091b4",
+      "printed_page_label": "156",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-158.pbm",
+      "canonical_pbm_sha256": "sha256:19f2d8e7fc19a7ca38aee9a40efbd56e724e9f5d4d04a7cd88c1ebccfda449cb",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 157,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 475,
+      "pdf_page_number": 158,
+      "pixel_payload_sha256": "sha256:b503377b69fdefdde438f9544a1c97b066dac0afaf6ce576e0e35009a382ab32",
+      "printed_page_label": "157",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-159.pbm",
+      "canonical_pbm_sha256": "sha256:e2feb1f8549d422f1fd55014361a393d02817ab4224373f500dd4f83e240bfff",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 158,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 478,
+      "pdf_page_number": 159,
+      "pixel_payload_sha256": "sha256:3a35669ae9f34e885177309f0d831ef33710fb55b66321a3a493708da9fc6e57",
+      "printed_page_label": "158",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-160.pbm",
+      "canonical_pbm_sha256": "sha256:eadb1ed15e02161cdb9f801f682b56886f1accebc25d2a8982d460fe0ca16bf2",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 159,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 481,
+      "pdf_page_number": 160,
+      "pixel_payload_sha256": "sha256:8692fdc6e7b5e2716dfa0d0fbc62dcf3d35abc032a4f9c4891980c86425ab9cf",
+      "printed_page_label": "159",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-161.pbm",
+      "canonical_pbm_sha256": "sha256:286e9fc7ca9dfd5068df307c299f3b8733d58d3d3d0e62d20433251a4052a336",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 160,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 484,
+      "pdf_page_number": 161,
+      "pixel_payload_sha256": "sha256:4cd6213dd4a7b84779dc7d55158f5800527fc0b7f0cdad8889ae161555b6d669",
+      "printed_page_label": "160",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-162.pbm",
+      "canonical_pbm_sha256": "sha256:94e3168e3f5fb2261b482b5cdce642b496368766651d08659905f7389c2a4aa5",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 161,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 487,
+      "pdf_page_number": 162,
+      "pixel_payload_sha256": "sha256:1146b353a5d5f53361ba316167d6a1d2998d2fc2dfa7b3c10e3b0bd3b9fe50cd",
+      "printed_page_label": "161",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-163.pbm",
+      "canonical_pbm_sha256": "sha256:eca18c56750a17de25657d8a315fcfdf273f34ac126a95f0568bd51c70cc4e9f",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 162,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 490,
+      "pdf_page_number": 163,
+      "pixel_payload_sha256": "sha256:24a341fd9db9ff9ef9f1ecc5b4146f8579caae72e963e9c8ea06829b309062dc",
+      "printed_page_label": "162",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-164.pbm",
+      "canonical_pbm_sha256": "sha256:9bd5a08b26d50c5be6de6e000fbba9be0e4d1e93d0d9291feab7d56e30148707",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 163,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 493,
+      "pdf_page_number": 164,
+      "pixel_payload_sha256": "sha256:a6d3224fe44c390ee3517d843e197675b0785d1549830635aa544aecd6b109ed",
+      "printed_page_label": "163",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-165.pbm",
+      "canonical_pbm_sha256": "sha256:db4bea21f71668c5654b75f8abcc1d8b1d8af657861438d175addaad27eeff33",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 164,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 496,
+      "pdf_page_number": 165,
+      "pixel_payload_sha256": "sha256:d38b92a189521d7d5f2f3a133f0d1b488ae2a2c7974c0cee097a0f5119b5cf93",
+      "printed_page_label": "164",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-166.pbm",
+      "canonical_pbm_sha256": "sha256:6b12cfb903d009007364b16a03629ac962c2fbb7a4151da09c3a3fca72bccde4",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 165,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 499,
+      "pdf_page_number": 166,
+      "pixel_payload_sha256": "sha256:7a0516f858fe366750b17758bf64a0f6540df6c9d3aaa0c0c18d9a3033bf5298",
+      "printed_page_label": "165",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-167.pbm",
+      "canonical_pbm_sha256": "sha256:13f2df0dc730de9c5e265cdf3c522234119653d0e7e8b9233d4b9198e4e740b1",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 166,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 502,
+      "pdf_page_number": 167,
+      "pixel_payload_sha256": "sha256:99c33278d6bc7e2c19cceb8d4c81ad83c6545a4a8058fed6823be4364ed0f74b",
+      "printed_page_label": "166",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-168.pbm",
+      "canonical_pbm_sha256": "sha256:4798a99f296ecb95d8a282044426d72dc9414ec53ac4cec8d0ef5be29c9e20ec",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 167,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 505,
+      "pdf_page_number": 168,
+      "pixel_payload_sha256": "sha256:773643178935f43a732329c20ef34e85707906c567b75549dc5b1e5b1c7f10ed",
+      "printed_page_label": "167",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-169.pbm",
+      "canonical_pbm_sha256": "sha256:8d49e450ae9b1544b3abc949180b8c2311e621255b136959dbce9486f70a2ac9",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 168,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 508,
+      "pdf_page_number": 169,
+      "pixel_payload_sha256": "sha256:8910a3603d34ef6cb46ae3f1f498d6ff7c520611648d31d6d6f7ba8f9fa3c32e",
+      "printed_page_label": "168",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-170.pbm",
+      "canonical_pbm_sha256": "sha256:f6046aa0a3474df78e4745f91d017ac4168c8b9925b404d666d3b872e3e61b03",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 169,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 511,
+      "pdf_page_number": 170,
+      "pixel_payload_sha256": "sha256:9cb4093c452743b4ee7d9533fed03caa64ff703242d865f0ba3bb562463690fe",
+      "printed_page_label": "169",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-171.pbm",
+      "canonical_pbm_sha256": "sha256:010e62ac7592c788ceaa5c0cf64ae3b6eab0f730b80eb0db038e3e76eddc0f9b",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 170,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 514,
+      "pdf_page_number": 171,
+      "pixel_payload_sha256": "sha256:f11a5c43e6786eb781e2cca31a1be89bc1e71a6547814df697df5ee3c91a6337",
+      "printed_page_label": "170",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-172.pbm",
+      "canonical_pbm_sha256": "sha256:dff15e4a265e1dbd7bad101a164f2c72523f6d5016b35b4c933eb26049686343",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 171,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 517,
+      "pdf_page_number": 172,
+      "pixel_payload_sha256": "sha256:852e21560e843ab413ada108e1b327c86532f3689fc07857302d401828da8af1",
+      "printed_page_label": "171",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-173.pbm",
+      "canonical_pbm_sha256": "sha256:2e8c6dfc42d630240af24b14b2482496afce5f39bcd1f96add15bbafccc4f806",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 172,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 520,
+      "pdf_page_number": 173,
+      "pixel_payload_sha256": "sha256:ffdb7e7d0868508bee844c633813237cdb9ccb65f0bf579dbd0a7db3de1899a9",
+      "printed_page_label": "172",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-174.pbm",
+      "canonical_pbm_sha256": "sha256:c9d9ed95d2e9f1c3f07c90a518fef2e0cdc5da7fdaa88916581f01b93e4862ac",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 173,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 523,
+      "pdf_page_number": 174,
+      "pixel_payload_sha256": "sha256:33c3a58977cf6b83286fa5127471cb72e702e490a984c482ccd2c9c7ef12b474",
+      "printed_page_label": "173",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-175.pbm",
+      "canonical_pbm_sha256": "sha256:aebdfd4f1c6e005345a747c095673179396659686880b560ddb4b26738eefef6",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 174,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 526,
+      "pdf_page_number": 175,
+      "pixel_payload_sha256": "sha256:3a009280f9ff91a4727a295f509c312e942aed5cbb930626896aeabac2468da7",
+      "printed_page_label": "174",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-176.pbm",
+      "canonical_pbm_sha256": "sha256:04a7ae4c21b92a7ed29262e44f473a9d2737350d21b05f75a41121a722af9347",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 175,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 529,
+      "pdf_page_number": 176,
+      "pixel_payload_sha256": "sha256:cf9460e535d438627c6266c0be76000d3feaed6e6850892ad23ec03064bc0c43",
+      "printed_page_label": "175",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-177.pbm",
+      "canonical_pbm_sha256": "sha256:9c787e8325b6fb9756fef099e9641ccd4ced7ae9129697acc887b227d8eba333",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 176,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 532,
+      "pdf_page_number": 177,
+      "pixel_payload_sha256": "sha256:8e247a549a67d00852937cbde3bd4c39a1d6486a6d42faad7a23e100278b9849",
+      "printed_page_label": "176",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-178.pbm",
+      "canonical_pbm_sha256": "sha256:4bd8ddb6c69bf16c1d0dbbc32961b885ccc220a141d1f73dced12a93d390109c",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 177,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 535,
+      "pdf_page_number": 178,
+      "pixel_payload_sha256": "sha256:7dc574fa0baf53650e0296c3dd67d6831f1236e0d3d7576d45fc01fd597c39c2",
+      "printed_page_label": "177",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-179.pbm",
+      "canonical_pbm_sha256": "sha256:067a3d2caf9cb0806715a3e438949d0a06a248eb544728be6bc2ff01b5a268df",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 178,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 538,
+      "pdf_page_number": 179,
+      "pixel_payload_sha256": "sha256:ca0e1e3f91ab7001e7fa25db6a446fe3f0880e2959f27f628914c93bd6a01163",
+      "printed_page_label": "178",
+      "proposal_exclusion_bboxes": [],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    },
+    {
+      "canonical_pbm_filename": "page-180.pbm",
+      "canonical_pbm_sha256": "sha256:0de9339f62e0b3055c5f8bd797b6b49c55f8a698df9992a32b05ac2eab34ec33",
+      "corpus_sequence_role": "internal_crosscheck",
+      "label_side": "right",
+      "layout_class": "sorted_beginning_2_column_labels_right",
+      "contains_linguistic_sequence_candidates": true,
+      "page_index": 179,
+      "page_role": "corpus_data",
+      "pdf_image_object_number": 541,
+      "pdf_page_number": 180,
+      "pixel_payload_sha256": "sha256:82f174386b76695ef30c645ec20dd05d7bf039cfac9adfc97320420b4b5f96b2",
+      "printed_page_label": "179",
+      "proposal_exclusion_bboxes": [
+        [
+          3000,
+          5000,
+          4550,
+          5850
+        ]
+      ],
+      "proposal_scan_bands": [
+        [
+          2009,
+          550,
+          2269,
+          6600
+        ],
+        [
+          4195,
+          550,
+          4455,
+          6600
+        ]
+      ]
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scientific_scope": "page identity, native pixels, source section, and proposal-only detector scan bands; no OCR value, accepted identifier, sign transcription, reading direction, language, meaning, translation, or decipherment",
+  "source_contract": {
+    "byte_size": 3319,
+    "contract_id": "KP1979:CORPUS:SOURCE:V1",
+    "sha256": "sha256:489d7f4cee1de7211b6bd098d1b8fb5f2bf1a44d6ce78249ac90c1be4dfbd40b"
+  },
+  "status": "fixed_page_pixels_and_layout_classes_only_untranscribed"
+}

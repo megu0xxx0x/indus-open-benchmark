@@ -45,6 +45,23 @@ from indusbench.io import (
     write_json,
     write_jsonl,
 )
+from indusbench.kp1979 import (
+    MAX_CONTRACT_BYTES as KP1979_MAX_CONTRACT_BYTES,
+)
+from indusbench.kp1979 import (
+    MAX_PAGE_MAP_BYTES as KP1979_MAX_PAGE_MAP_BYTES,
+)
+from indusbench.kp1979 import (
+    MAX_PAGE_PBM_BYTES as KP1979_MAX_PAGE_PBM_BYTES,
+)
+from indusbench.kp1979 import (
+    MAX_SOURCE_BYTES as KP1979_MAX_SOURCE_BYTES,
+)
+from indusbench.kp1979 import (
+    KP1979SourceError,
+    audit_kp1979_layout,
+    verify_kp1979_source,
+)
 from indusbench.kp1982 import (
     MAX_CONTRACT_BYTES as KP1982_MAX_CONTRACT_BYTES,
 )
@@ -270,6 +287,26 @@ def _default_kp1982_contract() -> Path:
         return project_candidate
     package_candidate = importlib.resources.files("indusbench").joinpath(
         "registry/kp1982_batch0.json"
+    )
+    return Path(str(package_candidate))
+
+
+def _default_kp1979_contract() -> Path:
+    project_candidate = Path(__file__).resolve().parents[2] / "registry" / "kp1979_corpus.json"
+    if project_candidate.is_file():
+        return project_candidate
+    package_candidate = importlib.resources.files("indusbench").joinpath(
+        "registry/kp1979_corpus.json"
+    )
+    return Path(str(package_candidate))
+
+
+def _default_kp1979_page_map() -> Path:
+    project_candidate = Path(__file__).resolve().parents[2] / "registry" / "kp1979_page_map.json"
+    if project_candidate.is_file():
+        return project_candidate
+    package_candidate = importlib.resources.files("indusbench").joinpath(
+        "registry/kp1979_page_map.json"
     )
     return Path(str(package_candidate))
 
@@ -3533,6 +3570,71 @@ def _command_verify_kp1982_source(args: argparse.Namespace) -> int:
     return 0
 
 
+def _command_verify_kp1979_source(args: argparse.Namespace) -> int:
+    try:
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        summary = verify_kp1979_source(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1979SourceError("KP1979 fixed source verification failed") from error
+    _print_json(summary)
+    return 0
+
+
+def _command_audit_kp1979_layout(args: argparse.Namespace) -> int:
+    try:
+        directory_metadata = args.page_pbm_dir.lstat()
+        if stat.S_ISLNK(directory_metadata.st_mode) or not stat.S_ISDIR(directory_metadata.st_mode):
+            raise KP1979SourceError("page bitmap input must be a physical directory")
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+
+        def page_bytes():
+            for page_number in range(2, 181):
+                yield (
+                    page_number,
+                    _read_regular_bytes(
+                        args.page_pbm_dir / f"page-{page_number:03d}.pbm",
+                        max_bytes=KP1979_MAX_PAGE_PBM_BYTES,
+                    ),
+                )
+
+        summary = audit_kp1979_layout(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            page_bytes(),
+        )
+    except (OSError, ValueError) as error:
+        raise KP1979SourceError("KP1979 source-bound layout audit failed") from error
+    _print_json(summary)
+    return 0
+
+
 def _command_propose_kp1982_layout(args: argparse.Namespace) -> int:
     try:
         source_contract_bytes = _read_regular_bytes(
@@ -6179,6 +6281,49 @@ def build_parser() -> argparse.ArgumentParser:
     validate_parser.add_argument("--schema", type=_path)
     _add_quarantine_arguments(validate_parser)
     validate_parser.set_defaults(handler=_command_validate)
+
+    kp1979_source_parser = subparsers.add_parser(
+        "verify-kp1979-source",
+        help="verify exact local bytes of the fixed official KP1979 corpus PDF",
+    )
+    kp1979_source_parser.add_argument("pdf", type=_path)
+    kp1979_source_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_source_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_source_parser.set_defaults(handler=_command_verify_kp1979_source)
+
+    kp1979_layout_parser = subparsers.add_parser(
+        "audit-kp1979-layout",
+        help="verify all KP1979 page pixels and run abstaining label-lattice gates",
+    )
+    kp1979_layout_parser.add_argument("pdf", type=_path)
+    kp1979_layout_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing canonical page-002.pbm through page-180.pbm",
+    )
+    kp1979_layout_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_layout_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_layout_parser.set_defaults(handler=_command_audit_kp1979_layout)
 
     kp1982_source_parser = subparsers.add_parser(
         "verify-kp1982-source",

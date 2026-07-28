@@ -21,23 +21,47 @@ The higher-efficiency route is parallel and information-gain driven:
 
 1. freeze the completed verifier as V1 unless a downstream experiment exposes
    a concrete defect;
-2. use a stratified subset of the KP1982 sign list as calibration evidence
-   while generating abstaining machine proposals over all 179 concordance data
-   pages;
-3. federate independent corpus editions without erasing disagreements;
-4. test high-information functional anchors—especially numeral-like strokes,
+2. extract the official 1979 identifier-order corpus first and reconcile it
+   against that volume's two differently sorted reprints;
+3. apply the official 1980 revisions, cross-references, documentation, and
+   duplicate assertions without overwriting the 1979 observations;
+4. use KP1982 later as calibration and occurrence-level consistency evidence;
+5. test high-information functional anchors—especially numeral-like strokes,
    weights, capacities, tablet families, sealings, object types, sites, and
    periods;
-5. make linguistic, non-linguistic, hybrid, and multilingual hypotheses
+6. make linguistic, non-linguistic, hybrid, and multilingual hypotheses
    compete under the same preregistered held-out tests; and
-6. spend further annotation effort only where it can distinguish surviving
+7. spend further annotation effort only where it can distinguish surviving
    hypotheses.
 
 日本語要旨: これまでの検証基盤は無駄ではないが、700枠の全量人手判定を解読開始の
-前提にすると遅い。V1を凍結し、80–120枠程度の層化較正、concordance
-179データページの棄権可能な機械抽出、外部文脈アンカー、競合仮説の封印評価を
-並走させる。目的は
+前提にすると遅い。V1を凍結し、1979年の57頁基礎コーパスと同書内二系列の再掲、
+1980年の訂正・対応表・重複情報を先に処理する。1982年版は後段の較正・出現照合へ
+回し、外部文脈アンカーと競合仮説の評価を並走させる。目的は
 「もっと多く転写する」ことではなく、「誤った仮説を最少時間で落とす」ことである。
+
+## Post-audit critical-path correction
+
+A later exact-source comparison on the same date found a still shorter corpus
+route. The official 1979 Helsinki volume contains a 57-page identifier-order
+base corpus and two differently sorted reprints. The official 1980
+continuation then supplies additions, corrections, a bidirectional
+Finnish–Mahadevan cross-reference, documentation, and strict/loose duplicate
+lists.
+
+The adopted order is therefore:
+
+1. 1979 identifier-order base corpus;
+2. 1979 sorted-from-end and sorted-from-beginning internal reconciliation;
+3. 1980 revision, cross-reference, documentation, and duplicate delta;
+4. 1982 occurrence-level concordance consistency;
+5. context-rich gold objects and equal-budget hypothesis tests.
+
+The KP1982 fast lane described below remains a valid calibration and
+occurrence-audit lane, but it is no longer the first full-corpus extraction
+target. The exact findings, hashes, page contracts, open-source triage, and
+implemented abstaining detector are recorded in the
+[Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md).
 
 ## What changed the decision
 
@@ -129,7 +153,8 @@ explanations per unit of research time, not raw records processed.
 |---|---:|---|---|
 | More generic governance or verifier layers | low | engineering becomes the research target | freeze V1 after release |
 | Serial full-700 double review before analysis | medium | delays every downstream test | retain as a high-assurance path, not the critical path |
-| Stratified sign-list calibration plus full-concordance machine proposals | high | OCR propagates errors | start in parallel; abstain and review disagreements |
+| KP1979 three-way extraction plus the KP1980 delta | very high | scan and edition errors propagate | start first; abstain and preserve disagreements |
+| Stratified KP1982 calibration plus occurrence proposals | medium/high after the record spine | concordance repetition and OCR inflate evidence | retain as a later consistency lane |
 | Formal ICIT/RMRL/CISI/Wells export and crosswalk | very high | access, licence, and lineage uncertainty | prepare adapters; request access only with separate authority |
 | Context-rich internal anchors | very high | confounding by site, period, or medium | highest immediate analytic priority |
 | Mesopotamia/Dilmun/Oman contact-material search | high impact, low hit probability | “Indus-style” is mistaken for a bilingual | bounded search with strict same-object/same-event rule |
@@ -154,9 +179,10 @@ After release, change it only if:
 New convenience features, additional assurance wording, or speculative
 future-custody machinery do not justify delaying research experiments.
 
-### 2. Add a separate KP1982 concordance fast lane
+### 2. Retain a bounded KP1982 calibration lane
 
-The fast lane does not redefine or complete Batch 0.
+This lane follows the 1979/1980 record spine; it is no longer the first
+full-corpus extraction target. It does not redefine or complete Batch 0.
 
 1. Select approximately 80–120 sign-list slots by a deterministic,
    preregistered mixture of:
@@ -170,9 +196,9 @@ The fast lane does not redefine or complete Batch 0.
 3. Separately create a stratified end-to-end concordance reference of roughly
    8–12 pages and 300–500 printed rows, including long, dense, multiline,
    noisy, and boundary cases; keep part sealed.
-4. Generate source-bound machine segmentation and sign proposals over pages
-   23–201 immediately; allow explicit abstention and require empty output on
-   the page-22 negative control.
+4. After the 1979/1980 record spine is stable, generate source-bound machine
+   segmentation and sign proposals over pages 23–201; allow explicit
+   abstention and require empty output on the page-22 negative control.
 5. Use ordinary OCR only for printed numeric or alphabetic fields. Recognize
    Indus glyphs through source-specific template/classifier proposals, not a
    presumed Unicode text recognizer.
@@ -261,16 +287,20 @@ strokes, choose a preferred language, or grade its own translation as truth.
 
 ## Dynamic resource allocation
 
-The percentages are a project decision, not a fact reported by the cited
-literature.
+The earlier time-phased table is superseded by the 1979/1980 critical-path
+correction. The following percentages are provisional operating priors, not
+facts reported by the cited literature or proof of a global optimum:
 
-| Period | Stable infrastructure | Corpus federation and QA | Internal functional anchors | External anchors | Hypothesis tournament |
-|---|---:|---:|---:|---:|---:|
-| Days 0–30 | 10% | 25% | 35% | 20% | 10% |
-| Days 31–90 | 10% | 20% | 30% | 15% | 25% |
-| Days 91–180 | 5% | 15% | 25% | 10% | 45% |
+| Work | Initial allocation |
+|---|---:|
+| Gold observations and provenance | 35% |
+| 1980 corrections, duplicate relations, and crosswalk | 25% |
+| Hypothesis and matched-control harness | 25% |
+| Archaeological and metrological anchors | 15% |
 
-Language mapping receives the largest share only after at least one functional
+Measure actual hours, new admitted coverage, disagreement, and changes in
+hypothesis ranking each week. Reallocate by observed information gain.
+Language mapping receives a larger share only after at least one functional
 anchor survives prospective or held-out testing.
 
 ## 30-, 90-, and 180-day deliverables
@@ -278,22 +308,26 @@ anchor survives prospective or held-out testing.
 ### Days 0–30
 
 - release and freeze the existing verifier V1;
-- inventory the exact page classes and geometry of the KP1982 concordance;
-- define and commit the deterministic 80–120-slot calibration sample;
-- create the separate 8–12-page, 300–500-row development/sealed concordance
-  reference;
-- implement abstaining concordance segmentation and template-proposal output;
+- freeze manual label references for the 12-page KP1979 protocol without
+  claiming that its public page identities or pixels are blind;
+- extract the 57-page KP1979 identifier-order base lane with explicit
+  abstention and double-checking;
+- reconcile it against the sorted-from-end and sorted-from-beginning reprints
+  by identifier/code before comparing sequence values;
+- parse the 1980 revision and both cross-reference directions, then carry
+  strict/loose duplicate groups across columns and pages;
+- preserve `1979 raw → 1980 delta → 1982 consistency` as a versioned history;
 - reproduce direction, n-gram, entropy, and sequence-null baselines under
   alternative direction, duplicate, and allograph choices;
 - define artifact/site/period/medium holdouts before looking at results;
-- define a context-rich 150–250-artifact target roster separately from the
-  80–120 sign-list calibration slots;
+- define a context-rich 150–250-artifact target roster separately from any
+  later KP1982 sign-list calibration slots;
 - create the anchor registry and preregister the first numeral and tablet
   tests; and
 - build corpus-adapter interfaces without importing unlicensed material.
 
-The output is a calibrated extraction proposal and falsifiable tests—not a
-translation.
+The output is a source-bound reconciled corpus slice and falsifiable tests—not
+a translation.
 
 ### Days 31–90
 

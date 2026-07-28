@@ -28,11 +28,14 @@ in the [2026-07-27 publication precheck](docs/PUBLICATION_PRECHECK_2026-07-27.md
 The [2026-07-28 decipherment-efficiency audit](docs/DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
 changes the critical path. The completed verification software is scientific
 insurance, but a serial full-700 review before analysis is not the
-highest-information route. The next research lane uses a stratified KP1982
-calibration tranche while generating abstaining, source-bound proposals over
-the full printed concordance; corpus federation, functional anchors, and an
-equal-budget hypothesis tournament proceed in parallel. Unreviewed proposals
-remain outside admitted corpora and evaluation.
+highest-information route. The subsequent
+[Helsinki corpus fast-path audit](docs/HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
+now starts with the official 1979 identifier-order corpus, checks it against
+the same volume's two sorted reprints, applies the official 1980
+revision/cross-reference/duplicate delta, and only then uses the 1982
+occurrence concordance. A stratified calibration tranche, context-rich gold
+objects, and an equal-budget hypothesis tournament proceed in parallel.
+Unreviewed proposals remain outside admitted corpora and evaluation.
 
 The global evidence audit has established a baseline and now continues as
 recurring monitoring; it no longer blocks calibrated extraction and
@@ -112,6 +115,11 @@ permission by itself.
   sealed review inputs, and prevents an adjudicator from inventing a third
   observation.
   Its actor declarations do not prove human authorship or real independence.
+- A fixed official KP1979 source and 179-page native-pixel map, plus a
+  streaming, pixel-only layout audit. It proposes label-lattice slots on normal
+  two-column corpus pages while abstaining on dense prose, ten-column sign
+  lists, and the eight-/six-column auxiliary grids. It does not segment full
+  rows. No label slot, row, identifier, sign, or decipherment value is accepted.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.
@@ -243,6 +251,40 @@ self-asserted creation time or upgrades
 The manifest is not confidential: it exposes paths, roles, sizes, static
 arguments, and deterministic hashes. Do not publish one containing secrets,
 hidden identifiers/hashes, custodian nonces, or rights-restricted metadata.
+
+Verify the fixed KP1979 source. The crosschecked extraction used Poppler
+`pdfimages 26.04.0`; reproduce its exact filename mapping as follows:
+
+```bash
+uv run indusbench verify-kp1979-source indus_corpus_1979.pdf
+
+test "$(pdfimages -v 2>&1 | sed -n '1p')" = "pdfimages version 26.04.0"
+mkdir kp1979-poppler-raw canonical-kp1979-pbm
+pdfimages -f 2 -l 180 -p -print-filenames \
+  indus_corpus_1979.pdf kp1979-poppler-raw/page
+test "$(find kp1979-poppler-raw -type f -name '*.pbm' | wc -l | tr -d ' ')" = 179
+page=2
+image=0
+while test "$page" -le 180; do
+  source_file="$(printf 'kp1979-poppler-raw/page-%03d-%03d.pbm' "$page" "$image")"
+  target_file="$(printf 'canonical-kp1979-pbm/page-%03d.pbm' "$page")"
+  test -f "$source_file"
+  test ! -e "$target_file"
+  cp "$source_file" "$target_file"
+  page=$((page + 1))
+  image=$((image + 1))
+done
+
+uv run indusbench audit-kp1979-layout \
+  indus_corpus_1979.pdf canonical-kp1979-pbm
+```
+
+The final command checks every canonical PBM byte and pixel digest, so a
+different image count, mapping, encoding, or decoder result fails closed.
+Pixel-equivalent but differently encoded PBMs also fail because the V1
+canonical byte representation is fixed. The audit emits no candidate count or
+identifier. A passing result establishes exact input pixels and page-class
+detector gates only.
 
 Verify the KP1982 inventory-bootstrap evidence; only after a future separate
 post-adjudication inventory build, compare later inscription-transcription

@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-28
 
-**Last source-level update:** 2026-07-28 10:42 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-28 12:34 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -69,6 +69,10 @@ separate and traceable.
    - Non-circular KP1982 structurally distinct bootstrap-review records,
      private two-review audit, and no-invention adjudication verification
      tooling. The software does not establish real-world independence.
+   - Exact official KP1979 source and 179-page native-pixel contracts plus a
+     streaming, pixel-only label-lattice audit that abstains on prose,
+     sign-list, and auxiliary-grid controls. It does not segment full rows;
+     label slots remain unaccepted.
    - Public schemas and synthetic fixtures only; real private execution details
      are not public records.
 
@@ -114,12 +118,20 @@ implemented downstream experiment exposes a concrete defect.
 
 Research now proceeds in parallel:
 
+- extract the 57-page KP1979 identifier-order base corpus before the
+  occurrence-expanded KP1982 concordance;
+- reconcile it against the KP1979 sorted-from-end and
+  sorted-from-beginning reprints using identifiers/codes first and sequences
+  only as checked values;
+- apply the official 1980 additions, corrections, bidirectional Mahadevan
+  cross-reference, documentation, and strict/loose duplicate assertions as a
+  versioned delta;
 - deterministically select an approximately 80–120-slot KP1982 calibration
   tranche without describing it as full Batch 0;
-- freeze the exact page map, using page 22 as a negative control and pages
-  23–201 as 179 concordance data pages;
-- build a separate 8–12-page, 300–500-row development/sealed concordance
-  reference because cell calibration cannot establish end-to-end accuracy;
+- freeze the KP1979 12-page label-lattice reference before accepting label
+  geometry; full-row segmentation is a later, separate gate;
+- later freeze the KP1982 occurrence page map, using page 22 as a negative
+  control and pages 23–201 as 179 concordance data pages;
 - generate abstaining, source-bound proposals and freeze the recognizer before
   opening sealed evaluations;
 - preserve edition disagreements and uncertainty through corpus adapters and
@@ -132,6 +144,11 @@ Research now proceeds in parallel:
 No calibration review, concordance extraction, functional anchor,
 language/sound assignment, translation, or decipherment is claimed in this
 source update.
+
+The exact reason for the ordering change, official source hashes, section
+boundaries, 1980 OCR failure examples, worldwide open-source triage, detector
+gates, and next milestone are recorded in the
+[Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md).
 
 Current assurance layers:
 
@@ -215,13 +232,42 @@ Batch 0 review, adjudication, inventory generation, promotion, evaluation
 admission, decipherment, prize eligibility, or prize result is part of this
 public update.
 
+### T3 — Helsinki 1979/1980 corpus fast path
+
+The official 1979 PDF, its section map, and all 179 native one-bit page images
+are now exact-byte committed. Poppler and MuPDF produced pixel-identical
+mapped pages. A common pixel-only detector is run unchanged on normal pages
+and hard controls: it proposes label-lattice slots for the normal two-column
+corpus and abstains on dense prose, both ten-column sign-list pages, and the
+eight- and six-column auxiliary grids. The terminal English-prose region is a
+predeclared mask, not detector evidence.
+
+The real exact-source audit passed all current source and page-class gates.
+This establishes neither label-position precision/recall, full-row
+segmentation, nor an accepted identifier or sign sequence. Page 128's
+page-level candidate flag does not admit all of its mixed rows. The future
+evaluation page identities and pixels are public; their manual label values are
+absent. This is label-withheld preparation, not a blind page or pixel holdout.
+
+The official 1980 continuation is byte-pinned in the source registry. Its OCR
+layer contains verified digit errors and is locator-only. The next parser must
+preserve a `1979 raw → 1980 revision → 1982 reconciliation` history, validate
+both directions of the Finnish–Mahadevan mapping, carry duplicate-group state
+across columns/pages, and never collapse strict/loose information redundancy
+into physical-object identity.
+
 ### Data and source work
 
 Safe next work:
 
 - curate public source/provenance/rights evidence;
+- create the external 12-page KP1979 row reference and freeze the detector
+  before using its withheld manual values;
+- implement image-verified KP1979 identifier/code proposals and 1980
+  revision/cross-reference/duplicate parsers with explicit abstention;
+- build three-way KP1979 record reconciliation before sign classification;
 - inventory KP1982 concordance page classes and implement source-bound,
-  abstaining extraction proposals;
+  abstaining occurrence proposals after the KP1979/1980 record spine;
 - specify the deterministic stratified calibration tranche separately from
   full Batch 0;
 - specify a separate concordance-row reference, model-freeze point, and
@@ -268,15 +314,21 @@ public development-log entry.
 
 - Ruff lint and format check: passed.
 - Pyright: passed with no errors or warnings.
-- Unit/integration suite: 339 tests passed; 11 optional
-  external-fixture tests were skipped by their declared environment gates.
+- Primary filesystem profile: 352 tests run, 339 passed, and 13 optional or
+  environment-specific tests skipped.
+- Second filesystem profile: 352 tests run, 340 passed, and 12 optional tests
+  skipped. It exercised the additional Unicode-casefold-collision test.
+- A separate exact-source KP1979 run exercised the fixed PDF and all 179
+  canonical page images through its seven-test module: passed. This validates
+  source and label-lattice gates, not manual label accuracy or row extraction.
 - A separate owner-controlled exact-source run exercised the canonical page
   pixels and assignment through the relevant 35-test module: passed. No
   private path, inventory, or content value is recorded here.
 - Source distribution and wheel build: passed.
-- Local Markdown-link existence check: passed.
+- Markdown-link existence check: passed.
 - Gitleaks current-tree and reachable-history scans: no finding.
-- Semgrep: no finding across 328 applicable rules. One Python-before-3.7
+- Semgrep: no finding across 201 applicable rules on 168 targets. One
+  Python-before-3.7
   compatibility rule was excluded as inapplicable because the package requires
   Python 3.11 or newer.
 - Trivy filesystem scan: no high/critical dependency vulnerability, secret, or

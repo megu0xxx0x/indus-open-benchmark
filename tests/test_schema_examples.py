@@ -21,6 +21,8 @@ SCHEMA_FILES = (
     "benchmark-lock.schema.json",
     "evaluator-config.schema.json",
     "hypothesis.schema.json",
+    "kp1979-corpus-source.schema.json",
+    "kp1979-page-map.schema.json",
     "kp1982-batch0-source.schema.json",
     "kp1982-bootstrap-assignment.schema.json",
     "kp1982-bootstrap-review.schema.json",

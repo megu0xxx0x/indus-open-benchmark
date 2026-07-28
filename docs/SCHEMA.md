@@ -49,6 +49,12 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   exception text.
 - `schemas/private-review-bundle.schema.json` (v0.1.0) — the closed atomic
   envelope for one policy draft and its structural quarantine ledger.
+- `schemas/kp1979-corpus-source.schema.json` (v0.1.0) — the exact official
+  KP1979 PDF identity, section ranges, page-number relation, and native image
+  geometry; it contains no transcription.
+- `schemas/kp1979-page-map.schema.json` (v0.1.0) — the complete exact native
+  PBM commitments for PDF pages 2–180, audited page classes, proposal-only
+  detector bands, exclusions, and value-free layout protocol.
 - `schemas/kp1982-batch0-source.schema.json` (v0.1.0) — the exact official
   KP1982 PDF identity, target-page indices, embedded-image geometry, and
   canonical PBM commitments; it contains no transcription.
@@ -80,6 +86,36 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
 The key words **MUST**, **MUST NOT**, **SHOULD**, and **MAY** are normative.
 JSON objects use UTF-8. Times use RFC 3339 UTC where possible. Corpus files use
 JSON Lines: one complete artifact object per non-blank line.
+
+## KP1979 fixed corpus source and page map
+
+`registry/kp1979_corpus.json` binds the official 180-page PDF and its section
+roles. `registry/kp1979_page_map.json` binds the canonical 4880×7010 one-bit
+PBM for every PDF page from 2 through 180, including both the complete PBM
+digest and packed pixel-payload digest.
+
+The page map separates:
+
+- non-corpus and sign-list negative controls;
+- the identifier-order base corpus;
+- normal sorted-from-end pages;
+- the eight- and six-column auxiliary grids;
+- normal sorted-from-beginning pages; and
+- an explicit, predeclared prose mask on the terminal page.
+
+Detector scan bands and their returned rectangles cover only printed label
+slots, not full inscription rows. The terminal mask is a rule, not evidence
+that the detector recognized prose. The page-level
+`contains_linguistic_sequence_candidates` flag never admits every row on a
+mixed page such as page 128.
+
+Detector scan bands are proposal geometry, not accepted labels. The
+`audit-kp1979-layout` command verifies the exact PDF and all mapped PBMs, then
+runs a pixel-only lattice detector. It emits no candidate count or identifier.
+A passing audit means only that the source pixels and current page-class gates
+match. It does not establish label-position accuracy, row segmentation,
+reading order, accepted geometry, identifier transcription, sign
+transcription, three-way reconciliation, or decipherment.
 
 ## KP1982 fixed source and transcription bootstrap
 
