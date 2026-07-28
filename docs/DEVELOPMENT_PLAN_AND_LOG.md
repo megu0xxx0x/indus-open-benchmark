@@ -556,3 +556,56 @@ public development-log entry.
 These checks and the project-run known-script control are not execution of a
 human review, independent external replication, an Indus result, or a
 decipherment result.
+
+## MTAAC V3 development implementation — 2026-07-29T01:10:06+09:00
+
+V3 is now implemented as a separate development-only package and command,
+without changing the immutable V2 parser, evaluator, protocol, or result.
+The exact machine-readable plan is
+`benchmark/mtaac-v3-development-v1.json`. Its one-way gateway accepts only the
+fixed MTAAC archive, rederives the fixed V2 split, and exposes clean and mild
+views of the 271 training families. The 90-family V2 holdout is not exposed to
+the model and is not scored.
+
+The first V3 model jointly predicts `context_only`, `quantity`, `unit`,
+`person_name`, and `settlement_name` for every retained token. Its fixed
+source-neutral feature surface records sequence position, line shape, damage,
+direction, and within-line equality patterns without exporting lexical
+identity. Weighted categorical naive-Bayes emissions, unadjusted first-order
+transition counts, and Viterbi decoding use `alpha = 1` and the exact
+`gamma × lambda` grid `{0, 0.5, 1} × {0, 0.5, 1}`.
+
+Candidate selection is family-disjoint nested five-outer/four-inner
+cross-validation. Mild family-weighted macro-F1 is the only selection metric;
+clean is an integrity diagnostic and cannot choose a candidate. A separate
+domain-separated four-fold procedure selects the final development
+configuration over all 271 development families. The report boundary permits
+only aggregate support, fold metrics, confusion matrices, configuration
+summaries, public parent commitments, and a final model-state commitment.
+
+The isolated command verifies the plan before reading the archive, imports no
+main command module, reserved-source module, or network client, writes a new
+output only, and rechecks the complete public parent/data boundary before
+serialization. The reserved prospective validation source remains unloaded.
+This development run cannot use the V2 holdout, cannot produce a reserved
+validation result, and cannot support an Indus reading or prize claim.
+
+Verification at this checkpoint:
+
+- Ruff lint and format check: passed;
+- Pyright: zero errors and warnings;
+- full suite: 511 tests passed, 13 environment-specific tests skipped;
+- focused V3 suite: plan, gateway, folds, sequence model, metrics, runner,
+  schema, command, and import-closure checks passed;
+- a synthetic 271-family execution passed both the recursive public boundary
+  and the closed report schema;
+- wheel and source distribution contain the exact plan, report schema, V3
+  modules, and independent command entry point;
+- Gitleaks, Semgrep, and Trivy reported no finding; and
+- all four frozen V2 file digests remain unchanged.
+
+No real V3 development report existed at this checkpoint. The controlled next
+step is to publish this code-and-plan freeze, execute the exact MTAAC archive
+once at that published implementation commit, validate the aggregate report,
+and publish the result in a separate commit. ORACC execution remains
+prohibited until a later model/evaluator freeze.

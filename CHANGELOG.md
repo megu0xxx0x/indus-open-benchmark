@@ -7,6 +7,18 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A separate, development-only MTAAC V3 plan and implementation boundary that
+  leaves V2 immutable, exposes only the fixed 271-family V2 training
+  partition, and excludes and does not score the 90-family V2 holdout. It
+  predicts five states for every retained token using a fixed source-neutral
+  structural feature surface, weighted categorical naive-Bayes emissions,
+  first-order transitions, Viterbi decoding, and a nine-candidate
+  `gamma × lambda` grid. Selection is family-grouped nested `5 × 4`
+  cross-validation on mild data with clean diagnostics and a separate fixed
+  four-fold final-development selection. Reports are aggregate only. ORACC
+  remains unloaded and is feature-safety-exposed prospective validation, not
+  binding confirmation; no V3 result, Indus reading, translation,
+  decipherment, or prize result is claimed.
 - A pre-model-fitting source seal and network-free verifier for the exact CC0
   ORACC ePSD2 Early Dynastic IIIb administrative JSON archive. It applies a
   fixed audit-example exclusion, commits the selected corpus and mechanical

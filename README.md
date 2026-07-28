@@ -54,7 +54,15 @@ because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown
 writing. V3 therefore leaves V2 immutable and changes the primary task to
 joint prediction of `context_only` plus four target states over every retained
-token. Before any V3 model fitting, all eligibility-qualified, non-excluded
+token. The fixed
+[V3 development protocol](docs/MTAAC_V3_DEVELOPMENT.md) uses only the 271
+MTAAC V2 training families; the 90-family V2 holdout is neither exposed to the
+model nor scored. Its source-neutral structural baseline uses categorical
+naive-Bayes emissions, first-order transitions, and Viterbi decoding under a
+fixed family-grouped nested-selection design. This is development-only
+known-script evidence, not an Indus or confirmation result.
+
+Before any V3 model fitting, all eligibility-qualified, non-excluded
 records from the exact CC0
 [ORACC ED3b administrative source](docs/ORACC_ED3B_VALIDATION_SOURCE_2026-07-28.md)
 were reserved. The source-only verifier and protocol calculate no
@@ -153,6 +161,14 @@ permission by itself.
   [published source-qualification receipt](benchmark/results/oracc-ed3b-validation-source-v1.json)
   binds the exact public source-freeze commit and reports no model execution
   or performance metric.
+- A separate MTAAC V3 development plan and implementation boundary that keeps
+  V2 immutable, exposes only its fixed 271-family training partition, and
+  excludes and does not score its 90-family holdout. The five-state
+  source-neutral structural baseline fixes its complete feature surface,
+  nine-candidate parameter grid, family-grouped nested `5 × 4` selection,
+  mild-only candidate selection, clean diagnostics, fixed four-fold final
+  development selection, and aggregate-only report contract. No V3 result or
+  decipherment claim is implied by the plan.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -555,6 +571,7 @@ Read the [scientific standard](docs/BENCHMARK.md), [schema contract](docs/SCHEMA
 [private transcription bridge](docs/TRANSCRIPTION_BRIDGE.md),
 [MTAAC known-script control audit](docs/MTAAC_KNOWN_SCRIPT_CONTROL_2026-07-28.md),
 [MTAAC V2 result](docs/MTAAC_KNOWN_SCRIPT_CONTROL_V2_RESULT_2026-07-28.md),
+[MTAAC V3 development protocol](docs/MTAAC_V3_DEVELOPMENT.md),
 [annotation guide](docs/ANNOTATION_GUIDE.md), [data policy](DATA_POLICY.md), and
 [contribution guide](CONTRIBUTING.md) before adding data or models. Institutional access work can
 start from the bilingual [permission templates](docs/PERMISSION_REQUESTS.md); hypothesis teams use

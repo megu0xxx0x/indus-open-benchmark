@@ -33,6 +33,7 @@ dev = [
 
 [project.scripts]
 indusbench = "indusbench.cli:main"
+indusbench-v3dev-mtaac = "indusbench.v3dev_cli:main"
 
 [project.urls]
 Repository = "https://github.com/megu0xxx0x/indus-open-benchmark"
@@ -55,6 +56,7 @@ packages = ["src/indusbench"]
 "benchmark/development-evaluator.json" = "indusbench/benchmark/development-evaluator.json"
 "benchmark/mtaac-known-script-control-v1.json" = "indusbench/benchmark/mtaac-known-script-control-v1.json"
 "benchmark/mtaac-known-script-control-v2.json" = "indusbench/benchmark/mtaac-known-script-control-v2.json"
+"benchmark/mtaac-v3-development-v1.json" = "indusbench/benchmark/mtaac-v3-development-v1.json"
 "benchmark/oracc-ed3b-validation-source-v1.json" = "indusbench/benchmark/oracc-ed3b-validation-source-v1.json"
 
 [tool.hatch.build.targets.sdist]

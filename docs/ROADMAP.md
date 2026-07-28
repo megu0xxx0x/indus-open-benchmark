@@ -198,7 +198,7 @@ for the v0.2 volume target.
   audit-example exclusion, before V3 model fitting. The source is public;
   gold-conditioned GDL-key safety aggregates informed its sanitizer, so it is
   prospective validation rather than feature-unseen or binding confirmation.
-- [ ] Implement V3 explicitly as post-result work without rewriting V2:
+- [x] Implement V3 explicitly as post-result work without rewriting V2:
   joint five-state prediction over every retained token, class balancing,
   line-sequence decoding, grouped nested development validation, and no use
   of the V2 holdout or ORACC records for candidate fitting or selection.

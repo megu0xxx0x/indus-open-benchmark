@@ -1,0 +1,732 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mtaac-v3-development-report.schema.json",
+  "title": "MTAAC V3 aggregate development report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "analysis",
+    "claim_scope",
+    "data_boundary",
+    "development_only",
+    "final_development_model",
+    "implementation_commit",
+    "model_contract",
+    "model_executed",
+    "nested_development",
+    "parent_commitments",
+    "plan_sha256",
+    "report_version",
+    "scientific_metrics_emitted",
+    "terminal_status"
+  ],
+  "properties": {
+    "analysis": {
+      "const": "mtaac_v3_structural_development"
+    },
+    "claim_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "eligible_as_reserved_validation_result",
+        "eligible_as_v2_holdout_result",
+        "individual_predictions_published"
+      ],
+      "properties": {
+        "class": {
+          "const": "development_only"
+        },
+        "eligible_as_reserved_validation_result": {
+          "const": false
+        },
+        "eligible_as_v2_holdout_result": {
+          "const": false
+        },
+        "individual_predictions_published": {
+          "const": false
+        }
+      }
+    },
+    "data_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_training_family_count",
+        "regimes_used",
+        "replica_index_used",
+        "reserved_validation_source_loaded",
+        "v2_holdout_exposed_to_model",
+        "v2_holdout_family_count_excluded",
+        "v2_holdout_scored"
+      ],
+      "properties": {
+        "model_training_family_count": {
+          "const": 271
+        },
+        "regimes_used": {
+          "const": [
+            "clean",
+            "mild"
+          ]
+        },
+        "replica_index_used": {
+          "const": 0
+        },
+        "reserved_validation_source_loaded": {
+          "const": false
+        },
+        "v2_holdout_exposed_to_model": {
+          "const": false
+        },
+        "v2_holdout_family_count_excluded": {
+          "const": 90
+        },
+        "v2_holdout_scored": {
+          "const": false
+        }
+      }
+    },
+    "development_only": {
+      "const": true
+    },
+    "final_development_model": {
+      "$ref": "#/$defs/final_model"
+    },
+    "implementation_commit": {
+      "$ref": "#/$defs/commit"
+    },
+    "model_contract": {
+      "$ref": "#/$defs/model_contract"
+    },
+    "model_executed": {
+      "const": true
+    },
+    "nested_development": {
+      "$ref": "#/$defs/nested_development"
+    },
+    "parent_commitments": {
+      "$ref": "#/$defs/parent_commitments"
+    },
+    "plan_sha256": {
+      "const": "sha256:b2100318fa0e958d741fd25d7b9263ae1574967f4585f4609c118b1bd16880dd"
+    },
+    "report_version": {
+      "const": "mtaac-v3-development-report-v1"
+    },
+    "scientific_metrics_emitted": {
+      "const": true
+    },
+    "terminal_status": {
+      "const": "development_complete"
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "complexity_rank",
+        "gamma",
+        "transition_strength"
+      ],
+      "properties": {
+        "candidate_id": {
+          "enum": [
+            "gamma-0__lambda-0",
+            "gamma-0__lambda-0.5",
+            "gamma-0__lambda-1",
+            "gamma-0.5__lambda-0",
+            "gamma-0.5__lambda-0.5",
+            "gamma-0.5__lambda-1",
+            "gamma-1__lambda-0",
+            "gamma-1__lambda-0.5",
+            "gamma-1__lambda-1"
+          ]
+        },
+        "complexity_rank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "gamma": {
+          "enum": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        },
+        "transition_strength": {
+          "enum": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        }
+      }
+    },
+    "candidate_score": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "complexity_rank",
+        "fold_count",
+        "gamma",
+        "mean",
+        "mild_macro_f1_by_fold",
+        "standard_error",
+        "transition_strength"
+      ],
+      "properties": {
+        "candidate_id": {
+          "enum": [
+            "gamma-0__lambda-0",
+            "gamma-0__lambda-0.5",
+            "gamma-0__lambda-1",
+            "gamma-0.5__lambda-0",
+            "gamma-0.5__lambda-0.5",
+            "gamma-0.5__lambda-1",
+            "gamma-1__lambda-0",
+            "gamma-1__lambda-0.5",
+            "gamma-1__lambda-1"
+          ]
+        },
+        "complexity_rank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "fold_count": {
+          "const": 4
+        },
+        "gamma": {
+          "enum": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        },
+        "mean": {
+          "$ref": "#/$defs/rate"
+        },
+        "mild_macro_f1_by_fold": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/rate"
+          }
+        },
+        "standard_error": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "transition_strength": {
+          "enum": [
+            0.0,
+            0.5,
+            1.0
+          ]
+        }
+      }
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clean",
+        "clean_role",
+        "mild",
+        "mild_role"
+      ],
+      "properties": {
+        "clean": {
+          "$ref": "#/$defs/metrics"
+        },
+        "clean_role": {
+          "const": "diagnostic_not_used_for_selection"
+        },
+        "mild": {
+          "$ref": "#/$defs/metrics"
+        },
+        "mild_role": {
+          "const": "outer_development_estimate"
+        }
+      }
+    },
+    "final_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidates",
+        "model_state_commitment",
+        "selected_candidate",
+        "selection_domain",
+        "selection_fold_count",
+        "selection_metric",
+        "selection_rule"
+      ],
+      "properties": {
+        "candidates": {
+          "$ref": "#/$defs/nine_candidate_scores"
+        },
+        "model_state_commitment": {
+          "$ref": "#/$defs/checksum"
+        },
+        "selected_candidate": {
+          "$ref": "#/$defs/candidate"
+        },
+        "selection_domain": {
+          "const": "indusbench-v3dev:full-selection:v1"
+        },
+        "selection_fold_count": {
+          "const": 4
+        },
+        "selection_metric": {
+          "const": "family_weighted_mild_macro_f1"
+        },
+        "selection_rule": {
+          "const": "one_standard_error_simplest_lower_gamma_then_lambda"
+        }
+      }
+    },
+    "fold_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "train_family_count",
+        "train_state_support",
+        "validation_family_count",
+        "validation_state_support"
+      ],
+      "properties": {
+        "train_family_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "train_state_support": {
+          "$ref": "#/$defs/state_support"
+        },
+        "validation_family_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "validation_state_support": {
+          "$ref": "#/$defs/state_support"
+        }
+      }
+    },
+    "inner_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidates",
+        "rule",
+        "selected_candidate",
+        "selection_metric"
+      ],
+      "properties": {
+        "candidates": {
+          "$ref": "#/$defs/nine_candidate_scores"
+        },
+        "rule": {
+          "const": "one_standard_error_simplest_lower_gamma_then_lambda"
+        },
+        "selected_candidate": {
+          "$ref": "#/$defs/candidate"
+        },
+        "selection_metric": {
+          "const": "family_weighted_mild_macro_f1"
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "balanced_accuracy",
+        "macro_f1",
+        "per_state",
+        "states",
+        "total_family_mass",
+        "weighted_accuracy",
+        "weighted_confusion_matrix",
+        "worst_state_recall"
+      ],
+      "properties": {
+        "balanced_accuracy": {
+          "$ref": "#/$defs/rate"
+        },
+        "macro_f1": {
+          "$ref": "#/$defs/rate"
+        },
+        "per_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "context_only",
+            "person_name",
+            "quantity",
+            "settlement_name",
+            "unit"
+          ],
+          "properties": {
+            "context_only": {
+              "$ref": "#/$defs/state_metrics"
+            },
+            "person_name": {
+              "$ref": "#/$defs/state_metrics"
+            },
+            "quantity": {
+              "$ref": "#/$defs/state_metrics"
+            },
+            "settlement_name": {
+              "$ref": "#/$defs/state_metrics"
+            },
+            "unit": {
+              "$ref": "#/$defs/state_metrics"
+            }
+          }
+        },
+        "states": {
+          "$ref": "#/$defs/states"
+        },
+        "total_family_mass": {
+          "type": "number",
+          "exclusiveMinimum": 0.0
+        },
+        "weighted_accuracy": {
+          "$ref": "#/$defs/rate"
+        },
+        "weighted_confusion_matrix": {
+          "$ref": "#/$defs/weighted_confusion"
+        },
+        "worst_state_recall": {
+          "$ref": "#/$defs/rate"
+        }
+      }
+    },
+    "model_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_grid",
+        "clean_role",
+        "family_weighting",
+        "laplace_alpha",
+        "selection_regime",
+        "states",
+        "structural_features",
+        "version"
+      ],
+      "properties": {
+        "candidate_grid": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "items": {
+            "$ref": "#/$defs/candidate"
+          }
+        },
+        "clean_role": {
+          "const": "diagnostic_not_used_for_selection"
+        },
+        "family_weighting": {
+          "const": "equal_total_mass_per_family_per_evaluation_regime"
+        },
+        "laplace_alpha": {
+          "const": 1.0
+        },
+        "selection_regime": {
+          "const": "mild"
+        },
+        "states": {
+          "$ref": "#/$defs/states"
+        },
+        "structural_features": {
+          "const": [
+            "position_bucket",
+            "line_length_bucket",
+            "reported_direction",
+            "damage",
+            "observation_status",
+            "previous_equality",
+            "next_equality",
+            "line_frequency_bucket",
+            "seen_before",
+            "seen_after",
+            "line_template"
+          ]
+        },
+        "version": {
+          "const": "v3-structural-sequence-v1"
+        }
+      }
+    },
+    "nested_development": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inner_fold_count",
+        "out_of_fold_metrics",
+        "outer_fold_count",
+        "outer_folds"
+      ],
+      "properties": {
+        "inner_fold_count": {
+          "const": 4
+        },
+        "out_of_fold_metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "clean",
+            "mild"
+          ],
+          "properties": {
+            "clean": {
+              "$ref": "#/$defs/metrics"
+            },
+            "mild": {
+              "$ref": "#/$defs/metrics"
+            }
+          }
+        },
+        "outer_fold_count": {
+          "const": 5
+        },
+        "outer_folds": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/outer_fold"
+          }
+        }
+      }
+    },
+    "nine_candidate_scores": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "$ref": "#/$defs/candidate_score"
+      }
+    },
+    "outer_fold": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "diagnostics",
+        "inner_selection",
+        "outer_fold_index",
+        "support"
+      ],
+      "properties": {
+        "diagnostics": {
+          "$ref": "#/$defs/diagnostics"
+        },
+        "inner_selection": {
+          "$ref": "#/$defs/inner_selection"
+        },
+        "outer_fold_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "support": {
+          "$ref": "#/$defs/fold_support"
+        }
+      }
+    },
+    "parent_commitments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluation_corpus_sha256",
+        "gateway_version",
+        "mtaac_source_commit",
+        "selected_manifest_sha256",
+        "source_archive_sha256",
+        "v2_freeze_commit",
+        "v2_protocol_sha256",
+        "v2_split_manifest_sha256"
+      ],
+      "properties": {
+        "evaluation_corpus_sha256": {
+          "const": "sha256:e7d6f8c9a8c090bb33ef4ba3703c1b36fe0519086efa75ff70d1ba53a8bf9312"
+        },
+        "gateway_version": {
+          "const": "mtaac-v2-training-gateway-v1"
+        },
+        "mtaac_source_commit": {
+          "const": "66e0643efd230401210e27db353ebb6d7228b1bb"
+        },
+        "selected_manifest_sha256": {
+          "const": "sha256:1a7e7bbfeae6b833bf90ee20eecb8a0be712dbbdc85a88e5de10cacfd7b0464e"
+        },
+        "source_archive_sha256": {
+          "const": "sha256:2698293080ed8fe6244ec9191010030d2928fd639002ae25d3a05867c22be091"
+        },
+        "v2_freeze_commit": {
+          "const": "37157f1411a55ffd91b7327afaca8fc1080fa708"
+        },
+        "v2_protocol_sha256": {
+          "const": "sha256:25913e826db786f3867d5aca5391f116d1e3e0aab4c22754be28f87ab2fa3892"
+        },
+        "v2_split_manifest_sha256": {
+          "const": "sha256:7249c8fe1d3efc95b42cc9e0a9378550addb64f5b992f89af99dd852b83c5c30"
+        }
+      }
+    },
+    "rate": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "state_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "f1",
+        "precision",
+        "predicted_mass",
+        "recall",
+        "truth_mass"
+      ],
+      "properties": {
+        "f1": {
+          "$ref": "#/$defs/rate"
+        },
+        "precision": {
+          "$ref": "#/$defs/rate"
+        },
+        "predicted_mass": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "recall": {
+          "$ref": "#/$defs/rate"
+        },
+        "truth_mass": {
+          "type": "number",
+          "exclusiveMinimum": 0.0
+        }
+      }
+    },
+    "state_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_only",
+        "person_name",
+        "quantity",
+        "settlement_name",
+        "unit"
+      ],
+      "properties": {
+        "context_only": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "person_name": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "settlement_name": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "unit": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "states": {
+      "const": [
+        "context_only",
+        "quantity",
+        "unit",
+        "person_name",
+        "settlement_name"
+      ]
+    },
+    "weighted_confusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_only",
+        "person_name",
+        "quantity",
+        "settlement_name",
+        "unit"
+      ],
+      "properties": {
+        "context_only": {
+          "$ref": "#/$defs/weighted_confusion_row"
+        },
+        "person_name": {
+          "$ref": "#/$defs/weighted_confusion_row"
+        },
+        "quantity": {
+          "$ref": "#/$defs/weighted_confusion_row"
+        },
+        "settlement_name": {
+          "$ref": "#/$defs/weighted_confusion_row"
+        },
+        "unit": {
+          "$ref": "#/$defs/weighted_confusion_row"
+        }
+      }
+    },
+    "weighted_confusion_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_only",
+        "person_name",
+        "quantity",
+        "settlement_name",
+        "unit"
+      ],
+      "properties": {
+        "context_only": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "person_name": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "settlement_name": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "unit": {
+          "type": "number",
+          "minimum": 0.0
+        }
+      }
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}
