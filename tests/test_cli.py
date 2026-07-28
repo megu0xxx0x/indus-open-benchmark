@@ -20,6 +20,7 @@ from unittest.mock import patch
 import indusbench.cli as cli_module
 from indusbench.cli import main
 from indusbench.io import write_json, write_jsonl
+from indusbench.mtaac_control import MTAACControlAttestation
 from indusbench.museum_intake import (
     MET_SOURCE_ID,
     POLICY_EVIDENCE_SPECS,
@@ -277,6 +278,145 @@ class CliTests(unittest.TestCase):
         )
         self.assertEqual(1, invalid_result)
         self.assertIn("family_count", invalid_error)
+
+    def test_mtaac_control_cli_binds_commit_and_preserves_non_go_status(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            archive = temporary / "source.tar.gz"
+            protocol = temporary / "protocol.json"
+            output = temporary / "result.json"
+            archive.write_bytes(b"synthetic archive bytes")
+            protocol.write_bytes(b"synthetic protocol bytes")
+            declared_commit = "a" * 40
+            expected_report = {
+                "analysis": "mtaac_known_script_control",
+                "terminal_status": "no_go",
+                "protocol_sha256": "sha256:" + "b" * 64,
+            }
+
+            def fake_evaluate(
+                archive_bytes: bytes,
+                protocol_bytes: bytes,
+                *,
+                attestation: MTAACControlAttestation,
+                anchors_available: bool,
+            ) -> dict[str, Any]:
+                self.assertEqual(b"synthetic archive bytes", archive_bytes)
+                self.assertEqual(b"synthetic protocol bytes", protocol_bytes)
+                self.assertEqual(
+                    declared_commit,
+                    attestation.pre_result_code_commit,
+                )
+                self.assertEqual("fixed_real_source", attestation.data_origin)
+                self.assertTrue(attestation.external_data_used)
+                self.assertTrue(anchors_available)
+                return expected_report
+
+            with patch(
+                "indusbench.cli.evaluate_mtaac_control_archive",
+                side_effect=fake_evaluate,
+            ):
+                result, stdout, error = run_cli(
+                    [
+                        "evaluate-mtaac-control",
+                        str(archive),
+                        "--protocol",
+                        str(protocol),
+                        "--pre-result-code-commit",
+                        declared_commit,
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(0, result, error)
+            self.assertEqual(expected_report, json.loads(stdout))
+            self.assertEqual(expected_report, json.loads(output.read_text(encoding="utf-8")))
+
+            with patch(
+                "indusbench.cli.evaluate_mtaac_control_archive",
+            ) as evaluator:
+                existing_result, existing_stdout, existing_error = run_cli(
+                    [
+                        "evaluate-mtaac-control",
+                        str(archive),
+                        "--protocol",
+                        str(protocol),
+                        "--pre-result-code-commit",
+                        declared_commit,
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(1, existing_result)
+            self.assertEqual("", existing_error)
+            self.assertEqual(
+                "output_exists",
+                json.loads(existing_stdout)["error_code"],
+            )
+            self.assertNotIn(str(output), existing_stdout)
+            evaluator.assert_not_called()
+
+            with patch(
+                "indusbench.cli.evaluate_mtaac_control_archive",
+                return_value=expected_report,
+            ):
+                required_result, _, required_error = run_cli(
+                    [
+                        "evaluate-mtaac-control",
+                        str(archive),
+                        "--protocol",
+                        str(protocol),
+                        "--pre-result-code-commit",
+                        declared_commit,
+                        "--require-go",
+                    ]
+                )
+            self.assertEqual(2, required_result, required_error)
+
+    def test_mtaac_control_cli_does_not_disclose_unreadable_input_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            missing_archive = (
+                Path(temporary_directory) / "private-secret-topology" / "source.tar.gz"
+            )
+            result, stdout, error = run_cli(
+                [
+                    "evaluate-mtaac-control",
+                    str(missing_archive),
+                    "--pre-result-code-commit",
+                    "a" * 40,
+                ]
+            )
+        self.assertEqual(2, result)
+        self.assertEqual("", error)
+        report = json.loads(stdout)
+        self.assertEqual("archive_unreadable", report["error_code"])
+        self.assertFalse(report["scientific_metrics_emitted"])
+        self.assertNotIn("private-secret-topology", stdout)
+        self.assertNotIn("museum", stdout.casefold())
+
+    def test_mtaac_control_cli_does_not_disclose_uninspectable_output_paths(
+        self,
+    ) -> None:
+        private_output = Path("/private-secret-topology/result.json")
+        with patch(
+            "indusbench.cli._path_lexists",
+            side_effect=PermissionError(str(private_output)),
+        ):
+            result, stdout, error = run_cli(
+                [
+                    "evaluate-mtaac-control",
+                    "unreadable-archive.tar.gz",
+                    "--pre-result-code-commit",
+                    "a" * 40,
+                    "--output",
+                    str(private_output),
+                ]
+            )
+        self.assertEqual(2, result)
+        self.assertEqual("", error)
+        report = json.loads(stdout)
+        self.assertEqual("output_uninspectable", report["error_code"])
+        self.assertNotIn("private-secret-topology", stdout)
 
     def test_parse_smithsonian_metadata_is_local_raw_bound_and_no_replace(
         self,

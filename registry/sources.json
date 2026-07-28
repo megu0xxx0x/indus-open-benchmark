@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
   "registry_id": "indus-open-benchmark:sources",
-  "generated_at": "2026-07-28T17:42:04+09:00",
+  "generated_at": "2026-07-28T19:05:40+09:00",
   "sources": [
     {
       "source_id": "penn-museum-collections-data",
@@ -706,6 +706,52 @@
         "description": "Public web repository that presents corpus tables together with proposed transliterations and translations.",
         "transformation_history": [],
         "quality_notes": "Observation lineage is insufficiently documented for benchmark use, and interpretive outputs are mixed with corpus data. Import would create rights and circular-evaluation risks."
+      }
+    },
+    {
+      "source_id": "mtaac-gold-corpus-66e0643",
+      "title": "MTAAC Gold Corpus, pinned morphology subset",
+      "source_type": "derived_dataset",
+      "citation": {
+        "title": "MTAAC Gold Corpus",
+        "creators": [
+          "MTAAC Contributors"
+        ],
+        "issued": null,
+        "publisher": "Cuneiform Digital Library Initiative GitHub organization",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://github.com/cdli-gh/mtaac_gold_corpus/tree/66e0643efd230401210e27db353ebb6d7228b1bb"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://github.com/cdli-gh/mtaac_gold_corpus/tree/66e0643efd230401210e27db353ebb6d7228b1bb",
+        "accessed_at": "2026-07-28T19:05:40+09:00",
+        "snapshot_hash": "sha256:2698293080ed8fe6244ec9191010030d2928fd639002ae25d3a05867c22be091",
+        "retrieval_instructions": "Download only the archive for commit 66e0643efd230401210e27db353ebb6d7228b1bb, verify the recorded SHA-256, and admit only morph/to_dict/*.conll through the strict whole-document parser. Keep the raw archive outside Git."
+      },
+      "rights": {
+        "status": "public_domain",
+        "license_id": "CC0-1.0",
+        "license_uri": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "rights_holder": "MTAAC Contributors",
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The pinned repository LICENSE applies CC0-1.0. The project honors the README citation request while retaining the raw corpus outside this repository.",
+        "evidence_uri": "https://github.com/cdli-gh/mtaac_gold_corpus/blob/66e0643efd230401210e27db353ebb6d7228b1bb/LICENSE",
+        "verified_at": "2026-07-28T19:05:40+09:00"
+      },
+      "provenance": {
+        "record_method": "manual_transcription",
+        "maintainer": "MTAAC Contributors",
+        "upstream_source_ids": [],
+        "description": "Manually annotated Ur III ATF transliterations in a seven-column CDLI-CoNLL-like morphology format, used only as a real known-script method control.",
+        "transformation_history": [],
+        "quality_notes": "The strict adapter quarantines six malformed-width documents and four duplicate-token-ID documents. FORM is expert transliteration rather than glyph evidence; this source cannot support an Indus reading, language, translation, decipherment, or prize claim."
       }
     }
   ]

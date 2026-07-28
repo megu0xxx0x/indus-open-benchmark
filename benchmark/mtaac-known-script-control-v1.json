@@ -1,0 +1,458 @@
+{
+  "schema_version": "0.1.0",
+  "protocol_id": "mtaac-known-script-control-v1",
+  "protocol_status": "pre_result_code_frozen",
+  "implementation": {
+    "normative_module": "indusbench.mtaac_control",
+    "protocol_version_constant": "MTAAC_CONTROL_PROTOCOL_VERSION",
+    "protocol_version": "mtaac-real-control-v1",
+    "protocol_sha256_constant": "MTAAC_CONTROL_PROTOCOL_SHA256",
+    "strict_exact_byte_manifest_validation": true,
+    "manifest_sha256_binding": "required_in_every_report",
+    "evaluation_corpus_sha256_binding": "required_in_every_report",
+    "numeric_runtime_binding": "required in every report; exact JSON byte identity is claimed only within the same reported runtime",
+    "pre_result_code_commit": "required caller-declared 40-character lowercase Git commit in every real-source report; the evaluator does not infer or independently attest Git state, publication time, custody, or blindness"
+  },
+  "scientific_scope": {
+    "positive_scope": "Recovery of four MTAAC word-level gold categories from opaque ATF FORM tokens and local line structure.",
+    "not_evidence_for": [
+      "cuneiform_glyph_recognition",
+      "cuneiform_sign_segmentation",
+      "natural_allograph_recovery",
+      "issuer_or_commodity_recovery",
+      "semantic_quantity_unit_decomposition",
+      "physical_duplicate_safety",
+      "archaeological_domain_generalization",
+      "unseen_lexical_family_generalization",
+      "Indus_sign_value",
+      "Indus_function",
+      "Indus_language",
+      "Indus_meaning",
+      "Indus_translation",
+      "Indus_decipherment",
+      "prize_eligibility"
+    ],
+    "freeze_limit": "A public source commit before the first real score is a pre-result code freeze, not independent preregistration, blindness, custody, or trusted time."
+  },
+  "source": {
+    "repository": "https://github.com/cdli-gh/mtaac_gold_corpus",
+    "commit": "66e0643efd230401210e27db353ebb6d7228b1bb",
+    "archive_url": "https://github.com/cdli-gh/mtaac_gold_corpus/archive/66e0643efd230401210e27db353ebb6d7228b1bb.tar.gz",
+    "archive_sha256": "sha256:2698293080ed8fe6244ec9191010030d2928fd639002ae25d3a05867c22be091",
+    "scope": "morph/to_dict/*.conll",
+    "license_id": "CC0-1.0",
+    "external_data_used": true,
+    "manual_mtaac_subset": true,
+    "expected_member_count": 371,
+    "expected_selected_manifest_sha256": "sha256:1a7e7bbfeae6b833bf90ee20eecb8a0be712dbbdc85a88e5de10cacfd7b0464e",
+    "selected_manifest_digest_contract": "SHA-256 begins with b'indusbench:mtaac:selected-manifest:v1\\x00'; for each selected canonical morph/to_dict path in ascending ASCII order append the UTF-8 path prefixed by its unsigned-8-byte big-endian length, the source byte length as unsigned 8-byte big-endian, and the raw 32-byte SHA-256 digest of the source bytes; report with sha256: prefix",
+    "expected_evaluation_corpus_sha256": "sha256:e7d6f8c9a8c090bb33ef4ba3703c1b36fe0519086efa75ff70d1ba53a8bf9312",
+    "evaluation_corpus_digest_contract": "SHA-256 begins with b'indusbench:mtaac:evaluation-corpus:v1\\x00', then the admitted-document count as unsigned 8-byte big-endian; for each admitted document in ascending P identifier order append framed P identifier and anonymous line count; for each anonymous line append zero-based line ordinal and token count; for every token in source order append zero-based within-line source order, framed exact FORM, framed projected class or context_only, and one byte 0x00 for context-only rows or a declared placeholder diagnostic stem, otherwise 0x01 followed by the framed casefolded SEGM prefix before the first [ character; counts and ordinals are unsigned 8-byte big-endian and every framed string is exact UTF-8 prefixed by its unsigned-8-byte big-endian length; raw token-ID spelling, container formatting, and unused annotations are excluded because only their derived anonymous grouping/order can affect V1",
+    "evaluation_equivalence_gate": "the synthetic entry rejects this digest even when container formatting or ignored annotation columns change; the real entry requires it before split or scoring",
+    "mismatch_behavior": "hard_fail_before_split_or_scoring",
+    "excluded_scopes": [
+      "morph/to_annotate",
+      "morph/external",
+      "tablet_images"
+    ]
+  },
+  "parser": {
+    "encoding": "UTF-8",
+    "unicode_normalization": "none",
+    "columns": [
+      "ID",
+      "FORM",
+      "SEGM",
+      "XPOSTAG",
+      "HEAD",
+      "DEPREL",
+      "MISC"
+    ],
+    "column_count": 7,
+    "whole_document_quarantine": true,
+    "required_header_first_field": "#new_text=<member_filename_stem>",
+    "header_trailing_empty_tab_fields_allowed": true,
+    "exactly_one_new_text_directive": true,
+    "exact_second_line_header": "# ID\\tFORM\\tSEGM\\tXPOSTAG\\tHEAD\\tDEPREL\\tMISC",
+    "additional_comments_allowed": false,
+    "leading_whitespace_before_comment_allowed": false,
+    "line_endings": "LF or CRLF accepted; lone CR rejected",
+    "empty_document_allowed": false,
+    "duplicate_token_id_allowed": false,
+    "repair_allowed": false,
+    "expected_stage_counts": {
+      "selected_documents": 371,
+      "seven_column_documents": 365,
+      "seven_column_rows": 15196,
+      "strict_unique_id_documents": 361,
+      "strict_unique_id_rows": 15038,
+      "quarantined_documents": 10,
+      "seven_column_class_counts": {
+        "quantity": 3179,
+        "unit": 1815,
+        "person_name": 1492,
+        "settlement_name": 330
+      },
+      "strict_class_counts": {
+        "quantity": 3145,
+        "unit": 1794,
+        "person_name": 1479,
+        "settlement_name": 325
+      }
+    },
+    "stage_count_mismatch": "hard_fail_before_split_or_scoring",
+    "revision_attestation": "the caller must supply bytes matching the fixed archive SHA-256 and selected-member manifest; this binds the evaluated bytes to the downloaded archive but does not prove GitHub custody, retrieval time, or independent witnessing"
+  },
+  "gold_projection": {
+    "classes": [
+      "quantity",
+      "unit",
+      "person_name",
+      "settlement_name"
+    ],
+    "rules": {
+      "quantity": "XPOSTAG matches ^NU(?:[.]|$)",
+      "unit": "SEGM contains the exact literal [unit]",
+      "person_name": "XPOSTAG matches ^PN(?:[.]|$)",
+      "settlement_name": "XPOSTAG matches ^SN(?:[.]|$)"
+    },
+    "zero_matches": "context_only",
+    "multiple_matches": "hard_fail",
+    "issuer": "not_available",
+    "commodity": "heuristic_only_outside_gold_score",
+    "lemma_field_available": false,
+    "segm_stem_role": "evaluator_side_overlap_diagnostic_only",
+    "segm_stem_diagnostic": "take exact SEGM substring before the first [ character and apply Unicode casefold with no other normalization; this is a raw string bucket, not a lemma",
+    "raw_values_not_exposed_as_prediction_features": [
+      "FORM",
+      "SEGM",
+      "XPOSTAG",
+      "HEAD",
+      "DEPREL",
+      "MISC",
+      "source_document_id",
+      "raw_token_id",
+      "segm_stem"
+    ],
+    "gold_class_use": "training target for train rows and evaluator-side truth for test rows; never a prediction feature",
+    "derived_structure_allowed": "line membership and row order may be derived evaluator-side from raw token ID, then exposed only as anonymous relative structure",
+    "target_eligibility": "every strict token matched by exactly one mechanical class rule",
+    "source_placeholder_policy": "diagnostic stem values exactly equal after casefold to empty string, _, _(_), x, n, ..., or … remain fully eligible primary targets but are omitted from seen/unseen SEGM-stem diagnostics; no philological repair or source-readability exclusion",
+    "coverage_denominator": "all strictly admitted mechanically projected target tokens in the applicable pre-degradation stratum",
+    "semantic_nonorthogonality": "row labels are mutually exclusive at this pin, but some unit FORM values jointly encode magnitude and unit; independent semantic quantity/unit decomposition is not claimed"
+  },
+  "observation": {
+    "unit": "one_source_row_as_one_word_token",
+    "atf_sign_segmentation": "not_attempted",
+    "opaque_form_id": "mtaac-word-form-sha256-v1: plus lowercase SHA-256 of b'indusbench:mtaac:word-form:v1\\x00' followed by exact UTF-8 FORM bytes",
+    "opaque_document_key": "mtaac-document-source-id-sha256-v1: plus lowercase SHA-256 of b'indusbench:mtaac:document-source-id:v1\\x00' followed by the exact ASCII P identifier; evaluator-only family/event/null identity and never a prediction feature or report value",
+    "opaque_token_key": "mtaac-token-source-order-sha256-v1: plus lowercase SHA-256 of b'indusbench:mtaac:token-source-order:v1\\x00', the opaque document key as framed ASCII bytes, and zero-based visual source order as unsigned 8-byte big-endian; evaluator-only alignment identity and never a prediction feature or report value",
+    "identity_gold_independence": "document and token keys must remain identical when SEGM, XPOSTAG, HEAD, DEPREL, or MISC changes without changing P identifier or source row order; key collisions are hard failures",
+    "opaque_id_collision": "hard_fail",
+    "raw_form_exposed_to_model": false,
+    "opacity_limit": "categorical coding only; not secrecy, blindness, or independence from the public ATF transliteration",
+    "line_key": "raw ID without its final dot component; IDs without a dot become row-ordinal unlocated singleton lines",
+    "features": [
+      "opaque_form_id",
+      "position_bucket",
+      "previous_opaque_form_id",
+      "next_opaque_form_id",
+      "line_length_bucket",
+      "reported_direction"
+    ],
+    "diagnostic_cue_ablations": {
+      "ascii_digit_mask": "replace each ASCII [0-9] code point in raw FORM with # before opaque hashing; this retains digit count and surrounding notation and is not called removal of every numeric cue",
+      "determinative_mask": "replace each left-to-right non-nested span matching \\{[^{}]*\\} in raw FORM with {DET} before opaque hashing",
+      "variants": [
+        "ascii_digit_mask_only",
+        "determinative_mask_only",
+        "ascii_digit_then_determinative_mask"
+      ],
+      "evaluation_scope": "full model on the mild novel_exact_line_sequence primary stratum with the already fixed split, degradation events, weights, and truth",
+      "masked_collision_policy": "intentional categorical collapse is allowed and reported separately from a primary opaque-ID collision",
+      "role": "diagnostic only; no cue-ablation result changes support status, thresholds, the primary decision reference, or overall GO"
+    }
+  },
+  "split": {
+    "seed": 0,
+    "test_fraction": 0.25,
+    "primary_family": "source_document",
+    "exact_complete_document_form_sequence_clusters": "must_not_cross_partitions",
+    "hash_domain": "indusbench:mtaac:split:v1\\x00",
+    "cluster_hash_domain": "indusbench:mtaac:document-form-sequence:v1\\x00",
+    "tuple_framing": "each nonnegative integer is unsigned 8-byte big-endian; each byte string is prefixed by its unsigned 8-byte big-endian length",
+    "cluster_identifier": "lowercase 64-hex SHA-256 of cluster_hash_domain, framed token count, then each ordered exact complete-document opaque FORM ID as framed ASCII bytes",
+    "minimum_cluster_count": 2,
+    "test_count_formula": "max(1, min(cluster_count - 1, floor(cluster_count * test_fraction + 0.5)))",
+    "algorithm": "rank clusters by raw SHA-256 digest of hash_domain, unsigned-8-byte seed, then the lowercase cluster identifier as framed ASCII bytes; break a digest tie by cluster identifier ASCII order; assign the lowest test_count clusters to test",
+    "manifest_document_order": "ascending opaque document_key ASCII order",
+    "hard_leakage_failures": [
+      "source_document_crosses_partitions",
+      "complete_document_form_sequence_cluster_crosses_partitions",
+      "observation_family_disagrees_with_manifest",
+      "test_truth_used_as_model_feature"
+    ],
+    "expected_overlap_diagnostics_not_hard_failures": [
+      "word_FORM_overlap",
+      "SEGM_stem_overlap",
+      "exact_line_FORM_sequence_overlap"
+    ],
+    "primary_test_stratum": "test lines whose tuple of every source-row exact pre-degradation opaque FORM ID in source order is not equal to any complete train-line tuple; determine membership once before windowing, reversal, variants, damage, and replicas",
+    "primary_test_stratum_name": "novel_exact_line_sequence",
+    "lemma_safe_split": false,
+    "unseen_lexical_family_generalization_claimed": false,
+    "diagnostic_strata": [
+      "seen_word_FORM",
+      "unseen_word_FORM",
+      "seen_SEGM_stem",
+      "unseen_SEGM_stem"
+    ],
+    "diagnostic_strata_contract": "fix membership after the source-document split and before degradation; seen word FORM means the target's exact opaque FORM ID occurs among readable labeled train target rows without conditioning on class; after omitting declared placeholder stems, seen SEGM stem means the evaluator-side raw diagnostic stem occurs among labeled train target stems without conditioning on class; V1 reports membership target/family counts and support adequacy only and defines no stratum-specific score",
+    "diagnostic_membership_minimum_effective_families_per_class": 20
+  },
+  "degradation": {
+    "normative_module": "indusbench.mtaac_control",
+    "normative_version": "mtaac-real-control-v1",
+    "seed": 0,
+    "operation_order": [
+      "source_document_split",
+      "anonymous_line_grouping",
+      "nested_contiguous_window",
+      "visual_reversal_and_reported_direction",
+      "artificial_pseudo_surface_variant",
+      "synthetic_damage",
+      "exact_replica_creation"
+    ],
+    "deterministic_domain_separated_hashing": true,
+    "truth_independent_window_selection": true,
+    "nested_cumulative_regimes": true,
+    "surface_variant_name": "artificial_pseudo_surface_variant",
+    "line_grouping": "scan source rows in source order; an ID with a non-empty prefix before its final dot uses that prefix as evaluator-only line key, otherwise it forms a unique row-ordinal singleton; a line key recurring after another line has begun is a hard failure; expose only zero-based anonymous line and within-line order",
+    "event_tuple_framing": "hash the named domain bytes, unsigned-8-byte seed, framed ASCII bytes of the opaque document identity, then unsigned-8-byte zero-based anonymous line ordinal and, for per-occurrence events only, unsigned-8-byte zero-based source-order within-line index",
+    "event_uniform": "interpret the first 8 SHA-256 digest bytes as an unsigned big-endian integer and divide by 2^64",
+    "rate_event": "event occurs exactly when event_uniform < configured rate",
+    "event_keys": {
+      "window_anchor": "one token event key for every source token; select the lexicographically smallest full digest, breaking a digest tie by lower source-order within-line index",
+      "reverse": "line event key without token index",
+      "direction_unknown": "line event key without token index",
+      "pseudo_surface_variant_event": "token event key",
+      "pseudo_surface_variant_id": "token event key followed by the base opaque FORM ID as framed ASCII bytes",
+      "damage": "token event key",
+      "duplicate": "document event key containing only domain, seed, and framed opaque document_key"
+    },
+    "event_hash_domains": {
+      "window_anchor": "indusbench:mtaac:window-anchor:v1\\x00",
+      "reverse": "indusbench:mtaac:reverse:v1\\x00",
+      "direction_unknown": "indusbench:mtaac:direction-unknown:v1\\x00",
+      "pseudo_surface_variant_event": "indusbench:mtaac:pseudo-surface-variant-event:v1\\x00",
+      "pseudo_surface_variant_id": "indusbench:mtaac:pseudo-surface-variant-id:v1\\x00",
+      "damage": "indusbench:mtaac:damage:v1\\x00",
+      "duplicate": "indusbench:mtaac:duplicate:v1\\x00"
+    },
+    "window_contract": "for source line length n and non-null maximum m, let L=min(m,n), let a be the zero-based hash-ranked anchor index, set left=min(max(a-floor((L-1)/2),0),n-L), and retain source-order half-open window [left,left+L); null maximum retains the full line",
+    "nested_event_contract": "all regimes use the same seed and event hashes; the shorter harsh window is a subset of the mild window, and every mild rate event is a harsh event whenever the harsh rate is greater; verify these properties before scoring",
+    "visual_order_contract": "reverse the retained source-order line exactly when its reverse event occurs; direction-known and direction-unknown events are evaluated independently of reversal",
+    "known_direction_contract": "when direction is reported known, restore retained source reading order before position and neighbor features; when unknown, use retained visual order; reported_direction is known_source_order or unknown_visual_order",
+    "pseudo_variant_id": "when the event occurs, replace the base opaque FORM ID with mtaac-artificial-word-form-sha256-v1: plus the lowercase full SHA-256 digest from pseudo_surface_variant_id; one affected source occurrence has one artificial ID shared by all its replicas and remains readable; this does not reveal or assert a natural allographic relationship",
+    "damage_contract": "a damage event replaces that retained occurrence's observed FORM ID with null; it has no prediction row or readable target, but an adjacent readable prediction row sees the categorical neighbor value DAMAGED",
+    "replica_unit": "complete degraded source document",
+    "maximum_extra_replicas": 1,
+    "replica_contract": "after all other events, a duplicate event creates exactly one extra exact replica of the complete degraded source document; otherwise there is one representative; replicas never cross partitions and receive no new pseudo-variant or damage event",
+    "regimes": {
+      "clean": {
+        "max_line_tokens": null,
+        "pseudo_surface_variant_rate": 0.0,
+        "damage_rate": 0.0,
+        "reverse_rate": 0.0,
+        "direction_unknown_rate": 0.0,
+        "duplicate_rate": 0.0
+      },
+      "mild": {
+        "max_line_tokens": 7,
+        "pseudo_surface_variant_rate": 0.3,
+        "damage_rate": 0.1,
+        "reverse_rate": 0.5,
+        "direction_unknown_rate": 0.15,
+        "duplicate_rate": 0.25
+      },
+      "harsh": {
+        "max_line_tokens": 4,
+        "pseudo_surface_variant_rate": 0.5,
+        "damage_rate": 0.25,
+        "reverse_rate": 0.5,
+        "direction_unknown_rate": 0.4,
+        "duplicate_rate": 0.5
+      }
+    }
+  },
+  "model": {
+    "normative_module": "indusbench.mtaac_control",
+    "normative_version": "mtaac-real-control-v1",
+    "kind": "Laplace-smoothed categorical Naive Bayes",
+    "prediction_row": "one retained occurrence whose observed FORM ID is non-null and whose evaluator-side gold projection has exactly one class",
+    "readable_target": "a retained mechanically projected target occurrence with non-null observed FORM ID",
+    "train_labels": "gold labels of readable train-side prediction rows only",
+    "test_labels": "evaluator-side truth of readable test prediction rows only",
+    "train_weighting": "for a source-document family with R readable target source occurrences and D replicas, every corresponding prediction row has weight 1/(R*D); a family with R=0 supplies no model row or effective support",
+    "test_weighting": "for a source-document family with R readable target source occurrences in the predeclared primary test stratum and D replicas, every corresponding scored row has weight 1/(R*D); a family with R=0 supplies no metric row or effective support",
+    "duplicate_weighting": "the exact formulas above divide one total family unit across deterministic exact replicas",
+    "anchor_free_behavior": "return not_identifiable and emit no F1, null distribution, p-value, decision reference, or GO/NO_GO decision",
+    "full_model_features": [
+      "opaque_form_id",
+      "position_bucket",
+      "previous_opaque_form_id",
+      "next_opaque_form_id",
+      "line_length_bucket",
+      "reported_direction"
+    ],
+    "feature_buckets": {
+      "position": "singleton, initial, medial, final",
+      "line_length": "exact 1 through 7, then 8_plus",
+      "missing_neighbor": "BOS or EOS",
+      "damaged_token": "DAMAGED"
+    },
+    "feature_structure_contract": "compute position and line length over every retained occurrence including damaged and context-only rows in the model order; previous and next are the immediate retained neighbors, using BOS/EOS at a boundary and DAMAGED for a null observed FORM ID",
+    "smoothing": {
+      "class_prior": "(weighted class mass + 1) / (total weighted mass + 4)",
+      "feature_likelihood": "(weighted class-and-value mass + 1) / (weighted class mass + V_feature)",
+      "V_feature": "number of distinct train values for that feature plus one reserved unseen bucket",
+      "score": "sum natural logarithm of the smoothed class prior and all declared feature likelihoods"
+    },
+    "unknown_value": "one reserved UNSEEN categorical bucket per feature name; a test value absent from that feature's train vocabulary maps to it and its train mass is zero",
+    "tie_break": "select the first exact maximum in fixed class order quantity, unit, person_name, settlement_name"
+  },
+  "references": {
+    "reported_ablations": {
+      "majority_class": {
+        "features": [],
+        "contract": "choose the class with greatest weighted train class mass and use the fixed class order for an exact tie"
+      },
+      "position_and_line_structure_only": {
+        "features": [
+          "position_bucket",
+          "line_length_bucket",
+          "reported_direction"
+        ],
+        "contract": "use the same Naive Bayes, train weights, test weights, regime, and primary stratum as the full model; opaque FORM and neighbor identities are excluded"
+      },
+      "opaque_FORM_lexicon_only": {
+        "features": [
+          "opaque_form_id"
+        ],
+        "contract": "diagnostic only; use the same Naive Bayes, train weights, test weights, regime, and primary stratum as the full model"
+      }
+    },
+    "permutation_null": {
+      "runs": 999,
+      "seed_start": 0,
+      "seed_schedule": "seed_start plus zero-based run index",
+      "unit": "complete source-document training-label vector",
+      "stratum": "readable target token count",
+      "scope": "training labels only; test truth and observations never permuted",
+      "representative_and_replicas": "build one label vector per source-document family from its representative degraded document and apply the assigned vector identically to all exact replicas",
+      "vector_order": "zero-based anonymous line order, then the prediction rows' zero-based retained model order, restricted to readable train target occurrences",
+      "permutation_hash_domain": "indusbench:mtaac:label-vector-permutation:v1\\x00",
+      "permutation_algorithm": "within each readable-target-count stratum, sort recipient families by opaque document_key ASCII; independently rank donor families by raw SHA-256 of permutation_hash_domain, unsigned-8-byte run seed, unsigned-8-byte readable-target-count value R naming the stratum, and framed opaque document_key ASCII bytes, breaking a digest tie by document_key; assign the ranked donor vectors in order to the canonical recipient order",
+      "fixed_points": "allowed",
+      "singleton_strata": "necessarily unchanged",
+      "minimum_movable_family_weight_fraction": 0.8,
+      "movable_family_weight_fraction": "number of readable eligible train source-document families in strata containing at least two families divided by all readable eligible train source-document families; every family has one unit of weight",
+      "required_invariants": [
+        "train_test_partition",
+        "source_document_boundary",
+        "readable_target_count",
+        "global_readable_training_class_counts",
+        "global_family_weighted_class_mass"
+      ],
+      "report_per_run": [
+        "seed",
+        "macro_F1",
+        "fixed_point_family_count"
+      ],
+      "run_validity": "exactly 999 distinct scheduled seeds and 999 finite macro-F1 values are required; any missing seed, duplicate seed, NaN, or infinite value is an integrity error before p95 or p-value",
+      "p95_method": "sort all 999 required finite run macro-F1 values ascending; h=(runs-1)*0.95; linearly interpolate between zero-based floor(h) and ceil(h)",
+      "p_value": "(1 + number of permutation macro-F1 values greater than or equal to observed macro-F1) / (runs + 1)",
+      "decision_bearing_regimes": [
+        "clean",
+        "mild"
+      ],
+      "harsh": "not_run"
+    },
+    "decision_reference": "separately for clean and mild, use that regime's train observations and the identical novel_exact_line_sequence test truth/weighting; take the maximum of majority macro-F1, position-only macro-F1, and that regime's permutation-null p95 macro-F1; the mild add-one p-value alone is inferentially decision-bearing"
+  },
+  "metrics": {
+    "primary": "source-document-family-weighted four-class macro-F1 on mild novel-line test targets",
+    "secondary": [
+      "weighted_balanced_accuracy",
+      "weighted_accuracy",
+      "per_class_precision",
+      "per_class_recall",
+      "per_class_F1",
+      "weighted_confusion_matrix",
+      "family_mean_readable_coverage",
+      "effective_source_document_families"
+    ],
+    "weighted_metric_contract": "derive precision, recall, F1, balanced accuracy, accuracy, and confusion entries from the exact nonnegative test row weights; macro-F1 is the arithmetic mean of the four class F1 values and balanced accuracy is the arithmetic mean of the four recalls",
+    "zero_denominator_contract": "precision is 0 when predicted mass is zero; recall is unavailable when truth mass is zero; F1 is 0 when precision plus recall is zero; a decision-bearing aggregate is unavailable unless every class has positive truth support and passes the declared family gates; diagnostic membership buckets report counts and support adequacy only and have no V1 aggregate metric",
+    "coverage": "for each class and test source-document family having at least one eligible target in a pre-degradation full line belonging to novel_exact_line_sequence, divide the count retained with non-null observed FORM ID by that pre-degradation eligible count; report the arithmetic mean across those families for each class; replicas do not alter numerator or denominator",
+    "coverage_decision_scope": "test primary stratum only; train coverage may be reported only as a diagnostic",
+    "effective_family_definition": "for a class and partition/regime/stratum, the number of distinct source-document families with at least one readable prediction or scored source occurrence of that class before replica expansion",
+    "clean_role": "positive_control",
+    "mild_role": "only_inferential_primary",
+    "harsh_role": "diagnostic_only"
+  },
+  "reporting": {
+    "deterministic": "for fixed exact archive bytes, exact protocol bytes, implementation, caller-declared pre-result code commit, and the same reported numeric runtime, emit the same UTF-8 JSON value with no wall-clock field",
+    "numeric_runtime": "report Python implementation/version, operating-system family, machine architecture, libc name/version when available, and binary-float mantissa width; do not report a host or account identifier",
+    "cross_runtime_byte_identity": "not claimed because categorical Naive Bayes uses binary floating point and the platform math library; threshold comparisons use exact computed values with no post-hoc tolerance",
+    "public_aggregate_allowlist": [
+      "protocol/source/code commitments and public source citation",
+      "non-identifying numeric runtime metadata",
+      "parser stage and reason-code aggregate counts",
+      "split and support aggregate counts",
+      "integrity and leakage booleans",
+      "aggregate weighted metrics, confusion matrices, coverage, ablations, null summaries, and per-run seed/macro-F1/fixed-point counts",
+      "explicit scientific nonclaims and terminal status"
+    ],
+    "forbidden_report_values": [
+      "raw FORM, SEGM, XPOSTAG, HEAD, DEPREL, MISC, or token ID",
+      "P identifier, corpus member path, local path, host, account, or storage topology",
+      "opaque document_key, token_key, per-document prediction, or per-document metric",
+      "retrieval timestamp, trusted-time claim, custody claim, blindness claim, independent preregistration claim, or Indus decipherment claim"
+    ],
+    "quarantine_reporting": "reason-code aggregate counts only; no document identifier or path"
+  },
+  "decision": {
+    "threshold_provenance": "project defaults selected before the first real score; not externally preregistered",
+    "clean_requirements": {
+      "minimum_macro_F1": 0.6,
+      "minimum_observed_minus_decision_reference": 0.1,
+      "minimum_per_class_recall": 0.35,
+      "minimum_per_class_family_mean_readable_coverage": 0.95
+    },
+    "mild_requirements": {
+      "minimum_macro_F1": 0.6,
+      "minimum_observed_minus_decision_reference": 0.1,
+      "maximum_add_one_permutation_p": 0.05,
+      "minimum_per_class_recall": 0.35,
+      "minimum_train_effective_families_per_class": 40,
+      "minimum_test_effective_families_per_class": 20,
+      "minimum_per_class_family_mean_readable_coverage": 0.75,
+      "minimum_movable_family_weight_fraction": 0.8,
+      "all_integrity_and_leakage_checks": true
+    },
+    "harsh_can_change_overall_GO": false,
+    "diagnostic_strata_insufficiency_can_change_overall_GO": false,
+    "decision_bearing_support": "mild train and mild novel_exact_line_sequence test effective-family minima for every class, plus positive clean and mild primary-stratum truth support and defined clean/mild coverage for every class",
+    "overall_GO": "all parser, source, protocol, support, integrity, and leakage gates pass; clean requirements pass; and mild requirements pass. Harsh and cue-ablation diagnostics cannot change overall GO.",
+    "clean_primary_stratum": "the same novel_exact_line_sequence test stratum used by mild",
+    "insufficient_support_behavior": "emit insufficient_evidence and no four-class aggregate, decision reference, p-value, GO, or NO_GO metric; do not search another seed, alter a domain, lower a threshold, or merge classes after seeing support",
+    "status_precedence": [
+      "invalid source bytes, manifest, parser stage, protocol digest, implementation constant, integrity, or leakage invariant -> error with no scientific metric report",
+      "anchor-free execution -> not_identifiable with no F1, null, or decision metric",
+      "decision-bearing primary support failure -> insufficient_evidence with no four-class aggregate",
+      "support passes but any clean or mild threshold fails -> no_go",
+      "all parser, source, protocol, support, integrity, leakage, clean, and mild requirements pass -> go"
+    ]
+  }
+}

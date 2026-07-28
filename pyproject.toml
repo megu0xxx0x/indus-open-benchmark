@@ -53,6 +53,7 @@ packages = ["src/indusbench"]
 "registry/kp1982_batch0.json" = "indusbench/registry/kp1982_batch0.json"
 "registry/kp1982_batch0_layout_seed.json" = "indusbench/registry/kp1982_batch0_layout_seed.json"
 "benchmark/development-evaluator.json" = "indusbench/benchmark/development-evaluator.json"
+"benchmark/mtaac-known-script-control-v1.json" = "indusbench/benchmark/mtaac-known-script-control-v1.json"
 
 [tool.hatch.build.targets.sdist]
 include = [

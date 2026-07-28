@@ -115,6 +115,10 @@ permission by itself.
 - A project-authored CC0 synthetic identifiability gate with family-safe
   splits, family weighting, damage/allograph/direction degradation,
   family-vector permutation nulls, and an explicit anchor-free abstention.
+- A pinned, network-free adapter and pre-result-frozen protocol for the CC0
+  MTAAC known-script control. It isolates four mechanical word-level labels
+  from opaque whole-FORM categories, fixes source-document splits and
+  degradation, and cannot issue an Indus reading or decipherment claim.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -459,6 +463,23 @@ The synthetic identifiability command uses no historical or third-party data.
 It reports every valid scientific outcome with status zero by default. Add
 `--require-go` in CI when a non-`go` report must return status 2.
 
+Run the frozen MTAAC known-script control only from the public pre-result code
+commit recorded in the report:
+
+```bash
+uv run indusbench evaluate-mtaac-control \
+  <exact-pinned-mtaac-archive.tar.gz> \
+  --pre-result-code-commit <40-character-public-freeze-commit> \
+  --output <new-aggregate-result.json>
+```
+
+The command is network-free, refuses a different archive or protocol byte,
+never writes raw corpus rows, and does not overwrite an existing report.
+`--require-go` returns status 2 for any outcome other than `go`; without it,
+scientifically valid `no_go`, `insufficient_evidence`, and
+`not_identifiable` reports remain publishable outcomes. A passing control is
+only a method-instrument result, not an Indus reading or prize claim.
+
 ## Repository map
 
 ```text
@@ -489,6 +510,7 @@ Read the [scientific standard](docs/BENCHMARK.md), [schema contract](docs/SCHEMA
 [submission commitment boundary](docs/SUBMISSION_COMMITMENT.md),
 [private corpus readiness boundary](docs/PRIVATE_CORPUS_READINESS.md),
 [private transcription bridge](docs/TRANSCRIPTION_BRIDGE.md),
+[MTAAC known-script control audit](docs/MTAAC_KNOWN_SCRIPT_CONTROL_2026-07-28.md),
 [annotation guide](docs/ANNOTATION_GUIDE.md), [data policy](DATA_POLICY.md), and
 [contribution guide](CONTRIBUTING.md) before adding data or models. Institutional access work can
 start from the bilingual [permission templates](docs/PERMISSION_REQUESTS.md); hypothesis teams use

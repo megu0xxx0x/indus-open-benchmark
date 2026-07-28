@@ -7,6 +7,13 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- An exact-byte-pinned, network-free adapter and pre-result-frozen protocol
+  for the CC0 MTAAC known-script control, with whole-document quarantine,
+  evaluation-equivalence anti-laundering, gold-independent event/null
+  identities, gold/model separation, source-document family splits,
+  cumulative degradation, family-weighted categorical baselines, and a fixed
+  999-run label-vector permutation reference. It is a method instrument, not
+  Indus evidence.
 - A closed Penn metadata-only context-anchor registry, exact-CSV
   revalidation CLI, 34-entry real-source derivation check, replica/modern
   negative controls, and a dated Mackay/Penn Chanhu-Daro primary-source

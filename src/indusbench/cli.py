@@ -107,6 +107,13 @@ from indusbench.kp1982_layout import (
     verify_layout_proposal_bytes,
 )
 from indusbench.manifest import build_manifest, corpus_digest, sha256_json
+from indusbench.mtaac import MAX_ARCHIVE_BYTES as MTAAC_MAX_ARCHIVE_BYTES
+from indusbench.mtaac_control import (
+    MTAAC_CONTROL_PROTOCOL_SHA256,
+    MTAACControlAttestation,
+    MTAACControlError,
+    evaluate_mtaac_control_archive,
+)
 from indusbench.museum_intake import (
     DEFAULT_MAX_JSON_BYTES,
     DEFAULT_MAX_MEDIA_BYTES,
@@ -217,6 +224,7 @@ MUSEUM_MAX_BUNDLE_DEPTH = 8
 MUSEUM_MAX_SEALED_REVIEW_COUNT = 100_000
 PENN_MAX_CSV_BYTES = 256 * 1024 * 1024
 PENN_MAX_SNAPSHOT_BYTES = 64 * 1024 * 1024
+MTAAC_MAX_PROTOCOL_BYTES = 1024 * 1024
 CHECKSUM_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 STABLE_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$")
 RFC3339_PATTERN = re.compile(
@@ -473,6 +481,18 @@ def _default_context_anchor_schema() -> Path | None:
         "schemas/context-anchor-registry.schema.json"
     )
     return Path(str(package_candidate)) if package_candidate.is_file() else None
+
+
+def _default_mtaac_control_protocol() -> Path:
+    project_candidate = (
+        Path(__file__).resolve().parents[2] / "benchmark" / "mtaac-known-script-control-v1.json"
+    )
+    if project_candidate.is_file():
+        return project_candidate
+    package_candidate = importlib.resources.files("indusbench").joinpath(
+        "benchmark/mtaac-known-script-control-v1.json"
+    )
+    return Path(str(package_candidate))
 
 
 def _default_smithsonian_metadata_schema() -> Path | None:
@@ -3545,6 +3565,105 @@ def _command_synthetic_identifiability_gate(args: argparse.Namespace) -> int:
     return 2 if args.require_go and report["gate_status"] != "go" else 0
 
 
+def _command_evaluate_mtaac_control(args: argparse.Namespace) -> int:
+    def fail(error_code: str, message: str, *, status: int = 2) -> int:
+        _print_json(
+            {
+                "analysis": "mtaac_known_script_control",
+                "terminal_status": "error",
+                "scientific_metrics_emitted": False,
+                "error_code": error_code,
+                "error": message,
+            }
+        )
+        return status
+
+    def output_exists() -> bool | None:
+        if args.output is None:
+            return False
+        try:
+            return _path_lexists(args.output)
+        except (OSError, ValueError):
+            return None
+
+    initial_output_state = output_exists()
+    if initial_output_state is None:
+        return fail(
+            "output_uninspectable",
+            "the aggregate output target could not be inspected safely",
+        )
+    if initial_output_state:
+        return fail(
+            "output_exists",
+            "the aggregate output target already exists",
+            status=1,
+        )
+    try:
+        archive_bytes = _read_regular_bytes(
+            args.archive,
+            max_bytes=MTAAC_MAX_ARCHIVE_BYTES,
+        )
+    except (OSError, ValueError):
+        return fail(
+            "archive_unreadable",
+            "the archive input could not be read safely",
+        )
+    try:
+        protocol_bytes = _read_regular_bytes(
+            args.protocol,
+            max_bytes=MTAAC_MAX_PROTOCOL_BYTES,
+        )
+    except (OSError, ValueError):
+        return fail(
+            "protocol_unreadable",
+            "the protocol input could not be read safely",
+        )
+    final_output_state = output_exists()
+    if final_output_state is None:
+        return fail(
+            "output_uninspectable",
+            "the aggregate output target could not be inspected safely",
+        )
+    if final_output_state:
+        return fail(
+            "output_exists",
+            "the aggregate output target already exists",
+            status=1,
+        )
+    attestation = MTAACControlAttestation(
+        protocol_sha256=MTAAC_CONTROL_PROTOCOL_SHA256,
+        pre_result_code_commit=args.pre_result_code_commit,
+        data_origin="fixed_real_source",
+        external_data_used=True,
+    )
+    try:
+        report = evaluate_mtaac_control_archive(
+            archive_bytes,
+            protocol_bytes,
+            attestation=attestation,
+            anchors_available=not args.anchor_free,
+        )
+    except MTAACControlError as error:
+        return fail(
+            "evaluation_rejected",
+            str(error),
+        )
+
+    durability_confirmed = True
+    if args.output is not None:
+        try:
+            durability_confirmed, _ = _write_json_no_replace(args.output, report)
+        except (OSError, ValueError):
+            return fail(
+                "output_write_failed",
+                "the aggregate output could not be written safely",
+            )
+    _print_json(report)
+    if not durability_confirmed:
+        return 1
+    return 2 if args.require_go and report["terminal_status"] != "go" else 0
+
+
 def _command_parse_smithsonian_metadata(args: argparse.Namespace) -> int:
     if not _target_is_clear(args.output, False):
         return 1
@@ -6338,6 +6457,12 @@ def _sha256_checksum(value: str) -> str:
     return value
 
 
+def _git_commit(value: str) -> str:
+    if re.fullmatch(r"[0-9a-f]{40}", value) is None:
+        raise argparse.ArgumentTypeError("expected a 40-character lowercase Git commit")
+    return value
+
+
 def _add_quarantine_arguments(command_parser: argparse.ArgumentParser) -> None:
     command_parser.add_argument(
         "--source-registry",
@@ -7236,6 +7361,50 @@ def build_parser() -> argparse.ArgumentParser:
         help="return status 2 unless the report's gate_status is go; useful for CI",
     )
     identifiability_parser.set_defaults(handler=_command_synthetic_identifiability_gate)
+
+    mtaac_control_parser = subparsers.add_parser(
+        "evaluate-mtaac-control",
+        help=(
+            "evaluate the exact pinned MTAAC archive under the frozen "
+            "known-script protocol; this is not an Indus result"
+        ),
+    )
+    mtaac_control_parser.add_argument(
+        "archive",
+        type=_path,
+        help="local exact archive bytes; the command never downloads source data",
+    )
+    mtaac_control_parser.add_argument(
+        "--protocol",
+        type=_path,
+        default=_default_mtaac_control_protocol(),
+        help="exact pre-result-frozen MTAAC protocol JSON",
+    )
+    mtaac_control_parser.add_argument(
+        "--pre-result-code-commit",
+        required=True,
+        type=_git_commit,
+        help=(
+            "caller-declared 40-character lowercase Git commit containing the "
+            "implementation and protocol; the command does not independently attest it"
+        ),
+    )
+    mtaac_control_parser.add_argument(
+        "--anchor-free",
+        action="store_true",
+        help="emit the named-class non-identifiability result without F1 or null metrics",
+    )
+    mtaac_control_parser.add_argument(
+        "--require-go",
+        action="store_true",
+        help="return status 2 unless the terminal_status is go",
+    )
+    mtaac_control_parser.add_argument(
+        "--output",
+        type=_path,
+        help="optional new no-replace aggregate JSON report; raw corpus rows are never written",
+    )
+    mtaac_control_parser.set_defaults(handler=_command_evaluate_mtaac_control)
 
     smithsonian_metadata_parser = subparsers.add_parser(
         "parse-smithsonian-metadata",
