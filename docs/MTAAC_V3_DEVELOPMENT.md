@@ -1,7 +1,7 @@
 # MTAAC V3 development protocol
 
-**Protocol status:** development only; no V3 result has been executed or
-published
+**Protocol status:** executed once as development only; the aggregate result
+is published
 
 **Recorded at:** 2026-07-29T00:54:12+09:00
 
@@ -127,17 +127,23 @@ No post-hoc ORACC subdivision can create binding confirmation.
 
 ## Current execution state
 
-At the timestamp above, the machine-readable V3 development plan exists and
-implementation work is in progress. No V3 development result file exists, no
-reserved ORACC validation has been executed, and no binding-confirmation
-source has been selected. The next controlled sequence is to complete and
-verify the isolated V3 implementation, freeze and publish the code and
-protocol, execute the exact MTAAC development run once, and publish only its
-aggregate development report.
+The implementation and machine-readable plan were frozen and published at
+commit `5b39c8ba358ea66e46183cbf02eb07fbc91861e2`. The exact MTAAC development run
+then completed once and its aggregate
+[result](MTAAC_V3_DEVELOPMENT_RESULT_2026-07-29.md) was recorded separately.
+The selected candidate uses `gamma = 0.5` and `lambda = 0`; mild out-of-fold
+macro-F1 is 0.3243 and worst-state recall is 0.0369. This is a modest
+development baseline, not evidence that the approach can decode Indus.
+
+No reserved ORACC validation has been executed, and no binding-confirmation
+source has been selected. V3 is now immutable. Any corpus-level distributional
+features or discriminative sequence model must be introduced under a separate
+V4 development plan before any reserved-source performance run.
 
 Related records:
 
 - [MTAAC V2 result](MTAAC_KNOWN_SCRIPT_CONTROL_V2_RESULT_2026-07-28.md)
+- [MTAAC V3 development result](MTAAC_V3_DEVELOPMENT_RESULT_2026-07-29.md)
 - [ORACC ED3b source audit](ORACC_ED3B_VALIDATION_SOURCE_2026-07-28.md)
 - [ORACC aggregate source-qualification receipt](../benchmark/results/oracc-ed3b-validation-source-v1.json)
 - [global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)

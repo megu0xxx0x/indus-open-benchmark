@@ -609,3 +609,31 @@ step is to publish this code-and-plan freeze, execute the exact MTAAC archive
 once at that published implementation commit, validate the aggregate report,
 and publish the result in a separate commit. ORACC execution remains
 prohibited until a later model/evaluator freeze.
+
+## MTAAC V3 development result — 2026-07-29T01:19:40+09:00
+
+The code-and-plan freeze was published at
+`5b39c8ba358ea66e46183cbf02eb07fbc91861e2`. The exact MTAAC archive was then
+processed once through the independent no-replace V3 command. The output is
+`benchmark/results/mtaac-v3-development-v1.json`: 77,086 bytes, SHA-256
+`e40d4802906dbe05b19a8625949f8c9154711a28a687c930d3e31cec2bf124d2`.
+It passed the closed schema, recursive public-output boundary, aggregate
+confusion recomputation, and one-standard-error selection recomputation.
+
+All five outer folds and the separate final four-fold procedure selected
+`gamma = 0.5, lambda = 0`. Mild out-of-fold macro-F1 is 0.3243, weighted
+accuracy is 0.4895, balanced accuracy is 0.3619, and worst-state recall is
+0.0369. The zero transition strength means the first-order sequence component
+was not selected. Settlement-name and quantity recall remain too weak for this
+feature surface to be considered an adequate transferable structural model.
+
+The V2 holdout was neither model-visible nor scored. The reserved prospective
+validation source was not loaded. This is an aggregate known-script
+development result only; it supplies no Indus reading, translation,
+decipherment, binding-confirmation, or prize evidence.
+
+V3 is now immutable. The highest-value next experiment is a separately frozen
+V4 that derives gold-free corpus-level frequency, dispersion, position, and
+context-diversity features from opaque type equality, then tests a
+discriminative sequence model under the same family-grouped boundary. Further
+MTAAC reuse is method development rather than fresh held-out evidence.

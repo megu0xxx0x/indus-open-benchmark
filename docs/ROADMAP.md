@@ -202,6 +202,13 @@ for the v0.2 volume target.
   joint five-state prediction over every retained token, class balancing,
   line-sequence decoding, grouped nested development validation, and no use
   of the V2 holdout or ORACC records for candidate fitting or selection.
+- [x] Publish the exact V3 code/plan freeze, execute the MTAAC training-side
+  development protocol once, and preserve its aggregate negative result.
+  `gamma = 0.5, lambda = 0` was selected; mild macro-F1 is 0.3243 and
+  worst-state recall is 0.0369.
+- [ ] Define V4 corpus-level source-neutral distributional features and a
+  discriminative sequence model under a new development-only freeze. Reusing
+  MTAAC remains method development, not new held-out evidence.
 - [ ] Freeze the selected V3 candidate and one-shot ORACC evaluator before
   calculating any ORACC performance result. Source qualification is complete;
   context-bearing prospective validation is not.

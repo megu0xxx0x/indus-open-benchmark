@@ -19,6 +19,12 @@ immutable content-addressed identifiers for corpus and split releases.
   remains unloaded and is feature-safety-exposed prospective validation, not
   binding confirmation; no V3 result, Indus reading, translation,
   decipherment, or prize result is claimed.
+- The aggregate MTAAC V3 development execution. All five outer folds and the
+  final four-fold procedure selected `gamma = 0.5, lambda = 0`; mild
+  out-of-fold macro-F1 is 0.3243 and worst-state recall is 0.0369. The closed
+  result demonstrates that local equality and positional structure are an
+  insufficient baseline and does not use the V2 holdout or reserved
+  prospective validation source.
 - A pre-model-fitting source seal and network-free verifier for the exact CC0
   ORACC ePSD2 Early Dynastic IIIb administrative JSON archive. It applies a
   fixed audit-example exclusion, commits the selected corpus and mechanical

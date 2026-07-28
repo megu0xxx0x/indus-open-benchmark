@@ -167,8 +167,12 @@ permission by itself.
   source-neutral structural baseline fixes its complete feature surface,
   nine-candidate parameter grid, family-grouped nested `5 × 4` selection,
   mild-only candidate selection, clean diagnostics, fixed four-fold final
-  development selection, and aggregate-only report contract. No V3 result or
-  decipherment claim is implied by the plan.
+  development selection, and aggregate-only report contract. The
+  [published V3 development result](docs/MTAAC_V3_DEVELOPMENT_RESULT_2026-07-29.md)
+  selected `gamma = 0.5`, rejected the transition component with
+  `lambda = 0`, and obtained mild out-of-fold macro-F1 0.3243 with
+  worst-state recall 0.0369. This is a modest known-script baseline, not a
+  decipherment claim.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.

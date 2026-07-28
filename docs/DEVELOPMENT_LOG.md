@@ -35,3 +35,23 @@ other operator-only details are intentionally excluded.
 
 The complete method boundary and execution order are documented in
 [MTAAC V3 development protocol](MTAAC_V3_DEVELOPMENT.md).
+
+## 2026-07-29T01:19:40+09:00 — MTAAC V3 development result recorded
+
+- The exact code and plan were first published at implementation commit
+  `5b39c8ba358ea66e46183cbf02eb07fbc91861e2`.
+- The fixed MTAAC run then completed once using only 271 development families.
+  The V2 holdout was not exposed to the model or scored, and the reserved
+  prospective validation source was not loaded.
+- All five outer selections and the final four-fold selection chose
+  `gamma = 0.5, lambda = 0`.
+- Mild out-of-fold macro-F1 is 0.3243; worst-state recall is 0.0369. The zero
+  transition strength and weak rare-state recall reject local equality and
+  position as a sufficient baseline.
+- The 77,086-byte aggregate
+  [result](../benchmark/results/mtaac-v3-development-v1.json) passed the closed
+  schema, public-boundary scan, confusion-matrix recomputation, and
+  one-standard-error selection recomputation.
+- V3 is now immutable. V4 should test preregistered corpus-level,
+  source-neutral distributional features before any reserved-source
+  performance execution.
