@@ -1,8 +1,8 @@
 # Public development plan and status
 
-**Status date:** 2026-07-28
+**Status date:** 2026-07-29
 
-**Last source-level update:** 2026-07-28 21:56 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-29 02:34 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -637,3 +637,68 @@ V4 that derives gold-free corpus-level frequency, dispersion, position, and
 context-diversity features from opaque type equality, then tests a
 discriminative sequence model under the same family-grouped boundary. Further
 MTAAC reuse is method development rather than fresh held-out evidence.
+
+## MTAAC V4 development implementation — 2026-07-29T02:34:17+09:00
+
+V4 is implemented as a separate development-only package and command without
+changing any V2 or V3 implementation, protocol, schema, or result byte. Its
+exact machine-readable plan is `benchmark/mtaac-v4-development-v1.json`:
+10,354 bytes, SHA-256
+`604725a5929b63f578ade07b65ca784eefefefce9b827e1686d4836f668c123b`.
+The one-way gateway accepts only the fixed 271-family MTAAC development
+partition, reverifies exclusion of the 90-family V2 holdout, and does not load
+the prospective validation source.
+
+For every outer-fold side and clean/mild regime independently, the primary
+profile treats the complete unlabeled side as a fixed target batch and removes
+the current family's complete contribution before deriving type statistics.
+The ten low-cardinality V3 local features are joined to 24 fixed frequency,
+dispersion, position, context, neighbor, evidence, and interaction features.
+Opaque form fingerprints are transient equality keys only. They, profile
+maps, feature rows, family/fold membership, individual predictions, raw
+annotations, and local paths cannot cross the aggregate report boundary.
+
+There is one primary candidate and no inner selection: an L2-regularized
+linear-chain CRF with a fixed family-weighted objective, Jeffreys-smoothed
+class prior, post-training class adjustment, and dependency-free deterministic
+full-batch L-BFGS. The optimizer fails closed on non-finite arithmetic,
+unrecoverable non-descent, failed line search, or non-convergence. Finite
+difference gradients, exact family weights, brute-force partition and Viterbi
+comparisons, input-order invariance, real-profile compatibility, minimum-step
+handling, and public-boundary rejection are covered by tests.
+
+Independent pre-freeze review aligned the Armijo contract to 31 evaluated
+steps, making the declared `2^-30` minimum step reachable without exceeding
+the published trial count. The runtime command now applies the same closed
+Draft 2020-12 report schema used by release checks, recomputes every metric
+from its confusion matrix, reconstructs out-of-fold aggregates, and rechecks
+paired deltas and every gate before any output can be written.
+
+V4 reuses the exact five V3 outer family assignments for paired development
+estimates. Local-only CRF, transition-zero decoding, independent logistic
+emissions, self-inclusive target profiling, and strict single-family profiling
+are predeclared nonselecting diagnostics. The fixed decision requires every
+macro-F1, rare-state recall, paired-fold, profile-increment, clean-integrity,
+and self-information gate to pass. Any other valid outcome is
+`development_killed`; diagnostics cannot rescue it.
+
+Verification at this checkpoint:
+
+- Ruff lint and format check: passed;
+- Pyright: zero errors and warnings;
+- full suite: 569 tests passed and 13 environment-specific tests skipped;
+- focused V4 suite: 54 plan, contract, profile, sequence, runner, schema,
+  command, and architecture tests passed;
+- the exact V2/V3 file digests and V3 parent commitments remain unchanged;
+- source and wheel distributions contain the exact V4 plan, report schema,
+  modules, and independent command entry point; and
+- the local Markdown-link check passed; Gitleaks, Semgrep, and Trivy reported
+  no finding.
+
+No real V4 report exists at this checkpoint. The controlled next step is to
+publish this code-and-plan freeze, execute the exact MTAAC command once at that
+published implementation commit, validate the aggregate report, and publish
+the result separately. A valid negative result ends this protocol. A valid
+advance result permits only the specified all-development-family model fit and
+still does not authorize prospective validation, binding confirmation, an
+Indus reading, a prize submission, or institutional contact.

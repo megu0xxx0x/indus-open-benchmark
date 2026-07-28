@@ -7,6 +7,21 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A separately frozen, development-only MTAAC V4 protocol that leaves V2 and
+  V3 immutable and reuses only the 271-family development partition. Its
+  truth-free target-batch profile is train/validation and clean/mild isolated,
+  removes the current family before deriving type statistics, drops the V3
+  high-cardinality line template, and exposes only source-neutral categorical
+  markers and unit-interval frequency, dispersion, position, context,
+  neighbor, and interaction values. One fixed L2-regularized linear-chain CRF
+  is fitted with a dependency-free deterministic L-BFGS optimizer; there is
+  no candidate grid or inner selection. Local-only, transition-zero,
+  logistic-emission, self-inclusive, and single-family variants are
+  nonselecting diagnostics. The exact V3 outer assignments and predeclared
+  rare-state, paired-delta, profile-increment, and self-information gates
+  determine `advance` or `development_killed`. The V2 holdout and reserved
+  prospective source remain unavailable, reports are aggregate only, and no
+  real V4 result exists at this code-and-plan checkpoint.
 - A separate, development-only MTAAC V3 plan and implementation boundary that
   leaves V2 immutable, exposes only the fixed 271-family V2 training
   partition, and excludes and does not score the 90-family V2 holdout. It

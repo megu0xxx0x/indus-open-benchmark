@@ -206,12 +206,20 @@ for the v0.2 volume target.
   development protocol once, and preserve its aggregate negative result.
   `gamma = 0.5, lambda = 0` was selected; mild macro-F1 is 0.3243 and
   worst-state recall is 0.0369.
-- [ ] Define V4 corpus-level source-neutral distributional features and a
-  discriminative sequence model under a new development-only freeze. Reusing
-  MTAAC remains method development, not new held-out evidence.
-- [ ] Freeze the selected V3 candidate and one-shot ORACC evaluator before
-  calculating any ORACC performance result. Source qualification is complete;
-  context-bearing prospective validation is not.
+- [x] Define and implement V4 under a separate exact-byte development freeze:
+  target-batch, partition/regime-local leave-one-family-out distributional
+  features; one fixed L2 linear-chain CRF; deterministic dependency-free
+  L-BFGS; nonselecting ablations; the exact V3 outer assignments; and
+  predeclared advance/kill gates. Reusing MTAAC remains adaptive method
+  development, not new held-out evidence. No real V4 result exists at this
+  code-and-plan checkpoint.
+- [ ] Execute the exact V4 MTAAC command once at its public code-and-plan
+  freeze and preserve the aggregate result. A killed result blocks further
+  reserved-source execution under this protocol.
+- [ ] Only if V4 advances, define and publish a separate one-shot prospective
+  evaluator freeze before calculating any ORACC performance result. Source
+  qualification is complete, but that feature-safety-exposed source is not
+  binding confirmation.
 - [ ] Freeze a non-cherry-pickable binding-confirmation source-selection
   mechanism: independent custody before development or a public random beacon
   over a predeclared eligible pool after model freeze. It must select a

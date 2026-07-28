@@ -62,6 +62,25 @@ naive-Bayes emissions, first-order transitions, and Viterbi decoding under a
 fixed family-grouped nested-selection design. This is development-only
 known-script evidence, not an Indus or confirmation result.
 
+The published V3 run obtained mild out-of-fold macro-F1 0.3243 and
+`settlement_name` recall 0.0369. The one-standard-error rule selected
+`gamma = 0.5, lambda = 0` in every outer fold. This means that the transition
+component was not selected under that rule; it does not prove that sequence
+transitions are absent.
+
+The separately frozen
+[V4 development protocol](docs/MTAAC_V4_DEVELOPMENT.md) now tests one fixed
+distributional linear-chain CRF, not another parameter search. Its truth-free
+target-batch profile is partition- and regime-local and removes the current
+family before calculating type frequency, dispersion, position, context, and
+neighbor statistics. Exact form identity never becomes a model feature. V4
+reuses the exact V3 outer folds for paired development estimates and fixes all
+advance/kill gates before execution. The
+[world-research synthesis](docs/MTAAC_V4_WORLD_RESEARCH_2026-07-29.md)
+records the primary-source rationale and rejects entropy, hidden states, or
+network structure as decipherment evidence. At the code-and-plan checkpoint,
+no real V4 result exists and the reserved prospective source remains unloaded.
+
 Before any V3 model fitting, all eligibility-qualified, non-excluded
 records from the exact CC0
 [ORACC ED3b administrative source](docs/ORACC_ED3B_VALIDATION_SOURCE_2026-07-28.md)
@@ -169,10 +188,20 @@ permission by itself.
   mild-only candidate selection, clean diagnostics, fixed four-fold final
   development selection, and aggregate-only report contract. The
   [published V3 development result](docs/MTAAC_V3_DEVELOPMENT_RESULT_2026-07-29.md)
-  selected `gamma = 0.5`, rejected the transition component with
-  `lambda = 0`, and obtained mild out-of-fold macro-F1 0.3243 with
-  worst-state recall 0.0369. This is a modest known-script baseline, not a
+  selected `gamma = 0.5, lambda = 0` under its one-standard-error rule and
+  obtained mild out-of-fold macro-F1 0.3243 with worst-state recall 0.0369.
+  The transition component was not selected; this is not proof that
+  transitions are absent. The result is a modest known-script baseline, not a
   decipherment claim.
+- A separate exact-byte V4 development plan, truth-free
+  `target_batch_partition_regime_local_document_leave_one_family_out` profile,
+  fixed distributional linear-chain CRF, independent
+  logistic-emission diagnostic, deterministic pure-Python L-BFGS optimizer,
+  paired V3 outer-fold comparison, predeclared advance/kill gates, closed
+  aggregate schema, and network-free no-replace command. V4 uses only the 271
+  development families, excludes the V2 holdout, does not load the reserved
+  prospective source, and cannot issue an Indus reading or decipherment
+  claim. No real V4 development result exists at the code-and-plan freeze.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -576,6 +605,8 @@ Read the [scientific standard](docs/BENCHMARK.md), [schema contract](docs/SCHEMA
 [MTAAC known-script control audit](docs/MTAAC_KNOWN_SCRIPT_CONTROL_2026-07-28.md),
 [MTAAC V2 result](docs/MTAAC_KNOWN_SCRIPT_CONTROL_V2_RESULT_2026-07-28.md),
 [MTAAC V3 development protocol](docs/MTAAC_V3_DEVELOPMENT.md),
+[MTAAC V4 development protocol](docs/MTAAC_V4_DEVELOPMENT.md),
+[MTAAC V4 world-research synthesis](docs/MTAAC_V4_WORLD_RESEARCH_2026-07-29.md),
 [annotation guide](docs/ANNOTATION_GUIDE.md), [data policy](DATA_POLICY.md), and
 [contribution guide](CONTRIBUTING.md) before adding data or models. Institutional access work can
 start from the bilingual [permission templates](docs/PERMISSION_REQUESTS.md); hypothesis teams use

@@ -55,3 +55,39 @@ The complete method boundary and execution order are documented in
 - V3 is now immutable. V4 should test preregistered corpus-level,
   source-neutral distributional features before any reserved-source
   performance execution.
+
+## 2026-07-29T02:34:17+09:00 — MTAAC V4 code-and-plan boundary recorded
+
+- V2 and V3 remain byte-for-byte immutable. V4 is a separate
+  development-only package, command, plan, schema, and result namespace.
+- The exact 10,354-byte
+  [V4 development plan](../benchmark/mtaac-v4-development-v1.json) has SHA-256
+  `604725a5929b63f578ade07b65ca784eefefefce9b827e1686d4836f668c123b`.
+- V4 uses only the reused 271-family MTAAC development partition. Its primary
+  features are computed from a truth-free, partition/regime-local target batch
+  after removing the current family; exact form identity remains a transient
+  equality key and is neither a model feature nor a report field.
+- One fixed L2-regularized linear-chain CRF is evaluated on the exact V3 outer
+  assignments. Local-only, transition-zero, logistic-emission,
+  self-inclusive, and strict-single-family variants are diagnostics only and
+  cannot select or rescue the primary method.
+- Advance and kill gates were fixed before real execution. A killed result
+  prohibits final-development fitting and reserved-source execution under
+  this protocol; an advance result still authorizes neither a reserved-source
+  run nor an Indus or prize claim.
+- Ruff, formatting, Pyright, and the full test suite passed at this checkpoint:
+  569 tests passed and 13 environment-specific tests were skipped. Source and
+  wheel builds contain the plan, schema, independent command, and V4 modules.
+  The local Markdown-link check passed; Gitleaks, Semgrep, and Trivy reported
+  no finding.
+- Independent pre-freeze review aligned the Armijo contract to 31 trials so
+  the declared `2^-30` minimum step is reachable. It also added runtime closed
+  schema validation and recomputation of every confusion-derived metric,
+  out-of-fold aggregate, paired delta, and gate decision before output.
+- The V2 holdout and prospective validation source have not been loaded or
+  scored for V4. No real V4 result exists at this checkpoint. The controlled
+  next step is to publish this code-and-plan freeze and execute its exact
+  MTAAC command once.
+
+The exact feature, optimizer, diagnostic, and decision contracts are recorded
+in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).

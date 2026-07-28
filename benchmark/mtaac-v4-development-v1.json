@@ -1,0 +1,254 @@
+{
+  "data_boundary": {
+    "accepted_training_regimes": [
+      "clean",
+      "mild"
+    ],
+    "clean_role": "guard_and_diagnostic_only_not_method_selection",
+    "mild_role": "primary_development_evaluation",
+    "reserved_validation_source": "not_loaded_or_used_for_fitting_tuning_debugging_feature_design_or_gate_decisions",
+    "v2_holdout": "membership_verified_by_gateway_then_not_exposed_to_model_and_not_scored"
+  },
+  "decision": {
+    "advance_requires_all_checks": true,
+    "checks": {
+      "clean_macro_f1_minimum": 0.36,
+      "clean_settlement_name_recall_minimum": 0.1,
+      "mild_context_only_recall_minimum": 0.520654531441017,
+      "mild_macro_f1_minimum": 0.36432759235715436,
+      "mild_person_name_recall_minimum": 0.4988092152820551,
+      "mild_quantity_recall_minimum": 0.1765055025096581,
+      "mild_settlement_name_recall_minimum": 0.15,
+      "mild_unit_recall_minimum": 0.3767836311289388,
+      "positive_paired_delta_outer_fold_count_minimum": 4,
+      "profile_increment_mild_macro_f1_minimum": 0.02,
+      "self_inclusive_minus_lofo_mild_macro_f1_maximum": 0.05
+    },
+    "failure_terminal_status": "development_killed",
+    "invalid_execution_policy": "hard_error_without_scientific_result",
+    "success_terminal_status": "advance"
+  },
+  "diagnostics": {
+    "candidate_selection_or_rescue": false,
+    "fixed_nonselecting_diagnostics": [
+      "no_corpus_profile",
+      "transition_zero",
+      "logistic_emission",
+      "self_inclusive_target_profile",
+      "strict_single_family_profile"
+    ],
+    "primary": "full_lofo_profile_linear_chain_crf"
+  },
+  "features": {
+    "exact_local_feature_order": [
+      "position_bucket",
+      "line_length_bucket",
+      "reported_direction",
+      "damage",
+      "observation_status",
+      "previous_equality",
+      "next_equality",
+      "line_frequency_bucket",
+      "seen_before",
+      "seen_after"
+    ],
+    "exact_profile_feature_order": [
+      "type_support",
+      "type_frequency",
+      "family_dispersion",
+      "line_dispersion",
+      "family_entropy",
+      "type_initial_tendency",
+      "type_final_tendency",
+      "type_mean_position",
+      "type_position_variance",
+      "left_context_excess_diversity",
+      "left_context_entropy",
+      "right_context_excess_diversity",
+      "right_context_entropy",
+      "type_repeat_in_line_rate",
+      "type_same_left_rate",
+      "type_same_right_rate",
+      "left_neighbor_commonness",
+      "right_neighbor_commonness",
+      "type_evidence",
+      "type_diversity_evidence",
+      "initial_tendency_interaction",
+      "final_tendency_interaction",
+      "position_agreement",
+      "neighbor_equality_repetition_interaction"
+    ],
+    "feature_value_types": {
+      "local": "fixed_categorical",
+      "missing_or_boundary": "fixed_categorical_marker",
+      "profile_numeric": "direct_float64_in_closed_unit_interval",
+      "type_support": "fixed_categorical"
+    },
+    "line_template_used": false,
+    "no_quantiles_bins_or_scalers_for_numeric_values": true
+  },
+  "folds": {
+    "candidate_grid": false,
+    "coverage_gate": "all_five_states_positive_in_every_training_and_validation_partition",
+    "family_grouping": "complete_sequence_family_never_split",
+    "inner_cross_validation": false,
+    "outer_assignment": "exact_v3_five_outer_fold_assignments",
+    "outer_fold_count": 5,
+    "seed_search": false
+  },
+  "implementation": {
+    "entry_point": "indusbench-v4dev-mtaac",
+    "gateway_module": "indusbench.v3dev.mtaac_training",
+    "model_module": "indusbench.v4dev.sequence",
+    "normative_module": "indusbench.v4dev.runner",
+    "plan_module": "indusbench.v4dev.plan",
+    "profile_module": "indusbench.v4dev.corpus_statistics"
+  },
+  "model": {
+    "candidate_count": 1,
+    "candidate_selection": "none_fixed_method",
+    "class_adjustment": {
+      "decode_only_gamma": 0.5,
+      "family_weighted_jeffreys_alpha": 0.5,
+      "formula": "pi_state_equals_family_weighted_state_mass_plus_0.5_divided_by_total_mass_plus_2.5"
+    },
+    "l2_rho": 0.01,
+    "objective": "mean_over_families_of_line_nll_weighted_by_inverse_total_clean_mild_family_tokens_plus_rho_over_2_times_l2_squared",
+    "sequence_model": "first_order_linear_chain_crf",
+    "training_initialization": "all_zero"
+  },
+  "nonclaims": [
+    "development_metrics_are_not_reserved_validation",
+    "development_metrics_are_not_binding_confirmation",
+    "v2_holdout_is_not_scored",
+    "no_indus_reading_translation_decipherment_or_prize_claim"
+  ],
+  "optimizer": {
+    "armijo": {
+      "c1": 0.0001,
+      "contraction_factor": 0.5,
+      "initial_step": 1.0,
+      "maximum_trials": 31,
+      "minimum_step": 9.313225746154785e-10
+    },
+    "batch": "full",
+    "convergence": {
+      "consecutive_relative_objective_iterations": 5,
+      "gradient_infinity_norm": 1e-05,
+      "relative_objective": 1e-09,
+      "secondary_gradient_infinity_norm": 0.001
+    },
+    "curvature_pair_acceptance": "s_dot_y_strictly_greater_than_1e-12_times_norm_s_times_norm_y",
+    "direction": "deterministic_lbfgs_two_loop_recursion",
+    "fallback": false,
+    "history_size": 10,
+    "maximum_accepted_iterations": 100,
+    "non_descent_policy": "clear_history_once_then_use_negative_gradient_repeat_is_hard_error",
+    "numeric_type": "float64",
+    "stable_logsumexp": "maximum_shift",
+    "summation": "sorted_math_fsum"
+  },
+  "parent_boundary": {
+    "evaluation_corpus_sha256": "sha256:e7d6f8c9a8c090bb33ef4ba3703c1b36fe0519086efa75ff70d1ba53a8bf9312",
+    "excluded_v2_holdout_family_count": 90,
+    "gateway_version": "mtaac-v2-training-gateway-v1",
+    "selected_manifest_sha256": "sha256:1a7e7bbfeae6b833bf90ee20eecb8a0be712dbbdc85a88e5de10cacfd7b0464e",
+    "source_archive_sha256": "sha256:2698293080ed8fe6244ec9191010030d2928fd639002ae25d3a05867c22be091",
+    "source_commit": "66e0643efd230401210e27db353ebb6d7228b1bb",
+    "training_family_count": 271,
+    "v2_freeze_commit": "37157f1411a55ffd91b7327afaca8fc1080fa708",
+    "v2_protocol_sha256": "sha256:25913e826db786f3867d5aca5391f116d1e3e0aab4c22754be28f87ab2fa3892",
+    "v2_split_manifest_sha256": "sha256:7249c8fe1d3efc95b42cc9e0a9378550addb64f5b992f89af99dd852b83c5c30",
+    "v2_split_seed": 0,
+    "v2_split_test_fraction": 0.25,
+    "v3_freeze_commit": "5b39c8ba358ea66e46183cbf02eb07fbc91861e2",
+    "v3_model_state_commitment": "sha256:d2b332f6d9b2b6acae206f7f0b8db07d7e2431b5995168f7228a374e4f134158",
+    "v3_plan_sha256": "sha256:b2100318fa0e958d741fd25d7b9263ae1574967f4585f4609c118b1bd16880dd",
+    "v3_result_commit": "9f70679d0c0138d67d000e65ac71e258bcf439e0",
+    "v3_result_sha256": "sha256:e40d4802906dbe05b19a8625949f8c9154711a28a687c930d3e31cec2bf124d2"
+  },
+  "profiles": {
+    "clean_mild_shared": false,
+    "exact_identity_policy": "opaque_observation_ids_are_transient_equality_keys_and_are_never_model_features_or_serialized",
+    "gold_used": false,
+    "inference_mode": "target_batch_partition_regime_local_document_leave_one_family_out",
+    "primary": "fit_each_train_or_validation_partition_and_each_regime_separately_then_transform_only_the_exact_fitted_batch",
+    "self_inclusive_target_profile_role": "diagnostic_only",
+    "statistics": {
+      "context_diversity": "rdiv_times_distinct_contexts_minus_1_divided_by_occurrences_minus_1",
+      "context_entropy": "rdiv_times_shannon_entropy_divided_by_log_occurrences",
+      "diversity_reliability": "rdiv_equals_max_occurrences_minus_1_over_occurrences_plus_3_or_zero",
+      "family_dispersion": "log1p_document_support_divided_by_log1p_max_partition_documents_2",
+      "family_entropy": "rdiv_times_shannon_entropy_of_document_counts_divided_by_log_min_occurrences_document_support",
+      "fixed_conjunctions": [
+        "local_initial_times_shrunk_initial_tendency",
+        "local_final_times_shrunk_final_tendency",
+        "reliability_times_one_minus_absolute_local_minus_mean_position",
+        "adjacent_equal_indicator_times_shrunk_repeat_in_line_rate"
+      ],
+      "frequency": "log1p_occurrences_divided_by_log1p_max_partition_observed_tokens_2",
+      "global_prior_scope": "same_leave_one_family_out_partition_regime_batch",
+      "line_dispersion": "log1p_line_support_divided_by_log1p_max_partition_lines_2",
+      "neighbor_commonness": "neighbor_type_frequency_or_fixed_BOS_EOS_DAMAGED_UNSEEN_marker",
+      "position": "token_index_divided_by_line_length_minus_1_or_0.5_for_singleton",
+      "position_variance": "four_times_population_variance_clamped_to_unit_interval",
+      "reliability": "r_equals_occurrences_over_occurrences_plus_4",
+      "shrinkage": "r_times_type_rate_plus_one_minus_r_times_partition_global_rate",
+      "support_categories": [
+        "UNSEEN",
+        "1",
+        "2",
+        "3-4",
+        "5-8",
+        "9-16",
+        "17+"
+      ]
+    },
+    "strict_single_family_profile_role": "diagnostic_only",
+    "train_validation_shared": false,
+    "version": "v4-truth-free-lofo-profile-v1"
+  },
+  "protocol_id": "mtaac-v4-development-v1",
+  "protocol_status": "development_only_post_v3_result_before_reserved_source_execution",
+  "protocol_version": "mtaac-v4-development-v1",
+  "report_contract": {
+    "granularity": "aggregate_only",
+    "prohibited_content": [
+      "source_document_token_or_observation_identifiers",
+      "identity_keyed_profile_statistics",
+      "feature_rows_or_predictions",
+      "archive_member_or_local_paths",
+      "raw_annotation_values",
+      "per_document_or_per_family_metrics",
+      "family_or_fold_membership",
+      "reserved_validation_source_results_or_counts"
+    ],
+    "required_assertions": {
+      "development_only": true,
+      "model_executed": true,
+      "reserved_validation_source_loaded": false,
+      "scientific_metrics_emitted": true,
+      "v2_holdout_scored": false
+    },
+    "terminal_statuses": [
+      "advance",
+      "development_killed"
+    ]
+  },
+  "task": {
+    "damaged_retained_tokens": "predicted_and_scored",
+    "empty_gold_projection": "context_only",
+    "prediction_unit": "every_retained_token",
+    "states": [
+      "context_only",
+      "quantity",
+      "unit",
+      "person_name",
+      "settlement_name"
+    ]
+  },
+  "weighting": {
+    "evaluation": "each_validation_family_has_total_mass_one_per_regime",
+    "training": "each_family_contributes_inverse_total_clean_mild_family_token_mass_to_line_nll"
+  }
+}
