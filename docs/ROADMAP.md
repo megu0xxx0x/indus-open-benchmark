@@ -227,12 +227,14 @@ for the v0.2 volume target.
   regularizer; searches no weight or grouping; and requires rare-state
   precision, recall, paired-fold, and clean gates. MTAAC retires after the
   single valid result regardless of outcome.
-- [ ] Execute the exact V5 network-free command once at its public
-  code-and-plan freeze, validate every recomputable metric aggregate, support
-  invariant, gate, and stopping assertion, and publish the result separately.
-  Only a pre-metric environmental or I/O failure may retry byte-identical
-  code, plan, archive, and CLI arguments; any other change or exposed partial
-  metric retires V5 without retry. Do not load the prospective source.
+- [x] Execute the exact V5 network-free command once at its public
+  code-and-plan freeze and preserve the aggregate result. V5 passed 7 of 15
+  gates and returned `mtaac_retired`: mild macro-F1 was 0.3846, `unit` recall
+  was 0.2937, and `settlement_name` recall was 0.0575. No final model was
+  fitted; the V2 holdout and prospective source remained unscored.
+- [x] Retire MTAAC after the valid V5 result. Do not rerun, retune, repair, or
+  replace V5, and do not create V6. Any next model claim must use a separately
+  preregistered task and genuinely independent evidence.
 - [ ] Freeze a non-cherry-pickable binding-confirmation source-selection
   mechanism: independent custody before development or a public random beacon
   over a predeclared eligible pool after model freeze. It must select a

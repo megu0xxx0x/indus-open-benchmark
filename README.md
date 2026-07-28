@@ -93,8 +93,12 @@ features, five-state capacity, folds, likelihood, class adjustment, and
 optimizer fixed, and doubles only the regularization on the
 `quantity`/`unit` and `person_name`/`settlement_name` emission contrast
 directions. There is one candidate, no diagnostics or tuning grid, rare-state
-precision cannot regress, and fold-level gains are mandatory. No real V5
-result exists at the code-and-plan checkpoint.
+precision cannot regress, and fold-level gains are mandatory. The separately
+published [V5 result](docs/MTAAC_V5_DEVELOPMENT_RESULT_2026-07-29.md) passed
+7 of 15 gates and returned `mtaac_retired`. Mild macro-F1 decreased from
+0.3878 to 0.3846 and `unit` recall decreased from 0.3052 to 0.2937.
+`settlement_name` recall increased from 0.0429 to 0.0575 but remained far
+below its 0.15 floor. No final model was fitted, and MTAAC is retired.
 
 Before any V3 model fitting, all eligibility-qualified, non-excluded
 records from the exact CC0
@@ -223,7 +227,9 @@ permission by itself.
   and full observation/model pipeline while changing only the fixed emission
   contrast regularizer. Its exact rare-state recall, precision, paired-fold,
   clean-integrity, one-shot, and MTAAC-retirement gates are fixed before any
-  real V5 execution. No V5 result exists at this checkpoint.
+  real V5 execution. Its separately published result passed 7 of 15 gates,
+  returned `mtaac_retired`, fitted no final model, and ended adaptive MTAAC
+  development.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -631,6 +637,7 @@ Read the [scientific standard](docs/BENCHMARK.md), [schema contract](docs/SCHEMA
 [MTAAC V4 world-research synthesis](docs/MTAAC_V4_WORLD_RESEARCH_2026-07-29.md),
 [MTAAC V4 development result](docs/MTAAC_V4_DEVELOPMENT_RESULT_2026-07-29.md),
 [MTAAC V5 final development protocol](docs/MTAAC_V5_DEVELOPMENT.md),
+[MTAAC V5 development result](docs/MTAAC_V5_DEVELOPMENT_RESULT_2026-07-29.md),
 [annotation guide](docs/ANNOTATION_GUIDE.md), [data policy](DATA_POLICY.md), and
 [contribution guide](CONTRIBUTING.md) before adding data or models. Institutional access work can
 start from the bilingual [permission templates](docs/PERMISSION_REQUESTS.md); hypothesis teams use

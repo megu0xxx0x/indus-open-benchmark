@@ -34,8 +34,10 @@ immutable content-addressed identifiers for corpus and split releases.
   the V4 likelihood and doubles only the fixed within-pair emission contrast
   penalty for `quantity`/`unit` and `person_name`/`settlement_name`. Exact
   recall, precision, clean, paired-fold, one-shot, and stopping gates are
-  closed before execution. MTAAC retires after the single valid result
-  regardless of outcome, and no real V5 result exists at this checkpoint.
+  closed before execution. Its separately published result passed 7 of 15
+  gates and returned `mtaac_retired`: mild macro-F1 and `unit` recall
+  decreased from V4, the settlement recall gain remained far below its floor,
+  and no final model was fitted. MTAAC is now retired.
 - A separate, development-only MTAAC V3 plan and implementation boundary that
   leaves V2 immutable, exposes only the fixed 271-family V2 training
   partition, and excludes and does not score the 90-family V2 holdout. It

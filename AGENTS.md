@@ -79,21 +79,17 @@ development metrics improved, but the fixed mild `unit` and
 rerun or retune V4, and do not execute the prospective validation source under
 that protocol.
 
-The final MTAAC V5 code-and-plan contract changes only the emission regularizer
-for the `quantity`/`unit` and `person`/`settlement` pairs. It keeps the V4
-feature/profile, sequence, optimizer, class adjustment, parameter count, and
-fold contracts fixed; exposes no weight or grouping search; requires every
-rare-state precision, recall, macro-F1, paired-fold, and clean-integrity gate;
-and retires MTAAC after its single valid result regardless of outcome.
+The final MTAAC V5 command completed once at its public code-and-plan freeze.
+Mild macro-F1 was 0.3846, `unit` recall was 0.2937, and
+`settlement_name` recall was 0.0575. Eight of the 15 mandatory gates failed,
+the terminal status is `mtaac_retired`, and no final development model was
+fitted.
 
-After independent review and public code-and-plan freeze, the only authorized
-MTAAC work is one exact V5 command followed by aggregate validation and a
-separate result publication. Do not alter V5 after observing any scientific
-metric. Before any metric is emitted or exposed, only an environmental or I/O
-failure may retry the byte-identical implementation, plan, archive, and CLI
-arguments; every other change or partial metric retires V5 without a retry. Do
-not execute the prospective source under V5; even a pass only advances to a
-separately frozen prospective evaluator.
+Do not rerun, retune, repair, or replace V5, and do not define another MTAAC
+method attempt. The V2 holdout and prospective source remained unscored; V5
+has no passed final model and authorizes no prospective execution. Safe next
+science must use a separately preregistered task and genuinely independent
+evidence, not another adaptive use of MTAAC.
 
 The local submission commitment `S` remains implemented. An independently
 custodial hidden-test companion remains blocked until a real external

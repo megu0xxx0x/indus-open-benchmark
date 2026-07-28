@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-29
 
-**Last source-level update:** 2026-07-29 04:08 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-29 04:36 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -832,3 +832,46 @@ Ruff, formatting, Pyright, Draft 2020-12 meta-schema and runtime plan
 validation, 131 local Markdown links, fresh source and wheel builds, isolated
 wheel installation and CLI/resource checks, Gitleaks, Semgrep, Trivy, and a
 dedicated deployment-identifier and private-path scan.
+
+## Final MTAAC V5 execution completed — 2026-07-29T04:23:53+09:00
+
+The public code-and-plan freeze is implementation commit
+`b0be18d7c317d276dfefd1237c17ec0be6886cd0`. The exact V5 command completed
+once against the pinned archive. The output and captured standard output were
+byte-identical. The 59,053-byte aggregate result is
+`benchmark/results/mtaac-v5-development-v1.json`, SHA-256
+`9b60b9eb6006efc35cdca90e91fdb07c356a09becc2a1d300ef22ec16393e88f`.
+
+V5 mild out-of-fold macro-F1 is 0.3845528260, below both V4's 0.3877588814
+and the fixed 0.3977588814 gate. Only one of five fold deltas is positive.
+Mild `unit` recall is 0.2936901059, below V4's 0.3052156741 and the fixed
+0.3767836311 floor; none of five fold deltas is positive, and the worst fold
+is 0.1684979017. Mild `settlement_name` recall improves from 0.0429419136 to
+0.0574655518, with three positive fold deltas, but remains below the 0.15
+floor. Unit precision also regresses from 0.3512887015 to 0.3462416049.
+
+Seven of the 15 mandatory gates pass and eight fail. The clean macro-F1 and
+clean settlement checks pass, as do context, quantity, and person recall,
+settlement precision, and positive settlement recall in all five folds. The
+aggregate, unit, settlement-floor, paired-consistency, and worst-fold unit
+requirements do not all pass.
+
+The report is closed-schema and runtime valid. Its terminal status is
+`mtaac_retired`; the final all-development-family model is not fitted. The V2
+holdout and prospective source remain unscored. The stronger fixed pair
+contrast shrinkage produced a small settlement gain but did not solve the rare
+state problem and harmed unit and aggregate performance. The frozen test does
+not support the narrow V5 development hypothesis; it is not evidence against
+every possible linguistic or structural account of the Indus script.
+
+MTAAC development is now permanently retired by the predeclared stopping
+rule. Do not rerun, retune, repair, or replace V5 and do not create V6. Any
+future model claim requires a separately preregistered task and genuinely
+independent evidence rather than another adaptive use of MTAAC.
+
+Post-result publication validation passed all 44 focused V5 tests and all 617
+repository tests (604 passed and 13 environment-specific tests skipped),
+Ruff, formatting, Pyright, closed-schema/runtime validation, independent
+confusion/metric/gate recomputation, 135 local Markdown links, fresh source
+and wheel builds, isolated wheel installation and resource checks, Gitleaks,
+Semgrep, Trivy, and dedicated public-boundary and deployment-identifier scans.

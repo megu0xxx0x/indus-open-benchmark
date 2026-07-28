@@ -153,3 +153,29 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   validation, 131 local Markdown links, fresh source and wheel builds, isolated
   wheel installation and CLI/resource checks, Gitleaks, Semgrep, Trivy, and a
   dedicated deployment-identifier and private-path scan.
+
+## 2026-07-29T04:23:53+09:00 — Final MTAAC V5 execution completed
+
+- The code-and-plan freeze was first published at implementation commit
+  `b0be18d7c317d276dfefd1237c17ec0be6886cd0`.
+- The exact command then completed once. Its 59,053-byte aggregate
+  [result](../benchmark/results/mtaac-v5-development-v1.json) has SHA-256
+  `9b60b9eb6006efc35cdca90e91fdb07c356a09becc2a1d300ef22ec16393e88f`.
+  The owner-only output and captured standard output were byte-identical.
+- Closed-schema and runtime validation passed before publication. The report
+  contains only aggregate development evidence and no deployment identifier,
+  private path, item prediction, family membership, or reserved-source result.
+- V5 passed 7 of 15 mandatory gates. Mild macro-F1 decreased from 0.3878 to
+  0.3846 and improved over V4 in only one of five folds. Mild `unit` recall
+  decreased from 0.3052 to 0.2937 and improved in zero folds.
+  `settlement_name` recall increased from 0.0429 to 0.0575 and improved in
+  three folds, but missed its 0.15 floor.
+- The terminal status is `mtaac_retired`. No all-development-family final
+  model was fitted. The V2 holdout and prospective source remained unscored,
+  and no later MTAAC method attempt is permitted.
+- Post-result publication validation passed all 44 focused V5 tests and all
+  617 repository tests (604 passed and 13 environment-specific tests skipped),
+  Ruff, formatting, Pyright, independent metric/gate recomputation, 135 local
+  Markdown links, fresh source and wheel builds, isolated wheel installation
+  and resource checks, Gitleaks, Semgrep, Trivy, and dedicated public-boundary
+  and deployment-identifier scans.

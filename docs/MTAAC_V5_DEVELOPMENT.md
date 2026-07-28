@@ -1,6 +1,6 @@
 # MTAAC V5 final group-contrast development protocol
 
-**Status:** code-and-plan freeze; no V5 result exists at this checkpoint
+**Status:** completed once; terminal `mtaac_retired`; MTAAC retired
 
 **Scope:** final adaptive use of the reused public known-script development
 partition
@@ -8,6 +8,10 @@ partition
 **Exact plan:** `benchmark/mtaac-v5-development-v1.json`, 15,268 bytes,
 SHA-256
 `3c4a7c733218fcd0c4e6e25fbd59e5b86c1fd589512e9a88bb243b1d036c10f1`
+
+**Recorded result:** [aggregate V5 result](MTAAC_V5_DEVELOPMENT_RESULT_2026-07-29.md),
+59,053 bytes, SHA-256
+`9b60b9eb6006efc35cdca90e91fdb07c356a09becc2a1d300ef22ec16393e88f`
 
 ## Why one final MTAAC run
 
@@ -114,6 +118,16 @@ only with the exact same implementation commit, plan bytes, archive bytes, and
 CLI arguments, and only when no scientific metric was emitted or exposed. Any
 code, plan, data, or argument change—or any exposed partial scientific
 metric—retires V5/MTAAC without another MTAAC attempt.
+
+## Recorded outcome
+
+The exact command completed once at public implementation commit
+`b0be18d7c317d276dfefd1237c17ec0be6886cd0`. V5 passed 7 of 15 mandatory
+gates. Mild macro-F1 was 0.3846, `unit` recall was 0.2937, and
+`settlement_name` recall was 0.0575. The terminal result is
+`mtaac_retired`; no final development model was fitted. The V2 holdout and
+prospective source remained unscored. The predeclared stopping rule prohibits
+another MTAAC attempt.
 
 ## Non-claims
 
