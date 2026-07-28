@@ -217,18 +217,22 @@ for the v0.2 volume target.
   with positive V3 deltas in all five folds, but mild `unit` recall 0.3052 and
   `settlement_name` recall 0.0429 failed their frozen floors. The terminal
   decision is `development_killed`; no final model was fitted.
-- [x] Keep the prospective source unloaded after the V4 kill. This protocol
-  cannot define or execute a prospective evaluator, and its source
-  qualification remains neither performance evidence nor binding
+- [x] Keep the prospective source unexecuted and unscored after the V4 kill.
+  This protocol cannot define or execute a prospective evaluator, and its
+  source qualification remains neither performance evidence nor binding
   confirmation.
-- [ ] If MTAAC development continues, freeze one final V5 attempt rather than
-  open-ended tuning: retain the V4 observations, profile, folds, sequence
-  structure, parameter count, and optimizer. Change only the emission
-  regularizer: preserve the V4 penalty on each pair's mean direction and
-  apply exactly twice that penalty to the `quantity`/`unit` and
-  `person`/`settlement` contrast directions. Search no pooling weight.
-  Require rare-state precision as well as recall and retire MTAAC after that
-  single result regardless of outcome.
+- [x] Freeze one final V5 code-and-plan attempt rather than open-ended tuning.
+  It retains the V4 observations, profile, folds, sequence structure,
+  parameter count, and optimizer; changes only the fixed emission contrast
+  regularizer; searches no weight or grouping; and requires rare-state
+  precision, recall, paired-fold, and clean gates. MTAAC retires after the
+  single valid result regardless of outcome.
+- [ ] Execute the exact V5 network-free command once at its public
+  code-and-plan freeze, validate every recomputable metric aggregate, support
+  invariant, gate, and stopping assertion, and publish the result separately.
+  Only a pre-metric environmental or I/O failure may retry byte-identical
+  code, plan, archive, and CLI arguments; any other change or exposed partial
+  metric retires V5 without retry. Do not load the prospective source.
 - [ ] Freeze a non-cherry-pickable binding-confirmation source-selection
   mechanism: independent custody before development or a public random beacon
   over a predeclared eligible pool after model freeze. It must select a

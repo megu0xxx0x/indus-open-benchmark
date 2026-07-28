@@ -84,7 +84,17 @@ improved mild macro-F1 from V3's 0.3243 to 0.3878 in a positive direction on
 all five paired outer folds. It nevertheless returned `development_killed`:
 mild `unit` recall was 0.3052 against a 0.3768 floor, and
 `settlement_name` recall was 0.0429 against a 0.15 floor. The final model was
-not fitted, and the prospective source remains unloaded and prohibited.
+not fitted. The prospective source was not loaded or scored by V4 and remains
+prohibited from performance execution.
+
+The [final MTAAC V5 protocol](docs/MTAAC_V5_DEVELOPMENT.md) predeclares one
+last adaptive known-script test before retiring MTAAC. It keeps V4's data,
+features, five-state capacity, folds, likelihood, class adjustment, and
+optimizer fixed, and doubles only the regularization on the
+`quantity`/`unit` and `person_name`/`settlement_name` emission contrast
+directions. There is one candidate, no diagnostics or tuning grid, rare-state
+precision cannot regress, and fold-level gains are mandatory. No real V5
+result exists at the code-and-plan checkpoint.
 
 Before any V3 model fitting, all eligibility-qualified, non-excluded
 records from the exact CC0
@@ -209,6 +219,11 @@ permission by itself.
   claim. Its separately published result improved overall and on every paired
   fold but failed the fixed mild `unit` and `settlement_name` recall gates,
   returned `development_killed`, and fitted no final model.
+- A final MTAAC V5 code-and-plan contract that preserves V4's parameter count
+  and full observation/model pipeline while changing only the fixed emission
+  contrast regularizer. Its exact rare-state recall, precision, paired-fold,
+  clean-integrity, one-shot, and MTAAC-retirement gates are fixed before any
+  real V5 execution. No V5 result exists at this checkpoint.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -615,6 +630,7 @@ Read the [scientific standard](docs/BENCHMARK.md), [schema contract](docs/SCHEMA
 [MTAAC V4 development protocol](docs/MTAAC_V4_DEVELOPMENT.md),
 [MTAAC V4 world-research synthesis](docs/MTAAC_V4_WORLD_RESEARCH_2026-07-29.md),
 [MTAAC V4 development result](docs/MTAAC_V4_DEVELOPMENT_RESULT_2026-07-29.md),
+[MTAAC V5 final development protocol](docs/MTAAC_V5_DEVELOPMENT.md),
 [annotation guide](docs/ANNOTATION_GUIDE.md), [data policy](DATA_POLICY.md), and
 [contribution guide](CONTRIBUTING.md) before adding data or models. Institutional access work can
 start from the bilingual [permission templates](docs/PERMISSION_REQUESTS.md); hypothesis teams use

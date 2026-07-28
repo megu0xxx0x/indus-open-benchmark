@@ -29,6 +29,13 @@ immutable content-addressed identifiers for corpus and split releases.
   its 0.15 floor. Every optimizer converged, the closed schema and complete
   metric/gate recomputation passed, no final model was fitted, and the V2
   holdout and prospective validation source remained unused.
+- A separately frozen, final MTAAC V5 development protocol. V5 adds no model
+  parameters, features, folds, diagnostics, or candidate search; it preserves
+  the V4 likelihood and doubles only the fixed within-pair emission contrast
+  penalty for `quantity`/`unit` and `person_name`/`settlement_name`. Exact
+  recall, precision, clean, paired-fold, one-shot, and stopping gates are
+  closed before execution. MTAAC retires after the single valid result
+  regardless of outcome, and no real V5 result exists at this checkpoint.
 - A separate, development-only MTAAC V3 plan and implementation boundary that
   leaves V2 immutable, exposes only the fixed 271-family V2 training
   partition, and excludes and does not score the 90-family V2 holdout. It

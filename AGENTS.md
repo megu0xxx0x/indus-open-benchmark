@@ -79,17 +79,21 @@ development metrics improved, but the fixed mild `unit` and
 rerun or retune V4, and do not execute the prospective validation source under
 that protocol.
 
-Safe next method work may specify one separately frozen, final MTAAC V5
-development attempt. Keep the V4 feature/profile, sequence, optimizer, class
-adjustment, parameter count, and fold contracts fixed. Change only the
-emission regularizer for the `quantity`/`unit` and `person`/`settlement`
-pairs: use an orthogonal mean/contrast representation with the V4 penalty on
-the shared direction and exactly twice that penalty on the within-pair
-contrast. Do not search a pooling weight or fit a naive non-identifiable
-shared-plus-residual parameterization. Require rare-state precision
-non-regression as well as recall, macro-F1, paired-fold, and clean-integrity
-gates, and declare MTAAC retired after the single result regardless of
-outcome.
+The final MTAAC V5 code-and-plan contract changes only the emission regularizer
+for the `quantity`/`unit` and `person`/`settlement` pairs. It keeps the V4
+feature/profile, sequence, optimizer, class adjustment, parameter count, and
+fold contracts fixed; exposes no weight or grouping search; requires every
+rare-state precision, recall, macro-F1, paired-fold, and clean-integrity gate;
+and retires MTAAC after its single valid result regardless of outcome.
+
+After independent review and public code-and-plan freeze, the only authorized
+MTAAC work is one exact V5 command followed by aggregate validation and a
+separate result publication. Do not alter V5 after observing any scientific
+metric. Before any metric is emitted or exposed, only an environmental or I/O
+failure may retry the byte-identical implementation, plan, archive, and CLI
+arguments; every other change or partial metric retires V5 without a retry. Do
+not execute the prospective source under V5; even a pass only advances to a
+separately frozen prospective evaluator.
 
 The local submission commitment `S` remains implemented. An independently
 custodial hidden-test companion remains blocked until a real external

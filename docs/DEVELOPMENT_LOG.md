@@ -119,3 +119,37 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   tests with 13 environment-specific skips, source and wheel builds, local
   Markdown links, runtime/schema result validation, Gitleaks, Semgrep, Trivy,
   and a dedicated deployment-identifier scan.
+
+## 2026-07-29T04:00:00+09:00 — Final MTAAC V5 code-and-plan freeze
+
+- V5 is the final adaptive MTAAC attempt. It reuses V4's exact development
+  partition, folds, observations, features, profile, likelihood, parameter
+  layout, class adjustment, family weighting, initialization, and optimizer.
+- The only model change is a fixed group-contrast regularizer. For
+  `quantity`/`unit` and `person_name`/`settlement_name`, V5 preserves the V4
+  mean-direction penalty and doubles the within-pair emission and bias
+  contrast penalty. It adds no parameter and exposes no multiplier, grouping,
+  diagnostic, or candidate search.
+- The exact 15,268-byte
+  [plan](../benchmark/mtaac-v5-development-v1.json) has SHA-256
+  `3c4a7c733218fcd0c4e6e25fbd59e5b86c1fd589512e9a88bb243b1d036c10f1`.
+  It binds the V4 freeze/result and exact fold baselines, 15 mandatory gates,
+  the `1e-12` comparison rule, MTAAC retirement, and byte-identical pre-report
+  retry conditions.
+- The runner fits one V5 primary model per outer fold and no V4 or diagnostic
+  model. The closed validator reconstructs every scientific metric from
+  confusion, out-of-fold sums, three V4-paired comparisons, support/mass
+  invariants, all gates, and the terminal state before no-replace output.
+- A valid failure returns `mtaac_retired` and fits no final model. A valid pass
+  returns `advance_to_prospective_freeze`, fits only the all-development-family
+  V5 model, and still retires MTAAC. Either outcome prohibits another MTAAC
+  method attempt.
+- Independent adversarial review found no execution blocker. No real V5
+  metric exists at this checkpoint; MTAAC, the V2 holdout, and the prospective
+  source have not been executed for V5.
+- Pre-publication validation passed all 39 focused V5 tests and all 612
+  repository tests (599 passed and 13 environment-specific tests skipped),
+  Ruff, formatting, Pyright, Draft 2020-12 meta-schema and runtime plan
+  validation, 131 local Markdown links, fresh source and wheel builds, isolated
+  wheel installation and CLI/resource checks, Gitleaks, Semgrep, Trivy, and a
+  dedicated deployment-identifier and private-path scan.

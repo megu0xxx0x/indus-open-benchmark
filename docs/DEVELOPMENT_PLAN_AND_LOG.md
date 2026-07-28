@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-29
 
-**Last source-level update:** 2026-07-29 03:25 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-29 04:08 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -768,3 +768,67 @@ Post-result publication validation passed Ruff, formatting, Pyright, all 573
 tests with 13 environment-specific skips, source and wheel builds, local
 Markdown links, the runtime/schema result verifier, Gitleaks, Semgrep, Trivy,
 and a dedicated scan for deployment identifiers.
+
+## Final MTAAC V5 code-and-plan freeze — 2026-07-29T04:00:00+09:00
+
+The V4 result showed real overall and paired improvement but failed the mild
+`unit` and `settlement_name` recall gates. Its aggregate confusion indicates
+that missed units flow mainly to `context_only`, while missed settlements flow
+almost entirely to `context_only` or `person_name`. V5 therefore tests one
+narrow, result-adaptive hypothesis and then retires MTAAC.
+
+The exact 15,268-byte plan is
+`benchmark/mtaac-v5-development-v1.json`, SHA-256
+`3c4a7c733218fcd0c4e6e25fbd59e5b86c1fd589512e9a88bb243b1d036c10f1`.
+It binds the V4 code freeze, result commit, result SHA, aggregate precision and
+recall baselines, and all five fold-by-fold comparison vectors.
+
+V5 retains V4's data boundary, observations, 10 local and 24 LOFO profile
+features, five-state parameter layout, family-weighted conditional
+likelihood, class adjustment, exact outer folds, zero initialization, and
+deterministic L-BFGS. For every emission coefficient and bias in the
+`quantity`/`unit` and `person_name`/`settlement_name` pairs, it writes
+`mu = (beta_a + beta_b) / 2` and
+`kappa = (beta_a - beta_b) / 2`, then applies
+`rho * (mu^2 + 2 * kappa^2)` at `rho = 0.01`. Context, start, and transition
+parameters retain V4's ordinary L2 penalty. The parameter count and
+representable score family are unchanged; the inductive bias changes. The
+contrast multiplier is fixed at 2 and has no runtime API. No grouping, weight,
+class-offset, diagnostic, V4-refit, or fallback choice exists.
+
+The 15 mandatory checks cover mild macro-F1, all five recall floors, rare-state
+precision non-regression, clean macro-F1 and settlement integrity, positive
+V5-minus-V4 fold deltas for macro-F1/unit/settlement in at least four of five
+folds, positive settlement recall in all folds, and the V4 worst-fold unit
+recall floor. Minimum comparisons and strict positive comparisons use the
+predeclared `1e-12` rule.
+
+The closed Draft 2020-12 report schema and runtime validator reject unknown
+fields and all item, membership, path, host, account, annotation, and
+prospective-source detail. The validator recalculates each fold metric from
+its 5-by-5 confusion, sums fold confusions before deriving OOF metrics,
+rebuilds all three V4-paired vectors and counts, verifies fold support and
+family-mass partitions, and recalculates every gate and terminal state.
+Optimizer summaries and profile commitments are closed attestations because
+an aggregate-only report intentionally cannot reconstruct their private
+inputs.
+
+A complete runtime- and schema-valid report is the single valid result. A
+pre-report environmental or I/O failure may retry only byte-identical code,
+plan, archive, and arguments before any metric is emitted. Any changed
+condition or exposed partial metric retires V5/MTAAC without another attempt.
+A valid failed report is `mtaac_retired` with no final model. A valid pass is
+`advance_to_prospective_freeze`, fits only the final development model, and
+also retires MTAAC. A pass still authorizes no prospective execution until a
+separate evaluator freeze.
+
+Independent mathematical, contract, runner, CLI, and adversarial reviews found
+no execution blocker. At this checkpoint no real V5 result exists, and V5 has
+not executed MTAAC, the V2 holdout, or the prospective source.
+
+The final pre-publication audit passed all 39 focused V5 tests and all 612
+repository tests (599 passed and 13 environment-specific tests skipped),
+Ruff, formatting, Pyright, Draft 2020-12 meta-schema and runtime plan
+validation, 131 local Markdown links, fresh source and wheel builds, isolated
+wheel installation and CLI/resource checks, Gitleaks, Semgrep, Trivy, and a
+dedicated deployment-identifier and private-path scan.
