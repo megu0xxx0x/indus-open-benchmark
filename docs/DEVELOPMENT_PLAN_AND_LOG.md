@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-29
 
-**Last source-level update:** 2026-07-29 02:34 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-29 03:25 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -702,3 +702,69 @@ the result separately. A valid negative result ends this protocol. A valid
 advance result permits only the specified all-development-family model fit and
 still does not authorize prospective validation, binding confirmation, an
 Indus reading, a prize submission, or institutional contact.
+
+## MTAAC V4 development result — 2026-07-29T03:11:52+09:00
+
+The code-and-plan freeze was published at
+`304f8b36a32083330b8af02d21a58382c29d8915`. The exact fixed command then
+completed once. Its 164,563-byte aggregate output is
+`benchmark/results/mtaac-v4-development-v1.json`, SHA-256
+`4772993941494e19775fe88acec144a008bebd63258afdf2f84f8b9a3f4af897`.
+Every outer-fold CRF, local-only CRF, and independent logistic diagnostic
+converged under the frozen optimizer contract.
+
+Primary mild out-of-fold macro-F1 is 0.3878, compared with immutable V3's
+0.3243. Every paired outer fold improved, and the full-profile primary exceeded
+the local-only diagnostic by 0.0608 macro-F1. Transition-zero decoding scored
+0.3443 and independent logistic emissions scored 0.3569, so both the profile
+and fitted sequence component contributed within this reused known-script
+development task. Self-inclusive profiling added only 0.0067 over LOFO, while
+the strict single-family diagnostic fell to 0.2562; the method is explicitly
+target-batch dependent.
+
+The fixed decision nevertheless returned `development_killed`. Mild `unit`
+recall was 0.3052 against its 0.3768 floor, and mild `settlement_name` recall
+was 0.0429 against its 0.15 floor. All other gates passed, including mild
+macro-F1, five-of-five positive paired deltas, profile increment, clean
+integrity, the other recall floors, and self-information sensitivity. Because
+every gate was mandatory, diagnostics cannot rescue the result. The all-271
+final development model was not fitted and has no model-state commitment.
+
+The closed runtime and release schema, recursive public boundary, every
+confusion-derived metric, summed out-of-fold confusion, paired V3 comparison,
+and gate decision recomputed exactly. The report contains no item identifier,
+feature row, family/fold membership, raw annotation, local path, account,
+network address, or prospective-source result.
+
+The V2 holdout and prospective validation source remained unloaded and
+unscored. V4 cannot execute that source. Its improvement is useful
+known-script method evidence but does not establish transfer, an Indus
+reading, translation, decipherment, binding confirmation, or prize evidence.
+
+If MTAAC is used once more, the highest-information final attempt is a
+separately frozen V5 with no new parameter capacity. V4 features, LOFO
+target-batch profiling, sequence structure, optimizer, class adjustment,
+parameter count, and five outer folds should remain fixed. Change only the
+emission regularizer for the `quantity`/`unit` and `person`/`settlement`
+pairs, including their biases. For each pair define
+`mu = (beta_a + beta_b) / 2` and `kappa = (beta_a - beta_b) / 2`, preserve
+V4's common-direction penalty, and use the single fixed pair penalty
+`rho * (||mu||^2 + 2 * ||kappa||^2)` at `rho = 0.01`. Context emissions,
+start weights, and transition weights retain V4's ordinary
+`rho / 2 * ||beta||^2` penalty. This orthogonal group-contrast contract has
+the same five-state parameter count, is identifiable, and contains no
+pooling-weight search; a naive shared-plus-residual decomposition is
+prohibited.
+
+Rare-state precision must not regress from V4 while unit and settlement
+recall meet the existing floors. V5 must also require material mild macro-F1
+improvement and consistent fold-level rare-state gains, rather than accepting
+a pure class-tradeoff. It must declare in advance that MTAAC is retired after
+that one result regardless of outcome. A V5 failure ends this feature/model
+family; a V5 pass still requires a separate prospective evaluator freeze and
+is not fresh evidence.
+
+Post-result publication validation passed Ruff, formatting, Pyright, all 573
+tests with 13 environment-specific skips, source and wheel builds, local
+Markdown links, the runtime/schema result verifier, Gitleaks, Semgrep, Trivy,
+and a dedicated scan for deployment identifiers.

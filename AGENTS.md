@@ -73,10 +73,27 @@ placeholder paths in examples.
 
 ## Current safe next work
 
-The local submission commitment `S` is implemented. The next protocol layer is
-an independently custodial hidden-test companion, but it remains blocked until
-a real external custodian, storage/access procedure, and explicit authority
-exist.
+MTAAC V4 completed once and returned `development_killed`. Overall and paired
+development metrics improved, but the fixed mild `unit` and
+`settlement_name` recall gates failed. No final V4 model was fitted. Do not
+rerun or retune V4, and do not execute the prospective validation source under
+that protocol.
+
+Safe next method work may specify one separately frozen, final MTAAC V5
+development attempt. Keep the V4 feature/profile, sequence, optimizer, class
+adjustment, parameter count, and fold contracts fixed. Change only the
+emission regularizer for the `quantity`/`unit` and `person`/`settlement`
+pairs: use an orthogonal mean/contrast representation with the V4 penalty on
+the shared direction and exactly twice that penalty on the within-pair
+contrast. Do not search a pooling weight or fit a naive non-identifiable
+shared-plus-residual parameterization. Require rare-state precision
+non-regression as well as recall, macro-F1, paired-fold, and clean-integrity
+gates, and declare MTAAC retired after the single result regardless of
+outcome.
+
+The local submission commitment `S` remains implemented. An independently
+custodial hidden-test companion remains blocked until a real external
+custodian, storage/access procedure, and explicit authority exist.
 
 Safe public work may improve source/provenance/rights evidence, harden the
 non-blind development protocols, extend synthetic interoperability tests, or

@@ -91,3 +91,31 @@ The complete method boundary and execution order are documented in
 
 The exact feature, optimizer, diagnostic, and decision contracts are recorded
 in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
+
+## 2026-07-29T03:11:52+09:00 — MTAAC V4 development result recorded
+
+- The code-and-plan freeze was first published at implementation commit
+  `304f8b36a32083330b8af02d21a58382c29d8915`.
+- The fixed command then completed once. Every optimizer converged, and the
+  164,563-byte aggregate
+  [result](../benchmark/results/mtaac-v4-development-v1.json) has SHA-256
+  `4772993941494e19775fe88acec144a008bebd63258afdf2f84f8b9a3f4af897`.
+- The closed schema, recursive public boundary, every confusion-derived
+  metric, every out-of-fold confusion sum, all five paired V3 deltas, and
+  every decision gate were independently recomputed.
+- Mild macro-F1 improved from V3's 0.3243 to 0.3878, all five paired fold
+  deltas were positive, and the full profile exceeded the local-only
+  diagnostic by 0.0608.
+- Mild `unit` recall was 0.3052 against its 0.3768 floor, and mild
+  `settlement_name` recall was 0.0429 against its 0.15 floor. Because all
+  gates were mandatory, the terminal decision is `development_killed`.
+- No final all-family model was fitted. The V2 holdout and prospective
+  validation source remained unloaded and unscored; this protocol cannot
+  execute that source.
+- V4 is a material known-script method improvement, not a transferable or
+  decipherment result. Any V5 must be separately frozen, be the final MTAAC
+  development attempt, and include a stopping rule.
+- Post-result publication checks passed: Ruff, formatting, Pyright, all 573
+  tests with 13 environment-specific skips, source and wheel builds, local
+  Markdown links, runtime/schema result validation, Gitleaks, Semgrep, Trivy,
+  and a dedicated deployment-identifier scan.

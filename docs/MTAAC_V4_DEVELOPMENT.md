@@ -1,8 +1,10 @@
 # MTAAC V4 distributional development protocol
 
-**Status:** code-and-plan freeze; no V4 result exists at this checkpoint
+**Status:** executed once; terminal decision `development_killed`
 
 **Scope:** reused known-script development data only
+
+**Result:** [aggregate result and interpretation](MTAAC_V4_DEVELOPMENT_RESULT_2026-07-29.md)
 
 **Exact plan:** `benchmark/mtaac-v4-development-v1.json`, 10,354 bytes,
 SHA-256

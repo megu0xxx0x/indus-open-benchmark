@@ -1,0 +1,4230 @@
+{
+  "analysis": "mtaac_v4_distributional_crf_development",
+  "claim_scope": {
+    "class": "development_only",
+    "eligible_as_binding_confirmation": false,
+    "eligible_as_decipherment": false,
+    "eligible_as_reserved_validation_result": false,
+    "eligible_as_v2_holdout_result": false,
+    "individual_predictions_published": false
+  },
+  "data_boundary": {
+    "model_training_family_count": 271,
+    "regimes_used": [
+      "clean",
+      "mild"
+    ],
+    "replica_index_used": 0,
+    "reserved_validation_source_loaded": false,
+    "v2_holdout_exposed_to_model": false,
+    "v2_holdout_family_count_excluded": 90,
+    "v2_holdout_scored": false
+  },
+  "development_only": true,
+  "final_development_model": {
+    "fit_rule": "fit_all_271_families_only_after_advance",
+    "fitted": false,
+    "model_state_commitment": null,
+    "optimizer": null
+  },
+  "gate_decision": {
+    "all_passed": false,
+    "checks": {
+      "clean_macro_f1": {
+        "minimum": 0.36,
+        "observed": 0.4780972874281771,
+        "passed": true
+      },
+      "clean_settlement_name_recall": {
+        "minimum": 0.1,
+        "observed": 0.12118560657145203,
+        "passed": true
+      },
+      "mild_macro_f1": {
+        "minimum": 0.36432759235715434,
+        "observed": 0.3877588813953674,
+        "passed": true
+      },
+      "mild_recall_floors": {
+        "context_only": {
+          "minimum": 0.520654531441017,
+          "observed": 0.7228141493617145,
+          "passed": true
+        },
+        "person_name": {
+          "minimum": 0.4988092152820551,
+          "observed": 0.7025885865030596,
+          "passed": true
+        },
+        "quantity": {
+          "minimum": 0.1765055025096581,
+          "observed": 0.24246731700040067,
+          "passed": true
+        },
+        "unit": {
+          "minimum": 0.3767836311289388,
+          "observed": 0.30521567409297784,
+          "passed": false
+        }
+      },
+      "mild_settlement_name_recall": {
+        "minimum": 0.15,
+        "observed": 0.042941913609110954,
+        "passed": false
+      },
+      "positive_paired_delta_outer_fold_count": {
+        "minimum": 4,
+        "observed": 5,
+        "passed": true
+      },
+      "profile_increment_mild_macro_f1": {
+        "minimum": 0.02,
+        "observed": 0.060781211731727514,
+        "passed": true
+      },
+      "self_inclusive_minus_lofo_mild_macro_f1": {
+        "maximum": 0.05,
+        "observed": 0.006662284334114477,
+        "passed": true
+      }
+    },
+    "self_information_sensitive": false,
+    "terminal_status": "development_killed"
+  },
+  "implementation_commit": "304f8b36a32083330b8af02d21a58382c29d8915",
+  "model_contract": {
+    "candidate_count": 1,
+    "candidate_selection": "none_fixed_method",
+    "class_adjustment_gamma": 0.5,
+    "class_prior_smoothing": "family_weighted_jeffreys_alpha_0.5",
+    "diagnostics": [
+      "no_corpus_profile",
+      "transition_zero",
+      "logistic_emission",
+      "self_inclusive_target_profile",
+      "strict_single_family_profile"
+    ],
+    "family_weighting": "inverse_total_clean_mild_family_tokens",
+    "l2_rho": 0.01,
+    "optimizer": {
+      "armijo": {
+        "c1": 0.0001,
+        "contraction_factor": 0.5,
+        "initial_step": 1.0,
+        "maximum_trials": 31,
+        "minimum_step": 9.313225746154785e-10
+      },
+      "batch": "full",
+      "convergence": {
+        "consecutive_relative_objective_iterations": 5,
+        "gradient_infinity_norm": 1e-05,
+        "relative_objective": 1e-09,
+        "secondary_gradient_infinity_norm": 0.001
+      },
+      "curvature_pair_acceptance": "s_dot_y_strictly_greater_than_1e-12_times_norm_s_times_norm_y",
+      "direction": "deterministic_lbfgs_two_loop_recursion",
+      "fallback": false,
+      "history_size": 10,
+      "maximum_accepted_iterations": 100,
+      "non_descent_policy": "clear_history_once_then_use_negative_gradient_repeat_is_hard_error",
+      "numeric_type": "float64",
+      "stable_logsumexp": "maximum_shift",
+      "summation": "sorted_math_fsum"
+    },
+    "states": [
+      "context_only",
+      "quantity",
+      "unit",
+      "person_name",
+      "settlement_name"
+    ],
+    "version": "v4-distributional-linear-chain-crf-v1"
+  },
+  "model_executed": true,
+  "outer_development": {
+    "fold_assignment_parent": "exact_v3_five_outer_fold_assignments",
+    "out_of_fold_metrics": {
+      "diagnostics": {
+        "logistic_emission": {
+          "balanced_accuracy": 0.3559850046388481,
+          "macro_f1": 0.35693883963428447,
+          "per_state": {
+            "context_only": {
+              "f1": 0.7412238363526817,
+              "precision": 0.6856021882772565,
+              "predicted_mass": 200.0924562039999,
+              "recall": 0.8066672726809165,
+              "truth_mass": 170.06246624498618
+            },
+            "person_name": {
+              "f1": 0.4695790765659139,
+              "precision": 0.387676663289031,
+              "predicted_mass": 51.502897447597476,
+              "recall": 0.5953570307054484,
+              "truth_mass": 33.536970930776
+            },
+            "quantity": {
+              "f1": 0.2747219188735491,
+              "precision": 0.5661605349507122,
+              "predicted_mass": 13.23811326934519,
+              "recall": 0.1813629460403689,
+              "truth_mass": 41.32540551388227
+            },
+            "settlement_name": {
+              "f1": 0.020251039551906262,
+              "precision": 0.3187951948800585,
+              "predicted_mass": 0.27748705087860775,
+              "recall": 0.010457674694309263,
+              "truth_mass": 8.459006523665959
+            },
+            "unit": {
+              "f1": 0.27891832682737144,
+              "precision": 0.5566292177018847,
+              "predicted_mass": 5.88904602817885,
+              "recall": 0.18608009907319736,
+              "truth_mass": 17.616150786689598
+            }
+          },
+          "states": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ],
+          "total_family_mass": 271.0,
+          "weighted_accuracy": 0.6199692663316712,
+          "weighted_confusion_matrix": {
+            "context_only": {
+              "context_only": 137.18382583123343,
+              "person_name": 27.03094647297742,
+              "quantity": 4.300157103671044,
+              "settlement_name": 0.12314575001251475,
+              "unit": 1.4243910870917667
+            },
+            "person_name": {
+              "context_only": 13.498271685468499,
+              "person_name": 19.96647143220174,
+              "quantity": 0.06657809559163524,
+              "settlement_name": 0.005649717514124294,
+              "unit": 0.0
+            },
+            "quantity": {
+              "context_only": 30.517838100829387,
+              "person_name": 2.1102081151771976,
+              "quantity": 7.494897290310593,
+              "settlement_name": 0.047072150153588156,
+              "unit": 1.1553898574114987
+            },
+            "settlement_name": {
+              "context_only": 6.124074116528649,
+              "person_name": 2.1874430908979936,
+              "quantity": 0.027777777777777776,
+              "settlement_name": 0.08846153846153847,
+              "unit": 0.03125
+            },
+            "unit": {
+              "context_only": 12.768446469939908,
+              "person_name": 0.20782833634312547,
+              "quantity": 1.3487030019941393,
+              "settlement_name": 0.013157894736842105,
+              "unit": 3.278015083675584
+            }
+          },
+          "worst_state_recall": 0.010457674694309263
+        },
+        "no_corpus_profile": {
+          "balanced_accuracy": 0.3725252279674257,
+          "macro_f1": 0.3269776696636399,
+          "per_state": {
+            "context_only": {
+              "f1": 0.6372843480103623,
+              "precision": 0.7029926523789238,
+              "predicted_mass": 140.98869914321176,
+              "recall": 0.5828094920331232,
+              "truth_mass": 170.06246624498618
+            },
+            "person_name": {
+              "f1": 0.45815092487303394,
+              "precision": 0.3465574325335943,
+              "predicted_mass": 65.39298854402391,
+              "recall": 0.6757445764047508,
+              "truth_mass": 33.536970930776
+            },
+            "quantity": {
+              "f1": 0.29702687712467474,
+              "precision": 0.33144631938980607,
+              "predicted_mass": 33.54989023891249,
+              "recall": 0.26908356971558417,
+              "truth_mass": 41.32540551388227
+            },
+            "settlement_name": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "predicted_mass": 0.0,
+              "recall": 0.0,
+              "truth_mass": 8.459006523665959
+            },
+            "unit": {
+              "f1": 0.24242619831012852,
+              "precision": 0.18994231324137317,
+              "predicted_mass": 31.068422073851842,
+              "recall": 0.3349885016836704,
+              "truth_mass": 17.616150786689598
+            }
+          },
+          "states": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ],
+          "total_family_mass": 271.0,
+          "weighted_accuracy": 0.5121684183569833,
+          "weighted_confusion_matrix": {
+            "context_only": {
+              "context_only": 99.11401956614054,
+              "person_name": 37.88113381778786,
+              "quantity": 17.478426296044415,
+              "settlement_name": 0.0,
+              "unit": 15.588886565013354
+            },
+            "person_name": {
+              "context_only": 9.726518176751565,
+              "person_name": 22.66242621551567,
+              "quantity": 0.5288331018338503,
+              "settlement_name": 0.0,
+              "unit": 0.619193436674914
+            },
+            "quantity": {
+              "context_only": 21.221412914077746,
+              "person_name": 1.7347532338424976,
+              "quantity": 11.119987635619525,
+              "settlement_name": 0.0,
+              "unit": 7.249251730342497
+            },
+            "settlement_name": {
+              "context_only": 3.350718579552343,
+              "person_name": 2.9709354067997946,
+              "quantity": 0.42747015295950386,
+              "settlement_name": 0.0,
+              "unit": 1.7098823843543176
+            },
+            "unit": {
+              "context_only": 7.576029906689554,
+              "person_name": 0.14373987007808778,
+              "quantity": 3.9951730524551987,
+              "settlement_name": 0.0,
+              "unit": 5.9012079574667595
+            }
+          },
+          "worst_state_recall": 0.0
+        },
+        "self_inclusive_target_profile": {
+          "balanced_accuracy": 0.417453483194614,
+          "macro_f1": 0.3944211657294819,
+          "per_state": {
+            "context_only": {
+              "f1": 0.6941667513097346,
+              "precision": 0.7156368912024583,
+              "predicted_mass": 160.15545196686577,
+              "recall": 0.673947357611436,
+              "truth_mass": 170.06246624498618
+            },
+            "person_name": {
+              "f1": 0.4862939159053469,
+              "precision": 0.3730783385075788,
+              "predicted_mass": 62.759376725929506,
+              "recall": 0.6981597724794647,
+              "truth_mass": 33.536970930776
+            },
+            "quantity": {
+              "f1": 0.3449701403413248,
+              "precision": 0.5295526600635245,
+              "predicted_mass": 19.96265041033776,
+              "recall": 0.25580570826247323,
+              "truth_mass": 41.32540551388227
+            },
+            "settlement_name": {
+              "f1": 0.11843217249621579,
+              "precision": 0.10386068899072297,
+              "predicted_mass": 11.219928705974858,
+              "recall": 0.13775962018342533,
+              "truth_mass": 8.459006523665959
+            },
+            "unit": {
+              "f1": 0.3282428485947874,
+              "precision": 0.33517138664027346,
+              "predicted_mass": 16.90259219089212,
+              "recall": 0.32159495743627076,
+              "truth_mass": 17.616150786689598
+            }
+          },
+          "states": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ],
+          "total_family_mass": 271.0,
+          "weighted_accuracy": 0.5735393474699326,
+          "weighted_confusion_matrix": {
+            "context_only": {
+              "context_only": 114.61314975469246,
+              "person_name": 34.56453801371611,
+              "quantity": 6.943902383752639,
+              "settlement_name": 6.40499178538959,
+              "unit": 7.535884307435385
+            },
+            "person_name": {
+              "context_only": 9.232094592374542,
+              "person_name": 23.414163994680994,
+              "quantity": 0.12325693668384347,
+              "settlement_name": 0.7019024021601902,
+              "unit": 0.06555300487642804
+            },
+            "quantity": {
+              "context_only": 23.336814460134264,
+              "person_name": 2.0474985429075434,
+              "quantity": 10.571274626712569,
+              "settlement_name": 1.9141483676517286,
+              "unit": 3.4556695164761613
+            },
+            "settlement_name": {
+              "context_only": 4.523935671987373,
+              "person_name": 2.468112654752901,
+              "quantity": 0.12142857142857143,
+              "settlement_name": 1.1653095258293396,
+              "unit": 0.18022009966777408
+            },
+            "unit": {
+              "context_only": 8.449457487677126,
+              "person_name": 0.26506351987195975,
+              "quantity": 2.202787891760134,
+              "settlement_name": 1.03357662494401,
+              "unit": 5.665265262436369
+            }
+          },
+          "worst_state_recall": 0.13775962018342533
+        },
+        "strict_single_family_profile": {
+          "balanced_accuracy": 0.29796797535720254,
+          "macro_f1": 0.25619767750439115,
+          "per_state": {
+            "context_only": {
+              "f1": 0.6921255835894576,
+              "precision": 0.6444782659054151,
+              "predicted_mass": 197.21595210041835,
+              "recall": 0.7473806397436639,
+              "truth_mass": 170.06246624498618
+            },
+            "person_name": {
+              "f1": 0.43520974069531543,
+              "precision": 0.32589285363494364,
+              "predicted_mass": 67.3925950941734,
+              "recall": 0.6548821947706022,
+              "truth_mass": 33.536970930776
+            },
+            "quantity": {
+              "f1": 0.0606336706283889,
+              "precision": 0.42267845028267614,
+              "predicted_mass": 3.1931143757712217,
+              "recall": 0.032659344031673906,
+              "truth_mass": 41.32540551388227
+            },
+            "settlement_name": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "predicted_mass": 0.0136986301369863,
+              "recall": 0.0,
+              "truth_mass": 8.459006523665959
+            },
+            "unit": {
+              "f1": 0.09301939260879388,
+              "precision": 0.3037826925377618,
+              "predicted_mass": 3.1846397995000353,
+              "recall": 0.0549176982400727,
+              "truth_mass": 17.616150786689598
+            }
+          },
+          "states": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ],
+          "total_family_mass": 271.0,
+          "weighted_accuracy": 0.5586024318695529,
+          "weighted_confusion_matrix": {
+            "context_only": {
+              "context_only": 127.10139481856302,
+              "person_name": 40.110823945118966,
+              "quantity": 1.5167848720262327,
+              "settlement_name": 0.0,
+              "unit": 1.3334626092779567
+            },
+            "person_name": {
+              "context_only": 11.561385288851014,
+              "person_name": 21.962765129104472,
+              "quantity": 0.01282051282051282,
+              "settlement_name": 0.0,
+              "unit": 0.0
+            },
+            "quantity": {
+              "context_only": 36.95614706028335,
+              "person_name": 2.220374736082859,
+              "quantity": 1.3496606359263148,
+              "settlement_name": 0.0136986301369863,
+              "unit": 0.7855244514527543
+            },
+            "settlement_name": {
+              "context_only": 5.491787560583996,
+              "person_name": 2.8099768995899,
+              "quantity": 0.059027777777777776,
+              "settlement_name": 0.0,
+              "unit": 0.09821428571428571
+            },
+            "unit": {
+              "context_only": 16.105237372136965,
+              "person_name": 0.28865438427721113,
+              "quantity": 0.25482057722038354,
+              "settlement_name": 0.0,
+              "unit": 0.9674384530550386
+            }
+          },
+          "worst_state_recall": 0.0
+        },
+        "transition_zero": {
+          "balanced_accuracy": 0.33807378525035026,
+          "macro_f1": 0.3443050588317761,
+          "per_state": {
+            "context_only": {
+              "f1": 0.7609529536748828,
+              "precision": 0.6768642725757522,
+              "predicted_mass": 218.31117518856374,
+              "recall": 0.8688985762225551,
+              "truth_mass": 170.06246624498615
+            },
+            "person_name": {
+              "f1": 0.4978731068105168,
+              "precision": 0.4654243741523374,
+              "predicted_mass": 38.56373040455377,
+              "recall": 0.5351854860585528,
+              "truth_mass": 33.53697093077599
+            },
+            "quantity": {
+              "f1": 0.23383884893753734,
+              "precision": 0.5980892544332849,
+              "predicted_mass": 10.041657493317713,
+              "recall": 0.14532966751978502,
+              "truth_mass": 41.32540551388226
+            },
+            "settlement_name": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "predicted_mass": 0.0,
+              "recall": 0.0,
+              "truth_mass": 8.459006523665959
+            },
+            "unit": {
+              "f1": 0.22886038473594353,
+              "precision": 0.6080877573000374,
+              "predicted_mass": 4.083436913564758,
+              "recall": 0.14095519645085863,
+              "truth_mass": 17.616150786689598
+            }
+          },
+          "states": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ],
+          "total_family_mass": 270.99999999999994,
+          "weighted_accuracy": 0.6428207760737354,
+          "weighted_confusion_matrix": {
+            "context_only": {
+              "context_only": 147.7670347891648,
+              "person_name": 18.69828741884229,
+              "quantity": 2.8577736749505687,
+              "settlement_name": 0.0,
+              "unit": 0.7393703620285064
+            },
+            "person_name": {
+              "context_only": 15.569952323738573,
+              "person_name": 17.948500088518905,
+              "quantity": 0.018518518518518517,
+              "settlement_name": 0.0,
+              "unit": 0.0
+            },
+            "quantity": {
+              "context_only": 33.94917495340917,
+              "person_name": 0.5094445603298235,
+              "quantity": 6.005807443452799,
+              "settlement_name": 0.0,
+              "unit": 0.860978556690471
+            },
+            "settlement_name": {
+              "context_only": 7.059320686803202,
+              "person_name": 1.3996858368627567,
+              "quantity": 0.0,
+              "settlement_name": 0.0,
+              "unit": 0.0
+            },
+            "unit": {
+              "context_only": 13.965692435447993,
+              "person_name": 0.0078125,
+              "quantity": 1.1595578563958264,
+              "settlement_name": 0.0,
+              "unit": 2.4830879948457802
+            }
+          },
+          "worst_state_recall": 0.0
+        }
+      },
+      "primary": {
+        "clean": {
+          "balanced_accuracy": 0.5024005388165024,
+          "macro_f1": 0.4780972874281771,
+          "per_state": {
+            "context_only": {
+              "f1": 0.7427914434615803,
+              "precision": 0.7740076287334134,
+              "predicted_mass": 156.8073725987434,
+              "recall": 0.7139955796108897,
+              "truth_mass": 169.98719053584895
+            },
+            "person_name": {
+              "f1": 0.5594747528234543,
+              "precision": 0.4458054721515015,
+              "predicted_mass": 56.04973331934009,
+              "recall": 0.7509476917533163,
+              "truth_mass": 33.27432536353329
+            },
+            "quantity": {
+              "f1": 0.503043575680055,
+              "precision": 0.5959308509734634,
+              "predicted_mass": 30.4116850103692,
+              "recall": 0.4352080392489616,
+              "truth_mass": 41.64275402412498
+            },
+            "settlement_name": {
+              "f1": 0.171021544791204,
+              "precision": 0.2904757670371844,
+              "predicted_mass": 3.5075925847041494,
+              "recall": 0.12118560657145203,
+              "truth_mass": 8.407521943582827
+            },
+            "unit": {
+              "f1": 0.4141551203845917,
+              "precision": 0.35828664931926196,
+              "predicted_mass": 24.223616486843174,
+              "recall": 0.4906657768978923,
+              "truth_mass": 17.68820813290994
+            }
+          },
+          "states": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ],
+          "total_family_mass": 271.0,
+          "weighted_accuracy": 0.6427251321741415,
+          "weighted_confusion_matrix": {
+            "context_only": {
+              "context_only": 121.37010263307022,
+              "person_name": 27.253852772523167,
+              "quantity": 9.120810103885743,
+              "settlement_name": 2.021383173049933,
+              "unit": 10.221041853319896
+            },
+            "person_name": {
+              "context_only": 7.7934166603399015,
+              "person_name": 24.987277826394156,
+              "quantity": 0.2430157261794635,
+              "settlement_name": 0.23307129097064866,
+              "unit": 0.017543859649122806
+            },
+            "quantity": {
+              "context_only": 16.6394211407868,
+              "person_name": 1.4805579071403476,
+              "quantity": 18.12326132776624,
+              "settlement_name": 0.17018580547785944,
+              "unit": 5.2293278429537375
+            },
+            "settlement_name": {
+              "context_only": 5.179193037643044,
+              "person_name": 2.132753713989359,
+              "quantity": 0.0,
+              "settlement_name": 1.018870646495878,
+              "unit": 0.07670454545454546
+            },
+            "unit": {
+              "context_only": 5.825239126903424,
+              "person_name": 0.195291099293059,
+              "quantity": 2.924597852537753,
+              "settlement_name": 0.06408166870983004,
+              "unit": 8.678998385465873
+            }
+          },
+          "worst_state_recall": 0.12118560657145203
+        },
+        "mild": {
+          "balanced_accuracy": 0.40320552811345267,
+          "macro_f1": 0.3877588813953674,
+          "per_state": {
+            "context_only": {
+              "f1": 0.7177476530685583,
+              "precision": 0.7127516886265833,
+              "predicted_mass": 172.46336815292437,
+              "recall": 0.7228141493617145,
+              "truth_mass": 170.06246624498618
+            },
+            "person_name": {
+              "f1": 0.4880863074628356,
+              "precision": 0.3739257272491355,
+              "predicted_mass": 63.01436698456694,
+              "recall": 0.7025885865030596,
+              "truth_mass": 33.536970930776
+            },
+            "quantity": {
+              "f1": 0.3351685990405326,
+              "precision": 0.5426292481716588,
+              "predicted_mass": 18.465757665415754,
+              "recall": 0.24246731700040067,
+              "truth_mass": 41.32540551388227
+            },
+            "settlement_name": {
+              "f1": 0.07115634637821963,
+              "precision": 0.20747537967348736,
+              "predicted_mass": 1.7507905175535758,
+              "recall": 0.042941913609110954,
+              "truth_mass": 8.459006523665959
+            },
+            "unit": {
+              "f1": 0.326635501026691,
+              "precision": 0.3512887014608468,
+              "predicted_mass": 15.305716679539367,
+              "recall": 0.30521567409297784,
+              "truth_mass": 17.6161507866896
+            }
+          },
+          "states": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ],
+          "total_family_mass": 271.0,
+          "weighted_accuracy": 0.5986947651019145,
+          "weighted_confusion_matrix": {
+            "context_only": {
+              "context_only": 122.92355687722497,
+              "person_name": 33.568287501396554,
+              "quantity": 6.416389540833284,
+              "settlement_name": 0.9533922471587851,
+              "unit": 6.200840078372595
+            },
+            "person_name": {
+              "context_only": 9.795653784664536,
+              "person_name": 23.562693001848107,
+              "quantity": 0.06625099248050068,
+              "settlement_name": 0.06754055572075197,
+              "unit": 0.044832596062104255
+            },
+            "quantity": {
+              "context_only": 24.78043013185171,
+              "person_name": 2.760916559499459,
+              "quantity": 10.020060198904597,
+              "settlement_name": 0.17090005547261583,
+              "unit": 3.593098568153885
+            },
+            "settlement_name": {
+              "context_only": 5.087429848932919,
+              "person_name": 2.8625550921515415,
+              "quantity": 0.05555555555555555,
+              "settlement_name": 0.3632459273581696,
+              "unit": 0.09022009966777408
+            },
+            "unit": {
+              "context_only": 9.876297510250241,
+              "person_name": 0.25991482967128066,
+              "quantity": 1.9075013776418168,
+              "settlement_name": 0.19571173184325336,
+              "unit": 5.376725337283008
+            }
+          },
+          "worst_state_recall": 0.042941913609110954
+        }
+      }
+    },
+    "outer_fold_count": 5,
+    "outer_folds": [
+      {
+        "metrics": {
+          "diagnostics": {
+            "logistic_emission": {
+              "balanced_accuracy": 0.327569951314484,
+              "macro_f1": 0.31732823127697607,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7434534844499523,
+                  "precision": 0.6859990735690618,
+                  "predicted_mass": 38.02985776587599,
+                  "recall": 0.8114115541020508,
+                  "truth_mass": 32.15192963849882
+                },
+                "person_name": {
+                  "f1": 0.5485719253855337,
+                  "precision": 0.4795320738953401,
+                  "predicted_mass": 11.680657373429991,
+                  "recall": 0.6408351211128493,
+                  "truth_mass": 8.740547560837282
+                },
+                "quantity": {
+                  "f1": 0.24533948556195986,
+                  "precision": 0.5612249513394807,
+                  "predicted_mass": 1.8315427651712,
+                  "recall": 0.15698210642480262,
+                  "truth_mass": 6.54792780317145
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0018587360594795538,
+                  "recall": 0.0,
+                  "truth_mass": 1.7382341588823964
+                },
+                "unit": {
+                  "f1": 0.04927626098743443,
+                  "precision": 0.17705118190022268,
+                  "predicted_mass": 0.45608335946334094,
+                  "recall": 0.028620974932717324,
+                  "truth_mass": 2.821360838610052
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 52.0,
+              "weighted_accuracy": 0.6307375893691017,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 26.088447195354117,
+                  "person_name": 5.307953796682907,
+                  "quantity": 0.4474448704972197,
+                  "settlement_name": 0.0018587360594795538,
+                  "unit": 0.3062250399050973
+                },
+                "person_name": {
+                  "context_only": 3.139297706095502,
+                  "person_name": 5.60124985474178,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 5.134368581105511,
+                  "person_name": 0.31654350108631946,
+                  "quantity": 1.0279074992593846,
+                  "settlement_name": 0.0,
+                  "unit": 0.06910822172023502
+                },
+                "settlement_name": {
+                  "context_only": 1.3571919655443774,
+                  "person_name": 0.3810421933380191,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.3105523177764815,
+                  "person_name": 0.0738680275809662,
+                  "quantity": 0.3561903954145957,
+                  "settlement_name": 0.0,
+                  "unit": 0.08075009783800863
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "no_corpus_profile": {
+              "balanced_accuracy": 0.338183362177106,
+              "macro_f1": 0.30660211937347726,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6643852138060903,
+                  "precision": 0.6975470799820573,
+                  "predicted_mass": 29.233618610347193,
+                  "recall": 0.63423332684019,
+                  "truth_mass": 32.15192963849882
+                },
+                "person_name": {
+                  "f1": 0.543493451103415,
+                  "precision": 0.4205276738367541,
+                  "predicted_mass": 15.964511629781155,
+                  "recall": 0.7680890576801083,
+                  "truth_mass": 8.740547560837282
+                },
+                "quantity": {
+                  "f1": 0.18279002123311805,
+                  "precision": 0.23942321732275904,
+                  "predicted_mass": 4.042796602103613,
+                  "recall": 0.14782376937454159,
+                  "truth_mass": 6.54792780317145
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.7382341588823964
+                },
+                "unit": {
+                  "f1": 0.14234191072476302,
+                  "precision": 0.14394863642551228,
+                  "predicted_mass": 2.759073157768036,
+                  "recall": 0.14077065699069,
+                  "truth_mass": 2.821360838610052
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 52.0,
+              "weighted_accuracy": 0.5475086235939346,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 20.391825298956814,
+                  "person_name": 8.201258156292052,
+                  "quantity": 2.1407262607772397,
+                  "settlement_name": 0.0,
+                  "unit": 1.418119922472712
+                },
+                "person_name": {
+                  "context_only": 1.9303387257552218,
+                  "person_name": 6.713518939611677,
+                  "quantity": 0.05444250871080139,
+                  "settlement_name": 0.0,
+                  "unit": 0.04224738675958188
+                },
+                "quantity": {
+                  "context_only": 4.703771230537781,
+                  "person_name": 0.22030055710773824,
+                  "quantity": 0.9679393694571652,
+                  "settlement_name": 0.0,
+                  "unit": 0.6559166460687657
+                },
+                "settlement_name": {
+                  "context_only": 0.5518700273924014,
+                  "person_name": 0.7642710695015166,
+                  "quantity": 0.17646867838044308,
+                  "settlement_name": 0.0,
+                  "unit": 0.24562438360803535
+                },
+                "unit": {
+                  "context_only": 1.655813327704977,
+                  "person_name": 0.06516290726817042,
+                  "quantity": 0.7032197847779638,
+                  "settlement_name": 0.0,
+                  "unit": 0.39716481885894106
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "self_inclusive_target_profile": {
+              "balanced_accuracy": 0.39721490452737823,
+              "macro_f1": 0.39401542129966133,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7242022772596176,
+                  "precision": 0.7158896611743357,
+                  "predicted_mass": 32.90737146449022,
+                  "recall": 0.7327102065949854,
+                  "truth_mass": 32.15192963849882
+                },
+                "person_name": {
+                  "f1": 0.5916559209793868,
+                  "precision": 0.49503196096817903,
+                  "predicted_mass": 12.980152769396398,
+                  "recall": 0.7351473616928998,
+                  "truth_mass": 8.740547560837282
+                },
+                "quantity": {
+                  "f1": 0.38051727362700455,
+                  "precision": 0.6146847699098789,
+                  "predicted_mass": 2.935257093374457,
+                  "recall": 0.27554638433755124,
+                  "truth_mass": 6.54792780317145
+                },
+                "settlement_name": {
+                  "f1": 0.06494985066360079,
+                  "precision": 0.12066696955596565,
+                  "predicted_mass": 0.640069351101664,
+                  "recall": 0.04443315563005034,
+                  "truth_mass": 1.7382341588823964
+                },
+                "unit": {
+                  "f1": 0.208751783968697,
+                  "precision": 0.2204439734442131,
+                  "predicted_mass": 2.5371493216372603,
+                  "recall": 0.19823741438140438,
+                  "truth_mass": 2.821360838610052
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 52.0,
+              "weighted_accuracy": 0.6235467273962705,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.558047007851908,
+                  "person_name": 5.943887959031448,
+                  "quantity": 0.6377836751998872,
+                  "settlement_name": 0.4082507198552962,
+                  "unit": 1.6039602765602798
+                },
+                "person_name": {
+                  "context_only": 2.23046230821728,
+                  "person_name": 6.425590479100839,
+                  "quantity": 0.0,
+                  "settlement_name": 0.06663763066202091,
+                  "unit": 0.017857142857142856
+                },
+                "quantity": {
+                  "context_only": 4.239900532134054,
+                  "person_name": 0.15168759825087696,
+                  "quantity": 1.804257831067218,
+                  "settlement_name": 0.036049217182470714,
+                  "unit": 0.3160326245368302
+                },
+                "settlement_name": {
+                  "context_only": 1.0924423615969798,
+                  "person_name": 0.45712799695375395,
+                  "quantity": 0.07142857142857142,
+                  "settlement_name": 0.07723522890309117,
+                  "unit": 0.04
+                },
+                "unit": {
+                  "context_only": 1.7865192546899997,
+                  "person_name": 0.0018587360594795538,
+                  "quantity": 0.4217870156787804,
+                  "settlement_name": 0.05189655449878498,
+                  "unit": 0.5592992776830075
+                }
+              },
+              "worst_state_recall": 0.04443315563005034
+            },
+            "strict_single_family_profile": {
+              "balanced_accuracy": 0.2945480778553733,
+              "macro_f1": 0.24657660013385257,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.690124851621776,
+                  "precision": 0.6551620032653658,
+                  "predicted_mass": 35.776968568072405,
+                  "recall": 0.7290296620254345,
+                  "truth_mass": 32.151929638498814
+                },
+                "person_name": {
+                  "f1": 0.5210216887515203,
+                  "precision": 0.4043138902352961,
+                  "predicted_mass": 15.834208599478124,
+                  "recall": 0.7324473018528962,
+                  "truth_mass": 8.740547560837282
+                },
+                "quantity": {
+                  "f1": 0.018038430267671848,
+                  "precision": 0.3127934002329305,
+                  "predicted_mass": 0.19441141622473232,
+                  "recall": 0.0092870003691214,
+                  "truth_mass": 6.54792780317145
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.7382341588823964
+                },
+                "unit": {
+                  "f1": 0.003698030028294791,
+                  "precision": 0.0286825140556189,
+                  "predicted_mass": 0.19441141622473232,
+                  "recall": 0.0019764250294144543,
+                  "truth_mass": 2.821360838610052
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 51.99999999999999,
+              "weighted_accuracy": 0.5751555325303076,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.439710397820342,
+                  "person_name": 8.480857028233723,
+                  "quantity": 0.12244839194282148,
+                  "settlement_name": 0.0,
+                  "unit": 0.10891382050193031
+                },
+                "person_name": {
+                  "context_only": 2.3385570831851017,
+                  "person_name": 6.4019904776521805,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 6.169038107737172,
+                  "person_name": 0.23815769996488112,
+                  "quantity": 0.06081060792503353,
+                  "settlement_name": 0.0,
+                  "unit": 0.07992138754436336
+                },
+                "settlement_name": {
+                  "context_only": 1.1080508153803705,
+                  "person_name": 0.6301833435020259,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.721612163949423,
+                  "person_name": 0.08302005012531327,
+                  "quantity": 0.011152416356877323,
+                  "settlement_name": 0.0,
+                  "unit": 0.0055762081784386614
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "transition_zero": {
+              "balanced_accuracy": 0.32627168951578567,
+              "macro_f1": 0.31844090719516943,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7632099003457089,
+                  "precision": 0.68321164920113,
+                  "predicted_mass": 40.679917081384914,
+                  "recall": 0.8644269115735681,
+                  "truth_mass": 32.15192963849882
+                },
+                "person_name": {
+                  "f1": 0.5912258643388789,
+                  "precision": 0.5619146456433705,
+                  "predicted_mass": 9.702599579699994,
+                  "recall": 0.6237633016351176,
+                  "truth_mass": 8.740547560837282
+                },
+                "quantity": {
+                  "f1": 0.22507365259067358,
+                  "precision": 0.6456823209921942,
+                  "predicted_mass": 1.382142437870356,
+                  "recall": 0.13629119991116892,
+                  "truth_mass": 6.547927803171449
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.7382341588823964
+                },
+                "unit": {
+                  "f1": 0.01269511870058582,
+                  "precision": 0.08244463934007833,
+                  "predicted_mass": 0.23534090104473643,
+                  "recall": 0.006877034459073685,
+                  "truth_mass": 2.8213608386100524
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 52.0,
+              "weighted_accuracy": 0.6568625687715267,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 27.792993238538205,
+                  "person_name": 3.9350369531380864,
+                  "quantity": 0.2576667674980277,
+                  "settlement_name": 0.0,
+                  "unit": 0.16623267932450142
+                },
+                "person_name": {
+                  "context_only": 3.288514756190645,
+                  "person_name": 5.452032804646637,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 5.5161558570649385,
+                  "person_name": 0.08964138286893704,
+                  "quantity": 0.8924249372259411,
+                  "settlement_name": 0.0,
+                  "unit": 0.04970562601163266
+                },
+                "settlement_name": {
+                  "context_only": 1.5123457198360626,
+                  "person_name": 0.22588843904633377,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.5699075097550628,
+                  "person_name": 0.0,
+                  "quantity": 0.23205073314638713,
+                  "settlement_name": 0.0,
+                  "unit": 0.01940259570860236
+                }
+              },
+              "worst_state_recall": 0.0
+            }
+          },
+          "primary": {
+            "clean": {
+              "balanced_accuracy": 0.4923474501306818,
+              "macro_f1": 0.4819411589008876,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7677687134509937,
+                  "precision": 0.7797873522078936,
+                  "predicted_mass": 31.165916140006992,
+                  "recall": 0.756114930932155,
+                  "truth_mass": 32.14165761280273
+                },
+                "person_name": {
+                  "f1": 0.6655412917217696,
+                  "precision": 0.5521644235254158,
+                  "predicted_mass": 13.230218696677865,
+                  "recall": 0.837508309460416,
+                  "truth_mass": 8.722607283112081
+                },
+                "quantity": {
+                  "f1": 0.5162651877661049,
+                  "precision": 0.6709262539537766,
+                  "predicted_mass": 4.114957802407656,
+                  "recall": 0.4195508579459663,
+                  "truth_mass": 6.580449476527586
+                },
+                "settlement_name": {
+                  "f1": 0.0923983136271961,
+                  "precision": 0.4094918104852629,
+                  "predicted_mass": 0.21978461521207635,
+                  "recall": 0.052074205672186874,
+                  "truth_mass": 1.7283028869717258
+                },
+                "unit": {
+                  "f1": 0.3677322879383737,
+                  "precision": 0.34286488950830557,
+                  "predicted_mass": 3.2691227456954075,
+                  "recall": 0.3964889466426848,
+                  "truth_mass": 2.8269827405858763
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 52.0,
+              "weighted_accuracy": 0.6842258449664385,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 24.30278722594931,
+                  "person_name": 5.381083986704589,
+                  "quantity": 0.7566413722465075,
+                  "settlement_name": 0.12287615234506426,
+                  "unit": 1.5782688755572587
+                },
+                "person_name": {
+                  "context_only": 1.3998073436966465,
+                  "person_name": 7.305256079766312,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.017543859649122806
+                },
+                "quantity": {
+                  "context_only": 2.95550261950678,
+                  "person_name": 0.30476256910947847,
+                  "quantity": 2.7608332235472335,
+                  "settlement_name": 0.0069084628670120895,
+                  "unit": 0.5524426014970817
+                },
+                "settlement_name": {
+                  "context_only": 1.4150598417472564,
+                  "person_name": 0.22324304522446936,
+                  "quantity": 0.0,
+                  "settlement_name": 0.09,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 1.0927591091070008,
+                  "person_name": 0.015873015873015872,
+                  "quantity": 0.5974832066139153,
+                  "settlement_name": 0.0,
+                  "unit": 1.1208674089919444
+                }
+              },
+              "worst_state_recall": 0.052074205672186874
+            },
+            "mild": {
+              "balanced_accuracy": 0.385652418445123,
+              "macro_f1": 0.3756051787768944,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7196088622624073,
+                  "precision": 0.7137340806203651,
+                  "predicted_mass": 32.68561074226933,
+                  "recall": 0.7255811578013257,
+                  "truth_mass": 32.15192963849882
+                },
+                "person_name": {
+                  "f1": 0.5662455514927414,
+                  "precision": 0.45382815868761434,
+                  "predicted_mass": 14.496602534316034,
+                  "recall": 0.7526949987495556,
+                  "truth_mass": 8.740547560837282
+                },
+                "quantity": {
+                  "f1": 0.37994889885601474,
+                  "precision": 0.6541014589313305,
+                  "predicted_mass": 2.680169336908481,
+                  "recall": 0.2677339650271876,
+                  "truth_mass": 6.547927803171449
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.11313599985092843,
+                  "recall": 0.0,
+                  "truth_mass": 1.7382341588823964
+                },
+                "unit": {
+                  "f1": 0.21222258127330862,
+                  "precision": 0.25399026937661134,
+                  "predicted_mass": 2.02448138665522,
+                  "recall": 0.18225197064754597,
+                  "truth_mass": 2.8213608386100524
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 52.0,
+              "weighted_accuracy": 0.6187519618119794,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.328834332648732,
+                  "person_name": 6.842168769516462,
+                  "quantity": 0.6215482476388137,
+                  "settlement_name": 0.09640737531561244,
+                  "unit": 1.262970913379198
+                },
+                "person_name": {
+                  "context_only": 2.14372398260529,
+                  "person_name": 6.578966435374849,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.017857142857142856
+                },
+                "quantity": {
+                  "context_only": 4.134050762629698,
+                  "person_name": 0.416449720936676,
+                  "quantity": 1.753102673454854,
+                  "settlement_name": 0.01486988847583643,
+                  "unit": 0.2294547576743844
+                },
+                "settlement_name": {
+                  "context_only": 1.1004778821624317,
+                  "person_name": 0.6377562767199647,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 1.9785237822231825,
+                  "person_name": 0.021261331768081912,
+                  "quantity": 0.3055184158148133,
+                  "settlement_name": 0.0018587360594795538,
+                  "unit": 0.514198572744495
+                }
+              },
+              "worst_state_recall": 0.0
+            }
+          }
+        },
+        "optimizer": {
+          "logistic_emission": {
+            "accepted_iterations": 60,
+            "converged": true,
+            "final_gradient_infinity_norm": 9.091312504389795e-06,
+            "final_objective": 0.9100992107059754,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "no_corpus_profile": {
+            "accepted_iterations": 44,
+            "converged": true,
+            "final_gradient_infinity_norm": 6.021052407148434e-06,
+            "final_objective": 0.9784948632944697,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "primary": {
+            "accepted_iterations": 59,
+            "converged": true,
+            "final_gradient_infinity_norm": 8.922049582845825e-06,
+            "final_objective": 0.8827087098147531,
+            "termination_reason": "gradient_infinity_norm"
+          }
+        },
+        "outer_fold_index": 0,
+        "profile_batch_commitments": {
+          "train_clean": "sha256:2ecf36d157c0b07d1f620bba2e71658087471dd09c27ec51b4b83127542e2c19",
+          "train_mild": "sha256:ae4f6e5ea96365af0c70731f92648b4dba07bc79dc114ba8408ceb8079ed9b49",
+          "validation_clean": "sha256:4ed528aea6b3e165195aa5d79c7426928bb94b69e6e61a3ff2fc8543ea8c54df",
+          "validation_mild": "sha256:fca09cdc5eddbff0814add6d1dfa8cf87d746bf2fc4d9a09ecd38ab5ae6373d9"
+        },
+        "support": {
+          "train_family_count": 219,
+          "train_state_support": {
+            "context_only": 4879,
+            "person_name": 888,
+            "quantity": 1889,
+            "settlement_name": 203,
+            "unit": 970
+          },
+          "validation_family_count": 52,
+          "validation_state_support": {
+            "context_only": 1263,
+            "person_name": 220,
+            "quantity": 464,
+            "settlement_name": 49,
+            "unit": 243
+          }
+        }
+      },
+      {
+        "metrics": {
+          "diagnostics": {
+            "logistic_emission": {
+              "balanced_accuracy": 0.3758770039215948,
+              "macro_f1": 0.3951060138697555,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7520682357021954,
+                  "precision": 0.7033808568659844,
+                  "predicted_mass": 39.87349071672294,
+                  "recall": 0.8079970517528855,
+                  "truth_mass": 34.71083218153129
+                },
+                "person_name": {
+                  "f1": 0.4227176062083603,
+                  "precision": 0.3593188805240908,
+                  "predicted_mass": 8.683224572579906,
+                  "recall": 0.5132817571105566,
+                  "truth_mass": 6.078623464668854
+                },
+                "quantity": {
+                  "f1": 0.3860335073897439,
+                  "precision": 0.5611026386012247,
+                  "predicted_mass": 3.978009242270983,
+                  "recall": 0.2942308146914931,
+                  "truth_mass": 7.586124126933063
+                },
+                "settlement_name": {
+                  "f1": 0.0964900317378516,
+                  "precision": 0.4620851598458368,
+                  "predicted_mass": 0.19143990361225072,
+                  "recall": 0.05386936524650277,
+                  "truth_mass": 1.6421492634402526
+                },
+                "unit": {
+                  "f1": 0.3182206883106265,
+                  "precision": 0.6565218790601866,
+                  "predicted_mass": 1.2738355648139195,
+                  "recall": 0.21000603080653607,
+                  "truth_mass": 3.982270963426542
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.0,
+              "weighted_accuracy": 0.6356135284931541,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 28.046250066566458,
+                  "person_name": 4.87045923433743,
+                  "quantity": 1.4446289724150678,
+                  "settlement_name": 0.05590621499712409,
+                  "unit": 0.29358769321521044
+                },
+                "person_name": {
+                  "context_only": 2.9503124691002482,
+                  "person_name": 3.1200465327586886,
+                  "quantity": 0.008264462809917356,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 4.824156852198356,
+                  "person_name": 0.338876689389432,
+                  "quantity": 2.232071482218307,
+                  "settlement_name": 0.047072150153588156,
+                  "unit": 0.14394695297338053
+                },
+                "settlement_name": {
+                  "context_only": 1.2113398617579219,
+                  "person_name": 0.34234786322079236,
+                  "quantity": 0.0,
+                  "settlement_name": 0.08846153846153847,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.841431467099959,
+                  "person_name": 0.011494252873563218,
+                  "quantity": 0.29304432482769094,
+                  "settlement_name": 0.0,
+                  "unit": 0.8363009186253284
+                }
+              },
+              "worst_state_recall": 0.05386936524650277
+            },
+            "no_corpus_profile": {
+              "balanced_accuracy": 0.3950304157626964,
+              "macro_f1": 0.3351533685524023,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6160220750322187,
+                  "precision": 0.7277367379640203,
+                  "predicted_mass": 25.4721581782382,
+                  "recall": 0.5340415120153088,
+                  "truth_mass": 34.71083218153129
+                },
+                "person_name": {
+                  "f1": 0.4385576666328971,
+                  "precision": 0.3207013194502565,
+                  "predicted_mass": 13.142188801643506,
+                  "recall": 0.6933670614159456,
+                  "truth_mass": 6.078623464668854
+                },
+                "quantity": {
+                  "f1": 0.3399381803569785,
+                  "precision": 0.3267435231376846,
+                  "predicted_mass": 8.224597541178799,
+                  "recall": 0.3542433437720114,
+                  "truth_mass": 7.586124126933063
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.6421492634402526
+                },
+                "unit": {
+                  "f1": 0.28124892073991725,
+                  "precision": 0.21882588010839998,
+                  "predicted_mass": 7.161055478939495,
+                  "recall": 0.39350016161021606,
+                  "truth_mass": 3.982270963426542
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.0,
+              "weighted_accuracy": 0.5001129784326737,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 18.53702530153461,
+                  "person_name": 8.085850586468524,
+                  "quantity": 4.309150683232846,
+                  "settlement_name": 0.0,
+                  "unit": 3.7788056102953087
+                },
+                "person_name": {
+                  "context_only": 1.5490033330895596,
+                  "person_name": 4.214717289151458,
+                  "quantity": 0.05985176439721894,
+                  "settlement_name": 0.0,
+                  "unit": 0.25505107803061766
+                },
+                "quantity": {
+                  "context_only": 3.3940183043231134,
+                  "person_name": 0.32592923491344905,
+                  "quantity": 2.687333976994299,
+                  "settlement_name": 0.0,
+                  "unit": 1.178842610702202
+                },
+                "settlement_name": {
+                  "context_only": 0.70972711924974,
+                  "person_name": 0.5074272283001574,
+                  "quantity": 0.043663003663003665,
+                  "settlement_name": 0.0,
+                  "unit": 0.38133191222735163
+                },
+                "unit": {
+                  "context_only": 1.282384120041179,
+                  "person_name": 0.008264462809917356,
+                  "quantity": 1.1245981128914304,
+                  "settlement_name": 0.0,
+                  "unit": 1.567024267684015
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "self_inclusive_target_profile": {
+              "balanced_accuracy": 0.4181065263509537,
+              "macro_f1": 0.39232671689397325,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6885478508362796,
+                  "precision": 0.7328536082814214,
+                  "predicted_mass": 30.753111849830248,
+                  "recall": 0.6492938246816755,
+                  "truth_mass": 34.71083218153129
+                },
+                "person_name": {
+                  "f1": 0.42534791311079473,
+                  "precision": 0.3109843789999931,
+                  "predicted_mass": 13.14982552709667,
+                  "recall": 0.6727494060573784,
+                  "truth_mass": 6.078623464668854
+                },
+                "quantity": {
+                  "f1": 0.37988829462191176,
+                  "precision": 0.5235633834690939,
+                  "predicted_mass": 4.319115094437643,
+                  "recall": 0.29808772893759955,
+                  "truth_mass": 7.586124126933064
+                },
+                "settlement_name": {
+                  "f1": 0.1262230250169755,
+                  "precision": 0.10381455782009341,
+                  "predicted_mass": 2.5462105596030913,
+                  "recall": 0.1609681465911792,
+                  "truth_mass": 1.6421492634402526
+                },
+                "unit": {
+                  "f1": 0.3416265008839047,
+                  "precision": 0.38129592707116045,
+                  "predicted_mass": 3.2317369690323483,
+                  "recall": 0.3094335254869358,
+                  "truth_mass": 3.982270963426542
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.0,
+              "weighted_accuracy": 0.5626820683331155,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 22.537528985030235,
+                  "person_name": 7.867714404832545,
+                  "quantity": 1.5409032810957786,
+                  "settlement_name": 1.3201408185532033,
+                  "unit": 1.4445446920195284
+                },
+                "person_name": {
+                  "context_only": 1.8131298485176937,
+                  "person_name": 4.089390325502415,
+                  "quantity": 0.0582010582010582,
+                  "settlement_name": 0.117902232447687,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 3.8208830718609295,
+                  "person_name": 0.611262822126732,
+                  "quantity": 2.2613305124362073,
+                  "settlement_name": 0.38770358715370634,
+                  "unit": 0.5049441333554885
+                },
+                "settlement_name": {
+                  "context_only": 0.7276105340002699,
+                  "person_name": 0.5502050060779352,
+                  "quantity": 0.05,
+                  "settlement_name": 0.2643337233620475,
+                  "unit": 0.05
+                },
+                "unit": {
+                  "context_only": 1.8539594104211212,
+                  "person_name": 0.03125296855704379,
+                  "quantity": 0.40868024270459813,
+                  "settlement_name": 0.4561301980864473,
+                  "unit": 1.2322481436573314
+                }
+              },
+              "worst_state_recall": 0.1609681465911792
+            },
+            "strict_single_family_profile": {
+              "balanced_accuracy": 0.29440738687334816,
+              "macro_f1": 0.24527246144025897,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6923890577644145,
+                  "precision": 0.6490556333705776,
+                  "predicted_mass": 39.67726464741864,
+                  "recall": 0.7419226367567381,
+                  "truth_mass": 34.71083218153129
+                },
+                "person_name": {
+                  "f1": 0.41579826146452264,
+                  "precision": 0.3024154982790557,
+                  "predicted_mass": 13.370599898771111,
+                  "recall": 0.6651961014165291,
+                  "truth_mass": 6.078623464668855
+                },
+                "quantity": {
+                  "f1": 0.04242034972243282,
+                  "precision": 0.3562119221103102,
+                  "predicted_mass": 0.4803050150407183,
+                  "recall": 0.022553067909797643,
+                  "truth_mass": 7.586124126933063
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.6421492634402526
+                },
+                "unit": {
+                  "f1": 0.07575463824992487,
+                  "precision": 0.35756366347600216,
+                  "predicted_mass": 0.4718304387695319,
+                  "recall": 0.04236512828367597,
+                  "truth_mass": 3.982270963426542
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.0,
+              "weighted_accuracy": 0.5580746029565165,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 25.75275213614233,
+                  "person_name": 8.436272498783262,
+                  "quantity": 0.24031899907011414,
+                  "settlement_name": 0.0,
+                  "unit": 0.28148854753558
+                },
+                "person_name": {
+                  "context_only": 2.0351468339920973,
+                  "person_name": 4.043476630676757,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 6.999682986557923,
+                  "person_name": 0.39371829676023584,
+                  "quantity": 0.17109037260687573,
+                  "settlement_name": 0.0,
+                  "unit": 0.021632471008028543
+                },
+                "settlement_name": {
+                  "context_only": 1.1532812536993138,
+                  "person_name": 0.48886800974093886,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 3.7364014370269727,
+                  "person_name": 0.008264462809917356,
+                  "quantity": 0.06889564336372847,
+                  "settlement_name": 0.0,
+                  "unit": 0.16870942022592333
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "transition_zero": {
+              "balanced_accuracy": 0.3619000702250209,
+              "macro_f1": 0.37751732144669736,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7668587181390145,
+                  "precision": 0.6988863651740376,
+                  "predicted_mass": 42.190066724096226,
+                  "recall": 0.8494772532403437,
+                  "truth_mass": 34.71083218153129
+                },
+                "person_name": {
+                  "f1": 0.4514486918974037,
+                  "precision": 0.40515131416367234,
+                  "predicted_mass": 7.647085159388702,
+                  "recall": 0.5096921399813389,
+                  "truth_mass": 6.078623464668854
+                },
+                "quantity": {
+                  "f1": 0.382104352912431,
+                  "precision": 0.6490288315455655,
+                  "predicted_mass": 3.164671188392356,
+                  "recall": 0.27075260162643666,
+                  "truth_mass": 7.586124126933063
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.6421492634402528
+                },
+                "unit": {
+                  "f1": 0.2871748442846375,
+                  "precision": 0.7164357877983221,
+                  "predicted_mass": 0.9981769281227116,
+                  "recall": 0.17957835627698504,
+                  "truth_mass": 3.982270963426542
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.0,
+              "weighted_accuracy": 0.6546922499739165,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 29.486062379253728,
+                  "person_name": 4.164697507506874,
+                  "quantity": 0.9053815233471337,
+                  "settlement_name": 0.0,
+                  "unit": 0.1546907714235518
+                },
+                "person_name": {
+                  "context_only": 2.9803968628210056,
+                  "person_name": 3.0982266018478484,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 5.287143589338104,
+                  "person_name": 0.11666121112929624,
+                  "quantity": 2.053962843628207,
+                  "settlement_name": 0.0,
+                  "unit": 0.12835648283745585
+                },
+                "settlement_name": {
+                  "context_only": 1.3746494245355698,
+                  "person_name": 0.26749983890468293,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 3.0618144681478228,
+                  "person_name": 0.0,
+                  "quantity": 0.2053268214170151,
+                  "settlement_name": 0.0,
+                  "unit": 0.715129673861704
+                }
+              },
+              "worst_state_recall": 0.0
+            }
+          },
+          "primary": {
+            "clean": {
+              "balanced_accuracy": 0.49457343222029887,
+              "macro_f1": 0.4779307925855768,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7394761618899944,
+                  "precision": 0.7743099489581019,
+                  "predicted_mass": 31.755029728043077,
+                  "recall": 0.7076415767373967,
+                  "truth_mass": 34.746736562948804
+                },
+                "person_name": {
+                  "f1": 0.5126612862067736,
+                  "precision": 0.40170206980679707,
+                  "predicted_mass": 10.639665109603776,
+                  "recall": 0.7083135401815684,
+                  "truth_mass": 6.034016370043431
+                },
+                "quantity": {
+                  "f1": 0.49415503775137454,
+                  "precision": 0.5359165574224876,
+                  "predicted_mass": 6.525525235615564,
+                  "recall": 0.458431567971354,
+                  "truth_mass": 7.628482120287114
+                },
+                "settlement_name": {
+                  "f1": 0.22517661200668385,
+                  "precision": 0.4458023857401526,
+                  "predicted_mass": 0.5480972111384482,
+                  "recall": 0.15063029588178406,
+                  "truth_mass": 1.622137451916093
+                },
+                "unit": {
+                  "f1": 0.4181848650730578,
+                  "precision": 0.3922054236256076,
+                  "predicted_mass": 4.5316827155991355,
+                  "recall": 0.4478501803293911,
+                  "truth_mass": 3.968627494804562
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.0,
+              "weighted_accuracy": 0.6366859545862806,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 24.588235447884042,
+                  "person_name": 5.823930495852291,
+                  "quantity": 2.2213694307279654,
+                  "settlement_name": 0.23549464853588564,
+                  "unit": 1.877706539948618
+                },
+                "person_name": {
+                  "context_only": 1.499357112780671,
+                  "person_name": 4.273975496578999,
+                  "quantity": 0.2,
+                  "settlement_name": 0.06068376068376069,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 3.037471192910283,
+                  "person_name": 0.20967251371429832,
+                  "quantity": 3.4971370196446605,
+                  "settlement_name": 0.007575757575757576,
+                  "unit": 0.8766256364421146
+                },
+                "settlement_name": {
+                  "context_only": 1.0457078041148606,
+                  "person_name": 0.332086603458188,
+                  "quantity": 0.0,
+                  "settlement_name": 0.24434304434304435,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 1.584258170353221,
+                  "person_name": 0.0,
+                  "quantity": 0.6070187852429382,
+                  "settlement_name": 0.0,
+                  "unit": 1.7773505392084028
+                }
+              },
+              "worst_state_recall": 0.15063029588178406
+            },
+            "mild": {
+              "balanced_accuracy": 0.40969980144580675,
+              "macro_f1": 0.3998966341462856,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7067065493274043,
+                  "precision": 0.7166835264630061,
+                  "predicted_mass": 33.75767956812286,
+                  "recall": 0.6970035380184062,
+                  "truth_mass": 34.71083218153129
+                },
+                "person_name": {
+                  "f1": 0.4423773002975413,
+                  "precision": 0.32904220593986144,
+                  "predicted_mass": 12.466186293542776,
+                  "recall": 0.6748076207592568,
+                  "truth_mass": 6.078623464668854
+                },
+                "quantity": {
+                  "f1": 0.37128379230899616,
+                  "precision": 0.5218807705402078,
+                  "predicted_mass": 4.188398708983704,
+                  "recall": 0.2881372238312854,
+                  "truth_mass": 7.586124126933064
+                },
+                "settlement_name": {
+                  "f1": 0.15504445544308446,
+                  "precision": 0.35315253679915526,
+                  "predicted_mass": 0.46186164932003765,
+                  "recall": 0.09932569269976571,
+                  "truth_mass": 1.6421492634402526
+                },
+                "unit": {
+                  "f1": 0.324071073354402,
+                  "precision": 0.36846402936782163,
+                  "predicted_mass": 3.1258737800306218,
+                  "recall": 0.2892249319203195,
+                  "truth_mass": 3.982270963426542
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.0,
+              "weighted_accuracy": 0.5888184941248517,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 24.19357283809046,
+                  "person_name": 7.400573713894267,
+                  "quantity": 1.5722619820387913,
+                  "settlement_name": 0.1555720462419027,
+                  "unit": 1.3888516012658654
+                },
+                "person_name": {
+                  "context_only": 1.9661400164022635,
+                  "person_name": 4.10190143768458,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.010582010582010581
+                },
+                "quantity": {
+                  "context_only": 4.351527228295579,
+                  "person_name": 0.42701188301243054,
+                  "quantity": 2.185844745574027,
+                  "settlement_name": 0.047072150153588156,
+                  "unit": 0.5746681198974394
+                },
+                "settlement_name": {
+                  "context_only": 0.9538366442547044,
+                  "person_name": 0.5252050060779352,
+                  "quantity": 0.0,
+                  "settlement_name": 0.16310761310761313,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.2926028410798525,
+                  "person_name": 0.011494252873563218,
+                  "quantity": 0.4302919813708859,
+                  "settlement_name": 0.09610983981693363,
+                  "unit": 1.1517720482853067
+                }
+              },
+              "worst_state_recall": 0.09932569269976571
+            }
+          }
+        },
+        "optimizer": {
+          "logistic_emission": {
+            "accepted_iterations": 58,
+            "converged": true,
+            "final_gradient_infinity_norm": 9.290751859450472e-06,
+            "final_objective": 0.9064415149126325,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "no_corpus_profile": {
+            "accepted_iterations": 39,
+            "converged": true,
+            "final_gradient_infinity_norm": 7.856532543598006e-06,
+            "final_objective": 0.9794673808779083,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "primary": {
+            "accepted_iterations": 55,
+            "converged": true,
+            "final_gradient_infinity_norm": 9.877260115221179e-06,
+            "final_objective": 0.8798032317418015,
+            "termination_reason": "gradient_infinity_norm"
+          }
+        },
+        "outer_fold_index": 1,
+        "profile_batch_commitments": {
+          "train_clean": "sha256:7e9363780b0fba98dbadc42bc1d2e7321756ac87b3f6a19ff877966944358897",
+          "train_mild": "sha256:d51de062d1a490e70a01b0af1f091c63777d06d5a3d5a48448693b5346ef1578",
+          "validation_clean": "sha256:84738c99807138710712e1e448531994468ac3b1d7ff09bc68cd48121a6d2b69",
+          "validation_mild": "sha256:a639d87269d249762760d9f742edc31d776ac97d0338c37931d7ddec04c01fb1"
+        },
+        "support": {
+          "train_family_count": 217,
+          "train_state_support": {
+            "context_only": 4919,
+            "person_name": 887,
+            "quantity": 1873,
+            "settlement_name": 202,
+            "unit": 970
+          },
+          "validation_family_count": 54,
+          "validation_state_support": {
+            "context_only": 1223,
+            "person_name": 221,
+            "quantity": 480,
+            "settlement_name": 50,
+            "unit": 243
+          }
+        }
+      },
+      {
+        "metrics": {
+          "diagnostics": {
+            "logistic_emission": {
+              "balanced_accuracy": 0.3456074995656369,
+              "macro_f1": 0.3417912548513546,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7474809088460038,
+                  "precision": 0.6806876503750885,
+                  "predicted_mass": 41.953223963065575,
+                  "recall": 0.8288087173502705,
+                  "truth_mass": 34.455527369906044
+                },
+                "person_name": {
+                  "f1": 0.4435000224442204,
+                  "precision": 0.35966825995861895,
+                  "predicted_mass": 10.105387333616722,
+                  "recall": 0.5782878002927253,
+                  "truth_mass": 6.285083442275614
+                },
+                "quantity": {
+                  "f1": 0.25411771891282564,
+                  "precision": 0.6758644503133818,
+                  "predicted_mass": 2.0719836392168944,
+                  "recall": 0.15647538515389234,
+                  "truth_mass": 8.949523159827239
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.00980392156862745,
+                  "recall": 0.0,
+                  "truth_mass": 1.8243906035846147
+                },
+                "unit": {
+                  "f1": 0.26385762405372326,
+                  "precision": 0.6668683430937995,
+                  "predicted_mass": 0.8596011425321806,
+                  "recall": 0.1644655950312963,
+                  "truth_mass": 3.4854754244064834
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 54.99999999999999,
+              "weighted_accuracy": 0.6211863526652434,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 28.557041445078966,
+                  "person_name": 5.200295763053182,
+                  "quantity": 0.5751099880598514,
+                  "settlement_name": 0.00980392156862745,
+                  "unit": 0.1132762521454205
+                },
+                "person_name": {
+                  "context_only": 2.6292197680411387,
+                  "person_name": 3.6345870784897945,
+                  "quantity": 0.02127659574468085,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 6.783512743415647,
+                  "person_name": 0.5925462322891567,
+                  "quantity": 1.4003800833776467,
+                  "settlement_name": 0.0,
+                  "unit": 0.17308410074478783
+                },
+                "settlement_name": {
+                  "context_only": 1.154244843800025,
+                  "person_name": 0.6701457597845897,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.829205162729796,
+                  "person_name": 0.0078125,
+                  "quantity": 0.07521697203471553,
+                  "settlement_name": 0.0,
+                  "unit": 0.5732407896419722
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "no_corpus_profile": {
+              "balanced_accuracy": 0.3574251232149116,
+              "macro_f1": 0.30728181670109855,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6034717151503283,
+                  "precision": 0.6981570354444206,
+                  "predicted_mass": 26.225814057270163,
+                  "recall": 0.5314020127386683,
+                  "truth_mass": 34.45552736990605
+                },
+                "person_name": {
+                  "f1": 0.39272314256276397,
+                  "precision": 0.2929112511410936,
+                  "predicted_mass": 12.782526696650635,
+                  "recall": 0.5957193602675132,
+                  "truth_mass": 6.285083442275614
+                },
+                "quantity": {
+                  "f1": 0.3234465293696435,
+                  "precision": 0.3372917156161365,
+                  "predicted_mass": 8.243770991326386,
+                  "recall": 0.3106931633287925,
+                  "truth_mass": 8.949523159827239
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.8243906035846145
+                },
+                "unit": {
+                  "f1": 0.21676769642275714,
+                  "precision": 0.1571415518490925,
+                  "predicted_mass": 7.747888254752816,
+                  "recall": 0.3493110797395843,
+                  "truth_mass": 3.4854754244064834
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 55.0,
+              "weighted_accuracy": 0.4736718786639445,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 18.30973659434035,
+                  "person_name": 7.888303777922041,
+                  "quantity": 4.350558773008503,
+                  "settlement_name": 0.0,
+                  "unit": 3.9069282246351533
+                },
+                "person_name": {
+                  "context_only": 2.1289444777917144,
+                  "person_name": 3.744145887460368,
+                  "quantity": 0.2638144212415542,
+                  "settlement_name": 0.0,
+                  "unit": 0.14817865578197728
+                },
+                "quantity": {
+                  "context_only": 3.6852024955051292,
+                  "person_name": 0.3679014199704584,
+                  "quantity": 2.7805556608110154,
+                  "settlement_name": 0.0,
+                  "unit": 2.115863583540636
+                },
+                "settlement_name": {
+                  "context_only": 0.6361092860538271,
+                  "person_name": 0.7743631112977669,
+                  "quantity": 0.05451559934318555,
+                  "settlement_name": 0.0,
+                  "unit": 0.359402606889835
+                },
+                "unit": {
+                  "context_only": 1.4658212035791416,
+                  "person_name": 0.0078125,
+                  "quantity": 0.7943265369221274,
+                  "settlement_name": 0.0,
+                  "unit": 1.2175151839052145
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "self_inclusive_target_profile": {
+              "balanced_accuracy": 0.4149212935735296,
+              "macro_f1": 0.3863420136704766,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7036036034960297,
+                  "precision": 0.7215787725452618,
+                  "predicted_mass": 32.78061525242294,
+                  "recall": 0.686502222507887,
+                  "truth_mass": 34.45552736990605
+                },
+                "person_name": {
+                  "f1": 0.47711135463503157,
+                  "precision": 0.36100530077074494,
+                  "predicted_mass": 12.244564705761231,
+                  "recall": 0.7033085248602082,
+                  "truth_mass": 6.285083442275614
+                },
+                "quantity": {
+                  "f1": 0.3230087517564098,
+                  "precision": 0.5198552960670277,
+                  "predicted_mass": 4.03344060501877,
+                  "recall": 0.23429242233854172,
+                  "truth_mass": 8.949523159827239
+                },
+                "settlement_name": {
+                  "f1": 0.1278223155715054,
+                  "precision": 0.11235646639458943,
+                  "predicted_mass": 2.4068154188055355,
+                  "recall": 0.1482255363460393,
+                  "truth_mass": 1.8243906035846145
+                },
+                "unit": {
+                  "f1": 0.3001640428934067,
+                  "precision": 0.2980796796401973,
+                  "predicted_mass": 3.534564017991519,
+                  "recall": 0.30227776181497173,
+                  "truth_mass": 3.4854754244064834
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 55.0,
+              "weighted_accuracy": 0.5726355877689909,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.653796117121832,
+                  "person_name": 6.566166108945113,
+                  "quantity": 1.557130511258182,
+                  "settlement_name": 1.066775775217751,
+                  "unit": 1.611658857363169
+                },
+                "person_name": {
+                  "context_only": 1.738991387584102,
+                  "person_name": 4.420352764410182,
+                  "quantity": 0.0234375,
+                  "settlement_name": 0.10230179028132992,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 4.776356624961193,
+                  "person_name": 0.5040184936739773,
+                  "quantity": 2.096805459890804,
+                  "settlement_name": 0.7030191308235954,
+                  "unit": 0.8693234504776692
+                },
+                "settlement_name": {
+                  "context_only": 0.8838235680790211,
+                  "person_name": 0.6701457597845897,
+                  "quantity": 0.0,
+                  "settlement_name": 0.27042127572100383,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 1.7276475546767947,
+                  "person_name": 0.08388157894736842,
+                  "quantity": 0.3560671338697845,
+                  "settlement_name": 0.2642974467618554,
+                  "unit": 1.0535817101506806
+                }
+              },
+              "worst_state_recall": 0.1482255363460393
+            },
+            "strict_single_family_profile": {
+              "balanced_accuracy": 0.2807201349391518,
+              "macro_f1": 0.2379796150443969,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6810458292973599,
+                  "precision": 0.6288807685686558,
+                  "predicted_mass": 40.68866669056932,
+                  "recall": 0.742647753020559,
+                  "truth_mass": 34.45552736990605
+                },
+                "person_name": {
+                  "f1": 0.3775026251561892,
+                  "precision": 0.2779852308280951,
+                  "predicted_mass": 13.29447112328685,
+                  "recall": 0.5880059760362172,
+                  "truth_mass": 6.285083442275614
+                },
+                "quantity": {
+                  "f1": 0.051828635791019595,
+                  "precision": 0.4820642098616697,
+                  "predicted_mass": 0.5084310930719146,
+                  "recall": 0.027386535435877782,
+                  "truth_mass": 8.949523159827239
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.8243906035846145
+                },
+                "unit": {
+                  "f1": 0.07952098497741585,
+                  "precision": 0.3123327669229313,
+                  "predicted_mass": 0.5084310930719145,
+                  "recall": 0.04556041020310517,
+                  "truth_mass": 3.4854754244064834
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 55.0,
+              "weighted_accuracy": 0.5397796859560556,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 25.5883199803991,
+                  "person_name": 8.371348337846953,
+                  "quantity": 0.25353073835246953,
+                  "settlement_name": 0.0,
+                  "unit": 0.24232831330752652
+                },
+                "person_name": {
+                  "context_only": 2.589416818331274,
+                  "person_name": 3.69566662394434,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 8.119655586803045,
+                  "person_name": 0.47746805019779004,
+                  "quantity": 0.24509643315081756,
+                  "settlement_name": 0.0,
+                  "unit": 0.10730308967558655
+                },
+                "settlement_name": {
+                  "context_only": 1.0900274922868476,
+                  "person_name": 0.734363111297767,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 3.3012468127490546,
+                  "person_name": 0.015625,
+                  "quantity": 0.00980392156862745,
+                  "settlement_name": 0.0,
+                  "unit": 0.15879969008880146
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "transition_zero": {
+              "balanced_accuracy": 0.32699473100458354,
+              "macro_f1": 0.33437447394932623,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7662357636006986,
+                  "precision": 0.6707572358411972,
+                  "predicted_mass": 45.89263769657107,
+                  "recall": 0.8934072747265419,
+                  "truth_mass": 34.45552736990605
+                },
+                "person_name": {
+                  "f1": 0.4559067160532111,
+                  "precision": 0.4382780195414094,
+                  "predicted_mass": 6.811877721925168,
+                  "recall": 0.4750129898422898,
+                  "truth_mass": 6.285083442275614
+                },
+                "quantity": {
+                  "f1": 0.21070022821349899,
+                  "precision": 0.6788023133956615,
+                  "predicted_mass": 1.6441357924129025,
+                  "recall": 0.12470420596665972,
+                  "truth_mass": 8.949523159827239
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.8243906035846145
+                },
+                "unit": {
+                  "f1": 0.2390296618792226,
+                  "precision": 0.7590585179303322,
+                  "predicted_mass": 0.6513487890908611,
+                  "recall": 0.14184918448742626,
+                  "truth_mass": 3.4854754244064834
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 55.0,
+              "weighted_accuracy": 0.6432503656375756,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 30.782818806813538,
+                  "person_name": 3.2396198930532027,
+                  "quantity": 0.3936545409500078,
+                  "settlement_name": 0.0,
+                  "unit": 0.0394341290893015
+                },
+                "person_name": {
+                  "context_only": 3.299587164952004,
+                  "person_name": 2.98549627732361,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 7.5497568966643795,
+                  "person_name": 0.16622027023783809,
+                  "quantity": 1.1160431794264873,
+                  "settlement_name": 0.0,
+                  "unit": 0.11750281349853407
+                },
+                "settlement_name": {
+                  "context_only": 1.4116618222740978,
+                  "person_name": 0.41272878131051677,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.8488130058670507,
+                  "person_name": 0.0078125,
+                  "quantity": 0.1344380720364073,
+                  "settlement_name": 0.0,
+                  "unit": 0.49441184650302555
+                }
+              },
+              "worst_state_recall": 0.0
+            }
+          },
+          "primary": {
+            "clean": {
+              "balanced_accuracy": 0.47776015026104623,
+              "macro_f1": 0.44296054614698077,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7494766408650276,
+                  "precision": 0.7744533513710586,
+                  "predicted_mass": 32.249777186113434,
+                  "recall": 0.726060632407747,
+                  "truth_mass": 34.39925938406927
+                },
+                "person_name": {
+                  "f1": 0.5329937406006596,
+                  "precision": 0.42387694505058426,
+                  "predicted_mass": 10.507919145846433,
+                  "recall": 0.7177648087135818,
+                  "truth_mass": 6.205465372930102
+                },
+                "quantity": {
+                  "f1": 0.4917989504474875,
+                  "precision": 0.5956428485557381,
+                  "predicted_mass": 6.331117384430891,
+                  "recall": 0.4187878171507103,
+                  "truth_mass": 9.004762409423337
+                },
+                "settlement_name": {
+                  "f1": 0.05236507053927705,
+                  "precision": 0.13960704751948597,
+                  "predicted_mass": 0.42463478982846387,
+                  "recall": 0.03222642419230645,
+                  "truth_mass": 1.8395466071026871
+                },
+                "unit": {
+                  "f1": 0.38816832828245185,
+                  "precision": 0.3196979149171491,
+                  "predicted_mass": 5.486551493780777,
+                  "recall": 0.4939610688408858,
+                  "truth_mass": 3.5509662264746074
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 55.0,
+              "weighted_accuracy": 0.6366257920812337,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 24.975948022755457,
+                  "person_name": 4.783802743977352,
+                  "quantity": 2.10169221054702,
+                  "settlement_name": 0.2547716510575608,
+                  "unit": 2.2830447557318743
+                },
+                "person_name": {
+                  "context_only": 1.7083849803707085,
+                  "person_name": 4.454064666379931,
+                  "quantity": 0.04301572617946346,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 3.2308385787370226,
+                  "person_name": 0.5114419032317934,
+                  "quantity": 3.77108479340317,
+                  "settlement_name": 0.08738401410427843,
+                  "unit": 1.4040131199470727
+                },
+                "settlement_name": {
+                  "context_only": 1.0365241067484512,
+                  "person_name": 0.6982859456176811,
+                  "quantity": 0.0,
+                  "settlement_name": 0.05928200928200929,
+                  "unit": 0.045454545454545456
+                },
+                "unit": {
+                  "context_only": 1.2980814975017951,
+                  "person_name": 0.06032388663967611,
+                  "quantity": 0.4153246543012368,
+                  "settlement_name": 0.023197115384615385,
+                  "unit": 1.754039072647284
+                }
+              },
+              "worst_state_recall": 0.03222642419230645
+            },
+            "mild": {
+              "balanced_accuracy": 0.386020441941027,
+              "macro_f1": 0.3615261061386301,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7298068762256018,
+                  "precision": 0.7094045625412168,
+                  "predicted_mass": 36.49607942536911,
+                  "recall": 0.7514174716082446,
+                  "truth_mass": 34.45552736990605
+                },
+                "person_name": {
+                  "f1": 0.48939432642988884,
+                  "precision": 0.3740978974366744,
+                  "predicted_mass": 11.885110993719517,
+                  "recall": 0.7074202076054156,
+                  "truth_mass": 6.285083442275614
+                },
+                "quantity": {
+                  "f1": 0.27923391737708475,
+                  "precision": 0.524827152814235,
+                  "predicted_mass": 3.243697140787619,
+                  "recall": 0.19022022789246612,
+                  "truth_mass": 8.949523159827239
+                },
+                "settlement_name": {
+                  "f1": 0.005968748452868158,
+                  "precision": 0.01417595525793889,
+                  "predicted_mass": 0.4864964370055901,
+                  "recall": 0.003780194718492515,
+                  "truth_mass": 1.8243906035846145
+                },
+                "unit": {
+                  "f1": 0.30322666220770694,
+                  "precision": 0.33455372158997093,
+                  "predicted_mass": 2.8886160031181616,
+                  "recall": 0.2772641078805165,
+                  "truth_mass": 3.4854754244064834
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 55.0,
+              "weighted_accuracy": 0.6002246257014247,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 25.890485259223475,
+                  "person_name": 5.794318397985853,
+                  "quantity": 1.308405866222494,
+                  "settlement_name": 0.33632919037558284,
+                  "unit": 1.1259886560986456
+                },
+                "person_name": {
+                  "context_only": 1.8388884087236392,
+                  "person_name": 4.446195033551975,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 5.551320275329786,
+                  "person_name": 0.8209050750016879,
+                  "quantity": 1.7023803349912408,
+                  "settlement_name": 0.07868736157253599,
+                  "unit": 0.796230112931988
+                },
+                "settlement_name": {
+                  "context_only": 1.0620581436278438,
+                  "person_name": 0.7554359082326328,
+                  "quantity": 0.0,
+                  "settlement_name": 0.006896551724137931,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.1533273384643694,
+                  "person_name": 0.06825657894736842,
+                  "quantity": 0.2329109395738843,
+                  "settlement_name": 0.06458333333333333,
+                  "unit": 0.9663972340875281
+                }
+              },
+              "worst_state_recall": 0.003780194718492515
+            }
+          }
+        },
+        "optimizer": {
+          "logistic_emission": {
+            "accepted_iterations": 60,
+            "converged": true,
+            "final_gradient_infinity_norm": 8.139439711689692e-06,
+            "final_objective": 0.9015797155357668,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "no_corpus_profile": {
+            "accepted_iterations": 44,
+            "converged": true,
+            "final_gradient_infinity_norm": 7.457809579273459e-06,
+            "final_objective": 0.9719224189484019,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "primary": {
+            "accepted_iterations": 59,
+            "converged": true,
+            "final_gradient_infinity_norm": 8.244815801668973e-06,
+            "final_objective": 0.8732342631907749,
+            "termination_reason": "gradient_infinity_norm"
+          }
+        },
+        "outer_fold_index": 2,
+        "profile_batch_commitments": {
+          "train_clean": "sha256:62cee068626e5c8269b9454e1c8d4d55cd5285d51c4698983af5c12f82f8afac",
+          "train_mild": "sha256:aa5b21b2c669f520d9f2fc6a89626fe1f70fbd9153bbec19a16b65cd5ead3573",
+          "validation_clean": "sha256:59bcb9dbfa215a429400a52cc07b45721bb02d9fd3823f2712e21cdd1609ab41",
+          "validation_mild": "sha256:4373ae500d927d97ef9411f1492ff495a6ba2ac0e518443b5d4504602ff7a759"
+        },
+        "support": {
+          "train_family_count": 216,
+          "train_state_support": {
+            "context_only": 4924,
+            "person_name": 886,
+            "quantity": 1885,
+            "settlement_name": 201,
+            "unit": 970
+          },
+          "validation_family_count": 55,
+          "validation_state_support": {
+            "context_only": 1218,
+            "person_name": 222,
+            "quantity": 468,
+            "settlement_name": 51,
+            "unit": 243
+          }
+        }
+      },
+      {
+        "metrics": {
+          "diagnostics": {
+            "logistic_emission": {
+              "balanced_accuracy": 0.3692400779366862,
+              "macro_f1": 0.35343747092003064,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7213805054839925,
+                  "precision": 0.6796141070840113,
+                  "predicted_mass": 37.493229984664275,
+                  "recall": 0.7686166485003019,
+                  "truth_mass": 33.15167329180365
+                },
+                "person_name": {
+                  "f1": 0.480712992233955,
+                  "precision": 0.37079221019012587,
+                  "predicted_mass": 11.210451867137088,
+                  "recall": 0.6832662132611064,
+                  "truth_mass": 6.083643745834255
+                },
+                "quantity": {
+                  "f1": 0.23118742033689893,
+                  "precision": 0.4933020578542859,
+                  "predicted_mass": 2.7288286689419903,
+                  "recall": 0.15096996253981998,
+                  "truth_mass": 8.916586950637928
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.038798920377867745,
+                  "recall": 0.0,
+                  "truth_mass": 1.5072754117150033
+                },
+                "unit": {
+                  "f1": 0.33390643654530655,
+                  "precision": 0.5318149933412436,
+                  "predicted_mass": 1.5286905588787816,
+                  "recall": 0.24334756538220262,
+                  "truth_mass": 3.3408206000091716
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 53.00000000000001,
+              "weighted_accuracy": 0.5999395018883145,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 25.480928017723087,
+                  "person_name": 6.303162955943772,
+                  "quantity": 1.1235968556340359,
+                  "settlement_name": 0.02564102564102564,
+                  "unit": 0.2183444368617229
+                },
+                "person_name": {
+                  "context_only": 1.9268955207884706,
+                  "person_name": 4.156748225045784,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 6.588484958576601,
+                  "person_name": 0.5158496315143537,
+                  "quantity": 1.3461367979208556,
+                  "settlement_name": 0.0,
+                  "unit": 0.46611556262611753
+                },
+                "settlement_name": {
+                  "context_only": 1.272450780827273,
+                  "person_name": 0.17579685310995263,
+                  "quantity": 0.027777777777777776,
+                  "settlement_name": 0.0,
+                  "unit": 0.03125
+                },
+                "unit": {
+                  "context_only": 2.2244707067488414,
+                  "person_name": 0.05889420152322554,
+                  "quantity": 0.23131723760932113,
+                  "settlement_name": 0.013157894736842105,
+                  "unit": 0.8129805593909413
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "no_corpus_profile": {
+              "balanced_accuracy": 0.3858615215912699,
+              "macro_f1": 0.3304075958042,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6340586206405516,
+                  "precision": 0.7187765947512654,
+                  "predicted_mass": 26.1608541661941,
+                  "recall": 0.5672054471534161,
+                  "truth_mass": 33.15167329180365
+                },
+                "person_name": {
+                  "f1": 0.46887772000935946,
+                  "precision": 0.3488597521677368,
+                  "predicted_mass": 12.464878375668448,
+                  "recall": 0.7147845210223375,
+                  "truth_mass": 6.083643745834254
+                },
+                "quantity": {
+                  "f1": 0.32406682281535787,
+                  "precision": 0.3632407779221421,
+                  "predicted_mass": 7.1805770670986,
+                  "recall": 0.29251981887488715,
+                  "truth_mass": 8.916586950637928
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.5072754117150033
+                },
+                "unit": {
+                  "f1": 0.22503481555573107,
+                  "precision": 0.16477159906641234,
+                  "predicted_mass": 7.193690391038853,
+                  "recall": 0.3547978209057088,
+                  "truth_mass": 3.3408206000091716
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 53.00000000000001,
+              "weighted_accuracy": 0.5084131759056805,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 18.80380967336145,
+                  "person_name": 7.0895315366162786,
+                  "quantity": 3.6031212500812693,
+                  "settlement_name": 0.0,
+                  "unit": 3.655210831744646
+                },
+                "person_name": {
+                  "context_only": 1.557026291275061,
+                  "person_name": 4.3484943809366765,
+                  "quantity": 0.08348993906197745,
+                  "settlement_name": 0.0,
+                  "unit": 0.09463313456053928
+                },
+                "quantity": {
+                  "context_only": 3.8786011092523074,
+                  "person_name": 0.5748283197546288,
+                  "quantity": 2.608278399782789,
+                  "settlement_name": 0.0,
+                  "unit": 1.8548791218482026
+                },
+                "settlement_name": {
+                  "context_only": 0.5969912535302451,
+                  "person_name": 0.38952413836086375,
+                  "quantity": 0.11710858585858586,
+                  "settlement_name": 0.0,
+                  "unit": 0.4036514339653086
+                },
+                "unit": {
+                  "context_only": 1.3244258387750365,
+                  "person_name": 0.0625,
+                  "quantity": 0.7685788923139781,
+                  "settlement_name": 0.0,
+                  "unit": 1.1853158689201568
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "self_inclusive_target_profile": {
+              "balanced_accuracy": 0.42234903455507344,
+              "macro_f1": 0.3925360364023529,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6943181011091071,
+                  "precision": 0.7042885188588085,
+                  "predicted_mass": 32.22613770553468,
+                  "recall": 0.6846260396389241,
+                  "truth_mass": 33.15167329180365
+                },
+                "person_name": {
+                  "f1": 0.5008397743789259,
+                  "precision": 0.38302864983288726,
+                  "predicted_mass": 11.488421656034811,
+                  "recall": 0.7233156344230487,
+                  "truth_mass": 6.083643745834254
+                },
+                "quantity": {
+                  "f1": 0.2982448028739237,
+                  "precision": 0.47971525404909454,
+                  "predicted_mass": 4.0220556742060865,
+                  "recall": 0.21638789261325322,
+                  "truth_mass": 8.916586950637928
+                },
+                "settlement_name": {
+                  "f1": 0.1056873348749274,
+                  "precision": 0.09868009203818909,
+                  "predicted_mass": 1.7377001214024295,
+                  "recall": 0.11376580987256693,
+                  "truth_mass": 1.5072754117150031
+                },
+                "unit": {
+                  "f1": 0.36359016877488043,
+                  "precision": 0.3540580035018558,
+                  "predicted_mass": 3.525684842821994,
+                  "recall": 0.37364979622757427,
+                  "truth_mass": 3.3408206000091716
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 53.00000000000001,
+              "weighted_accuracy": 0.5744548723148186,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 22.696498793171024,
+                  "person_name": 6.339419513234661,
+                  "quantity": 1.5708738564289069,
+                  "settlement_name": 1.1801444788521371,
+                  "unit": 1.3647366501169145
+                },
+                "person_name": {
+                  "context_only": 1.6256365604206202,
+                  "person_name": 4.400394635621916,
+                  "quantity": 0.01282051282051282,
+                  "settlement_name": 0.04479203697120512,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 5.421737165794986,
+                  "person_name": 0.4696296939819808,
+                  "quantity": 1.929441459551375,
+                  "settlement_name": 0.2143773750308164,
+                  "unit": 0.88140125627877
+                },
+                "settlement_name": {
+                  "context_only": 1.1287521506902864,
+                  "person_name": 0.17579685310995263,
+                  "quantity": 0.0,
+                  "settlement_name": 0.1714764079147641,
+                  "unit": 0.03125
+                },
+                "unit": {
+                  "context_only": 1.3535130354577631,
+                  "person_name": 0.1031809600862999,
+                  "quantity": 0.5089198454052921,
+                  "settlement_name": 0.12690982263350684,
+                  "unit": 1.2482969364263095
+                }
+              },
+              "worst_state_recall": 0.11376580987256693
+            },
+            "strict_single_family_profile": {
+              "balanced_accuracy": 0.3238937613065206,
+              "macro_f1": 0.28587802934803214,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6960237071340752,
+                  "precision": 0.6586937266406041,
+                  "predicted_mass": 37.135012599842106,
+                  "recall": 0.7378390714378625,
+                  "truth_mass": 33.15167329180364
+                },
+                "person_name": {
+                  "f1": 0.44076560481175087,
+                  "precision": 0.32482097478548916,
+                  "predicted_mass": 12.837551893120263,
+                  "recall": 0.6854290444995154,
+                  "truth_mass": 6.083643745834254
+                },
+                "quantity": {
+                  "f1": 0.11407959912049236,
+                  "precision": 0.39456119124122385,
+                  "predicted_mass": 1.5068684384503215,
+                  "recall": 0.06667930334893724,
+                  "truth_mass": 8.916586950637928
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0136986301369863,
+                  "recall": 0.0,
+                  "truth_mass": 1.5072754117150033
+                },
+                "unit": {
+                  "f1": 0.17852123567384212,
+                  "precision": 0.2871569326245661,
+                  "predicted_mass": 1.5068684384503217,
+                  "recall": 0.129521387246288,
+                  "truth_mass": 3.3408206000091716
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 53.0,
+              "weighted_accuracy": 0.5595804808073838,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 24.460599838235787,
+                  "person_name": 7.407697157749499,
+                  "quantity": 0.6944827966495766,
+                  "settlement_name": 0.0,
+                  "unit": 0.5888934991687788
+                },
+                "person_name": {
+                  "context_only": 1.9009171132311156,
+                  "person_name": 4.169906119782626,
+                  "quantity": 0.01282051282051282,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 7.157094573606307,
+                  "person_name": 0.7284747201484938,
+                  "quantity": 0.5945518061187617,
+                  "settlement_name": 0.0136986301369863,
+                  "unit": 0.4227672206273787
+                },
+                "settlement_name": {
+                  "context_only": 0.9962234955763618,
+                  "person_name": 0.38952413836086375,
+                  "quantity": 0.059027777777777776,
+                  "settlement_name": 0.0,
+                  "unit": 0.0625
+                },
+                "unit": {
+                  "context_only": 2.6201775791925335,
+                  "person_name": 0.1419497570787811,
+                  "quantity": 0.14598554508369269,
+                  "settlement_name": 0.0,
+                  "unit": 0.4327077186541642
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "transition_zero": {
+              "balanced_accuracy": 0.3492359128022025,
+              "macro_f1": 0.3513009900057632,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7556603473502259,
+                  "precision": 0.6750024861884774,
+                  "predicted_mass": 42.14962817876739,
+                  "recall": 0.8582101893367201,
+                  "truth_mass": 33.15167329180364
+                },
+                "person_name": {
+                  "f1": 0.5054255149167756,
+                  "precision": 0.4583290252825921,
+                  "predicted_mass": 7.477104816038641,
+                  "recall": 0.5633094746248694,
+                  "truth_mass": 6.083643745834254
+                },
+                "quantity": {
+                  "f1": 0.19666934131132197,
+                  "precision": 0.4981198145746551,
+                  "predicted_mass": 2.19320215996122,
+                  "recall": 0.12252193123810179,
+                  "truth_mass": 8.916586950637928
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.5072754117150033
+                },
+                "unit": {
+                  "f1": 0.29874974645049246,
+                  "precision": 0.5722623574263643,
+                  "predicted_mass": 1.1800648452327536,
+                  "recall": 0.2021379688113212,
+                  "truth_mass": 3.3408206000091716
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 53.0,
+              "weighted_accuracy": 0.6348275871387197,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 28.45110381258789,
+                  "person_name": 3.785342387788571,
+                  "quantity": 0.821194326806181,
+                  "settlement_name": 0.0,
+                  "unit": 0.09403276462099991
+                },
+                "person_name": {
+                  "context_only": 2.6566695835634886,
+                  "person_name": 3.4269741622707657,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 7.294980929455198,
+                  "person_name": 0.11840317757523366,
+                  "quantity": 1.092477453244616,
+                  "settlement_name": 0.0,
+                  "unit": 0.41072539036288025
+                },
+                "settlement_name": {
+                  "context_only": 1.360890323310933,
+                  "person_name": 0.14638508840407027,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.385983529849875,
+                  "person_name": 0.0,
+                  "quantity": 0.27953037991042307,
+                  "settlement_name": 0.0,
+                  "unit": 0.6753066902488734
+                }
+              },
+              "worst_state_recall": 0.0
+            }
+          },
+          "primary": {
+            "clean": {
+              "balanced_accuracy": 0.5063967275577015,
+              "macro_f1": 0.47792940127899647,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7415560189445066,
+                  "precision": 0.765138691351078,
+                  "predicted_mass": 31.153278274725416,
+                  "recall": 0.7193835845849587,
+                  "truth_mass": 33.13472684280342
+                },
+                "person_name": {
+                  "f1": 0.5538029937949819,
+                  "precision": 0.4366409067669976,
+                  "predicted_mass": 10.449603815954516,
+                  "recall": 0.7568985060682872,
+                  "truth_mass": 6.028185349784017
+                },
+                "quantity": {
+                  "f1": 0.48136815916490155,
+                  "precision": 0.61298526857868,
+                  "predicted_mass": 5.783896885720913,
+                  "recall": 0.39628075205248736,
+                  "truth_mass": 8.946797359099165
+                },
+                "settlement_name": {
+                  "f1": 0.18479929689840535,
+                  "precision": 0.30127430368759994,
+                  "predicted_mass": 0.6605732193281362,
+                  "recall": 0.13327437795523978,
+                  "truth_mass": 1.4932632944240734
+                },
+                "unit": {
+                  "f1": 0.42812053759218704,
+                  "precision": 0.36088446756954334,
+                  "predicted_mass": 4.95264780427102,
+                  "recall": 0.5261464171275344,
+                  "truth_mass": 3.397027153889327
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 53.0,
+              "weighted_accuracy": 0.6402093215941553,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.836578570419373,
+                  "person_name": 5.403696996323767,
+                  "quantity": 1.768427394175792,
+                  "settlement_name": 0.3629008772602667,
+                  "unit": 1.7631230046242197
+                },
+                "person_name": {
+                  "context_only": 1.3979039121480619,
+                  "person_name": 4.562724485554258,
+                  "quantity": 0.0,
+                  "settlement_name": 0.06755695208169678,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 3.7969656822819013,
+                  "person_name": 0.22125183519803293,
+                  "quantity": 3.5454435859250246,
+                  "settlement_name": 0.012195121951219513,
+                  "unit": 1.370941133742986
+                },
+                "settlement_name": {
+                  "context_only": 1.0723190588578546,
+                  "person_name": 0.1906804988784583,
+                  "quantity": 0.0,
+                  "settlement_name": 0.19901373668776046,
+                  "unit": 0.03125
+                },
+                "unit": {
+                  "context_only": 1.0495110510182233,
+                  "person_name": 0.07125000000000001,
+                  "quantity": 0.4700259056200962,
+                  "settlement_name": 0.018906531347192668,
+                  "unit": 1.787333665903815
+                }
+              },
+              "worst_state_recall": 0.13327437795523978
+            },
+            "mild": {
+              "balanced_accuracy": 0.4196780268662684,
+              "macro_f1": 0.39294354710818963,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7086243327568688,
+                  "precision": 0.711672469676786,
+                  "predicted_mass": 32.868903106125195,
+                  "recall": 0.7056021951955731,
+                  "truth_mass": 33.15167329180364
+                },
+                "person_name": {
+                  "f1": 0.4843693408768855,
+                  "precision": 0.3650948788610178,
+                  "predicted_mass": 11.98733021901822,
+                  "recall": 0.719390065727677,
+                  "truth_mass": 6.083643745834254
+                },
+                "quantity": {
+                  "f1": 0.2917688159333345,
+                  "precision": 0.4635976030654089,
+                  "predicted_mass": 4.0942303575803765,
+                  "recall": 0.2128701700190451,
+                  "truth_mass": 8.916586950637928
+                },
+                "settlement_name": {
+                  "f1": 0.10081568257598525,
+                  "precision": 0.2421124557777705,
+                  "predicted_mass": 0.3963310947586761,
+                  "recall": 0.06366234989790896,
+                  "truth_mass": 1.5072754117150033
+                },
+                "unit": {
+                  "f1": 0.37913956339787414,
+                  "precision": 0.36292950097652327,
+                  "predicted_mass": 3.653205222517529,
+                  "recall": 0.39686535349113794,
+                  "truth_mass": 3.3408206000091716
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 53.0,
+              "weighted_accuracy": 0.5865715914430321,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.3918934491031,
+                  "person_name": 6.630108751612057,
+                  "quantity": 1.7668926315414768,
+                  "settlement_name": 0.20176248570417268,
+                  "unit": 1.1610159738428343
+                },
+                "person_name": {
+                  "context_only": 1.641678779886898,
+                  "person_name": 4.376512874179475,
+                  "quantity": 0.01282051282051282,
+                  "settlement_name": 0.05263157894736842,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 5.274014821925035,
+                  "person_name": 0.5965929354189065,
+                  "quantity": 1.8980753801718946,
+                  "settlement_name": 0.01282051282051282,
+                  "unit": 1.1350833003015794
+                },
+                "settlement_name": {
+                  "context_only": 1.0510972607773321,
+                  "person_name": 0.27341590072900024,
+                  "quantity": 0.05555555555555555,
+                  "settlement_name": 0.09595669465311533,
+                  "unit": 0.03125
+                },
+                "unit": {
+                  "context_only": 1.5102187944328314,
+                  "person_name": 0.1106997570787811,
+                  "quantity": 0.3608862774909368,
+                  "settlement_name": 0.03315982263350684,
+                  "unit": 1.3258559483731154
+                }
+              },
+              "worst_state_recall": 0.06366234989790896
+            }
+          }
+        },
+        "optimizer": {
+          "logistic_emission": {
+            "accepted_iterations": 58,
+            "converged": true,
+            "final_gradient_infinity_norm": 7.986164570401985e-06,
+            "final_objective": 0.9084631788591143,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "no_corpus_profile": {
+            "accepted_iterations": 45,
+            "converged": true,
+            "final_gradient_infinity_norm": 4.229217755279211e-06,
+            "final_objective": 0.9806751172322271,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "primary": {
+            "accepted_iterations": 59,
+            "converged": true,
+            "final_gradient_infinity_norm": 7.679667679852831e-06,
+            "final_objective": 0.8814003353638208,
+            "termination_reason": "gradient_infinity_norm"
+          }
+        },
+        "outer_fold_index": 3,
+        "profile_batch_commitments": {
+          "train_clean": "sha256:89132fddec96f9e13c3a946f02388c52ff0fc9e8cf4346e2344a19b08c603d3e",
+          "train_mild": "sha256:565d7e6d046b8cba805dccb021f69513b26a6faf7ad0937f2a94ac9b2817c92b",
+          "validation_clean": "sha256:65db576350addb14740b57c33eea2bdc1b52c652c18f19587e0d114b795dbb18",
+          "validation_mild": "sha256:687a434c5bdee78b99b44ca918be716d7dad94d8cf88a0771447674e760a4e35"
+        },
+        "support": {
+          "train_family_count": 218,
+          "train_state_support": {
+            "context_only": 4925,
+            "person_name": 886,
+            "quantity": 1893,
+            "settlement_name": 202,
+            "unit": 968
+          },
+          "validation_family_count": 53,
+          "validation_state_support": {
+            "context_only": 1217,
+            "person_name": 222,
+            "quantity": 460,
+            "settlement_name": 50,
+            "unit": 245
+          }
+        }
+      },
+      {
+        "metrics": {
+          "diagnostics": {
+            "logistic_emission": {
+              "balanced_accuracy": 0.35264417296063433,
+              "macro_f1": 0.35109851958647154,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.740693196227723,
+                  "precision": 0.6787402406067096,
+                  "predicted_mass": 42.7426537736711,
+                  "recall": 0.8150918322432934,
+                  "truth_mass": 35.59250376324638
+                },
+                "person_name": {
+                  "f1": 0.42713165464158265,
+                  "precision": 0.35160111509680825,
+                  "predicted_mass": 9.823176300833769,
+                  "recall": 0.5439912086422962,
+                  "truth_mass": 6.349072717159994
+                },
+                "quantity": {
+                  "f1": 0.24904247812711142,
+                  "precision": 0.5664169042532262,
+                  "predicted_mass": 2.6277489537441205,
+                  "recall": 0.15960992673209823,
+                  "truth_mass": 9.325243473312584
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.03558556926038231,
+                  "recall": 0.0,
+                  "truth_mass": 1.7469570860436923
+                },
+                "unit": {
+                  "f1": 0.33862526893594064,
+                  "precision": 0.5504423035638362,
+                  "predicted_mass": 1.770835402490627,
+                  "recall": 0.2445278971854838,
+                  "truth_mass": 3.9862229602373507
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 57.0,
+              "weighted_accuracy": 0.6127744384805304,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 29.011159106510807,
+                  "person_name": 5.34907472296013,
+                  "quantity": 0.7093764170648685,
+                  "settlement_name": 0.02993585174625802,
+                  "unit": 0.4929576649643155
+                },
+                "person_name": {
+                  "context_only": 2.8525462214431396,
+                  "person_name": 3.453839741165693,
+                  "quantity": 0.037037037037037035,
+                  "settlement_name": 0.005649717514124294,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 7.187314965533272,
+                  "person_name": 0.346392060897936,
+                  "quantity": 1.4884014275343989,
+                  "settlement_name": 0.0,
+                  "unit": 0.3031350193469778
+                },
+                "settlement_name": {
+                  "context_only": 1.1288466645990523,
+                  "person_name": 0.61811042144464,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 2.5627868155848303,
+                  "person_name": 0.05575935436537051,
+                  "quantity": 0.392934072107816,
+                  "settlement_name": 0.0,
+                  "unit": 0.9747427181793337
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "no_corpus_profile": {
+              "balanced_accuracy": 0.3658506360967032,
+              "macro_f1": 0.33147366976876763,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6640390013304244,
+                  "precision": 0.6806540512904852,
+                  "predicted_mass": 33.89625413116209,
+                  "recall": 0.648215783059679,
+                  "truth_mass": 35.59250376324638
+                },
+                "person_name": {
+                  "f1": 0.41885886635032415,
+                  "precision": 0.3298838936029769,
+                  "predicted_mass": 11.038883040280172,
+                  "recall": 0.573556152304457,
+                  "truth_mass": 6.349072717159994
+                },
+                "quantity": {
+                  "f1": 0.2734409143222414,
+                  "precision": 0.35435776211019965,
+                  "predicted_mass": 5.858148037205095,
+                  "recall": 0.22260868946908538,
+                  "truth_mass": 9.325243473312584
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.7469570860436923
+                },
+                "unit": {
+                  "f1": 0.3010295668408482,
+                  "precision": 0.24718194240790684,
+                  "predicted_mass": 6.206714791352641,
+                  "recall": 0.38487255565029466,
+                  "truth_mass": 3.9862229602373507
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 57.0,
+              "weighted_accuracy": 0.5319866747890438,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.07162269794732,
+                  "person_name": 6.616189760488968,
+                  "quantity": 3.0748693289445557,
+                  "settlement_name": 0.0,
+                  "unit": 2.829821975865533
+                },
+                "person_name": {
+                  "context_only": 2.5612053488400077,
+                  "person_name": 3.64154971835549,
+                  "quantity": 0.06723446842229838,
+                  "settlement_name": 0.0,
+                  "unit": 0.07908318154219793
+                },
+                "quantity": {
+                  "context_only": 5.559819774459414,
+                  "person_name": 0.2457937020962231,
+                  "quantity": 2.075880228574256,
+                  "settlement_name": 0.0,
+                  "unit": 1.443749768182691
+                },
+                "settlement_name": {
+                  "context_only": 0.8560208933261295,
+                  "person_name": 0.5353498593394901,
+                  "quantity": 0.03571428571428571,
+                  "settlement_name": 0.0,
+                  "unit": 0.319872047663787
+                },
+                "unit": {
+                  "context_only": 1.8475854165892196,
+                  "person_name": 0.0,
+                  "quantity": 0.604449725549699,
+                  "settlement_name": 0.0,
+                  "unit": 1.534187818098432
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "self_inclusive_target_profile": {
+              "balanced_accuracy": 0.4287906564377285,
+              "macro_f1": 0.3930116534871816,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.6609135689265075,
+                  "precision": 0.7039865029674471,
+                  "predicted_mass": 31.488215694587666,
+                  "recall": 0.6228075158457351,
+                  "truth_mass": 35.59250376324638
+                },
+                "person_name": {
+                  "f1": 0.42383300141825364,
+                  "precision": 0.3162457719755426,
+                  "predicted_mass": 12.8964120676404,
+                  "recall": 0.6423671568641237,
+                  "truth_mass": 6.349072717159994
+                },
+                "quantity": {
+                  "f1": 0.3547624632045758,
+                  "precision": 0.5328939533340754,
+                  "predicted_mass": 4.652781943300801,
+                  "recall": 0.26588467859983933,
+                  "truth_mass": 9.325243473312584
+                },
+                "settlement_name": {
+                  "f1": 0.13549920842947785,
+                  "precision": 0.09818200223183973,
+                  "predicted_mass": 3.889133255062137,
+                  "recall": 0.21857599879181164,
+                  "truth_mass": 1.7469570860436923
+                },
+                "unit": {
+                  "f1": 0.390050025457093,
+                  "precision": 0.38587351709178525,
+                  "predicted_mass": 4.0734570394089955,
+                  "recall": 0.3943179320871325,
+                  "truth_mass": 3.9862229602373507
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 57.0,
+              "weighted_accuracy": 0.5382251945575006,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 22.167278851517455,
+                  "person_name": 7.847350027672343,
+                  "quantity": 1.6372110597698846,
+                  "settlement_name": 2.429679992911202,
+                  "unit": 1.5109838313754933
+                },
+                "person_name": {
+                  "context_only": 1.8238744876348472,
+                  "person_name": 4.078435790045642,
+                  "quantity": 0.02879786566227244,
+                  "settlement_name": 0.3702687117979472,
+                  "unit": 0.04769586201928519
+                },
+                "quantity": {
+                  "context_only": 5.0779370653831,
+                  "person_name": 0.3108999348739762,
+                  "quantity": 2.4794393637669656,
+                  "settlement_name": 0.5729990574611398,
+                  "unit": 0.8839680518274032
+                },
+                "settlement_name": {
+                  "context_only": 0.6913070576208159,
+                  "person_name": 0.6148370388266695,
+                  "quantity": 0.0,
+                  "settlement_name": 0.38184288992843285,
+                  "unit": 0.058970099667774084
+                },
+                "unit": {
+                  "context_only": 1.7278182324314482,
+                  "person_name": 0.04488927622176811,
+                  "quantity": 0.5073336541016789,
+                  "settlement_name": 0.1343426029634155,
+                  "unit": 1.57183919451904
+                }
+              },
+              "worst_state_recall": 0.21857599879181164
+            },
+            "strict_single_family_profile": {
+              "balanced_accuracy": 0.28766347288779703,
+              "macro_f1": 0.24877222568382243,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7006116465378404,
+                  "precision": 0.6340750002292502,
+                  "predicted_mass": 43.93803959451587,
+                  "recall": 0.7827494421658061,
+                  "truth_mass": 35.59250376324638
+                },
+                "person_name": {
+                  "f1": 0.3968223588826899,
+                  "precision": 0.30290286077382195,
+                  "predicted_mass": 12.055763579517059,
+                  "recall": 0.5751588365303876,
+                  "truth_mass": 6.349072717159995
+                },
+                "quantity": {
+                  "f1": 0.056593761051923396,
+                  "precision": 0.5527972439339184,
+                  "predicted_mass": 0.5030984129835349,
+                  "recall": 0.029823501865740933,
+                  "truth_mass": 9.325243473312584
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.7469570860436925
+                },
+                "unit": {
+                  "f1": 0.08983336194665856,
+                  "precision": 0.4008070999705387,
+                  "predicted_mass": 0.5030984129835349,
+                  "recall": 0.05058558387705049,
+                  "truth_mass": 3.9862229602373507
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 57.0,
+              "weighted_accuracy": 0.5612542907902905,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 27.860012465965458,
+                  "person_name": 7.414648922505527,
+                  "quantity": 0.20600394601125094,
+                  "settlement_name": 0.0,
+                  "unit": 0.11183842876414099
+                },
+                "person_name": {
+                  "context_only": 2.6973474401114252,
+                  "person_name": 3.6517252770485693,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 8.510675805578902,
+                  "person_name": 0.3825559690114586,
+                  "quantity": 0.2781114161248263,
+                  "settlement_name": 0.0,
+                  "unit": 0.15390028259739716
+                },
+                "settlement_name": {
+                  "context_only": 1.144204503641102,
+                  "person_name": 0.5670382966883047,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.03571428571428571
+                },
+                "unit": {
+                  "context_only": 3.7257993792189827,
+                  "person_name": 0.03979511426319937,
+                  "quantity": 0.018983050847457626,
+                  "settlement_name": 0.0,
+                  "unit": 0.201645415907711
+                }
+              },
+              "worst_state_recall": 0.0
+            },
+            "transition_zero": {
+              "balanced_accuracy": 0.3169665658163466,
+              "macro_f1": 0.3178636908838547,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7531875719339185,
+                  "precision": 0.6593832289903931,
+                  "predicted_mass": 47.39892550774415,
+                  "recall": 0.8781078386580123,
+                  "truth_mass": 35.59250376324638
+                },
+                "person_name": {
+                  "f1": 0.449862842654408,
+                  "precision": 0.4311542273994231,
+                  "predicted_mass": 6.925063127501275,
+                  "recall": 0.47026871095053563,
+                  "truth_mass": 6.349072717159994
+                },
+                "quantity": {
+                  "f1": 0.15495191593058927,
+                  "precision": 0.5133610820878258,
+                  "predicted_mass": 1.6575059146808775,
+                  "recall": 0.09124684329826768,
+                  "truth_mass": 9.325243473312584
+                },
+                "settlement_name": {
+                  "f1": 0.0,
+                  "precision": 0.0,
+                  "predicted_mass": 0.0,
+                  "recall": 0.0,
+                  "truth_mass": 1.7469570860436923
+                },
+                "unit": {
+                  "f1": 0.23131612390035766,
+                  "precision": 0.5683201680282542,
+                  "predicted_mass": 1.0185054500736945,
+                  "recall": 0.14520943617491713,
+                  "truth_mass": 3.9862229602373507
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 57.0,
+              "weighted_accuracy": 0.6257818072430283,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 31.25405655197145,
+                  "person_name": 3.573590677355558,
+                  "quantity": 0.4798765163492184,
+                  "settlement_name": 0.0,
+                  "unit": 0.2849800175701517
+                },
+                "person_name": {
+                  "context_only": 3.3447839562114305,
+                  "person_name": 2.985770242430045,
+                  "quantity": 0.018518518518518517,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 8.301137680886551,
+                  "person_name": 0.018518518518518517,
+                  "quantity": 0.8508990299275468,
+                  "settlement_name": 0.0,
+                  "unit": 0.15468824397996817
+                },
+                "settlement_name": {
+                  "context_only": 1.3997733968465391,
+                  "person_name": 0.3471836891971531,
+                  "quantity": 0.0,
+                  "settlement_name": 0.0,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 3.099173921828182,
+                  "person_name": 0.0,
+                  "quantity": 0.3082118498855938,
+                  "settlement_name": 0.0,
+                  "unit": 0.5788371885235748
+                }
+              },
+              "worst_state_recall": 0.0
+            }
+          },
+          "primary": {
+            "clean": {
+              "balanced_accuracy": 0.5317729634536235,
+              "macro_f1": 0.49051304210435864,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7166451176491798,
+                  "precision": 0.7763758528068809,
+                  "predicted_mass": 30.483371269854466,
+                  "recall": 0.6654486071318197,
+                  "truth_mass": 35.56481013322474
+                },
+                "person_name": {
+                  "f1": 0.5016751282041948,
+                  "precision": 0.39129649971044544,
+                  "predicted_mass": 11.222326551257497,
+                  "recall": 0.6987939955826609,
+                  "truth_mass": 6.284050987663658
+                },
+                "quantity": {
+                  "f1": 0.5308254374738612,
+                  "precision": 0.5941289427821276,
+                  "predicted_mass": 7.6561877021941775,
+                  "recall": 0.47971279313071336,
+                  "truth_mass": 9.482262658787786
+                },
+                "settlement_name": {
+                  "f1": 0.25229967977571593,
+                  "precision": 0.25761930972307295,
+                  "predicted_mass": 1.6545027491970248,
+                  "recall": 0.24719529723760375,
+                  "truth_mass": 1.7242717031682466
+                },
+                "unit": {
+                  "f1": 0.4511198474188413,
+                  "precision": 0.3742568536697573,
+                  "predicted_mass": 5.983611727496834,
+                  "recall": 0.5677141241853193,
+                  "truth_mass": 3.9446045171555655
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 56.99999999999999,
+              "weighted_accuracy": 0.6188107495494795,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 23.666553366062033,
+                  "person_name": 5.861338549665169,
+                  "quantity": 2.272679696188458,
+                  "settlement_name": 1.0453398438511559,
+                  "unit": 2.7188986774579247
+                },
+                "person_name": {
+                  "context_only": 1.7879633113438136,
+                  "person_name": 4.391257098114654,
+                  "quantity": 0.0,
+                  "settlement_name": 0.1048305782051912,
+                  "unit": 0.0
+                },
+                "quantity": {
+                  "context_only": 3.618643067350814,
+                  "person_name": 0.2334290858867446,
+                  "quantity": 4.548762705246153,
+                  "settlement_name": 0.05612244897959183,
+                  "unit": 1.0253053513244827
+                },
+                "settlement_name": {
+                  "context_only": 0.6095822261746208,
+                  "person_name": 0.6884576208105619,
+                  "quantity": 0.0,
+                  "settlement_name": 0.426231856183064,
+                  "unit": 0.0
+                },
+                "unit": {
+                  "context_only": 0.8006292989231834,
+                  "person_name": 0.04784419678036699,
+                  "quantity": 0.8347453007595669,
+                  "settlement_name": 0.02197802197802198,
+                  "unit": 2.2394076987144262
+                }
+              },
+              "worst_state_recall": 0.24719529723760375
+            },
+            "mild": {
+              "balanced_accuracy": 0.41014137341763235,
+              "macro_f1": 0.39901832092281697,
+              "per_state": {
+                "context_only": {
+                  "f1": 0.7230349889220302,
+                  "precision": 0.7125549879635454,
+                  "predicted_mass": 36.65509531103786,
+                  "recall": 0.7338278636393663,
+                  "truth_mass": 35.59250376324638
+                },
+                "person_name": {
+                  "f1": 0.4381553636639478,
+                  "precision": 0.33328447161166064,
+                  "predicted_mass": 12.179136943970391,
+                  "recall": 0.639324418207784,
+                  "truth_mass": 6.349072717159994
+                },
+                "quantity": {
+                  "f1": 0.36521860106896287,
+                  "precision": 0.5824147455943748,
+                  "predicted_mass": 4.259262121155573,
+                  "recall": 0.26601525974220835,
+                  "truth_mass": 9.325243473312584
+                },
+                "settlement_name": {
+                  "f1": 0.09538114468720743,
+                  "precision": 0.33207023396095453,
+                  "predicted_mass": 0.2929653366183436,
+                  "recall": 0.05568829861391914,
+                  "truth_mass": 1.7469570860436923
+                },
+                "unit": {
+                  "f1": 0.37330150627193676,
+                  "precision": 0.3925517417946673,
+                  "predicted_mass": 3.6135402872178335,
+                  "recall": 0.35585102688488385,
+                  "truth_mass": 3.9862229602373507
+                }
+              },
+              "states": [
+                "context_only",
+                "quantity",
+                "unit",
+                "person_name",
+                "settlement_name"
+              ],
+              "total_family_mass": 57.0,
+              "weighted_accuracy": 0.5995496822034188,
+              "weighted_confusion_matrix": {
+                "context_only": {
+                  "context_only": 26.118770998159192,
+                  "person_name": 6.901117868387912,
+                  "quantity": 1.147280813391708,
+                  "settlement_name": 0.16332114952151447,
+                  "unit": 1.2620129337860517
+                },
+                "person_name": {
+                  "context_only": 2.2052225970464447,
+                  "person_name": 4.059117221057227,
+                  "quantity": 0.05343047965998786,
+                  "settlement_name": 0.014908976773383553,
+                  "unit": 0.01639344262295082
+                },
+                "quantity": {
+                  "context_only": 5.469517043671609,
+                  "person_name": 0.4999569451297585,
+                  "quantity": 2.4806570647125805,
+                  "settlement_name": 0.01745014245014245,
+                  "unit": 0.857662277348494
+                },
+                "settlement_name": {
+                  "context_only": 0.9199599181106066,
+                  "person_name": 0.6707420003920085,
+                  "quantity": 0.0,
+                  "settlement_name": 0.09728506787330317,
+                  "unit": 0.058970099667774084
+                },
+                "unit": {
+                  "context_only": 1.9416247540500056,
+                  "person_name": 0.04820290900348599,
+                  "quantity": 0.5778937633912964,
+                  "settlement_name": 0.0,
+                  "unit": 1.4185015337925628
+                }
+              },
+              "worst_state_recall": 0.05568829861391914
+            }
+          }
+        },
+        "optimizer": {
+          "logistic_emission": {
+            "accepted_iterations": 59,
+            "converged": true,
+            "final_gradient_infinity_norm": 9.435660001343204e-06,
+            "final_objective": 0.9025362501607463,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "no_corpus_profile": {
+            "accepted_iterations": 44,
+            "converged": true,
+            "final_gradient_infinity_norm": 5.568365042986356e-06,
+            "final_objective": 0.975111876534672,
+            "termination_reason": "gradient_infinity_norm"
+          },
+          "primary": {
+            "accepted_iterations": 59,
+            "converged": true,
+            "final_gradient_infinity_norm": 9.27783759374504e-06,
+            "final_objective": 0.8753850637991999,
+            "termination_reason": "gradient_infinity_norm"
+          }
+        },
+        "outer_fold_index": 4,
+        "profile_batch_commitments": {
+          "train_clean": "sha256:8d2f7a45848c122a045510ea15d57b8a9a5192e00a03223318358ac7d661a163",
+          "train_mild": "sha256:2de5aa39e33987d844cd14d9515030b031373fcd5b2d40260fff741fcc642d96",
+          "validation_clean": "sha256:e9995da5dfd40a8306928d6de5525e3bef7d229b86c357501fa9d2c0e999554e",
+          "validation_mild": "sha256:b130c662711f37dfe55a4611d5dc5dd1b59f9d6300842dad603da5208b42194f"
+        },
+        "support": {
+          "train_family_count": 214,
+          "train_state_support": {
+            "context_only": 4921,
+            "person_name": 885,
+            "quantity": 1872,
+            "settlement_name": 200,
+            "unit": 974
+          },
+          "validation_family_count": 57,
+          "validation_state_support": {
+            "context_only": 1221,
+            "person_name": 223,
+            "quantity": 481,
+            "settlement_name": 52,
+            "unit": 239
+          }
+        }
+      }
+    ],
+    "paired_v3": {
+      "delta_by_outer_fold": [
+        0.05877166250789129,
+        0.07850899127800676,
+        0.05269717416020803,
+        0.0884678522351004,
+        0.06104198398501304
+      ],
+      "positive_delta_fold_count": 5,
+      "v3_mild_macro_f1": 0.32432759235715436,
+      "v3_mild_macro_f1_by_outer_fold": [
+        0.31683351626900313,
+        0.32138764286827887,
+        0.3088289319784221,
+        0.30447569487308923,
+        0.33797633693780393
+      ],
+      "v4_mild_macro_f1_by_outer_fold": [
+        0.3756051787768944,
+        0.3998966341462856,
+        0.3615261061386301,
+        0.39294354710818963,
+        0.39901832092281697
+      ]
+    }
+  },
+  "parent_commitments": {
+    "evaluation_corpus_sha256": "sha256:e7d6f8c9a8c090bb33ef4ba3703c1b36fe0519086efa75ff70d1ba53a8bf9312",
+    "gateway_version": "mtaac-v2-training-gateway-v1",
+    "mtaac_source_commit": "66e0643efd230401210e27db353ebb6d7228b1bb",
+    "selected_manifest_sha256": "sha256:1a7e7bbfeae6b833bf90ee20eecb8a0be712dbbdc85a88e5de10cacfd7b0464e",
+    "source_archive_sha256": "sha256:2698293080ed8fe6244ec9191010030d2928fd639002ae25d3a05867c22be091",
+    "v2_freeze_commit": "37157f1411a55ffd91b7327afaca8fc1080fa708",
+    "v2_protocol_sha256": "sha256:25913e826db786f3867d5aca5391f116d1e3e0aab4c22754be28f87ab2fa3892",
+    "v2_split_manifest_sha256": "sha256:7249c8fe1d3efc95b42cc9e0a9378550addb64f5b992f89af99dd852b83c5c30",
+    "v3_freeze_commit": "5b39c8ba358ea66e46183cbf02eb07fbc91861e2",
+    "v3_model_state_commitment": "sha256:d2b332f6d9b2b6acae206f7f0b8db07d7e2431b5995168f7228a374e4f134158",
+    "v3_plan_sha256": "sha256:b2100318fa0e958d741fd25d7b9263ae1574967f4585f4609c118b1bd16880dd",
+    "v3_result_commit": "9f70679d0c0138d67d000e65ac71e258bcf439e0",
+    "v3_result_sha256": "sha256:e40d4802906dbe05b19a8625949f8c9154711a28a687c930d3e31cec2bf124d2"
+  },
+  "plan_sha256": "sha256:604725a5929b63f578ade07b65ca784eefefefce9b827e1686d4836f668c123b",
+  "profile_contract": {
+    "clean_mild_shared": false,
+    "feature_value_types": {
+      "local": "fixed_categorical",
+      "missing_or_boundary": "fixed_categorical_marker",
+      "profile_numeric": "direct_float64_in_closed_unit_interval",
+      "type_support": "fixed_categorical"
+    },
+    "gold_used": false,
+    "identity_serialized": false,
+    "inference_mode": "target_batch_partition_regime_local_document_leave_one_family_out",
+    "leave_one_family_out": true,
+    "line_template_used": false,
+    "local_features": [
+      "position_bucket",
+      "line_length_bucket",
+      "reported_direction",
+      "damage",
+      "observation_status",
+      "previous_equality",
+      "next_equality",
+      "line_frequency_bucket",
+      "seen_before",
+      "seen_after"
+    ],
+    "profile_features": [
+      "type_support",
+      "type_frequency",
+      "family_dispersion",
+      "line_dispersion",
+      "family_entropy",
+      "type_initial_tendency",
+      "type_final_tendency",
+      "type_mean_position",
+      "type_position_variance",
+      "left_context_excess_diversity",
+      "left_context_entropy",
+      "right_context_excess_diversity",
+      "right_context_entropy",
+      "type_repeat_in_line_rate",
+      "type_same_left_rate",
+      "type_same_right_rate",
+      "left_neighbor_commonness",
+      "right_neighbor_commonness",
+      "type_evidence",
+      "type_diversity_evidence",
+      "initial_tendency_interaction",
+      "final_tendency_interaction",
+      "position_agreement",
+      "neighbor_equality_repetition_interaction"
+    ],
+    "train_validation_shared": false,
+    "version": "v4-truth-free-lofo-profile-v1"
+  },
+  "report_version": "mtaac-v4-development-report-v1",
+  "scientific_metrics_emitted": true,
+  "terminal_status": "development_killed"
+}

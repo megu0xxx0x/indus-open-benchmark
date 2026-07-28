@@ -211,15 +211,24 @@ for the v0.2 volume target.
   features; one fixed L2 linear-chain CRF; deterministic dependency-free
   L-BFGS; nonselecting ablations; the exact V3 outer assignments; and
   predeclared advance/kill gates. Reusing MTAAC remains adaptive method
-  development, not new held-out evidence. No real V4 result exists at this
-  code-and-plan checkpoint.
-- [ ] Execute the exact V4 MTAAC command once at its public code-and-plan
-  freeze and preserve the aggregate result. A killed result blocks further
-  reserved-source execution under this protocol.
-- [ ] Only if V4 advances, define and publish a separate one-shot prospective
-  evaluator freeze before calculating any ORACC performance result. Source
-  qualification is complete, but that feature-safety-exposed source is not
-  binding confirmation.
+  development, not new held-out evidence.
+- [x] Execute the exact V4 MTAAC command once at its public code-and-plan
+  freeze and preserve the aggregate result. Mild macro-F1 improved to 0.3878
+  with positive V3 deltas in all five folds, but mild `unit` recall 0.3052 and
+  `settlement_name` recall 0.0429 failed their frozen floors. The terminal
+  decision is `development_killed`; no final model was fitted.
+- [x] Keep the prospective source unloaded after the V4 kill. This protocol
+  cannot define or execute a prospective evaluator, and its source
+  qualification remains neither performance evidence nor binding
+  confirmation.
+- [ ] If MTAAC development continues, freeze one final V5 attempt rather than
+  open-ended tuning: retain the V4 observations, profile, folds, sequence
+  structure, parameter count, and optimizer. Change only the emission
+  regularizer: preserve the V4 penalty on each pair's mean direction and
+  apply exactly twice that penalty to the `quantity`/`unit` and
+  `person`/`settlement` contrast directions. Search no pooling weight.
+  Require rare-state precision as well as recall and retire MTAAC after that
+  single result regardless of outcome.
 - [ ] Freeze a non-cherry-pickable binding-confirmation source-selection
   mechanism: independent custody before development or a public random beacon
   over a predeclared eligible pool after model freeze. It must select a

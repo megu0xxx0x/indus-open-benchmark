@@ -20,8 +20,15 @@ immutable content-addressed identifiers for corpus and split releases.
   nonselecting diagnostics. The exact V3 outer assignments and predeclared
   rare-state, paired-delta, profile-increment, and self-information gates
   determine `advance` or `development_killed`. The V2 holdout and reserved
-  prospective source remain unavailable, reports are aggregate only, and no
-  real V4 result exists at this code-and-plan checkpoint.
+  prospective source remain unavailable, and reports are aggregate only.
+- The aggregate MTAAC V4 development execution. Mild macro-F1 improved from
+  V3's 0.3243 to 0.3878, all five paired outer-fold deltas were positive, and
+  the full profile exceeded the local-only diagnostic by 0.0608. The fixed
+  method nevertheless returned `development_killed`: mild `unit` recall
+  0.3052 missed its 0.3768 floor and `settlement_name` recall 0.0429 missed
+  its 0.15 floor. Every optimizer converged, the closed schema and complete
+  metric/gate recomputation passed, no final model was fitted, and the V2
+  holdout and prospective validation source remained unused.
 - A separate, development-only MTAAC V3 plan and implementation boundary that
   leaves V2 immutable, exposes only the fixed 271-family V2 training
   partition, and excludes and does not score the 90-family V2 holdout. It

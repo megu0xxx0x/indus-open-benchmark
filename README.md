@@ -78,8 +78,13 @@ reuses the exact V3 outer folds for paired development estimates and fixes all
 advance/kill gates before execution. The
 [world-research synthesis](docs/MTAAC_V4_WORLD_RESEARCH_2026-07-29.md)
 records the primary-source rationale and rejects entropy, hidden states, or
-network structure as decipherment evidence. At the code-and-plan checkpoint,
-no real V4 result exists and the reserved prospective source remains unloaded.
+network structure as decipherment evidence. The separately published
+[V4 development result](docs/MTAAC_V4_DEVELOPMENT_RESULT_2026-07-29.md)
+improved mild macro-F1 from V3's 0.3243 to 0.3878 in a positive direction on
+all five paired outer folds. It nevertheless returned `development_killed`:
+mild `unit` recall was 0.3052 against a 0.3768 floor, and
+`settlement_name` recall was 0.0429 against a 0.15 floor. The final model was
+not fitted, and the prospective source remains unloaded and prohibited.
 
 Before any V3 model fitting, all eligibility-qualified, non-excluded
 records from the exact CC0
@@ -201,7 +206,9 @@ permission by itself.
   aggregate schema, and network-free no-replace command. V4 uses only the 271
   development families, excludes the V2 holdout, does not load the reserved
   prospective source, and cannot issue an Indus reading or decipherment
-  claim. No real V4 development result exists at the code-and-plan freeze.
+  claim. Its separately published result improved overall and on every paired
+  fold but failed the fixed mild `unit` and `settlement_name` recall gates,
+  returned `development_killed`, and fitted no final model.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -607,6 +614,7 @@ Read the [scientific standard](docs/BENCHMARK.md), [schema contract](docs/SCHEMA
 [MTAAC V3 development protocol](docs/MTAAC_V3_DEVELOPMENT.md),
 [MTAAC V4 development protocol](docs/MTAAC_V4_DEVELOPMENT.md),
 [MTAAC V4 world-research synthesis](docs/MTAAC_V4_WORLD_RESEARCH_2026-07-29.md),
+[MTAAC V4 development result](docs/MTAAC_V4_DEVELOPMENT_RESULT_2026-07-29.md),
 [annotation guide](docs/ANNOTATION_GUIDE.md), [data policy](DATA_POLICY.md), and
 [contribution guide](CONTRIBUTING.md) before adding data or models. Institutional access work can
 start from the bilingual [permission templates](docs/PERMISSION_REQUESTS.md); hypothesis teams use
