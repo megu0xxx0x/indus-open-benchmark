@@ -149,7 +149,10 @@ permission by itself.
   qualified source for later project-run five-state prospective validation,
   emits only aggregate commitments, and does not expose a validation scoring
   entry point. Feature-safety inspection informed its frozen observation
-  sanitizer, so it is not binding confirmation evidence.
+  sanitizer, so it is not binding confirmation evidence. The
+  [published source-qualification receipt](benchmark/results/oracc-ed3b-validation-source-v1.json)
+  binds the exact public source-freeze commit and reports no model execution
+  or performance metric.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.

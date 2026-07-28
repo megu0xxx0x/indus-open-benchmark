@@ -15,7 +15,9 @@ immutable content-addressed identifiers for corpus and split releases.
   separate post-development protocol is frozen. Gold-conditioned GDL-key
   safety aggregates informed its annotation-stripping sanitizer, so this is a
   feature-safety-exposed prospective validation source rather than untouched
-  or binding confirmation evidence. It does not train or evaluate a model.
+  or binding confirmation evidence. Its separately published aggregate
+  source-qualification receipt binds the public source-freeze commit and
+  reports no model execution or performance metric.
 - An exact-byte-pinned, network-free adapter and pre-result-frozen V2 protocol
   for the CC0 MTAAC known-script control, with whole-document quarantine,
   evaluation-equivalence anti-laundering, gold-independent event/null

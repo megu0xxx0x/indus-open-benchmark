@@ -1,0 +1,129 @@
+{
+  "analysis": "oracc_ed3b_source_qualification",
+  "attestation_limit": "the commit is caller-declared; the verifier does not independently attest Git state, publication time, custody, or blindness",
+  "model_executed": false,
+  "observation": {
+    "contract_sha256": "sha256:a801e1980c2c973fb4a2ca806e2f6ec56a96fb45477d2fb63d295f6ce69eb123",
+    "dropped_gdl_keys": [
+      "b",
+      "breakEnd",
+      "breakStart",
+      "delim",
+      "det",
+      "gdl_collated",
+      "gdl_remarked",
+      "gdl_type",
+      "gg",
+      "hc",
+      "ho",
+      "id",
+      "m",
+      "mods",
+      "n",
+      "o",
+      "pos",
+      "queried",
+      "r",
+      "statusStart"
+    ],
+    "hash_confidentiality_claimed": false,
+    "linguistic_role_key": "hard_fail",
+    "model_row_gdl_atom_key_identity_listed": false,
+    "model_row_raw_values_listed": false,
+    "source_atom_domain": "indusbench:oracc-ed3b:observation-atom:v1\\x00",
+    "source_domain_separated_atoms": true,
+    "unknown_gdl_key": "hard_fail"
+  },
+  "projection": {
+    "annotation_unknown_document_count": 7,
+    "annotation_unknown_token_count": 8,
+    "effective_corpus_sha256": "sha256:c6a745a6a397dc5492bfcdad60d91787bece7267653f3c897944459880af5342",
+    "projection_sha256": "sha256:6dc14c2a9d8c39498fbea3ea4a499c5c2ba26d08aea20bc7550087980a44a0bb",
+    "qualified_lemma_token_count": 226618,
+    "rules": {
+      "missing_pos_or_required_unit_gw": "annotation_unknown",
+      "multiple_matches": "hard_fail",
+      "person_name": "f.pos == \"PN\"",
+      "quantity": "f.pos == \"n\"",
+      "settlement_name": "f.pos == \"SN\"",
+      "unit": "f.pos == \"N\" and f.gw == \"unit\"",
+      "zero_matches": "context_only"
+    },
+    "scorable_lemma_token_count": 226610,
+    "states": [
+      "context_only",
+      "quantity",
+      "unit",
+      "person_name",
+      "settlement_name"
+    ],
+    "truth_states": [
+      "context_only",
+      "quantity",
+      "unit",
+      "person_name",
+      "settlement_name",
+      "annotation_unknown"
+    ]
+  },
+  "protocol_sha256": "sha256:ff495b0f9da96153c428614b7677c4099c35ea3035f414999473e2c807d07ba3",
+  "receipt_version": "oracc-ed3b-source-qualification-v1",
+  "reservation": {
+    "aggregate_side_information": "archive-wide and joined-source class counts were disclosed before the source freeze",
+    "binding_confirmation_role": "prohibited",
+    "candidate_model_fitting_use": "prohibited",
+    "debugging_use": "prohibited",
+    "distribution_blindness_claimed": false,
+    "gold_conditioned_feature_safety_audit": "class-conditioned GDL-key aggregates informed the frozen sanitizer",
+    "hyperparameter_tuning_use": "prohibited",
+    "model_selection_use": "prohibited",
+    "role": "feature_safety_exposed_prospective_validation_source",
+    "validation_execution": "disabled_until_separate_post_development_protocol_freeze"
+  },
+  "scientific_metrics_emitted": false,
+  "scientific_nonclaims": [
+    "independent_custody",
+    "blindness",
+    "trusted_time",
+    "model_performance",
+    "binding_confirmation",
+    "Indus_sign_value",
+    "Indus_language",
+    "Indus_translation",
+    "Indus_decipherment",
+    "prize_eligibility"
+  ],
+  "selection": {
+    "audit_exclusion_count": 16,
+    "audit_exclusion_hash_confidentiality_claimed": false,
+    "audit_exclusion_identifiers_listed": false,
+    "audit_exclusion_set_sha256": "sha256:5c28be3dbfb6111d83a297ac31b2ba640ce4fa521adf89edec3abf195b9ae0cf",
+    "genre": "Administrative",
+    "period": "Early Dynastic IIIb",
+    "qualified_document_count": 3338,
+    "requires_metadata_format": "lem",
+    "selected_member_manifest_sha256": "sha256:6eda68ba7e96d7d56b2edb49b72f7727ecd3cef0519abbe8269d04b6bce034b6"
+  },
+  "source": {
+    "archive_bytes": 34534747,
+    "archive_member_count": 3491,
+    "archive_sha256": "sha256:a108205140d101ca8d4d38c106fad7b61abac427eb51da12f912c8eada70c557",
+    "archive_url": "https://oracc.museum.upenn.edu/json/epsd2-admin-ed3b.zip",
+    "catalogue_document_count": 3477,
+    "embedded_license_verified": true,
+    "license_id": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "project": "epsd2/admin/ed3b"
+  },
+  "source_freeze_commit": "2537dd099e708039c49d96598ad6b379eddeafd8",
+  "support_gate": {
+    "all_classes_pass": true,
+    "minimum_documents_per_class": 100,
+    "minimum_tokens_per_class": 200,
+    "selected_per_class_counts_listed_in_receipt": false,
+    "source_distribution_blindness_claimed": false,
+    "support_commitment_sha256": "sha256:ad6a3615420b3d37cb3d3a622393beddb02cfd6828f069879cea382644793eb8",
+    "upstream_aggregate_class_counts_previously_disclosed": true
+  },
+  "terminal_status": "source_qualified"
+}

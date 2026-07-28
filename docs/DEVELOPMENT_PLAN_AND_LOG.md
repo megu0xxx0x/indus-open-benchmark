@@ -434,6 +434,23 @@ custodian reserves it before development, or a public random beacon chooses
 from a predeclared ordered eligible pool after the complete model/evaluator
 freeze, with terminal support failure or a predeclared fallback order.
 
+**Source-qualification receipt recorded at:** 2026-07-29T00:07:52+09:00
+
+The public source-freeze commit is
+`2537dd099e708039c49d96598ad6b379eddeafd8`. After that commit was published,
+the exact pinned archive was processed once through the no-replace
+source-qualification entry point. The resulting aggregate receipt is
+`benchmark/results/oracc-ed3b-validation-source-v1.json`: 4,695 bytes,
+SHA-256
+`bdcf01a1a04dee7f14b64b396de4240f40c8ab0826e19096f113e091b94c3bd3`.
+It passed the closed receipt schema and public-boundary scan and returned
+`source_qualified` for 3,338 documents, 226,618 retained tokens, 226,610
+scorable tokens, eight `annotation_unknown` tokens, and all four support
+gates. `model_executed` and `scientific_metrics_emitted` are both false. The
+receipt contains no source-document identifiers, raw values, archive-member
+paths, local paths, host/account data, private or operational network
+addresses, or credentials.
+
 ### Data and source work
 
 Safe next work:

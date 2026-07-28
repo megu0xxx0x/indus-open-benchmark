@@ -136,8 +136,15 @@ seed, scope, or exclusion changes.
 
 The [frozen source protocol](../benchmark/oracc-ed3b-validation-source-v1.json)
 defines the length framing, hash domains, canonical JSON encoding, ordering,
-projection, and fail-closed rules. The checked-in aggregate receipt is generated
-only after that implementation and protocol have a public source-freeze commit.
+projection, and fail-closed rules. The
+[checked-in aggregate source-qualification receipt](../benchmark/results/oracc-ed3b-validation-source-v1.json)
+was generated only after source-freeze commit
+`2537dd099e708039c49d96598ad6b379eddeafd8` was public. Its 4,695 exact bytes
+have SHA-256
+`bdcf01a1a04dee7f14b64b396de4240f40c8ab0826e19096f113e091b94c3bd3`.
+The receipt passed the closed JSON Schema and public-boundary scan. Its
+caller-declared commit binding establishes reproducible lineage, not trusted
+time, independent custody, or blindness.
 
 This does not make ED3b distribution-blind. The
 [global source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
