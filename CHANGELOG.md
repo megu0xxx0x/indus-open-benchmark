@@ -28,6 +28,20 @@ immutable content-addressed identifiers for corpus and split releases.
   retain only proposed locator/context rectangles and crop commitments;
   machine occupancy, OCR, identifier, and accepted-observation values are
   structurally excluded. Human double review and adjudication remain pending.
+- A closed, non-circular KP1982 bootstrap-review/adjudication contract and
+  reviewer-safe CLI verification path that does not receive the layout
+  proposal. Exact verification binds the assignment and canonical PBMs,
+  rehashes submitted crops, audits exactly two independent records into a
+  private no-replace report, and prevents adjudicator invention. No human
+  review, independence, rights, decipherment, or prize eligibility is claimed.
+- A dated decipherment-efficiency audit that moves the critical path from
+  serial full-700 review to parallel stratified calibration,
+  source-bound/abstaining concordance proposals, corpus federation, functional
+  anchors, and equal-budget hypothesis tournaments. The full Batch 0 contract
+  remains available as a high-assurance path and no extraction or reading is
+  claimed. The plan separately requires a concordance-row reference and frozen
+  sealed evaluation; sign-list cells alone cannot establish end-to-end
+  accuracy.
 - Private museum bundle format 0.2 with exact official policy/API evidence
   snapshots and reproducible, fail-closed verification.
 - Optional external manifest-anchor verification, explicitly separated from

@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-28
 
-**Last source-level update:** 2026-07-28 04:52 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-28 10:42 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -66,6 +66,9 @@ separate and traceable.
      transcription-promotion tooling.
    - Exact-byte KP1982 layout and proposal-value-stripped 700-cell bootstrap
      assignment preparation/verification tooling.
+   - Non-circular KP1982 structurally distinct bootstrap-review records,
+     private two-review audit, and no-invention adjudication verification
+     tooling. The software does not establish real-world independence.
    - Public schemas and synthetic fixtures only; real private execution details
      are not public records.
 
@@ -97,6 +100,47 @@ Do not paste private command output into this document. A public verification
 record should state only the source-level result needed by contributors.
 
 ## Current development plan
+
+### R0 — Decipherment-efficiency reset
+
+The [2026-07-28 efficiency audit](DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
+finds that the completed verification work is necessary but a serial
+“finish all 700 sign-list cells, then start analysis” pipeline is not the
+highest-information route.
+
+The public source verifier becomes a stable V1 instrument after this release.
+Further generic assurance work does not stay on the critical path unless an
+implemented downstream experiment exposes a concrete defect.
+
+Research now proceeds in parallel:
+
+- deterministically select an approximately 80–120-slot KP1982 calibration
+  tranche without describing it as full Batch 0;
+- freeze the exact page map, using page 22 as a negative control and pages
+  23–201 as 179 concordance data pages;
+- build a separate 8–12-page, 300–500-row development/sealed concordance
+  reference because cell calibration cannot establish end-to-end accuracy;
+- generate abstaining, source-bound proposals and freeze the recognizer before
+  opening sealed evaluations;
+- preserve edition disagreements and uncertainty through corpus adapters and
+  crosswalks;
+- preregister functional tests around numeral-like signs, metrology,
+  repeated-tablet families, seals/sealings, and archaeological context; and
+- compare linguistic, non-linguistic, hybrid, and multilingual hypotheses
+  under equal budgets and sealed domain holdouts.
+
+No calibration review, concordance extraction, functional anchor,
+language/sound assignment, translation, or decipherment is claimed in this
+source update.
+
+Current assurance layers:
+
+| Layer | Status |
+|---|---|
+| Public verifier code and synthetic tests | implemented; current release candidate |
+| Real calibration or Batch 0 human execution | not executed or claimed |
+| Scientific functional-anchor validation | not executed or claimed |
+| Independent external replication | not executed or claimed |
 
 ### P1 — Submission commitment
 
@@ -141,32 +185,54 @@ Source identity and target-page pixels are now mechanically fixed, but Batch 0
 is not transcribed. The first target is the sign list on one-based PDF pages
 20–21 (zero-based indices 19–20) of the official University of Helsinki 1982
 CC BY concordance snapshot. A network-free command verifies the exact PDF and
-optional canonical PBM bytes. Independent Poppler and MuPDF decoding produced
-pixel-identical 4888×6705 one-bit pages.
+optional canonical PBM bytes. Poppler and MuPDF produced pixel-identical
+4888×6705 one-bit pages in the recorded software check; this is decoder
+agreement within the project, not an independent research replication.
 
 A fixed-seed generator recomputes all 700 cell and padded-context crop hashes
 from the verified PBMs and writes only a private, no-replace proposal. The next
-software layer now rebuilds that canonical proposal and prepares or verifies a
+software layer rebuilds that canonical proposal and prepares or verifies a
 closed 700-cell reviewer assignment. It retains proposed locator/context
 rectangles and crop commitments while structurally withholding machine
 occupancy, OCR, identifier, and accepted-observation values.
+
+The non-circular review layer verifies that value-stripped assignment directly
+against the two canonical PBMs without supplying the source layout proposal.
+It validates and rehashes every submitted observation crop, compares exactly
+two structurally distinct sealed passes into a private no-replace report, and
+requires a distinct
+adjudication to choose an input observation or remain unresolved rather than
+invent a third one. A pre-existing sign inventory is not an input.
 
 This is preparation, not execution. Every geometry, occupancy, identifier,
 human-review, real-world reviewer-independence/blinding, public-release,
 evaluation-admission, and decipherment assurance remains false. The upper
 catalog rank, lower primary source identifier, glyph, and printed marks must
 still be observed in two genuinely independent human passes and resolved by a
-distinct adjudicator under human-review contracts that are not yet
-implemented. No actual Batch 0 review, promotion, rights verification,
-decipherment, or prize result is part of this public update.
+distinct adjudicator. Actor and access declarations do not prove human
+authorship, real independence, non-exposure, custody, or rights. No actual
+Batch 0 review, adjudication, inventory generation, promotion, evaluation
+admission, decipherment, prize eligibility, or prize result is part of this
+public update.
 
 ### Data and source work
 
 Safe next work:
 
 - curate public source/provenance/rights evidence;
-- implement the Helsinki 1982 human bootstrap-review and adjudication
-  contracts over the fixed, proposal-value-stripped assignment;
+- inventory KP1982 concordance page classes and implement source-bound,
+  abstaining extraction proposals;
+- specify the deterministic stratified calibration tranche separately from
+  full Batch 0;
+- specify a separate concordance-row reference, model-freeze point, and
+  end-to-end release gates;
+- implement edition-preserving corpus adapters using public or synthetic
+  fixtures;
+- preregister functional-anchor tests and kill criteria before examining
+  results;
+- prepare synthetic reviewer-record templates and a deterministic
+  post-adjudication inventory-build receipt without executing or fabricating
+  human review;
 - improve parsers and validation using public or synthetic fixtures;
 - strengthen leakage and null-model tests;
 - document unresolved rights or provenance as unknown;
@@ -197,3 +263,24 @@ limitations. Keep the following outside Git:
 
 If a detail is useful only to the operator of a particular machine, it is not a
 public development-log entry.
+
+## Source-level verification record — 2026-07-28
+
+- Ruff lint and format check: passed.
+- Pyright: passed with no errors or warnings.
+- Unit/integration suite: 339 tests passed; 11 optional
+  external-fixture tests were skipped by their declared environment gates.
+- A separate owner-controlled exact-source run exercised the canonical page
+  pixels and assignment through the relevant 35-test module: passed. No
+  private path, inventory, or content value is recorded here.
+- Source distribution and wheel build: passed.
+- Local Markdown-link existence check: passed.
+- Gitleaks current-tree and reachable-history scans: no finding.
+- Semgrep: no finding across 328 applicable rules. One Python-before-3.7
+  compatibility rule was excluded as inapplicable because the package requires
+  Python 3.11 or newer.
+- Trivy filesystem scan: no high/critical dependency vulnerability, secret, or
+  detected misconfiguration finding.
+
+These are source and packaging checks, not execution of a human review,
+scientific validation, independent replication, or a decipherment result.

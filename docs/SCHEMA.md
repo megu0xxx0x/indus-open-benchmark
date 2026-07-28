@@ -64,6 +64,12 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   source, seed, canonical layout proposal, and page pixels. It retains only
   proposed locator/context rectangles and crop commitments while structurally
   excluding machine answer and accepted-observation values.
+- `schemas/kp1982-bootstrap-review.schema.json` (v0.1.0) — a closed private
+  record for either one inventory-bootstrap pass or a later adjudication,
+  without a pre-existing sign inventory. It separates upper and lower raw
+  identifiers and their crops, glyph evidence, printed marks, condition, and
+  uncertainty. Adjudication binds two exact review inputs and forbids a third
+  invented observation.
 - `schemas/sign-inventory.schema.json` (v0.1.0) — a versioned visual sign
   inventory that keeps primary published identifiers, repeated catalog ranks,
   graphic evidence, and doubt marks separate from interpretation.
@@ -125,11 +131,32 @@ claim.
 
 The sign-inventory bootstrap must precede `transcription-review.schema.json`.
 Using an already-created inventory to “review” the pages from which that same
-inventory was derived would be circular. Assignment preparation is now
-implemented; the remaining human-review and adjudication contracts must
-independently preserve the upper catalog rank, lower primary identifier,
-glyph-with-marks crop, surrounding printed marks, and unresolved readings.
-No such human review or adjudication is claimed complete.
+inventory was derived would be circular. The dedicated bootstrap-review
+contract instead binds each independent pass directly to the exact
+proposal-value-stripped assignment and canonical PBMs. Its verifier requires
+the complete ordered roster, rehashes every submitted crop, rejects
+interpretive fields and control characters, and keeps the upper catalog rank,
+lower primary identifier, glyph-with-marks crop, surrounding printed marks,
+condition, uncertainty, and unresolved readings separate. Every reviewed cell
+and observation crop must remain within that cell's reviewed context, although
+a corrected context may extend beyond the original proposal.
+
+The two-review audit accepts exactly two semantically valid independent-pass
+byte records for the same assignment and requires different review, actor,
+and review-assignment IDs; `review_id` is the pass/session identifier. Its
+detailed result may contain record commitments, pseudonymous IDs, and aggregate
+counts plus cell-level mismatch locations and field codes, but never raw
+identifier observations; it remains private. The CLI emits only a fixed
+count-free summary. Distinct declarations do not prove distinct humans or real
+independence. Adjudication binds the exact bytes of both inputs, covers every
+assignment cell, and may select one input observation or leave it unresolved.
+It cannot invent an identifier, geometry, crop, or printed-mark set. Schema
+validity alone cannot enforce those cross-record rules; the exact-byte semantic
+verifier is required.
+
+Every human-authorship, real-world independence/non-exposure, custody, rights,
+public-release, evaluation-admission, decipherment, and prize assurance remains
+false. No actual bootstrap review or adjudication is claimed complete.
 
 ## Private corpus readiness
 

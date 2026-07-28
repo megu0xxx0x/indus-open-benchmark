@@ -1,6 +1,6 @@
 # Roadmap
 
-## Phase 0 — Global evidence audit
+## Continuing track — Global evidence audit
 
 - Maintain a dated, multilingual map of corpora, catalogues, museums, institutions, current
   projects, theories, critiques, code, and prize rules.
@@ -34,6 +34,7 @@ Current assets:
 - [private catalog-blind museum review contract](MUSEUM_REVIEW.md)
 - [private transcription evidence bridge](TRANSCRIPTION_BRIDGE.md)
 - [Helsinki 1982 sign-list Batch 0 protocol](KP1982_BATCH0_PROTOCOL.md)
+- [2026-07-28 decipherment-efficiency audit](DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
 
 ## v0.1 — Public, non-blind engineering seed
 
@@ -45,6 +46,32 @@ Current assets:
   leakage audit, simple baselines, structural null audits, and an exact-byte
   local definition lock.
 - Reproducible CLI and tests.
+
+## Current research track — Information gain before corpus volume
+
+- [x] Audit whether the serial transcription-first path is the
+  highest-efficiency route and record explicit resource allocations, claim
+  gates, and kill criteria.
+- [x] Complete the KP1982 source/layout/assignment/review/adjudication verifier
+  V1. After publication, freeze it unless a downstream experiment exposes a
+  reproducible defect or evidence-loss problem.
+- [ ] Freeze the exact KP1982 page map: pages 20–21 sign list, page 22 section
+  title/negative control, and pages 23–201 as 179 concordance data pages.
+- [ ] Define a deterministic 80–120-slot stratified calibration tranche.
+  This fast lane does not complete or weaken the separate full-700 Batch 0
+  contract.
+- [ ] Build a separate stratified 8–12-page, 300–500-row concordance
+  development/sealed reference. Cell calibration alone cannot validate
+  end-to-end row or sequence accuracy.
+- [ ] Generate source-bound, abstaining machine proposals over pages 23–201,
+  require empty output on page 22, and freeze the recognizer before sealed
+  evaluation. Do not auto-admit unreviewed output.
+- [ ] Implement edition-preserving corpus adapters and uncertainty-bearing
+  crosswalks before importing any rights-compatible export.
+- [ ] Preregister numeral/metrology and repeated-tablet functional-anchor
+  tests with site, period, medium, and object holdouts.
+- [ ] Run equal-budget linguistic, non-linguistic, hybrid, and multilingual
+  hypotheses against the same sealed tests and matched controls.
 
 ## Current source track — Submission integrity (Unreleased)
 
@@ -93,11 +120,15 @@ Current assets:
   observation values.
 - [ ] Freeze visually audited per-lane row boundaries, context crops, and crop
   commitments; generated values remain proposals until independent review.
-- [ ] Implement the non-circular human bootstrap-review and adjudication
-  contracts before creating an inventory from the sign-list pages.
+- [x] Implement the non-circular human bootstrap-review and adjudication
+  contract, reviewer-safe assignment/PBM verification, exact crop rehashing,
+  private count-bearing two-review audit, and no-invention adjudication gate.
+  These software checks do not prove human authorship or independence.
 - [ ] Execute the pages 20–21 Batch 0 sign-list protocol with two genuinely
   independent reviewers and a distinct adjudicator. No such execution or
-  reviewer-independence claim is part of the public source tree.
+  reviewer-independence claim is part of the public source tree. Full
+  completion remains a high-assurance inventory path, not a prerequisite for
+  the separate stratified concordance fast lane.
 - [ ] Design an allowlist-only exporter and separate corpus-admission review.
   Neither becomes authorized merely because a private receipt validates.
 
@@ -109,32 +140,46 @@ Current assets:
 - [ ] Complete an authorized review under a separately approved private
   operating procedure. Executed private paths, inventories, byte totals,
   digests, and results are not public roadmap records.
-- Complete two independent human-observation passes per subject and
+- [ ] Complete two independent human-observation passes per subject and
   adjudication before any carrier, physical-surface, relationship, ROI, or
   exact-crosswalk promotion.
-- Negotiate source agreements.
-- Link at least 500 artifacts to item-level image rights.
-- Double annotation and adjudication.
-- IIIF manifests, token geometry, image hashes, and duplicate-family graph.
-- Frozen internal development set and institution-held test set.
+- [ ] Negotiate source agreements under separately authorized outreach.
+- [ ] Prioritize a context-rich 150–250-artifact target set. Expand toward
+  500–1,000 only while new batches improve coverage, add contexts or anchors,
+  or change hypothesis discrimination.
+- [ ] Double annotation and adjudication.
+- [ ] IIIF manifests, token geometry, image hashes, and duplicate-family graph.
+- [ ] Frozen internal development set and institution-held test set.
 
-## v0.3 — Matched decipherment stress tests
+## Active analysis track / v0.3 packaging — Matched stress tests
 
-- Degraded known-script controls.
-- Alternative sign inventories and direction lattices.
-- Linguistic, accounting, emblematic, and shuffled null models.
-- Site, period, material, and object-type generalization reports.
+These experiments begin on the smallest admissible data now; they do not wait
+for the v0.2 volume target.
 
-## Publication gate
+- [ ] Degraded known-script controls.
+- [ ] Alternative sign inventories and direction lattices.
+- [ ] Linguistic, accounting, emblematic, hybrid, and shuffled null models.
+- [ ] Site, period, material, and object-type generalization reports.
 
-No external decipherment claim or corpus release occurs until:
+## Separate publication gates
 
-- source and redistribution rights are documented;
-- duplicate-family and domain leakage audits pass;
-- major structural baselines and matched nulls are independently reproduced;
-- an external institution can hold a genuinely unseen test set; and
-- archaeology, epigraphy, historical linguistics, and statistics reviewers agree on the stated
-  scope and limitations.
+**Corpus release:** source, layer-specific redistribution rights, provenance,
+and duplicate lineage are documented for every released item.
+
+**Structural or functional partial result:** applicable leakage audits,
+matched nulls, domain holdouts, uncertainty analysis, and independent
+reproduction pass. Unresolved expert objections are published rather than
+hidden behind a requirement for unanimous agreement.
+
+**Phonetic, language, or translation claim:** the fixed mapping predicts
+prospective or sealed material, survives edition/direction/allograph/domain
+sensitivity, has multiple compatible independent anchors, and is reproduced
+by a separate team.
+
+**Prize submission:** an official operational scheme, required evidence,
+responsible submitting authority, external-communication approval, and
+submission package are separately verified. A source release never authorizes
+submission by itself.
 
 ## v1.0 — Multi-institution benchmark, only after the gate
 

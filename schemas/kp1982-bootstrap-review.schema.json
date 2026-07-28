@@ -1,0 +1,1167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1982-bootstrap-review.schema.json",
+  "title": "Sealed KP1982 Batch 0 sign-inventory bootstrap review evidence",
+  "description": "A closed private evidence record for one proposal-value-stripped independent pass or a later adjudication. It does not depend on a pre-existing sign inventory. Schema validity alone does not prove exact-byte verification, assignment-roster identity, human authorship, reviewer independence, reviewer blinding, or scientific acceptance. A semantic verifier must bind all 700 ordered cells to the exact assignment, recompute crop bytes, and require distinct review, actor, and review-assignment identifiers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_state",
+    "status",
+    "review_id",
+    "review_assignment_id",
+    "review_stage",
+    "scientific_scope",
+    "bootstrap_assignment",
+    "privacy",
+    "actor",
+    "sealed_input_reviews",
+    "cells",
+    "disagreements",
+    "review_outcome",
+    "limitations",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "record_state": {
+      "const": "kp1982_sign_inventory_bootstrap_review"
+    },
+    "status": {
+      "const": "sealed_private_evidence_record_requires_exact_byte_and_semantic_verification"
+    },
+    "review_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "review_assignment_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "review_stage": {
+      "enum": [
+        "independent_pass",
+        "adjudication"
+      ]
+    },
+    "scientific_scope": {
+      "const": "visual sign-list inventory bootstrap observations only; no pre-existing sign inventory is a record dependency and no phonetic, language, semantic, meaning, translation, or decipherment assignment is present"
+    },
+    "bootstrap_assignment": {
+      "$ref": "#/$defs/bootstrap_assignment"
+    },
+    "privacy": {
+      "$ref": "#/$defs/privacy"
+    },
+    "actor": {
+      "$ref": "#/$defs/actor"
+    },
+    "sealed_input_reviews": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/sealed_input_pair"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cells": {
+      "type": "array",
+      "minItems": 700,
+      "maxItems": 700,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/cell_review"
+      }
+    },
+    "disagreements": {
+      "type": "array",
+      "maxItems": 700,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/disagreement"
+      }
+    },
+    "review_outcome": {
+      "enum": [
+        "complete",
+        "complete_with_unresolved_observations",
+        "abstain"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "maxItems": 16,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/limitation_code"
+      }
+    },
+    "assurances": {
+      "$ref": "#/$defs/assurances"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "review_stage": {
+            "const": "independent_pass"
+          }
+        },
+        "required": [
+          "review_stage"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sealed_input_reviews": {
+            "type": "null"
+          },
+          "disagreements": {
+            "maxItems": 0
+          },
+          "actor": {
+            "properties": {
+              "role": {
+                "const": "reviewer"
+              }
+            }
+          },
+          "cells": {
+            "items": {
+              "properties": {
+                "input_observations": {
+                  "type": "null"
+                },
+                "adjudication_codes": {
+                  "maxItems": 0
+                }
+              }
+            }
+          },
+          "assurances": {
+            "properties": {
+              "two_sealed_input_review_commitments_present": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_stage": {
+            "const": "adjudication"
+          }
+        },
+        "required": [
+          "review_stage"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sealed_input_reviews": {
+            "$ref": "#/$defs/sealed_input_pair"
+          },
+          "actor": {
+            "properties": {
+              "role": {
+                "const": "adjudicator"
+              }
+            }
+          },
+          "cells": {
+            "items": {
+              "properties": {
+                "input_observations": {
+                  "$ref": "#/$defs/input_observation_pair"
+                },
+                "adjudication_codes": {
+                  "minItems": 1
+                }
+              }
+            }
+          },
+          "assurances": {
+            "properties": {
+              "two_sealed_input_review_commitments_present": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "stable_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "raw_identifier_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 16,
+      "pattern": "^[0-9.'?]*[0-9][0-9.'?]*$",
+      "description": "Source-faithful visible identifier characters containing at least one ASCII digit. Numeric normalization and interpretation are deliberately absent."
+    },
+    "bbox": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4888
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6705
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4888
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6705
+        }
+      ],
+      "items": false
+    },
+    "bootstrap_assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_id",
+        "sha256",
+        "byte_size"
+      ],
+      "properties": {
+        "manifest_id": {
+          "const": "KP1982:BATCH0:BOOTSTRAP-ASSIGNMENT:V1"
+        },
+        "sha256": {
+          "const": "sha256:0f927340763084329be3c25c25f9bfd51e2b03e6c3177a66780e9320c8bf3761"
+        },
+        "byte_size": {
+          "const": 415621
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "raw_identifier_text_publication_authorized",
+        "public_export_authorized"
+      ],
+      "properties": {
+        "classification": {
+          "const": "private_item_level_bootstrap_review_evidence"
+        },
+        "raw_identifier_text_publication_authorized": {
+          "const": false
+        },
+        "public_export_authorized": {
+          "const": false
+        }
+      }
+    },
+    "declared_access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "machine_occupancy_ocr_identifier_proposals",
+        "sealed_peer_review_outputs",
+        "preexisting_bootstrap_inventory"
+      ],
+      "properties": {
+        "machine_occupancy_ocr_identifier_proposals": {
+          "$ref": "#/$defs/access_declaration"
+        },
+        "sealed_peer_review_outputs": {
+          "$ref": "#/$defs/access_declaration"
+        },
+        "preexisting_bootstrap_inventory": {
+          "$ref": "#/$defs/access_declaration"
+        }
+      }
+    },
+    "access_declaration": {
+      "enum": [
+        "not_seen",
+        "seen",
+        "unknown"
+      ]
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "role",
+        "authorship_declared",
+        "identity_scope",
+        "declared_access",
+        "expertise"
+      ],
+      "properties": {
+        "actor_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "role": {
+          "enum": [
+            "reviewer",
+            "adjudicator"
+          ]
+        },
+        "authorship_declared": {
+          "enum": [
+            "human",
+            "machine",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "identity_scope": {
+          "const": "pseudonymous_identifier_only"
+        },
+        "declared_access": {
+          "$ref": "#/$defs/declared_access"
+        },
+        "expertise": {
+          "type": "array",
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "epigraphy",
+              "palaeography",
+              "archaeology",
+              "collections",
+              "computer_vision",
+              "none_declared"
+            ]
+          }
+        }
+      }
+    },
+    "sealed_input_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_id",
+        "review_sha256",
+        "review_byte_size",
+        "review_assignment_id",
+        "actor_id",
+        "review_stage",
+        "bootstrap_assignment_sha256",
+        "seal_status"
+      ],
+      "properties": {
+        "review_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "review_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "review_byte_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16777216
+        },
+        "review_assignment_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "actor_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "review_stage": {
+          "const": "independent_pass"
+        },
+        "bootstrap_assignment_sha256": {
+          "const": "sha256:0f927340763084329be3c25c25f9bfd51e2b03e6c3177a66780e9320c8bf3761"
+        },
+        "seal_status": {
+          "const": "exact_canonical_bytes_sha256_and_size_committed"
+        }
+      }
+    },
+    "sealed_input_pair": {
+      "type": "object",
+      "description": "Exactly two sealed independent-pass references. A semantic verifier must require distinct review_id, actor_id, and review_assignment_id values and must also require the adjudicator identifiers to differ from both inputs.",
+      "additionalProperties": false,
+      "required": [
+        "pass_a",
+        "pass_b"
+      ],
+      "properties": {
+        "pass_a": {
+          "$ref": "#/$defs/sealed_input_review"
+        },
+        "pass_b": {
+          "$ref": "#/$defs/sealed_input_review"
+        }
+      }
+    },
+    "crop_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bbox",
+        "sha256",
+        "byte_size",
+        "encoding"
+      ],
+      "properties": {
+        "bbox": {
+          "$ref": "#/$defs/bbox"
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "byte_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096768
+        },
+        "encoding": {
+          "const": "P4 with exact dimensions; row-major top-to-bottom, left-to-right, black=1, MSB-first, zero unused low bits"
+        }
+      }
+    },
+    "cell_geometry": {
+      "type": "object",
+      "description": "Reviewed page-coordinate rectangles. They may leave the proposed context because a locator may split foreground, but semantic verification requires the reviewed cell and every submitted observation crop to remain inside the reviewed context.",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "cell_evidence",
+        "context_evidence",
+        "reason_codes"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "accepted_as_proposed",
+            "corrected",
+            "unresolved"
+          ]
+        },
+        "cell_evidence": {
+          "$ref": "#/$defs/crop_commitment"
+        },
+        "context_evidence": {
+          "$ref": "#/$defs/crop_commitment"
+        },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "accepted_without_change",
+              "lane_boundary_adjusted",
+              "row_boundary_adjusted",
+              "context_expanded",
+              "context_shifted",
+              "foreground_crosses_locator",
+              "multiple_entries_share_locator",
+              "unresolved_boundary"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "accepted_as_proposed"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason_codes": {
+                "const": [
+                  "accepted_without_change"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "unresolved"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason_codes": {
+                "contains": {
+                  "const": "unresolved_boundary"
+                },
+                "minContains": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "raw_identifier_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "raw_text",
+        "evidence",
+        "anomaly_codes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "observed",
+            "not_present",
+            "unreadable",
+            "unresolved",
+            "not_applicable"
+          ]
+        },
+        "raw_text": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/raw_identifier_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/crop_commitment"
+        },
+        "anomaly_codes": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "leading_dot_visible",
+              "trailing_apostrophe_visible",
+              "question_mark_visible",
+              "multiple_digit_groups",
+              "partial_character",
+              "overprint",
+              "scan_artifact",
+              "unrecognized_character_shape"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "observed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "raw_text": {
+                "$ref": "#/$defs/raw_identifier_text"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_present",
+                  "unreadable",
+                  "unresolved",
+                  "not_applicable"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "raw_text": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "glyph_with_marks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "evidence",
+        "anomaly_codes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "observed",
+            "not_present",
+            "unresolved"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/crop_commitment"
+        },
+        "anomaly_codes": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "touches_cell_edge",
+              "foreground_crosses_locator",
+              "multiple_graphic_groups",
+              "disconnected_mark",
+              "scan_artifact",
+              "low_contrast",
+              "crop_extent_unresolved"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_present"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "anomaly_codes": {
+                "const": []
+              }
+            }
+          }
+        }
+      ]
+    },
+    "glyph_core": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence",
+        "derivation_status"
+      ],
+      "properties": {
+        "evidence": {
+          "$ref": "#/$defs/crop_commitment"
+        },
+        "derivation_status": {
+          "enum": [
+            "visually_separable_from_printed_marks",
+            "provisional",
+            "unresolved"
+          ]
+        }
+      }
+    },
+    "printed_mark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mark_index",
+        "nonsemantic_class",
+        "association",
+        "condition",
+        "evidence"
+      ],
+      "properties": {
+        "mark_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 31
+        },
+        "nonsemantic_class": {
+          "enum": [
+            "dot_like",
+            "short_stroke_like",
+            "double_stroke_like",
+            "quotation_like",
+            "question_mark_like",
+            "separator_like",
+            "other_printed_mark",
+            "unresolved"
+          ]
+        },
+        "association": {
+          "enum": [
+            "touching_glyph",
+            "separate_near_glyph",
+            "upper_identifier_region",
+            "lower_identifier_region",
+            "other_in_cell",
+            "unresolved"
+          ]
+        },
+        "condition": {
+          "enum": [
+            "clear",
+            "worn",
+            "damaged",
+            "clipped",
+            "unreadable",
+            "unresolved"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/crop_commitment"
+        }
+      }
+    },
+    "condition": {
+      "enum": [
+        "clear",
+        "worn",
+        "damaged",
+        "clipped",
+        "unreadable",
+        "unresolved",
+        "not_applicable"
+      ]
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "field_codes",
+        "reason_codes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "certain",
+            "uncertain",
+            "unresolved",
+            "not_applicable"
+          ]
+        },
+        "field_codes": {
+          "type": "array",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "occupancy",
+              "cell_geometry",
+              "upper_catalog_rank",
+              "lower_primary_identifier",
+              "glyph_with_marks",
+              "glyph_core",
+              "printed_marks",
+              "condition",
+              "uncertainty",
+              "adjudication"
+            ]
+          }
+        },
+        "reason_codes": {
+          "type": "array",
+          "maxItems": 12,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "low_contrast",
+              "print_damage",
+              "scan_artifact",
+              "boundary_ambiguity",
+              "multiple_entries",
+              "disconnected_mark",
+              "identifier_unreadable",
+              "identifier_partial",
+              "crop_clipping_risk",
+              "input_reviews_disagree",
+              "reviewer_abstention",
+              "other_unclassified"
+            ]
+          }
+        }
+      }
+    },
+    "input_observation_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_id",
+        "cell_id",
+        "cell_observation_sha256"
+      ],
+      "properties": {
+        "review_id": {
+          "$ref": "#/$defs/stable_id"
+        },
+        "cell_id": {
+          "$ref": "#/$defs/cell_id"
+        },
+        "cell_observation_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      }
+    },
+    "input_observation_pair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pass_a",
+        "pass_b"
+      ],
+      "properties": {
+        "pass_a": {
+          "$ref": "#/$defs/input_observation_ref"
+        },
+        "pass_b": {
+          "$ref": "#/$defs/input_observation_ref"
+        }
+      }
+    },
+    "cell_id": {
+      "type": "string",
+      "pattern": "^KP1982:P(?:20|21):L0[0-9]:R(?:0[0-9]|[12][0-9]|3[0-4])$"
+    },
+    "cell_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cell_id",
+        "page_index",
+        "lane_index",
+        "row_index",
+        "occupancy",
+        "cell_geometry",
+        "raw_upper_catalog_rank",
+        "raw_lower_primary_identifier",
+        "glyph_with_marks",
+        "glyph_core",
+        "printed_marks",
+        "condition",
+        "uncertainty",
+        "input_observations",
+        "adjudication_codes"
+      ],
+      "properties": {
+        "cell_id": {
+          "$ref": "#/$defs/cell_id"
+        },
+        "page_index": {
+          "enum": [
+            19,
+            20
+          ]
+        },
+        "lane_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9
+        },
+        "row_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 34
+        },
+        "occupancy": {
+          "enum": [
+            "blank",
+            "single_entry",
+            "multiple_or_split",
+            "continuation_or_merge",
+            "uncertain"
+          ]
+        },
+        "cell_geometry": {
+          "$ref": "#/$defs/cell_geometry"
+        },
+        "raw_upper_catalog_rank": {
+          "$ref": "#/$defs/raw_identifier_observation"
+        },
+        "raw_lower_primary_identifier": {
+          "$ref": "#/$defs/raw_identifier_observation"
+        },
+        "glyph_with_marks": {
+          "$ref": "#/$defs/glyph_with_marks"
+        },
+        "glyph_core": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/glyph_core"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "printed_marks": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/printed_mark"
+          }
+        },
+        "condition": {
+          "$ref": "#/$defs/condition"
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/uncertainty"
+        },
+        "input_observations": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/input_observation_pair"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "adjudication_codes": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "inputs_agree",
+              "selected_pass_a",
+              "selected_pass_b",
+              "selected_fields_from_both_inputs",
+              "left_unresolved"
+            ]
+          }
+        }
+      }
+    },
+    "disagreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cell_id",
+        "field_codes",
+        "input_review_ids",
+        "comparison_sha256",
+        "resolution_code"
+      ],
+      "properties": {
+        "cell_id": {
+          "$ref": "#/$defs/cell_id"
+        },
+        "field_codes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 9,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "occupancy",
+              "cell_geometry",
+              "upper_catalog_rank",
+              "lower_primary_identifier",
+              "glyph_with_marks",
+              "glyph_core",
+              "printed_marks",
+              "condition",
+              "uncertainty"
+            ]
+          }
+        },
+        "input_review_ids": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stable_id"
+          }
+        },
+        "comparison_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "resolution_code": {
+          "enum": [
+            "inputs_agree_after_exact_comparison",
+            "selected_pass_a",
+            "selected_pass_b",
+            "selected_fields_from_both_inputs",
+            "left_unresolved"
+          ]
+        }
+      }
+    },
+    "limitation_code": {
+      "enum": [
+        "machine_proposal_access_declaration_unknown",
+        "peer_review_access_declaration_unknown",
+        "preexisting_inventory_access_declaration_unknown",
+        "source_rights_not_reverified",
+        "source_pixels_not_reverified",
+        "actor_identity_not_verified",
+        "input_review_bytes_not_reverified",
+        "incomplete_review",
+        "unresolved_cells_present",
+        "other_unclassified"
+      ]
+    },
+    "assurances": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bootstrap_assignment_exact_bytes_bound",
+        "all_700_cells_structurally_present",
+        "two_sealed_input_review_commitments_present",
+        "assignment_cell_roster_semantically_verified",
+        "source_page_pixels_reverified",
+        "input_review_bytes_reverified",
+        "human_review_started_verified",
+        "human_review_complete_verified",
+        "human_adjudication_complete_verified",
+        "human_authorship_verified",
+        "real_world_independence_verified",
+        "reviewer_blinding_verified",
+        "reviewer_nonexposure_verified",
+        "cell_geometry_accepted",
+        "occupancy_accepted",
+        "identifiers_transcribed",
+        "glyph_observations_accepted",
+        "printed_marks_accepted",
+        "source_custody_verified",
+        "source_rights_verified",
+        "sign_inventory_generated",
+        "public_release_authorized",
+        "evaluation_admissible",
+        "decipherment",
+        "prize_submission_eligible"
+      ],
+      "properties": {
+        "bootstrap_assignment_exact_bytes_bound": {
+          "const": true
+        },
+        "all_700_cells_structurally_present": {
+          "const": true
+        },
+        "two_sealed_input_review_commitments_present": {
+          "type": "boolean"
+        },
+        "assignment_cell_roster_semantically_verified": {
+          "const": false
+        },
+        "source_page_pixels_reverified": {
+          "const": false
+        },
+        "input_review_bytes_reverified": {
+          "const": false
+        },
+        "human_review_started_verified": {
+          "const": false
+        },
+        "human_review_complete_verified": {
+          "const": false
+        },
+        "human_adjudication_complete_verified": {
+          "const": false
+        },
+        "human_authorship_verified": {
+          "const": false
+        },
+        "real_world_independence_verified": {
+          "const": false
+        },
+        "reviewer_blinding_verified": {
+          "const": false
+        },
+        "reviewer_nonexposure_verified": {
+          "const": false
+        },
+        "cell_geometry_accepted": {
+          "const": false
+        },
+        "occupancy_accepted": {
+          "const": false
+        },
+        "identifiers_transcribed": {
+          "const": false
+        },
+        "glyph_observations_accepted": {
+          "const": false
+        },
+        "printed_marks_accepted": {
+          "const": false
+        },
+        "source_custody_verified": {
+          "const": false
+        },
+        "source_rights_verified": {
+          "const": false
+        },
+        "sign_inventory_generated": {
+          "const": false
+        },
+        "public_release_authorized": {
+          "const": false
+        },
+        "evaluation_admissible": {
+          "const": false
+        },
+        "decipherment": {
+          "const": false
+        },
+        "prize_submission_eligible": {
+          "const": false
+        }
+      }
+    }
+  }
+}

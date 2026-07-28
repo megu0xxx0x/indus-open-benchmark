@@ -63,6 +63,16 @@ from indusbench.kp1982_bootstrap import (
     build_bootstrap_assignment,
     verify_bootstrap_assignment_bytes,
 )
+from indusbench.kp1982_bootstrap_review import (
+    MAX_REVIEW_BYTES as KP1982_MAX_BOOTSTRAP_REVIEW_BYTES,
+)
+from indusbench.kp1982_bootstrap_review import (
+    KP1982BootstrapReviewError,
+    compare_independent_review_bytes,
+    verify_adjudication_bytes,
+    verify_independent_review_bytes,
+    verify_stripped_bootstrap_assignment_bytes,
+)
 from indusbench.kp1982_layout import (
     MAX_PROPOSAL_BYTES as KP1982_MAX_LAYOUT_PROPOSAL_BYTES,
 )
@@ -3764,6 +3774,214 @@ def _command_verify_kp1982_bootstrap_assignment(args: argparse.Namespace) -> int
     return 0
 
 
+def _kp1982_bootstrap_review_safe_summary(
+    claim_class: str,
+    **verified_operations: bool,
+) -> dict[str, bool | str]:
+    """Return a fixed, count-free public summary for private review operations."""
+
+    return {
+        "valid": True,
+        "claim_class": claim_class,
+        "counts_disclosed": False,
+        "private_values_disclosed": False,
+        "raw_identifier_values_disclosed": False,
+        "cell_ids_disclosed": False,
+        "record_ids_disclosed": False,
+        "private_storage_verified": True,
+        "canonical_page_bitmaps_verified": True,
+        "assignment_exact_bytes_verified": True,
+        "assignment_roster_verified": True,
+        "layout_proposal_not_supplied": True,
+        "preexisting_sign_inventory_not_supplied": True,
+        "independent_review_record_verified": False,
+        "independent_review_records_verified": False,
+        "distinct_record_actor_assignment_ids_verified": False,
+        "submitted_crop_bytes_recomputed": False,
+        "two_review_audit_verified": False,
+        "private_report_written": False,
+        "adjudication_record_verified": False,
+        "no_invention_rule_verified": False,
+        "human_review_started_verified": False,
+        "human_review_complete_verified": False,
+        "human_adjudication_complete_verified": False,
+        "human_authorship_verified": False,
+        "real_world_independence_verified": False,
+        "reviewer_blinding_verified": False,
+        "reviewer_nonexposure_verified": False,
+        "source_custody_verified": False,
+        "source_rights_verified": False,
+        "sign_inventory_generated": False,
+        "public_release_authorized": False,
+        "evaluation_admissible": False,
+        "decipherment": False,
+        "prize_submission_eligible": False,
+        **verified_operations,
+    }
+
+
+def _read_kp1982_bootstrap_review_context(
+    args: argparse.Namespace,
+) -> tuple[bytes, list[bytes]]:
+    """Read one private assignment and the two public page images safely."""
+
+    assignment_bytes = _read_private_regular_bytes(
+        args.assignment,
+        max_bytes=KP1982_MAX_BOOTSTRAP_ASSIGNMENT_BYTES,
+    )
+    page_pbm_bytes = [
+        _read_regular_bytes(path, max_bytes=KP1982_MAX_PAGE_PBM_BYTES)
+        for path in (args.page20_pbm, args.page21_pbm)
+    ]
+    return assignment_bytes, page_pbm_bytes
+
+
+def _command_verify_kp1982_bootstrap_review_input(args: argparse.Namespace) -> int:
+    try:
+        assignment_bytes, page_pbm_bytes = _read_kp1982_bootstrap_review_context(args)
+        verify_stripped_bootstrap_assignment_bytes(assignment_bytes, page_pbm_bytes)
+    except (OSError, ValueError) as error:
+        raise KP1982BootstrapReviewError(
+            "KP1982 bootstrap reviewer input verification failed"
+        ) from error
+    _print_json(
+        _kp1982_bootstrap_review_safe_summary(
+            "private_bootstrap_reviewer_input_verification",
+            independent_review_record_verified=False,
+            two_review_audit_verified=False,
+            adjudication_record_verified=False,
+        )
+    )
+    return 0
+
+
+def _command_verify_kp1982_bootstrap_review(args: argparse.Namespace) -> int:
+    try:
+        assignment_bytes, page_pbm_bytes = _read_kp1982_bootstrap_review_context(args)
+        review_bytes = _read_private_regular_bytes(
+            args.review,
+            max_bytes=KP1982_MAX_BOOTSTRAP_REVIEW_BYTES,
+        )
+        verify_independent_review_bytes(
+            assignment_bytes,
+            page_pbm_bytes,
+            review_bytes,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1982BootstrapReviewError(
+            "KP1982 independent bootstrap review verification failed"
+        ) from error
+    _print_json(
+        _kp1982_bootstrap_review_safe_summary(
+            "private_bootstrap_independent_review_verification",
+            independent_review_record_verified=True,
+            submitted_crop_bytes_recomputed=True,
+            two_review_audit_verified=False,
+            adjudication_record_verified=False,
+        )
+    )
+    return 0
+
+
+def _command_audit_kp1982_bootstrap_reviews(args: argparse.Namespace) -> int:
+    try:
+        assignment_bytes, page_pbm_bytes = _read_kp1982_bootstrap_review_context(args)
+        review_bytes = [
+            _read_private_regular_bytes(
+                path,
+                max_bytes=KP1982_MAX_BOOTSTRAP_REVIEW_BYTES,
+            )
+            for path in (args.left, args.right)
+        ]
+        private_report = compare_independent_review_bytes(
+            assignment_bytes,
+            page_pbm_bytes,
+            review_bytes,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1982BootstrapReviewError("KP1982 bootstrap two-review audit failed") from error
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.private_report,
+            private_report,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1982BootstrapReviewError(
+            "private KP1982 bootstrap review audit could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        summary = _kp1982_bootstrap_review_safe_summary(
+            "private_bootstrap_two_review_audit",
+            independent_review_records_verified=True,
+            distinct_record_actor_assignment_ids_verified=True,
+            two_review_audit_verified=True,
+            submitted_crop_bytes_recomputed=True,
+            private_report_written=False,
+            output_content_verified=content_verified,
+            durability_confirmed=durability_confirmed,
+            destination_may_exist=True,
+            adjudication_record_verified=False,
+        )
+        summary["valid"] = False
+        summary["private_storage_verified"] = False
+        _print_json(summary)
+        return 1
+
+    _print_json(
+        _kp1982_bootstrap_review_safe_summary(
+            "private_bootstrap_two_review_audit",
+            independent_review_records_verified=True,
+            distinct_record_actor_assignment_ids_verified=True,
+            two_review_audit_verified=True,
+            submitted_crop_bytes_recomputed=True,
+            private_report_written=True,
+            output_content_verified=True,
+            durability_confirmed=True,
+            agreement_result_disclosed=False,
+            adjudication_record_verified=False,
+        )
+    )
+    return 0
+
+
+def _command_verify_kp1982_bootstrap_adjudication(args: argparse.Namespace) -> int:
+    try:
+        assignment_bytes, page_pbm_bytes = _read_kp1982_bootstrap_review_context(args)
+        review_bytes = [
+            _read_private_regular_bytes(
+                path,
+                max_bytes=KP1982_MAX_BOOTSTRAP_REVIEW_BYTES,
+            )
+            for path in (args.left, args.right)
+        ]
+        adjudication_bytes = _read_private_regular_bytes(
+            args.adjudication,
+            max_bytes=KP1982_MAX_BOOTSTRAP_REVIEW_BYTES,
+        )
+        verify_adjudication_bytes(
+            assignment_bytes,
+            page_pbm_bytes,
+            review_bytes,
+            adjudication_bytes,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1982BootstrapReviewError(
+            "KP1982 bootstrap adjudication verification failed"
+        ) from error
+    _print_json(
+        _kp1982_bootstrap_review_safe_summary(
+            "private_bootstrap_adjudication_verification",
+            independent_review_records_verified=True,
+            distinct_record_actor_assignment_ids_verified=True,
+            adjudication_record_verified=True,
+            submitted_crop_bytes_recomputed=True,
+            no_invention_rule_verified=True,
+        )
+    )
+    return 0
+
+
 def _read_transcription_json(path: Path) -> tuple[dict[str, Any], bytes, str]:
     """Read and hash one bounded, immutable transcription input snapshot."""
 
@@ -6089,6 +6307,83 @@ def build_parser() -> argparse.ArgumentParser:
         help="closed checked-in provisional KP1982 Batch 0 layout seed",
     )
     kp1982_bootstrap_verify_parser.set_defaults(handler=_command_verify_kp1982_bootstrap_assignment)
+
+    kp1982_bootstrap_review_input_parser = subparsers.add_parser(
+        "verify-kp1982-bootstrap-review-input",
+        help=(
+            "verify a private value-stripped assignment against the fixed page pixels "
+            "without supplying the layout proposal"
+        ),
+    )
+    kp1982_bootstrap_review_input_parser.add_argument("page20_pbm", type=_path)
+    kp1982_bootstrap_review_input_parser.add_argument("page21_pbm", type=_path)
+    kp1982_bootstrap_review_input_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1982_bootstrap_review_input_parser.set_defaults(
+        handler=_command_verify_kp1982_bootstrap_review_input
+    )
+
+    kp1982_bootstrap_review_parser = subparsers.add_parser(
+        "verify-kp1982-bootstrap-review",
+        help="verify one private independent KP1982 inventory-bootstrap review",
+    )
+    kp1982_bootstrap_review_parser.add_argument("page20_pbm", type=_path)
+    kp1982_bootstrap_review_parser.add_argument("page21_pbm", type=_path)
+    kp1982_bootstrap_review_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1982_bootstrap_review_parser.add_argument(
+        "review",
+        type=_path,
+        help="independent-pass 0600 record under a physical owner-only directory",
+    )
+    kp1982_bootstrap_review_parser.set_defaults(handler=_command_verify_kp1982_bootstrap_review)
+
+    kp1982_bootstrap_review_audit_parser = subparsers.add_parser(
+        "audit-kp1982-bootstrap-reviews",
+        help="verify two private bootstrap reviews and write a private count-bearing audit",
+    )
+    kp1982_bootstrap_review_audit_parser.add_argument("page20_pbm", type=_path)
+    kp1982_bootstrap_review_audit_parser.add_argument("page21_pbm", type=_path)
+    kp1982_bootstrap_review_audit_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1982_bootstrap_review_audit_parser.add_argument("left", type=_path)
+    kp1982_bootstrap_review_audit_parser.add_argument("right", type=_path)
+    kp1982_bootstrap_review_audit_parser.add_argument(
+        "--private-report",
+        type=_path,
+        required=True,
+        help="new 0600 no-replace report under a pre-existing physical 0700 directory",
+    )
+    kp1982_bootstrap_review_audit_parser.set_defaults(
+        handler=_command_audit_kp1982_bootstrap_reviews
+    )
+
+    kp1982_bootstrap_adjudication_parser = subparsers.add_parser(
+        "verify-kp1982-bootstrap-adjudication",
+        help="verify one no-invention adjudication over exactly two private reviews",
+    )
+    kp1982_bootstrap_adjudication_parser.add_argument("page20_pbm", type=_path)
+    kp1982_bootstrap_adjudication_parser.add_argument("page21_pbm", type=_path)
+    kp1982_bootstrap_adjudication_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1982_bootstrap_adjudication_parser.add_argument("left", type=_path)
+    kp1982_bootstrap_adjudication_parser.add_argument("right", type=_path)
+    kp1982_bootstrap_adjudication_parser.add_argument("adjudication", type=_path)
+    kp1982_bootstrap_adjudication_parser.set_defaults(
+        handler=_command_verify_kp1982_bootstrap_adjudication
+    )
 
     transcription_audit_parser = subparsers.add_parser(
         "audit-transcription-agreement",
