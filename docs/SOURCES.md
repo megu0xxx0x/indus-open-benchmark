@@ -10,7 +10,7 @@ release until its record-level provenance and redistribution scope are documente
 ### The Metropolitan Museum of Art Open Access
 
 - Policy: <https://www.metmuseum.org/hubs/open-access>
-- API: <https://collectionapi.metmuseum.org/public/collection/v1/>
+- API documentation: <https://metmuseum.github.io/>
 - Benchmark policy: admit an item only while its official API response has
   `isPublicDomain=true`; record that response, retrieval time, image checksum, and accession
   number
@@ -87,6 +87,58 @@ The first primary-source follow-up is the
 It links six published excavation field records to the five Penn candidates
 and keeps two material conflicts unresolved rather than silently choosing a
 mapping.
+
+## Feature-safety-exposed known-script validation source
+
+### ORACC ePSD2 Early Dynastic IIIb administrative corpus
+
+- Official corpus:
+  <https://oracc.museum.upenn.edu/epsd2/admin/ed3b/corpus>
+- Official JSON ZIP:
+  <https://oracc.museum.upenn.edu/json/epsd2-admin-ed3b.zip>
+- ORACC JSON/open-data documentation:
+  <https://oracc.museum.upenn.edu/doc/opendata/json/>
+- Rights status: the exact archive embeds the CC0 declaration and CC0 URI
+- Exact archive identity: 34,534,747 bytes; SHA-256
+  `a108205140d101ca8d4d38c106fad7b61abac427eb51da12f912c8eada70c557`
+- Current use: source qualification, ontology alignment, observation-safety
+  audit, and prospective validation reservation; no candidate model fitting or
+  performance evaluation
+
+Eligibility requires exact Early Dynastic IIIb period, Administrative genre,
+and `lem` metadata membership. A fixed 16-document hashed exclusion covers
+the records whose individual contents were displayed during source-schema
+qualification. After that exclusion, the source-only verifier commits 3,338
+documents and 226,618 retained lemma tokens without directly listing
+identifiers or raw values. The hash set is a data-minimizing commitment, not a
+confidentiality mechanism; the finite public identifier space can be
+enumerated.
+
+The future evaluator-side states are `context_only`, operational conventional
+numeric/count-unit token, metrological unit, person name, and settlement name.
+They are projected mechanically from lowercase `n`, noun guide word `unit`,
+`PN`, and `SN`. `NU` number words and `QN` quarter names are not quantity
+targets. Gold fields are never model features and cannot select which rows
+receive predictions.
+
+The [source audit](ORACC_ED3B_VALIDATION_SOURCE_2026-07-28.md),
+[global candidate audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md),
+and
+[pre-model-fitting source protocol](../benchmark/oracc-ed3b-validation-source-v1.json)
+define the fail-closed boundary. The source is public. Rights, schema,
+archive-wide and joined-source class counts, limited now-excluded examples,
+and gold-conditioned GDL-key safety aggregates were inspected. Those
+aggregates informed the frozen annotation-stripping sanitizer, so ED3b is a
+feature-safety-exposed prospective validation source—not feature-unseen,
+distribution-blind, independently held, independently preregistered, or
+binding confirmation.
+
+Eight tokens across seven reserved documents lack sufficient POS truth. They
+remain observation-bearing and require predictions but use the fixed
+`annotation_unknown` evaluator state and are excluded from metrics rather than
+silently becoming `context_only`. A different, previously uninspected corpus
+must be selected through an independently controlled or predeclared-random
+mechanism for binding confirmation.
 
 ## Current importable source
 

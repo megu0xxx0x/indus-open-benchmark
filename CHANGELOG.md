@@ -7,6 +7,15 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A pre-model-fitting source seal and network-free verifier for the exact CC0
+  ORACC ePSD2 Early Dynastic IIIb administrative JSON archive. It applies a
+  fixed audit-example exclusion, commits the selected corpus and mechanical
+  five-state projection, rejects unsafe archives and ambiguous labels, emits
+  only an aggregate source receipt, and disables validation execution until a
+  separate post-development protocol is frozen. Gold-conditioned GDL-key
+  safety aggregates informed its annotation-stripping sanitizer, so this is a
+  feature-safety-exposed prospective validation source rather than untouched
+  or binding confirmation evidence. It does not train or evaluate a model.
 - An exact-byte-pinned, network-free adapter and pre-result-frozen V2 protocol
   for the CC0 MTAAC known-script control, with whole-document quarantine,
   evaluation-equivalence anti-laundering, gold-independent event/null

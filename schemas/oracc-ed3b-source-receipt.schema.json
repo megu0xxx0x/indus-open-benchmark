@@ -1,0 +1,416 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oracc-ed3b-source-receipt.schema.json",
+  "title": "ORACC ED3b source-qualification receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "analysis",
+    "attestation_limit",
+    "model_executed",
+    "observation",
+    "projection",
+    "protocol_sha256",
+    "receipt_version",
+    "reservation",
+    "scientific_metrics_emitted",
+    "scientific_nonclaims",
+    "selection",
+    "source",
+    "source_freeze_commit",
+    "support_gate",
+    "terminal_status"
+  ],
+  "properties": {
+    "analysis": {
+      "const": "oracc_ed3b_source_qualification"
+    },
+    "attestation_limit": {
+      "const": "the commit is caller-declared; the verifier does not independently attest Git state, publication time, custody, or blindness"
+    },
+    "model_executed": {
+      "const": false
+    },
+    "projection": {
+      "$ref": "#/$defs/projection"
+    },
+    "protocol_sha256": {
+      "const": "sha256:ff495b0f9da96153c428614b7677c4099c35ea3035f414999473e2c807d07ba3"
+    },
+    "receipt_version": {
+      "const": "oracc-ed3b-source-qualification-v1"
+    },
+    "reservation": {
+      "$ref": "#/$defs/reservation"
+    },
+    "scientific_metrics_emitted": {
+      "const": false
+    },
+    "scientific_nonclaims": {
+      "const": [
+        "independent_custody",
+        "blindness",
+        "trusted_time",
+        "model_performance",
+        "binding_confirmation",
+        "Indus_sign_value",
+        "Indus_language",
+        "Indus_translation",
+        "Indus_decipherment",
+        "prize_eligibility"
+      ]
+    },
+    "selection": {
+      "$ref": "#/$defs/selection"
+    },
+    "observation": {
+      "$ref": "#/$defs/observation"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "source_freeze_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "support_gate": {
+      "$ref": "#/$defs/support_gate"
+    },
+    "terminal_status": {
+      "const": "source_qualified"
+    }
+  },
+  "$defs": {
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "annotation_unknown_document_count",
+        "annotation_unknown_token_count",
+        "effective_corpus_sha256",
+        "projection_sha256",
+        "qualified_lemma_token_count",
+        "rules",
+        "scorable_lemma_token_count",
+        "states",
+        "truth_states"
+      ],
+      "properties": {
+        "annotation_unknown_document_count": {
+          "const": 7
+        },
+        "annotation_unknown_token_count": {
+          "const": 8
+        },
+        "effective_corpus_sha256": {
+          "const": "sha256:c6a745a6a397dc5492bfcdad60d91787bece7267653f3c897944459880af5342"
+        },
+        "projection_sha256": {
+          "const": "sha256:6dc14c2a9d8c39498fbea3ea4a499c5c2ba26d08aea20bc7550087980a44a0bb"
+        },
+        "qualified_lemma_token_count": {
+          "const": 226618
+        },
+        "rules": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "multiple_matches",
+            "missing_pos_or_required_unit_gw",
+            "person_name",
+            "quantity",
+            "settlement_name",
+            "unit",
+            "zero_matches"
+          ],
+          "properties": {
+            "multiple_matches": {
+              "const": "hard_fail"
+            },
+            "missing_pos_or_required_unit_gw": {
+              "const": "annotation_unknown"
+            },
+            "person_name": {
+              "const": "f.pos == \"PN\""
+            },
+            "quantity": {
+              "const": "f.pos == \"n\""
+            },
+            "settlement_name": {
+              "const": "f.pos == \"SN\""
+            },
+            "unit": {
+              "const": "f.pos == \"N\" and f.gw == \"unit\""
+            },
+            "zero_matches": {
+              "const": "context_only"
+            }
+          }
+        },
+        "states": {
+          "const": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name"
+          ]
+        },
+        "scorable_lemma_token_count": {
+          "const": 226610
+        },
+        "truth_states": {
+          "const": [
+            "context_only",
+            "quantity",
+            "unit",
+            "person_name",
+            "settlement_name",
+            "annotation_unknown"
+          ]
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_sha256",
+        "dropped_gdl_keys",
+        "hash_confidentiality_claimed",
+        "linguistic_role_key",
+        "model_row_gdl_atom_key_identity_listed",
+        "model_row_raw_values_listed",
+        "source_atom_domain",
+        "source_domain_separated_atoms",
+        "unknown_gdl_key"
+      ],
+      "properties": {
+        "contract_sha256": {
+          "const": "sha256:a801e1980c2c973fb4a2ca806e2f6ec56a96fb45477d2fb63d295f6ce69eb123"
+        },
+        "dropped_gdl_keys": {
+          "const": [
+            "b",
+            "breakEnd",
+            "breakStart",
+            "delim",
+            "det",
+            "gdl_collated",
+            "gdl_remarked",
+            "gdl_type",
+            "gg",
+            "hc",
+            "ho",
+            "id",
+            "m",
+            "mods",
+            "n",
+            "o",
+            "pos",
+            "queried",
+            "r",
+            "statusStart"
+          ]
+        },
+        "hash_confidentiality_claimed": {
+          "const": false
+        },
+        "linguistic_role_key": {
+          "const": "hard_fail"
+        },
+        "model_row_gdl_atom_key_identity_listed": {
+          "const": false
+        },
+        "model_row_raw_values_listed": {
+          "const": false
+        },
+        "source_atom_domain": {
+          "const": "indusbench:oracc-ed3b:observation-atom:v1\\x00"
+        },
+        "source_domain_separated_atoms": {
+          "const": true
+        },
+        "unknown_gdl_key": {
+          "const": "hard_fail"
+        }
+      }
+    },
+    "reservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_side_information",
+        "binding_confirmation_role",
+        "candidate_model_fitting_use",
+        "debugging_use",
+        "distribution_blindness_claimed",
+        "gold_conditioned_feature_safety_audit",
+        "hyperparameter_tuning_use",
+        "model_selection_use",
+        "role",
+        "validation_execution"
+      ],
+      "properties": {
+        "aggregate_side_information": {
+          "const": "archive-wide and joined-source class counts were disclosed before the source freeze"
+        },
+        "binding_confirmation_role": {
+          "const": "prohibited"
+        },
+        "candidate_model_fitting_use": {
+          "const": "prohibited"
+        },
+        "validation_execution": {
+          "const": "disabled_until_separate_post_development_protocol_freeze"
+        },
+        "debugging_use": {
+          "const": "prohibited"
+        },
+        "hyperparameter_tuning_use": {
+          "const": "prohibited"
+        },
+        "gold_conditioned_feature_safety_audit": {
+          "const": "class-conditioned GDL-key aggregates informed the frozen sanitizer"
+        },
+        "model_selection_use": {
+          "const": "prohibited"
+        },
+        "distribution_blindness_claimed": {
+          "const": false
+        },
+        "role": {
+          "const": "feature_safety_exposed_prospective_validation_source"
+        }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "audit_exclusion_count",
+        "audit_exclusion_hash_confidentiality_claimed",
+        "audit_exclusion_identifiers_listed",
+        "audit_exclusion_set_sha256",
+        "genre",
+        "period",
+        "qualified_document_count",
+        "requires_metadata_format",
+        "selected_member_manifest_sha256"
+      ],
+      "properties": {
+        "audit_exclusion_count": {
+          "const": 16
+        },
+        "audit_exclusion_hash_confidentiality_claimed": {
+          "const": false
+        },
+        "audit_exclusion_identifiers_listed": {
+          "const": false
+        },
+        "audit_exclusion_set_sha256": {
+          "const": "sha256:5c28be3dbfb6111d83a297ac31b2ba640ce4fa521adf89edec3abf195b9ae0cf"
+        },
+        "genre": {
+          "const": "Administrative"
+        },
+        "period": {
+          "const": "Early Dynastic IIIb"
+        },
+        "qualified_document_count": {
+          "const": 3338
+        },
+        "requires_metadata_format": {
+          "const": "lem"
+        },
+        "selected_member_manifest_sha256": {
+          "const": "sha256:6eda68ba7e96d7d56b2edb49b72f7727ecd3cef0519abbe8269d04b6bce034b6"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "archive_bytes",
+        "archive_member_count",
+        "archive_sha256",
+        "archive_url",
+        "catalogue_document_count",
+        "embedded_license_verified",
+        "license_id",
+        "license_url",
+        "project"
+      ],
+      "properties": {
+        "archive_bytes": {
+          "const": 34534747
+        },
+        "archive_member_count": {
+          "const": 3491
+        },
+        "archive_sha256": {
+          "const": "sha256:a108205140d101ca8d4d38c106fad7b61abac427eb51da12f912c8eada70c557"
+        },
+        "archive_url": {
+          "const": "https://oracc.museum.upenn.edu/json/epsd2-admin-ed3b.zip"
+        },
+        "catalogue_document_count": {
+          "const": 3477
+        },
+        "embedded_license_verified": {
+          "const": true
+        },
+        "license_id": {
+          "const": "CC0-1.0"
+        },
+        "license_url": {
+          "const": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        "project": {
+          "const": "epsd2/admin/ed3b"
+        }
+      }
+    },
+    "support_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "all_classes_pass",
+        "minimum_documents_per_class",
+        "minimum_tokens_per_class",
+        "selected_per_class_counts_listed_in_receipt",
+        "source_distribution_blindness_claimed",
+        "support_commitment_sha256",
+        "upstream_aggregate_class_counts_previously_disclosed"
+      ],
+      "properties": {
+        "all_classes_pass": {
+          "const": true
+        },
+        "minimum_documents_per_class": {
+          "const": 100
+        },
+        "minimum_tokens_per_class": {
+          "const": 200
+        },
+        "selected_per_class_counts_listed_in_receipt": {
+          "const": false
+        },
+        "source_distribution_blindness_claimed": {
+          "const": false
+        },
+        "upstream_aggregate_class_counts_previously_disclosed": {
+          "const": true
+        },
+        "support_commitment_sha256": {
+          "const": "sha256:ad6a3615420b3d37cb3d3a622393beddb02cfd6828f069879cea382644793eb8"
+        }
+      }
+    }
+  }
+}

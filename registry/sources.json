@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
   "registry_id": "indus-open-benchmark:sources",
-  "generated_at": "2026-07-28T19:05:40+09:00",
+  "generated_at": "2026-07-28T23:54:05+09:00",
   "sources": [
     {
       "source_id": "penn-museum-collections-data",
@@ -752,6 +752,56 @@
         "description": "Manually annotated Ur III ATF transliterations in a seven-column CDLI-CoNLL-like morphology format, used only as a real known-script method control.",
         "transformation_history": [],
         "quality_notes": "The strict adapter quarantines six malformed-width documents and four duplicate-token-ID documents. FORM is expert transliteration rather than glyph evidence; this source cannot support an Indus reading, language, translation, decipherment, or prize claim."
+      }
+    },
+    {
+      "source_id": "oracc-epsd2-admin-ed3b-a1082051",
+      "title": "ORACC ePSD2 Early Dynastic IIIb administrative corpus",
+      "source_type": "derived_dataset",
+      "citation": {
+        "title": "ePSD2 admin/ed3b",
+        "creators": [
+          "ORACC and ePSD2 contributors"
+        ],
+        "issued": null,
+        "publisher": "Open Richly Annotated Cuneiform Corpus",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://oracc.museum.upenn.edu/epsd2/admin/ed3b/corpus"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://oracc.museum.upenn.edu/json/epsd2-admin-ed3b.zip"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://oracc.museum.upenn.edu/json/",
+        "accessed_at": "2026-07-28T23:05:01+09:00",
+        "snapshot_hash": "sha256:a108205140d101ca8d4d38c106fad7b61abac427eb51da12f912c8eada70c557",
+        "retrieval_instructions": "Download the official epsd2-admin-ed3b JSON ZIP, require exactly 34,534,747 bytes and the pinned SHA-256, and run the closed source verifier. Admit only exact Early Dynastic IIIb administrative documents listed in metadata.formats.lem after the fixed pre-model-fitting audit-example exclusion. Keep all raw and derived corpus records outside Git."
+      },
+      "rights": {
+        "status": "public_domain",
+        "license_id": "CC0-1.0",
+        "license_uri": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "rights_holder": "ORACC and ePSD2 contributors",
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "The exact archive embeds the statement that its data are released under CC0 and embeds the CC0 1.0 URI. The source remains cited, and raw records remain outside this repository.",
+        "evidence_uri": "https://oracc.museum.upenn.edu/doc/opendata/json/",
+        "verified_at": "2026-07-28T23:05:01+09:00"
+      },
+      "provenance": {
+        "record_method": "manual_transcription",
+        "maintainer": "ORACC ePSD2",
+        "upstream_source_ids": [],
+        "description": "Lemmatized Early Dynastic IIIb administrative cuneiform JSON with line order, grapheme-description arrays, proper-name annotation, conventional numerical tokens, and metrological-unit guide words. The project emits only a source-domain-separated, annotation-key-stripped transliteration view for future validation.",
+        "transformation_history": [],
+        "quality_notes": "All eligibility-qualified records after a fixed 16-document audit-example exclusion are reserved as a feature-safety-exposed prospective V3 validation source. Rights, schema, archive-wide and joined-source class counts, limited examples, and gold-conditioned GDL-key rates were inspected; those rates informed the frozen sanitizer. No candidate model was trained, selected, tuned, or evaluated. ED3b is not feature-unseen, distribution-blind, binding confirmation, native-glyph evidence, or evidence of an Indus reading."
       }
     }
   ]

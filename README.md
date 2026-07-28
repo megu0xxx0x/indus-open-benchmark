@@ -49,6 +49,29 @@ functional-class machinery remains identifiable under short sequences,
 allographs, damage, uncertain direction, and duplicate families. Passing that
 method gate is not evidence that any Indus sign has been read.
 
+The first real MTAAC control subsequently returned `NO_GO`, principally
+because its fixed mild settlement-name recall gate failed. Its evaluator also
+relies on gold-derived target eligibility, which cannot transfer to unknown
+writing. V3 therefore leaves V2 immutable and changes the primary task to
+joint prediction of `context_only` plus four target states over every retained
+token. Before any V3 model fitting, all eligibility-qualified, non-excluded
+records from the exact CC0
+[ORACC ED3b administrative source](docs/ORACC_ED3B_VALIDATION_SOURCE_2026-07-28.md)
+were reserved. The source-only verifier and protocol calculate no
+model-performance result; the records are prohibited from candidate fitting,
+tuning, debugging, and model selection.
+
+ORACC is no longer described as an untouched confirmation source. Rights and
+schema inspection, archive-wide and joined-source class counts, and
+gold-conditioned GDL-key safety aggregates informed its annotation-stripping
+observation projection. It is therefore a feature-safety-exposed prospective
+validation source. A binding confirmation requires a different, previously
+uninspected corpus selected through an independently controlled or
+predeclared-random mechanism after the complete model and evaluator freeze.
+The
+[global known-script source audit](docs/V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
+records the other candidates and their narrower or deferred roles.
+
 The global evidence audit has established a baseline and now continues as
 recurring monitoring; it no longer blocks calibrated extraction and
 falsifiable functional tests. It is not model-led translation, an external
@@ -121,6 +144,12 @@ permission by itself.
   degradation, preserves the aborted V1 invocation as an explicit erratum,
   and records the single V2 run as `NO_GO`. The unchanged method cannot be
   transferred to Indus and cannot issue a reading or decipherment claim.
+- A strict source-only verifier and pre-development protocol for the exact
+  CC0 ORACC ED3b administrative archive. It reserves the mechanically
+  qualified source for later project-run five-state prospective validation,
+  emits only aggregate commitments, and does not expose a validation scoring
+  entry point. Feature-safety inspection informed its frozen observation
+  sanitizer, so it is not binding confirmation evidence.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.

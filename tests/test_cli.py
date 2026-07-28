@@ -418,6 +418,101 @@ class CliTests(unittest.TestCase):
         self.assertEqual("output_uninspectable", report["error_code"])
         self.assertNotIn("private-secret-topology", stdout)
 
+    def test_oracc_source_cli_binds_freeze_and_writes_no_replace_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            archive = temporary / "source.zip"
+            protocol = temporary / "protocol.json"
+            output = temporary / "receipt.json"
+            archive.write_bytes(b"synthetic ORACC archive")
+            protocol.write_bytes(b"synthetic source protocol")
+            declared_commit = "c" * 40
+            protocol_sha256 = "sha256:" + ("d" * 64)
+            source_report = {
+                "receipt_version": "oracc-ed3b-source-qualification-v1",
+                "terminal_status": "source_qualified",
+            }
+
+            def fake_protocol(protocol_bytes: bytes) -> str:
+                self.assertEqual(b"synthetic source protocol", protocol_bytes)
+                return protocol_sha256
+
+            def fake_source(archive_bytes: bytes) -> dict[str, Any]:
+                self.assertEqual(b"synthetic ORACC archive", archive_bytes)
+                return dict(source_report)
+
+            with (
+                patch(
+                    "indusbench.cli.verify_oracc_ed3b_protocol_bytes",
+                    side_effect=fake_protocol,
+                ),
+                patch(
+                    "indusbench.cli.verify_oracc_ed3b_archive",
+                    side_effect=fake_source,
+                ),
+            ):
+                result, stdout, error = run_cli(
+                    [
+                        "verify-oracc-ed3b-source",
+                        str(archive),
+                        "--protocol",
+                        str(protocol),
+                        "--source-freeze-commit",
+                        declared_commit,
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(0, result, error)
+            payload = json.loads(stdout)
+            self.assertEqual("source_qualified", payload["terminal_status"])
+            self.assertEqual(protocol_sha256, payload["protocol_sha256"])
+            self.assertEqual(declared_commit, payload["source_freeze_commit"])
+            self.assertFalse(payload["scientific_metrics_emitted"])
+            self.assertFalse(payload["model_executed"])
+            self.assertEqual(payload, json.loads(output.read_text(encoding="utf-8")))
+
+            with (
+                patch("indusbench.cli.verify_oracc_ed3b_protocol_bytes") as protocol_verify,
+                patch("indusbench.cli.verify_oracc_ed3b_archive") as source_verify,
+            ):
+                repeated_result, repeated_stdout, repeated_error = run_cli(
+                    [
+                        "verify-oracc-ed3b-source",
+                        str(archive),
+                        "--protocol",
+                        str(protocol),
+                        "--source-freeze-commit",
+                        declared_commit,
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(1, repeated_result, repeated_error)
+            self.assertEqual("output_exists", json.loads(repeated_stdout)["error_code"])
+            self.assertNotIn(str(output), repeated_stdout)
+            protocol_verify.assert_not_called()
+            source_verify.assert_not_called()
+
+    def test_oracc_source_cli_does_not_disclose_unreadable_archive_path(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            missing_archive = Path(temporary_directory) / "private-secret-topology" / "source.zip"
+            result, stdout, error = run_cli(
+                [
+                    "verify-oracc-ed3b-source",
+                    str(missing_archive),
+                    "--source-freeze-commit",
+                    "c" * 40,
+                ]
+            )
+        self.assertEqual(2, result)
+        self.assertEqual("", error)
+        report = json.loads(stdout)
+        self.assertEqual("archive_unreadable", report["error_code"])
+        self.assertFalse(report["scientific_metrics_emitted"])
+        self.assertFalse(report["model_executed"])
+        self.assertNotIn("private-secret-topology", stdout)
+
     def test_parse_smithsonian_metadata_is_local_raw_bound_and_no_replace(
         self,
     ) -> None:

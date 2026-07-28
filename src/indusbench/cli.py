@@ -151,6 +151,17 @@ from indusbench.museum_review_ledger import (
     validate_ledger_manifest,
 )
 from indusbench.null_evaluation import evaluate_shuffle_null
+from indusbench.oracc_ed3b import (
+    MAX_ARCHIVE_BYTES as ORACC_ED3B_MAX_ARCHIVE_BYTES,
+)
+from indusbench.oracc_ed3b import (
+    MAX_PROTOCOL_BYTES as ORACC_ED3B_MAX_PROTOCOL_BYTES,
+)
+from indusbench.oracc_ed3b import (
+    ORACCEd3bError,
+    verify_oracc_ed3b_archive,
+    verify_oracc_ed3b_protocol_bytes,
+)
 from indusbench.penn_metadata import (
     PENN_CSV_URL,
     parse_penn_csv_snapshot,
@@ -491,6 +502,18 @@ def _default_mtaac_control_protocol() -> Path:
         return project_candidate
     package_candidate = importlib.resources.files("indusbench").joinpath(
         "benchmark/mtaac-known-script-control-v2.json"
+    )
+    return Path(str(package_candidate))
+
+
+def _default_oracc_ed3b_source_protocol() -> Path:
+    project_candidate = (
+        Path(__file__).resolve().parents[2] / "benchmark" / "oracc-ed3b-validation-source-v1.json"
+    )
+    if project_candidate.is_file():
+        return project_candidate
+    package_candidate = importlib.resources.files("indusbench").joinpath(
+        "benchmark/oracc-ed3b-validation-source-v1.json"
     )
     return Path(str(package_candidate))
 
@@ -3563,6 +3586,103 @@ def _command_synthetic_identifiability_gate(args: argparse.Namespace) -> int:
     )
     _print_json(report)
     return 2 if args.require_go and report["gate_status"] != "go" else 0
+
+
+def _command_verify_oracc_ed3b_source(args: argparse.Namespace) -> int:
+    def fail(error_code: str, message: str, *, status: int = 2) -> int:
+        _print_json(
+            {
+                "analysis": "oracc_ed3b_source_qualification",
+                "terminal_status": "error",
+                "scientific_metrics_emitted": False,
+                "model_executed": False,
+                "error_code": error_code,
+                "error": message,
+            }
+        )
+        return status
+
+    def output_exists() -> bool | None:
+        if args.output is None:
+            return False
+        try:
+            return _path_lexists(args.output)
+        except (OSError, ValueError):
+            return None
+
+    initial_output_state = output_exists()
+    if initial_output_state is None:
+        return fail(
+            "output_uninspectable",
+            "the aggregate output target could not be inspected safely",
+        )
+    if initial_output_state:
+        return fail(
+            "output_exists",
+            "the aggregate output target already exists",
+            status=1,
+        )
+
+    try:
+        protocol_bytes = _read_regular_bytes(
+            args.protocol,
+            max_bytes=ORACC_ED3B_MAX_PROTOCOL_BYTES,
+        )
+        protocol_sha256 = verify_oracc_ed3b_protocol_bytes(protocol_bytes)
+    except (OSError, ORACCEd3bError, ValueError):
+        return fail(
+            "protocol_rejected",
+            "the exact source-freeze protocol could not be verified",
+        )
+    try:
+        archive_bytes = _read_regular_bytes(
+            args.archive,
+            max_bytes=ORACC_ED3B_MAX_ARCHIVE_BYTES,
+        )
+    except (OSError, ValueError):
+        return fail(
+            "archive_unreadable",
+            "the archive input could not be read safely",
+        )
+    try:
+        report = verify_oracc_ed3b_archive(archive_bytes)
+    except ORACCEd3bError as error:
+        return fail("source_rejected", str(error))
+
+    final_output_state = output_exists()
+    if final_output_state is None:
+        return fail(
+            "output_uninspectable",
+            "the aggregate output target could not be inspected safely",
+        )
+    if final_output_state:
+        return fail(
+            "output_exists",
+            "the aggregate output target already exists",
+            status=1,
+        )
+
+    report["analysis"] = "oracc_ed3b_source_qualification"
+    report["protocol_sha256"] = protocol_sha256
+    report["source_freeze_commit"] = args.source_freeze_commit
+    report["scientific_metrics_emitted"] = False
+    report["model_executed"] = False
+    report["attestation_limit"] = (
+        "the commit is caller-declared; the verifier does not independently attest "
+        "Git state, publication time, custody, or blindness"
+    )
+
+    durability_confirmed = True
+    if args.output is not None:
+        try:
+            durability_confirmed, _ = _write_json_no_replace(args.output, report)
+        except (OSError, ValueError):
+            return fail(
+                "output_write_failed",
+                "the aggregate output could not be written safely",
+            )
+    _print_json(report)
+    return 0 if durability_confirmed else 1
 
 
 def _command_evaluate_mtaac_control(args: argparse.Namespace) -> int:
@@ -7361,6 +7481,43 @@ def build_parser() -> argparse.ArgumentParser:
         help="return status 2 unless the report's gate_status is go; useful for CI",
     )
     identifiability_parser.set_defaults(handler=_command_synthetic_identifiability_gate)
+
+    oracc_ed3b_source_parser = subparsers.add_parser(
+        "verify-oracc-ed3b-source",
+        help=(
+            "qualify the exact pinned ORACC ED3b archive as a reserved external "
+            "feature-safety-exposed prospective validation source; this does not run a model"
+        ),
+    )
+    oracc_ed3b_source_parser.add_argument(
+        "archive",
+        type=_path,
+        help="local exact archive bytes; the command never downloads source data",
+    )
+    oracc_ed3b_source_parser.add_argument(
+        "--protocol",
+        type=_path,
+        default=_default_oracc_ed3b_source_protocol(),
+        help="exact pre-model-fitting-frozen ORACC ED3b validation-source protocol JSON",
+    )
+    oracc_ed3b_source_parser.add_argument(
+        "--source-freeze-commit",
+        required=True,
+        type=_git_commit,
+        help=(
+            "caller-declared 40-character lowercase Git commit containing the "
+            "source verifier and protocol; the command does not independently attest it"
+        ),
+    )
+    oracc_ed3b_source_parser.add_argument(
+        "--output",
+        type=_path,
+        help=(
+            "optional new no-replace aggregate source receipt; no raw corpus record "
+            "or scientific performance metric is written"
+        ),
+    )
+    oracc_ed3b_source_parser.set_defaults(handler=_command_verify_oracc_ed3b_source)
 
     mtaac_control_parser = subparsers.add_parser(
         "evaluate-mtaac-control",

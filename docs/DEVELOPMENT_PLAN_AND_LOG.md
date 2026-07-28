@@ -355,9 +355,84 @@ minimum 0.35. No alternate seed, threshold, split, or protocol was tried.
 
 The unchanged V2 method is therefore blocked from Indus transfer. Any V3 is
 explicitly post-result and cannot treat the exposed V2 holdout as fresh
-confirmation. A genuinely untouched confirmatory source or split is required.
+confirmation. A genuinely untouched source is required for binding
+confirmation; the later ED3b safety audit does not satisfy that requirement.
 Neither the V1 error nor V2 `NO_GO` is an Indus reading, translation,
 decipherment, or prize claim.
+
+### T6 — V3 ORACC prospective-validation source seal
+
+**Recorded at:** 2026-07-28T23:10:00+09:00
+
+**Safety-audit correction completed at:** 2026-07-28T23:54:05+09:00
+
+The V2 failure was audited before any V3 implementation. The primary defect
+for transfer is not only low settlement-name recall: V2 predicts only rows
+whose target eligibility is selected from evaluator truth. That four-class
+oracle is unavailable for an unknown script. V3 is therefore a separate joint
+five-state task over every retained token:
+`context_only`, `quantity`, `unit`, `person_name`, and `settlement_name`.
+V2 source code, protocols, and results remain immutable.
+
+The official CC0 ORACC ePSD2 Early Dynastic IIIb administrative JSON source is
+now fixed before V3 model fitting. Eligibility requires the exact
+Early Dynastic IIIb period, Administrative genre, and `lem` metadata
+membership. Sixteen records whose contents were displayed while qualifying
+the source schema are excluded through a fixed domain-separated
+identifier-hash set. Their identifiers are not directly listed, but the
+commitment is not claimed to conceal them from enumeration over the finite
+public source. The resulting reserved source has 3,338 documents and 226,618
+retained lemma tokens.
+Its exact source identifiers have zero intersection with all 371 selected
+members of the pinned MTAAC archive. Sequence-level lexical novelty remains a
+separate pre-score validation diagnostic.
+
+The four target projections are fixed from ORACC's official annotation
+contracts: lowercase `n` for the operational conventional numeric/count-unit
+state, noun guide word `unit` for metrological units, `PN` for person names,
+and `SN` for settlement names. Spelled number words tagged `NU` and quarter
+names tagged `QN` remain `context_only`; the quantity state does not claim to
+cover every semantically numeric word. Per-class support is committed but not
+published. Every class passes the predeclared minimum of 200 tokens and 100
+supporting documents.
+
+The first raw-GDL design was rejected before publication. Gold-conditioned
+GDL-key rates showed that numeric-parser and determinative keys were
+near-direct target proxies. The final observation projection consumes only
+`f.gdl`, hashes approved `q/c/s/v` or audited numeric/modified `form` payloads
+under one source-specific namespace, flattens approved wrappers, and emits
+only neutral gap and damage markers. It drops numeric-parser, determinative,
+delimiter, ID, modifier, span-ID, and related key identities. This remains
+annotation-stripped scholarly transliteration, not a native-glyph observation
+or secrecy mechanism.
+
+Eight retained tokens across seven documents lack POS truth. They remain in
+the observation sequence and require five-state predictions, but the evaluator
+assigns fixed `annotation_unknown` truth and excludes them from metrics instead
+of silently treating them as `context_only`. The exact source now has 226,610
+scorable tokens.
+
+The source-only verifier accepts only the exact official archive, validates
+all archive paths, embedded CC0 declarations, catalogue/corpus identity,
+strict JSON, line and lemma structure, the fixed exclusion, projection,
+annotation-stripping observation contract, selected-member manifest,
+effective-corpus digest, and support commitment. It emits an aggregate
+allowlisted receipt and performs no model fit, prediction, metric, threshold
+selection, or validation execution.
+
+ORACC is a feature-safety-exposed prospective validation source, not binding
+confirmation. Archive-wide and SumTablets-joined class counts, limited
+examples, and gold-conditioned GDL-key rates were inspected before the seal
+and informed the sanitizer. Those exposures cannot be undone. Candidate model
+fitting, selection, tuning, debugging, and further feature design on ORACC are
+prohibited. A public hash proves content identity rather than trusted time,
+custody, or absence of access.
+
+Binding confirmation must use a different, previously uninspected corpus.
+Its selection cannot be project-side cherry-picking: either an independent
+custodian reserves it before development, or a public random beacon chooses
+from a predeclared ordered eligible pool after the complete model/evaluator
+freeze, with terminal support failure or a predeclared fallback order.
 
 ### Data and source work
 
@@ -368,8 +443,8 @@ Safe next work:
 - resolve or explicitly quarantine the SF 3051/2558 and SF 3495 conflicts;
 - design V3 as explicit post-result work using train-side or separately
   declared development analyses, without rewriting V2;
-- reserve a genuinely untouched known-script source or split for V3
-  confirmation;
+- preserve the frozen ORACC source boundary while V3 is developed only on
+  declared development data;
 - add a separate context-bearing known-script stress test; MTAAC is a
   word-level transliteration control rather than a context or glyph control;
 - curate public source/provenance/rights evidence;

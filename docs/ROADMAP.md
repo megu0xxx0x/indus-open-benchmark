@@ -36,6 +36,8 @@ Current assets:
 - [Helsinki 1982 sign-list Batch 0 protocol](KP1982_BATCH0_PROTOCOL.md)
 - [2026-07-28 decipherment-efficiency audit](DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
+- [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
+- [2026-07-28 ORACC ED3b prospective-validation source audit](ORACC_ED3B_VALIDATION_SOURCE_2026-07-28.md)
 
 ## v0.1 — Public, non-blind engineering seed
 
@@ -192,12 +194,21 @@ for the v0.2 volume target.
 - [x] Execute the corrected frozen MTAAC V2 run once, without post-result
   retuning. It returned `NO_GO`: every binding gate passed except mild
   `settlement_name` recall, 0.193553 against the frozen minimum 0.35.
-- [ ] Design V3 explicitly as post-result work, develop without rewriting V2,
-  and reserve a genuinely untouched confirmatory source or split. V2 cannot
-  be transferred unchanged to Indus.
-- [ ] Add a context-bearing, typologically relevant short-text control; the
-  synthetic gate and MTAAC lexical control do not satisfy that broader
-  milestone.
+- [x] Reserve the exact CC0 ORACC ED3b administrative source, after a fixed
+  audit-example exclusion, before V3 model fitting. The source is public;
+  gold-conditioned GDL-key safety aggregates informed its sanitizer, so it is
+  prospective validation rather than feature-unseen or binding confirmation.
+- [ ] Implement V3 explicitly as post-result work without rewriting V2:
+  joint five-state prediction over every retained token, class balancing,
+  line-sequence decoding, grouped nested development validation, and no use
+  of the V2 holdout or ORACC records for candidate fitting or selection.
+- [ ] Freeze the selected V3 candidate and one-shot ORACC evaluator before
+  calculating any ORACC performance result. Source qualification is complete;
+  context-bearing prospective validation is not.
+- [ ] Freeze a non-cherry-pickable binding-confirmation source-selection
+  mechanism: independent custody before development or a public random beacon
+  over a predeclared eligible pool after model freeze. It must select a
+  different, previously uninspected corpus; an ED3b post-hoc split is invalid.
 - [ ] Alternative sign inventories and direction lattices.
 - [ ] Linguistic, accounting, emblematic, hybrid, and shuffled null models.
 - [ ] Site, period, material, and object-type generalization reports.
