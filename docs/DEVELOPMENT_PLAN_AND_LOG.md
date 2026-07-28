@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-28
 
-**Last source-level update:** 2026-07-28 12:34 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-28 18:28 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -40,6 +40,8 @@ separate and traceable.
    - Separate rights states for metadata, transcription, glyph art, images,
      derivatives, training, and redistribution.
    - Dated global research, open-source, museum-rights, and prize-status audits.
+   - Exact-byte Penn metadata context staging and a dated primary-source
+     Chanhu-Daro field-number crosswalk with unresolved conflicts preserved.
 
 2. **Observation contracts and validation**
    - Nested artifact/side/line/token schema.
@@ -52,6 +54,9 @@ separate and traceable.
    - Family-grouped development holdouts.
    - Simple probabilistic baselines, matched-shuffle nulls, and a deterministic
      treewidth audit.
+   - A project-authored synthetic known-truth identifiability gate with
+     family-safe degradation, equal family weighting, conservative
+     family-permutation nulls, and anchor-free abstention.
 
 4. **Integrity protocols**
    - Exact-byte benchmark-definition lock for declared public inputs.
@@ -156,6 +161,9 @@ Current assurance layers:
 |---|---|
 | Public verifier code and synthetic tests | implemented; current release candidate |
 | Real calibration or Batch 0 human execution | not executed or claimed |
+| Synthetic functional-class identifiability | default gate passed; method sanity only |
+| Penn metadata context registry | 34 entries; five pending originality review and 29 negative controls |
+| Extra-bulk field-number/context admission | not admitted; two conflicts remain open |
 | Scientific functional-anchor validation | not executed or claimed |
 | Independent external replication | not executed or claimed |
 
@@ -256,10 +264,41 @@ both directions of the Finnish–Mahadevan mapping, carry duplicate-group state
 across columns/pages, and never collapse strict/loose information redundancy
 into physical-object identity.
 
+### T4 — Context anchors and method identifiability
+
+The current official Penn bulk CSV now parses under a strict 32-column
+contract that recognizes its exact generic-object-URL terminal sentinel but
+continues to reject every other malformed row. Revalidation against the
+complete source bytes derives 34 image-free primary-script context entries:
+five originality-pending Chanhu-Daro records and 29 replica/modern negative
+controls. Field-number, transcription, meaning, language, and originality
+approvals remain false.
+
+Mackay's primary excavation report provides field-context leads for the five
+Penn records. It also reveals a two-field-number identity collision for
+L-141-177 and a narrative/catalog location disagreement for SF 3495. Neither
+conflict is resolved by inference. The original register and object-card
+ranges are identified in the official Penn finding aid, but no card was
+accessed and no institution was contacted.
+
+The synthetic identifiability gate passed its fixed default configuration
+after family weighting and a whole-family-vector permutation-p95 null
+reference were enforced: macro-F1 0.7762, coverage 0.8869, null-reference
+delta 0.3892, and add-one
+empirical p=0.01. With anchors removed it reports `not_identifiable` and emits
+no F1. This validates only a project-authored synthetic pipeline. A
+rights-cleared real known-script control and an admitted Indus
+transcription-to-context join remain undone.
+
 ### Data and source work
 
 Safe next work:
 
+- define a reviewed extra-bulk evidence contract for Penn field numbers and
+  Mackay page references without copying plates;
+- resolve or explicitly quarantine the SF 3051/2558 and SF 3495 conflicts;
+- add a rights-cleared real known-script stress test with context and
+  degradation ablations;
 - curate public source/provenance/rights evidence;
 - create the external 12-page KP1979 row reference and freeze the detector
   before using its withheld manual values;
@@ -314,9 +353,9 @@ public development-log entry.
 
 - Ruff lint and format check: passed.
 - Pyright: passed with no errors or warnings.
-- Primary filesystem profile: 352 tests run, 339 passed, and 13 optional or
+- Primary filesystem profile: 378 tests run, 365 passed, and 13 optional or
   environment-specific tests skipped.
-- Second filesystem profile: 352 tests run, 340 passed, and 12 optional tests
+- Second filesystem profile: 378 tests run, 366 passed, and 12 optional tests
   skipped. It exercised the additional Unicode-casefold-collision test.
 - A separate exact-source KP1979 run exercised the fixed PDF and all 179
   canonical page images through its seven-test module: passed. This validates
@@ -327,10 +366,10 @@ public development-log entry.
 - Source distribution and wheel build: passed.
 - Markdown-link existence check: passed.
 - Gitleaks current-tree and reachable-history scans: no finding.
-- Semgrep: no finding across 201 applicable rules on 168 targets. One
-  Python-before-3.7
-  compatibility rule was excluded as inapplicable because the package requires
-  Python 3.11 or newer.
+- Semgrep: no finding in the complete tracked tree or the explicit new Python
+  release candidates. The Python-before-3.7 compatibility rule is suppressed
+  only at the seven affected `importlib.resources` lines because the package
+  requires Python 3.11 or newer.
 - Trivy filesystem scan: no high/critical dependency vulnerability, secret, or
   detected misconfiguration finding.
 

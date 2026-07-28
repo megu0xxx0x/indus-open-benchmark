@@ -22,6 +22,7 @@ PENN_TERMS_URL = "https://www.penn.museum/about/statements-and-policies/terms-an
 PENN_LICENSE_ID = "CC-BY-4.0"
 PENN_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 PENN_ATTRIBUTION = "Penn Museum"
+PENN_TERMINAL_RECORD_URL_SENTINEL = "https://collections.penn.museum/collections/object/"
 
 PENN_CSV_HEADER = (
     "Record URL",
@@ -431,8 +432,20 @@ def _parse_candidate_snapshot(
     candidates: list[JsonObject] = []
     seen_record_urls: set[str] = set()
     seen_identifiers: set[str] = set()
+    terminal_sentinel_seen = False
     try:
         for csv_row_number, values in enumerate(reader, start=2):
+            if terminal_sentinel_seen:
+                raise PennMetadataError(
+                    "Penn CSV terminal Record URL sentinel must be the final logical row"
+                )
+            if values == [PENN_TERMINAL_RECORD_URL_SENTINEL]:
+                if record_count == 0:
+                    raise PennMetadataError(
+                        "Penn CSV terminal Record URL sentinel cannot precede data rows"
+                    )
+                terminal_sentinel_seen = True
+                continue
             record_count += 1
             if len(values) != len(PENN_CSV_HEADER):
                 raise PennMetadataError(

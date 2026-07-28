@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import hashlib
-import importlib.resources
+import importlib.resources  # nosemgrep: python37-compatibility-importlib2 -- requires 3.11+
 from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass
 from pathlib import Path

@@ -47,6 +47,47 @@ inventory, provider download, local path, byte total, or manifest digest.
 Operational intake evidence remains outside Git until a separate
 rights-and-publication review approves exact release bytes.
 
+## Current metadata-only context source
+
+### Penn Museum collections dataset
+
+- Official dataset page:
+  <https://collections.penn.museum/collections/objects/data.php>
+- Official CSV:
+  <https://collections.penn.museum/collections/assets/data/Penn_Museum_Collections_Data.csv>
+- Terms:
+  <https://www.penn.museum/about/statements-and-policies/terms-and-conditions>
+- Rights status: CC BY 4.0 applies to downloaded collections datasets;
+  images are explicitly excluded
+- Dataset page state reviewed: 2026-07-28; it reported `Last Updated:
+  2026-07-01`
+- Current use: exact-byte, metadata-only candidate discovery and conservative
+  context-axis staging
+
+The current official CSV has an exact one-field terminal sentinel containing
+the generic Penn object URL after its complete 32-column records. The parser
+recognizes only that exact final sentinel, only after at least one data row.
+It continues to reject any other malformed-width row, padding, or later row.
+
+The reviewed snapshot contains 430,813 complete records and yields 521 broad
+review candidates. Thirty-four have the bulk catalog label `Indus Script`;
+five are not automatically identified as replicas or modern objects, while
+29 plaster/cast records are retained as negative controls. None of the five is
+automatically approved as an ancient original.
+
+The image-free context registry revalidates its snapshot against the complete
+CSV bytes before deriving any entry. It preserves raw site, chronology,
+object, material, motif, and measurement fields, but approves no field number,
+transcription, meaning, language, or originality. Penn object-page field
+numbers are outside the bulk schema and require a separate reviewed-evidence
+layer.
+
+The first primary-source follow-up is the
+[Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md).
+It links six published excavation field records to the five Penn candidates
+and keeps two material conflicts unresolved rather than silently choosing a
+mapping.
+
 ## Current importable source
 
 ### University of Helsinki 1979 corpus

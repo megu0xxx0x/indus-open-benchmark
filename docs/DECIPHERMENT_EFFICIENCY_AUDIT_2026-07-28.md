@@ -434,6 +434,66 @@ same-object, same-impression, or securely same-event candidate is found.
 Trade contact, visual resemblance, or the title “Meluhha interpreter” alone
 does not create paired text.
 
+## Execution update — context pivot and identifiability gate
+
+Two concrete tests now replace further generic assurance work on the critical
+path.
+
+### Synthetic method-identifiability gate
+
+The repository now contains a project-authored CC0 synthetic known-truth
+fixture with four functional classes: issuer, commodity, quantity, and unit.
+Truth and degraded observations are separate types. The degradation contract
+applies short-sequence truncation, allographs, damage, uncertain direction,
+and duplicate families only after a family-safe split.
+
+The classifier uses equal total weight per readable family. The null uniformly
+reassigns complete training-label vectors between same-readable-length
+families. Ordinary permutation fixed points are allowed, and a singleton
+length stratum necessarily remains unchanged; labels are never shuffled within
+a family vector. The decision reference is the larger of the majority-class
+macro-F1 and the 95th percentile of this family-vector null, not its mean.
+
+Under the fixed default run (`seed=0`, 96 families, 99 null runs), the result
+was:
+
+| Measure | Result |
+|---|---:|
+| Held-out family-weighted macro-F1 | 0.7762 |
+| Readable-token coverage | 0.8869 |
+| Permutation-null p95 macro-F1 | 0.3870 |
+| Observed minus conservative null reference | 0.3892 |
+| Add-one empirical p-value | 0.01 |
+| Current code-default gate (not independently preregistered) | GO |
+
+When train-side class anchors are removed, the command returns
+`not_identifiable` and emits no F1. This is a pipeline eligibility result on a
+deliberately simple synthetic system. It is not a real known-script
+replication and provides no evidence for an Indus sign value, language,
+meaning, translation, or decipherment. The next control must use a
+rights-cleared real script and hold out relevant context domains.
+
+### First primary-source context crosswalk
+
+The complete Penn Museum bulk CSV yields 34 metadata-only records labeled
+`Indus Script`: five originality-pending Chanhu-Daro objects and 29
+replica/modern negative controls. Mackay's excavation report supplies
+published context leads for field numbers SF 2000, 3495, 3493, 2428, 3051,
+and 2558:
+
+- SF 2000 is in Mackay's Harappa Occupation I;
+- the other five field records are in Mackay's Harappa II; and
+- the records include square, locus or room, level, and plate references.
+
+The crosswalk also exposed two defects that must remain unresolved: Penn
+accession L-141-177 joins SF 3051 and SF 2558 even though Mackay catalogs
+different loci, levels, dimensions, and plates, and Mackay's narrative and
+catalog disagree on the exact room/locus for SF 3495.
+
+See the
+[dated Chanhu-Daro crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md).
+No field number or context is admitted into a transcription benchmark yet.
+
 ## Current 2026 computational claims: use as reproduction targets
 
 The latest large-corpus papers reinforce the strategy shift but do not supply a

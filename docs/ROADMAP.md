@@ -160,6 +160,12 @@ Current assets:
   adjudication before any carrier, physical-surface, relationship, ROI, or
   exact-crosswalk promotion.
 - [ ] Negotiate source agreements under separately authorized outreach.
+- [x] Derive the first exact-byte Penn metadata context registry: five
+  originality-pending Chanhu-Daro candidates plus 29 replica/modern negative
+  controls, with no image, transcription, field-number, or meaning approval.
+- [ ] Resolve the SF 3051/2558 identity collision and SF 3495 room/locus
+  conflict through separately reviewed primary evidence before context
+  admission.
 - [ ] Prioritize a context-rich 150–250-artifact target set. Expand toward
   500–1,000 only while new batches improve coverage, add contexts or anchors,
   or change hypothesis discrimination.
@@ -172,7 +178,12 @@ Current assets:
 These experiments begin on the smallest admissible data now; they do not wait
 for the v0.2 volume target.
 
-- [ ] Degraded known-script controls.
+- [x] Project-authored synthetic known-truth degradation gate with
+  duplicate-family splits, family weighting, family-vector permutation nulls,
+  and anchor-free abstention.
+- [ ] Real known-script degraded controls with documented open rights and
+  typologically relevant short-text/context ablations; the synthetic gate
+  does not satisfy this milestone.
 - [ ] Alternative sign inventories and direction lattices.
 - [ ] Linguistic, accounting, emblematic, hybrid, and shuffled null models.
 - [ ] Site, period, material, and object-type generalization reports.

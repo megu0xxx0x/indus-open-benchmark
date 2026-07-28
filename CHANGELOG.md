@@ -7,6 +7,14 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A closed Penn metadata-only context-anchor registry, exact-CSV
+  revalidation CLI, 34-entry real-source derivation check, replica/modern
+  negative controls, and a dated Mackay/Penn Chanhu-Daro primary-source
+  crosswalk that preserves unresolved field-number and locus conflicts.
+- A project-authored CC0 synthetic functional-class identifiability gate with
+  family-safe degradation, equal family weighting, conservative
+  family-permutation nulls, anchor-free abstention, and explicit
+  no-decipherment scope.
 - Closed sign-inventory and unsealed visual-transcription review/adjudication
   schemas, exact-byte evidence verification, double-independent-review
   comparison, and one non-overwriting private promotion receipt.
@@ -106,6 +114,9 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Security
 
+- Recognize only Penn's exact generic-object-URL terminal CSV sentinel after
+  complete records; continue rejecting every other malformed-width,
+  padded, nonterminal, or post-sentinel row.
 - Keep detailed transcription agreement reports and promoted artifacts in new
   `0600` files below pre-existing physical owner-only `0700` parents, while
   emitting a fixed count-free terminal summary. Public export and evaluation

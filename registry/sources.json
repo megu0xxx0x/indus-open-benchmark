@@ -1,8 +1,161 @@
 {
   "schema_version": "0.1.0",
   "registry_id": "indus-open-benchmark:sources",
-  "generated_at": "2026-07-28T11:54:04+09:00",
+  "generated_at": "2026-07-28T17:42:04+09:00",
   "sources": [
+    {
+      "source_id": "penn-museum-collections-data",
+      "title": "Penn Museum downloaded collections dataset",
+      "source_type": "database",
+      "citation": {
+        "title": "Download Collections Data",
+        "creators": [
+          "Penn Museum"
+        ],
+        "issued": null,
+        "publisher": "Penn Museum",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://collections.penn.museum/collections/objects/data.php"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://collections.penn.museum/collections/assets/data/Penn_Museum_Collections_Data.csv"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://collections.penn.museum/collections/objects/data.php",
+        "accessed_at": "2026-07-28T17:42:04+09:00",
+        "snapshot_hash": "sha256:f4471af8c125f9f5b03c426820ecb4ab7900f37e52cfa14d548477190bb3def0",
+        "retrieval_instructions": "Download the official CSV linked by the Penn dataset page. Require exactly 151,202,047 bytes and the pinned SHA-256. Parse strict UTF-8 and the exact 32-column header. Exclude only the exact generic-object-URL terminal sentinel after complete records; reject every other malformed row. Images are not included."
+      },
+      "rights": {
+        "status": "open_licensed",
+        "license_id": "CC-BY-4.0",
+        "license_uri": "https://creativecommons.org/licenses/by/4.0/",
+        "rights_holder": "Penn Museum",
+        "redistribution": true,
+        "derivatives": true,
+        "commercial_use": true,
+        "statement": "Penn's official download page and terms apply CC BY 4.0 to downloaded collections datasets and explicitly exclude images. Catalog records are provided as-is and may be incomplete or outdated. This entry grants no image rights and establishes no transcription, originality, or decipherment fact.",
+        "evidence_uri": "https://collections.penn.museum/collections/objects/data.php",
+        "verified_at": "2026-07-28T17:42:04+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "Penn Museum",
+        "upstream_source_ids": [],
+        "description": "Official image-free bulk metadata for Penn Museum collection objects.",
+        "transformation_history": [],
+        "quality_notes": "The current snapshot has 430,813 complete records followed by one exact terminal URL sentinel. Its five non-replica primary-script Chanhu-Daro candidates lack locus and field-number columns in the bulk export. Raw metadata is a source assertion, not accepted archaeological ground truth."
+      }
+    },
+    {
+      "source_id": "penn-chanhu-daro-archive-1064",
+      "title": "Chanhu-daro Pakistan records",
+      "source_type": "field_record",
+      "citation": {
+        "title": "Chanhu-daro Pakistan records",
+        "creators": [
+          "W. Norman Brown",
+          "Ernest J. H. Mackay"
+        ],
+        "issued": "1934-1939",
+        "publisher": "University of Pennsylvania: Penn Museum Archives",
+        "identifiers": [
+          {
+            "scheme": "local",
+            "value": "1064"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://findingaids.library.upenn.edu/records/UPENN_MUSEUM_PU-MU.1064"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "on_site",
+        "landing_page": "https://findingaids.library.upenn.edu/records/UPENN_MUSEUM_PU-MU.1064",
+        "accessed_at": "2026-07-28T17:42:04+09:00",
+        "snapshot_hash": null,
+        "retrieval_instructions": "Use the public finding aid for discovery only. The original register, room-number records, and object cards are described as physical holdings and were not accessed. Any on-site or reproduction request requires a separately authorized workflow and item-level rights review."
+      },
+      "rights": {
+        "status": "restricted",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": null,
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": false,
+        "statement": "The finding aid describes physical archival holdings and supplies no blanket open licence for object cards, registers, drawings, photographs, or plates. Discovery metadata may be cited; no archival image or document is admitted for redistribution.",
+        "evidence_uri": "https://findingaids.library.upenn.edu/records/UPENN_MUSEUM_PU-MU.1064",
+        "verified_at": "2026-07-28T17:42:04+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "Penn Museum Archives",
+        "upstream_source_ids": [],
+        "description": "Finding aid for original Chanhu-Daro registers, room records, object-card catalogs, plans, plates, and excavation documentation.",
+        "transformation_history": [],
+        "quality_notes": "Box 2 contains the original register and room-number records. Field-number card ranges place SF 2000 in Box 8; SF 2428 and 2558 in Box 9; SF 3051 in Box 10; and SF 3493 and 3495 in Box 11. No underlying card was accessed and no institution was contacted."
+      }
+    },
+    {
+      "source_id": "mackay-chanhu-daro-1943",
+      "title": "Chanhu-Daro Excavations 1935-36",
+      "source_type": "publication",
+      "citation": {
+        "title": "Chanhu-Daro Excavations 1935-36",
+        "creators": [
+          "Ernest J. H. Mackay"
+        ],
+        "issued": "1943",
+        "publisher": "American Oriental Society",
+        "identifiers": [
+          {
+            "scheme": "other",
+            "value": "American Oriental Series 20"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://archive.org/details/in.ernet.dli.2015.105167"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_download",
+        "landing_page": "https://archive.org/details/in.ernet.dli.2015.105167",
+        "accessed_at": "2026-07-28T17:42:04+09:00",
+        "snapshot_hash": "sha256:93a76551ab048c6a455b4239730dce718b96cd5b3747852b025858d86b253ef0",
+        "retrieval_instructions": "Use the Internet Archive scan for page-level source review. The reviewed PDF is exactly 27,802,606 bytes with the pinned SHA-256. Do not vendor or republish report plates through this registry."
+      },
+      "rights": {
+        "status": "unknown",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": null,
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": false,
+        "statement": "Internet Archive metadata labels the item Out_of_copyright and identifies the Central Archaeological Library, Archaeological Survey of India, as source library. This registry conservatively treats that label as access evidence rather than a project-issued rights determination and does not authorize republication of pages or plates.",
+        "evidence_uri": "https://archive.org/metadata/in.ernet.dli.2015.105167",
+        "verified_at": "2026-07-28T17:42:04+09:00"
+      },
+      "provenance": {
+        "record_method": "primary_catalogue",
+        "maintainer": "Internet Archive scan of the published report",
+        "upstream_source_ids": [
+          "penn-chanhu-daro-archive-1064"
+        ],
+        "description": "Published primary excavation report used to recover field-number, square, locus or room, level, and plate references for Chanhu-Daro seal records.",
+        "transformation_history": [],
+        "quality_notes": "SF 2000 is cataloged in Mackay's Harappa Occupation I; SF 3495, 3493, 2428, 3051, and 2558 are in Harappa II. SF 3051 and 2558 are distinct report entries despite one Penn accession listing both. SF 3495 has an unresolved narrative-versus-catalog room/locus discrepancy."
+      }
+    },
     {
       "source_id": "helsinki-indus-concordance-1982",
       "title": "A Concordande to the Texts in the Indus Script",

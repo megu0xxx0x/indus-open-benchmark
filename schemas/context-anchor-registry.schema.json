@@ -1,0 +1,563 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "context-anchor-registry.schema.json",
+  "title": "Penn Museum metadata-only context-anchor registry",
+  "description": "A closed, deterministic selection of Penn primary-script catalog candidates for context research. It contains no image, transcription, sign value, meaning, originality approval, or field-number assertion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "record_state",
+    "selection_policy",
+    "derivation_method_id",
+    "source",
+    "source_acquisition",
+    "rights",
+    "source_candidate_count",
+    "entry_count",
+    "role_counts",
+    "entries",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "registry_id": {
+      "type": "string",
+      "pattern": "^penn-context-anchor-registry:sha256:[0-9a-f]{64}$"
+    },
+    "record_state": {
+      "const": "metadata_context_anchors_untranscribed"
+    },
+    "selection_policy": {
+      "const": "penn_primary_script_candidates_only"
+    },
+    "derivation_method_id": {
+      "const": "penn-context-anchor-v1"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "source_acquisition": {
+      "$ref": "#/$defs/source_acquisition"
+    },
+    "rights": {
+      "$ref": "#/$defs/rights"
+    },
+    "source_candidate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "entry_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "role_counts": {
+      "$ref": "#/$defs/role_counts"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "limitations": {
+      "const": [
+        "metadata_only_no_images",
+        "no_transcription_or_sign_values",
+        "no_meaning_or_language_decipherment_claim",
+        "originality_requires_human_review",
+        "field_numbers_absent_from_bulk_schema_and_not_inferred",
+        "catalog_metadata_may_be_incomplete_or_outdated"
+      ]
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshot_id",
+        "institution_id",
+        "institution_name",
+        "dataset_url",
+        "landing_url"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "string",
+          "pattern": "^penn-museum-csv:sha256:[0-9a-f]{64}$"
+        },
+        "institution_id": {
+          "const": "penn-museum"
+        },
+        "institution_name": {
+          "const": "Penn Museum"
+        },
+        "dataset_url": {
+          "const": "https://collections.penn.museum/collections/assets/data/Penn_Museum_Collections_Data.csv"
+        },
+        "landing_url": {
+          "const": "https://collections.penn.museum/collections/objects/data.php"
+        }
+      }
+    },
+    "source_acquisition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "retrieved_at",
+        "bytes",
+        "sha256",
+        "etag",
+        "last_modified",
+        "source_last_updated"
+      ],
+      "properties": {
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "etag": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "last_modified": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "source_last_updated": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "status",
+        "license_id",
+        "license_url",
+        "attribution",
+        "redistribution",
+        "derivatives",
+        "commercial_use",
+        "images_included",
+        "media_rights_status",
+        "evidence_url"
+      ],
+      "properties": {
+        "scope": {
+          "const": "metadata_only"
+        },
+        "status": {
+          "const": "open_licensed"
+        },
+        "license_id": {
+          "const": "CC-BY-4.0"
+        },
+        "license_url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "attribution": {
+          "const": "Penn Museum"
+        },
+        "redistribution": {
+          "const": true
+        },
+        "derivatives": {
+          "const": true
+        },
+        "commercial_use": {
+          "const": true
+        },
+        "images_included": {
+          "const": false
+        },
+        "media_rights_status": {
+          "const": "not_evaluated_not_included"
+        },
+        "evidence_url": {
+          "const": "https://collections.penn.museum/collections/objects/data.php"
+        }
+      }
+    },
+    "role_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_candidate_pending_originality_review",
+        "replica_or_modern_negative_control"
+      ],
+      "properties": {
+        "context_candidate_pending_originality_review": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "replica_or_modern_negative_control": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "anchor_id",
+        "candidate_id",
+        "csv_row_number",
+        "record_url",
+        "accession_number",
+        "candidate_classification",
+        "physical_status",
+        "anchor_role",
+        "source_fields",
+        "anchor_axes",
+        "field_numbers",
+        "admission",
+        "provenance"
+      ],
+      "properties": {
+        "anchor_id": {
+          "type": "string",
+          "pattern": "^penn-context-anchor:sha256:[0-9a-f]{64}$"
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^penn-museum-candidate:sha256:[0-9a-f]{64}$"
+        },
+        "csv_row_number": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "record_url": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1
+        },
+        "accession_number": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_classification": {
+          "const": "primary_script_candidate"
+        },
+        "physical_status": {
+          "enum": [
+            "replica_or_modern",
+            "physical_status_unknown_pending_review"
+          ]
+        },
+        "anchor_role": {
+          "enum": [
+            "context_candidate_pending_originality_review",
+            "replica_or_modern_negative_control"
+          ]
+        },
+        "source_fields": {
+          "$ref": "#/$defs/source_fields"
+        },
+        "anchor_axes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/anchor_axis"
+          }
+        },
+        "field_numbers": {
+          "$ref": "#/$defs/field_numbers"
+        },
+        "admission": {
+          "$ref": "#/$defs/admission"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      }
+    },
+    "source_fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "objectName",
+        "nativeName",
+        "title",
+        "creditLine",
+        "description",
+        "placeName",
+        "siteName",
+        "culture",
+        "cultureArea",
+        "locus",
+        "period",
+        "material",
+        "technique",
+        "creator",
+        "iconography",
+        "iconographySubject",
+        "inscriptionMarkLanguage",
+        "dateMade",
+        "earlyDate",
+        "lateDate",
+        "depth",
+        "length",
+        "width",
+        "height",
+        "thickness",
+        "weight",
+        "outsideDiameter",
+        "measurementUnit"
+      ],
+      "properties": {
+        "objectName": {
+          "type": "string"
+        },
+        "nativeName": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "creditLine": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "placeName": {
+          "type": "string"
+        },
+        "siteName": {
+          "type": "string"
+        },
+        "culture": {
+          "type": "string"
+        },
+        "cultureArea": {
+          "type": "string"
+        },
+        "locus": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        },
+        "material": {
+          "type": "string"
+        },
+        "technique": {
+          "type": "string"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "iconography": {
+          "type": "string"
+        },
+        "iconographySubject": {
+          "type": "string"
+        },
+        "inscriptionMarkLanguage": {
+          "type": "string"
+        },
+        "dateMade": {
+          "type": "string"
+        },
+        "earlyDate": {
+          "type": "string"
+        },
+        "lateDate": {
+          "type": "string"
+        },
+        "depth": {
+          "type": "string"
+        },
+        "length": {
+          "type": "string"
+        },
+        "width": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string"
+        },
+        "thickness": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "string"
+        },
+        "outsideDiameter": {
+          "type": "string"
+        },
+        "measurementUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "anchor_axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "axis",
+        "source_fields"
+      ],
+      "properties": {
+        "axis": {
+          "enum": [
+            "catalog_identity",
+            "script_catalog_label",
+            "site_context",
+            "culture_context",
+            "excavation_context",
+            "chronology_context",
+            "object_form",
+            "material_technology",
+            "motif_context",
+            "measurement_context",
+            "provenance_credit",
+            "catalog_description"
+          ]
+        },
+        "source_fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "Record URL",
+              "identifier",
+              "objectName",
+              "nativeName",
+              "title",
+              "creditLine",
+              "description",
+              "placeName",
+              "siteName",
+              "culture",
+              "cultureArea",
+              "locus",
+              "period",
+              "material",
+              "technique",
+              "creator",
+              "iconography",
+              "iconographySubject",
+              "inscriptionMarkLanguage",
+              "dateMade",
+              "earlyDate",
+              "lateDate",
+              "depth",
+              "length",
+              "width",
+              "height",
+              "thickness",
+              "weight",
+              "outsideDiameter",
+              "measurementUnit"
+            ]
+          }
+        }
+      }
+    },
+    "field_numbers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "values"
+      ],
+      "properties": {
+        "status": {
+          "const": "not_available_in_bulk_snapshot"
+        },
+        "values": {
+          "const": []
+        }
+      }
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "human_review_required",
+        "transcription_approved",
+        "meaning_approved",
+        "originality_approved",
+        "field_number_approved"
+      ],
+      "properties": {
+        "human_review_required": {
+          "const": true
+        },
+        "transcription_approved": {
+          "const": false
+        },
+        "meaning_approved": {
+          "const": false
+        },
+        "originality_approved": {
+          "const": false
+        },
+        "field_number_approved": {
+          "const": false
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_snapshot_id",
+        "source_sha256",
+        "csv_row_number",
+        "raw_fields_sha256"
+      ],
+      "properties": {
+        "source_snapshot_id": {
+          "type": "string",
+          "pattern": "^penn-museum-csv:sha256:[0-9a-f]{64}$"
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "csv_row_number": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "raw_fields_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

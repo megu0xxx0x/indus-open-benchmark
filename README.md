@@ -37,6 +37,18 @@ occurrence concordance. A stratified calibration tranche, context-rich gold
 objects, and an equal-budget hypothesis tournament proceed in parallel.
 Unreviewed proposals remain outside admitted corpora and evaluation.
 
+The first context-track implementation now revalidates a Penn Museum
+metadata snapshot against its complete official CSV and derives 34
+image-free context candidates: five pending originality review and 29
+replica/modern negative controls. A primary-source
+[Chanhu-Daro crosswalk audit](docs/CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
+recovers published excavation contexts but keeps a two-field-number identity
+collision and a room/locus disagreement unresolved. Separately, a
+project-authored synthetic known-truth gate checks whether the proposed
+functional-class machinery remains identifiable under short sequences,
+allographs, damage, uncertain direction, and duplicate families. Passing that
+method gate is not evidence that any Indus sign has been read.
+
 The global evidence audit has established a baseline and now continues as
 recurring monitoring; it no longer blocks calibrated extraction and
 falsifiable functional tests. It is not model-led translation, an external
@@ -97,6 +109,12 @@ permission by itself.
   exact policy evidence, provider renditions, and unresolved physical-side status.
 - Raw-byte-bound, network-free Penn and Smithsonian metadata parsers that
   separate catalog discovery from media permission.
+- A deterministic Penn context-anchor registry that revalidates the complete
+  official CSV, retains replicas as negative controls, and fixes every
+  field-number, transcription, meaning, and originality approval false.
+- A project-authored CC0 synthetic identifiability gate with family-safe
+  splits, family weighting, damage/allograph/direction degradation,
+  family-vector permutation nulls, and an explicit anchor-free abstention.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -411,6 +429,12 @@ uv run indusbench parse-penn-metadata \
   <new-private-penn-output.json> \
   --retrieved-at <rfc3339-acquisition-time> \
   --source-last-updated <source-update-date>
+uv run indusbench derive-penn-context-anchors \
+  <private-penn-snapshot.json> \
+  <same-official-penn-csv> \
+  <new-private-context-registry.json> \
+  --expected-source-sha256 sha256:<trusted-download-digest>
+uv run indusbench synthetic-identifiability-gate
 uv run indusbench parse-smithsonian-metadata \
   <official-smithsonian-shard.jsonl> \
   <new-private-smithsonian-output.json> \
@@ -429,6 +453,11 @@ The Penn and Smithsonian commands parse caller-supplied official bulk bytes
 only; neither downloads the file nor follows record or image URLs. Smithsonian
 output commits to the complete JSONL container and exact selected line, and
 keeps record-level metadata rights separate from every media item's rights.
+Penn context derivation additionally requires the complete CSV again and
+exactly re-derives the supplied snapshot before writing a no-replace registry.
+The synthetic identifiability command uses no historical or third-party data.
+It reports every valid scientific outcome with status zero by default. Add
+`--require-go` in CI when a non-`go` report must return status 2.
 
 ## Repository map
 

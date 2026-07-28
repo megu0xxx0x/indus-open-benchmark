@@ -35,7 +35,12 @@ from indusbench.benchmark_lock import (
     build_benchmark_definition,
     verify_benchmark_definition,
 )
+from indusbench.context_anchor import (
+    derive_context_anchor_registry,
+    validate_context_anchor_registry,
+)
 from indusbench.controls import global_sign_shuffle
+from indusbench.identifiability import DegradationConfig, run_identifiability_gate
 from indusbench.importers.mayig import import_mayig_corpus
 from indusbench.io import (
     CorpusFormatError,
@@ -142,6 +147,7 @@ from indusbench.null_evaluation import evaluate_shuffle_null
 from indusbench.penn_metadata import (
     PENN_CSV_URL,
     parse_penn_csv_snapshot,
+    validate_penn_metadata_semantics,
 )
 from indusbench.private_readiness import (
     INTENDED_USES as PRIVATE_READINESS_INTENDED_USES,
@@ -210,6 +216,7 @@ MUSEUM_MAX_INDEX_BYTES = 64 * 1024 * 1024
 MUSEUM_MAX_BUNDLE_DEPTH = 8
 MUSEUM_MAX_SEALED_REVIEW_COUNT = 100_000
 PENN_MAX_CSV_BYTES = 256 * 1024 * 1024
+PENN_MAX_SNAPSHOT_BYTES = 64 * 1024 * 1024
 CHECKSUM_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 STABLE_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$")
 RFC3339_PATTERN = re.compile(
@@ -452,6 +459,18 @@ def _default_penn_metadata_schema() -> Path | None:
         return project_candidate
     package_candidate = importlib.resources.files("indusbench").joinpath(
         "schemas/penn-metadata-snapshot.schema.json"
+    )
+    return Path(str(package_candidate)) if package_candidate.is_file() else None
+
+
+def _default_context_anchor_schema() -> Path | None:
+    project_candidate = (
+        Path(__file__).resolve().parents[2] / "schemas" / "context-anchor-registry.schema.json"
+    )
+    if project_candidate.is_file():
+        return project_candidate
+    package_candidate = importlib.resources.files("indusbench").joinpath(
+        "schemas/context-anchor-registry.schema.json"
     )
     return Path(str(package_candidate)) if package_candidate.is_file() else None
 
@@ -3292,8 +3311,15 @@ def _seal_museum_review(
 def _command_parse_penn_metadata(args: argparse.Namespace) -> int:
     if not _target_is_clear(args.output, False):
         return 1
-    if isinstance(args.max_csv_bytes, bool) or args.max_csv_bytes < 1:
-        raise ValueError("max_csv_bytes must be positive")
+    if (
+        isinstance(args.max_csv_bytes, bool)
+        or args.max_csv_bytes < 1
+        or args.max_csv_bytes > PENN_MAX_CSV_BYTES
+    ):
+        raise ValueError(
+            "max_csv_bytes must be positive and cannot exceed the "
+            f"{PENN_MAX_CSV_BYTES}-byte parser ceiling"
+        )
     raw_bytes = _read_regular_bytes(
         args.csv,
         max_bytes=args.max_csv_bytes,
@@ -3386,6 +3412,137 @@ def _command_parse_penn_metadata(args: argparse.Namespace) -> int:
         }
     )
     return 0 if durability_confirmed else 1
+
+
+def _command_derive_penn_context_anchors(args: argparse.Namespace) -> int:
+    if not _target_is_clear(args.output, False):
+        return 1
+    for name, value, ceiling in (
+        ("max_snapshot_bytes", args.max_snapshot_bytes, PENN_MAX_SNAPSHOT_BYTES),
+        ("max_csv_bytes", args.max_csv_bytes, PENN_MAX_CSV_BYTES),
+    ):
+        if isinstance(value, bool) or value < 1 or value > ceiling:
+            raise ValueError(
+                f"{name} must be positive and cannot exceed the {ceiling}-byte parser ceiling"
+            )
+
+    snapshot_bytes = _read_regular_bytes(
+        args.snapshot,
+        max_bytes=args.max_snapshot_bytes,
+    )
+    snapshot_value = _museum_json_value(snapshot_bytes, label=str(args.snapshot))
+    if not isinstance(snapshot_value, dict):
+        raise ValueError("Penn metadata snapshot must be a JSON object")
+
+    csv_bytes = _read_regular_bytes(
+        args.csv,
+        max_bytes=args.max_csv_bytes,
+    )
+    source_sha256 = "sha256:" + hashlib.sha256(csv_bytes).hexdigest()
+    if args.expected_source_sha256 is not None and source_sha256 != args.expected_source_sha256:
+        _print_json(
+            {
+                "valid": False,
+                "written": False,
+                "snapshot": str(args.snapshot),
+                "source_csv": str(args.csv),
+                "output": str(args.output),
+                "expected_source_sha256": args.expected_source_sha256,
+                "actual_source_sha256": source_sha256,
+                "errors": ["Penn CSV does not match the externally supplied digest"],
+            }
+        )
+        return 2
+
+    validate_penn_metadata_semantics(snapshot_value, raw_bytes=csv_bytes)
+    snapshot_schema: Path | None = args.snapshot_schema
+    if snapshot_schema is None:
+        snapshot_schema = _default_penn_metadata_schema()
+    if snapshot_schema is None:
+        raise ValueError("Penn metadata snapshot schema not found; pass --snapshot-schema")
+    snapshot_issues = validate_schema_instance(snapshot_value, snapshot_schema)
+    if snapshot_issues:
+        _print_json(
+            {
+                "valid": False,
+                "written": False,
+                "snapshot": str(args.snapshot),
+                "source_csv": str(args.csv),
+                "output": str(args.output),
+                "errors": [f"{issue.path}: {issue.message}" for issue in snapshot_issues],
+            }
+        )
+        return 2
+
+    registry = derive_context_anchor_registry(snapshot_value)
+    validate_context_anchor_registry(registry, source_snapshot=snapshot_value)
+    schema: Path | None = args.schema
+    if schema is None:
+        schema = _default_context_anchor_schema()
+    if schema is None:
+        raise ValueError("context-anchor registry schema not found; pass --schema")
+    schema_issues = validate_schema_instance(registry, schema)
+    if schema_issues:
+        _print_json(
+            {
+                "valid": False,
+                "written": False,
+                "snapshot": str(args.snapshot),
+                "source_csv": str(args.csv),
+                "output": str(args.output),
+                "errors": [f"{issue.path}: {issue.message}" for issue in schema_issues],
+            }
+        )
+        return 2
+
+    durability_confirmed, output_content_verified = _write_json_no_replace(
+        args.output,
+        registry,
+    )
+    postcondition = (
+        "committed_and_durable"
+        if durability_confirmed
+        else (
+            "committed_durability_unknown"
+            if output_content_verified
+            else "committed_verification_and_durability_unknown"
+        )
+    )
+    _print_json(
+        {
+            "valid": True,
+            "written": True,
+            "output_content_verified": output_content_verified,
+            "postcondition": postcondition,
+            "snapshot": str(args.snapshot),
+            "source_csv": str(args.csv),
+            "output": str(args.output),
+            "registry_id": registry["registry_id"],
+            "source_sha256": source_sha256,
+            "source_candidate_count": registry["source_candidate_count"],
+            "entry_count": registry["entry_count"],
+            "role_counts": registry["role_counts"],
+            "license_id": registry["rights"]["license_id"],
+            "images_included": registry["rights"]["images_included"],
+            "transcription_approved": False,
+            "meaning_approved": False,
+            "originality_approved": False,
+        }
+    )
+    return 0 if durability_confirmed else 1
+
+
+def _command_synthetic_identifiability_gate(args: argparse.Namespace) -> int:
+    report = run_identifiability_gate(
+        seed=args.seed,
+        family_count=args.family_count,
+        config=DegradationConfig(seed=args.seed),
+        anchors_available=not args.anchor_free,
+        runs=args.runs,
+        null_seed=args.null_seed,
+    )
+    _print_json(report)
+    return 2 if args.require_go and report["gate_status"] != "go" else 0
 
 
 def _command_parse_smithsonian_metadata(args: argparse.Namespace) -> int:
@@ -7015,6 +7172,70 @@ def build_parser() -> argparse.ArgumentParser:
         help="override the closed Penn metadata snapshot schema",
     )
     penn_metadata_parser.set_defaults(handler=_command_parse_penn_metadata)
+
+    penn_context_parser = subparsers.add_parser(
+        "derive-penn-context-anchors",
+        help=(
+            "revalidate a Penn metadata snapshot against its exact CSV and write "
+            "an image-free context-anchor registry"
+        ),
+    )
+    penn_context_parser.add_argument("snapshot", type=_path)
+    penn_context_parser.add_argument("csv", type=_path)
+    penn_context_parser.add_argument("output", type=_path)
+    penn_context_parser.add_argument(
+        "--expected-source-sha256",
+        type=_sha256_checksum,
+        help="optional trusted digest supplied from outside the snapshot and local CSV",
+    )
+    penn_context_parser.add_argument(
+        "--max-snapshot-bytes",
+        type=int,
+        default=PENN_MAX_SNAPSHOT_BYTES,
+    )
+    penn_context_parser.add_argument(
+        "--max-csv-bytes",
+        type=int,
+        default=PENN_MAX_CSV_BYTES,
+    )
+    penn_context_parser.add_argument(
+        "--snapshot-schema",
+        type=_path,
+        help="override the closed Penn metadata snapshot schema",
+    )
+    penn_context_parser.add_argument(
+        "--schema",
+        type=_path,
+        help="override the closed context-anchor registry schema",
+    )
+    penn_context_parser.set_defaults(handler=_command_derive_penn_context_anchors)
+
+    identifiability_parser = subparsers.add_parser(
+        "synthetic-identifiability-gate",
+        help=(
+            "run the project-authored known-truth stress test; this is not "
+            "an Indus decipherment result"
+        ),
+    )
+    identifiability_parser.add_argument("--seed", type=int, default=0)
+    identifiability_parser.add_argument("--family-count", type=int, default=96)
+    identifiability_parser.add_argument("--runs", type=int, default=99)
+    identifiability_parser.add_argument(
+        "--null-seed",
+        type=int,
+        help="optional first family-permutation seed; defaults to --seed",
+    )
+    identifiability_parser.add_argument(
+        "--anchor-free",
+        action="store_true",
+        help="demonstrate that named classes are not identifiable without train-side anchors",
+    )
+    identifiability_parser.add_argument(
+        "--require-go",
+        action="store_true",
+        help="return status 2 unless the report's gate_status is go; useful for CI",
+    )
+    identifiability_parser.set_defaults(handler=_command_synthetic_identifiability_gate)
 
     smithsonian_metadata_parser = subparsers.add_parser(
         "parse-smithsonian-metadata",

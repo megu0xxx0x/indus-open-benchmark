@@ -22,6 +22,10 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   for canonical digest-named review files.
 - `schemas/penn-metadata-snapshot.schema.json` — a closed, image-free Penn
   Museum CSV candidate snapshot with CC BY 4.0 provenance.
+- `schemas/context-anchor-registry.schema.json` — a deterministic Penn
+  primary-script context registry with raw metadata axes, replica negative
+  controls, exact snapshot provenance, and all interpretive/field-number
+  approval gates fixed closed.
 - `schemas/smithsonian-metadata-record.schema.json` (v0.2) — one exact
   Smithsonian AWS JSONL record, bound to its raw container and independently
   gated metadata/media rights.

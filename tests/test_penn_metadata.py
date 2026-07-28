@@ -198,6 +198,24 @@ class PennMetadataParsingTests(unittest.TestCase):
             with self.subTest(label=label), self.assertRaises(PennMetadataError):
                 parse(raw_bytes)
 
+    def test_exact_official_terminal_record_url_sentinel_is_excluded(self) -> None:
+        sentinel = b"https://collections.penn.museum/collections/object/\r\n"
+        valid = csv_bytes([penn_row()])
+
+        snapshot = parse(valid + sentinel)
+
+        self.assertEqual(1, snapshot["record_count"])
+        self.assertEqual(1, snapshot["candidate_count"])
+
+        invalid_inputs = {
+            "sentinel_before_data": csv_bytes([]) + sentinel,
+            "row_after_sentinel": valid + sentinel + valid.split(b"\r\n", maxsplit=1)[1],
+            "padded_sentinel": valid + sentinel.replace(b"/\r\n", b"/ \r\n"),
+        }
+        for label, raw_bytes in invalid_inputs.items():
+            with self.subTest(label=label), self.assertRaises(PennMetadataError):
+                parse(raw_bytes)
+
     def test_every_row_requires_unpadded_record_url_and_identifier(self) -> None:
         missing_url = penn_row(**{"Record URL": ""})
         missing_identifier = penn_row(identifier=" ")

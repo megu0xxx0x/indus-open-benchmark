@@ -19,6 +19,7 @@ SCHEMA_FILES = (
     "source-registry.schema.json",
     "artifact.schema.json",
     "benchmark-lock.schema.json",
+    "context-anchor-registry.schema.json",
     "evaluator-config.schema.json",
     "hypothesis.schema.json",
     "kp1979-corpus-source.schema.json",

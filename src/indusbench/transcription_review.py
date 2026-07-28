@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import copy
 import hashlib
-import importlib.resources
+import importlib.resources  # nosemgrep: python37-compatibility-importlib2 -- requires 3.11+
 import math
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass

@@ -103,6 +103,56 @@ class CliTests(unittest.TestCase):
             self.assertFalse(snapshot["source"]["images_included"])
             self.assertNotIn("media", snapshot)
 
+            context_output = temporary / "penn-context-anchors.json"
+            context_result, context_stdout, context_error = run_cli(
+                [
+                    "derive-penn-context-anchors",
+                    str(output),
+                    str(source),
+                    str(context_output),
+                    "--expected-source-sha256",
+                    source_sha256,
+                ]
+            )
+            self.assertEqual(0, context_result, context_error)
+            context_summary = json.loads(context_stdout)
+            self.assertTrue(context_summary["written"])
+            self.assertEqual(1, context_summary["entry_count"])
+            self.assertFalse(context_summary["images_included"])
+            self.assertFalse(context_summary["transcription_approved"])
+            context_registry = json.loads(context_output.read_text(encoding="utf-8"))
+            self.assertEqual(
+                "context_candidate_pending_originality_review",
+                context_registry["entries"][0]["anchor_role"],
+            )
+            self.assertEqual([], context_registry["entries"][0]["field_numbers"]["values"])
+
+            repeated_context_result, _, repeated_context_error = run_cli(
+                [
+                    "derive-penn-context-anchors",
+                    str(output),
+                    str(source),
+                    str(context_output),
+                ]
+            )
+            self.assertEqual(1, repeated_context_result)
+            self.assertIn("refusing to overwrite", repeated_context_error)
+
+            changed_source = temporary / "changed-penn.csv"
+            changed_source.write_bytes(csv_bytes([penn_row(identifier="L-141-CHANGED")]))
+            changed_context_output = temporary / "changed-context.json"
+            changed_context_result, _, changed_context_error = run_cli(
+                [
+                    "derive-penn-context-anchors",
+                    str(output),
+                    str(changed_source),
+                    str(changed_context_output),
+                ]
+            )
+            self.assertEqual(1, changed_context_result)
+            self.assertIn("does not match", changed_context_error)
+            self.assertFalse(changed_context_output.exists())
+
             repeated_result, _, repeated_error = run_cli(
                 [
                     "parse-penn-metadata",
@@ -166,6 +216,67 @@ class CliTests(unittest.TestCase):
                 durability_payload["postcondition"],
             )
             self.assertTrue(durability_output.is_file())
+
+    def test_synthetic_identifiability_gate_is_scoped_and_anchor_free_abstains(
+        self,
+    ) -> None:
+        result, stdout, error = run_cli(
+            [
+                "synthetic-identifiability-gate",
+                "--seed",
+                "23",
+                "--null-seed",
+                "700",
+                "--runs",
+                "19",
+            ]
+        )
+        self.assertEqual(0, result, error)
+        report = json.loads(stdout)
+        self.assertEqual("go", report["gate_status"])
+        self.assertGreaterEqual(report["observed"]["macro_f1"], 0.60)
+        self.assertIn("synthetic known truth only", report["scientific_scope"])
+        self.assertFalse(report["synthetic_rights"]["external_data_used"])
+
+        anchor_free_result, anchor_free_stdout, anchor_free_error = run_cli(
+            [
+                "synthetic-identifiability-gate",
+                "--seed",
+                "23",
+                "--runs",
+                "3",
+                "--anchor-free",
+            ]
+        )
+        self.assertEqual(0, anchor_free_result, anchor_free_error)
+        anchor_free = json.loads(anchor_free_stdout)
+        self.assertEqual("not_identifiable", anchor_free["gate_status"])
+        self.assertNotIn("observed", anchor_free)
+        self.assertNotIn("macro_f1", repr(anchor_free))
+
+        required_result, required_stdout, required_error = run_cli(
+            [
+                "synthetic-identifiability-gate",
+                "--seed",
+                "23",
+                "--runs",
+                "3",
+                "--anchor-free",
+                "--require-go",
+            ]
+        )
+        self.assertEqual(2, required_result, required_error)
+        self.assertEqual("not_identifiable", json.loads(required_stdout)["gate_status"])
+
+        invalid_result, _, invalid_error = run_cli(
+            [
+                "synthetic-identifiability-gate",
+                "--family-count",
+                "1",
+            ]
+        )
+        self.assertEqual(1, invalid_result)
+        self.assertIn("family_count", invalid_error)
 
     def test_parse_smithsonian_metadata_is_local_raw_bound_and_no_replace(
         self,
