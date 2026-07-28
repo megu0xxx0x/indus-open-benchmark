@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-28
 
-**Last source-level update:** 2026-07-28 21:39 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-28 21:56 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -428,6 +428,10 @@ public development-log entry.
 - Pyright: passed with no errors or warnings.
 - Primary filesystem profile: 436 tests run, 423 passed, and 13 optional or
   environment-specific tests skipped.
+- Post-publication canonical profile at result commit
+  `9c360c44033212402985e44a3b2d3fb3e7e3cf6d`: 436 tests run, 424 passed,
+  and 12 environment-specific tests skipped. Ruff lint, format check, and
+  Pyright also passed.
 - Prior second filesystem profile, before the MTAAC addition: 378 tests run,
   366 passed, and 12 optional tests skipped. It exercised the additional
   Unicode-casefold-collision test.
