@@ -4,16 +4,16 @@
 
 **Decision status:** source admitted for the first real known-script method
 control; V1 is preserved as an aborted first invocation, and the corrected V2
-adapter, evaluator, and protocol are frozen before a second invocation
+was frozen, executed once, and returned `NO_GO`
 
 **Corpus language and script:** Ur III Sumerian in ATF transliteration with
 MTAAC morphological annotation
 
 **Indus status:** no reading, language, translation, or decipherment claim
 
-**Result status:** V1 emitted only a fail-closed error and no aggregate result,
-null distribution, decision reference, p-value, `GO`, or `NO_GO`; V2 has not
-been run; no independent preregistration claim
+**Result status:** V1 emitted only a fail-closed error and no aggregate result;
+V2 returned `NO_GO` because mild `settlement_name` recall missed its frozen
+threshold; no independent preregistration claim
 
 **Frozen V2 protocol SHA-256:**
 `sha256:25913e826db786f3867d5aca5391f116d1e3e0aab4c22754be28f87ab2fa3892`
@@ -51,6 +51,12 @@ decision-bearing floating-point tie and are therefore disclosed as a V2
 implementation change. Source, split, degradation, model features and
 smoothing, permutation assignment and seeds, support gates, thresholds, and
 scientific nonclaims are unchanged.
+
+After the V2 code freeze and protocol bytes were publicly visible, V2 was run
+once with no override. The [aggregate result](MTAAC_KNOWN_SCRIPT_CONTROL_V2_RESULT_2026-07-28.md)
+is `NO_GO`: every clean gate and all but one mild gate passed, but mild
+`settlement_name` recall was 0.193553 against the frozen minimum 0.35. The V2
+method therefore cannot be transferred unchanged to Indus data.
 
 The source is fixed at:
 
@@ -360,8 +366,8 @@ object whose provenance fields could have been replaced.
 ## Frozen fail-closed gates
 
 The [V2 machine-readable protocol](../benchmark/mtaac-known-script-control-v2.json)
-and its implementation are frozen before the corrected real invocation. They
-enforce
+and its implementation were frozen before the corrected real invocation.
+They enforce
 the following gates:
 
 1. **Source lock:** require the exact 40-character corpus commit, archive
@@ -435,16 +441,18 @@ the failing invariant, the correction is a new V2 protocol rather than a
 silent V1 patch. No metric value, null distribution, decision reference,
 p-value, `GO`, or `NO_GO` was emitted or inspected from V1.
 
-For V2, steps 1–3 are complete in the public source commit containing the
-corrected frozen protocol; its step 4 has not occurred. All clean and mild
-permutation assignments are now validated before any metric calculation.
-The corrected invocation must use the future public V2 freeze commit and
-exact V2 protocol bytes once, without changing the source, split, degradation,
-seed schedule, model design, support gates, or thresholds. Any later protocol
-or implementation change requires another version, explicit freeze, and
+For V2, steps 1–3 were completed in public freeze commit
+`37157f1411a55ffd91b7327afaca8fc1080fa708`. All clean and mild permutation
+assignments were validated before any metric calculation. Step 4 was then
+executed exactly once against the fixed archive and exact V2 protocol bytes;
+the aggregate JSON SHA-256 is
+`sha256:6bc4ed610862d109b596bdd934f36fd19b99e3cbfcced42882546d0c852a7afe`.
+The frozen result is `NO_GO`. No second seed, lower threshold, alternative
+split, or replacement protocol was tried. Any later protocol or
+implementation change requires another version, explicit freeze, and
 separate reporting.
 
-The future report records non-identifying Python, operating-system,
+The report records non-identifying Python, operating-system,
 architecture, libc, and binary-float metadata. Exact JSON byte identity is
 claimed only under the same reported numeric runtime; cross-runtime
 last-bit identity is not claimed. The public freeze gives project-local

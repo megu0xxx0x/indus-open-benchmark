@@ -189,10 +189,12 @@ for the v0.2 volume target.
   validation, pre-metric clean/mild permutation plans, and replica-stable
   accumulation. Source, split, degradation, seeds, model design, support
   gates, and thresholds are unchanged.
-- [ ] Execute and publish the corrected frozen MTAAC V2 run once, without
-  post-result retuning. This word-level transliteration control does not test
-  native glyphs, genuine allography, archaeological context, or Indus
-  transfer.
+- [x] Execute the corrected frozen MTAAC V2 run once, without post-result
+  retuning. It returned `NO_GO`: every binding gate passed except mild
+  `settlement_name` recall, 0.193553 against the frozen minimum 0.35.
+- [ ] Design V3 explicitly as post-result work, develop without rewriting V2,
+  and reserve a genuinely untouched confirmatory source or split. V2 cannot
+  be transferred unchanged to Indus.
 - [ ] Add a context-bearing, typologically relevant short-text control; the
   synthetic gate and MTAAC lexical control do not satisfy that broader
   milestone.

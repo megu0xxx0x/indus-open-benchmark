@@ -211,6 +211,11 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Scientific limitations
 
+- The single frozen MTAAC V2 run returned `NO_GO`. Clean passed every gate,
+  but mild `settlement_name` recall was 0.193553 against the frozen minimum
+  0.35. The unchanged method is blocked from Indus transfer. This is a
+  known-script method-control failure, not evidence for or against an Indus
+  reading, language, translation, decipherment, or prize claim.
 - Transcription bridge v0.1 records are unsealed private drafts. Left-to-right
   indexing describes image coordinates only; reading direction and signs may
   remain unknown. Source-document, crop, and source-image bytes are not

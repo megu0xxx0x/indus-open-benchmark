@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-28
 
-**Last source-level update:** 2026-07-28 21:10 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-28 21:39 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -61,8 +61,9 @@ separate and traceable.
      selected-member, and evaluation-equivalence commitments; gold-independent
      event/null identities; source-family weighting; fixed baselines and
      permutation nulls; and aggregate-only reporting. The aborted V1
-     invocation and path-free error are preserved as an explicit erratum; V2
-     has not been run.
+     invocation and path-free error are preserved as an explicit erratum. The
+     single frozen V2 run returned `NO_GO`, so the unchanged method is blocked
+     from Indus transfer.
 
 4. **Integrity protocols**
    - Exact-byte benchmark-definition lock for declared public inputs.
@@ -168,7 +169,7 @@ Current assurance layers:
 | Public verifier code and synthetic tests | implemented; current release candidate |
 | Real calibration or Batch 0 human execution | not executed or claimed |
 | Synthetic functional-class identifiability | default gate passed; method sanity only |
-| MTAAC real known-script control | V1 aborted before a report; corrected V2 frozen and not yet run |
+| MTAAC real known-script control | V1 error preserved; single frozen V2 run returned `NO_GO` |
 | Penn metadata context registry | 34 entries; five pending originality review and 29 negative controls |
 | Extra-bulk field-number/context admission | not admitted; two conflicts remain open |
 | Scientific functional-anchor validation | not executed or claimed |
@@ -293,10 +294,9 @@ after family weighting and a whole-family-vector permutation-p95 null
 reference were enforced: macro-F1 0.7762, coverage 0.8869, null-reference
 delta 0.3892, and add-one
 empirical p=0.01. With anchors removed it reports `not_identifiable` and emits
-no F1. This validates only a project-authored synthetic pipeline. A
-rights-cleared real known-script source and corrected V2 instrument now exist,
-but the V2 real run and an admitted Indus transcription-to-context join remain
-undone.
+no F1. This validates only a project-authored synthetic pipeline. The
+rights-cleared MTAAC V2 instrument returned `NO_GO`; an admitted Indus
+transcription-to-context join remains undone.
 
 ### T5 — MTAAC real known-script method control
 
@@ -343,11 +343,21 @@ is therefore disclosed rather than called a V1 patch. Source, split,
 degradation, seeds, model features/smoothing, support gates, thresholds, and
 nonclaims are unchanged.
 
-This section now records the **corrected V2 pre-result freeze**, not a
-completed result. The next action is exactly one V2 run from its public freeze
-commit against the fixed archive, with no post-result seed, threshold, domain,
-or protocol change. Neither V1 nor V2 provides an Indus transfer or prize
-claim.
+V2 was frozen publicly at commit
+`37157f1411a55ffd91b7327afaca8fc1080fa708` and then executed once with the
+fixed archive and no override. The exact aggregate-report commitment is
+recorded in the
+[immutable V2 result record](MTAAC_KNOWN_SCRIPT_CONTROL_V2_RESULT_2026-07-28.md).
+The result is **`NO_GO`**. Clean passed every decision-bearing gate. Mild passed support,
+coverage, integrity, macro-F1, reference-delta, permutation-p, and movable
+family gates, but `settlement_name` recall was 0.193553 against the frozen
+minimum 0.35. No alternate seed, threshold, split, or protocol was tried.
+
+The unchanged V2 method is therefore blocked from Indus transfer. Any V3 is
+explicitly post-result and cannot treat the exposed V2 holdout as fresh
+confirmation. A genuinely untouched confirmatory source or split is required.
+Neither the V1 error nor V2 `NO_GO` is an Indus reading, translation,
+decipherment, or prize claim.
 
 ### Data and source work
 
@@ -356,8 +366,10 @@ Safe next work:
 - define a reviewed extra-bulk evidence contract for Penn field numbers and
   Mackay page references without copying plates;
 - resolve or explicitly quarantine the SF 3051/2558 and SF 3495 conflicts;
-- execute and publish the corrected frozen MTAAC V2 run without post-result
-  retuning;
+- design V3 as explicit post-result work using train-side or separately
+  declared development analyses, without rewriting V2;
+- reserve a genuinely untouched known-script source or split for V3
+  confirmation;
 - add a separate context-bearing known-script stress test; MTAAC is a
   word-level transliteration control rather than a context or glyph control;
 - curate public source/provenance/rights evidence;
@@ -414,13 +426,21 @@ public development-log entry.
 
 - Ruff lint and format check: passed.
 - Pyright: passed with no errors or warnings.
-- Primary filesystem profile: 433 tests run, 420 passed, and 13 optional or
+- Primary filesystem profile: 436 tests run, 423 passed, and 13 optional or
   environment-specific tests skipped.
 - Prior second filesystem profile, before the MTAAC addition: 378 tests run,
   366 passed, and 12 optional tests skipped. It exercised the additional
   Unicode-casefold-collision test.
-- The 55 focused MTAAC parser, evaluator, statistics, and CLI tests passed.
+- The 58 focused MTAAC parser, evaluator, statistics, CLI, and published-result
+  tests passed.
   The frozen protocol bytes match the implementation's SHA-256 constant.
+- The single V2 aggregate report is 313,140 bytes; its exact SHA-256 is recorded
+  in the
+  [immutable V2 result record](MTAAC_KNOWN_SCRIPT_CONTROL_V2_RESULT_2026-07-28.md).
+  Independent aggregate-only checks reproduced all confusion-derived metrics,
+  both 999-run null summaries, threshold criteria, and `NO_GO`. The report
+  contains no raw row, P identifier, token/document key, member/local path,
+  host, or account value.
 - A separate exact-source KP1979 run exercised the fixed PDF and all 179
   canonical page images through its seven-test module: passed. This validates
   source and label-lattice gates, not manual label accuracy or row extraction.
@@ -437,5 +457,6 @@ public development-log entry.
 - Trivy filesystem scan: no high/critical dependency vulnerability, secret, or
   detected misconfiguration finding.
 
-These are source and packaging checks, not execution of a human review,
-scientific validation, independent replication, or a decipherment result.
+These checks and the project-run known-script control are not execution of a
+human review, independent external replication, an Indus result, or a
+decipherment result.
