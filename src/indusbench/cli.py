@@ -485,12 +485,12 @@ def _default_context_anchor_schema() -> Path | None:
 
 def _default_mtaac_control_protocol() -> Path:
     project_candidate = (
-        Path(__file__).resolve().parents[2] / "benchmark" / "mtaac-known-script-control-v1.json"
+        Path(__file__).resolve().parents[2] / "benchmark" / "mtaac-known-script-control-v2.json"
     )
     if project_candidate.is_file():
         return project_candidate
     package_candidate = importlib.resources.files("indusbench").joinpath(
-        "benchmark/mtaac-known-script-control-v1.json"
+        "benchmark/mtaac-known-script-control-v2.json"
     )
     return Path(str(package_candidate))
 

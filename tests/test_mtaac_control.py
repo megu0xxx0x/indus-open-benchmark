@@ -32,7 +32,8 @@ from indusbench.mtaac_control import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTOCOL_BYTES = (ROOT / "benchmark/mtaac-known-script-control-v1.json").read_bytes()
+V1_PROTOCOL_BYTES = (ROOT / "benchmark/mtaac-known-script-control-v1.json").read_bytes()
+PROTOCOL_BYTES = (ROOT / "benchmark/mtaac-known-script-control-v2.json").read_bytes()
 
 TARGET_ROWS = {
     "quantity": ("SYNTHETIC_QUANTITY_FORM", "synthetic_quantity[one]", "NU"),
@@ -139,9 +140,25 @@ def synthetic_attestation(**changes: object) -> MTAACControlAttestation:
 
 
 class ProtocolAndAttestationTests(unittest.TestCase):
+    def test_v2_changes_only_declared_numeric_integrity_contracts(self) -> None:
+        v1 = json.loads(V1_PROTOCOL_BYTES)
+        v2 = json.loads(PROTOCOL_BYTES)
+
+        v2.pop("lineage")
+        v2["protocol_id"] = v1["protocol_id"]
+        v2["implementation"]["protocol_version"] = v1["implementation"]["protocol_version"]
+        v2["implementation"].pop("integrity_preflight")
+        v2["degradation"]["normative_version"] = v1["degradation"]["normative_version"]
+        v2["model"]["normative_version"] = v1["model"]["normative_version"]
+        v2["model"].pop("weighted_accumulation")
+        v2["references"]["permutation_null"].pop("family_mass_invariant_arithmetic")
+        v2["references"]["permutation_null"].pop("pre_metric_schedule_validation")
+
+        self.assertEqual(v2, v1)
+
     def test_exact_protocol_and_caller_commit_are_required(self) -> None:
         protocol = validate_mtaac_control_protocol(PROTOCOL_BYTES)
-        self.assertEqual(protocol["protocol_id"], "mtaac-known-script-control-v1")
+        self.assertEqual(protocol["protocol_id"], "mtaac-known-script-control-v2")
         self.assertEqual(protocol["protocol_status"], "pre_result_code_frozen")
         validate_mtaac_control_attestation(
             synthetic_attestation(),

@@ -1,0 +1,7 @@
+{
+  "analysis": "mtaac_known_script_control",
+  "error": "permutation changed global family-weighted class mass",
+  "error_code": "evaluation_rejected",
+  "scientific_metrics_emitted": false,
+  "terminal_status": "error"
+}

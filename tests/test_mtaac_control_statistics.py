@@ -5,6 +5,7 @@ from __future__ import annotations
 import math
 import unittest
 from collections import Counter, defaultdict
+from dataclasses import replace
 from typing import Any, Literal
 from unittest.mock import patch
 
@@ -402,6 +403,78 @@ class NaiveBayesContractTests(unittest.TestCase):
         )
         self.assertEqual(model.predict(_features("fixture:shared")), "quantity")
 
+    def test_duplicate_layout_cannot_change_model_majority_or_metrics(self) -> None:
+        def layout_examples(
+            quantity_replicas: int,
+            unit_replicas: int,
+        ) -> list[control._Example]:
+            examples: list[control._Example] = []
+            replica_counts: dict[GoldClass, int] = {
+                "quantity": quantity_replicas,
+                "unit": unit_replicas,
+                "person_name": 1,
+                "settlement_name": 1,
+            }
+            for gold_class in MTAAC_GOLD_CLASSES[:2]:
+                labels: tuple[GoldClass, ...] = (gold_class,) * 29
+                for family_index in range(40):
+                    examples.extend(
+                        _permutation_family_examples(
+                            f"{gold_class}-family-{family_index:02d}",
+                            labels,
+                            replica_count=replica_counts[gold_class],
+                        )
+                    )
+            return examples
+
+        d1_quantity = layout_examples(1, 2)
+        d2_quantity = layout_examples(2, 1)
+        first_model = control._CategoricalNaiveBayes(control.FULL_FEATURES).fit(d1_quantity)
+        second_model = control._CategoricalNaiveBayes(control.FULL_FEATURES).fit(d2_quantity)
+        self.assertEqual(first_model.class_mass, second_model.class_mass)
+        self.assertEqual(first_model.feature_mass, second_model.feature_mass)
+        self.assertEqual(first_model.total_mass, second_model.total_mass)
+        self.assertEqual(
+            first_model.predict(_features("fixture:unseen-duplicate-layout")),
+            second_model.predict(_features("fixture:unseen-duplicate-layout")),
+        )
+
+        support: dict[GoldClass, int] = {
+            gold_class: 40 if gold_class in ("quantity", "unit") else 0
+            for gold_class in MTAAC_GOLD_CLASSES
+        }
+        coverage: dict[GoldClass, float | None] = {
+            gold_class: 1.0 for gold_class in MTAAC_GOLD_CLASSES
+        }
+        test = [_example("quantity", index=10_000)]
+        first_majority, _ = control._majority_metrics(
+            d1_quantity,
+            test,
+            effective_families=support,
+            coverage=coverage,
+        )
+        second_majority, _ = control._majority_metrics(
+            d2_quantity,
+            test,
+            effective_families=support,
+            coverage=coverage,
+        )
+        self.assertEqual((first_majority, second_majority), ("quantity", "quantity"))
+
+        first_metrics = control._weighted_metrics(
+            d1_quantity,
+            [example.true_class for example in d1_quantity],
+            effective_families=support,
+            coverage=coverage,
+        )
+        second_metrics = control._weighted_metrics(
+            d2_quantity,
+            [example.true_class for example in d2_quantity],
+            effective_families=support,
+            coverage=coverage,
+        )
+        self.assertEqual(first_metrics, second_metrics)
+
 
 class NullDistributionTests(unittest.TestCase):
     def test_p95_uses_linear_interpolation(self) -> None:
@@ -423,7 +496,7 @@ class NullDistributionTests(unittest.TestCase):
                 control,
                 "_permuted_training_labels",
                 return_value=(["quantity"], 0, 1.0),
-            ),
+            ) as permutation_mock,
             patch.object(control, "_model_metrics", side_effect=metrics),
         ):
             null = control._permutation_null(
@@ -435,11 +508,153 @@ class NullDistributionTests(unittest.TestCase):
                 runs=3,
                 seed_start=0,
             )
+        self.assertEqual(permutation_mock.call_count, 3)
         self.assertEqual(null["add_one_empirical_p_greater_or_equal"], 0.75)
         self.assertAlmostEqual(null["macro_f1"]["p95"], 0.69)
 
 
 class DocumentVectorPermutationTests(unittest.TestCase):
+    def test_one_replica_label_corruption_fails_strict_vector_integrity(self) -> None:
+        examples = _permutation_family_examples(
+            "corrupted-family",
+            ("quantity", "unit"),
+            replica_count=2,
+        )
+        corrupted_labels: list[GoldClass] = [example.true_class for example in examples]
+        corrupted_labels[2] = "unit"
+
+        with self.assertRaisesRegex(
+            control.MTAACControlError,
+            "permutation assigned different vectors across replicas",
+        ):
+            control._validate_permutation_invariants(examples, corrupted_labels)
+
+    def test_balanced_same_r_chimera_is_not_a_vector_permutation(self) -> None:
+        examples = [
+            *_permutation_family_examples(
+                "quantity-family",
+                ("quantity", "quantity"),
+                replica_count=1,
+            ),
+            *_permutation_family_examples(
+                "unit-family",
+                ("unit", "unit"),
+                replica_count=1,
+            ),
+        ]
+        chimera_labels: list[GoldClass] = ["quantity", "unit", "quantity", "unit"]
+
+        with self.assertRaisesRegex(
+            control.MTAACControlError,
+            "permutation changed complete label vectors within a readable-count stratum",
+        ):
+            control._validate_permutation_invariants(examples, chimera_labels)
+
+    def test_replica_count_and_binary_weight_must_match_protocol_formula(self) -> None:
+        three_replicas = _permutation_family_examples(
+            "three-replica-family",
+            ("quantity",),
+            replica_count=3,
+        )
+        with self.assertRaisesRegex(
+            control.MTAACControlError,
+            "permutation input violates the exact replica contract",
+        ):
+            control._validate_permutation_invariants(
+                three_replicas,
+                [example.true_class for example in three_replicas],
+            )
+
+        wrong_weight = _permutation_family_examples(
+            "wrong-weight-family",
+            ("quantity", "unit"),
+            replica_count=2,
+        )
+        wrong_weight[0] = replace(wrong_weight[0], weight=0.5)
+        with self.assertRaisesRegex(
+            control.MTAACControlError,
+            "permutation input violates exact family weighting",
+        ):
+            control._validate_permutation_invariants(
+                wrong_weight,
+                [example.true_class for example in wrong_weight],
+            )
+
+    def test_replica_feature_divergence_is_not_an_exact_copy(self) -> None:
+        examples = _permutation_family_examples(
+            "feature-divergent-family",
+            ("quantity", "unit"),
+            replica_count=2,
+        )
+        examples[2] = replace(
+            examples[2],
+            features=_features("feature-divergent-form"),
+        )
+
+        with self.assertRaisesRegex(
+            control.MTAACControlError,
+            "permutation changed replica prediction-row identity",
+        ):
+            control._validate_permutation_invariants(
+                examples,
+                [example.true_class for example in examples],
+            )
+
+    def test_exact_family_mass_ignores_valid_binary_float_accumulation_drift(
+        self,
+    ) -> None:
+        examples: list[control._Example] = []
+        for family_index in range(300):
+            examples.extend(
+                _permutation_family_examples(
+                    f"a-small-{family_index:03d}",
+                    ("quantity",),
+                    replica_count=1,
+                )
+            )
+        quantity_vector: tuple[GoldClass, ...] = ("quantity",) * 3000
+        unit_vector: tuple[GoldClass, ...] = ("unit",) * 3000
+        examples.extend(
+            _permutation_family_examples(
+                "z-large-a",
+                quantity_vector,
+                replica_count=1,
+            )
+        )
+        examples.extend(
+            _permutation_family_examples(
+                "z-large-b",
+                unit_vector,
+                replica_count=2,
+            )
+        )
+
+        permuted_labels, _, _ = control._permuted_training_labels(examples, run_seed=0)
+
+        original_quantity_mass = 0.0
+        permuted_quantity_mass = 0.0
+        for example, label in zip(examples, permuted_labels, strict=True):
+            if example.true_class == "quantity":
+                original_quantity_mass += example.weight
+            if label == "quantity":
+                permuted_quantity_mass += example.weight
+        self.assertGreater(
+            abs(original_quantity_mass - permuted_quantity_mass),
+            1e-12,
+        )
+        assigned_large_a = tuple(
+            label
+            for example, label in zip(examples, permuted_labels, strict=True)
+            if example.document_key == "z-large-a" and example.replica_index == 0
+        )
+        assigned_large_b = tuple(
+            label
+            for example, label in zip(examples, permuted_labels, strict=True)
+            if example.document_key == "z-large-b" and example.replica_index == 0
+        )
+        self.assertEqual(assigned_large_a, unit_vector)
+        self.assertEqual(assigned_large_b, quantity_vector)
+
     def test_vectors_move_only_within_equal_r_and_are_identical_across_replicas(
         self,
     ) -> None:
@@ -521,6 +736,58 @@ class DocumentVectorPermutationTests(unittest.TestCase):
                 if len(vector) == readable_count
             )
             self.assertEqual(assigned_in_stratum, original_in_stratum)
+
+
+class PermutationPreflightTests(unittest.TestCase):
+    def test_all_scheduled_invariants_run_before_any_metric_or_baseline(self) -> None:
+        events: list[tuple[str, int | None]] = []
+        train = [_example("quantity", index=0)]
+        test = [_example("quantity", index=1)]
+
+        def permuted_labels(
+            train_examples: list[control._Example],
+            *,
+            run_seed: int,
+        ) -> tuple[list[GoldClass], int, float]:
+            events.append(("permutation", run_seed))
+            return [example.true_class for example in train_examples], 1, 0.0
+
+        def model_metrics(*args: Any, **kwargs: Any) -> dict[str, float]:
+            events.append(("model_metric", None))
+            return {"macro_f1": 0.5}
+
+        def majority_metrics(*args: Any, **kwargs: Any) -> tuple[GoldClass, dict[str, float]]:
+            events.append(("majority_baseline", None))
+            return "quantity", {"macro_f1": 0.25}
+
+        def permutation_null(*args: Any, **kwargs: Any) -> dict[str, Any]:
+            events.append(("permutation_metric", None))
+            return {"macro_f1": {"p95": 0.4}}
+
+        with (
+            patch.object(control, "_permuted_training_labels", side_effect=permuted_labels),
+            patch.object(control, "_model_metrics", side_effect=model_metrics),
+            patch.object(control, "_majority_metrics", side_effect=majority_metrics),
+            patch.object(control, "_permutation_null", side_effect=permutation_null),
+        ):
+            control._score_regime(
+                train,
+                test,
+                test_support={gold_class: 1 for gold_class in MTAAC_GOLD_CLASSES},
+                coverage={gold_class: 1.0 for gold_class in MTAAC_GOLD_CLASSES},
+                null_runs=3,
+                null_seed_start=7,
+            )
+
+        self.assertEqual(
+            events[:3],
+            [
+                ("permutation", 7),
+                ("permutation", 8),
+                ("permutation", 9),
+            ],
+        )
+        self.assertNotEqual(events[3][0], "permutation")
 
 
 class SupportAndDecisionBoundaryTests(unittest.TestCase):

@@ -3,29 +3,54 @@
 **Audit date:** 2026-07-28
 
 **Decision status:** source admitted for the first real known-script method
-control; exact adapter, evaluator, and versioned protocol frozen before the
-first real score
+control; V1 is preserved as an aborted first invocation, and the corrected V2
+adapter, evaluator, and protocol are frozen before a second invocation
 
 **Corpus language and script:** Ur III Sumerian in ATF transliteration with
 MTAAC morphological annotation
 
 **Indus status:** no reading, language, translation, or decipherment claim
 
-**Result status:** no real-source score; no `GO`/`NO_GO`; no independent
-preregistration claim
+**Result status:** V1 emitted only a fail-closed error and no aggregate result,
+null distribution, decision reference, p-value, `GO`, or `NO_GO`; V2 has not
+been run; no independent preregistration claim
 
-**Frozen protocol SHA-256:**
-`sha256:25fbea943a662144700dfca418927758ad3319817bc42191c4c8e6e45fc518b3`
+**Frozen V2 protocol SHA-256:**
+`sha256:25913e826db786f3867d5aca5391f116d1e3e0aab4c22754be28f87ab2fa3892`
 
 ## Executive decision
 
 The MTAAC Gold Corpus is suitable for the project's first rights-cleared,
 real-data stress test of its **method**, under the fail-closed adapter and
-[versioned pre-result protocol](../benchmark/mtaac-known-script-control-v1.json).
-The exact protocol and implementation are now a pre-result code freeze and
-have not produced a real score. The corpus is not an Indus parallel text, a linguistic bridge, an
+[corrected V2 pre-result protocol](../benchmark/mtaac-known-script-control-v2.json).
+The corpus is not an Indus parallel text, a linguistic bridge, an
 archaeological-context dataset, or evidence that any MTAAC label applies to an
 Indus inscription.
+
+V1 was frozen publicly at commit
+`57db0949f6542429d2f05b1bf935ee586bdf3699` with protocol SHA-256
+`sha256:25fbea943a662144700dfca418927758ad3319817bc42191c4c8e6e45fc518b3`.
+Its first fixed-source invocation reached the scoring routine and then
+fail-closed during the first permutation-integrity check. The exact
+[path-free error output](../benchmark/results/mtaac-known-script-control-v1-attempt-1-error.json)
+states that scientific metrics were not emitted. The V1 execution order had
+already calculated observed and baseline metrics in memory, so this audit does
+not claim that no metric was calculated. No metric value was emitted,
+inspected, or used to choose the correction.
+
+The failure was a numerical implementation defect, not evidence of a changed
+label vector: repeated binary-float addition differed by more than the fixed
+tolerance even though the declared family mass was algebraically identical.
+V2 conservatively supersedes V1. It validates the exact `1/(R*D)` invariant
+with rational arithmetic, requires complete vector/replica preservation,
+materializes and validates both decision-bearing permutation schedules before
+any metric calculation, and uses `math.fsum` bucket reductions so an exact
+duplicate layout cannot change a model, majority baseline, or confusion
+matrix through addition order. These numerical changes can affect a
+decision-bearing floating-point tie and are therefore disclosed as a V2
+implementation change. Source, split, degradation, model features and
+smoothing, permutation assignment and seeds, support gates, thresholds, and
+scientific nonclaims are unchanged.
 
 The source is fixed at:
 
@@ -323,7 +348,8 @@ data audit.
 The evaluation-equivalence fingerprint is an additional anti-laundering gate.
 It commits the admitted source families, anonymous line/order structure, exact
 `FORM`, projected class, and only the diagnostic-stem information actually
-consumed by V1. It intentionally ignores line-ending choice, trailing blank
+consumed by V1 and the unchanged V2 scoring semantics. It intentionally
+ignores line-ending choice, trailing blank
 lines, raw token-ID spelling that preserves the same anonymous grouping/order,
 unused annotation columns, and unused gloss detail. Therefore those
 score-preserving edits cannot disguise the fixed real evaluation corpus as a
@@ -333,8 +359,9 @@ object whose provenance fields could have been replaced.
 
 ## Frozen fail-closed gates
 
-The [machine-readable protocol](../benchmark/mtaac-known-script-control-v1.json)
-and its implementation are frozen before the first real score. They enforce
+The [V2 machine-readable protocol](../benchmark/mtaac-known-script-control-v2.json)
+and its implementation are frozen before the corrected real invocation. They
+enforce
 the following gates:
 
 1. **Source lock:** require the exact 40-character corpus commit, archive
@@ -401,12 +428,21 @@ The order is normative:
    seed, lowering a threshold, changing a hash domain, or silently replacing
    the protocol after seeing the score.
 
-Steps 1–3 are complete in the public source commit containing this frozen
-protocol. Step 4 has not occurred. No real split-support result, model metric,
-permutation result, p-value, `GO`, `NO_GO`, Indus result, or decipherment
-result exists in the freeze. Any protocol or implementation change after the
-first real score requires a new version, a new explicit freeze, and separate
-reporting rather than overwriting the first result.
+V1 completed steps 1–3, then its first step-4 invocation aborted before a
+report was created. Its error output is preserved rather than overwritten.
+Because the implementation calculated observed and baseline metrics before
+the failing invariant, the correction is a new V2 protocol rather than a
+silent V1 patch. No metric value, null distribution, decision reference,
+p-value, `GO`, or `NO_GO` was emitted or inspected from V1.
+
+For V2, steps 1–3 are complete in the public source commit containing the
+corrected frozen protocol; its step 4 has not occurred. All clean and mild
+permutation assignments are now validated before any metric calculation.
+The corrected invocation must use the future public V2 freeze commit and
+exact V2 protocol bytes once, without changing the source, split, degradation,
+seed schedule, model design, support gates, or thresholds. Any later protocol
+or implementation change requires another version, explicit freeze, and
+separate reporting.
 
 The future report records non-identifying Python, operating-system,
 architecture, libc, and binary-float metadata. Exact JSON byte identity is

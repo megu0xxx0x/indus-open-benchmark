@@ -7,7 +7,7 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
-- An exact-byte-pinned, network-free adapter and pre-result-frozen protocol
+- An exact-byte-pinned, network-free adapter and pre-result-frozen V2 protocol
   for the CC0 MTAAC known-script control, with whole-document quarantine,
   evaluation-equivalence anti-laundering, gold-independent event/null
   identities, gold/model separation, source-document family splits,
@@ -118,6 +118,18 @@ immutable content-addressed identifiers for corpus and split releases.
   `prepare-private-review`. Generated entries are exact-byte-bound, deny-all,
   and pending curator review; structural findings copy no source value and
   never override readiness.
+
+### Fixed
+
+- Preserve the aborted MTAAC V1 invocation and its path-free error as an
+  immutable erratum, then supersede it with V2. V2 replaces an
+  order-dependent binary-float integrity comparison with exact rational
+  family-mass and complete-vector checks, validates both 999-run schedules
+  before any metric, reuses those exact assignments, and uses `math.fsum`
+  bucket accumulation so deterministic replicas cannot change a model,
+  baseline, or confusion matrix through addition order. Source, split,
+  degradation, seeds, model design, support gates, and thresholds are
+  unchanged.
 
 ### Security
 

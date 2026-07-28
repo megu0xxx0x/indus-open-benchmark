@@ -2,7 +2,7 @@
 
 **Status date:** 2026-07-28
 
-**Last source-level update:** 2026-07-28 20:34 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-28 21:10 JST (Asia/Tokyo)
 
 **Project:** Open Indus Benchmark
 
@@ -57,11 +57,12 @@ separate and traceable.
    - A project-authored synthetic known-truth identifiability gate with
      family-safe degradation, equal family weighting, conservative
      family-permutation nulls, and anchor-free abstention.
-   - A pre-result-frozen MTAAC known-script control with exact source,
+   - A pre-result-frozen MTAAC V2 known-script control with exact source,
      selected-member, and evaluation-equivalence commitments; gold-independent
      event/null identities; source-family weighting; fixed baselines and
-     permutation nulls; and aggregate-only reporting. No real score is part of
-     the freeze.
+     permutation nulls; and aggregate-only reporting. The aborted V1
+     invocation and path-free error are preserved as an explicit erratum; V2
+     has not been run.
 
 4. **Integrity protocols**
    - Exact-byte benchmark-definition lock for declared public inputs.
@@ -167,7 +168,7 @@ Current assurance layers:
 | Public verifier code and synthetic tests | implemented; current release candidate |
 | Real calibration or Batch 0 human execution | not executed or claimed |
 | Synthetic functional-class identifiability | default gate passed; method sanity only |
-| MTAAC real known-script control | source/parser gates reproduced; pre-result code frozen; no real split support or score |
+| MTAAC real known-script control | V1 aborted before a report; corrected V2 frozen and not yet run |
 | Penn metadata context registry | 34 entries; five pending originality review and 29 negative controls |
 | Extra-bulk field-number/context admission | not admitted; two conflicts remain open |
 | Scientific functional-anchor validation | not executed or claimed |
@@ -293,9 +294,9 @@ reference were enforced: macro-F1 0.7762, coverage 0.8869, null-reference
 delta 0.3892, and add-one
 empirical p=0.01. With anchors removed it reports `not_identifiable` and emits
 no F1. This validates only a project-authored synthetic pipeline. A
-rights-cleared real known-script source and pre-result instrument now exist,
-but their first frozen real run and an admitted Indus transcription-to-context
-join remain undone.
+rights-cleared real known-script source and corrected V2 instrument now exist,
+but the V2 real run and an admitted Indus transcription-to-context join remain
+undone.
 
 ### T5 — MTAAC real known-script method control
 
@@ -314,8 +315,8 @@ clean/mild decision thresholds. Harsh, cue-mask, and seen/unseen membership
 diagnostics cannot change the outcome. Anchor-free and insufficient-support
 states emit no decision metrics.
 
-Two freeze-integrity defects found during independent review were corrected
-before publication. Event and permutation identities now derive from the
+Two V1 freeze-integrity defects found during independent review were corrected
+before its publication. Event and permutation identities now derive from the
 validated source identifier and source order rather than a hash containing
 gold annotations. The synthetic entry parses raw fixture bytes itself and
 rejects not only the fixed archive/manifest but also any container-equivalent
@@ -324,11 +325,29 @@ changes to leave split, degradation, metrics, and permutation values
 unchanged. CLI failures emit path-free error codes, and reports contain no raw
 row, source identifier, member path, local path, host, or account value.
 
-This section records a **pre-result freeze**, not a result. Real split support,
-metrics, null values, p-values, `GO`/`NO_GO`, Indus transfer, and prize
-eligibility have not been calculated or claimed. The next action is exactly
-one run from the public freeze commit against the fixed archive, with no
-post-result seed, threshold, domain, or protocol change.
+V1 was then frozen publicly at commit
+`57db0949f6542429d2f05b1bf935ee586bdf3699`. Its first fixed-source invocation
+entered the scoring routine but aborted during the first permutation-integrity
+check. The CLI emitted only a path-free error and no aggregate result, null
+distribution, decision reference, p-value, `GO`, or `NO_GO`. The implementation
+had calculated observed and baseline metrics in memory before the abort; no
+metric value was emitted, inspected, or used to choose the correction.
+
+The failure was a false binary-float mass mismatch. V2 is a separately
+versioned freeze: it checks exact `1/(R*D)` mass with rational arithmetic,
+requires complete R-stratum vector and replica preservation, materializes and
+validates all clean/mild assignments before any metric, reuses the same
+assignments, and uses `math.fsum` for model, majority, and confusion buckets.
+The numerical accumulator can be decision-bearing at a floating-point tie and
+is therefore disclosed rather than called a V1 patch. Source, split,
+degradation, seeds, model features/smoothing, support gates, thresholds, and
+nonclaims are unchanged.
+
+This section now records the **corrected V2 pre-result freeze**, not a
+completed result. The next action is exactly one V2 run from its public freeze
+commit against the fixed archive, with no post-result seed, threshold, domain,
+or protocol change. Neither V1 nor V2 provides an Indus transfer or prize
+claim.
 
 ### Data and source work
 
@@ -337,7 +356,8 @@ Safe next work:
 - define a reviewed extra-bulk evidence contract for Penn field numbers and
   Mackay page references without copying plates;
 - resolve or explicitly quarantine the SF 3051/2558 and SF 3495 conflicts;
-- execute and publish the frozen MTAAC run without post-result retuning;
+- execute and publish the corrected frozen MTAAC V2 run without post-result
+  retuning;
 - add a separate context-bearing known-script stress test; MTAAC is a
   word-level transliteration control rather than a context or glyph control;
 - curate public source/provenance/rights evidence;
@@ -394,12 +414,12 @@ public development-log entry.
 
 - Ruff lint and format check: passed.
 - Pyright: passed with no errors or warnings.
-- Primary filesystem profile: 425 tests run, 412 passed, and 13 optional or
+- Primary filesystem profile: 433 tests run, 420 passed, and 13 optional or
   environment-specific tests skipped.
 - Prior second filesystem profile, before the MTAAC addition: 378 tests run,
   366 passed, and 12 optional tests skipped. It exercised the additional
   Unicode-casefold-collision test.
-- The 47 focused MTAAC parser, evaluator, statistics, and CLI tests passed.
+- The 55 focused MTAAC parser, evaluator, statistics, and CLI tests passed.
   The frozen protocol bytes match the implementation's SHA-256 constant.
 - A separate exact-source KP1979 run exercised the fixed PDF and all 179
   canonical page images through its seven-test module: passed. This validates

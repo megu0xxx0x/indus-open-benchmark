@@ -18,6 +18,7 @@ import sys
 from collections import Counter, defaultdict
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
+from fractions import Fraction
 from statistics import fmean
 from typing import Any, Literal
 
@@ -39,13 +40,13 @@ from indusbench.mtaac import (
     parse_mtaac_directory,
 )
 
-MTAAC_CONTROL_PROTOCOL_VERSION = "mtaac-real-control-v1"
+MTAAC_CONTROL_PROTOCOL_VERSION = "mtaac-real-control-v2"
 # Updated only when the exact normative JSON and implementation are reviewed
 # together.  The evaluator refuses any other protocol bytes.
 MTAAC_CONTROL_PROTOCOL_SHA256 = (
-    "sha256:25fbea943a662144700dfca418927758ad3319817bc42191c4c8e6e45fc518b3"
+    "sha256:25913e826db786f3867d5aca5391f116d1e3e0aab4c22754be28f87ab2fa3892"
 )
-MTAAC_CONTROL_PROTOCOL_ID = "mtaac-known-script-control-v1"
+MTAAC_CONTROL_PROTOCOL_ID = "mtaac-known-script-control-v2"
 MTAAC_REAL_ARCHIVE_SHA256 = (
     "sha256:2698293080ed8fe6244ec9191010030d2928fd639002ae25d3a05867c22be091"
 )
@@ -247,6 +248,19 @@ class _Example:
     features: tuple[tuple[str, str], ...]
     true_class: GoldClass
     weight: float
+
+
+@dataclass(frozen=True, slots=True)
+class _PermutationRunAssignment:
+    seed: int
+    labels: tuple[GoldClass, ...]
+    fixed_point_family_count: int
+
+
+@dataclass(frozen=True, slots=True)
+class _PermutationPlan:
+    assignments: tuple[_PermutationRunAssignment, ...]
+    movable_family_weight_fraction: float
 
 
 def validate_mtaac_control_protocol(protocol_bytes: bytes) -> dict[str, Any]:
@@ -1129,6 +1143,14 @@ class _CategoricalNaiveBayes:
         self.feature_mass = {gold_class: {} for gold_class in MTAAC_GOLD_CLASSES}
         self.vocabulary = {feature_name: set() for feature_name in self.feature_names}
         self.total_mass = 0.0
+        class_contributions: dict[GoldClass, list[float]] = {
+            gold_class: [] for gold_class in MTAAC_GOLD_CLASSES
+        }
+        feature_contributions: dict[
+            GoldClass,
+            dict[str, dict[str, list[float]]],
+        ] = {gold_class: {} for gold_class in MTAAC_GOLD_CLASSES}
+        total_contributions: list[float] = []
         for example, label in zip(examples, effective_labels, strict=True):
             if label not in MTAAC_GOLD_CLASSES:
                 raise MTAACControlError("training label is outside the four classes")
@@ -1137,13 +1159,27 @@ class _CategoricalNaiveBayes:
             values = dict(example.features)
             if set(values) != set(FULL_FEATURES):
                 raise MTAACControlError("prediction row feature surface is incomplete")
-            self.class_mass[label] += example.weight
-            self.total_mass += example.weight
+            class_contributions[label].append(example.weight)
+            total_contributions.append(example.weight)
             for feature_name in self.feature_names:
                 value = values[feature_name]
                 self.vocabulary[feature_name].add(value)
-                by_value = self.feature_mass[label].setdefault(feature_name, {})
-                by_value[value] = by_value.get(value, 0.0) + example.weight
+                by_value = feature_contributions[label].setdefault(feature_name, {})
+                by_value.setdefault(value, []).append(example.weight)
+        self.class_mass = {
+            gold_class: math.fsum(class_contributions[gold_class])
+            for gold_class in MTAAC_GOLD_CLASSES
+        }
+        self.feature_mass = {
+            gold_class: {
+                feature_name: {
+                    value: math.fsum(contributions) for value, contributions in by_value.items()
+                }
+                for feature_name, by_value in feature_contributions[gold_class].items()
+            }
+            for gold_class in MTAAC_GOLD_CLASSES
+        }
+        self.total_mass = math.fsum(total_contributions)
         return self
 
     def predict(self, features: Sequence[tuple[str, str]]) -> GoldClass:
@@ -1418,8 +1454,8 @@ def _weighted_metrics(
 ) -> dict[str, Any]:
     if len(examples) != len(predictions):
         raise MTAACControlError("predictions and metric rows differ in length")
-    confusion: dict[GoldClass, dict[GoldClass, float]] = {
-        expected: {predicted: 0.0 for predicted in MTAAC_GOLD_CLASSES}
+    confusion_contributions: dict[GoldClass, dict[GoldClass, list[float]]] = {
+        expected: {predicted: [] for predicted in MTAAC_GOLD_CLASSES}
         for expected in MTAAC_GOLD_CLASSES
     }
     for example, prediction in zip(examples, predictions, strict=True):
@@ -1427,18 +1463,25 @@ def _weighted_metrics(
             raise MTAACControlError("prediction is outside the four classes")
         if not math.isfinite(example.weight) or example.weight < 0:
             raise MTAACControlError("metric weights must be finite and nonnegative")
-        confusion[example.true_class][prediction] += example.weight
+        confusion_contributions[example.true_class][prediction].append(example.weight)
+    confusion: dict[GoldClass, dict[GoldClass, float]] = {
+        expected: {
+            predicted: math.fsum(confusion_contributions[expected][predicted])
+            for predicted in MTAAC_GOLD_CLASSES
+        }
+        for expected in MTAAC_GOLD_CLASSES
+    }
 
     per_class: dict[str, dict[str, float | int | None]] = {}
     f1_values: list[float] = []
     recalls: list[float] = []
-    correct = 0.0
-    total = 0.0
+    correct_contributions: list[float] = []
+    total_contributions: list[float] = []
     aggregate_available = True
     for gold_class in MTAAC_GOLD_CLASSES:
         true_positive = confusion[gold_class][gold_class]
-        predicted_mass = sum(confusion[other][gold_class] for other in MTAAC_GOLD_CLASSES)
-        truth_mass = sum(confusion[gold_class].values())
+        predicted_mass = math.fsum(confusion[other][gold_class] for other in MTAAC_GOLD_CLASSES)
+        truth_mass = math.fsum(confusion[gold_class].values())
         precision = true_positive / predicted_mass if predicted_mass > 0 else 0.0
         recall = true_positive / truth_mass if truth_mass > 0 else None
         if recall is None:
@@ -1448,8 +1491,8 @@ def _weighted_metrics(
             f1 = 2.0 * precision * recall / (precision + recall) if precision + recall > 0 else 0.0
             recalls.append(recall)
         f1_values.append(f1)
-        correct += true_positive
-        total += truth_mass
+        correct_contributions.append(true_positive)
+        total_contributions.append(truth_mass)
         per_class[gold_class] = {
             "precision": precision,
             "recall": recall,
@@ -1458,6 +1501,8 @@ def _weighted_metrics(
             "effective_source_document_families": effective_families[gold_class],
             "family_mean_readable_coverage": coverage[gold_class],
         }
+    correct = math.fsum(correct_contributions)
+    total = math.fsum(total_contributions)
     return {
         "macro_f1": fmean(f1_values) if aggregate_available else None,
         "weighted_balanced_accuracy": (fmean(recalls) if aggregate_available else None),
@@ -1499,9 +1544,14 @@ def _majority_metrics(
     effective_families: Mapping[GoldClass, int],
     coverage: Mapping[GoldClass, float | None],
 ) -> tuple[GoldClass, dict[str, Any]]:
-    class_mass: dict[GoldClass, float] = {gold_class: 0.0 for gold_class in MTAAC_GOLD_CLASSES}
+    class_contributions: dict[GoldClass, list[float]] = {
+        gold_class: [] for gold_class in MTAAC_GOLD_CLASSES
+    }
     for example in train_examples:
-        class_mass[example.true_class] += example.weight
+        class_contributions[example.true_class].append(example.weight)
+    class_mass = {
+        gold_class: math.fsum(class_contributions[gold_class]) for gold_class in MTAAC_GOLD_CLASSES
+    }
     majority: GoldClass = MTAAC_GOLD_CLASSES[0]
     for gold_class in MTAAC_GOLD_CLASSES[1:]:
         if class_mass[gold_class] > class_mass[majority]:
@@ -1597,6 +1647,17 @@ def _validate_permutation_invariants(
 ) -> None:
     if len(train_examples) != len(permuted_labels):
         raise MTAACControlError("permutation changed training row count")
+    rows_by_family: dict[
+        str,
+        dict[int, list[tuple[_Example, GoldClass]]],
+    ] = defaultdict(lambda: defaultdict(list))
+    for example, label in zip(train_examples, permuted_labels, strict=True):
+        if label not in MTAAC_GOLD_CLASSES:
+            raise MTAACControlError("permutation produced a label outside the four classes")
+        rows_by_family[example.document_key][example.replica_index].append((example, label))
+
+    original_vectors_by_count: dict[int, Counter[tuple[GoldClass, ...]]] = defaultdict(Counter)
+    permuted_vectors_by_count: dict[int, Counter[tuple[GoldClass, ...]]] = defaultdict(Counter)
     original_raw = Counter(
         example.true_class for example in train_examples if example.replica_index == 0
     )
@@ -1607,19 +1668,79 @@ def _validate_permutation_invariants(
     )
     if original_raw != permuted_raw:
         raise MTAACControlError("permutation changed global readable class counts")
-    original_mass: dict[GoldClass, float] = {gold_class: 0.0 for gold_class in MTAAC_GOLD_CLASSES}
+    original_mass: dict[GoldClass, Fraction] = {
+        gold_class: Fraction(0) for gold_class in MTAAC_GOLD_CLASSES
+    }
     permuted_mass = dict(original_mass)
-    for example, label in zip(train_examples, permuted_labels, strict=True):
-        original_mass[example.true_class] += example.weight
-        permuted_mass[label] += example.weight
-    for gold_class in MTAAC_GOLD_CLASSES:
-        if not math.isclose(
-            original_mass[gold_class],
-            permuted_mass[gold_class],
-            rel_tol=0.0,
-            abs_tol=1e-12,
-        ):
-            raise MTAACControlError("permutation changed global family-weighted class mass")
+    for document_key in sorted(rows_by_family):
+        replicas = rows_by_family[document_key]
+        replica_indices = sorted(replicas)
+        if replica_indices not in ([0], [0, 1]):
+            raise MTAACControlError("permutation input violates the exact replica contract")
+        ordered_replicas = {
+            replica_index: sorted(
+                rows,
+                key=lambda item: (
+                    item[0].line_ordinal,
+                    item[0].model_order,
+                    item[0].token_key,
+                ),
+            )
+            for replica_index, rows in replicas.items()
+        }
+        representative = ordered_replicas[0]
+        readable_count = len(representative)
+        if readable_count < 1:
+            raise MTAACControlError("permutation requires readable training families")
+        replica_count = len(replica_indices)
+        row_identity = tuple(
+            (
+                example.line_ordinal,
+                example.model_order,
+                example.token_key,
+                example.features,
+            )
+            for example, _ in representative
+        )
+        original_vector: tuple[GoldClass, ...] = tuple(
+            example.true_class for example, _ in representative
+        )
+        permuted_vector: tuple[GoldClass, ...] = tuple(label for _, label in representative)
+        exact_weight = Fraction(1, readable_count * replica_count)
+        expected_float_weight = float(exact_weight)
+        for replica_index in replica_indices:
+            rows = ordered_replicas[replica_index]
+            if (
+                tuple(
+                    (
+                        example.line_ordinal,
+                        example.model_order,
+                        example.token_key,
+                        example.features,
+                    )
+                    for example, _ in rows
+                )
+                != row_identity
+            ):
+                raise MTAACControlError("permutation changed replica prediction-row identity")
+            if tuple(example.true_class for example, _ in rows) != original_vector:
+                raise MTAACControlError("training replicas disagree on the original label vector")
+            if tuple(label for _, label in rows) != permuted_vector:
+                raise MTAACControlError("permutation assigned different vectors across replicas")
+            for example, label in rows:
+                if example.weight != expected_float_weight:
+                    raise MTAACControlError("permutation input violates exact family weighting")
+                original_mass[example.true_class] += exact_weight
+                permuted_mass[label] += exact_weight
+        original_vectors_by_count[readable_count][original_vector] += 1
+        permuted_vectors_by_count[readable_count][permuted_vector] += 1
+
+    if original_vectors_by_count != permuted_vectors_by_count:
+        raise MTAACControlError(
+            "permutation changed complete label vectors within a readable-count stratum"
+        )
+    if original_mass != permuted_mass:
+        raise MTAACControlError("permutation changed global family-weighted class mass")
 
 
 def _percentile_95(values: Sequence[float], *, required_runs: int) -> float:
@@ -1637,29 +1758,40 @@ def _percentile_95(values: Sequence[float], *, required_runs: int) -> float:
     return ordered[lower] * (1.0 - fraction) + ordered[upper] * fraction
 
 
-def _permutation_null(
-    train_examples: Sequence[_Example],
-    test_examples: Sequence[_Example],
+def _scheduled_permutation_seeds(
     *,
-    effective_families: Mapping[GoldClass, int],
-    coverage: Mapping[GoldClass, float | None],
-    observed_macro_f1: float,
     runs: int,
     seed_start: int,
-) -> dict[str, Any]:
+) -> tuple[int, ...]:
     if isinstance(runs, bool) or not isinstance(runs, int) or runs < 1:
         raise MTAACControlError("null runs must be a positive integer")
     _validate_seed(seed_start)
-    scheduled_seeds = [seed_start + offset for offset in range(runs)]
+    scheduled_seeds = tuple(seed_start + offset for offset in range(runs))
     if len(set(scheduled_seeds)) != runs or any(seed >= 1 << 64 for seed in scheduled_seeds):
         raise MTAACControlError("null seed schedule is invalid")
-    values: list[float] = []
-    run_values: list[dict[str, float | int]] = []
+    return scheduled_seeds
+
+
+def _prepare_permutation_plan(
+    train_examples: Sequence[_Example],
+    *,
+    runs: int,
+    seed_start: int,
+) -> _PermutationPlan:
+    scheduled_seeds = _scheduled_permutation_seeds(runs=runs, seed_start=seed_start)
+    assignments: list[_PermutationRunAssignment] = []
     movable_fraction: float | None = None
     for run_seed in scheduled_seeds:
         labels, fixed_points, current_movable = _permuted_training_labels(
             train_examples,
             run_seed=run_seed,
+        )
+        assignments.append(
+            _PermutationRunAssignment(
+                seed=run_seed,
+                labels=tuple(labels),
+                fixed_point_family_count=fixed_points,
+            )
         )
         if movable_fraction is None:
             movable_fraction = current_movable
@@ -1670,13 +1802,47 @@ def _permutation_null(
             abs_tol=0.0,
         ):
             raise MTAACControlError("movable family fraction changed across null runs")
+    if movable_fraction is None:
+        raise AssertionError("positive permutation run count produced no assignments")
+    return _PermutationPlan(
+        assignments=tuple(assignments),
+        movable_family_weight_fraction=movable_fraction,
+    )
+
+
+def _permutation_null(
+    train_examples: Sequence[_Example],
+    test_examples: Sequence[_Example],
+    *,
+    effective_families: Mapping[GoldClass, int],
+    coverage: Mapping[GoldClass, float | None],
+    observed_macro_f1: float,
+    runs: int,
+    seed_start: int,
+    permutation_plan: _PermutationPlan | None = None,
+) -> dict[str, Any]:
+    scheduled_seeds = _scheduled_permutation_seeds(runs=runs, seed_start=seed_start)
+    plan = (
+        _prepare_permutation_plan(
+            train_examples,
+            runs=runs,
+            seed_start=seed_start,
+        )
+        if permutation_plan is None
+        else permutation_plan
+    )
+    if tuple(assignment.seed for assignment in plan.assignments) != scheduled_seeds:
+        raise MTAACControlError("permutation plan does not match the scheduled seeds")
+    values: list[float] = []
+    run_values: list[dict[str, float | int]] = []
+    for assignment in plan.assignments:
         metrics = _model_metrics(
             train_examples,
             test_examples,
             feature_names=FULL_FEATURES,
             effective_families=effective_families,
             coverage=coverage,
-            train_labels=labels,
+            train_labels=assignment.labels,
         )
         macro_f1 = metrics["macro_f1"]
         if not isinstance(macro_f1, (int, float)) or not math.isfinite(macro_f1):
@@ -1685,9 +1851,9 @@ def _permutation_null(
         values.append(value)
         run_values.append(
             {
-                "seed": run_seed,
+                "seed": assignment.seed,
                 "macro_f1": value,
-                "fixed_point_family_count": fixed_points,
+                "fixed_point_family_count": assignment.fixed_point_family_count,
             }
         )
     p95 = _percentile_95(values, required_runs=runs)
@@ -1703,7 +1869,7 @@ def _permutation_null(
             "p95": p95,
         },
         "add_one_empirical_p_greater_or_equal": p_value,
-        "movable_family_weight_fraction": movable_fraction,
+        "movable_family_weight_fraction": plan.movable_family_weight_fraction,
         "integrity": {
             "distinct_scheduled_seeds": len(set(scheduled_seeds)) == runs,
             "finite_macro_f1_values": len(values) == runs,
@@ -1793,7 +1959,17 @@ def _score_regime(
     coverage: Mapping[GoldClass, float | None],
     null_runs: int,
     null_seed_start: int,
+    permutation_plan: _PermutationPlan | None = None,
 ) -> dict[str, Any]:
+    plan = (
+        _prepare_permutation_plan(
+            train_examples,
+            runs=null_runs,
+            seed_start=null_seed_start,
+        )
+        if permutation_plan is None
+        else permutation_plan
+    )
     observed = _model_metrics(
         train_examples,
         test_examples,
@@ -1832,6 +2008,7 @@ def _score_regime(
         observed_macro_f1=float(observed_macro),
         runs=null_runs,
         seed_start=null_seed_start,
+        permutation_plan=plan,
     )
     reference_values = (
         majority["macro_f1"],
@@ -2183,12 +2360,23 @@ def _evaluate_prepared_control(
         )
         return report
 
+    clean_permutation_plan = _prepare_permutation_plan(
+        examples["clean"][0],
+        runs=null_runs,
+        seed_start=0,
+    )
+    mild_permutation_plan = _prepare_permutation_plan(
+        examples["mild"][0],
+        runs=null_runs,
+        seed_start=0,
+    )
     clean_score = _score_regime(
         *examples["clean"],
         test_support=supports["clean_test_primary"],
         coverage=coverage["clean"],
         null_runs=null_runs,
         null_seed_start=0,
+        permutation_plan=clean_permutation_plan,
     )
     mild_score = _score_regime(
         *examples["mild"],
@@ -2196,6 +2384,7 @@ def _evaluate_prepared_control(
         coverage=coverage["mild"],
         null_runs=null_runs,
         null_seed_start=0,
+        permutation_plan=mild_permutation_plan,
     )
     harsh_score = _diagnostic_regime_score(
         *examples["harsh"],

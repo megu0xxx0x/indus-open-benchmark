@@ -115,10 +115,11 @@ permission by itself.
 - A project-authored CC0 synthetic identifiability gate with family-safe
   splits, family weighting, damage/allograph/direction degradation,
   family-vector permutation nulls, and an explicit anchor-free abstention.
-- A pinned, network-free adapter and pre-result-frozen protocol for the CC0
+- A pinned, network-free adapter and pre-result-frozen V2 protocol for the CC0
   MTAAC known-script control. It isolates four mechanical word-level labels
   from opaque whole-FORM categories, fixes source-document splits and
-  degradation, and cannot issue an Indus reading or decipherment claim.
+  degradation, preserves the aborted V1 invocation as an explicit erratum,
+  and cannot issue an Indus reading or decipherment claim.
 - A privacy-minimized, descriptor-relative private-corpus readiness audit that
   emits a fixed count-free terminal summary, keeps aggregate details private,
   and cannot promote material without exact per-file rights coverage.
@@ -463,8 +464,8 @@ The synthetic identifiability command uses no historical or third-party data.
 It reports every valid scientific outcome with status zero by default. Add
 `--require-go` in CI when a non-`go` report must return status 2.
 
-Run the frozen MTAAC known-script control only from the public pre-result code
-commit recorded in the report:
+Run the corrected frozen MTAAC V2 known-script control only from the public
+pre-result code commit recorded in the report:
 
 ```bash
 uv run indusbench evaluate-mtaac-control \

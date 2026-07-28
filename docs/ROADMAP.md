@@ -181,13 +181,18 @@ for the v0.2 volume target.
 - [x] Project-authored synthetic known-truth degradation gate with
   duplicate-family splits, family weighting, family-vector permutation nulls,
   and anchor-free abstention.
-- [x] Freeze the first rights-cleared real known-script instrument: the exact
-  CC0 MTAAC morphology subset, strict whole-document adapter, family-safe
-  split, cumulative degradation, fixed baselines/null, and aggregate-only
-  reporting. This pre-result freeze contains no real score.
-- [ ] Execute and publish the first frozen MTAAC run without post-result
-  retuning. This word-level transliteration control does not test native
-  glyphs, genuine allography, archaeological context, or Indus transfer.
+- [x] Preserve the aborted V1 invocation of the first rights-cleared
+  known-script instrument, including its public freeze and path-free
+  integrity error. V1 emitted no aggregate result, null distribution,
+  decision reference, p-value, `GO`, or `NO_GO`.
+- [x] Freeze the corrected V2 MTAAC instrument with exact family-mass/vector
+  validation, pre-metric clean/mild permutation plans, and replica-stable
+  accumulation. Source, split, degradation, seeds, model design, support
+  gates, and thresholds are unchanged.
+- [ ] Execute and publish the corrected frozen MTAAC V2 run once, without
+  post-result retuning. This word-level transliteration control does not test
+  native glyphs, genuine allography, archaeological context, or Indus
+  transfer.
 - [ ] Add a context-bearing, typologically relevant short-text control; the
   synthetic gate and MTAAC lexical control do not satisfy that broader
   milestone.
