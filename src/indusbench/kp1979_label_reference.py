@@ -23,6 +23,8 @@ from .schema_validation import validate_schema_instance
 
 JsonObject = dict[str, Any]
 BBox = tuple[int, int, int, int]
+MachineLane = tuple[BBox, str]
+MachineObservation = tuple[BBox, tuple[str, ...]]
 
 ASSIGNMENT_SCHEMA = "kp1979-label-reference-assignment.schema.json"
 REVIEW_SCHEMA = "kp1979-label-reference-review.schema.json"
@@ -41,6 +43,34 @@ PARTITION_PAGES: Final[dict[str, tuple[int, ...]]] = {
     "development": (20, 22, 79, 129, 131, 180),
     "future_evaluation": (8, 78, 99, 128, 130, 175),
 }
+MACHINE_DEVELOPMENT_ALGORITHM_ID = "kp1979-machine-development-projection-v1"
+_MACHINE_DEVELOPMENT_PAGE_LANES: Final[dict[int, tuple[MachineLane, ...]]] = {
+    20: (),
+    22: (
+        ((2056, 550, 2316, 6600), "right"),
+        ((4232, 550, 4492, 6600), "right"),
+    ),
+    79: (
+        ((427, 550, 687, 6600), "left"),
+        ((2608, 550, 2868, 6600), "left"),
+    ),
+    129: (),
+    131: (
+        ((2009, 550, 2269, 6600), "right"),
+        ((4195, 550, 4455, 6600), "right"),
+    ),
+    180: (
+        ((2009, 550, 2269, 6600), "right"),
+        ((4195, 550, 4455, 4800), "right"),
+    ),
+}
+_MACHINE_CORE_TRIM = 96
+_MACHINE_ROW_SIGNAL_FLOOR = 1
+_MACHINE_MIN_ACTIVE_RUN_HEIGHT = 3
+_MACHINE_MAX_WITHIN_LABEL_GAP = 30
+_MACHINE_MAX_SIGN_SEPARATOR_GAP = 40
+_MACHINE_MIN_INTER_TIER_GAP = 6
+_MACHINE_MIN_TIER_PROJECTION_SPAN = 15
 _PARTITION_PROTOCOL_KEYS: Final[dict[str, str]] = {
     "development": "development_pdf_pages",
     "future_evaluation": "future_evaluation_pdf_pages",
@@ -177,6 +207,67 @@ _ASSIGNMENT_ASSURANCES: Final[JsonObject] = {
     "decipherment": False,
     "prize_submission_eligible": False,
 }
+_REVIEW_PRIVACY: Final[JsonObject] = {
+    "classification": "private_item_level_label_reference_evidence",
+    "target_label_geometry_publication_authorized": False,
+    "public_export_authorized": False,
+}
+_REVIEW_ASSURANCES: Final[JsonObject] = {
+    "assignment_commitment_present": True,
+    "all_six_pages_structurally_present": True,
+    "two_physical_lanes_per_page_structurally_present": True,
+    "source_page_pixels_reverified": False,
+    "submitted_crop_bytes_recomputed": False,
+    "authorship_declaration_verified": False,
+    "access_declaration_verified": False,
+    "actor_identity_verified": False,
+    "human_review_started_verified": False,
+    "human_review_complete_verified": False,
+    "human_authorship_verified": False,
+    "real_world_independence_verified": False,
+    "reviewer_blinding_verified": False,
+    "reviewer_nonexposure_verified": False,
+    "label_geometry_accepted": False,
+    "row_geometry_accepted": False,
+    "identifiers_transcribed": False,
+    "codes_transcribed": False,
+    "sign_sequences_transcribed": False,
+    "reading_direction_assigned": False,
+    "source_custody_verified": False,
+    "source_rights_verified": False,
+    "reference_custody_verified": False,
+    "detector_freeze_verified": False,
+    "scorer_freeze_verified": False,
+    "runtime_isolation_verified": False,
+    "public_release_authorized": False,
+    "evaluation_admissible": False,
+    "decipherment": False,
+    "prize_submission_eligible": False,
+}
+_MACHINE_DEVELOPMENT_ACCESS: Final[JsonObject] = {
+    "source_page_pixels": "seen",
+    "detector_output": "seen",
+    "kp1979_57_page_row_assignment": "not_seen",
+    "ocr_output": "seen",
+    "peer_review_record": "not_seen",
+    "existing_label_reference": "not_seen",
+    "page_role_expectations": "seen",
+    "scoring_expectations": "seen",
+}
+_MACHINE_DEVELOPMENT_LIMITATIONS: Final[tuple[str, ...]] = (
+    "actor_identity_not_verified",
+    "human_authorship_not_verified",
+    "real_world_independence_not_verified",
+    "reviewer_blinding_not_verified",
+    "machine_generated_not_accepted_reference",
+    "exposed_development_pass",
+    "detector_scoring_ineligible",
+    "source_custody_not_verified",
+    "source_rights_not_reverified",
+)
+_MACHINE_REQUIRED_LIMITATIONS: Final[frozenset[str]] = frozenset(
+    _MACHINE_DEVELOPMENT_LIMITATIONS[:7]
+)
 _FORBIDDEN_ASSIGNMENT_KEYS = frozenset(
     {
         "candidate_count",
@@ -397,6 +488,201 @@ def verify_label_reference_assignment_bytes(
     }
 
 
+def build_machine_development_label_reference_review(
+    assignment_bytes: bytes,
+    page_pbm_bytes: Iterable[tuple[int, bytes]],
+) -> JsonObject:
+    """Build one exposed, machine-authored development geometry pass.
+
+    This deterministic pass is deliberately ineligible as a human reference
+    or detector score. It exists only to unblock provisional extraction work
+    when human reviewers are unavailable.
+    """
+
+    assignment = _decode_schema_bytes(
+        assignment_bytes,
+        label="KP1979 label-reference assignment",
+        schema_filename=ASSIGNMENT_SCHEMA,
+        max_bytes=MAX_ASSIGNMENT_BYTES,
+        forbidden_keys=_FORBIDDEN_ASSIGNMENT_KEYS,
+    )
+    if assignment.get("protocol_partition") != "development":
+        raise KP1979LabelReferenceError(
+            "machine label-reference geometry is restricted to development pages"
+        )
+    page_commitments, pages = _consume_assignment_pages(assignment, page_pbm_bytes)
+    review_pages: list[JsonObject] = []
+    for commitment in page_commitments:
+        page_number = _integer(
+            commitment.get("pdf_page_number"),
+            "machine-development PDF page number",
+        )
+        page_bytes = pages[page_number]
+        lane_configs = _MACHINE_DEVELOPMENT_PAGE_LANES.get(page_number)
+        if lane_configs is None:
+            raise KP1979LabelReferenceError(
+                "machine-development page has no fixed geometry configuration"
+            )
+        if lane_configs and len(lane_configs) != 2:
+            raise KP1979LabelReferenceError(
+                "machine-development target page must define exactly two lanes"
+            )
+        lanes: list[JsonObject] = []
+        for lane_index in range(2):
+            observations = (
+                _machine_development_label_bboxes(
+                    page_bytes,
+                    lane_configs[lane_index],
+                    lane_index=lane_index,
+                )
+                if lane_configs
+                else ()
+            )
+            labels: list[JsonObject] = []
+            lane_unresolved = False
+            lane_unresolved_reason_set: set[str] = set()
+            for visual_label_index, (bbox, unresolved_reason_codes) in enumerate(observations):
+                geometry_unresolved = bool(unresolved_reason_codes)
+                crop = crop_canonical_pbm(
+                    page_bytes,
+                    page_width=PAGE_WIDTH,
+                    page_height=PAGE_HEIGHT,
+                    bbox=list(bbox),
+                )
+                labels.append(
+                    {
+                        "visual_label_index": visual_label_index,
+                        "geometry_status": ("unresolved" if geometry_unresolved else "observed"),
+                        "bbox": list(bbox),
+                        "y_interval": [bbox[1], bbox[3]],
+                        "crop_sha256": _tagged_sha256(crop),
+                        "crop_byte_size": len(crop),
+                        "reason_codes": (
+                            list(unresolved_reason_codes)
+                            if geometry_unresolved
+                            else ["clear_visible_target_label"]
+                        ),
+                    }
+                )
+                lane_unresolved = lane_unresolved or geometry_unresolved
+                if "missing_label_tier" in unresolved_reason_codes:
+                    lane_unresolved_reason_set.add("target_presence_uncertain")
+                if "boundary_ambiguous" in unresolved_reason_codes:
+                    lane_unresolved_reason_set.add("target_boundary_uncertain")
+                if "multiple_visible_groups" in unresolved_reason_codes:
+                    lane_unresolved_reason_set.add("multiple_groups_cannot_be_separated")
+            lane_unresolved_reason_codes = [
+                reason
+                for reason in (
+                    "target_presence_uncertain",
+                    "target_boundary_uncertain",
+                    "multiple_groups_cannot_be_separated",
+                )
+                if reason in lane_unresolved_reason_set
+            ]
+            lanes.append(
+                {
+                    "lane_index": lane_index,
+                    "review_state": (
+                        "unresolved"
+                        if lane_unresolved
+                        else "complete_with_targets"
+                        if labels
+                        else "complete_no_targets"
+                    ),
+                    "unresolved_reason_codes": (
+                        lane_unresolved_reason_codes if lane_unresolved else []
+                    ),
+                    "visible_target_labels": labels,
+                }
+            )
+        page_has_targets = any(lane["visible_target_labels"] for lane in lanes)
+        page_unresolved = any(lane["review_state"] == "unresolved" for lane in lanes)
+        review_pages.append(
+            {
+                "page_index": commitment["page_index"],
+                "pdf_page_number": page_number,
+                "review_state": (
+                    "unresolved"
+                    if page_unresolved
+                    else "complete_with_targets"
+                    if page_has_targets
+                    else "complete_no_targets"
+                ),
+                "lanes": lanes,
+            }
+        )
+
+    unresolved_present = any(page["review_state"] == "unresolved" for page in review_pages)
+    review: JsonObject = {
+        "schema_version": "0.2.0",
+        "record_state": "kp1979_visible_target_label_reference_review",
+        "status": ("sealed_private_evidence_record_requires_exact_byte_and_semantic_verification"),
+        "review_id": _opaque_id(
+            b"indusbench:kp1979:machine-development:review:v1\0",
+            assignment_bytes,
+        ),
+        "review_assignment_id": _opaque_id(
+            b"indusbench:kp1979:machine-development:assignment:v1\0",
+            assignment_bytes,
+        ),
+        "actor_id": _opaque_id(
+            b"indusbench:kp1979:machine-development:actor:v1\0",
+            MACHINE_DEVELOPMENT_ALGORITHM_ID.encode("ascii"),
+        ),
+        "review_stage": "machine_development_pass",
+        "authorship_declaration": "machine",
+        "machine_method": {
+            "algorithm_id": MACHINE_DEVELOPMENT_ALGORITHM_ID,
+            "evidence_use": "provisional_extraction_development_only",
+            "eligible_as_human_reference": False,
+            "eligible_for_detector_scoring": False,
+        },
+        "access_declaration": dict(_MACHINE_DEVELOPMENT_ACCESS),
+        "scientific_scope": _REVIEW_SCOPE,
+        "protocol_partition": "development",
+        "label_reference_assignment": {
+            "manifest_id": _string(
+                assignment.get("manifest_id"),
+                "assignment manifest id",
+            ),
+            "sha256": _tagged_sha256(assignment_bytes),
+            "byte_size": len(assignment_bytes),
+        },
+        "privacy": dict(_REVIEW_PRIVACY),
+        "pages": review_pages,
+        "review_outcome": (
+            "complete_with_unresolved_observations" if unresolved_present else "complete"
+        ),
+        "limitations": [
+            *(["unresolved_observations_present"] if unresolved_present else []),
+            *_MACHINE_DEVELOPMENT_LIMITATIONS,
+        ],
+        "assurances": dict(_REVIEW_ASSURANCES),
+    }
+    _reject_forbidden_keys(
+        review,
+        forbidden=_FORBIDDEN_REVIEW_KEYS,
+        label="KP1979 machine-development label-reference review",
+    )
+    _require_schema(
+        review,
+        REVIEW_SCHEMA,
+        "generated machine-development label-reference review",
+    )
+    _validate_review_semantics(
+        review,
+        assignment,
+        pages,
+        expected_assignment_commitment=review["label_reference_assignment"],
+    )
+    if len(encode_json(review)) > MAX_REVIEW_BYTES:
+        raise KP1979LabelReferenceError(
+            "generated machine-development label-reference review exceeds its byte limit"
+        )
+    return review
+
+
 def validate_label_reference_review(
     review_value: Mapping[str, Any],
     assignment_value: Mapping[str, Any],
@@ -450,6 +736,10 @@ def verify_independent_label_reference_review_bytes(
         max_bytes=MAX_REVIEW_BYTES,
         forbidden_keys=_FORBIDDEN_REVIEW_KEYS,
     )
+    if review.get("review_stage") != "independent_pass":
+        raise KP1979LabelReferenceError(
+            "independent review verifier cannot admit a machine-development pass"
+        )
     _validate_text_safety(review)
     expected_commitment: JsonObject = {
         "manifest_id": _string(assignment.get("manifest_id"), "assignment manifest id"),
@@ -462,9 +752,93 @@ def verify_independent_label_reference_review_bytes(
         pages,
         expected_assignment_commitment=expected_commitment,
     )
+    return _review_verification_summary(
+        claim_class="private_kp1979_label_reference_review_verification"
+    )
+
+
+def verify_machine_development_label_reference_review_bytes(
+    assignment_bytes: bytes,
+    page_pbm_bytes: Iterable[tuple[int, bytes]],
+    review_bytes: bytes,
+) -> dict[str, bool | str]:
+    """Verify one canonical machine-only development geometry pass."""
+
+    assignment = _decode_schema_bytes(
+        assignment_bytes,
+        label="KP1979 label-reference assignment",
+        schema_filename=ASSIGNMENT_SCHEMA,
+        max_bytes=MAX_ASSIGNMENT_BYTES,
+        forbidden_keys=_FORBIDDEN_ASSIGNMENT_KEYS,
+    )
+    page_commitments, pages = _consume_assignment_pages(assignment, page_pbm_bytes)
+    review = _decode_schema_bytes(
+        review_bytes,
+        label="KP1979 machine-development label-reference review",
+        schema_filename=REVIEW_SCHEMA,
+        max_bytes=MAX_REVIEW_BYTES,
+        forbidden_keys=_FORBIDDEN_REVIEW_KEYS,
+    )
+    if (
+        assignment.get("protocol_partition") != "development"
+        or review.get("review_stage") != "machine_development_pass"
+        or review.get("authorship_declaration") != "machine"
+    ):
+        raise KP1979LabelReferenceError(
+            "machine-development review has an ineligible stage, partition, or authorship"
+        )
+    _validate_text_safety(review)
+    expected_commitment: JsonObject = {
+        "manifest_id": _string(assignment.get("manifest_id"), "assignment manifest id"),
+        "sha256": _tagged_sha256(assignment_bytes),
+        "byte_size": len(assignment_bytes),
+    }
+    _validate_review_semantics(
+        review,
+        assignment,
+        pages,
+        expected_assignment_commitment=expected_commitment,
+    )
+    machine_pages: list[tuple[int, bytes]] = []
+    for commitment in page_commitments:
+        page_number = _integer(
+            commitment.get("pdf_page_number"),
+            "machine-development PDF page number",
+        )
+        machine_pages.append((page_number, pages[page_number]))
+    expected_review = build_machine_development_label_reference_review(
+        assignment_bytes,
+        machine_pages,
+    )
+    if review != expected_review or review_bytes != encode_json(expected_review):
+        raise KP1979LabelReferenceError(
+            "machine-development review differs from deterministic source-pixel recomputation"
+        )
+    summary = _review_verification_summary(
+        claim_class="private_kp1979_machine_development_review_verification"
+    )
+    summary.update(
+        {
+            "machine_development_pass_verified": True,
+            "machine_authorship_declared": True,
+            "deterministic_source_pixel_recomputation_verified": True,
+            "machine_development_exposed": True,
+            "detector_output_exposure_declared": True,
+            "ocr_output_exposure_declared": True,
+            "page_role_expectations_exposure_declared": True,
+            "scoring_expectations_exposure_declared": True,
+            "eligible_as_human_reference": False,
+            "eligible_for_detector_scoring": False,
+            "procedural_independence_verified": False,
+        }
+    )
+    return summary
+
+
+def _review_verification_summary(*, claim_class: str) -> dict[str, bool | str]:
     return {
         "valid": True,
-        "claim_class": "private_kp1979_label_reference_review_verification",
+        "claim_class": claim_class,
         "assignment_canonical_bytes_verified": True,
         "assignment_commitment_verified": True,
         "selected_page_pixels_verified": True,
@@ -500,6 +874,301 @@ def verify_independent_label_reference_review_bytes(
         "decipherment": False,
         "prize_submission_eligible": False,
     }
+
+
+def _machine_development_label_bboxes(
+    page_bytes: bytes,
+    lane: MachineLane,
+    *,
+    lane_index: int,
+) -> tuple[MachineObservation, ...]:
+    band, label_side = lane
+    x0, y0, x1, y1 = band
+    if lane_index not in {0, 1}:
+        raise KP1979LabelReferenceError("machine-development lane index is invalid")
+    lane_x0 = lane_index * (PAGE_WIDTH // 2)
+    lane_x1 = lane_x0 + (PAGE_WIDTH // 2)
+    if not (lane_x0 <= x0 < x1 <= lane_x1 and 0 <= y0 < y1 <= PAGE_HEIGHT):
+        raise KP1979LabelReferenceError(
+            "machine-development scan band lies outside its physical lane"
+        )
+    if label_side == "right":
+        core_x0, core_x1 = x0 + _MACHINE_CORE_TRIM, x1
+    elif label_side == "left":
+        core_x0, core_x1 = x0, x1 - _MACHINE_CORE_TRIM
+    else:
+        raise KP1979LabelReferenceError("machine-development label side is invalid")
+    if core_x0 >= core_x1:
+        raise KP1979LabelReferenceError("machine-development core scan band is empty")
+
+    payload = _canonical_page_payload(page_bytes)
+    projection = [
+        _black_pixel_count(
+            payload,
+            x0=core_x0,
+            y0=y,
+            x1=core_x1,
+            y1=y + 1,
+        )
+        for y in range(y0, y1)
+    ]
+    active_runs = _active_runs(
+        projection,
+        offset=y0,
+        threshold=_MACHINE_ROW_SIGNAL_FLOOR,
+        minimum_length=_MACHINE_MIN_ACTIVE_RUN_HEIGHT,
+    )
+    clusters: list[list[tuple[int, int]]] = []
+    for run_start, run_end in active_runs:
+        if not clusters or run_start - clusters[-1][-1][1] > _MACHINE_MAX_WITHIN_LABEL_GAP:
+            clusters.append([(run_start, run_end)])
+        else:
+            clusters[-1].append((run_start, run_end))
+    if not clusters:
+        raise KP1979LabelReferenceError(
+            "machine-development target lane contains no projected labels"
+        )
+
+    observations: list[MachineObservation] = []
+    for cluster_runs in clusters:
+        cluster_start = cluster_runs[0][0]
+        cluster_end = cluster_runs[-1][1]
+        vertical_boundary_uncertain = (
+            cluster_start - y0 <= _MACHINE_MAX_WITHIN_LABEL_GAP
+            or y1 - cluster_end <= _MACHINE_MAX_WITHIN_LABEL_GAP
+        )
+        search_y0 = max(y0, cluster_start - 8)
+        search_y1 = min(y1, cluster_end + 8)
+        bbox, horizontal_boundary_uncertain = _machine_development_tight_bbox(
+            payload,
+            band=band,
+            core_x0=core_x0,
+            core_x1=core_x1,
+            lane_x0=lane_x0,
+            lane_x1=lane_x1,
+            label_side=label_side,
+            search_y0=search_y0,
+            search_y1=search_y1,
+        )
+        if bbox[2] - bbox[0] > MAX_TARGET_BBOX_WIDTH or bbox[3] - bbox[1] > MAX_TARGET_BBOX_HEIGHT:
+            raise KP1979LabelReferenceError(
+                "machine-development target geometry exceeds its closed size boundary"
+            )
+        if observations and bbox[1] < observations[-1][0][3]:
+            raise KP1979LabelReferenceError("machine-development target intervals overlap")
+        unresolved_reason_codes: list[str] = []
+        if bbox[2] - bbox[0] >= 220:
+            unresolved_reason_codes.extend(("multiple_visible_groups", "crop_extent_unresolved"))
+        if horizontal_boundary_uncertain or vertical_boundary_uncertain:
+            unresolved_reason_codes.extend(("boundary_ambiguous", "crop_extent_unresolved"))
+        if not _has_two_tier_projection(cluster_runs):
+            unresolved_reason_codes.append("missing_label_tier")
+        observations.append(
+            (
+                bbox,
+                tuple(dict.fromkeys(unresolved_reason_codes)),
+            )
+        )
+    return tuple(observations)
+
+
+def _machine_development_tight_bbox(
+    payload: memoryview,
+    *,
+    band: BBox,
+    core_x0: int,
+    core_x1: int,
+    lane_x0: int,
+    lane_x1: int,
+    label_side: str,
+    search_y0: int,
+    search_y1: int,
+) -> tuple[BBox, bool]:
+    x0, _band_y0, x1, _band_y1 = band
+    horizontal_guard = MAX_TARGET_BBOX_WIDTH + _MACHINE_MAX_SIGN_SEPARATOR_GAP
+    search_x0 = max(lane_x0, x0 - horizontal_guard)
+    search_x1 = min(lane_x1, x1 + horizontal_guard)
+    column_counts = [
+        _black_pixel_count(
+            payload,
+            x0=x,
+            y0=search_y0,
+            x1=x + 1,
+            y1=search_y1,
+        )
+        for x in range(search_x0, search_x1)
+    ]
+    column_runs = _active_runs(
+        column_counts,
+        offset=search_x0,
+        threshold=0,
+        minimum_length=1,
+    )
+    if label_side == "right":
+        core_indices = [
+            index for index, run in enumerate(column_runs) if run[1] > core_x0 and run[0] < core_x1
+        ]
+        if not core_indices:
+            raise KP1979LabelReferenceError("machine-development target has no right-side core ink")
+        first_index = min(core_indices)
+        while (
+            first_index > 0
+            and column_runs[first_index - 1][0] >= x0
+            and column_runs[first_index][0] - column_runs[first_index - 1][1]
+            <= _MACHINE_MAX_SIGN_SEPARATOR_GAP
+        ):
+            first_index -= 1
+        last_index = max(core_indices)
+        detached_target_side_run = False
+        while (
+            last_index + 1 < len(column_runs)
+            and column_runs[last_index + 1][0] - column_runs[last_index][1]
+            <= _MACHINE_MAX_SIGN_SEPARATOR_GAP
+        ):
+            if column_runs[last_index + 1][0] >= x1:
+                detached_target_side_run = True
+            last_index += 1
+        sign_boundary_uncertain = column_runs[first_index][0] < x0 or (
+            first_index > 0
+            and column_runs[first_index][0] - column_runs[first_index - 1][1]
+            <= _MACHINE_MAX_SIGN_SEPARATOR_GAP
+        )
+        horizontal_boundary_uncertain = sign_boundary_uncertain or detached_target_side_run
+        selected_x0 = max(x0, column_runs[first_index][0])
+        selected_x1 = column_runs[last_index][1]
+        if selected_x1 == search_x1:
+            raise KP1979LabelReferenceError(
+                "machine-development target ink has no bounded outer terminus"
+            )
+    else:
+        core_indices = [
+            index for index, run in enumerate(column_runs) if run[1] > core_x0 and run[0] < core_x1
+        ]
+        if not core_indices:
+            raise KP1979LabelReferenceError("machine-development target has no left-side core ink")
+        first_index = min(core_indices)
+        detached_target_side_run = False
+        while (
+            first_index > 0
+            and column_runs[first_index][0] - column_runs[first_index - 1][1]
+            <= _MACHINE_MAX_SIGN_SEPARATOR_GAP
+        ):
+            if column_runs[first_index - 1][1] <= x0:
+                detached_target_side_run = True
+            first_index -= 1
+        last_index = max(core_indices)
+        while (
+            last_index + 1 < len(column_runs)
+            and column_runs[last_index + 1][1] <= x1
+            and column_runs[last_index + 1][0] - column_runs[last_index][1]
+            <= _MACHINE_MAX_SIGN_SEPARATOR_GAP
+        ):
+            last_index += 1
+        sign_boundary_uncertain = column_runs[last_index][1] > x1 or (
+            last_index + 1 < len(column_runs)
+            and column_runs[last_index + 1][0] - column_runs[last_index][1]
+            <= _MACHINE_MAX_SIGN_SEPARATOR_GAP
+        )
+        horizontal_boundary_uncertain = sign_boundary_uncertain or detached_target_side_run
+        selected_x0 = column_runs[first_index][0]
+        selected_x1 = min(x1, column_runs[last_index][1])
+        if selected_x0 == search_x0:
+            raise KP1979LabelReferenceError(
+                "machine-development target ink has no bounded outer terminus"
+            )
+    if selected_x1 - selected_x0 > MAX_TARGET_BBOX_WIDTH:
+        raise KP1979LabelReferenceError(
+            "machine-development target geometry exceeds its closed size boundary"
+        )
+    black_x: list[int] = []
+    black_y: list[int] = []
+    row_bytes = (PAGE_WIDTH + 7) // 8
+    for y in range(search_y0, search_y1):
+        row_offset = y * row_bytes
+        for x in range(selected_x0, selected_x1):
+            if payload[row_offset + x // 8] & (0x80 >> (x % 8)):
+                black_x.append(x)
+                black_y.append(y)
+    if not black_x:
+        raise KP1979LabelReferenceError("machine-development target crop contains no black ink")
+    return (
+        (min(black_x), min(black_y), max(black_x) + 1, max(black_y) + 1),
+        horizontal_boundary_uncertain,
+    )
+
+
+def _canonical_page_payload(page_bytes: bytes) -> memoryview:
+    header = f"P4\n{PAGE_WIDTH} {PAGE_HEIGHT}\n".encode("ascii")
+    expected_size = len(header) + ((PAGE_WIDTH + 7) // 8) * PAGE_HEIGHT
+    if len(page_bytes) != expected_size or not page_bytes.startswith(header):
+        raise KP1979LabelReferenceError(
+            "machine-development page is not the canonical PBM representation"
+        )
+    return memoryview(page_bytes)[len(header) :]
+
+
+def _black_pixel_count(
+    payload: memoryview,
+    *,
+    x0: int,
+    y0: int,
+    x1: int,
+    y1: int,
+) -> int:
+    row_bytes = (PAGE_WIDTH + 7) // 8
+    count = 0
+    for y in range(y0, y1):
+        row_offset = y * row_bytes
+        for x in range(x0, x1):
+            count += bool(payload[row_offset + x // 8] & (0x80 >> (x % 8)))
+    return count
+
+
+def _active_runs(
+    values: Sequence[int],
+    *,
+    offset: int,
+    threshold: int,
+    minimum_length: int,
+) -> tuple[tuple[int, int], ...]:
+    runs: list[tuple[int, int]] = []
+    start: int | None = None
+    for index, value in enumerate(values):
+        if value > threshold and start is None:
+            start = offset + index
+        elif value <= threshold and start is not None:
+            end = offset + index
+            if end - start >= minimum_length:
+                runs.append((start, end))
+            start = None
+    if start is not None:
+        end = offset + len(values)
+        if end - start >= minimum_length:
+            runs.append((start, end))
+    return tuple(runs)
+
+
+def _has_two_tier_projection(
+    runs: Sequence[tuple[int, int]],
+) -> bool:
+    """Require a substantial blank split with ink support on both sides."""
+
+    for upper_index, (_upper_start, upper_end) in enumerate(runs[:-1]):
+        lower_start, _lower_end = runs[upper_index + 1]
+        if lower_start - upper_end < _MACHINE_MIN_INTER_TIER_GAP:
+            continue
+        upper_span = upper_end - runs[0][0]
+        lower_span = runs[-1][1] - lower_start
+        if (
+            upper_span >= _MACHINE_MIN_TIER_PROJECTION_SPAN
+            and lower_span >= _MACHINE_MIN_TIER_PROJECTION_SPAN
+        ):
+            return True
+    return False
+
+
+def _opaque_id(domain: bytes, value: bytes) -> str:
+    return f"opaque:{hashlib.sha256(domain + value).hexdigest()}"
 
 
 def _default_schema_path(filename: str) -> Path:
@@ -627,10 +1296,9 @@ def _validate_review_semantics(
         raise KP1979LabelReferenceError(
             "KP1979 label-reference review scientific_scope is not fail-closed"
         )
-    if review.get("review_stage") != "independent_pass":
-        raise KP1979LabelReferenceError(
-            "KP1979 label-reference record is not an independent-pass record"
-        )
+    review_stage = review.get("review_stage")
+    if review_stage not in {"independent_pass", "machine_development_pass"}:
+        raise KP1979LabelReferenceError("KP1979 label-reference record has an unknown review stage")
     if review.get("authorship_declaration") not in {
         "human",
         "machine",
@@ -661,6 +1329,12 @@ def _validate_review_semantics(
     if review.get("protocol_partition") != partition:
         raise KP1979LabelReferenceError(
             "review partition differs from its label-reference assignment"
+        )
+    if review_stage == "machine_development_pass" and (
+        partition != "development" or review.get("authorship_declaration") != "machine"
+    ):
+        raise KP1979LabelReferenceError(
+            "machine-development pass requires the development partition and machine authorship"
         )
     commitment = _mapping(
         review.get("label_reference_assignment"),
@@ -735,6 +1409,12 @@ def _validate_review_semantics(
         unresolved_present = unresolved_present or page_unresolved
 
     limitations = set(_list(review.get("limitations"), "review limitations"))
+    if review_stage == "machine_development_pass" and not _MACHINE_REQUIRED_LIMITATIONS.issubset(
+        limitations
+    ):
+        raise KP1979LabelReferenceError(
+            "machine-development pass omits mandatory nonclaim limitations"
+        )
     outcome = review.get("review_outcome")
     if outcome == "complete":
         if unresolved_present:
@@ -802,6 +1482,7 @@ def _validate_review_lane(
                     "boundary_ambiguous",
                     "multiple_visible_groups",
                     "crop_extent_unresolved",
+                    "missing_label_tier",
                 }
             ):
                 raise KP1979LabelReferenceError(

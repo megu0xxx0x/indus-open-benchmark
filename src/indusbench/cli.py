@@ -79,8 +79,10 @@ from indusbench.kp1979_label_reference import (
 from indusbench.kp1979_label_reference import (
     KP1979LabelReferenceError,
     build_label_reference_assignment,
+    build_machine_development_label_reference_review,
     verify_independent_label_reference_review_bytes,
     verify_label_reference_assignment_bytes,
+    verify_machine_development_label_reference_review_bytes,
 )
 from indusbench.kp1979_row_assignment import (
     MAX_ASSIGNMENT_BYTES as KP1979_MAX_ROW_ASSIGNMENT_BYTES,
@@ -89,6 +91,13 @@ from indusbench.kp1979_row_assignment import (
     KP1979RowAssignmentError,
     build_row_assignment,
     verify_row_assignment_bytes,
+)
+from indusbench.kp1979_synthetic_control import (
+    TARGET_ALGORITHM_ID as KP1979_SYNTHETIC_TARGET_ALGORITHM_ID,
+)
+from indusbench.kp1979_synthetic_control import (
+    SyntheticControlReport,
+    run_synthetic_control,
 )
 from indusbench.kp1982 import (
     MAX_CONTRACT_BYTES as KP1982_MAX_CONTRACT_BYTES,
@@ -4510,6 +4519,33 @@ def _require_kp1979_label_reference_review_summary(
         )
 
 
+def _require_kp1979_machine_development_review_summary(
+    summary: dict[str, bool | str],
+) -> None:
+    _require_kp1979_label_reference_review_summary(summary)
+    required_true = (
+        "machine_development_pass_verified",
+        "machine_authorship_declared",
+        "deterministic_source_pixel_recomputation_verified",
+        "machine_development_exposed",
+        "detector_output_exposure_declared",
+        "ocr_output_exposure_declared",
+        "page_role_expectations_exposure_declared",
+        "scoring_expectations_exposure_declared",
+    )
+    required_false = (
+        "eligible_as_human_reference",
+        "eligible_for_detector_scoring",
+        "procedural_independence_verified",
+    )
+    if any(summary.get(field) is not True for field in required_true) or any(
+        summary.get(field) is not False for field in required_false
+    ):
+        raise KP1979LabelReferenceError(
+            "KP1979 machine-development verifier returned an incomplete use boundary"
+        )
+
+
 def _command_prepare_kp1979_label_reference_assignment(
     args: argparse.Namespace,
 ) -> int:
@@ -4689,6 +4725,224 @@ def _command_verify_kp1979_label_reference_review(
             review_actor_assignment_ids_structurally_pairwise_distinct=True,
         )
     )
+    return 0
+
+
+def _command_prepare_kp1979_machine_development_review(
+    args: argparse.Namespace,
+) -> int:
+    try:
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        assignment_bytes = _read_private_regular_bytes(
+            args.assignment,
+            max_bytes=KP1979_MAX_LABEL_REFERENCE_ASSIGNMENT_BYTES,
+        )
+        page_pbm_bytes = _read_kp1979_label_reference_page_bytes(
+            args.page_pbm_dir,
+            partition="development",
+        )
+        assignment_summary = verify_label_reference_assignment_bytes(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            page_pbm_bytes,
+            assignment_bytes,
+        )
+        _require_kp1979_label_reference_assignment_summary(assignment_summary)
+        review = build_machine_development_label_reference_review(
+            assignment_bytes,
+            page_pbm_bytes,
+        )
+        review_summary = verify_machine_development_label_reference_review_bytes(
+            assignment_bytes,
+            page_pbm_bytes,
+            encode_json(review),
+        )
+        _require_kp1979_machine_development_review_summary(review_summary)
+    except (OSError, ValueError) as error:
+        raise KP1979LabelReferenceError(
+            "KP1979 machine-development review preparation failed"
+        ) from error
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.output,
+            review,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1979LabelReferenceError(
+            "private KP1979 machine-development review could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        _print_json(
+            _kp1979_label_reference_summary(
+                valid=False,
+                claim_class="private_kp1979_machine_development_review_preparation",
+                private_storage_verified=False,
+                assignment_canonical_bytes_verified=True,
+                review_canonical_bytes_verified=content_verified,
+                review_record_verified=content_verified,
+                submitted_crop_bytes_recomputed=True,
+                authorship_declaration_recorded=True,
+                access_declaration_recorded=True,
+                machine_development_pass_verified=True,
+                machine_authorship_declared=True,
+                deterministic_source_pixel_recomputation_verified=True,
+                machine_development_exposed=True,
+                detector_output_exposure_declared=True,
+                ocr_output_exposure_declared=True,
+                page_role_expectations_exposure_declared=True,
+                scoring_expectations_exposure_declared=True,
+                eligible_as_human_reference=False,
+                eligible_for_detector_scoring=False,
+                procedural_independence_verified=False,
+                written=False,
+                output_content_verified=content_verified,
+                durability_confirmed=durability_confirmed,
+                destination_may_exist=True,
+                postcondition=(
+                    "committed_content_verified_durability_unknown"
+                    if content_verified
+                    else "committed_content_unknown"
+                ),
+            )
+        )
+        return 1
+    _print_json(
+        _kp1979_label_reference_summary(
+            valid=True,
+            claim_class="private_kp1979_machine_development_review_preparation",
+            private_storage_verified=True,
+            assignment_canonical_bytes_verified=True,
+            review_canonical_bytes_verified=True,
+            review_record_verified=True,
+            submitted_crop_bytes_recomputed=True,
+            authorship_declaration_recorded=True,
+            access_declaration_recorded=True,
+            machine_development_pass_verified=True,
+            machine_authorship_declared=True,
+            deterministic_source_pixel_recomputation_verified=True,
+            machine_development_exposed=True,
+            detector_output_exposure_declared=True,
+            ocr_output_exposure_declared=True,
+            page_role_expectations_exposure_declared=True,
+            scoring_expectations_exposure_declared=True,
+            eligible_as_human_reference=False,
+            eligible_for_detector_scoring=False,
+            procedural_independence_verified=False,
+            written=True,
+        )
+    )
+    return 0
+
+
+def _command_verify_kp1979_machine_development_review(
+    args: argparse.Namespace,
+) -> int:
+    try:
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        assignment_bytes = _read_private_regular_bytes(
+            args.assignment,
+            max_bytes=KP1979_MAX_LABEL_REFERENCE_ASSIGNMENT_BYTES,
+        )
+        review_bytes = _read_private_regular_bytes(
+            args.review,
+            max_bytes=KP1979_MAX_LABEL_REFERENCE_REVIEW_BYTES,
+        )
+        page_pbm_bytes = _read_kp1979_label_reference_page_bytes(
+            args.page_pbm_dir,
+            partition="development",
+        )
+        assignment_summary = verify_label_reference_assignment_bytes(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            page_pbm_bytes,
+            assignment_bytes,
+        )
+        _require_kp1979_label_reference_assignment_summary(assignment_summary)
+        review_summary = verify_machine_development_label_reference_review_bytes(
+            assignment_bytes,
+            page_pbm_bytes,
+            review_bytes,
+        )
+        _require_kp1979_machine_development_review_summary(review_summary)
+    except (OSError, ValueError) as error:
+        raise KP1979LabelReferenceError(
+            "KP1979 machine-development review verification failed"
+        ) from error
+    _print_json(
+        _kp1979_label_reference_summary(
+            valid=True,
+            claim_class="private_kp1979_machine_development_review_verification",
+            private_storage_verified=True,
+            assignment_canonical_bytes_verified=True,
+            review_canonical_bytes_verified=True,
+            review_record_verified=True,
+            submitted_crop_bytes_recomputed=True,
+            authorship_declaration_recorded=True,
+            access_declaration_recorded=True,
+            machine_development_pass_verified=True,
+            machine_authorship_declared=True,
+            deterministic_source_pixel_recomputation_verified=True,
+            machine_development_exposed=True,
+            detector_output_exposure_declared=True,
+            ocr_output_exposure_declared=True,
+            page_role_expectations_exposure_declared=True,
+            scoring_expectations_exposure_declared=True,
+            eligible_as_human_reference=False,
+            eligible_for_detector_scoring=False,
+            procedural_independence_verified=False,
+        )
+    )
+    return 0
+
+
+def _command_run_kp1979_label_lattice_synthetic_control(
+    _args: argparse.Namespace,
+) -> int:
+    report = run_synthetic_control()
+    if not isinstance(report, SyntheticControlReport):
+        raise ValueError("KP1979 synthetic control returned an unsafe claim state")
+    required_false = (
+        report.real_accuracy,
+        report.reference_accepted,
+        report.future_evaluation_opened,
+        report.reserved_sources_read,
+        report.decipherment,
+        report.prize_submission_eligible,
+    )
+    if (
+        report.target_algorithm_id != KP1979_SYNTHETIC_TARGET_ALGORITHM_ID
+        or report.status not in {"qualified", "not_qualified"}
+        or report.reference_use != "synthetic_control"
+        or report.synthetic_only is not True
+        or any(value is not False for value in required_false)
+    ):
+        raise ValueError("KP1979 synthetic control returned an unsafe claim state")
+    _print_json(_jsonable(report))
     return 0
 
 
@@ -7560,6 +7814,92 @@ def build_parser() -> argparse.ArgumentParser:
     )
     kp1979_label_reference_review_parser.set_defaults(
         handler=_command_verify_kp1979_label_reference_review
+    )
+
+    kp1979_machine_development_prepare_parser = subparsers.add_parser(
+        "prepare-kp1979-machine-development-review",
+        help=("create one private, exposed, machine-only KP1979 development geometry pass"),
+    )
+    kp1979_machine_development_prepare_parser.add_argument("pdf", type=_path)
+    kp1979_machine_development_prepare_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing the canonical KP1979 page PBMs",
+    )
+    kp1979_machine_development_prepare_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical development assignment under a physical owner-only directory",
+    )
+    kp1979_machine_development_prepare_parser.add_argument(
+        "output",
+        type=_path,
+        help="new 0600 machine pass under a pre-existing physical 0700 directory",
+    )
+    kp1979_machine_development_prepare_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_machine_development_prepare_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_machine_development_prepare_parser.set_defaults(
+        handler=_command_prepare_kp1979_machine_development_review
+    )
+
+    kp1979_machine_development_verify_parser = subparsers.add_parser(
+        "verify-kp1979-machine-development-review",
+        help=(
+            "recompute one private KP1979 machine-development geometry "
+            "pass without admitting it as external reference evidence"
+        ),
+    )
+    kp1979_machine_development_verify_parser.add_argument("pdf", type=_path)
+    kp1979_machine_development_verify_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing the canonical KP1979 page PBMs",
+    )
+    kp1979_machine_development_verify_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical development assignment under a physical owner-only directory",
+    )
+    kp1979_machine_development_verify_parser.add_argument(
+        "review",
+        type=_path,
+        help="canonical 0600 machine pass under a physical owner-only directory",
+    )
+    kp1979_machine_development_verify_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_machine_development_verify_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_machine_development_verify_parser.set_defaults(
+        handler=_command_verify_kp1979_machine_development_review
+    )
+
+    kp1979_synthetic_control_parser = subparsers.add_parser(
+        "run-kp1979-label-lattice-synthetic-control",
+        help=(
+            "run the source-independent known-truth synthetic control for "
+            "the frozen KP1979 V1 label-lattice detector"
+        ),
+    )
+    kp1979_synthetic_control_parser.set_defaults(
+        handler=_command_run_kp1979_label_lattice_synthetic_control
     )
 
     kp1982_source_parser = subparsers.add_parser(

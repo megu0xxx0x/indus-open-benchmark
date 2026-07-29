@@ -135,6 +135,28 @@ immutable content-addressed identifiers for corpus and split releases.
   contract and verifier recompute submitted crops while retaining explicit
   nonclaims for human authorship, real independence, evaluation admissibility,
   decipherment, and prize eligibility.
+- A separate exposed KP1979 machine-development geometry projection and
+  exact-byte verifier. It is restricted to provisional development extraction,
+  preserves unresolved observations, records machine authorship and prior
+  detector/OCR/page-role/scoring exposure, cannot serve as human reference
+  evidence or detector-scoring input, and leaves future-evaluation values
+  unopened. Two genuinely separate human passes remain a later
+  external-reference promotion gate rather than a prerequisite for provisional
+  machine-assisted research. The projection follows continuous target-side ink
+  beyond its fixed scan band to a bounded terminus, marks detached exterior
+  runs, sign-side continuation, and vertically clipped associations unresolved,
+  and requires substantial two-tier row-projection evidence without treating an
+  internal horizontal gap alone as a failure.
+- The KP1979 label-reference review contract is now v0.2.0 so the new machine
+  stage has a distinct reproducible schema version. No v0.1 manual review
+  values existed or were migrated.
+- A bounded source-independent KP1979 label-position scorer and deterministic
+  known-truth synthetic control. The low-level arithmetic is internal; the
+  supported evaluator requires a canonical generator-equal synthetic fixture,
+  rejects machine-development and external-reference-candidate uses, and fixes
+  every external-eligibility and decipherment claim false. The retrospective
+  V1 control is retained as `not_qualified` after thin-stroke and periodic
+  non-label counterexamples; no real or reserved source is read.
 - Private museum bundle format 0.2 with exact official policy/API evidence
   snapshots and reproducible, fail-closed verification.
 - Optional external manifest-anchor verification, explicitly separated from

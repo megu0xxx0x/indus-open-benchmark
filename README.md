@@ -263,6 +263,15 @@ permission by itself.
   geometry-only review verifier that recomputes every submitted crop from the
   exact source pixels. The assignments expose no page class, scan band,
   detector geometry, candidate count, OCR result, or manual value.
+- A separate development-only, exposed machine projection for KP1979 label
+  geometry. It preserves unresolved observations and can support provisional
+  extraction, but it is neither human reference evidence nor admissible input
+  to detector scoring; it never opens the future-evaluation reference.
+- Source-independent frozen position-matching arithmetic behind a
+  canonical-fixture-only synthetic control for the KP1979 V1 label-lattice
+  detector. V1 is retained as `not_qualified` after failing thin-stroke and
+  periodic non-label counterexamples; the result is synthetic-only and makes
+  no real-accuracy claim.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.
@@ -441,9 +450,10 @@ The private row assignment repeats the complete 179-page audit, then binds
 proposal-only label and row-context crops for the 57 identifier-order pages.
 It contains no OCR, identifier, lower code, sign, occupancy, reading direction,
 language, meaning, or accepted manual value. Its rectangles remain unaccepted
-review aids until the separate 12-page reference and independent human review
-exist. The command will not overwrite an existing output and requires a
-physical owner-only parent directory.
+review aids. Provisional machine extraction may continue without human
+reviewers, but only eligible independent human-reference evidence can promote
+geometry or support detector scoring. The command will not overwrite an
+existing output and requires a physical owner-only parent directory.
 
 Create and verify the separate proposal-free assignments. Keep development
 and future evaluation in different owner-only directories, and do not show the
@@ -466,12 +476,47 @@ uv run indusbench verify-kp1979-label-reference-review \
   --partition development
 ```
 
-The assignment command creates no review and no reference value. A review
-must be prepared outside the recognizer by an actual reviewer. Valid schema,
-opaque IDs, declarations, and exact crop hashes do not by themselves prove
-human authorship or real independence. The target, partitioning, custody,
-matching, and scientific nonclaim rules are fixed in
+The assignment command creates no review and no reference value. To create
+eligible independent human-reference evidence, a review must be prepared
+outside the recognizer by an actual reviewer. Valid schema, opaque IDs,
+declarations, and exact crop hashes do not by themselves prove human
+authorship or real independence.
+
+If human reviewers are unavailable, create and recompute the separate
+development-only machine pass:
+
+```bash
+uv run indusbench prepare-kp1979-machine-development-review \
+  "$KP1979_PDF" "$KP1979_PBM_DIR" \
+  "$KP1979_DEVELOPMENT_ASSIGNMENT" "$KP1979_MACHINE_REVIEW"
+uv run indusbench verify-kp1979-machine-development-review \
+  "$KP1979_PDF" "$KP1979_PBM_DIR" \
+  "$KP1979_DEVELOPMENT_ASSIGNMENT" "$KP1979_MACHINE_REVIEW"
+```
+
+That pass is intentionally exposed to detector output, OCR, page-role
+expectations, and scoring expectations. It is machine-authored, provisional,
+preserves unresolved geometry, is ineligible as human reference evidence, and
+must not be used for detector scoring. It does not open or populate the
+future-evaluation reference. Human passes remain a later promotion gate for
+externally grounded reference evidence, not a prerequisite for provisional
+research progress. The target, partitioning, custody, matching, and scientific
+nonclaim rules are fixed in
 [`docs/KP1979_LABEL_REFERENCE_PROTOCOL.md`](docs/KP1979_LABEL_REFERENCE_PROTOCOL.md).
+
+Run the public, source-independent V1 synthetic diagnostic with:
+
+```bash
+uv run indusbench run-kp1979-label-lattice-synthetic-control
+```
+
+The command currently succeeds as an execution while reporting the scientific
+status `not_qualified`; its JSON fixes all real-accuracy, reference-acceptance,
+decipherment, and prize claims false.
+
+The current synthetic-only V1 result and its retrospective limits are recorded
+in
+[`docs/KP1979_LABEL_LATTICE_SYNTHETIC_CONTROL_V1_RESULT_2026-07-29.md`](docs/KP1979_LABEL_LATTICE_SYNTHETIC_CONTROL_V1_RESULT_2026-07-29.md).
 
 Verify the KP1982 inventory-bootstrap evidence; only after a future separate
 post-adjudication inventory build, compare later inscription-transcription

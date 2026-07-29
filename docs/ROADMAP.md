@@ -77,12 +77,26 @@ Current assets:
   - [x] Define separate proposal-free six-page assignments, a geometry-only
     review contract, exact source/PBM/crop verification, and the pre-result
     matching rule.
+  - [x] Add an exposed, development-only machine geometry pass for provisional
+    extraction when human reviewers are unavailable. It preserves unresolved
+    observations, cannot be promoted to human reference evidence, cannot be
+    used for detector scoring, and leaves future-evaluation values unopened.
+  - [x] Implement the frozen position-scoring arithmetic and a
+    source-independent known-truth synthetic control. Preserve V1 as
+    `not_qualified` after its thin-stroke and periodic non-label failures.
+  - [ ] Develop any successor under a new KP1979 detector identifier. Keep the
+    exposed V1 cases as regression tests and freeze a separate generator or
+    seed before treating a new synthetic result as qualification evidence.
   - [ ] Obtain two genuinely separate human passes, compare them only after
     sealing, complete no-invention adjudication, and retain future-evaluation
-    values outside detector custody.
+    values outside detector custody. This is the promotion gate for externally
+    grounded reference evidence and detector scoring, not a prerequisite for
+    provisional machine-assisted research.
 - [ ] Extract the 57-page KP1979 identifier-order base lane first, then
   reconcile records against the sorted-from-end and sorted-from-beginning
-  reprints without using sign sequences as join keys.
+  reprints without using sign sequences as join keys. Exposed machine geometry
+  may support provisional extraction, but it cannot admit rows to an accepted
+  corpus or supply a detector score.
 - [ ] Implement the 1980 versioned-delta, bidirectional cross-reference, and
   state-carrying duplicate-list parsers. Preserve strict, loose,
   exact-sequence, ancient repetition, and physical-object relations

@@ -107,6 +107,25 @@ def review_summary(**overrides: bool | str) -> dict[str, bool | str]:
     return summary
 
 
+def machine_review_summary(**overrides: bool | str) -> dict[str, bool | str]:
+    summary = review_summary(
+        claim_class="private_kp1979_machine_development_review_verification",
+        machine_development_pass_verified=True,
+        machine_authorship_declared=True,
+        deterministic_source_pixel_recomputation_verified=True,
+        machine_development_exposed=True,
+        detector_output_exposure_declared=True,
+        ocr_output_exposure_declared=True,
+        page_role_expectations_exposure_declared=True,
+        scoring_expectations_exposure_declared=True,
+        eligible_as_human_reference=False,
+        eligible_for_detector_scoring=False,
+        procedural_independence_verified=False,
+    )
+    summary.update(overrides)
+    return summary
+
+
 class KP1979LabelReferenceCliTests(unittest.TestCase):
     def make_inputs(self, root: Path) -> dict[str, Path]:
         paths = {
@@ -185,6 +204,42 @@ class KP1979LabelReferenceCliTests(unittest.TestCase):
             str(review),
             "--partition",
             partition,
+            "--contract",
+            str(paths["contract"]),
+            "--page-map",
+            str(paths["page_map"]),
+        ]
+
+    @staticmethod
+    def machine_prepare_arguments(
+        paths: dict[str, Path],
+        assignment: Path,
+        output: Path,
+    ) -> list[str]:
+        return [
+            "prepare-kp1979-machine-development-review",
+            str(paths["pdf"]),
+            str(paths["pages"]),
+            str(assignment),
+            str(output),
+            "--contract",
+            str(paths["contract"]),
+            "--page-map",
+            str(paths["page_map"]),
+        ]
+
+    @staticmethod
+    def machine_verify_arguments(
+        paths: dict[str, Path],
+        assignment: Path,
+        review: Path,
+    ) -> list[str]:
+        return [
+            "verify-kp1979-machine-development-review",
+            str(paths["pdf"]),
+            str(paths["pages"]),
+            str(assignment),
+            str(review),
             "--contract",
             str(paths["contract"]),
             "--page-map",
@@ -444,6 +499,377 @@ class KP1979LabelReferenceCliTests(unittest.TestCase):
             "sha256:",
         ):
             self.assertNotIn(sentinel, stdout)
+
+    def test_prepare_machine_development_review_wires_private_no_replace(self) -> None:
+        assignment_bytes = encode_json({"private_assignment": "PRIVATE-MACHINE-ASSIGNMENT"})
+        review_value = {
+            "private_review": "PRIVATE-MACHINE-REVIEW",
+            "private_observation_count": "PRIVATE-MACHINE-COUNT",
+        }
+        review_bytes = encode_json(review_value)
+        expected_pages = list(PARTITION_PAGES["development"])
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            paths = self.make_inputs(root)
+            assignment = paths["private"] / "machine-assignment.json"
+            output = paths["private"] / "machine-review.json"
+            write_private(assignment, assignment_bytes)
+            arguments = self.machine_prepare_arguments(paths, assignment, output)
+
+            def verify_assignment(
+                contract_bytes: bytes,
+                page_map_bytes: bytes,
+                source_bytes: bytes,
+                page_bytes: Iterable[tuple[int, bytes]],
+                supplied_assignment_bytes: bytes,
+            ) -> dict[str, bool | str]:
+                self.assertEqual(paths["contract"].read_bytes(), contract_bytes)
+                self.assertEqual(paths["page_map"].read_bytes(), page_map_bytes)
+                self.assertEqual(paths["pdf"].read_bytes(), source_bytes)
+                self.assertEqual(assignment_bytes, supplied_assignment_bytes)
+                self.assertEqual(expected_pages, [page for page, _ in page_bytes])
+                return assignment_summary()
+
+            def build_review(
+                supplied_assignment_bytes: bytes,
+                page_bytes: Iterable[tuple[int, bytes]],
+            ) -> dict[str, str]:
+                self.assertEqual(assignment_bytes, supplied_assignment_bytes)
+                self.assertEqual(expected_pages, [page for page, _ in page_bytes])
+                return review_value
+
+            def verify_review(
+                supplied_assignment_bytes: bytes,
+                page_bytes: Iterable[tuple[int, bytes]],
+                supplied_review_bytes: bytes,
+            ) -> dict[str, bool | str]:
+                self.assertEqual(assignment_bytes, supplied_assignment_bytes)
+                self.assertEqual(expected_pages, [page for page, _ in page_bytes])
+                self.assertEqual(review_bytes, supplied_review_bytes)
+                return machine_review_summary(
+                    private_observation_count="PRIVATE-MACHINE-COUNT",
+                    private_record_id="PRIVATE-MACHINE-REVIEW",
+                    private_digest="sha256:" + ("d" * 64),
+                )
+
+            with (
+                patch.object(
+                    cli_module,
+                    "verify_label_reference_assignment_bytes",
+                    side_effect=verify_assignment,
+                ) as assignment_verifier,
+                patch.object(
+                    cli_module,
+                    "build_machine_development_label_reference_review",
+                    side_effect=build_review,
+                ) as builder,
+                patch.object(
+                    cli_module,
+                    "verify_machine_development_label_reference_review_bytes",
+                    side_effect=verify_review,
+                ) as review_verifier,
+            ):
+                result, stdout, stderr = run_cli(arguments)
+                original = output.read_bytes()
+                second_result, second_stdout, second_stderr = run_cli(arguments)
+
+            self.assertEqual(2, assignment_verifier.call_count)
+            self.assertEqual(2, builder.call_count)
+            self.assertEqual(2, review_verifier.call_count)
+            self.assertEqual(0, result, stderr)
+            self.assertEqual("", stderr)
+            summary = json.loads(stdout)
+            self.assertTrue(summary["valid"])
+            self.assertTrue(summary["written"])
+            self.assertTrue(summary["private_storage_verified"])
+            self.assertTrue(summary["machine_development_pass_verified"])
+            self.assertTrue(summary["machine_authorship_declared"])
+            self.assertFalse(summary["eligible_as_human_reference"])
+            self.assertFalse(summary["eligible_for_detector_scoring"])
+            self.assertFalse(summary["procedural_independence_verified"])
+            self.assertFalse(summary["human_authorship_verified"])
+            self.assertFalse(summary["evaluation_admissible"])
+            self.assertFalse(summary["counts_disclosed"])
+            self.assertFalse(summary["record_ids_disclosed"])
+            self.assertFalse(summary["digests_disclosed"])
+            self.assertFalse(summary["paths_disclosed"])
+            self.assertEqual(review_bytes, original)
+            self.assertEqual(original, output.read_bytes())
+            self.assertEqual(0o700, paths["private"].stat().st_mode & 0o777)
+            self.assertEqual(0o600, output.stat().st_mode & 0o777)
+            self.assertEqual(1, second_result)
+            self.assertEqual("", second_stdout)
+            self.assertEqual(
+                "indusbench: private KP1979 machine-development review "
+                "could not be created safely\n",
+                second_stderr,
+            )
+            for sentinel in (
+                str(root),
+                "PRIVATE-MACHINE-ASSIGNMENT",
+                "PRIVATE-MACHINE-REVIEW",
+                "PRIVATE-MACHINE-COUNT",
+                "sha256:",
+            ):
+                self.assertNotIn(sentinel, stdout)
+                self.assertNotIn(sentinel, second_stderr)
+
+    def test_verify_machine_development_review_is_source_bound_and_count_free(
+        self,
+    ) -> None:
+        assignment_bytes = encode_json({"private_assignment": "PRIVATE-MACHINE-ASSIGNMENT"})
+        review_bytes = encode_json({"private_review": "PRIVATE-MACHINE-REVIEW"})
+        expected_pages = list(PARTITION_PAGES["development"])
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            paths = self.make_inputs(root)
+            assignment = paths["private"] / "machine-assignment.json"
+            review = paths["private"] / "machine-review.json"
+            write_private(assignment, assignment_bytes)
+            write_private(review, review_bytes)
+
+            def verify_assignment(
+                contract_bytes: bytes,
+                page_map_bytes: bytes,
+                source_bytes: bytes,
+                page_bytes: Iterable[tuple[int, bytes]],
+                supplied_assignment_bytes: bytes,
+            ) -> dict[str, bool | str]:
+                self.assertEqual(paths["contract"].read_bytes(), contract_bytes)
+                self.assertEqual(paths["page_map"].read_bytes(), page_map_bytes)
+                self.assertEqual(paths["pdf"].read_bytes(), source_bytes)
+                self.assertEqual(assignment_bytes, supplied_assignment_bytes)
+                self.assertEqual(expected_pages, [page for page, _ in page_bytes])
+                return assignment_summary()
+
+            def verify_review(
+                supplied_assignment_bytes: bytes,
+                page_bytes: Iterable[tuple[int, bytes]],
+                supplied_review_bytes: bytes,
+            ) -> dict[str, bool | str]:
+                self.assertEqual(assignment_bytes, supplied_assignment_bytes)
+                self.assertEqual(review_bytes, supplied_review_bytes)
+                self.assertEqual(expected_pages, [page for page, _ in page_bytes])
+                return machine_review_summary(
+                    private_observation_count="PRIVATE-MACHINE-COUNT",
+                    private_record_id="PRIVATE-MACHINE-REVIEW",
+                    private_digest="sha256:" + ("e" * 64),
+                )
+
+            with (
+                patch.object(
+                    cli_module,
+                    "verify_label_reference_assignment_bytes",
+                    side_effect=verify_assignment,
+                ) as assignment_verifier,
+                patch.object(
+                    cli_module,
+                    "verify_machine_development_label_reference_review_bytes",
+                    side_effect=verify_review,
+                ) as review_verifier,
+            ):
+                result, stdout, stderr = run_cli(
+                    self.machine_verify_arguments(paths, assignment, review)
+                )
+
+        self.assertEqual(0, result, stderr)
+        self.assertEqual("", stderr)
+        self.assertEqual(1, assignment_verifier.call_count)
+        self.assertEqual(1, review_verifier.call_count)
+        summary = json.loads(stdout)
+        self.assertTrue(summary["valid"])
+        self.assertTrue(summary["review_record_verified"])
+        self.assertTrue(summary["machine_development_pass_verified"])
+        self.assertTrue(summary["machine_authorship_declared"])
+        self.assertFalse(summary["eligible_as_human_reference"])
+        self.assertFalse(summary["eligible_for_detector_scoring"])
+        self.assertFalse(summary["procedural_independence_verified"])
+        self.assertFalse(summary["human_review_started_verified"])
+        self.assertFalse(summary["human_authorship_verified"])
+        self.assertFalse(summary["real_world_independence_verified"])
+        self.assertFalse(summary["evaluation_admissible"])
+        self.assertFalse(summary["counts_disclosed"])
+        self.assertFalse(summary["private_values_disclosed"])
+        self.assertFalse(summary["record_ids_disclosed"])
+        self.assertFalse(summary["digests_disclosed"])
+        self.assertFalse(summary["paths_disclosed"])
+        for sentinel in (
+            str(root),
+            "PRIVATE-MACHINE-ASSIGNMENT",
+            "PRIVATE-MACHINE-REVIEW",
+            "PRIVATE-MACHINE-COUNT",
+            "sha256:",
+        ):
+            self.assertNotIn(sentinel, stdout)
+
+    def test_machine_development_commands_reject_partition_override(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            paths = self.make_inputs(root)
+            assignment = paths["private"] / "machine-assignment.json"
+            review = paths["private"] / "machine-review.json"
+            output = paths["private"] / "machine-output.json"
+            write_private(assignment, b"private assignment")
+            write_private(review, b"private review")
+            argument_sets = (
+                self.machine_prepare_arguments(paths, assignment, output),
+                self.machine_verify_arguments(paths, assignment, review),
+            )
+            for arguments in argument_sets:
+                stderr = io.StringIO()
+                with (
+                    self.subTest(command=arguments[0]),
+                    patch.object(
+                        cli_module,
+                        "build_machine_development_label_reference_review",
+                    ) as builder,
+                    patch.object(
+                        cli_module,
+                        "verify_machine_development_label_reference_review_bytes",
+                    ) as verifier,
+                    redirect_stderr(stderr),
+                    self.assertRaises(SystemExit) as raised,
+                ):
+                    main([*arguments, "--partition", "future_evaluation"])
+                self.assertEqual(2, raised.exception.code)
+                builder.assert_not_called()
+                verifier.assert_not_called()
+                self.assertIn("unrecognized arguments", stderr.getvalue())
+                self.assertNotIn(str(root), stderr.getvalue())
+
+    def test_machine_development_private_modes_and_durability_fail_closed(
+        self,
+    ) -> None:
+        assignment_bytes = encode_json({"private_assignment": "PRIVATE-ASSIGNMENT"})
+        review_value = {"private_review": "PRIVATE-MACHINE-REVIEW"}
+        review_bytes = encode_json(review_value)
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            paths = self.make_inputs(root)
+            assignment = paths["private"] / "machine-assignment.json"
+            review = paths["private"] / "machine-review.json"
+            write_private(assignment, assignment_bytes)
+            write_private(review, review_bytes)
+
+            assignment.chmod(0o644)
+            unsafe_output = paths["private"] / "unsafe-input-output.json"
+            with patch.object(
+                cli_module,
+                "build_machine_development_label_reference_review",
+            ) as builder:
+                result, stdout, stderr = run_cli(
+                    self.machine_prepare_arguments(paths, assignment, unsafe_output)
+                )
+            self.assertEqual(1, result)
+            self.assertEqual("", stdout)
+            builder.assert_not_called()
+            self.assertEqual(
+                "indusbench: KP1979 machine-development review preparation failed\n",
+                stderr,
+            )
+            self.assertFalse(unsafe_output.exists())
+
+            assignment.chmod(0o600)
+            review.chmod(0o644)
+            with (
+                patch.object(
+                    cli_module,
+                    "verify_label_reference_assignment_bytes",
+                ) as assignment_verifier,
+                patch.object(
+                    cli_module,
+                    "verify_machine_development_label_reference_review_bytes",
+                ) as review_verifier,
+            ):
+                result, stdout, stderr = run_cli(
+                    self.machine_verify_arguments(paths, assignment, review)
+                )
+            self.assertEqual(1, result)
+            self.assertEqual("", stdout)
+            assignment_verifier.assert_not_called()
+            review_verifier.assert_not_called()
+            self.assertEqual(
+                "indusbench: KP1979 machine-development review verification failed\n",
+                stderr,
+            )
+
+            review.chmod(0o600)
+            nonprivate = root / "NONPRIVATE"
+            nonprivate.mkdir()
+            nonprivate.chmod(0o755)
+            nonprivate_output = nonprivate / "machine-review.json"
+            with (
+                patch.object(
+                    cli_module,
+                    "verify_label_reference_assignment_bytes",
+                    return_value=assignment_summary(),
+                ),
+                patch.object(
+                    cli_module,
+                    "build_machine_development_label_reference_review",
+                    return_value=review_value,
+                ),
+                patch.object(
+                    cli_module,
+                    "verify_machine_development_label_reference_review_bytes",
+                    return_value=machine_review_summary(),
+                ),
+            ):
+                result, stdout, stderr = run_cli(
+                    self.machine_prepare_arguments(paths, assignment, nonprivate_output)
+                )
+            self.assertEqual(1, result)
+            self.assertEqual("", stdout)
+            self.assertEqual(
+                "indusbench: private KP1979 machine-development review "
+                "could not be created safely\n",
+                stderr,
+            )
+            self.assertNotIn(nonprivate.name, stderr)
+            self.assertFalse(nonprivate_output.exists())
+
+            durability_output = paths["private"] / "unknown-durability.json"
+            with (
+                patch.object(
+                    cli_module,
+                    "verify_label_reference_assignment_bytes",
+                    return_value=assignment_summary(),
+                ),
+                patch.object(
+                    cli_module,
+                    "build_machine_development_label_reference_review",
+                    return_value=review_value,
+                ),
+                patch.object(
+                    cli_module,
+                    "verify_machine_development_label_reference_review_bytes",
+                    return_value=machine_review_summary(),
+                ),
+                patch.object(
+                    cli_module,
+                    "_write_private_json_no_replace",
+                    return_value=(False, True),
+                ),
+            ):
+                result, stdout, stderr = run_cli(
+                    self.machine_prepare_arguments(paths, assignment, durability_output)
+                )
+            self.assertEqual(1, result, stderr)
+            self.assertEqual("", stderr)
+            summary = json.loads(stdout)
+            self.assertFalse(summary["valid"])
+            self.assertFalse(summary["written"])
+            self.assertFalse(summary["private_storage_verified"])
+            self.assertTrue(summary["review_canonical_bytes_verified"])
+            self.assertTrue(summary["machine_development_pass_verified"])
+            self.assertTrue(summary["machine_authorship_declared"])
+            self.assertFalse(summary["eligible_as_human_reference"])
+            self.assertFalse(summary["eligible_for_detector_scoring"])
+            self.assertFalse(summary["procedural_independence_verified"])
+            self.assertTrue(summary["destination_may_exist"])
+            self.assertTrue(summary["output_content_verified"])
+            self.assertFalse(summary["durability_confirmed"])
+            self.assertFalse(summary["evaluation_admissible"])
 
     def test_only_the_two_named_partitions_are_accepted(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

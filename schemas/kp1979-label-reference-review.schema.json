@@ -26,7 +26,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "0.1.0"
+      "const": "0.2.0"
     },
     "record_state": {
       "const": "kp1979_visible_target_label_reference_review"
@@ -44,7 +44,10 @@
       "$ref": "#/$defs/opaque_id"
     },
     "review_stage": {
-      "const": "independent_pass"
+      "enum": [
+        "independent_pass",
+        "machine_development_pass"
+      ]
     },
     "authorship_declaration": {
       "enum": [
@@ -54,6 +57,9 @@
         "unknown"
       ],
       "description": "A record producer's declaration only; it is not verified human authorship."
+    },
+    "machine_method": {
+      "$ref": "#/$defs/machine_method"
     },
     "access_declaration": {
       "$ref": "#/$defs/access_declaration"
@@ -105,6 +111,9 @@
           "human_authorship_not_verified",
           "real_world_independence_not_verified",
           "reviewer_blinding_not_verified",
+          "machine_generated_not_accepted_reference",
+          "exposed_development_pass",
+          "detector_scoring_ineligible",
           "source_custody_not_verified",
           "source_rights_not_reverified",
           "other_unclassified"
@@ -146,6 +155,82 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "review_stage": {
+            "const": "machine_development_pass"
+          }
+        },
+        "required": [
+          "review_stage"
+        ]
+      },
+      "then": {
+        "required": [
+          "machine_method"
+        ],
+        "properties": {
+          "schema_version": {
+            "const": "0.2.0"
+          },
+          "protocol_partition": {
+            "const": "development"
+          },
+          "authorship_declaration": {
+            "const": "machine"
+          },
+          "limitations": {
+            "allOf": [
+              {
+                "contains": {
+                  "const": "actor_identity_not_verified"
+                }
+              },
+              {
+                "contains": {
+                  "const": "human_authorship_not_verified"
+                }
+              },
+              {
+                "contains": {
+                  "const": "real_world_independence_not_verified"
+                }
+              },
+              {
+                "contains": {
+                  "const": "reviewer_blinding_not_verified"
+                }
+              },
+              {
+                "contains": {
+                  "const": "machine_generated_not_accepted_reference"
+                }
+              },
+              {
+                "contains": {
+                  "const": "exposed_development_pass"
+                }
+              },
+              {
+                "contains": {
+                  "const": "detector_scoring_ineligible"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "required": [
+            "machine_method"
+          ]
+        }
+      }
+    }
+  ],
   "$defs": {
     "access_state": {
       "enum": [
@@ -198,6 +283,30 @@
     "opaque_id": {
       "type": "string",
       "pattern": "^opaque:[0-9a-f]{64}$"
+    },
+    "machine_method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm_id",
+        "evidence_use",
+        "eligible_as_human_reference",
+        "eligible_for_detector_scoring"
+      ],
+      "properties": {
+        "algorithm_id": {
+          "const": "kp1979-machine-development-projection-v1"
+        },
+        "evidence_use": {
+          "const": "provisional_extraction_development_only"
+        },
+        "eligible_as_human_reference": {
+          "const": false
+        },
+        "eligible_for_detector_scoring": {
+          "const": false
+        }
+      }
     },
     "checksum": {
       "type": "string",
@@ -326,6 +435,7 @@
               "scan_artifact",
               "multiple_visible_groups",
               "crop_extent_unresolved",
+              "missing_label_tier",
               "other_unclassified"
             ]
           }
@@ -351,7 +461,8 @@
                     "enum": [
                       "boundary_ambiguous",
                       "multiple_visible_groups",
-                      "crop_extent_unresolved"
+                      "crop_extent_unresolved",
+                      "missing_label_tier"
                     ]
                   }
                 }
@@ -379,6 +490,7 @@
                     "boundary_ambiguous",
                     "multiple_visible_groups",
                     "crop_extent_unresolved",
+                    "missing_label_tier",
                     "partial_character",
                     "print_damage",
                     "scan_artifact",

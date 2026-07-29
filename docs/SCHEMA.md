@@ -68,10 +68,13 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   development or future-evaluation partition. It binds source pixels and
   coordinate rules while omitting page classes, detector geometry, candidate
   counts, OCR, and manual values.
-- `schemas/kp1979-label-reference-review.schema.json` (v0.1.0) — one private
-  geometry-only label review bound to the proposal-free assignment. It records
-  physical-lane label rectangles and exact crop commitments without recording
-  identifier, code, sign, direction, language, meaning, or translation values.
+- `schemas/kp1979-label-reference-review.schema.json` (v0.2.0) — one private
+  geometry-only label review bound to the proposal-free assignment. It
+  distinguishes an independent pass from an exposed, development-only machine
+  pass that is ineligible as external reference evidence or detector-scoring
+  input. Both record physical-lane label rectangles and exact crop commitments
+  without recording identifier, code, sign, direction, language, meaning, or
+  translation values.
 - `schemas/kp1982-batch0-source.schema.json` (v0.1.0) — the exact official
   KP1982 PDF identity, target-page indices, embedded-image geometry, and
   canonical PBM commitments; it contains no transcription.

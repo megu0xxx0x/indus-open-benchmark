@@ -18,9 +18,11 @@ from indusbench.kp1979_label_reference import (
     REVIEW_SCHEMA,
     KP1979LabelReferenceError,
     build_label_reference_assignment,
+    build_machine_development_label_reference_review,
     validate_label_reference_review,
     verify_independent_label_reference_review_bytes,
     verify_label_reference_assignment_bytes,
+    verify_machine_development_label_reference_review_bytes,
 )
 from indusbench.kp1982_layout import crop_canonical_pbm
 from indusbench.schema_validation import validate_schema_instance
@@ -54,6 +56,170 @@ def blank_page() -> bytes:
     page = header + payload
     assert len(page) == PAGE_BYTE_SIZE
     return page
+
+
+def _paint_black_rectangle(
+    payload: bytearray,
+    *,
+    x0: int,
+    y0: int,
+    x1: int,
+    y1: int,
+) -> None:
+    row_bytes = (PAGE_WIDTH + 7) // 8
+    for y in range(y0, y1):
+        row_offset = y * row_bytes
+        for x in range(x0, x1):
+            payload[row_offset + x // 8] |= 0x80 >> (x % 8)
+
+
+@lru_cache(maxsize=1)
+def machine_development_pages() -> tuple[tuple[int, bytes], ...]:
+    lane_bands = {
+        22: ((2056, 2316, "right"), (4232, 4492, "right")),
+        79: ((427, 687, "left"), (2608, 2868, "left")),
+        131: ((2009, 2269, "right"), (4195, 4455, "right")),
+        180: ((2009, 2269, "right"), (4195, 4455, "right")),
+    }
+    pages: list[tuple[int, bytes]] = []
+    header = f"P4\n{PAGE_WIDTH} {PAGE_HEIGHT}\n".encode("ascii")
+    payload_size = ((PAGE_WIDTH + 7) // 8) * PAGE_HEIGHT
+    for page_number in PARTITION_PAGES["development"]:
+        payload = bytearray(payload_size)
+        for band_x0, band_x1, label_side in lane_bands.get(page_number, ()):
+            label_x0 = band_x1 - 150 if label_side == "right" else band_x0 + 16
+            for label_y0 in (700, 900, 1100):
+                for offset in (0, 24, 88, 112):
+                    _paint_black_rectangle(
+                        payload,
+                        x0=label_x0 + offset,
+                        y0=label_y0,
+                        x1=label_x0 + offset + 8,
+                        y1=label_y0 + 18,
+                    )
+                for offset in (0, 20, 55, 78, 110, 132):
+                    _paint_black_rectangle(
+                        payload,
+                        x0=label_x0 + offset,
+                        y0=label_y0 + 35,
+                        x1=label_x0 + offset + 7,
+                        y1=label_y0 + 55,
+                    )
+        page = header + bytes(payload)
+        assert len(page) == PAGE_BYTE_SIZE
+        pages.append((page_number, page))
+    return tuple(pages)
+
+
+def machine_development_assignment_for_pages(
+    pages: tuple[tuple[int, bytes], ...],
+) -> dict[str, Any]:
+    assignment = schema_assignment("development")
+    for commitment, (page_number, page_bytes) in zip(
+        assignment["page_bitmaps"],
+        pages,
+        strict=True,
+    ):
+        assert commitment["pdf_page_number"] == page_number
+        commitment["canonical_pbm_sha256"] = tagged_sha256(page_bytes)
+        commitment["byte_size"] = len(page_bytes)
+    return assignment
+
+
+def machine_development_assignment() -> dict[str, Any]:
+    return machine_development_assignment_for_pages(machine_development_pages())
+
+
+@lru_cache(maxsize=1)
+def machine_development_boundary_pages() -> tuple[tuple[int, bytes], ...]:
+    header = f"P4\n{PAGE_WIDTH} {PAGE_HEIGHT}\n".encode("ascii")
+    pages = list(machine_development_pages())
+    page_offset = next(
+        index for index, (page_number, _page_bytes) in enumerate(pages) if page_number == 22
+    )
+    page_number, page_bytes = pages[page_offset]
+    payload = bytearray(page_bytes[len(header) :])
+
+    def paint_two_tiers(
+        *,
+        y0: int,
+        horizontal_runs: tuple[tuple[int, int], ...],
+    ) -> None:
+        for tier_y0, tier_y1 in ((y0, y0 + 18), (y0 + 35, y0 + 55)):
+            for x0, x1 in horizontal_runs:
+                _paint_black_rectangle(
+                    payload,
+                    x0=x0,
+                    y0=tier_y0,
+                    x1=x1,
+                    y1=tier_y1,
+                )
+
+    # The target-side run crosses the fixed scan-band edge and must be
+    # extended to its actual ink terminus.
+    paint_two_tiers(
+        y0=1300,
+        horizontal_runs=((2240, 2250), (2290, 2330)),
+    )
+    # A short-gap chain reaches through the sign-side scan-band edge. The
+    # external run must not enter the crop, and the boundary must be unresolved.
+    paint_two_tiers(
+        y0=1500,
+        horizontal_runs=(
+            (2048, 2056),
+            (2080, 2090),
+            (2120, 2130),
+            (2160, 2170),
+            (2190, 2200),
+        ),
+    )
+    # An unrelated external run is too far from the target to affect its bbox.
+    paint_two_tiers(
+        y0=1700,
+        horizontal_runs=((2040, 2050), (2180, 2190), (2210, 2220)),
+    )
+    # A single projected tier cannot satisfy the two-tier target definition.
+    _paint_black_rectangle(
+        payload,
+        x0=2180,
+        y0=1900,
+        x1=2220,
+        y1=1920,
+    )
+    # A large internal horizontal gap is legitimate when both vertical tiers
+    # are present and must not be mistaken for a label/sign separator.
+    paint_two_tiers(
+        y0=2100,
+        horizontal_runs=((2160, 2170), (2230, 2240)),
+    )
+    # A detached target-side run beyond the scan band is included as evidence
+    # but cannot be silently accepted as part of the same target.
+    paint_two_tiers(
+        y0=2300,
+        horizontal_runs=((2240, 2300), (2320, 2330)),
+    )
+    # Multiple active runs alone do not establish two printed tiers.
+    for tier_y0, tier_y1 in ((2500, 2505), (2510, 2515)):
+        _paint_black_rectangle(
+            payload,
+            x0=2180,
+            y0=tier_y0,
+            x1=2220,
+            y1=tier_y1,
+        )
+    # A target association window clipped by either vertical scan-band edge
+    # remains unresolved even when two tier-like runs are visible.
+    paint_two_tiers(
+        y0=550,
+        horizontal_runs=((2180, 2190), (2210, 2220)),
+    )
+    paint_two_tiers(
+        y0=6545,
+        horizontal_runs=((2180, 2190), (2210, 2220)),
+    )
+
+    pages[page_offset] = (page_number, header + bytes(payload))
+    return tuple(pages)
 
 
 def synthetic_protocol_inputs() -> tuple[bytes, bytes, bytes]:
@@ -208,7 +374,7 @@ def independent_review(
             }
         )
     return {
-        "schema_version": "0.1.0",
+        "schema_version": "0.2.0",
         "record_state": "kp1979_visible_target_label_reference_review",
         "status": "sealed_private_evidence_record_requires_exact_byte_and_semantic_verification",
         "review_id": "opaque:" + "1" * 64,
@@ -762,6 +928,272 @@ class KP1979LabelReferenceCoreTests(unittest.TestCase):
                 self.assertFalse(summary["reviewer_nonexposure_verified"])
                 self.assertFalse(summary["real_world_independence_verified"])
                 self.assertFalse(summary["evaluation_admissible"])
+
+    def test_machine_development_builder_and_verifier_are_provisional_only(self) -> None:
+        from indusbench import kp1979_label_reference as module
+
+        assignment = machine_development_assignment()
+        assignment_bytes = encode_json(assignment)
+        pages = machine_development_pages()
+        with patch.object(module, "_require_schema", side_effect=self._schema_gate):
+            first = build_machine_development_label_reference_review(
+                assignment_bytes,
+                pages,
+            )
+            second = build_machine_development_label_reference_review(
+                assignment_bytes,
+                pages,
+            )
+            summary = verify_machine_development_label_reference_review_bytes(
+                assignment_bytes,
+                pages,
+                encode_json(first),
+            )
+
+        self.assertEqual(encode_json(first), encode_json(second))
+        self.assertEqual([], validate_schema_instance(first, REVIEW_SCHEMA_PATH))
+        self.assertEqual("0.2.0", first["schema_version"])
+        self.assertEqual("machine_development_pass", first["review_stage"])
+        self.assertEqual("machine", first["authorship_declaration"])
+        self.assertEqual(
+            "provisional_extraction_development_only",
+            first["machine_method"]["evidence_use"],
+        )
+        self.assertFalse(first["machine_method"]["eligible_as_human_reference"])
+        self.assertFalse(first["machine_method"]["eligible_for_detector_scoring"])
+        for limitation in (
+            "actor_identity_not_verified",
+            "human_authorship_not_verified",
+            "real_world_independence_not_verified",
+            "reviewer_blinding_not_verified",
+            "machine_generated_not_accepted_reference",
+            "exposed_development_pass",
+            "detector_scoring_ineligible",
+        ):
+            self.assertIn(limitation, first["limitations"])
+        for access_key in (
+            "detector_output",
+            "ocr_output",
+            "page_role_expectations",
+            "scoring_expectations",
+        ):
+            self.assertEqual("seen", first["access_declaration"][access_key])
+
+        pages_by_number = {page["pdf_page_number"]: page for page in first["pages"]}
+        for negative_page in (20, 129):
+            self.assertEqual(
+                "complete_no_targets",
+                pages_by_number[negative_page]["review_state"],
+            )
+            self.assertTrue(
+                all(
+                    not lane["visible_target_labels"]
+                    for lane in pages_by_number[negative_page]["lanes"]
+                )
+            )
+        for positive_page in (22, 79, 131, 180):
+            self.assertTrue(
+                any(
+                    lane["visible_target_labels"]
+                    for lane in pages_by_number[positive_page]["lanes"]
+                )
+            )
+        self.assertTrue(summary["valid"])
+        self.assertTrue(summary["machine_development_pass_verified"])
+        self.assertTrue(summary["machine_authorship_declared"])
+        self.assertTrue(summary["deterministic_source_pixel_recomputation_verified"])
+        self.assertTrue(summary["machine_development_exposed"])
+        self.assertTrue(summary["detector_output_exposure_declared"])
+        self.assertTrue(summary["ocr_output_exposure_declared"])
+        self.assertTrue(summary["page_role_expectations_exposure_declared"])
+        self.assertTrue(summary["scoring_expectations_exposure_declared"])
+        self.assertFalse(summary["eligible_as_human_reference"])
+        self.assertFalse(summary["eligible_for_detector_scoring"])
+        for nonclaim in (
+            "human_review_complete_verified",
+            "human_authorship_verified",
+            "real_world_independence_verified",
+            "reviewer_blinding_verified",
+            "evaluation_admissible",
+            "decipherment",
+            "prize_submission_eligible",
+        ):
+            self.assertFalse(summary[nonclaim])
+
+        tampered = copy.deepcopy(first)
+        first_label = next(
+            label
+            for page in tampered["pages"]
+            for lane in page["lanes"]
+            for label in lane["visible_target_labels"]
+        )
+        first_label["crop_sha256"] = "sha256:" + "0" * 64
+        with (
+            patch.object(module, "_require_schema", side_effect=self._schema_gate),
+            self.assertRaisesRegex(KP1979LabelReferenceError, "crop commitment"),
+        ):
+            verify_machine_development_label_reference_review_bytes(
+                assignment_bytes,
+                pages,
+                encode_json(tampered),
+            )
+
+        valid_but_not_recomputed = copy.deepcopy(first)
+        valid_but_not_recomputed["review_id"] = "opaque:" + "4" * 64
+        self.assertEqual(
+            [],
+            validate_schema_instance(valid_but_not_recomputed, REVIEW_SCHEMA_PATH),
+        )
+        with (
+            patch.object(module, "_require_schema", side_effect=self._schema_gate),
+            self.assertRaisesRegex(
+                KP1979LabelReferenceError,
+                "deterministic source-pixel recomputation",
+            ),
+        ):
+            verify_machine_development_label_reference_review_bytes(
+                assignment_bytes,
+                pages,
+                encode_json(valid_but_not_recomputed),
+            )
+
+    def test_machine_development_resolves_target_and_sign_boundaries_fail_closed(
+        self,
+    ) -> None:
+        from indusbench import kp1979_label_reference as module
+
+        pages = machine_development_boundary_pages()
+        assignment_bytes = encode_json(machine_development_assignment_for_pages(pages))
+        with patch.object(module, "_require_schema", side_effect=self._schema_gate):
+            review = build_machine_development_label_reference_review(
+                assignment_bytes,
+                pages,
+            )
+
+        page = next(value for value in review["pages"] if value["pdf_page_number"] == 22)
+        lane = page["lanes"][0]
+        labels_by_y0 = {label["bbox"][1]: label for label in lane["visible_target_labels"]}
+
+        target_crossing = labels_by_y0[1300]
+        self.assertEqual("observed", target_crossing["geometry_status"])
+        self.assertEqual(2330, target_crossing["bbox"][2])
+        self.assertGreater(target_crossing["bbox"][2], 2316)
+
+        sign_continuation = labels_by_y0[1500]
+        self.assertEqual("unresolved", sign_continuation["geometry_status"])
+        self.assertIn("boundary_ambiguous", sign_continuation["reason_codes"])
+        self.assertIn("crop_extent_unresolved", sign_continuation["reason_codes"])
+        self.assertGreaterEqual(sign_continuation["bbox"][0], 2056)
+        self.assertIn("target_boundary_uncertain", lane["unresolved_reason_codes"])
+
+        unrelated_external = labels_by_y0[1700]
+        self.assertEqual("observed", unrelated_external["geometry_status"])
+        self.assertEqual([2180, 1700, 2220, 1755], unrelated_external["bbox"])
+
+        one_tier = labels_by_y0[1900]
+        self.assertEqual("unresolved", one_tier["geometry_status"])
+        self.assertIn("missing_label_tier", one_tier["reason_codes"])
+        self.assertIn("target_presence_uncertain", lane["unresolved_reason_codes"])
+
+        internal_gap = labels_by_y0[2100]
+        self.assertEqual("observed", internal_gap["geometry_status"])
+        self.assertEqual([2160, 2100, 2240, 2155], internal_gap["bbox"])
+
+        detached_exterior = labels_by_y0[2300]
+        self.assertEqual("unresolved", detached_exterior["geometry_status"])
+        self.assertIn("boundary_ambiguous", detached_exterior["reason_codes"])
+        self.assertEqual(2330, detached_exterior["bbox"][2])
+
+        split_single_line = labels_by_y0[2500]
+        self.assertEqual("unresolved", split_single_line["geometry_status"])
+        self.assertIn("missing_label_tier", split_single_line["reason_codes"])
+
+        for clipped_y0 in (550, 6545):
+            clipped_vertical = labels_by_y0[clipped_y0]
+            self.assertEqual("unresolved", clipped_vertical["geometry_status"])
+            self.assertIn("boundary_ambiguous", clipped_vertical["reason_codes"])
+            self.assertIn("crop_extent_unresolved", clipped_vertical["reason_codes"])
+
+        self.assertEqual([], validate_schema_instance(review, REVIEW_SCHEMA_PATH))
+        invalid_observed = copy.deepcopy(review)
+        invalid_observed_label = next(
+            label
+            for review_page in invalid_observed["pages"]
+            for review_lane in review_page["lanes"]
+            for label in review_lane["visible_target_labels"]
+            if label["geometry_status"] == "observed"
+        )
+        invalid_observed_label["reason_codes"] = ["missing_label_tier"]
+        self.assertTrue(validate_schema_instance(invalid_observed, REVIEW_SCHEMA_PATH))
+
+    def test_machine_development_rejects_future_and_independent_promotion(self) -> None:
+        from indusbench import kp1979_label_reference as module
+
+        future_assignment = schema_assignment("future_evaluation")
+        with (
+            patch.object(module, "_require_schema", side_effect=self._schema_gate),
+            self.assertRaisesRegex(KP1979LabelReferenceError, "restricted to development"),
+        ):
+            build_machine_development_label_reference_review(
+                encode_json(future_assignment),
+                page_inputs("future_evaluation"),
+            )
+
+        assignment = machine_development_assignment()
+        assignment_bytes = encode_json(assignment)
+        pages = machine_development_pages()
+        with patch.object(module, "_require_schema", side_effect=self._schema_gate):
+            review = build_machine_development_label_reference_review(
+                assignment_bytes,
+                pages,
+            )
+        with (
+            patch.object(module, "_require_schema", side_effect=self._schema_gate),
+            self.assertRaisesRegex(
+                KP1979LabelReferenceError,
+                "cannot admit a machine-development pass",
+            ),
+        ):
+            verify_independent_label_reference_review_bytes(
+                assignment_bytes,
+                pages,
+                encode_json(review),
+            )
+
+    def test_machine_schema_blocks_human_future_and_eligibility_promotion(self) -> None:
+        from indusbench import kp1979_label_reference as module
+
+        assignment = machine_development_assignment()
+        assignment_bytes = encode_json(assignment)
+        with patch.object(module, "_require_schema", side_effect=self._schema_gate):
+            review = build_machine_development_label_reference_review(
+                assignment_bytes,
+                machine_development_pages(),
+            )
+
+        mutations: list[tuple[str, dict[str, Any]]] = []
+        human = copy.deepcopy(review)
+        human["authorship_declaration"] = "human"
+        mutations.append(("human", human))
+        future = copy.deepcopy(review)
+        future["protocol_partition"] = "future_evaluation"
+        mutations.append(("future", future))
+        human_eligible = copy.deepcopy(review)
+        human_eligible["machine_method"]["eligible_as_human_reference"] = True
+        mutations.append(("human-eligible", human_eligible))
+        scoring_eligible = copy.deepcopy(review)
+        scoring_eligible["machine_method"]["eligible_for_detector_scoring"] = True
+        mutations.append(("scoring-eligible", scoring_eligible))
+        legacy_machine = copy.deepcopy(review)
+        legacy_machine["schema_version"] = "0.1.0"
+        mutations.append(("legacy-machine", legacy_machine))
+        missing_limitation = copy.deepcopy(review)
+        missing_limitation["limitations"].remove("human_authorship_not_verified")
+        mutations.append(("missing-limitation", missing_limitation))
+
+        for name, mutated in mutations:
+            with self.subTest(name=name):
+                self.assertTrue(validate_schema_instance(mutated, REVIEW_SCHEMA_PATH))
 
     def test_tight_bbox_rejects_whitespace_and_oversized_geometry(self) -> None:
         from indusbench import kp1979_label_reference as module

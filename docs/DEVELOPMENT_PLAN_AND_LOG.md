@@ -1052,3 +1052,51 @@ Do not use the 57-page proposals to create reference answers. Do not rerun
 MTAAC, the V2 holdout, V5, or the reserved prospective source. Do not contact
 an institution or attempt a prize submission without new explicit authority
 and a verified operational route.
+
+## KP1979 AI-only provisional extraction checkpoint — 2026-07-29
+
+Human reviewers are not a prerequisite for continuing the provisional
+machine-assisted extraction work. The development workflow now has a distinct
+`machine_development_pass` whose declared evidence use is limited to exposed,
+provisional extraction. Two genuinely separate human passes remain useful for
+later external-reference promotion, publication confidence, or a prize-facing
+claim, but their absence does not stop AI-based engineering, falsification, or
+source-pixel verification.
+
+The deterministic projection now follows continuous target-facing ink across
+the fixed scan-band edge until a bounded terminus inside the physical lane is
+found. A detached exterior run joined only across a short gap remains visible
+evidence but marks the observation `boundary_ambiguous`. The 320-by-128 target
+limit remains fail-closed. Nearby sign-facing continuation is excluded from the
+crop, and vertically clipped associations are also unresolved. An observed
+target requires a substantial blank vertical split with active row-projection
+support on both sides; insufficient two-tier evidence records
+`missing_label_tier`. A large internal horizontal gap by itself does not
+invalidate otherwise eligible two-tier evidence.
+
+Synthetic regressions cover target-side crossing, sign-side continuation,
+detached exterior ink, unrelated exterior ink, vertical clipping, false
+multi-run tier evidence, a missing projection run, and eligible two-tier
+evidence with a large internal gap. The public label-reference, CLI, scorer,
+synthetic-control, schema, and publication-boundary tests pass, as do
+formatting, lint, and static type checks. Private-data execution results remain
+outside the tracked public log.
+
+The machine result remains ineligible as a human reference and cannot enter
+the label-position scorer. The synthetic control remains `not_qualified`;
+these changes improve extraction correctness but do not establish a reading,
+language, meaning, translation, decipherment, evaluation admissibility, or
+prize eligibility.
+
+The current next work is:
+
+1. assign a new KP1979 detector algorithm identifier rather than retuning V1
+   under its old identity;
+2. freeze a separately generated synthetic control before inspecting the new
+   detector's result, treating the exposed V1 cases only as regressions; and
+3. only after those gates, create the 57-page machine-authored provisional
+   extraction while preserving uncertainty and all scientific nonclaims.
+
+Human passes remain optional for this AI development sequence. They become a
+gate only if the project later seeks to promote geometry as externally grounded
+reference evidence or to report performance against such evidence.

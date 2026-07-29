@@ -81,6 +81,7 @@ class SchemaContractTests(unittest.TestCase):
                     if filename
                     in {
                         "museum-review.schema.json",
+                        "kp1979-label-reference-review.schema.json",
                         "private-corpus-policy.schema.json",
                         "private-corpus-readiness.schema.json",
                         "smithsonian-metadata-record.schema.json",

@@ -88,6 +88,26 @@ class PublicationBoundaryTests(unittest.TestCase):
         ]
         self.assertEqual([], references)
 
+    def test_ai_only_checkpoint_has_no_private_execution_metadata(self) -> None:
+        marker = "## KP1979 AI-only provisional extraction checkpoint"
+        development_log = (ROOT / "docs" / "DEVELOPMENT_PLAN_AND_LOG.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(marker, development_log)
+        checkpoint = development_log.split(marker, 1)[1]
+        synthetic_result = (
+            ROOT / "docs" / "KP1979_LABEL_LATTICE_SYNTHETIC_CONTROL_V1_RESULT_2026-07-29.md"
+        ).read_text(encoding="utf-8")
+        new_public_text = checkpoint + synthetic_result
+        self.assertIsNone(
+            re.search(
+                r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}|"
+                r"private (?:source-pixel|aggregate) audit",
+                new_public_text,
+                flags=re.IGNORECASE,
+            )
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
