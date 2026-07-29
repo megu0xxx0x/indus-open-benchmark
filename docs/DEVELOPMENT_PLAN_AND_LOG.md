@@ -967,21 +967,17 @@ Do not rerun MTAAC, V2 holdout, V5, or the reserved prospective source. Do not
 contact an institution or attempt a prize submission without new explicit
 authority and a verified operational route.
 
-### VPS fixed-source CLI verification — 2026-07-29T11:49:26+09:00
+### Post-implementation fixed-source CLI verification
 
-Implementation commit `fcd5749c43896bfff1431e301d3df1b8e846570e` was loaded
-into a detached, owner-only verification worktree without changing canonical
-`main`. The real `prepare-kp1979-row-assignment` command completed against the
-fixed PDF and all 179 canonical PBMs. The output passed the owner-only
-directory, mode, link-count, no-value, no-count, canonical-byte, and
-scientific-nonclaim assertions. The real
+Implementation commit `fcd5749c43896bfff1431e301d3df1b8e846570e` was verified
+without changing canonical `main`. The real
+`prepare-kp1979-row-assignment` command completed against the fixed PDF and all
+179 canonical PBMs. The output passed the owner-only directory, mode,
+link-count, no-value, no-count, canonical-byte, and scientific-nonclaim
+assertions. The real
 `verify-kp1979-row-assignment` command then independently repeated the
 179-page audit, re-read pages 22–78, rebuilt the manifest from pixels, and
 passed exact canonical equality.
 
-The private assignment remains in owner-only staging for future authorized
-manual review and is not a public corpus artifact. The detached verification
-worktree and transfer bundle were removed. Canonical `main` remained clean at
-its prior public commit throughout the check. After the VPS copies were
-reverified, the bulky local fixed-source/PBM staging copies were moved to the
-local Trash; the canonical source copies remain on the VPS.
+No private assignment, fixed source, source path, or storage inventory is a
+public corpus artifact or part of the tracked tree.

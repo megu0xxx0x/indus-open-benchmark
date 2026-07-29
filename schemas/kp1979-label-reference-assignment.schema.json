@@ -1,0 +1,340 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1979-label-reference-assignment.schema.json",
+  "title": "Proposal-free KP1979 six-page label-reference assignment",
+  "description": "A closed, answer-free assignment for one six-page partition of the fixed KP1979 layout-reference protocol. It binds exact source and page bytes while withholding page roles, layout classes, scan bands, detector output, proposal geometry, target-label values, and target-label counts. Schema validity alone is non-attesting; the canonical verifier must rebuild the assignment from the exact source, page map, and selected PBMs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "status",
+    "scientific_scope",
+    "protocol_partition",
+    "source_contract",
+    "page_map",
+    "source_pdf",
+    "page_bitmaps",
+    "coordinate_policy",
+    "withheld_fields",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "manifest_id": {
+      "enum": [
+        "KP1979:LABEL-REFERENCE-ASSIGNMENT:DEVELOPMENT:V1",
+        "KP1979:LABEL-REFERENCE-ASSIGNMENT:FUTURE-EVALUATION:V1"
+      ]
+    },
+    "status": {
+      "const": "private_answer_free_label_reference_assignment_requires_exact_byte_verification"
+    },
+    "scientific_scope": {
+      "const": "proposal-free physical-page and lane roster for recording visible target-label geometry only; no detector output, proposed label or row geometry, OCR, identifier, code, sign, reading direction, language, meaning, translation, accepted observation, evaluation result, or decipherment inference is present"
+    },
+    "protocol_partition": {
+      "enum": [
+        "development",
+        "future_evaluation"
+      ]
+    },
+    "source_contract": {
+      "const": {
+        "id": "KP1979:CORPUS:SOURCE:V1",
+        "sha256": "sha256:489d7f4cee1de7211b6bd098d1b8fb5f2bf1a44d6ce78249ac90c1be4dfbd40b",
+        "byte_size": 3319
+      }
+    },
+    "page_map": {
+      "const": {
+        "id": "KP1979:CORPUS:PAGE-MAP:V1",
+        "sha256": "sha256:ecd3054909928dddcb087ffdefe1b786c1f6464bd448b008c9ec476ccadc3793",
+        "byte_size": 154016
+      }
+    },
+    "source_pdf": {
+      "const": {
+        "source_id": "helsinki-indus-corpus-1979",
+        "sha256": "sha256:e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa",
+        "byte_size": 16935356
+      }
+    },
+    "page_bitmaps": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/page_bitmap"
+      }
+    },
+    "coordinate_policy": {
+      "const": {
+        "page_width": 4880,
+        "page_height": 7010,
+        "coordinate_space": "decoded_embedded_page_image_pixels",
+        "origin": "top_left",
+        "rectangle_encoding": "half_open_xyxy_integer",
+        "visible_target_definition": "one complete visible two-line corpus-row label block: the upper printed identifier together with the lower source-local code or qualifier line or lines",
+        "target_inclusion_rule": "include punctuation, prime marks, and question marks typographically attached to the row-label lines; when a component is not visible, include only visible label ink and mark damage or uncertainty; keep a visible corpus-row label as a geometry target even when its associated sign region is damaged, fully hatched, auxiliary or nonlinguistic, broken, or later excluded from linguistic sequences",
+        "target_exclusion_rule": "exclude adjacent sign drawings, hatching or damage blocks, row baselines, headings, page numbers, prose, sign-list rank or identifier cells, and auxiliary-grid cells",
+        "target_bbox_rule": "tight half-open bbox around only visible two-line row-label ink; black ink must touch all four bbox edges",
+        "target_bbox_size_rule": "width at most 320 pixels and height at most 128 pixels; whitespace-only, sign-inclusive, and full-lane rectangles are invalid",
+        "vertical_reference_interval_rule": "[bbox.y0,bbox.y1)",
+        "physical_lane_order": "left_then_right_zero_based",
+        "within_lane_observation_order": "top_to_bottom_zero_based",
+        "lane_fill_rule": "record only observed visible targets; never synthesize or assume lane fill",
+        "physical_lane_bboxes": [
+          [
+            0,
+            0,
+            2440,
+            7010
+          ],
+          [
+            2440,
+            0,
+            4880,
+            7010
+          ]
+        ],
+        "canonical_crop_encoding": "P4 with exact dimensions; row-major top-to-bottom, left-to-right, black=1, MSB-first, zero unused low bits",
+        "downstream_scoring_policy": "absent_and_must_be_frozen_separately_before_future_evaluation_values_are_opened"
+      }
+    },
+    "withheld_fields": {
+      "const": [
+        "all_page_roles",
+        "all_layout_classes",
+        "all_scan_bands",
+        "all_detector_output",
+        "all_proposal_geometry",
+        "all_target_label_values",
+        "all_target_label_counts",
+        "all_ocr_output",
+        "all_identifier_values",
+        "all_code_values",
+        "all_sign_values",
+        "all_reading_direction_values",
+        "all_language_values",
+        "all_meaning_values",
+        "all_translation_values",
+        "all_accepted_observations"
+      ]
+    },
+    "assurances": {
+      "const": {
+        "source_contract_exact_bytes_verified": true,
+        "page_map_exact_bytes_verified": true,
+        "source_pdf_exact_bytes_verified": true,
+        "selected_page_bitmaps_verified": true,
+        "answer_values_withheld": true,
+        "page_roles_disclosed": false,
+        "layout_classes_disclosed": false,
+        "scan_bands_disclosed": false,
+        "detector_output_present": false,
+        "proposal_geometry_present": false,
+        "target_label_values_present": false,
+        "target_label_counts_disclosed": false,
+        "human_review_started_verified": false,
+        "human_review_complete_verified": false,
+        "human_authorship_verified": false,
+        "real_world_independence_verified": false,
+        "reviewer_blinding_verified": false,
+        "label_geometry_accepted": false,
+        "row_geometry_accepted": false,
+        "reference_custody_verified": false,
+        "detector_freeze_verified": false,
+        "scorer_freeze_verified": false,
+        "runtime_isolation_verified": false,
+        "public_release_authorized": false,
+        "evaluation_admissible": false,
+        "decipherment": false,
+        "prize_submission_eligible": false
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "protocol_partition": {
+            "const": "development"
+          }
+        },
+        "required": [
+          "protocol_partition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "manifest_id": {
+            "const": "KP1979:LABEL-REFERENCE-ASSIGNMENT:DEVELOPMENT:V1"
+          },
+          "page_bitmaps": {
+            "prefixItems": [
+              {
+                "const": {
+                  "page_index": 19,
+                  "pdf_page_number": 20,
+                  "canonical_pbm_sha256": "sha256:6071b88ccab847115286c8f165841f256141fa5a95d28a92351fd9ee78069323",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 21,
+                  "pdf_page_number": 22,
+                  "canonical_pbm_sha256": "sha256:f37daac46990ee74d00662c3587cb64338f0eaad74b89a8cbce7b91362101f24",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 78,
+                  "pdf_page_number": 79,
+                  "canonical_pbm_sha256": "sha256:f2e8f57c7f8cd8260ecb476938544f36ccb9f2104d615e3c2c91af6dad8fc733",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 128,
+                  "pdf_page_number": 129,
+                  "canonical_pbm_sha256": "sha256:d77c97b2b923922e36734365ea995b6a2a1af5443972e10df4ecb274a1fd677c",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 130,
+                  "pdf_page_number": 131,
+                  "canonical_pbm_sha256": "sha256:36aa46df39d4611c69b5eef0cf27f917203821d5fe61939d6ac087d3f5e6fa5d",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 179,
+                  "pdf_page_number": 180,
+                  "canonical_pbm_sha256": "sha256:0de9339f62e0b3055c5f8bd797b6b49c55f8a698df9992a32b05ac2eab34ec33",
+                  "byte_size": 4276113
+                }
+              }
+            ],
+            "items": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "protocol_partition": {
+            "const": "future_evaluation"
+          }
+        },
+        "required": [
+          "protocol_partition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "manifest_id": {
+            "const": "KP1979:LABEL-REFERENCE-ASSIGNMENT:FUTURE-EVALUATION:V1"
+          },
+          "page_bitmaps": {
+            "prefixItems": [
+              {
+                "const": {
+                  "page_index": 7,
+                  "pdf_page_number": 8,
+                  "canonical_pbm_sha256": "sha256:a79bd28420268295fde099121113422cc29f6d0745e37ffcf762f948a513a2d4",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 77,
+                  "pdf_page_number": 78,
+                  "canonical_pbm_sha256": "sha256:c431889100b0030f5b5ce47b7716b23fa7237e468df4525a4c12084b86f44b97",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 98,
+                  "pdf_page_number": 99,
+                  "canonical_pbm_sha256": "sha256:f64a746a08ce8339cb4f37effb2ed3107404f7612cb9170fc30269078a66e2e4",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 127,
+                  "pdf_page_number": 128,
+                  "canonical_pbm_sha256": "sha256:ddad653cf4f973d6827141a7062b1354f5993ac87e97d7de122eb7e85d84ba5b",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 129,
+                  "pdf_page_number": 130,
+                  "canonical_pbm_sha256": "sha256:28481b60dec54dde1e6f8a8901a5b7ee41bb92e452fb5fbb86665dd2766c3429",
+                  "byte_size": 4276113
+                }
+              },
+              {
+                "const": {
+                  "page_index": 174,
+                  "pdf_page_number": 175,
+                  "canonical_pbm_sha256": "sha256:aebdfd4f1c6e005345a747c095673179396659686880b560ddb4b26738eefef6",
+                  "byte_size": 4276113
+                }
+              }
+            ],
+            "items": false
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "page_bitmap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_index",
+        "pdf_page_number",
+        "canonical_pbm_sha256",
+        "byte_size"
+      ],
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 179
+        },
+        "pdf_page_number": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 180
+        },
+        "canonical_pbm_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "byte_size": {
+          "const": 4276113
+        }
+      }
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

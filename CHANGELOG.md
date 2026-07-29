@@ -128,6 +128,13 @@ immutable content-addressed identifiers for corpus and split releases.
   eight-/six-column auxiliary grids. A predeclared mask, not the detector,
   removes terminal-page prose intersections. It does not segment full rows and
   accepts no label slot, row, identifier, sign, reading, or decipherment value.
+- Proposal-free KP1979 label-reference assignments that keep the fixed
+  development and future-evaluation six-page partitions separate, disclose no
+  detector geometry or expected page class, and bind only the exact source
+  bytes, page pixels, and coordinate rules. A closed geometry-only review
+  contract and verifier recompute submitted crops while retaining explicit
+  nonclaims for human authorship, real independence, evaluation admissibility,
+  decipherment, and prize eligibility.
 - Private museum bundle format 0.2 with exact official policy/API evidence
   snapshots and reproducible, fail-closed verification.
 - Optional external manifest-anchor verification, explicitly separated from

@@ -1,0 +1,573 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1979-label-reference-review.schema.json",
+  "title": "Private KP1979 visible-target-label reference review",
+  "description": "A closed private record for one six-page, two-physical-lane pass over a proposal-free KP1979 label-reference assignment. Opaque record identifiers and a complete structural roster are declarations only. Schema or semantic validity does not prove human authorship, actor identity, real-world independence, blinding, scientific acceptance, or evaluation admissibility.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_state",
+    "status",
+    "review_id",
+    "review_assignment_id",
+    "actor_id",
+    "review_stage",
+    "authorship_declaration",
+    "access_declaration",
+    "scientific_scope",
+    "protocol_partition",
+    "label_reference_assignment",
+    "privacy",
+    "pages",
+    "review_outcome",
+    "limitations",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "record_state": {
+      "const": "kp1979_visible_target_label_reference_review"
+    },
+    "status": {
+      "const": "sealed_private_evidence_record_requires_exact_byte_and_semantic_verification"
+    },
+    "review_id": {
+      "$ref": "#/$defs/opaque_id"
+    },
+    "review_assignment_id": {
+      "$ref": "#/$defs/opaque_id"
+    },
+    "actor_id": {
+      "$ref": "#/$defs/opaque_id"
+    },
+    "review_stage": {
+      "const": "independent_pass"
+    },
+    "authorship_declaration": {
+      "enum": [
+        "human",
+        "machine",
+        "mixed",
+        "unknown"
+      ],
+      "description": "A record producer's declaration only; it is not verified human authorship."
+    },
+    "access_declaration": {
+      "$ref": "#/$defs/access_declaration"
+    },
+    "scientific_scope": {
+      "const": "tight half-open geometry, [y0,y1) vertical reference intervals, and exact source-pixel evidence for complete visible two-line corpus-row label blocks consisting of the upper printed identifier and lower source-local code or qualifier line or lines, including typographically attached punctuation, prime marks, and question marks; record only visible label ink and uncertainty when a component is missing, and retain visible row labels whose associated sign region is damaged, hatched, auxiliary or nonlinguistic, broken, or later excluded; exclude adjacent sign drawings, hatching or damage blocks, row baselines, headings, page numbers, prose, sign-list rank or identifier cells, and auxiliary-grid cells; record labels top-to-bottom within two physical lanes without assumed lane fill; no page role, layout class, scan band, detector output, proposal geometry, OCR, identifier value, code value, sign value, reading direction, language, meaning, translation, accepted observation, evaluation result, or decipherment inference is present"
+    },
+    "protocol_partition": {
+      "enum": [
+        "development",
+        "future_evaluation"
+      ]
+    },
+    "label_reference_assignment": {
+      "$ref": "#/$defs/assignment_commitment"
+    },
+    "privacy": {
+      "const": {
+        "classification": "private_item_level_label_reference_evidence",
+        "target_label_geometry_publication_authorized": false,
+        "public_export_authorized": false
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/page_review"
+      }
+    },
+    "review_outcome": {
+      "enum": [
+        "complete",
+        "complete_with_unresolved_observations",
+        "abstain"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "incomplete_review",
+          "unresolved_observations_present",
+          "actor_identity_not_verified",
+          "human_authorship_not_verified",
+          "real_world_independence_not_verified",
+          "reviewer_blinding_not_verified",
+          "source_custody_not_verified",
+          "source_rights_not_reverified",
+          "other_unclassified"
+        ]
+      }
+    },
+    "assurances": {
+      "const": {
+        "assignment_commitment_present": true,
+        "all_six_pages_structurally_present": true,
+        "two_physical_lanes_per_page_structurally_present": true,
+        "source_page_pixels_reverified": false,
+        "submitted_crop_bytes_recomputed": false,
+        "authorship_declaration_verified": false,
+        "access_declaration_verified": false,
+        "actor_identity_verified": false,
+        "human_review_started_verified": false,
+        "human_review_complete_verified": false,
+        "human_authorship_verified": false,
+        "real_world_independence_verified": false,
+        "reviewer_blinding_verified": false,
+        "reviewer_nonexposure_verified": false,
+        "label_geometry_accepted": false,
+        "row_geometry_accepted": false,
+        "identifiers_transcribed": false,
+        "codes_transcribed": false,
+        "sign_sequences_transcribed": false,
+        "reading_direction_assigned": false,
+        "source_custody_verified": false,
+        "source_rights_verified": false,
+        "reference_custody_verified": false,
+        "detector_freeze_verified": false,
+        "scorer_freeze_verified": false,
+        "runtime_isolation_verified": false,
+        "public_release_authorized": false,
+        "evaluation_admissible": false,
+        "decipherment": false,
+        "prize_submission_eligible": false
+      }
+    }
+  },
+  "$defs": {
+    "access_state": {
+      "enum": [
+        "not_seen",
+        "seen",
+        "unknown"
+      ]
+    },
+    "access_declaration": {
+      "type": "object",
+      "description": "An honest access declaration only. Source pixels are required seen; every prohibited input permits not_seen, seen, or unknown so exposed records remain verifiable but are not thereby eligible for later comparison.",
+      "additionalProperties": false,
+      "required": [
+        "source_page_pixels",
+        "detector_output",
+        "kp1979_57_page_row_assignment",
+        "ocr_output",
+        "peer_review_record",
+        "existing_label_reference",
+        "page_role_expectations",
+        "scoring_expectations"
+      ],
+      "properties": {
+        "source_page_pixels": {
+          "const": "seen"
+        },
+        "detector_output": {
+          "$ref": "#/$defs/access_state"
+        },
+        "kp1979_57_page_row_assignment": {
+          "$ref": "#/$defs/access_state"
+        },
+        "ocr_output": {
+          "$ref": "#/$defs/access_state"
+        },
+        "peer_review_record": {
+          "$ref": "#/$defs/access_state"
+        },
+        "existing_label_reference": {
+          "$ref": "#/$defs/access_state"
+        },
+        "page_role_expectations": {
+          "$ref": "#/$defs/access_state"
+        },
+        "scoring_expectations": {
+          "$ref": "#/$defs/access_state"
+        }
+      }
+    },
+    "opaque_id": {
+      "type": "string",
+      "pattern": "^opaque:[0-9a-f]{64}$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "assignment_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_id",
+        "sha256",
+        "byte_size"
+      ],
+      "properties": {
+        "manifest_id": {
+          "enum": [
+            "KP1979:LABEL-REFERENCE-ASSIGNMENT:DEVELOPMENT:V1",
+            "KP1979:LABEL-REFERENCE-ASSIGNMENT:FUTURE-EVALUATION:V1"
+          ]
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "byte_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2097152
+        }
+      }
+    },
+    "bbox": {
+      "description": "A tight half-open bbox around only visible two-line corpus-row label ink. Semantic verification additionally requires width <=320, height <=128, and black ink on all four edges.",
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4879
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7009
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4880
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7010
+        }
+      ],
+      "items": false
+    },
+    "y_interval": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7009
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7010
+        }
+      ],
+      "items": false
+    },
+    "visible_target_label": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "visual_label_index",
+        "geometry_status",
+        "bbox",
+        "y_interval",
+        "crop_sha256",
+        "crop_byte_size",
+        "reason_codes"
+      ],
+      "properties": {
+        "visual_label_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "geometry_status": {
+          "enum": [
+            "observed",
+            "unresolved"
+          ]
+        },
+        "bbox": {
+          "$ref": "#/$defs/bbox"
+        },
+        "y_interval": {
+          "$ref": "#/$defs/y_interval"
+        },
+        "crop_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "crop_byte_size": {
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 4194304
+        },
+        "reason_codes": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "clear_visible_target_label",
+              "boundary_ambiguous",
+              "partial_character",
+              "print_damage",
+              "scan_artifact",
+              "multiple_visible_groups",
+              "crop_extent_unresolved",
+              "other_unclassified"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "geometry_status": {
+                "const": "observed"
+              }
+            },
+            "required": [
+              "geometry_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason_codes": {
+                "not": {
+                  "contains": {
+                    "enum": [
+                      "boundary_ambiguous",
+                      "multiple_visible_groups",
+                      "crop_extent_unresolved"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "geometry_status": {
+                "const": "unresolved"
+              }
+            },
+            "required": [
+              "geometry_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason_codes": {
+                "minItems": 1,
+                "contains": {
+                  "enum": [
+                    "boundary_ambiguous",
+                    "multiple_visible_groups",
+                    "crop_extent_unresolved",
+                    "partial_character",
+                    "print_damage",
+                    "scan_artifact",
+                    "other_unclassified"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lane_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lane_index",
+        "review_state",
+        "unresolved_reason_codes",
+        "visible_target_labels"
+      ],
+      "properties": {
+        "lane_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "review_state": {
+          "enum": [
+            "complete_no_targets",
+            "complete_with_targets",
+            "unresolved"
+          ]
+        },
+        "unresolved_reason_codes": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "page_or_lane_not_fully_inspected",
+              "target_presence_uncertain",
+              "target_boundary_uncertain",
+              "multiple_groups_cannot_be_separated",
+              "print_damage",
+              "scan_artifact",
+              "other_unclassified"
+            ]
+          }
+        },
+        "visible_target_labels": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/visible_target_label"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "review_state": {
+                "const": "complete_no_targets"
+              }
+            },
+            "required": [
+              "review_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "unresolved_reason_codes": {
+                "maxItems": 0
+              },
+              "visible_target_labels": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_state": {
+                "const": "complete_with_targets"
+              }
+            },
+            "required": [
+              "review_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "unresolved_reason_codes": {
+                "maxItems": 0
+              },
+              "visible_target_labels": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_state": {
+                "const": "unresolved"
+              }
+            },
+            "required": [
+              "review_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "unresolved_reason_codes": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "page_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_index",
+        "pdf_page_number",
+        "review_state",
+        "lanes"
+      ],
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 179
+        },
+        "pdf_page_number": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 180
+        },
+        "review_state": {
+          "enum": [
+            "complete_no_targets",
+            "complete_with_targets",
+            "unresolved"
+          ]
+        },
+        "lanes": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/lane_review"
+                },
+                {
+                  "properties": {
+                    "lane_index": {
+                      "const": 0
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/lane_review"
+                },
+                {
+                  "properties": {
+                    "lane_index": {
+                      "const": 1
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "items": false
+        }
+      }
+    }
+  }
+}

@@ -63,6 +63,15 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   assignment for proposal-only label and row-context crops on the 57
   identifier-order pages; OCR, identifiers, codes, signs, occupancy,
   direction, interpretation, and external manual values are withheld.
+- `schemas/kp1979-label-reference-assignment.schema.json` (v0.1.0) — a
+  proposal-free, six-page reviewer assignment for exactly one fixed KP1979
+  development or future-evaluation partition. It binds source pixels and
+  coordinate rules while omitting page classes, detector geometry, candidate
+  counts, OCR, and manual values.
+- `schemas/kp1979-label-reference-review.schema.json` (v0.1.0) — one private
+  geometry-only label review bound to the proposal-free assignment. It records
+  physical-lane label rectangles and exact crop commitments without recording
+  identifier, code, sign, direction, language, meaning, or translation values.
 - `schemas/kp1982-batch0-source.schema.json` (v0.1.0) — the exact official
   KP1982 PDF identity, target-page indices, embedded-image geometry, and
   canonical PBM commitments; it contains no transcription.

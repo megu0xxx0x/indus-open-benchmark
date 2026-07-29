@@ -74,6 +74,12 @@ Current assets:
   development/future-evaluation protocol. Page identities and pixels are
   public; require exact label-position precision/recall before accepting any
   label-slot geometry, then validate full-row segmentation separately.
+  - [x] Define separate proposal-free six-page assignments, a geometry-only
+    review contract, exact source/PBM/crop verification, and the pre-result
+    matching rule.
+  - [ ] Obtain two genuinely separate human passes, compare them only after
+    sealing, complete no-invention adjudication, and retain future-evaluation
+    values outside detector custody.
 - [ ] Extract the 57-page KP1979 identifier-order base lane first, then
   reconcile records against the sorted-from-end and sorted-from-beginning
   reprints without using sign sequences as join keys.

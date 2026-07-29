@@ -195,11 +195,18 @@ Future evaluation pages (identities and pixels public; manual values absent):
 
 Before a label-lattice accuracy claim:
 
-1. freeze manual labels outside the recognizer;
-2. require 100% label y-position precision and recall on the future evaluation
+1. freeze manual label intervals outside the recognizer using the separate
+   proposal-free assignments and exact-crop review contract in
+   [`KP1979_LABEL_REFERENCE_PROTOCOL.md`](KP1979_LABEL_REFERENCE_PROTOCOL.md);
+2. freeze the interval-membership, same-lane, order-preserving one-to-one
+   matching rule before opening future-evaluation values, then require 100%
+   label-position precision and recall on the future-evaluation positive
    pages;
 3. require zero label slots on pages 8, 20, 129, and 130;
-4. reject any identifier label assigned twice or left unexplained;
+4. reject any geometry observation assigned twice or left unexplained; defer
+   duplicate identifier-value checks to the later identifier/code
+   transcription contract because a y-only reference contains no identifier
+   value;
 5. do not fill a partial lane to an assumed 36 rows;
 6. queue any label spacing outside 40–58 pixels or row pitch outside
    158–172 pixels;

@@ -67,6 +67,21 @@ from indusbench.kp1979 import (
     audit_kp1979_layout,
     verify_kp1979_source,
 )
+from indusbench.kp1979_label_reference import (
+    MAX_ASSIGNMENT_BYTES as KP1979_MAX_LABEL_REFERENCE_ASSIGNMENT_BYTES,
+)
+from indusbench.kp1979_label_reference import (
+    MAX_REVIEW_BYTES as KP1979_MAX_LABEL_REFERENCE_REVIEW_BYTES,
+)
+from indusbench.kp1979_label_reference import (
+    PARTITION_PAGES as KP1979_LABEL_REFERENCE_PARTITION_PAGES,
+)
+from indusbench.kp1979_label_reference import (
+    KP1979LabelReferenceError,
+    build_label_reference_assignment,
+    verify_independent_label_reference_review_bytes,
+    verify_label_reference_assignment_bytes,
+)
 from indusbench.kp1979_row_assignment import (
     MAX_ASSIGNMENT_BYTES as KP1979_MAX_ROW_ASSIGNMENT_BYTES,
 )
@@ -4237,6 +4252,446 @@ def _command_verify_kp1979_row_assignment(args: argparse.Namespace) -> int:
     return 0
 
 
+def _read_regular_bytes_at(
+    parent_descriptor: int,
+    name: str,
+    *,
+    max_bytes: int,
+) -> bytes:
+    """Read one stable single-link regular file relative to a pinned directory."""
+
+    if not name or name in {".", ".."} or "/" in name or "\x00" in name:
+        raise ValueError("pinned input filename is invalid")
+    descriptor: int | None = None
+    try:
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NOFOLLOW", 0)
+            | getattr(os, "O_NONBLOCK", 0)
+        )
+        descriptor = os.open(name, flags, dir_fd=parent_descriptor)
+        before = os.fstat(descriptor)
+        if not stat.S_ISREG(before.st_mode) or before.st_nlink != 1 or before.st_size > max_bytes:
+            raise ValueError("pinned input is not a bounded single-link regular file")
+        chunks: list[bytes] = []
+        byte_count = 0
+        while True:
+            chunk = os.read(descriptor, min(1024 * 1024, max_bytes + 1 - byte_count))
+            if not chunk:
+                break
+            byte_count += len(chunk)
+            if byte_count > max_bytes:
+                raise ValueError("pinned input exceeds its byte limit")
+            chunks.append(chunk)
+        after = os.fstat(descriptor)
+        namespace = os.stat(
+            name,
+            dir_fd=parent_descriptor,
+            follow_symlinks=False,
+        )
+        fingerprint_fields = (
+            "st_dev",
+            "st_ino",
+            "st_mode",
+            "st_uid",
+            "st_gid",
+            "st_nlink",
+            "st_size",
+            "st_mtime_ns",
+            "st_ctime_ns",
+        )
+        before_fingerprint = tuple(getattr(before, field) for field in fingerprint_fields)
+        if (
+            tuple(getattr(after, field) for field in fingerprint_fields) != before_fingerprint
+            or tuple(getattr(namespace, field) for field in fingerprint_fields)
+            != before_fingerprint
+        ):
+            raise ValueError("pinned input changed during its bounded read")
+        return b"".join(chunks)
+    except OSError as error:
+        raise ValueError("pinned input could not be read safely") from error
+    finally:
+        if descriptor is not None:
+            with suppress(OSError):
+                os.close(descriptor)
+
+
+def _read_kp1979_label_reference_page_bytes(
+    directory: Path,
+    *,
+    partition: str,
+) -> tuple[tuple[int, bytes], ...]:
+    """Read one exact six-page roster through a single pinned physical directory."""
+
+    page_numbers = KP1979_LABEL_REFERENCE_PARTITION_PAGES.get(partition)
+    if page_numbers is None:
+        raise KP1979LabelReferenceError("KP1979 label-reference partition is invalid")
+    absolute = Path(os.path.abspath(directory))
+    pinned = _open_pinned_directory(absolute, private_target=False)
+    try:
+        pages = tuple(
+            (
+                page_number,
+                _read_regular_bytes_at(
+                    pinned.descriptor,
+                    f"page-{page_number:03d}.pbm",
+                    max_bytes=KP1979_MAX_PAGE_PBM_BYTES,
+                ),
+            )
+            for page_number in page_numbers
+        )
+        _verify_pinned_directory(pinned)
+        return pages
+    finally:
+        _close_pinned_directory(pinned)
+
+
+def _kp1979_label_reference_summary(
+    *,
+    valid: bool,
+    claim_class: str,
+    private_storage_verified: bool,
+    assignment_canonical_bytes_verified: bool,
+    review_canonical_bytes_verified: bool = False,
+    review_record_verified: bool = False,
+    submitted_crop_bytes_recomputed: bool = False,
+    authorship_declaration_recorded: bool = False,
+    access_declaration_recorded: bool = False,
+    written: bool | None = None,
+    **state: bool | str,
+) -> dict[str, bool | str]:
+    """Return a fixed count-, value-, identity-, digest-, and path-free summary."""
+
+    summary: dict[str, bool | str] = {
+        "valid": valid,
+        "claim_class": claim_class,
+        "counts_disclosed": False,
+        "private_values_disclosed": False,
+        "record_ids_disclosed": False,
+        "digests_disclosed": False,
+        "paths_disclosed": False,
+        "private_storage_verified": private_storage_verified,
+        "source_snapshot_match": True,
+        "page_map_snapshot_match": True,
+        "selected_page_pixels_verified": True,
+        "partition_isolated": True,
+        "assignment_canonical_bytes_verified": assignment_canonical_bytes_verified,
+        "answer_values_withheld": assignment_canonical_bytes_verified,
+        "detector_output_absent": assignment_canonical_bytes_verified,
+        "proposal_geometry_absent": assignment_canonical_bytes_verified,
+        "review_canonical_bytes_verified": review_canonical_bytes_verified,
+        "review_record_verified": review_record_verified,
+        "submitted_crop_bytes_recomputed": submitted_crop_bytes_recomputed,
+        "authorship_declaration_recorded": authorship_declaration_recorded,
+        "access_declaration_recorded": access_declaration_recorded,
+        "authorship_declaration_verified": False,
+        "access_declaration_verified": False,
+        "label_reference_values_accepted": False,
+        "actor_identity_verified": False,
+        "human_review_started_verified": False,
+        "human_review_complete_verified": False,
+        "human_authorship_verified": False,
+        "real_world_independence_verified": False,
+        "reviewer_blinding_verified": False,
+        "reviewer_nonexposure_verified": False,
+        "label_geometry_accepted": False,
+        "row_geometry_accepted": False,
+        "identifiers_transcribed": False,
+        "codes_transcribed": False,
+        "sign_sequences_transcribed": False,
+        "reading_direction_assigned": False,
+        "source_custody_verified": False,
+        "source_rights_verified": False,
+        "reference_custody_verified": False,
+        "detector_freeze_verified": False,
+        "scorer_freeze_verified": False,
+        "runtime_isolation_verified": False,
+        "public_release_authorized": False,
+        "evaluation_admissible": False,
+        "decipherment": False,
+        "prize_submission_eligible": False,
+    }
+    if written is not None:
+        summary["written"] = written
+    if set(state).intersection(summary):
+        raise KP1979LabelReferenceError(
+            "KP1979 label-reference summary state cannot replace a fixed assurance"
+        )
+    summary.update(state)
+    return summary
+
+
+def _require_kp1979_label_reference_assignment_summary(
+    summary: dict[str, bool | str],
+) -> None:
+    required_true = (
+        "valid",
+        "source_snapshot_match",
+        "page_map_snapshot_match",
+        "selected_page_pixels_verified",
+        "assignment_canonical_bytes_verified",
+        "answer_values_withheld",
+        "detector_output_absent",
+        "proposal_geometry_absent",
+    )
+    required_false = (
+        "human_review_started_verified",
+        "human_review_complete_verified",
+        "human_authorship_verified",
+        "real_world_independence_verified",
+        "reviewer_blinding_verified",
+        "label_geometry_accepted",
+        "row_geometry_accepted",
+        "public_release_authorized",
+        "evaluation_admissible",
+        "decipherment",
+        "prize_submission_eligible",
+        "reference_custody_verified",
+        "detector_freeze_verified",
+        "scorer_freeze_verified",
+        "runtime_isolation_verified",
+    )
+    if any(summary.get(field) is not True for field in required_true) or any(
+        summary.get(field) is not False for field in required_false
+    ):
+        raise KP1979LabelReferenceError(
+            "KP1979 label-reference assignment verifier returned an incomplete assurance state"
+        )
+
+
+def _require_kp1979_label_reference_review_summary(
+    summary: dict[str, bool | str],
+) -> None:
+    required_true = (
+        "valid",
+        "assignment_canonical_bytes_verified",
+        "assignment_commitment_verified",
+        "selected_page_pixels_verified",
+        "review_canonical_bytes_verified",
+        "review_roster_verified",
+        "submitted_crop_bytes_recomputed",
+        "opaque_record_ids_structurally_distinct",
+        "authorship_declaration_recorded",
+        "access_declaration_recorded",
+    )
+    required_false = (
+        "actor_identity_verified",
+        "authorship_declaration_verified",
+        "access_declaration_verified",
+        "human_review_started_verified",
+        "human_review_complete_verified",
+        "human_authorship_verified",
+        "real_world_independence_verified",
+        "reviewer_blinding_verified",
+        "reviewer_nonexposure_verified",
+        "label_geometry_accepted",
+        "row_geometry_accepted",
+        "identifiers_transcribed",
+        "codes_transcribed",
+        "sign_sequences_transcribed",
+        "reading_direction_assigned",
+        "source_custody_verified",
+        "source_rights_verified",
+        "public_release_authorized",
+        "evaluation_admissible",
+        "decipherment",
+        "prize_submission_eligible",
+        "reference_custody_verified",
+        "detector_freeze_verified",
+        "scorer_freeze_verified",
+        "runtime_isolation_verified",
+    )
+    if any(summary.get(field) is not True for field in required_true) or any(
+        summary.get(field) is not False for field in required_false
+    ):
+        raise KP1979LabelReferenceError(
+            "KP1979 label-reference review verifier returned an incomplete assurance state"
+        )
+
+
+def _command_prepare_kp1979_label_reference_assignment(
+    args: argparse.Namespace,
+) -> int:
+    try:
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        page_pbm_bytes = _read_kp1979_label_reference_page_bytes(
+            args.page_pbm_dir,
+            partition=args.partition,
+        )
+        assignment = build_label_reference_assignment(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            page_pbm_bytes,
+            partition=args.partition,
+        )
+    except (OSError, ValueError) as error:
+        raise KP1979LabelReferenceError(
+            "KP1979 label-reference assignment preparation failed"
+        ) from error
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.output,
+            assignment,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1979LabelReferenceError(
+            "private KP1979 label-reference assignment could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        _print_json(
+            _kp1979_label_reference_summary(
+                valid=False,
+                claim_class="private_kp1979_label_reference_assignment_preparation",
+                private_storage_verified=False,
+                assignment_canonical_bytes_verified=content_verified,
+                written=False,
+                output_content_verified=content_verified,
+                durability_confirmed=durability_confirmed,
+                destination_may_exist=True,
+                postcondition=(
+                    "committed_content_verified_durability_unknown"
+                    if content_verified
+                    else "committed_content_unknown"
+                ),
+            )
+        )
+        return 1
+    _print_json(
+        _kp1979_label_reference_summary(
+            valid=True,
+            claim_class="private_kp1979_label_reference_assignment_preparation",
+            private_storage_verified=True,
+            assignment_canonical_bytes_verified=True,
+            written=True,
+        )
+    )
+    return 0
+
+
+def _command_verify_kp1979_label_reference_assignment(
+    args: argparse.Namespace,
+) -> int:
+    try:
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        assignment_bytes = _read_private_regular_bytes(
+            args.assignment,
+            max_bytes=KP1979_MAX_LABEL_REFERENCE_ASSIGNMENT_BYTES,
+        )
+        page_pbm_bytes = _read_kp1979_label_reference_page_bytes(
+            args.page_pbm_dir,
+            partition=args.partition,
+        )
+        core_summary = verify_label_reference_assignment_bytes(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            page_pbm_bytes,
+            assignment_bytes,
+        )
+        _require_kp1979_label_reference_assignment_summary(core_summary)
+    except (OSError, ValueError) as error:
+        raise KP1979LabelReferenceError(
+            "KP1979 label-reference assignment verification failed"
+        ) from error
+    _print_json(
+        _kp1979_label_reference_summary(
+            valid=True,
+            claim_class="private_kp1979_label_reference_assignment_verification",
+            private_storage_verified=True,
+            assignment_canonical_bytes_verified=True,
+        )
+    )
+    return 0
+
+
+def _command_verify_kp1979_label_reference_review(
+    args: argparse.Namespace,
+) -> int:
+    try:
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        assignment_bytes = _read_private_regular_bytes(
+            args.assignment,
+            max_bytes=KP1979_MAX_LABEL_REFERENCE_ASSIGNMENT_BYTES,
+        )
+        review_bytes = _read_private_regular_bytes(
+            args.review,
+            max_bytes=KP1979_MAX_LABEL_REFERENCE_REVIEW_BYTES,
+        )
+        page_pbm_bytes = _read_kp1979_label_reference_page_bytes(
+            args.page_pbm_dir,
+            partition=args.partition,
+        )
+        assignment_summary = verify_label_reference_assignment_bytes(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            page_pbm_bytes,
+            assignment_bytes,
+        )
+        _require_kp1979_label_reference_assignment_summary(assignment_summary)
+        review_summary = verify_independent_label_reference_review_bytes(
+            assignment_bytes,
+            page_pbm_bytes,
+            review_bytes,
+        )
+        _require_kp1979_label_reference_review_summary(review_summary)
+    except (OSError, ValueError) as error:
+        raise KP1979LabelReferenceError(
+            "KP1979 label-reference review verification failed"
+        ) from error
+    _print_json(
+        _kp1979_label_reference_summary(
+            valid=True,
+            claim_class="private_kp1979_label_reference_review_verification",
+            private_storage_verified=True,
+            assignment_canonical_bytes_verified=True,
+            review_canonical_bytes_verified=True,
+            review_record_verified=True,
+            submitted_crop_bytes_recomputed=True,
+            authorship_declaration_recorded=True,
+            access_declaration_recorded=True,
+            review_actor_assignment_ids_structurally_pairwise_distinct=True,
+        )
+    )
+    return 0
+
+
 def _command_propose_kp1982_layout(args: argparse.Namespace) -> int:
     try:
         source_contract_bytes = _read_regular_bytes(
@@ -6990,6 +7445,122 @@ def build_parser() -> argparse.ArgumentParser:
         help="closed checked-in KP1979 native-page map",
     )
     kp1979_row_verify_parser.set_defaults(handler=_command_verify_kp1979_row_assignment)
+
+    kp1979_label_reference_prepare_parser = subparsers.add_parser(
+        "prepare-kp1979-label-reference-assignment",
+        help="create one private, detector-free KP1979 label-reference assignment",
+    )
+    kp1979_label_reference_prepare_parser.add_argument("pdf", type=_path)
+    kp1979_label_reference_prepare_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing the canonical KP1979 page PBMs",
+    )
+    kp1979_label_reference_prepare_parser.add_argument(
+        "output",
+        type=_path,
+        help="new 0600 assignment under a pre-existing physical 0700 directory",
+    )
+    kp1979_label_reference_prepare_parser.add_argument(
+        "--partition",
+        choices=("development", "future_evaluation"),
+        required=True,
+        help="isolated fixed six-page protocol partition",
+    )
+    kp1979_label_reference_prepare_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_label_reference_prepare_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_label_reference_prepare_parser.set_defaults(
+        handler=_command_prepare_kp1979_label_reference_assignment
+    )
+
+    kp1979_label_reference_verify_parser = subparsers.add_parser(
+        "verify-kp1979-label-reference-assignment",
+        help="recompute one private, detector-free KP1979 label-reference assignment",
+    )
+    kp1979_label_reference_verify_parser.add_argument("pdf", type=_path)
+    kp1979_label_reference_verify_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing the canonical KP1979 page PBMs",
+    )
+    kp1979_label_reference_verify_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1979_label_reference_verify_parser.add_argument(
+        "--partition",
+        choices=("development", "future_evaluation"),
+        required=True,
+        help="isolated fixed six-page protocol partition",
+    )
+    kp1979_label_reference_verify_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_label_reference_verify_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_label_reference_verify_parser.set_defaults(
+        handler=_command_verify_kp1979_label_reference_assignment
+    )
+
+    kp1979_label_reference_review_parser = subparsers.add_parser(
+        "verify-kp1979-label-reference-review",
+        help="verify one private KP1979 manual label-reference review",
+    )
+    kp1979_label_reference_review_parser.add_argument("pdf", type=_path)
+    kp1979_label_reference_review_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing the canonical KP1979 page PBMs",
+    )
+    kp1979_label_reference_review_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1979_label_reference_review_parser.add_argument(
+        "review",
+        type=_path,
+        help="canonical 0600 review under a physical owner-only directory",
+    )
+    kp1979_label_reference_review_parser.add_argument(
+        "--partition",
+        choices=("development", "future_evaluation"),
+        required=True,
+        help="isolated fixed six-page protocol partition",
+    )
+    kp1979_label_reference_review_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_label_reference_review_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_label_reference_review_parser.set_defaults(
+        handler=_command_verify_kp1979_label_reference_review
+    )
 
     kp1982_source_parser = subparsers.add_parser(
         "verify-kp1982-source",

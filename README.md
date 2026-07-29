@@ -258,6 +258,11 @@ permission by itself.
   two-column corpus pages while abstaining on dense prose, ten-column sign
   lists, and the eight-/six-column auxiliary grids. It does not segment full
   rows. No label slot, row, identifier, sign, or decipherment value is accepted.
+- Separate proposal-free KP1979 label-reference assignments for the fixed
+  six-page development and six-page future-evaluation partitions, plus a
+  geometry-only review verifier that recomputes every submitted crop from the
+  exact source pixels. The assignments expose no page class, scan band,
+  detector geometry, candidate count, OCR result, or manual value.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.
@@ -439,6 +444,34 @@ language, meaning, or accepted manual value. Its rectangles remain unaccepted
 review aids until the separate 12-page reference and independent human review
 exist. The command will not overwrite an existing output and requires a
 physical owner-only parent directory.
+
+Create and verify the separate proposal-free assignments. Keep development
+and future evaluation in different owner-only directories, and do not show the
+57-page proposal-bearing assignment to a reference reviewer:
+
+```bash
+install -d -m 700 /private/kp1979-label-reference-development
+uv run indusbench prepare-kp1979-label-reference-assignment \
+  indus_corpus_1979.pdf canonical-kp1979-pbm \
+  /private/kp1979-label-reference-development/assignment.json \
+  --partition development
+uv run indusbench verify-kp1979-label-reference-assignment \
+  indus_corpus_1979.pdf canonical-kp1979-pbm \
+  /private/kp1979-label-reference-development/assignment.json \
+  --partition development
+uv run indusbench verify-kp1979-label-reference-review \
+  indus_corpus_1979.pdf canonical-kp1979-pbm \
+  /private/kp1979-label-reference-development/assignment.json \
+  /private/kp1979-label-reference-development/review.json \
+  --partition development
+```
+
+The assignment command creates no review and no reference value. A review
+must be prepared outside the recognizer by an actual reviewer. Valid schema,
+opaque IDs, declarations, and exact crop hashes do not by themselves prove
+human authorship or real independence. The target, partitioning, custody,
+matching, and scientific nonclaim rules are fixed in
+[`docs/KP1979_LABEL_REFERENCE_PROTOCOL.md`](docs/KP1979_LABEL_REFERENCE_PROTOCOL.md).
 
 Verify the KP1982 inventory-bootstrap evidence; only after a future separate
 post-adjudication inventory build, compare later inscription-transcription
