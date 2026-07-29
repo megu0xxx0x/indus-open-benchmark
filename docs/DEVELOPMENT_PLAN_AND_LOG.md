@@ -981,3 +981,74 @@ passed exact canonical equality.
 
 No private assignment, fixed source, source path, or storage inventory is a
 public corpus artifact or part of the tracked tree.
+
+## KP1979 proposal-free label-reference checkpoint — 2026-07-29T15:37:05+09:00
+
+The first controlled item from the preceding checkpoint is now implemented.
+The 57-page row assignment remains only a detector proposal and is not valid
+input for establishing its own reference labels. To break that circularity,
+the new reference workflow starts from fixed source pixels and opaque slots,
+with detector output, proposal geometry, OCR, prior manual values, page roles,
+and scoring expectations absent from the assignment.
+
+This checkpoint adds:
+
+- separate answer-free assignments for the fixed `development` and
+  `future_evaluation` partitions;
+- closed assignment and review schemas plus canonical builders and verifiers;
+- exact source-PDF, page-map, PBM-byte, pixel, assignment, crop, roster, lane,
+  authorship-declaration, and access-declaration checks;
+- owner-only, no-replace private I/O with descriptor-relative reads,
+  symlink/hard-link/FIFO rejection, bounded input, ancestry pinning, and
+  mutation detection; and
+- fixed count-, value-, identity-, digest-, and path-free command summaries.
+
+The review contract admits `complete_no_targets`, `complete_with_targets`, or
+`unresolved` for every page and lane. A target is the complete visible
+two-tier row-label block, including attached punctuation or qualifiers, but
+not sign drawings, damage hatching, baselines, headings, prose, sign-list
+cells, or auxiliary-grid identifiers. The downstream matching rule is frozen
+as same-page and same-lane, anchor-in-interval, maximum-cardinality,
+order-preserving one-to-one matching; ties among maximum solutions are
+ambiguous and receive no score. Unresolved records also receive no score, and
+negative pages remain a separate empty-prediction gate.
+
+Both partitions were generated from the fixed source snapshot in isolated
+owner-only storage and independently rebuilt from the same canonical pixels.
+Preparation and verification passed for each partition. No review record,
+manual target value, identifier, lower code, sign sequence, reading
+direction, detector comparison, or adjudication was created by that run.
+
+Schema validity and recorded declarations do not prove human authorship,
+independence, blinding, nonexposure, custody, or evaluation admissibility.
+No human review has started; no reference geometry or source-local value has
+been accepted; no detector or scorer has been frozen; and no decipherment or
+prize result exists.
+
+Validation passed all 29 focused label-reference tests on both supported
+POSIX environments, including an explicit group-writable-source rejection,
+and all 661 repository tests with 14 environment-specific skips. Ruff,
+formatting, and Pyright passed; 152 local Markdown links resolved; fresh
+source and wheel builds plus isolated wheel installation, CLI, and packaged
+schema checks passed; and Gitleaks, Semgrep, Trivy, publication-boundary, and
+independent scientific/security reviews reported no finding.
+
+The next controlled work is:
+
+1. prepare reviewer-only packets that omit detector proposals and scoring
+   details, then obtain two genuinely separate human passes under an
+   independent custodian;
+2. compare the passes without inventing agreement, preserve abstentions and
+   unresolved cases, adjudicate disagreements, and freeze the accepted
+   development reference before any detector scoring;
+3. freeze the detector and scorer, then perform the future-evaluation
+   partition exactly once under the declared rules;
+4. proceed separately with image-verified identifier and lower-code review
+   for the 57-page assignment; and
+5. implement the KP1980 exact source/page contract and its versioned
+   correction, cross-reference, and duplicate parsers.
+
+Do not use the 57-page proposals to create reference answers. Do not rerun
+MTAAC, the V2 holdout, V5, or the reserved prospective source. Do not contact
+an institution or attempt a prize submission without new explicit authority
+and a verified operational route.
