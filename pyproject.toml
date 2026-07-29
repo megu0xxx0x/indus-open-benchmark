@@ -33,6 +33,8 @@ dev = [
 
 [project.scripts]
 indusbench = "indusbench.cli:main"
+indusbench-kp1979-label-detector-v2 = "indusbench.kp1979_detector_v2_worker:main"
+indusbench-kp1979-v2-qualification = "indusbench.kp1979_v2_runner:main"
 indusbench-v3dev-mtaac = "indusbench.v3dev_cli:main"
 indusbench-v4dev-mtaac = "indusbench.v4dev_cli:main"
 indusbench-v5dev-mtaac = "indusbench.v5dev_cli:main"
@@ -57,6 +59,7 @@ packages = ["src/indusbench"]
 "registry/kp1982_batch0_layout_seed.json" = "indusbench/registry/kp1982_batch0_layout_seed.json"
 "benchmark/development-evaluator.json" = "indusbench/benchmark/development-evaluator.json"
 "benchmark/kp1979-label-lattice-synthetic-control-v2.json" = "indusbench/benchmark/kp1979-label-lattice-synthetic-control-v2.json"
+"benchmark/kp1979-label-lattice-synthetic-control-v2-execution-v1.json" = "indusbench/benchmark/kp1979-label-lattice-synthetic-control-v2-execution-v1.json"
 "benchmark/mtaac-known-script-control-v1.json" = "indusbench/benchmark/mtaac-known-script-control-v1.json"
 "benchmark/mtaac-known-script-control-v2.json" = "indusbench/benchmark/mtaac-known-script-control-v2.json"
 "benchmark/mtaac-v3-development-v1.json" = "indusbench/benchmark/mtaac-v3-development-v1.json"

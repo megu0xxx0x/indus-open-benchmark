@@ -1,0 +1,1429 @@
+{
+  "$id": "kp1979-label-lattice-synthetic-control-v2-result.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "mandatory_gates": {
+            "properties": {
+              "control_case_gates_passed": {
+                "const": false
+              }
+            },
+            "required": [
+              "control_case_gates_passed"
+            ]
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "control_report": {
+            "properties": {
+              "status": {
+                "const": "qualified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "control_report"
+        ]
+      },
+      "then": {
+        "properties": {
+          "mandatory_gates": {
+            "properties": {
+              "control_case_gates_passed": {
+                "const": true
+              }
+            },
+            "required": [
+              "control_case_gates_passed"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "else": {
+        "properties": {
+          "mandatory_gates": {
+            "properties": {
+              "transport_boundary_passed": {
+                "const": false
+              }
+            },
+            "required": [
+              "transport_boundary_passed"
+            ]
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "transport_summary": {
+            "properties": {
+              "transport_failure_count": {
+                "const": 0
+              }
+            },
+            "required": [
+              "transport_failure_count"
+            ]
+          }
+        },
+        "required": [
+          "transport_summary"
+        ]
+      },
+      "then": {
+        "properties": {
+          "mandatory_gates": {
+            "properties": {
+              "transport_boundary_passed": {
+                "const": true
+              }
+            },
+            "required": [
+              "transport_boundary_passed"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "else": {
+        "properties": {
+          "execution_boundary": {
+            "properties": {
+              "fresh_process_per_invocation": {
+                "const": false
+              }
+            },
+            "required": [
+              "fresh_process_per_invocation"
+            ]
+          },
+          "mandatory_gates": {
+            "properties": {
+              "fresh_process_count_verified": {
+                "const": false
+              }
+            },
+            "required": [
+              "fresh_process_count_verified"
+            ]
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "execution_boundary": {
+            "properties": {
+              "started_process_count": {
+                "const": 25
+              }
+            },
+            "required": [
+              "started_process_count"
+            ]
+          }
+        },
+        "required": [
+          "execution_boundary"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution_boundary": {
+            "properties": {
+              "fresh_process_per_invocation": {
+                "const": true
+              }
+            },
+            "required": [
+              "fresh_process_per_invocation"
+            ]
+          },
+          "mandatory_gates": {
+            "properties": {
+              "fresh_process_count_verified": {
+                "const": true
+              }
+            },
+            "required": [
+              "fresh_process_count_verified"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "advance_to_provisional_extraction": {
+      "const": false
+    },
+    "claim_scope": {
+      "$ref": "#/$defs/claim_scope"
+    },
+    "commitments": {
+      "$ref": "#/$defs/commitments"
+    },
+    "control_report": {
+      "$ref": "#/$defs/control_report"
+    },
+    "deployment_decision": {
+      "$ref": "#/$defs/deployment_decision"
+    },
+    "development_separation": {
+      "$ref": "#/$defs/development_separation"
+    },
+    "execution_boundary": {
+      "$ref": "#/$defs/execution_boundary"
+    },
+    "freeze_integrity": {
+      "$ref": "#/$defs/freeze_integrity"
+    },
+    "mandatory_gates": {
+      "$ref": "#/$defs/mandatory_gates"
+    },
+    "result_version": {
+      "const": 1
+    },
+    "terminal_status": {
+      "const": "not_qualified"
+    },
+    "transport_summary": {
+      "$ref": "#/$defs/transport_summary"
+    }
+  },
+  "required": [
+    "advance_to_provisional_extraction",
+    "claim_scope",
+    "commitments",
+    "control_report",
+    "deployment_decision",
+    "development_separation",
+    "execution_boundary",
+    "freeze_integrity",
+    "mandatory_gates",
+    "result_version",
+    "terminal_status",
+    "transport_summary"
+  ],
+  "title": "KP1979 V2 synthetic-control one-shot result",
+  "type": "object",
+  "$defs": {
+    "claim_scope": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted_reference": {
+          "const": false
+        },
+        "code_transcription_validated": {
+          "const": false
+        },
+        "decipherment": {
+          "const": false
+        },
+        "evaluation_admissible": {
+          "const": false
+        },
+        "full_row_segmentation_validated": {
+          "const": false
+        },
+        "future_evaluation_opened": {
+          "const": false
+        },
+        "future_pixels_loaded": {
+          "const": false
+        },
+        "future_pixels_opened": {
+          "const": false
+        },
+        "identifier_transcription_validated": {
+          "const": false
+        },
+        "language_identified": {
+          "const": false
+        },
+        "lower_code_validated": {
+          "const": false
+        },
+        "meaning_established": {
+          "const": false
+        },
+        "prize_claim": {
+          "const": false
+        },
+        "prize_submission_eligible": {
+          "const": false
+        },
+        "prize_submission_made": {
+          "const": false
+        },
+        "reading_direction_validated": {
+          "const": false
+        },
+        "real_accuracy": {
+          "const": false
+        },
+        "reserved_sources_read": {
+          "const": false
+        },
+        "row_identity_validated": {
+          "const": false
+        },
+        "sign_sequence_validated": {
+          "const": false
+        },
+        "translation_produced": {
+          "const": false
+        }
+      },
+      "required": [
+        "accepted_reference",
+        "code_transcription_validated",
+        "decipherment",
+        "evaluation_admissible",
+        "full_row_segmentation_validated",
+        "future_evaluation_opened",
+        "future_pixels_loaded",
+        "future_pixels_opened",
+        "identifier_transcription_validated",
+        "language_identified",
+        "lower_code_validated",
+        "meaning_established",
+        "prize_claim",
+        "prize_submission_eligible",
+        "prize_submission_made",
+        "reading_direction_validated",
+        "real_accuracy",
+        "reserved_sources_read",
+        "row_identity_validated",
+        "sign_sequence_validated",
+        "translation_produced"
+      ],
+      "type": "object"
+    },
+    "commitments": {
+      "additionalProperties": false,
+      "properties": {
+        "base_commit": {
+          "const": "662b01c23d4d4e2336e248d79bc508c3b7ed5f66"
+        },
+        "control_commit": {
+          "const": "e143a5ed5a8128d7b7e3626a3bf01607289ee7cc"
+        },
+        "control_manifest_sha256": {
+          "const": "ee368613138f2ccb89686872ff127504f0627b2df662edef3b5a0486583f870f"
+        },
+        "control_module_sha256": {
+          "const": "7674968043476cc366cf7f0a73daf588d4cea8695a3c6fd368bf1c3d730ebab9"
+        },
+        "detector_commit": {
+          "const": "5f059032ed9ee1e790c4c668047510f8e1cd60d5"
+        },
+        "detector_module_sha256": {
+          "const": "2540310dad612080034ab89f37cff96ce3341d1fc93d2fa44c0c86a78ccd66a4"
+        },
+        "detector_wheel_byte_size": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "detector_wheel_sha256": {
+          "const": "7861a7e435d8221ac9c95a12e232c988533bba9c803b30f470384d2e9476a5cb"
+        },
+        "execution_plan_sha256": {
+          "const": "3b4c7c740cda6f6e1d6b5cc05efded01b775f611c51a304dcf4a5ae3e6608593"
+        },
+        "execution_schema_sha256": {
+          "const": "bfd275c2a6ea3c4a927a3bb04bccf3349d66f888042214aa5782909f05d399d1"
+        },
+        "integration_commit": {
+          "$ref": "#/$defs/git_commit"
+        },
+        "result_schema_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "scorer_module_sha256": {
+          "const": "56bdcfe869f96e043acadabe44d839bce97891b5c1eb81604e72874fce4b48ba"
+        },
+        "uv_lock_sha256": {
+          "const": "d916009109bb939157fe248d613398ddc21735871704117dfa1ea1e00b7c2443"
+        },
+        "worker_module_sha256": {
+          "const": "4405774a8c544da5d09eb313025b40757ddfe6acc12dfa5013406e3c3f5326c4"
+        }
+      },
+      "required": [
+        "base_commit",
+        "control_commit",
+        "control_manifest_sha256",
+        "control_module_sha256",
+        "detector_commit",
+        "detector_module_sha256",
+        "detector_wheel_byte_size",
+        "detector_wheel_sha256",
+        "execution_plan_sha256",
+        "execution_schema_sha256",
+        "integration_commit",
+        "result_schema_sha256",
+        "scorer_module_sha256",
+        "uv_lock_sha256",
+        "worker_module_sha256"
+      ],
+      "type": "object"
+    },
+    "control_case": {
+      "additionalProperties": false,
+      "properties": {
+        "case_class": {
+          "enum": [
+            "positive",
+            "negative",
+            "out_of_contract"
+          ]
+        },
+        "case_id": {
+          "enum": [
+            "negative_aperiodic_fragments",
+            "negative_blank_regression",
+            "negative_cross_lane_pitch_conflict",
+            "negative_dense_multicolumn_regression",
+            "negative_periodic_single_tier_regression",
+            "negative_single_lane_regression",
+            "negative_staggered_single_tiers",
+            "out_of_contract_dimension_mismatch",
+            "out_of_contract_invalid_scan_bands",
+            "out_of_contract_noncanonical_header",
+            "out_of_contract_truncated_payload",
+            "positive_asymmetric_phase",
+            "positive_bounded_jitter_with_gaps",
+            "positive_edge_and_qualifier_variation",
+            "positive_independent_clean",
+            "positive_lower_pitch_boundary_regression",
+            "positive_partial_lane_regression",
+            "positive_thin_two_tier_regression",
+            "positive_upper_pitch_boundary_regression"
+          ]
+        },
+        "micro_precision": {
+          "$ref": "#/$defs/nullable_unit_interval"
+        },
+        "micro_recall": {
+          "$ref": "#/$defs/nullable_unit_interval"
+        },
+        "negative_control_empty": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "outcome_status": {
+          "enum": [
+            "abstained",
+            "proposed",
+            "rejected"
+          ]
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "prediction_count": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "reference_count": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "scorer_status": {
+          "enum": [
+            "scored",
+            null
+          ]
+        }
+      },
+      "required": [
+        "case_class",
+        "case_id",
+        "micro_precision",
+        "micro_recall",
+        "negative_control_empty",
+        "outcome_status",
+        "passed",
+        "prediction_count",
+        "reference_count",
+        "scorer_status"
+      ],
+      "type": "object"
+    },
+    "control_report": {
+      "additionalProperties": false,
+      "properties": {
+        "case_count": {
+          "const": 19
+        },
+        "cases": {
+          "items": false,
+          "maxItems": 19,
+          "minItems": 19,
+          "prefixItems": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_independent_clean"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_asymmetric_phase"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_lower_pitch_boundary_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_upper_pitch_boundary_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_thin_two_tier_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_bounded_jitter_with_gaps"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_partial_lane_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "positive"
+                    },
+                    "case_id": {
+                      "const": "positive_edge_and_qualifier_variation"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "negative"
+                    },
+                    "case_id": {
+                      "const": "negative_blank_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "negative"
+                    },
+                    "case_id": {
+                      "const": "negative_periodic_single_tier_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "negative"
+                    },
+                    "case_id": {
+                      "const": "negative_single_lane_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "negative"
+                    },
+                    "case_id": {
+                      "const": "negative_cross_lane_pitch_conflict"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "negative"
+                    },
+                    "case_id": {
+                      "const": "negative_dense_multicolumn_regression"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "negative"
+                    },
+                    "case_id": {
+                      "const": "negative_aperiodic_fragments"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "negative"
+                    },
+                    "case_id": {
+                      "const": "negative_staggered_single_tiers"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "out_of_contract"
+                    },
+                    "case_id": {
+                      "const": "out_of_contract_truncated_payload"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "out_of_contract"
+                    },
+                    "case_id": {
+                      "const": "out_of_contract_noncanonical_header"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "out_of_contract"
+                    },
+                    "case_id": {
+                      "const": "out_of_contract_dimension_mismatch"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/control_case"
+                },
+                {
+                  "properties": {
+                    "case_class": {
+                      "const": "out_of_contract"
+                    },
+                    "case_id": {
+                      "const": "out_of_contract_invalid_scan_bands"
+                    }
+                  },
+                  "required": [
+                    "case_class",
+                    "case_id"
+                  ]
+                }
+              ]
+            }
+          ],
+          "type": "array"
+        },
+        "control_id": {
+          "const": "kp1979-label-lattice-synthetic-control-v2"
+        },
+        "decipherment": {
+          "const": false
+        },
+        "full_row_segmentation_validated": {
+          "const": false
+        },
+        "future_evaluation_opened": {
+          "const": false
+        },
+        "identifier_transcription_validated": {
+          "const": false
+        },
+        "metamorphic_checks": {
+          "items": false,
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/metamorphic_check"
+                },
+                {
+                  "properties": {
+                    "relation_id": {
+                      "const": "identical_input_reproducibility"
+                    }
+                  },
+                  "required": [
+                    "relation_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/metamorphic_check"
+                },
+                {
+                  "properties": {
+                    "relation_id": {
+                      "const": "unread_margin_invariance"
+                    }
+                  },
+                  "required": [
+                    "relation_id"
+                  ]
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/metamorphic_check"
+                },
+                {
+                  "properties": {
+                    "relation_id": {
+                      "const": "vertical_translation_equivariance"
+                    }
+                  },
+                  "required": [
+                    "relation_id"
+                  ]
+                }
+              ]
+            }
+          ],
+          "type": "array"
+        },
+        "negative_case_count": {
+          "const": 7
+        },
+        "out_of_contract_case_count": {
+          "const": 4
+        },
+        "passed_case_count": {
+          "maximum": 19,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "positive_case_count": {
+          "const": 8
+        },
+        "prize_submission_eligible": {
+          "const": false
+        },
+        "real_accuracy": {
+          "const": false
+        },
+        "reference_accepted": {
+          "const": false
+        },
+        "reference_use": {
+          "const": "synthetic_control"
+        },
+        "reserved_sources_read": {
+          "const": false
+        },
+        "source_independent": {
+          "const": true
+        },
+        "status": {
+          "enum": [
+            "not_qualified",
+            "qualified"
+          ]
+        },
+        "synthetic_only": {
+          "const": true
+        },
+        "target_algorithm_id": {
+          "const": "two-column-label-lattice-v2"
+        }
+      },
+      "required": [
+        "case_count",
+        "cases",
+        "control_id",
+        "decipherment",
+        "full_row_segmentation_validated",
+        "future_evaluation_opened",
+        "identifier_transcription_validated",
+        "metamorphic_checks",
+        "negative_case_count",
+        "out_of_contract_case_count",
+        "passed_case_count",
+        "positive_case_count",
+        "prize_submission_eligible",
+        "real_accuracy",
+        "reference_accepted",
+        "reference_use",
+        "reserved_sources_read",
+        "source_independent",
+        "status",
+        "synthetic_only",
+        "target_algorithm_id"
+      ],
+      "type": "object"
+    },
+    "deployment_decision": {
+      "additionalProperties": false,
+      "properties": {
+        "automatic_corpus_admission_allowed": {
+          "const": false
+        },
+        "future_execution_allowed": {
+          "const": false
+        },
+        "machine_development_candidate_generation_allowed": {
+          "const": false
+        },
+        "reason_codes": {
+          "const": [
+            "control_before_detector_freeze_order_not_satisfied",
+            "postfreeze_periodic_confound"
+          ]
+        },
+        "reference_promotion_allowed": {
+          "const": false
+        },
+        "status": {
+          "const": "blocked"
+        }
+      },
+      "required": [
+        "automatic_corpus_admission_allowed",
+        "future_execution_allowed",
+        "machine_development_candidate_generation_allowed",
+        "reason_codes",
+        "reference_promotion_allowed",
+        "status"
+      ],
+      "type": "object"
+    },
+    "development_separation": {
+      "additionalProperties": false,
+      "properties": {
+        "blinding_verified": {
+          "const": false
+        },
+        "confidentiality_verified": {
+          "const": false
+        },
+        "control_before_detector_freeze": {
+          "const": false
+        },
+        "cross_access_absence_verified": {
+          "const": false
+        },
+        "git_proves_bytes_and_ancestry_only": {
+          "const": true
+        },
+        "mutual_nonexposure_declared": {
+          "const": true
+        },
+        "organizational_independence_verified": {
+          "const": false
+        },
+        "process_separated": {
+          "const": true
+        }
+      },
+      "required": [
+        "blinding_verified",
+        "confidentiality_verified",
+        "control_before_detector_freeze",
+        "cross_access_absence_verified",
+        "git_proves_bytes_and_ancestry_only",
+        "mutual_nonexposure_declared",
+        "organizational_independence_verified",
+        "process_separated"
+      ],
+      "type": "object"
+    },
+    "execution_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "address_space_limit_bytes": {
+          "const": 1073741824
+        },
+        "case_identity_supplied": {
+          "const": false
+        },
+        "canonical_attempt_state_enforced": {
+          "const": true
+        },
+        "child_input_fields": {
+          "const": [
+            "height",
+            "interface_version",
+            "pbm_base64",
+            "scan_bands",
+            "width"
+          ]
+        },
+        "close_fds": {
+          "const": true
+        },
+        "cpu_limit_seconds": {
+          "const": 24
+        },
+        "empty_working_directory": {
+          "const": true
+        },
+        "environment_allowlist": {
+          "const": [
+            "LANG",
+            "LC_ALL",
+            "PATH"
+          ]
+        },
+        "file_size_limit_bytes": {
+          "const": 131072
+        },
+        "filesystem_namespace_isolation_verified": {
+          "const": false
+        },
+        "fresh_process_per_invocation": {
+          "type": "boolean"
+        },
+        "loaded_module_paths_verified": {
+          "const": true
+        },
+        "network_isolation_verified": {
+          "const": false
+        },
+        "network_nonaccess_verified": {
+          "const": false
+        },
+        "open_file_limit": {
+          "const": 32
+        },
+        "order_supplied": {
+          "const": false
+        },
+        "preimport_code_execution_excluded": {
+          "const": false
+        },
+        "scorer_supplied": {
+          "const": false
+        },
+        "shell_used": {
+          "const": false
+        },
+        "single_execution_technically_enforced": {
+          "const": false
+        },
+        "started_process_count": {
+          "maximum": 25,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "truth_supplied": {
+          "const": false
+        },
+        "valid_input_invalid_request_fails_closed": {
+          "const": true
+        },
+        "wall_timeout_seconds": {
+          "const": 30.0
+        },
+        "worker_internal_failure_cause_distinguishable": {
+          "const": false
+        }
+      },
+      "required": [
+        "address_space_limit_bytes",
+        "canonical_attempt_state_enforced",
+        "case_identity_supplied",
+        "child_input_fields",
+        "close_fds",
+        "cpu_limit_seconds",
+        "empty_working_directory",
+        "environment_allowlist",
+        "file_size_limit_bytes",
+        "filesystem_namespace_isolation_verified",
+        "fresh_process_per_invocation",
+        "loaded_module_paths_verified",
+        "network_isolation_verified",
+        "network_nonaccess_verified",
+        "open_file_limit",
+        "order_supplied",
+        "preimport_code_execution_excluded",
+        "scorer_supplied",
+        "shell_used",
+        "single_execution_technically_enforced",
+        "started_process_count",
+        "truth_supplied",
+        "valid_input_invalid_request_fails_closed",
+        "wall_timeout_seconds",
+        "worker_internal_failure_cause_distinguishable"
+      ],
+      "type": "object"
+    },
+    "failure_code": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "abstained_contract",
+            "abstention_codes",
+            "algorithm_id",
+            "interface_version",
+            "invalid_disposition",
+            "invalid_prediction",
+            "invalid_process_result",
+            "invalid_request_mixed",
+            "invalid_request_on_valid_input",
+            "malformed_json",
+            "noncanonical_stdout",
+            "nonzero_exit",
+            "nonrejection_on_invalid_input",
+            "overdeep_json",
+            "prediction_count",
+            "prediction_order",
+            "proposed_contract",
+            "response_not_closed",
+            "status",
+            "stderr_output",
+            "stdout_size",
+            "temporary_directory_permissions",
+            "timeout",
+            "transport_exception",
+            "working_directory_not_empty"
+          ]
+        },
+        "count": {
+          "maximum": 25,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "code",
+        "count"
+      ],
+      "type": "object"
+    },
+    "freeze_integrity": {
+      "additionalProperties": false,
+      "properties": {
+        "blob_identity_verified": {
+          "const": true
+        },
+        "control_manifest_verified": {
+          "const": true
+        },
+        "detector_wheel_verified": {
+          "const": true
+        },
+        "git_ancestry_verified": {
+          "const": true
+        },
+        "public_main_ref_matches_integration_commit": {
+          "const": true
+        },
+        "public_remote_independently_attested": {
+          "const": false
+        },
+        "wheel_excludes_v2_control": {
+          "const": true
+        }
+      },
+      "required": [
+        "blob_identity_verified",
+        "control_manifest_verified",
+        "detector_wheel_verified",
+        "git_ancestry_verified",
+        "public_main_ref_matches_integration_commit",
+        "public_remote_independently_attested",
+        "wheel_excludes_v2_control"
+      ],
+      "type": "object"
+    },
+    "git_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "mandatory_gates": {
+      "additionalProperties": false,
+      "properties": {
+        "all_mandatory_gates_passed": {
+          "const": false
+        },
+        "control_before_detector_freeze": {
+          "const": false
+        },
+        "control_case_gates_passed": {
+          "type": "boolean"
+        },
+        "control_contract_hardening_applied": {
+          "const": true
+        },
+        "fresh_process_count_verified": {
+          "type": "boolean"
+        },
+        "postfreeze_adversarial_deployment_clear": {
+          "const": false
+        },
+        "transport_boundary_passed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "all_mandatory_gates_passed",
+        "control_before_detector_freeze",
+        "control_case_gates_passed",
+        "control_contract_hardening_applied",
+        "fresh_process_count_verified",
+        "postfreeze_adversarial_deployment_clear",
+        "transport_boundary_passed"
+      ],
+      "type": "object"
+    },
+    "metamorphic_check": {
+      "additionalProperties": false,
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "relation_id": {
+          "enum": [
+            "identical_input_reproducibility",
+            "unread_margin_invariance",
+            "vertical_translation_equivariance"
+          ]
+        }
+      },
+      "required": [
+        "passed",
+        "relation_id"
+      ],
+      "type": "object"
+    },
+    "nullable_unit_interval": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "transport_count": {
+      "maximum": 25,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "transport_summary": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted_count": {
+          "$ref": "#/$defs/transport_count"
+        },
+        "expected_invocation_count": {
+          "const": 25
+        },
+        "failure_codes": {
+          "items": {
+            "$ref": "#/$defs/failure_code"
+          },
+          "maxItems": 25,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "invocation_count": {
+          "const": 25
+        },
+        "out_of_contract_rejection_count": {
+          "$ref": "#/$defs/transport_count"
+        },
+        "stderr_observed": {
+          "type": "boolean"
+        },
+        "timeout_observed": {
+          "type": "boolean"
+        },
+        "transport_failure_count": {
+          "$ref": "#/$defs/transport_count"
+        }
+      },
+      "required": [
+        "accepted_count",
+        "expected_invocation_count",
+        "failure_codes",
+        "invocation_count",
+        "out_of_contract_rejection_count",
+        "stderr_observed",
+        "timeout_observed",
+        "transport_failure_count"
+      ],
+      "type": "object"
+    }
+  }
+}

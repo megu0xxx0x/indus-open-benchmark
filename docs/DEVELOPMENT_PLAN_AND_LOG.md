@@ -1,8 +1,8 @@
 # Public development plan and status
 
-**Status date:** 2026-07-29
+**Status date:** 2026-07-30
 
-**Last source-level update:** 2026-07-29 04:36 JST (Asia/Tokyo)
+**Last source-level update:** 2026-07-30
 
 **Project:** Open Indus Benchmark
 
@@ -1100,3 +1100,51 @@ The current next work is:
 Human passes remain optional for this AI development sequence. They become a
 gate only if the project later seeks to promote geometry as externally grounded
 reference evidence or to report performance against such evidence.
+
+## KP1979 V2 qualification boundary frozen — 2026-07-30
+
+The public
+[V2 qualification protocol](KP1979_LABEL_LATTICE_V2_QUALIFICATION_PROTOCOL_2026-07-30.md)
+and machine-readable execution plan now fix the result interpretation before
+the combined control-detector run. The detector branch was frozen before the
+separately developed control branch, contrary to the required
+control-before-detector order. The overall terminal status is therefore
+`not_qualified` and advance is false regardless of the raw control status.
+The raw control report remains a separate diagnostic.
+
+A post-freeze adversarial periodic two-tier non-label confound is also a
+deployment block. It does not modify either frozen parent or the raw-control
+gates, but it prevents V2 from being promoted for reference, real-source,
+provisional-extraction, future-evaluation, accuracy, decipherment, or prize
+use.
+
+The execution contract permits no detector-control preflight and expects 25
+fresh child processes for 19 fixed cases and three two-call metamorphic
+relations. It checks the actual started-process count, uses answer-free worker
+requests, fails closed on transport or response errors, writes the attempt
+marker before the first call, and publishes the result atomically without
+replacement. No retry is allowed after a control invocation. Local attempt
+state does not technically prevent its owner from deleting that state, so
+technical single-execution enforcement is not claimed.
+
+Git verifies exact bytes and ancestry only. Mutual nonexposure and process
+separation are declarations; confidentiality, blindness, custody,
+independence, organizational independence, cross-access absence, filesystem
+or network isolation, trusted time, and independent public-remote attestation
+remain unverified.
+
+The V2 execution reads synthetic PBMs only. It does not open the real source,
+future-evaluation values or pixels, PDF page 78, the 57-page proposal
+assignment, the MTAAC holdout, ORACC prospective material, or another reserved
+source. It validates no identifier, code, row identity, sign sequence, reading
+direction, language, meaning, translation, decipherment, or prize claim.
+
+The controlled next steps are:
+
+1. publish the exact two-parent integration commit and verify it as public
+   `main`;
+2. execute the frozen V2 command once without a detector-control preflight;
+3. publish the schema-valid diagnostic result without changing the prefailed
+   overall decision; and
+4. retire V2 and begin a new control-first successor experiment rather than
+   repairing or rerunning this identity.

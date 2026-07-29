@@ -179,3 +179,29 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   Markdown links, fresh source and wheel builds, isolated wheel installation
   and resource checks, Gitleaks, Semgrep, Trivy, and dedicated public-boundary
   and deployment-identifier scans.
+
+## 2026-07-30 — KP1979 V2 qualification boundary recorded
+
+- The
+  [public pre-execution protocol](KP1979_LABEL_LATTICE_V2_QUALIFICATION_PROTOCOL_2026-07-30.md)
+  separates the raw synthetic-control report from the overall qualification
+  decision.
+- The detector was frozen before the separately developed control, so the
+  required control-before-detector gate fails. Overall status is fixed as
+  `not_qualified` and advance is false regardless of the raw control status.
+- A post-freeze periodic two-tier non-label confound separately blocks
+  deployment. It does not alter the frozen detector, control, or raw-control
+  gates.
+- The one-shot contract expects 25 fresh child processes, prohibits a
+  detector-control preflight and post-invocation retry, fails closed on
+  transport errors, and writes no replacement result. Technical prevention of
+  owner deletion and rerun is not claimed.
+- Git establishes bytes and ancestry only. Confidentiality, blindness,
+  independence, organizational independence, cross-access absence, custody,
+  trusted time, filesystem or network isolation, and independent public-remote
+  attestation remain unverified.
+- The run is synthetic only. It does not open real or future-evaluation
+  material, PDF page 78, the earlier 57-page proposal assignment, the MTAAC
+  holdout, ORACC prospective material, or another reserved source. It supports
+  no accuracy, reference, transcription, reading, translation, decipherment,
+  prize-eligibility, or submission claim.

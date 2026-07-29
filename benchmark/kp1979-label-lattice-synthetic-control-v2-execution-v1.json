@@ -1,0 +1,132 @@
+{
+  "claim_scope": {
+    "accepted_reference": false,
+    "code_transcription_validated": false,
+    "decipherment": false,
+    "evaluation_admissible": false,
+    "full_row_segmentation_validated": false,
+    "future_evaluation_opened": false,
+    "future_pixels_opened": false,
+    "identifier_transcription_validated": false,
+    "language_identified": false,
+    "meaning_assigned": false,
+    "prize_submission_eligible": false,
+    "prize_submission_made": false,
+    "reading_direction_validated": false,
+    "real_accuracy": false,
+    "reserved_sources_read": false,
+    "row_identity_validated": false,
+    "sign_sequence_validated": false,
+    "translation": false
+  },
+  "commitments": {
+    "base_commit": "662b01c23d4d4e2336e248d79bc508c3b7ed5f66",
+    "control_commit": "e143a5ed5a8128d7b7e3626a3bf01607289ee7cc",
+    "control_manifest": {
+      "path": "benchmark/kp1979-label-lattice-synthetic-control-v2.json",
+      "sha256": "ee368613138f2ccb89686872ff127504f0627b2df662edef3b5a0486583f870f"
+    },
+    "control_module": {
+      "path": "src/indusbench/kp1979_synthetic_control_v2.py",
+      "sha256": "7674968043476cc366cf7f0a73daf588d4cea8695a3c6fd368bf1c3d730ebab9"
+    },
+    "detector_commit": "5f059032ed9ee1e790c4c668047510f8e1cd60d5",
+    "detector_module": {
+      "path": "src/indusbench/printed_concordance_layout_v2.py",
+      "sha256": "2540310dad612080034ab89f37cff96ce3341d1fc93d2fa44c0c86a78ccd66a4"
+    },
+    "detector_wheel": {
+      "sha256": "7861a7e435d8221ac9c95a12e232c988533bba9c803b30f470384d2e9476a5cb"
+    },
+    "scorer_module": {
+      "path": "src/indusbench/kp1979_label_scoring.py",
+      "sha256": "56bdcfe869f96e043acadabe44d839bce97891b5c1eb81604e72874fce4b48ba"
+    },
+    "uv_lock": {
+      "path": "uv.lock",
+      "sha256": "d916009109bb939157fe248d613398ddc21735871704117dfa1ea1e00b7c2443"
+    },
+    "worker_module": {
+      "path": "src/indusbench/kp1979_detector_v2_worker.py",
+      "sha256": "4405774a8c544da5d09eb313025b40757ddfe6acc12dfa5013406e3c3f5326c4"
+    }
+  },
+  "control_id": "kp1979-label-lattice-synthetic-control-v2",
+  "deployment_constraints": {
+    "future_evaluation_execution_authorized": false,
+    "postfreeze_periodic_confound_deployment_block": true,
+    "provisional_extraction_authorized": false,
+    "real_source_detector_execution_authorized": false
+  },
+  "development_separation": {
+    "blindness_verified": false,
+    "confidentiality_verified": false,
+    "cross_access_absence_verified": false,
+    "custody_verified": false,
+    "filesystem_isolation_verified": false,
+    "git_proves_only_bytes_and_ancestry": true,
+    "independence_verified": false,
+    "mutual_nonexposure_declared": true,
+    "network_isolation_verified": false,
+    "organizational_independence_verified": false,
+    "process_separation_declared": true,
+    "public_remote_independently_attested": false,
+    "trusted_time_verified": false
+  },
+  "execution_contract": {
+    "canonical_attempt_state_required": true,
+    "canonical_json": {
+      "duplicate_keys_allowed": false,
+      "encoding": "utf-8",
+      "final_newline": true,
+      "indent_spaces": 2,
+      "key_order": "lexicographic",
+      "line_ending": "lf",
+      "non_finite_numbers_allowed": false
+    },
+    "detector_control_preflight_allowed": false,
+    "empty_working_directory_required": true,
+    "environment_allowlist_only": true,
+    "expected_invocation_count": 25,
+    "fresh_process_per_invocation": true,
+    "loaded_module_paths_verified": true,
+    "official_valid_execution_limit": 1,
+    "output_policy": "atomic_no_replace",
+    "preimport_code_execution_excluded": false,
+    "public_main_ref_preflight_required": true,
+    "retry_after_any_control_invocation_allowed": false,
+    "single_execution_technically_enforced": false,
+    "structurally_invalid_execution_writes_result": false,
+    "valid_input_invalid_request_fails_closed": true,
+    "worker_interface_version": "kp1979-label-detector-v2-worker-v1",
+    "worker_internal_failure_cause_distinguishable": false,
+    "worker_request_fields": [
+      "height",
+      "interface_version",
+      "pbm_base64",
+      "scan_bands",
+      "width"
+    ],
+    "worker_response_fields": [
+      "abstention_codes",
+      "algorithm_id",
+      "interface_version",
+      "predictions",
+      "status"
+    ]
+  },
+  "mandatory_gates": {
+    "advance": false,
+    "advance_requires_control_frozen_before_detector_commit": true,
+    "advance_requires_no_postfreeze_deployment_block": true,
+    "advance_requires_raw_control_qualified": true,
+    "control_frozen_before_detector_commit": false,
+    "postfreeze_periodic_confound_deployment_block": true,
+    "raw_control_status_is_separate": true,
+    "terminal_status": "not_qualified"
+  },
+  "plan_id": "kp1979-label-lattice-v2-execution-plan-v1",
+  "plan_version": "kp1979-label-lattice-synthetic-control-v2-execution-v1",
+  "result_state": "not_run",
+  "target_algorithm_id": "two-column-label-lattice-v2"
+}
