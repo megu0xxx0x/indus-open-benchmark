@@ -122,6 +122,11 @@ The global evidence audit has established a baseline and now continues as
 recurring monitoring; it no longer blocks calibrated extraction and
 falsifiable functional tests. It is not model-led translation, an external
 corpus release, a decipherment claim, a blind result, or a prize submission.
+The [2026-07-29 evidence update](docs/GLOBAL_EVIDENCE_UPDATE_2026-07-29.md)
+found no verifiable public iCEL three-dimensional dataset as of that date,
+identifies an ASI/NMMA ID-and-official-URL-only external-catalogue lane, and
+rechecks that the authentic Tamil Nadu award announcement still lacks a
+verified operational submission scheme.
 The dated [global research landscape](docs/GLOBAL_RESEARCH_LANDSCAPE_2026-07-26.md)
 maps the principal corpora, institutions, theories, recent computational claims, open-source and
 rights constraints, the Tamil Nadu prize status, and Japan's actual research gap. Its claims are
@@ -410,6 +415,14 @@ done
 
 uv run indusbench audit-kp1979-layout \
   indus_corpus_1979.pdf canonical-kp1979-pbm
+
+install -d -m 700 /private/kp1979-row-review
+uv run indusbench prepare-kp1979-row-assignment \
+  indus_corpus_1979.pdf canonical-kp1979-pbm \
+  /private/kp1979-row-review/base-row-assignment.json
+uv run indusbench verify-kp1979-row-assignment \
+  indus_corpus_1979.pdf canonical-kp1979-pbm \
+  /private/kp1979-row-review/base-row-assignment.json
 ```
 
 The final command checks every canonical PBM byte and pixel digest, so a
@@ -418,6 +431,14 @@ Pixel-equivalent but differently encoded PBMs also fail because the V1
 canonical byte representation is fixed. The audit emits no candidate count or
 identifier. A passing result establishes exact input pixels and page-class
 detector gates only.
+
+The private row assignment repeats the complete 179-page audit, then binds
+proposal-only label and row-context crops for the 57 identifier-order pages.
+It contains no OCR, identifier, lower code, sign, occupancy, reading direction,
+language, meaning, or accepted manual value. Its rectangles remain unaccepted
+review aids until the separate 12-page reference and independent human review
+exist. The command will not overwrite an existing output and requires a
+physical owner-only parent directory.
 
 Verify the KP1982 inventory-bootstrap evidence; only after a future separate
 post-adjudication inventory build, compare later inscription-transcription

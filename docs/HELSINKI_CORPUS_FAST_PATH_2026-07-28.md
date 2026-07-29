@@ -134,6 +134,10 @@ This update adds:
 - `verify-kp1979-source`: network-free exact PDF and contract verification;
 - `audit-kp1979-layout`: streaming verification of all 179 PBMs followed by a
   pixel-only, abstaining two-column detector;
+- `prepare-kp1979-row-assignment` and
+  `verify-kp1979-row-assignment`: private no-overwrite generation and
+  independent canonical reconstruction of proposal-only label/row review
+  crops for the 57 identifier-order pages;
 - synthetic tests for valid lattices, blank pages, incompatible lane pitches,
   a one-sided discontinuous-lane false positive, ten-column confounds, and
   malformed PBMs.
@@ -161,6 +165,13 @@ false-positive rate there is unmeasured. These are label-lattice gates, not
 full-row segmentation or row-accuracy results. Candidate label slots remain
 unaccepted until the selected pages have independently prepared manual labels
 and a frozen detector is evaluated against them.
+
+The row-assignment command does not advance that acceptance state. It repeats
+the full source/layout audit, re-reads the fixed base pages, and stores only
+visual slot locators plus exact label- and row-crop commitments. It contains
+no OCR, printed identifier, lower code, sign value, occupancy decision,
+reading direction, interpretation, or external manual reference. The private
+manifest is therefore a reproducible review roster, not an extracted corpus.
 
 ## Twelve-page layout protocol
 

@@ -1,8 +1,13 @@
 # Tamil Nadu US$1 Million Indus-Script Prize — Status Audit
 
-**Cut-off:** 2026-07-27
+**Cut-off:** 2026-07-29
 **Decision:** the announcement is authentic; an operational submission scheme
 is not publicly verified.
+
+The 2026-07-29 recheck also covered the official Tamil Nadu Awards portal,
+its notifications and department Government Order listings. It did not alter
+the decision. See the dated
+[global evidence update](GLOBAL_EVIDENCE_UPDATE_2026-07-29.md).
 
 ## What is established
 

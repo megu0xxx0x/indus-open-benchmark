@@ -59,6 +59,10 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
 - `schemas/kp1979-page-map.schema.json` (v0.1.0) — the complete exact native
   PBM commitments for PDF pages 2–180, audited page classes, proposal-only
   detector bands, exclusions, and value-free layout protocol.
+- `schemas/kp1979-row-assignment.schema.json` (v0.1.0) — a closed private
+  assignment for proposal-only label and row-context crops on the 57
+  identifier-order pages; OCR, identifiers, codes, signs, occupancy,
+  direction, interpretation, and external manual values are withheld.
 - `schemas/kp1982-batch0-source.schema.json` (v0.1.0) — the exact official
   KP1982 PDF identity, target-page indices, embedded-image geometry, and
   canonical PBM commitments; it contains no transcription.
@@ -120,6 +124,21 @@ A passing audit means only that the source pixels and current page-class gates
 match. It does not establish label-position accuracy, row segmentation,
 reading order, accepted geometry, identifier transcription, sign
 transcription, three-way reconciliation, or decipherment.
+
+`prepare-kp1979-row-assignment` repeats that complete audit and separately
+re-reads PDF pages 22–78. The resulting private manifest binds each proposed
+label rectangle and its wider row-review rectangle to canonical PBM crop
+hashes and byte sizes. `verify-kp1979-row-assignment` independently rebuilds
+the manifest and requires canonical byte equality. Stable slot IDs encode only
+PDF page, visual lane, and top-to-bottom visual position; they do not encode
+an inscription identifier, occupancy decision, reading order, or accepted
+row. The schema fixes all acceptance, review, publication, evaluation, and
+decipherment assurances false.
+
+Schema validation alone is not an evidence attestation. Relationships among a
+slot ID, page, lane, rectangles, pixels, and crop commitments require the
+canonical verifier; only exact reconstruction from the fixed PDF and PBMs may
+return a valid assignment summary.
 
 ## KP1982 fixed source and transcription bootstrap
 

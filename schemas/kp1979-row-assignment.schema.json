@@ -1,0 +1,741 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/indus-open-benchmark/kp1979-row-assignment.schema.json",
+  "title": "Proposal-only KP1979 identifier-order row assignment",
+  "description": "A closed private assignment rebuilt from the exact KP1979 source, page map, complete layout audit, and the 57 base-rendering page bitmaps. It contains only proposal geometry and canonical crop commitments; schema validity does not accept a row, identifier, code, sign, reading direction, or scientific interpretation. Schema validation alone is non-attesting: slot identity relationships, bbox geometry, and crop commitments require the canonical pixel-recomputing verifier.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "status",
+    "scientific_scope",
+    "source_contract",
+    "page_map",
+    "source_pdf",
+    "layout_evaluation_page_protocol",
+    "selected_page_bitmaps",
+    "crop_policy",
+    "withheld_fields",
+    "slots",
+    "assurances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "manifest_id": {
+      "const": "KP1979:BASE:ROW-ASSIGNMENT:V1"
+    },
+    "status": {
+      "const": "private_proposal_only_row_assignment_requires_independent_manual_reference"
+    },
+    "scientific_scope": {
+      "const": "proposal-only label and row crop assignment for the fixed KP1979 identifier-order base rendering; no OCR, identifier, code, sign, occupancy, reading direction, language, meaning, translation, accepted observation, or decipherment inference is present"
+    },
+    "source_contract": {
+      "const": {
+        "id": "KP1979:CORPUS:SOURCE:V1",
+        "sha256": "sha256:489d7f4cee1de7211b6bd098d1b8fb5f2bf1a44d6ce78249ac90c1be4dfbd40b",
+        "byte_size": 3319
+      }
+    },
+    "page_map": {
+      "const": {
+        "id": "KP1979:CORPUS:PAGE-MAP:V1",
+        "sha256": "sha256:ecd3054909928dddcb087ffdefe1b786c1f6464bd448b008c9ec476ccadc3793",
+        "byte_size": 154016
+      }
+    },
+    "source_pdf": {
+      "const": {
+        "source_id": "helsinki-indus-corpus-1979",
+        "sha256": "sha256:e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa",
+        "byte_size": 16935356
+      }
+    },
+    "layout_evaluation_page_protocol": {
+      "const": {
+        "development_pdf_pages": [
+          20,
+          22,
+          79,
+          129,
+          131,
+          180
+        ],
+        "future_evaluation_pdf_pages": [
+          8,
+          78,
+          99,
+          128,
+          130,
+          175
+        ],
+        "manual_row_values_present": false,
+        "selection_scope": "layout-class and boundary coverage only; page identities and pixels are public, manual row labels remain external and absent, and no blind evaluation is claimed"
+      }
+    },
+    "selected_page_bitmaps": {
+      "type": "array",
+      "minItems": 57,
+      "maxItems": 57,
+      "uniqueItems": true,
+      "prefixItems": [
+        {
+          "const": {
+            "page_index": 21,
+            "pdf_page_number": 22,
+            "canonical_pbm_sha256": "sha256:f37daac46990ee74d00662c3587cb64338f0eaad74b89a8cbce7b91362101f24",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 22,
+            "pdf_page_number": 23,
+            "canonical_pbm_sha256": "sha256:7a17b466b37c1180ba55e3d6596665a276807c6ef252f3e3354b5518d0a19a8e",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 23,
+            "pdf_page_number": 24,
+            "canonical_pbm_sha256": "sha256:04c69981a4853a602975f07fdda492e0de10ed674c04dbeb7b64503e4205c2f5",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 24,
+            "pdf_page_number": 25,
+            "canonical_pbm_sha256": "sha256:46fbdc411050bb176a8cc01b99ef3e221fb9f8c3fb6eb04fd815b7c8c2110d5e",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 25,
+            "pdf_page_number": 26,
+            "canonical_pbm_sha256": "sha256:af9e33917d9d22a4435bbfed985d9b021fbb8a560eb873359b592cceea24282c",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 26,
+            "pdf_page_number": 27,
+            "canonical_pbm_sha256": "sha256:3ec623e49344c3ddb96b25d280c06c72eb584f39dce26a2c098175ecc0290191",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 27,
+            "pdf_page_number": 28,
+            "canonical_pbm_sha256": "sha256:e9ce1ef20aa87baec78d59309a594cbf2289965a3e48e9630e5739febfb8787a",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 28,
+            "pdf_page_number": 29,
+            "canonical_pbm_sha256": "sha256:ad511d3caba573e1525ab48d70fb453fcd841a0bc15fbe0cffdfef789ab6c959",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 29,
+            "pdf_page_number": 30,
+            "canonical_pbm_sha256": "sha256:e1ced7353c94fabfd7c995f5f939cfdf56934468af7de940659479783b41cc7d",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 30,
+            "pdf_page_number": 31,
+            "canonical_pbm_sha256": "sha256:f14b90b9baea117bdc0fa626ddcd34284d4bcbc3b76eedeb845df83a292a8de4",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 31,
+            "pdf_page_number": 32,
+            "canonical_pbm_sha256": "sha256:4c92d634b6b03948d90d49890f213ab0e175e2a095c620527867fb6f1267e1f0",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 32,
+            "pdf_page_number": 33,
+            "canonical_pbm_sha256": "sha256:0825f73fe4bc7c6f9252b6b6bc130973fd36a0e215427dbe9d9252d1f6336296",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 33,
+            "pdf_page_number": 34,
+            "canonical_pbm_sha256": "sha256:890850af6f6421ea06dbb79505fd28a2bd440bb6c5036b8dd981b910639cd8f0",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 34,
+            "pdf_page_number": 35,
+            "canonical_pbm_sha256": "sha256:b2a43ea3710efccd110002fe2c71bbd697045b6de64f4c13807c55b4edc3c460",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 35,
+            "pdf_page_number": 36,
+            "canonical_pbm_sha256": "sha256:26470d9e14d6d75210ef97f18be9662c05edb8096e25ad87220f024d790378e6",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 36,
+            "pdf_page_number": 37,
+            "canonical_pbm_sha256": "sha256:b055c968483ae23981dd66bea5d86b0a04e51e49e3c5764458ed57980ed6eb92",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 37,
+            "pdf_page_number": 38,
+            "canonical_pbm_sha256": "sha256:9437fa0038baaa496f3e814a81cc483012890f14f43990db8f4f78511b28811a",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 38,
+            "pdf_page_number": 39,
+            "canonical_pbm_sha256": "sha256:ad3659124abf11eb7c3725b703064e327c73d694e0943cd43b6cb7d2dfe8ab03",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 39,
+            "pdf_page_number": 40,
+            "canonical_pbm_sha256": "sha256:ca49287ebcd316bd630334302efc4b1e97738d6ac1544579c88f76ef0f086917",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 40,
+            "pdf_page_number": 41,
+            "canonical_pbm_sha256": "sha256:19593a3534b3cbe82fdd4dea0d7e2040381169af5fc9ae5fc280c10f8b57db3a",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 41,
+            "pdf_page_number": 42,
+            "canonical_pbm_sha256": "sha256:2fa95e34c44c676516791fcf2f0c772007bc54db3ae8289e2107e9fc6bef543b",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 42,
+            "pdf_page_number": 43,
+            "canonical_pbm_sha256": "sha256:7bcea09fe9a4ae0d033aeda14ea02493c42ae8ccc39b96eb6e2af3dc6aba0025",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 43,
+            "pdf_page_number": 44,
+            "canonical_pbm_sha256": "sha256:0cd643e249db39ffe3c511c2d2881dbb0c86692adf5bd2e34ee07c79864ffe77",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 44,
+            "pdf_page_number": 45,
+            "canonical_pbm_sha256": "sha256:76a8c3162c7da9514762f0aec02a9d174b8dae62db3f077f7c37de69f5ae4bdf",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 45,
+            "pdf_page_number": 46,
+            "canonical_pbm_sha256": "sha256:9ac3609e389df1431dcd7ef4b2cf3b6bc2c338787d9f3dbda294a9c83f785733",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 46,
+            "pdf_page_number": 47,
+            "canonical_pbm_sha256": "sha256:3ec83e27209ffa9f3450bfe850c4483ae9d569b8399159df95b1e80180812359",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 47,
+            "pdf_page_number": 48,
+            "canonical_pbm_sha256": "sha256:5d9f767bddfe2c6c8b0f29f733dc22a96438a3c0170d4df6ed8385953bc896cd",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 48,
+            "pdf_page_number": 49,
+            "canonical_pbm_sha256": "sha256:d4628712d82fd3279e986534e2e04f661ed04396662855b859b974c3e24f0fb5",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 49,
+            "pdf_page_number": 50,
+            "canonical_pbm_sha256": "sha256:3d41be8bc950987e7a8ef2cc879523bfbb25055b7ae49a2321770007aae79c2a",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 50,
+            "pdf_page_number": 51,
+            "canonical_pbm_sha256": "sha256:cf147fe89b6c394d6e126aef4dcf940e8909d27cba86d7b661ce6f71fbb74e60",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 51,
+            "pdf_page_number": 52,
+            "canonical_pbm_sha256": "sha256:2c838045a0e8a548a3e8a1433235f770b83269a247c4f0352cd697d34b196f06",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 52,
+            "pdf_page_number": 53,
+            "canonical_pbm_sha256": "sha256:15448f35e8f15167eed1f1c93252563f132ad3ecfcf02633816a538708559a0c",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 53,
+            "pdf_page_number": 54,
+            "canonical_pbm_sha256": "sha256:d9d6b78971f8dfe1272265e684213267c50a8c8f77cbf9eaaeac89da69376660",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 54,
+            "pdf_page_number": 55,
+            "canonical_pbm_sha256": "sha256:2ec875ecfb4a085d1531026fde83826f59067e2094fdc1fad805c5e549d89df5",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 55,
+            "pdf_page_number": 56,
+            "canonical_pbm_sha256": "sha256:b4b29964183205f1b3925cd2b2148ee855943ab2c3381ed6e0ece645212c215c",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 56,
+            "pdf_page_number": 57,
+            "canonical_pbm_sha256": "sha256:38bcd5f386db2c8cbd154fce7f98add6485570a602650a1a3c5db9e5fc48e4d0",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 57,
+            "pdf_page_number": 58,
+            "canonical_pbm_sha256": "sha256:13cb37bdec943be2c868c592f57c0104dff4506a7a0104853a4b1115e7dcda20",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 58,
+            "pdf_page_number": 59,
+            "canonical_pbm_sha256": "sha256:1356d9c59bea88cc227d903c21bf7e54b1e7f254c05e008c753ad4b7fb0278da",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 59,
+            "pdf_page_number": 60,
+            "canonical_pbm_sha256": "sha256:5ab69bbbb7c3d37dc7568fdfb50a02986190d3e5686ba27b49817c3466f71401",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 60,
+            "pdf_page_number": 61,
+            "canonical_pbm_sha256": "sha256:c9824657ca30e6af826290570d3b8707a2432a59774f8934916346a2541bc253",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 61,
+            "pdf_page_number": 62,
+            "canonical_pbm_sha256": "sha256:d5edca7ddca548e1f47dfc7a9cabc09670e39bc62e0d9c078ccd49b16b24b48d",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 62,
+            "pdf_page_number": 63,
+            "canonical_pbm_sha256": "sha256:3731cdb5984e3cb68684dd29b8c0fff6094cdf5a0974b76b340dec97f6580933",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 63,
+            "pdf_page_number": 64,
+            "canonical_pbm_sha256": "sha256:4b76efcab6911e5f725f4a2ec22a6c2c70d70ca702f570605ed66235ed429a58",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 64,
+            "pdf_page_number": 65,
+            "canonical_pbm_sha256": "sha256:d7650f2dc55f58efe546d76418275441f389c479b8fd03d49036c4961a93c6ec",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 65,
+            "pdf_page_number": 66,
+            "canonical_pbm_sha256": "sha256:56d7046477984769984bd9fbd33fb7a4f5946d14bf17d451bce0c4133b57832a",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 66,
+            "pdf_page_number": 67,
+            "canonical_pbm_sha256": "sha256:91fbfcb512152b9693c6760eed897aefdcf3170e5c0b4d55d5245cdaddc69338",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 67,
+            "pdf_page_number": 68,
+            "canonical_pbm_sha256": "sha256:4c29f64ad36fcf450fe3f42db3b0c1178508638643c1e2a07cae94594e4015cd",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 68,
+            "pdf_page_number": 69,
+            "canonical_pbm_sha256": "sha256:500a8f6f6279131c887c4453ef9ed088d08f3b88e8f7a9414b530065fc7d3cb1",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 69,
+            "pdf_page_number": 70,
+            "canonical_pbm_sha256": "sha256:6cea24963553f0950268c2335b3283bdd1b6fb3d481e1b72eb7b8519f22f87e9",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 70,
+            "pdf_page_number": 71,
+            "canonical_pbm_sha256": "sha256:a8e54c8f67ac917b2cc11d92b0147e7b8066a16d7cea5f7c986b5952245f2ca0",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 71,
+            "pdf_page_number": 72,
+            "canonical_pbm_sha256": "sha256:f34a40da9d5464e1a8edd5541c3ae2388f89c84ef3b3e58cf4d5d5d42403f6cd",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 72,
+            "pdf_page_number": 73,
+            "canonical_pbm_sha256": "sha256:1f42bf23b109dc8d255bdc96250c313ea5999c75ea58dcd0d34fcff8048bb26e",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 73,
+            "pdf_page_number": 74,
+            "canonical_pbm_sha256": "sha256:24463dde1ca65645f03bb1f5e675465064d90ab6ccf60928cf870499774bb72f",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 74,
+            "pdf_page_number": 75,
+            "canonical_pbm_sha256": "sha256:0817ec40f49b9d35100c0959cf0800d80017538e4eb1bef41128e56b622c303d",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 75,
+            "pdf_page_number": 76,
+            "canonical_pbm_sha256": "sha256:2836022bc41fc563578ac1d5705aeef85a5bc5303ac927d4df1c0ede50ad0a15",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 76,
+            "pdf_page_number": 77,
+            "canonical_pbm_sha256": "sha256:82f5157188c020b364937c8da406a7fc218ac5c0442614f0dc98bca11b491b7b",
+            "byte_size": 4276113
+          }
+        },
+        {
+          "const": {
+            "page_index": 77,
+            "pdf_page_number": 78,
+            "canonical_pbm_sha256": "sha256:c431889100b0030f5b5ce47b7716b23fa7237e468df4525a4c12084b86f44b97",
+            "byte_size": 4276113
+          }
+        }
+      ],
+      "items": false
+    },
+    "crop_policy": {
+      "const": {
+        "algorithm": "kp1979-label-slot-row-crops-v1",
+        "coordinate_space": "decoded_embedded_page_image_pixels",
+        "origin": "top_left",
+        "rectangle_encoding": "half_open_xyxy_integer",
+        "canonical_crop_encoding": "P4 with exact dimensions; row-major top-to-bottom, left-to-right, black=1, MSB-first, zero unused low bits",
+        "lane_order": "left_then_right_zero_based",
+        "visual_row_order": "top_to_bottom_zero_based_within_lane",
+        "label_crop_role": "proposal_label_locator_only",
+        "row_crop_role": "proposal_review_context_only_not_accepted_row_evidence",
+        "row_horizontal_rule": "x0=0 for lane 0 or 2440 for lane 1; x1=proposed_label_bbox.x1",
+        "row_vertical_rule": "y0=max(0,proposed_label_bbox.y0-36); y1=min(7010,proposed_label_bbox.y1+36)",
+        "row_vertical_padding_pixels": 36,
+        "bbox_status": "proposal_only_requires_independent_manual_reference"
+      }
+    },
+    "withheld_fields": {
+      "const": [
+        "all_ocr_output",
+        "all_identifier_values",
+        "all_code_values",
+        "all_sign_values",
+        "all_occupancy_values",
+        "all_reading_direction_values",
+        "all_language_values",
+        "all_meaning_values",
+        "all_translation_values",
+        "all_accepted_observations",
+        "all_external_manual_row_values"
+      ]
+    },
+    "slots": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5000,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/slot"
+      }
+    },
+    "assurances": {
+      "const": {
+        "source_contract_exact_bytes_verified": true,
+        "page_map_exact_bytes_verified": true,
+        "source_pdf_exact_bytes_verified": true,
+        "audit_page_bitmaps_verified": true,
+        "audit_layout_gates_passed": true,
+        "selected_base_page_bitmaps_verified": true,
+        "proposal_geometry_only": true,
+        "label_geometry_accepted": false,
+        "row_geometry_accepted": false,
+        "occupancy_accepted": false,
+        "human_review_complete": false,
+        "reviewer_independence_verified": false,
+        "identifiers_transcribed": false,
+        "codes_transcribed": false,
+        "sign_sequences_transcribed": false,
+        "reading_direction_assigned": false,
+        "language_assigned": false,
+        "meaning_assigned": false,
+        "private_storage_verified": false,
+        "public_release_authorized": false,
+        "evaluation_admissible": false,
+        "decipherment": false
+      }
+    }
+  },
+  "$defs": {
+    "checksum": {
+      "type": "string",
+      "minLength": 71,
+      "maxLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "bbox": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4879
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7009
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4880
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7010
+        }
+      ],
+      "items": false
+    },
+    "page_bitmap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_index",
+        "pdf_page_number",
+        "canonical_pbm_sha256",
+        "byte_size"
+      ],
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 21,
+          "maximum": 77
+        },
+        "pdf_page_number": {
+          "type": "integer",
+          "minimum": 22,
+          "maximum": 78
+        },
+        "canonical_pbm_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "byte_size": {
+          "const": 4276113
+        }
+      }
+    },
+    "slot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slot_id",
+        "page_index",
+        "pdf_page_number",
+        "lane_index",
+        "visual_row_index",
+        "proposed_label_bbox",
+        "proposed_row_bbox",
+        "label_crop_sha256",
+        "label_crop_byte_size",
+        "row_crop_sha256",
+        "row_crop_byte_size"
+      ],
+      "properties": {
+        "slot_id": {
+          "type": "string",
+          "minLength": 18,
+          "maxLength": 18,
+          "pattern": "^KP1979:P0(?:2[2-9]|[3-6][0-9]|7[0-8]):L[01]:V[0-9]{2}$"
+        },
+        "page_index": {
+          "type": "integer",
+          "minimum": 21,
+          "maximum": 77
+        },
+        "pdf_page_number": {
+          "type": "integer",
+          "minimum": 22,
+          "maximum": 78
+        },
+        "lane_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "visual_row_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        "proposed_label_bbox": {
+          "$ref": "#/$defs/bbox"
+        },
+        "proposed_row_bbox": {
+          "$ref": "#/$defs/bbox"
+        },
+        "label_crop_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "label_crop_byte_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "row_crop_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "row_crop_byte_size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

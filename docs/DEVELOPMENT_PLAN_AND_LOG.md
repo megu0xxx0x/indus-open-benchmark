@@ -875,3 +875,94 @@ Ruff, formatting, Pyright, closed-schema/runtime validation, independent
 confusion/metric/gate recomputation, 135 local Markdown links, fresh source
 and wheel builds, isolated wheel installation and resource checks, Gitleaks,
 Semgrep, Trivy, and dedicated public-boundary and deployment-identifier scans.
+
+## KP1979 base-row review spine and global evidence refresh — 2026-07-29T11:40:26+09:00
+
+MTAAC remains permanently retired. The next information-gain audit selected
+the official Helsinki 1979/1980 record spine instead of another model run.
+The fixed KP1979 PDF and all 179 canonical native PBMs were installed in the
+canonical owner-only source store and passed the existing exact-source,
+per-page pixel, negative-control, and layout gates. The fixed KP1980 PDF was
+also installed there. Its 98 Poppler PBMs are retained only as an owner-only
+extraction candidate; they are not yet a public canonical page-map contract.
+Transfer staging was removed after hash and permission checks.
+
+The original KP1979 exact container remains 16,935,356 bytes with SHA-256
+`e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa`.
+The current HeldA endpoint was observed returning container variants with
+different object numbers, xref data, trailer IDs, sizes, and raw hashes across
+requests. Independent Poppler and MuPDF checks found all 179 embedded images,
+all decoded canonical PBMs, all 180 rendered pages, and extracted text
+identical to the fixed snapshot. The exact V1 container and page map were
+therefore not replaced. One observed current variant is retained in
+owner-only quarantine. A future delivery-variant verifier must require all
+fixed per-page PBM commitments and must never auto-allowlist an unfamiliar
+raw PDF hash.
+
+This checkpoint implements:
+
+- `schemas/kp1979-row-assignment.schema.json`, a closed private proposal-only
+  assignment whose 57 selected page commitments are fixed exactly;
+- `src/indusbench/kp1979_row_assignment.py`, which repeats the complete
+  179-page audit, re-reads PDF pages 22–78, rejects oversized input before
+  hashing, creates stable visual slot locators, and commits canonical label
+  and wider row-context crops;
+- `prepare-kp1979-row-assignment`, with physical input-directory checks and
+  private owner-only, atomic, no-replace output;
+- `verify-kp1979-row-assignment`, which independently rebuilds the manifest
+  from the exact PDF and PBMs and requires canonical byte equality; and
+- synthetic, malformed/deep-JSON, forbidden-answer-field, schema-boundary,
+  private-I/O, symlink, overwrite, durability, tamper, and fixed-real-source
+  tests.
+
+The assignment contains no OCR, printed identifier, lower code, sign value,
+occupancy decision, reading direction, language, meaning, translation, or
+external manual label. Candidate counts and private values are not printed.
+The row rectangles are review aids only: no label or row geometry is accepted,
+no human or independent review is complete, no record is admitted, and no
+decipherment or prize evidence exists. JSON Schema validation alone is not an
+attestation; the pixel-recomputing canonical verifier is mandatory.
+
+The dated global evidence refresh adds three operational conclusions:
+
+- the 2025 iCEL paper describes its contextual three-dimensional database as
+  under construction, and no released dataset, manifest, API, coverage list,
+  or reusable geometry licence was verified as of 2026-07-29;
+- the official ASI/NMMA seals-and-sealings catalogue contains 413
+  site-origin candidates across Harappa, Mohenjo-daro, Desalpur, and Surkotada,
+  but they are not 413 confirmed inscribed objects and the public candidate
+  lane is limited to official IDs plus official landing URLs; and
+- the Tamil Nadu one-million-US-dollar announcement is authentic, but an
+  operational submission scheme, rules, deadline, judging process, and
+  submission address remain unverified. No submission is authorized.
+
+Pre-publication validation at this checkpoint passed:
+
+- the fixed-real-source build and canonical verifier;
+- all 632 repository tests, with 14 environment-specific tests skipped;
+- Ruff lint and formatting plus Pyright with zero errors or warnings;
+- Draft 2020-12 schema validation and exact 57-page commitment
+  reconciliation;
+- 151 local Markdown links;
+- fresh source and wheel builds plus isolated wheel installation, CLI, and
+  packaged-schema checks;
+- Gitleaks, Semgrep, and Trivy with no finding; and
+- independent CLI/security, core/schema, scientific-claim, rights, secret,
+  deployment-identifier, and public-boundary reviews.
+
+The next controlled work is:
+
+1. create the external manual reference and independent review contracts for
+   the fixed 12-page KP1979 protocol without exposing values to the detector;
+2. use the private 57-page assignment for image-verified identifier and lower
+   code review, preserving abstentions and disagreements;
+3. reconcile accepted source-local records against the two KP1979 sorted
+   renderings without using sign sequences as join keys;
+4. implement the KP1980 exact source/page contract and versioned
+   correction/cross-reference/duplicate parsers; and
+5. build only an ID-and-official-URL NMMA candidate index unless a separate
+   metadata or image reuse basis is established.
+
+Do not rerun MTAAC, V2 holdout, V5, or the reserved prospective source. Do not
+contact an institution or attempt a prize submission without new explicit
+authority and a verified operational route.

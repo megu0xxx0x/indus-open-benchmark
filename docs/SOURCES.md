@@ -146,8 +146,10 @@ mechanism for binding confirmation.
 
 - Official record:
   <https://researchportal.helsinki.fi/en/publications/corpus-of-texts-in-the-indus-script/>
-- Official PDF:
+- Original official PDF delivery route for the fixed snapshot:
   <https://tuhat.helsinki.fi/ws/portalfiles/portal/176353520/indus_corpus_1979.pdf>
+- Current official HeldA delivery route:
+  <https://helda.helsinki.fi/server/api/core/bitstreams/33bcf646-4ba2-441d-aa98-fea243747a1f/content>
 - Rights status: official record marked CC BY
 - Exact PDF identity: 180 pages, 16,935,356 bytes,
   SHA-256 `e6f9dec7cf98d2ee6130f068e60ab37021808dd63953de41f92ce457b35a4bfa`
@@ -164,6 +166,18 @@ sorted-from-beginning rendering is on pages 131–180.
 The network-free audit applies one pixel-only detector to normal pages and
 hard controls. It accepts no identifier or sign value and withholds candidate
 counts.
+
+The current HeldA route was observed on 2026-07-29 to emit different PDF
+container bytes across requests. Two observed delivery variants had sizes
+16,935,317 and 16,935,359 bytes and different SHA-256 values, object numbers,
+xref data, and trailer IDs. After object compaction and trailer-ID
+normalization, both matched the fixed snapshot. More importantly, all 179
+embedded CCITT images, all 179 decoded canonical PBMs, all 180 Poppler
+renders, all 180 MuPDF renders, and extracted text were identical. These
+variants are delivery aliases, not replacements for the exact V1 container.
+An unknown delivery hash MUST NOT be allowlisted automatically; it may be
+accepted as content-equivalent only after the fixed per-page PBM commitments
+are independently reproduced.
 
 The three renderings are valuable internal extraction checks, but they share
 authors and source lineage. Agreement is not independent archaeological

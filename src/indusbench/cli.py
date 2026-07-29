@@ -67,6 +67,14 @@ from indusbench.kp1979 import (
     audit_kp1979_layout,
     verify_kp1979_source,
 )
+from indusbench.kp1979_row_assignment import (
+    MAX_ASSIGNMENT_BYTES as KP1979_MAX_ROW_ASSIGNMENT_BYTES,
+)
+from indusbench.kp1979_row_assignment import (
+    KP1979RowAssignmentError,
+    build_row_assignment,
+    verify_row_assignment_bytes,
+)
 from indusbench.kp1982 import (
     MAX_CONTRACT_BYTES as KP1982_MAX_CONTRACT_BYTES,
 )
@@ -4031,6 +4039,204 @@ def _command_audit_kp1979_layout(args: argparse.Namespace) -> int:
     return 0
 
 
+def _require_kp1979_page_directory(path: Path) -> None:
+    """Require a physical directory before any fixed-page iterator is created."""
+
+    metadata = path.lstat()
+    if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(metadata.st_mode):
+        raise ValueError("KP1979 page bitmap input is not a physical directory")
+
+
+def _iter_kp1979_page_bytes(
+    directory: Path,
+    *,
+    first_page: int,
+    last_page: int,
+) -> Iterator[tuple[int, bytes]]:
+    """Read one closed inclusive range of canonical KP1979 page bitmaps."""
+
+    for page_number in range(first_page, last_page + 1):
+        yield (
+            page_number,
+            _read_regular_bytes(
+                directory / f"page-{page_number:03d}.pbm",
+                max_bytes=KP1979_MAX_PAGE_PBM_BYTES,
+            ),
+        )
+
+
+def _kp1979_row_assignment_summary(
+    *,
+    valid: bool,
+    private_storage_verified: bool,
+    assignment_canonical_bytes_verified: bool,
+    written: bool | None = None,
+    **state: bool | str,
+) -> dict[str, bool | str]:
+    """Return a fixed, count-free summary for a private row assignment."""
+
+    summary: dict[str, bool | str] = {
+        "valid": valid,
+        "claim_class": "private_kp1979_row_assignment_only",
+        "counts_disclosed": False,
+        "private_values_disclosed": False,
+        "private_storage_verified": private_storage_verified,
+        "source_page_pixels_verified": True,
+        "audit_page_layout_gates_passed": True,
+        "base_page_pixels_verified": True,
+        "assignment_canonical_bytes_verified": assignment_canonical_bytes_verified,
+        "proposal_geometry_only": assignment_canonical_bytes_verified,
+        "machine_answer_values_withheld": assignment_canonical_bytes_verified,
+        "label_geometry_accepted": False,
+        "row_geometry_accepted": False,
+        "human_review_complete": False,
+        "reviewer_independence_verified": False,
+        "identifiers_transcribed": False,
+        "codes_transcribed": False,
+        "sign_sequences_transcribed": False,
+        "reading_direction_assigned": False,
+        "public_release_authorized": False,
+        "evaluation_admissible": False,
+        "decipherment": False,
+    }
+    if written is not None:
+        summary["written"] = written
+    if set(state).intersection(summary):
+        raise KP1979RowAssignmentError(
+            "KP1979 row assignment summary state cannot replace a fixed assurance"
+        )
+    summary.update(state)
+    return summary
+
+
+def _command_prepare_kp1979_row_assignment(args: argparse.Namespace) -> int:
+    try:
+        _require_kp1979_page_directory(args.page_pbm_dir)
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        assignment = build_row_assignment(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            _iter_kp1979_page_bytes(
+                args.page_pbm_dir,
+                first_page=2,
+                last_page=180,
+            ),
+            _iter_kp1979_page_bytes(
+                args.page_pbm_dir,
+                first_page=22,
+                last_page=78,
+            ),
+        )
+    except (OSError, ValueError) as error:
+        raise KP1979RowAssignmentError("KP1979 row assignment preparation failed") from error
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.output,
+            assignment,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1979RowAssignmentError(
+            "private KP1979 row assignment could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        _print_json(
+            _kp1979_row_assignment_summary(
+                valid=False,
+                written=False,
+                private_storage_verified=False,
+                assignment_canonical_bytes_verified=content_verified,
+                output_content_verified=content_verified,
+                durability_confirmed=durability_confirmed,
+                destination_may_exist=True,
+                postcondition=(
+                    "committed_content_verified_durability_unknown"
+                    if content_verified
+                    else "committed_content_unknown"
+                ),
+            )
+        )
+        return 1
+    _print_json(
+        _kp1979_row_assignment_summary(
+            valid=True,
+            written=True,
+            private_storage_verified=True,
+            assignment_canonical_bytes_verified=True,
+        )
+    )
+    return 0
+
+
+def _command_verify_kp1979_row_assignment(args: argparse.Namespace) -> int:
+    try:
+        _require_kp1979_page_directory(args.page_pbm_dir)
+        contract_bytes = _read_regular_bytes(
+            args.contract,
+            max_bytes=KP1979_MAX_CONTRACT_BYTES,
+        )
+        page_map_bytes = _read_regular_bytes(
+            args.page_map,
+            max_bytes=KP1979_MAX_PAGE_MAP_BYTES,
+        )
+        source_bytes = _read_regular_bytes(
+            args.pdf,
+            max_bytes=KP1979_MAX_SOURCE_BYTES,
+        )
+        assignment_bytes = _read_private_regular_bytes(
+            args.assignment,
+            max_bytes=KP1979_MAX_ROW_ASSIGNMENT_BYTES,
+        )
+        core_summary = verify_row_assignment_bytes(
+            contract_bytes,
+            page_map_bytes,
+            source_bytes,
+            _iter_kp1979_page_bytes(
+                args.page_pbm_dir,
+                first_page=2,
+                last_page=180,
+            ),
+            _iter_kp1979_page_bytes(
+                args.page_pbm_dir,
+                first_page=22,
+                last_page=78,
+            ),
+            assignment_bytes,
+        )
+        if (
+            core_summary.get("valid") is not True
+            or core_summary.get("assignment_canonical_bytes_verified") is not True
+            or core_summary.get("proposal_geometry_only") is not True
+            or core_summary.get("machine_answer_values_withheld") is not True
+            or core_summary.get("decipherment") is not False
+        ):
+            raise KP1979RowAssignmentError(
+                "KP1979 row assignment verifier returned an incomplete assurance state"
+            )
+    except (OSError, ValueError) as error:
+        raise KP1979RowAssignmentError("KP1979 row assignment verification failed") from error
+    _print_json(
+        _kp1979_row_assignment_summary(
+            valid=True,
+            private_storage_verified=True,
+            assignment_canonical_bytes_verified=True,
+        )
+    )
+    return 0
+
+
 def _command_propose_kp1982_layout(args: argparse.Namespace) -> int:
     try:
         source_contract_bytes = _read_regular_bytes(
@@ -6726,6 +6932,64 @@ def build_parser() -> argparse.ArgumentParser:
         help="closed checked-in KP1979 native-page map",
     )
     kp1979_layout_parser.set_defaults(handler=_command_audit_kp1979_layout)
+
+    kp1979_row_prepare_parser = subparsers.add_parser(
+        "prepare-kp1979-row-assignment",
+        help="create a private source-bound KP1979 base-row reviewer assignment",
+    )
+    kp1979_row_prepare_parser.add_argument("pdf", type=_path)
+    kp1979_row_prepare_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing canonical page-002.pbm through page-180.pbm",
+    )
+    kp1979_row_prepare_parser.add_argument(
+        "output",
+        type=_path,
+        help="new 0600 assignment under a pre-existing physical 0700 directory",
+    )
+    kp1979_row_prepare_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_row_prepare_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_row_prepare_parser.set_defaults(handler=_command_prepare_kp1979_row_assignment)
+
+    kp1979_row_verify_parser = subparsers.add_parser(
+        "verify-kp1979-row-assignment",
+        help="recompute a private KP1979 base-row reviewer assignment",
+    )
+    kp1979_row_verify_parser.add_argument("pdf", type=_path)
+    kp1979_row_verify_parser.add_argument(
+        "page_pbm_dir",
+        type=_path,
+        help="physical directory containing canonical page-002.pbm through page-180.pbm",
+    )
+    kp1979_row_verify_parser.add_argument(
+        "assignment",
+        type=_path,
+        help="canonical 0600 assignment under a physical owner-only directory",
+    )
+    kp1979_row_verify_parser.add_argument(
+        "--contract",
+        type=_path,
+        default=_default_kp1979_contract(),
+        help="closed checked-in KP1979 source contract",
+    )
+    kp1979_row_verify_parser.add_argument(
+        "--page-map",
+        type=_path,
+        default=_default_kp1979_page_map(),
+        help="closed checked-in KP1979 native-page map",
+    )
+    kp1979_row_verify_parser.set_defaults(handler=_command_verify_kp1979_row_assignment)
 
     kp1982_source_parser = subparsers.add_parser(
         "verify-kp1982-source",

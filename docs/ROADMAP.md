@@ -60,6 +60,13 @@ Current assets:
   reproducible defect or evidence-loss problem.
 - [x] Pin the official KP1979 PDF and all 179 native page images, freeze its
   section/page map, and implement the pixel-only abstaining two-column audit.
+- [x] Implement a private, exact-source row-review assignment for all 57
+  identifier-order pages. It rechecks the 179-page audit, stores only
+  proposal geometry and crop commitments, and withholds every OCR,
+  identifier, code, sign, occupancy, direction, and manual-reference value.
+- [ ] Add a separate KP1979 delivery-variant verifier for the current official
+  HeldA route. Keep the existing exact container fixed; accept no new raw PDF
+  hash unless all 179 per-page PBM commitments independently reproduce.
 - [x] Confirm the official 1980 continuation's exact bytes and data-bearing
   ranges for revisions, bidirectional Mahadevan cross-reference,
   documentation, and strict/loose duplicate assertions.
@@ -86,6 +93,10 @@ Current assets:
   unreviewed output.
 - [ ] Implement edition-preserving corpus adapters and uncertainty-bearing
   crosswalks before importing any rights-compatible export.
+- [ ] Build an ASI/NMMA candidate index containing only official record IDs
+  and official landing URLs. Do not copy catalogue metadata or images without
+  a separate reuse basis; do not call all 413 site-origin candidates
+  inscribed objects.
 - [ ] Preregister numeral/metrology and repeated-tablet functional-anchor
   tests with site, period, medium, and object holdouts.
 - [ ] Run equal-budget linguistic, non-linguistic, hybrid, and multilingual
