@@ -120,6 +120,7 @@ class KP1979LabelReferenceCliTests(unittest.TestCase):
         paths["page_map"].write_bytes(b"synthetic page map")
         paths["pdf"].write_bytes(b"synthetic source")
         paths["pages"].mkdir()
+        paths["pages"].chmod(0o755)
         for page_number in sorted({page for pages in PARTITION_PAGES.values() for page in pages}):
             (paths["pages"] / f"page-{page_number:03d}.pbm").write_bytes(
                 f"synthetic page {page_number}".encode()
@@ -618,6 +619,34 @@ class KP1979LabelReferenceCliTests(unittest.TestCase):
         )
         self.assertNotIn("pages-original", stderr)
         self.assertNotIn("pages-replacement", stderr)
+
+    def test_group_writable_page_directory_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            paths = self.make_inputs(root)
+            paths["pages"].chmod(0o775)
+            output = paths["private"] / "assignment.json"
+
+            with patch.object(
+                cli_module,
+                "build_label_reference_assignment",
+            ) as builder:
+                result, stdout, stderr = run_cli(
+                    self.prepare_arguments(
+                        paths,
+                        output,
+                        partition="development",
+                    )
+                )
+
+        self.assertEqual(1, result)
+        self.assertEqual("", stdout)
+        builder.assert_not_called()
+        self.assertEqual(
+            "indusbench: KP1979 label-reference assignment preparation failed\n",
+            stderr,
+        )
+        self.assertFalse(output.exists())
 
     def test_page_entries_reject_symlink_hardlink_and_fifo(self) -> None:
         cases = ["symlink", "hardlink"]
