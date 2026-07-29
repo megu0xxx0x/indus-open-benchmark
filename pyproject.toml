@@ -33,6 +33,7 @@ dev = [
 
 [project.scripts]
 indusbench = "indusbench.cli:main"
+indusbench-kp1979-label-detector-v2 = "indusbench.kp1979_detector_v2_worker:main"
 indusbench-v3dev-mtaac = "indusbench.v3dev_cli:main"
 indusbench-v4dev-mtaac = "indusbench.v4dev_cli:main"
 indusbench-v5dev-mtaac = "indusbench.v5dev_cli:main"
