@@ -180,22 +180,25 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   and resource checks, Gitleaks, Semgrep, Trivy, and dedicated public-boundary
   and deployment-identifier scans.
 
-## 2026-07-30 — KP1979 V2 qualification boundary recorded
+## 2026-07-30 — KP1979 V2 qualification executed and published
 
 - The
-  [public pre-execution protocol](KP1979_LABEL_LATTICE_V2_QUALIFICATION_PROTOCOL_2026-07-30.md)
-  separates the raw synthetic-control report from the overall qualification
-  decision.
+  [public protocol](KP1979_LABEL_LATTICE_V2_QUALIFICATION_PROTOCOL_2026-07-30.md)
+  now records the completed execution and links the
+  [machine-readable result](../benchmark/results/kp1979-label-lattice-v2-result-v1.json).
+- The raw control status is `not_qualified`: 18 of 19 cases passed. The only
+  failure was `positive_bounded_jitter_with_gaps`, where the detector abstained
+  and obtained zero precision and zero recall against 68 synthetic references.
+- All three metamorphic checks passed. The execution started 25 child processes
+  for 25 adapter invocations, accepted 21 responses, properly rejected four
+  out-of-contract inputs, and recorded no transport failure.
 - The detector was frozen before the separately developed control, so the
   required control-before-detector gate fails. Overall status is fixed as
-  `not_qualified` and advance is false regardless of the raw control status.
+  `not_qualified` and advance is false independently of the raw control
+  failure.
 - A post-freeze periodic two-tier non-label confound separately blocks
   deployment. It does not alter the frozen detector, control, or raw-control
   gates.
-- The one-shot contract expects 25 fresh child processes, prohibits a
-  detector-control preflight and post-invocation retry, fails closed on
-  transport errors, and writes no replacement result. Technical prevention of
-  owner deletion and rerun is not claimed.
 - Git establishes bytes and ancestry only. Confidentiality, blindness,
   independence, organizational independence, cross-access absence, custody,
   trusted time, filesystem or network isolation, and independent public-remote
@@ -205,3 +208,6 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   holdout, ORACC prospective material, or another reserved source. It supports
   no accuracy, reference, transcription, reading, translation, decipherment,
   prize-eligibility, or submission claim.
+- V2 is retired and must not be rerun, retuned, repaired, or used for
+  extraction. The next controlled work is to create and publish a control-first
+  V3 synthetic control before implementing its new detector identity.

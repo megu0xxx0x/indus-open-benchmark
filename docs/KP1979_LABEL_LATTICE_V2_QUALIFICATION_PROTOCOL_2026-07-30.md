@@ -1,7 +1,8 @@
 # KP1979 V2 label-lattice qualification protocol
 
-Status: pre-execution protocol — 2026-07-30. No combined V2
-control-detector execution or result exists at this checkpoint.
+Status: executed and published — 2026-07-30. The single V2 synthetic
+control-detector result is available as the
+[machine-readable result](../benchmark/results/kp1979-label-lattice-v2-result-v1.json).
 
 ## Decision fixed before execution
 
@@ -19,15 +20,33 @@ synthetic-control status:
 - V2 authorizes no real-source, provisional-extraction, or future-evaluation
   execution.
 
-The raw control report remains useful diagnostic evidence and will be recorded
-separately from the overall decision. A raw `qualified` status, if produced,
-cannot override the failed freeze-order gate.
+The raw control report remains useful diagnostic evidence and is recorded
+separately from the overall decision. It returned `not_qualified` and cannot
+override the failed freeze-order gate.
 
 A post-freeze adversarial check also exposed a periodic two-tier non-label
 confound that the frozen detector can propose as label structure. It was not
 used to alter either frozen parent or to rewrite the control. It is a separate
 deployment block, so V2 cannot be promoted as a reference detector even if its
 raw control report passes.
+
+## Published diagnostic result
+
+The exact frozen command completed once. The raw synthetic control passed 18
+of 19 cases. Its only failure was
+`positive_bounded_jitter_with_gaps`: the detector abstained, giving zero
+precision and zero recall against 68 synthetic references. All three
+metamorphic checks passed.
+
+The process and transport record contains 25 successfully started child
+processes and 25 adapter invocations. Twenty-one responses were accepted, four
+out-of-contract inputs were properly rejected, and no transport failure was
+recorded.
+
+The raw control status is `not_qualified`. Independently, the detector-before-
+control freeze order and the post-freeze periodic confound force the overall
+status to `not_qualified` and
+`advance_to_provisional_extraction` to false.
 
 ## Frozen public boundary
 
@@ -57,8 +76,8 @@ organizational independence, or absence of cross-access.
 
 ## One-shot process protocol
 
-The official run has one valid evaluator call and no detector-control preflight.
-It expects 25 adapter invocations: 19 fixed synthetic cases plus two calls for
+The official run had one evaluator call and no detector-control preflight. It
+required 25 adapter invocations: 19 fixed synthetic cases plus two calls for
 each of three metamorphic relations.
 
 For every invocation, the runner:
@@ -72,11 +91,11 @@ For every invocation, the runner:
    predictions and declared abstention codes.
 
 The result records the actual successfully started child-process count.
-Fresh-process verification passes only when that count, the adapter invocation
-count, and the expected count are all 25. A timeout, crash, malformed response,
-unexpected output, invalid response to a structurally valid input, or failure
-to start a child is converted into a fail-closed algorithm-mismatch result
-rather than an accidental rejection pass.
+Fresh-process verification passed because that count, the adapter invocation
+count, and the expected count were all 25. A timeout, crash, malformed
+response, unexpected output, invalid response to a structurally valid input,
+or failure to start a child would have been converted into a fail-closed
+algorithm-mismatch result rather than an accidental rejection pass.
 
 The canonical attempt marker is created before the first adapter call. The
 result is written once with atomic no-replace publication. No retry is allowed
@@ -90,7 +109,7 @@ evidence of confidentiality, blindness, independence, or lack of prior access.
 
 ## Result interpretation
 
-The result must preserve two different facts:
+The published result preserves two different facts:
 
 - `control_report.status` is the raw result of the frozen synthetic control;
   and
@@ -115,13 +134,13 @@ unverified.
 
 ## Controlled next step
 
-After the integration source and this protocol are published, the exact V2
-command may run once and its schema-valid diagnostic result may be published
-without changing the terminal decision. V2 must then remain immutable and
-must not be rerun, retuned, or used for extraction.
+The V2 execution is complete and its schema-valid diagnostic result is
+published. V2 is now retired and immutable. It must not be rerun, retuned,
+repaired, or used for extraction.
 
-Any successor must use a new algorithm and control identity. Its synthetic
-control must be frozen and published before detector implementation, and it
-must include independent positive renderers plus explicit periodic-rule,
-table, box, decoration, and non-label confounds. That successor is a new
-experiment, not a repair of V2 and not evidence of decipherment.
+The next controlled experiment is a V3 successor with a new algorithm and
+control identity. Its synthetic control must be created, frozen, and published
+before detector implementation, and it must include independent positive
+renderers plus explicit periodic-rule, table, box, decoration, and non-label
+confounds. V3 is a new experiment, not a repair of V2 and not evidence of
+decipherment.

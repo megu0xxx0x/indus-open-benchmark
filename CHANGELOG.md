@@ -8,18 +8,22 @@ immutable content-addressed identifiers for corpus and split releases.
 ### Added
 
 - A frozen public KP1979 V2 label-lattice qualification protocol, closed
-  execution plan, one-shot runner, and closed result contract. The detector
-  froze before the separately developed control, so overall status is
-  precommitted to `not_qualified` and advance false regardless of the separately
-  reported raw-control status. A post-freeze periodic two-tier non-label
-  confound also blocks deployment. The runner expects 25 fresh child
-  processes, prohibits detector-control preflight and post-invocation retry,
-  validates actual process starts and answer-free worker traffic, and fails
-  closed on transport or response faults. Git proves bytes and ancestry only;
-  blindness, confidentiality, independence, cross-access absence, custody,
-  trusted time, and technical single-execution enforcement are not claimed.
-  The synthetic run opens no real or future-evaluation source, PDF page 78,
-  MTAAC holdout, ORACC prospective material, or reserved source.
+  execution plan, one-shot runner, closed result contract, and
+  [single published diagnostic result](benchmark/results/kp1979-label-lattice-v2-result-v1.json).
+  The raw control is `not_qualified`: 18 of 19 cases passed, with an abstention
+  on `positive_bounded_jitter_with_gaps` yielding zero precision and recall
+  against 68 synthetic references. All three metamorphic checks passed. The
+  run started 25 child processes for 25 adapter invocations, accepted 21
+  responses, properly rejected four out-of-contract inputs, and recorded no
+  transport failure. Overall status remains `not_qualified` and advance false
+  independently because the detector froze before the control and a
+  post-freeze periodic two-tier non-label confound blocks deployment. Git
+  proves bytes and ancestry only; blindness, confidentiality, independence,
+  cross-access absence, custody, trusted time, and technical single-execution
+  enforcement are not claimed. The synthetic run opened no real or
+  future-evaluation source, PDF page 78, MTAAC holdout, ORACC prospective
+  material, or reserved source. V2 is retired; the next experiment is a
+  control-first V3 successor.
 - A separately frozen, development-only MTAAC V4 protocol that leaves V2 and
   V3 immutable and reuses only the 271-family development partition. Its
   truth-free target-batch profile is train/validation and clean/mild isolated,
@@ -313,12 +317,13 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Scientific limitations
 
-- KP1979 V2 cannot qualify or advance even if its raw synthetic control passes:
-  the detector froze before its control and a post-freeze periodic two-tier
-  non-label confound blocks deployment. The raw report is diagnostic only.
-  V2 establishes no accepted reference, real accuracy, row or transcription
-  validity, reading direction, language, meaning, translation, decipherment,
-  prize eligibility, or prize submission.
+- KP1979 V2 did not qualify or advance. Its raw synthetic control passed 18 of
+  19 cases but remained `not_qualified`; separately, the detector-before-
+  control freeze and post-freeze periodic two-tier non-label confound force the
+  same overall decision. The report is diagnostic only. V2 establishes no
+  accepted reference, real accuracy, row or transcription validity, reading
+  direction, language, meaning, translation, decipherment, prize eligibility,
+  or prize submission.
 - The single frozen MTAAC V2 run returned `NO_GO`. Clean passed every gate,
   but mild `settlement_name` recall was 0.193553 against the frozen minimum
   0.35. The unchanged method is blocked from Indus transfer. This is a

@@ -1101,16 +1101,27 @@ Human passes remain optional for this AI development sequence. They become a
 gate only if the project later seeks to promote geometry as externally grounded
 reference evidence or to report performance against such evidence.
 
-## KP1979 V2 qualification boundary frozen — 2026-07-30
+## KP1979 V2 qualification executed and published — 2026-07-30
 
 The public
 [V2 qualification protocol](KP1979_LABEL_LATTICE_V2_QUALIFICATION_PROTOCOL_2026-07-30.md)
-and machine-readable execution plan now fix the result interpretation before
-the combined control-detector run. The detector branch was frozen before the
-separately developed control branch, contrary to the required
-control-before-detector order. The overall terminal status is therefore
-`not_qualified` and advance is false regardless of the raw control status.
-The raw control report remains a separate diagnostic.
+and machine-readable execution plan fixed the result interpretation before the
+combined control-detector run. The exact frozen command has now completed once,
+and its
+[machine-readable result](../benchmark/results/kp1979-label-lattice-v2-result-v1.json)
+is published.
+
+The raw synthetic control is `not_qualified`: 18 of 19 cases passed. The sole
+failure, `positive_bounded_jitter_with_gaps`, was an abstention with zero
+precision and zero recall against 68 synthetic references. All three
+metamorphic checks passed. The process and transport boundary recorded 25
+successfully started child processes for 25 adapter invocations, 21 accepted
+responses, four proper out-of-contract rejections, and zero transport failures.
+
+The detector branch was frozen before the separately developed control branch,
+contrary to the required control-before-detector order. Independently of the
+raw control failure, the overall terminal status is therefore `not_qualified`
+and advance is false.
 
 A post-freeze adversarial periodic two-tier non-label confound is also a
 deployment block. It does not modify either frozen parent or the raw-control
@@ -1118,11 +1129,11 @@ gates, but it prevents V2 from being promoted for reference, real-source,
 provisional-extraction, future-evaluation, accuracy, decipherment, or prize
 use.
 
-The execution contract permits no detector-control preflight and expects 25
+The execution used no detector-control preflight and started the required 25
 fresh child processes for 19 fixed cases and three two-call metamorphic
-relations. It checks the actual started-process count, uses answer-free worker
-requests, fails closed on transport or response errors, writes the attempt
-marker before the first call, and publishes the result atomically without
+relations. It checked the actual started-process count, used answer-free worker
+requests, failed closed on transport or response errors, wrote the attempt
+marker before the first call, and published the result atomically without
 replacement. No retry is allowed after a control invocation. Local attempt
 state does not technically prevent its owner from deleting that state, so
 technical single-execution enforcement is not claimed.
@@ -1139,12 +1150,9 @@ assignment, the MTAAC holdout, ORACC prospective material, or another reserved
 source. It validates no identifier, code, row identity, sign sequence, reading
 direction, language, meaning, translation, decipherment, or prize claim.
 
-The controlled next steps are:
-
-1. publish the exact two-parent integration commit and verify it as public
-   `main`;
-2. execute the frozen V2 command once without a detector-control preflight;
-3. publish the schema-valid diagnostic result without changing the prefailed
-   overall decision; and
-4. retire V2 and begin a new control-first successor experiment rather than
-   repairing or rerunning this identity.
+V2 is now retired and immutable. It must not be rerun, retuned, repaired, or
+used for extraction. The controlled next step is to create and publish an
+independent synthetic control for a new V3 algorithm identity before
+implementing the V3 detector. The successor must treat V2 only as exposed
+development evidence and must include the known periodic confound and broader
+non-label families. No V3 implementation exists at this checkpoint.
