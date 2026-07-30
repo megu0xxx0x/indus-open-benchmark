@@ -287,3 +287,47 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
 - No V3 trial-state component, case generator, evaluator, deterministic freeze
   artifact, target Quicknet round, detector, C3 result, real-source access, or
   decipherment or prize evidence is established by this checkpoint.
+
+## 2026-07-30T16:54:12+09:00 — V3 one-shot trial state accepted
+
+- The hardened
+  [one-shot state layer](../src/indusbench/kp1979_v3_state.py) was integrated
+  at commit `bb01fe6`. It stores only a format version and one closed state
+  value. It knows no experiment identity, commitment, request digest, worker
+  output, score, seed, oracle, or result payload.
+- Non-consuming preflight runs before the attempt marker. Before a worker may
+  start, the layer exercises the actual state filesystem's no-replace rename
+  behavior in both existing-target and absent-target cases, cleans and syncs
+  its probes, writes the `started` record without replacement, and syncs both
+  file and directory.
+- Once `started` exists, every observed path is terminal. A marker-only crash
+  recovers as `consumed_incomplete`; worker or transport failure becomes
+  `execution_failed`; a completed scientific evaluation may record only
+  `qualified` or `not_qualified`. There is no retry, reset, delete, or force
+  API, and terminal publication also uses tested no-replace semantics.
+- The state handle pins every ancestor directory descriptor through close,
+  rechecks each namespace link, requires safe root/effective-user ownership
+  and modes, permits only a root-owned sticky writable boundary, requires the
+  final directory to be owner-only mode 0700, and rejects detectable ACL
+  attributes. Linux and Darwin are the only admitted platform families;
+  unsupported or unverifiable behavior fails before a worker starts.
+- Paths, parser details, entropy failures, filesystem details, and worker
+  exception text are collapsed to closed error codes. Invalid-surrogate paths,
+  ancestor replacement, ACL changes, probe residue, concurrent starts,
+  partial writes, and post-rename durability uncertainty have permanent
+  adversarial tests.
+- Independent review reported zero blocker and zero major findings. Its sole
+  minor finding is that the Darwin branch has no permanent repository CI job,
+  although its ACL and exclusive-rename paths received an independent live
+  check. Focused evidence is 55 passing state tests; the implementation branch
+  passed all 886 tests with 19 environment-specific skips. Integrated Ruff,
+  formatting, Pyright, source and wheel builds, Gitleaks, and public-boundary
+  checks also passed before publication.
+- This is owner-controlled local durability, not independent custody. The
+  owner, root, or the underlying filesystem can delete, replace, or roll back
+  the directory. The records therefore do not prove trusted time,
+  non-deletion, tamper resistance, organizational independence, or technical
+  single execution against those actors.
+- No state record has been created for C3, no worker has been invoked, and no
+  generator, evaluator, freeze artifact, target round, detector, real-source
+  result, decipherment evidence, or prize evidence is established here.

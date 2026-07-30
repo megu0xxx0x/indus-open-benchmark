@@ -1300,3 +1300,48 @@ source and wheel distributions.
 This checkpoint still creates no accepted trial-state component, generator,
 evaluator, freeze artifact, target Quicknet round, detector, C3 result,
 real-source result, decipherment evidence, or prize evidence.
+
+## KP1979 V3 one-shot trial state — 2026-07-30
+
+The hardened
+[one-shot state layer](../src/indusbench/kp1979_v3_state.py) was integrated at
+commit `bb01fe6`. Its two canonical record forms contain only a format version
+and closed state value. Experiment identities, request commitments, seeds,
+oracles, worker outputs, scores, exception details, and result payloads are
+outside this layer.
+
+Non-consuming preflight occurs before the attempt is consumed. Immediately
+before a worker can start, the state layer verifies real no-replace rename
+semantics on the selected filesystem in both existing-target and absent-target
+cases, safely removes and syncs its probes, creates and syncs the `started`
+record without replacement, and revalidates its pinned directory ancestry.
+After `started`, a crash is `consumed_incomplete`, technical failure is
+`execution_failed`, and a completed evaluator may publish only `qualified` or
+`not_qualified`. No retry, reset, delete, or force API exists.
+
+Every ancestor descriptor remains pinned through close. Namespace links,
+device/inode and ownership/mode fingerprints, effective identity, and
+detectable ACL attributes are rechecked. Intermediate components must be safe
+root/effective-user directories, except that a root-owned sticky writable
+boundary is permitted; the final directory must be effective-user-owned mode
+0700. Linux and Darwin are the only accepted platform families. Unsupported
+or unverifiable behavior fails before worker execution.
+
+Independent adversarial review reported zero blocker and zero major findings.
+The single minor finding is the absence of a permanent Darwin CI job, although
+the Darwin ACL and exclusive-rename paths received an independent live check.
+The focused state suite passed 55 tests; its implementation branch passed all
+886 tests with 19 environment-specific skips. The integrated source passed
+Ruff, formatting, Pyright, source and wheel builds, Gitleaks, and the dedicated
+public-boundary scan before publication.
+
+These records provide owner-controlled local fail-closed durability only.
+They do not prevent the owner, root, or the filesystem from deleting,
+replacing, or rolling back the directory and therefore do not prove trusted
+time, non-deletion, independent custody, tamper resistance, organizational
+independence, or technical single execution against those actors.
+
+No C3 attempt marker or terminal record has been created. This checkpoint
+executes no worker and establishes no generator, evaluator, freeze artifact,
+target round, detector, C3 result, real-source result, decipherment evidence,
+or prize evidence.
