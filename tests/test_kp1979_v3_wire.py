@@ -211,15 +211,39 @@ class KP1979V3RequestWireTests(unittest.TestCase):
 
     def test_worker_semantic_error_precedence_is_header_dimensions_size_bands(self) -> None:
         noncanonical_header = b"P4 \n4880 7010\n" + bytes(RAW_P4_CONTRACT.payload_byte_size)
-        line = _request(
-            noncanonical_header,
-            width=RAW_P4_CONTRACT.width - 1,
-            scan_bands=(RAW_P4_CONTRACT.scan_bands[0],),
+        wrong_bands = (RAW_P4_CONTRACT.scan_bands[0],)
+        cases = (
+            (
+                _request(
+                    noncanonical_header,
+                    width=RAW_P4_CONTRACT.width - 1,
+                    scan_bands=wrong_bands,
+                ),
+                InputErrorCode.INVALID_PBM_HEADER,
+            ),
+            (
+                _request(
+                    VALID_PBM[:-1],
+                    width=RAW_P4_CONTRACT.width - 1,
+                    scan_bands=wrong_bands,
+                ),
+                InputErrorCode.INVALID_DIMENSIONS,
+            ),
+            (
+                _request(VALID_PBM[:-1], scan_bands=wrong_bands),
+                InputErrorCode.INVALID_PBM_PAYLOAD_SIZE,
+            ),
+            (
+                _request(scan_bands=wrong_bands),
+                InputErrorCode.INVALID_SCAN_BANDS,
+            ),
         )
-        sandbox._validate_answer_free_request(line)
-        with self.assertRaises(KP1979V3WorkerInputError) as caught:
-            decode_worker_request(line)
-        self.assertIs(InputErrorCode.INVALID_PBM_HEADER, caught.exception.error_code)
+        for line, expected_code in cases:
+            with self.subTest(expected_code=expected_code):
+                sandbox._validate_answer_free_request(line)
+                with self.assertRaises(KP1979V3WorkerInputError) as caught:
+                    decode_worker_request(line)
+                self.assertIs(expected_code, caught.exception.error_code)
 
     def test_outer_envelope_rejects_duplicate_extra_and_noncanonical_json(self) -> None:
         tiny = {
@@ -249,6 +273,49 @@ class KP1979V3RequestWireTests(unittest.TestCase):
         self.assertLess(len(line), MAX_WORKER_REQUEST_BYTES)
         with self.assertRaises(KP1979V3WireError):
             decode_worker_request_envelope(line)
+
+    def test_request_and_response_numeric_parser_failures_are_generic(self) -> None:
+        request_base = _canonical(
+            {
+                "height": RAW_P4_CONTRACT.height,
+                "interface_version": WORKER_ID,
+                "pbm_base64": base64.b64encode(b"P4\n").decode("ascii"),
+                "scan_bands": [list(band) for band in RAW_P4_CONTRACT.scan_bands],
+                "width": RAW_P4_CONTRACT.width,
+            }
+        )
+        response_base = _canonical(
+            _response_value(
+                status="proposed",
+                predictions=[{"lane": 0, "y0": 0, "y1": 1}],
+            )
+        )
+        numeric_values = (b"9" * 5_000, b"1e999")
+        for numeric_value in numeric_values:
+            lines = (
+                (
+                    "request",
+                    request_base.replace(
+                        b'"width":4880',
+                        b'"width":' + numeric_value,
+                    ),
+                    decode_worker_request_envelope,
+                ),
+                (
+                    "response",
+                    response_base.replace(b'"y0":0', b'"y0":' + numeric_value),
+                    decode_worker_response,
+                ),
+            )
+            for boundary, line, decoder in lines:
+                with (
+                    self.subTest(boundary=boundary, numeric_prefix=numeric_value[:16]),
+                    self.assertRaises(KP1979V3WireError) as caught,
+                ):
+                    decoder(line)
+                self.assertEqual("kp1979-v3 wire contract rejected", str(caught.exception))
+                self.assertFalse(hasattr(caught.exception, "path"))
+                self.assertFalse(hasattr(caught.exception, "detail"))
 
     def test_outer_envelope_rejects_noncanonical_base64_bool_and_malformed_bands(self) -> None:
         base = {
