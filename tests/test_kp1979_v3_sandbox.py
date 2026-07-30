@@ -459,6 +459,44 @@ class KP1979V3SandboxContractTests(unittest.TestCase):
             sandbox._validate_answer_free_request(b"")
         sandbox._validate_answer_free_request(_request())
 
+    def test_deep_request_is_redacted_by_invoker_without_starting_a_process(self) -> None:
+        depth = 2_000
+        request = b'{"x":' + (b"[" * depth) + b"0" + (b"]" * depth) + b"}\n"
+        self.assertLess(len(request), sandbox.MAX_REQUEST_BYTES)
+        invoker = object.__new__(sandbox.SandboxedWorkerInvoker)
+        result = invoker(request)
+        self.assertEqual("request_rejected", result.disposition)
+        self.assertEqual("request_contract", result.failure_code)
+        self.assertFalse(result.process_started)
+        self.assertEqual(b"", result.worker_stdout)
+
+    def test_numeric_parser_failures_are_redacted_without_starting_a_process(self) -> None:
+        replacements = (
+            b"9" * 5_000,
+            b"1e999",
+        )
+        for replacement in replacements:
+            request = _request().replace(b'"width":1', b'"width":' + replacement)
+            self.assertLess(len(request), sandbox.MAX_REQUEST_BYTES)
+            invoker = object.__new__(sandbox.SandboxedWorkerInvoker)
+            with self.subTest(replacement_prefix=replacement[:16]):
+                result = invoker(request)
+                self.assertEqual("request_rejected", result.disposition)
+                self.assertEqual("request_contract", result.failure_code)
+                self.assertFalse(result.process_started)
+                self.assertEqual(b"", result.worker_stdout)
+
+    def test_deep_handshake_is_normalized_to_value_error(self) -> None:
+        depth = 2_000
+        line = b'{"x":' + (b"[" * depth) + b"0" + (b"]" * depth) + b"}\n"
+        self.assertLess(len(line), sandbox.MAX_HANDSHAKE_BYTES)
+        with self.assertRaisesRegex(ValueError, "handshake"):
+            sandbox._parse_verified_handshake(
+                line,
+                nonce="1" * 32,
+                artifact_sha256="2" * 64,
+            )
+
     def test_handshake_requires_canonical_closed_all_true_proof(self) -> None:
         nonce = "1" * 32
         digest = "2" * 64

@@ -36,6 +36,14 @@ class InputErrorCode(StrEnum):
     INVALID_SCAN_BANDS = "invalid_scan_bands"
 
 
+class WorkerStatus(StrEnum):
+    """Closed answer-free worker-response status vocabulary."""
+
+    PROPOSED = "proposed"
+    ABSTAINED = "abstained"
+    REJECTED = "rejected"
+
+
 class MetamorphicKind(StrEnum):
     """Closed set of predeclared two-endpoint relations."""
 

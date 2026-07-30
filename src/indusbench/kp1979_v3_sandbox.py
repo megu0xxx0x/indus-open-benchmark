@@ -129,16 +129,19 @@ class _ArtifactSnapshot:
 
 
 def _canonical_json_line(value: object) -> bytes:
-    return (
-        json.dumps(
-            value,
-            allow_nan=False,
-            ensure_ascii=True,
-            separators=(",", ":"),
-            sort_keys=True,
-        )
-        + "\n"
-    ).encode("ascii")
+    try:
+        return (
+            json.dumps(
+                value,
+                allow_nan=False,
+                ensure_ascii=True,
+                separators=(",", ":"),
+                sort_keys=True,
+            )
+            + "\n"
+        ).encode("ascii")
+    except (OverflowError, RecursionError, TypeError, ValueError) as exc:
+        raise _RequestContractError("JSON encoding") from exc
 
 
 def _closed_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
@@ -169,7 +172,7 @@ def _validate_answer_free_request(request: bytes) -> None:
         )
     except _RequestContractError:
         raise
-    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+    except (RecursionError, ValueError) as exc:
         raise _RequestContractError("request JSON") from exc
     if not isinstance(parsed, dict) or frozenset(parsed) != ANSWER_FREE_REQUEST_KEYS:
         raise _RequestContractError("request keys")
@@ -405,7 +408,8 @@ def _parse_verified_handshake(
             object_pairs_hook=_closed_object,
             parse_constant=_reject_json_constant,
         )
-    except (UnicodeDecodeError, json.JSONDecodeError, _RequestContractError) as exc:
+        canonical = _canonical_json_line(parsed)
+    except (RecursionError, ValueError) as exc:
         raise ValueError("handshake JSON") from exc
     if (
         not isinstance(parsed, dict)
@@ -413,7 +417,7 @@ def _parse_verified_handshake(
         or parsed["schema"] != SANDBOX_SCHEMA
         or parsed["nonce"] != nonce
         or parsed["artifact_sha256"] != artifact_sha256
-        or _canonical_json_line(parsed) != line
+        or canonical != line
     ):
         raise ValueError("handshake contract")
     abi = parsed["landlock_abi"]

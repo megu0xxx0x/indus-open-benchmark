@@ -50,6 +50,7 @@ from indusbench.kp1979_v3_protocol import (
     KP1979V3ProtocolError,
     MetamorphicKind,
     MetamorphicRelationSpec,
+    WorkerStatus,
     validate_protocol,
 )
 
@@ -215,6 +216,7 @@ class KP1979V3ProtocolRosterTests(unittest.TestCase):
                     "invalid_scan_bands",
                 ),
             ),
+            (WorkerStatus, ("proposed", "abstained", "rejected")),
             (
                 MetamorphicKind,
                 (
