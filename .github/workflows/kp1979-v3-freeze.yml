@@ -1,0 +1,32 @@
+name: KP1979 V3 freeze
+
+on:
+  workflow_dispatch:
+    inputs:
+      freeze_kind:
+        description: Closed V3 artifact class
+        required: true
+        type: choice
+        options:
+          - control
+          - detector
+          - integration
+      expected_sha256:
+        description: Expected lowercase SHA-256 of the deterministic subject
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  freeze:
+    name: Freeze and attest the selected V3 subject
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    uses: megu0xxx0x/indus-open-benchmark/.github/workflows/kp1979-v3-freeze-core.yml@6eebc904a1bee3eaa05be619796cc6336bb2d10e
+    with:
+      freeze_kind: ${{ inputs.freeze_kind }}
+      source_commit: ${{ github.sha }}
+      expected_sha256: ${{ inputs.expected_sha256 }}
