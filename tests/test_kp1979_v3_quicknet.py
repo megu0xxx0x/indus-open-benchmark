@@ -399,7 +399,7 @@ class KP1979V3QuicknetPortableNodeTests(unittest.TestCase):
             self.assertIn(major, quicknet.CRYPTO_SEMANTIC_TEST_NODE_MAJORS)
 
         completed = subprocess.run(
-            [node_executable, "--test", str(NODE_TEST)],
+            [node_executable, "--test", "--test-reporter=tap", str(NODE_TEST)],
             cwd=ROOT,
             env={
                 "LANG": "C",
@@ -417,8 +417,11 @@ class KP1979V3QuicknetPortableNodeTests(unittest.TestCase):
         )
         self.assertEqual(b"", completed.stderr)
         self.assertEqual(0, completed.returncode, completed.stdout.decode("ascii", "replace"))
-        self.assertIn(b"# fail 0", completed.stdout)
-        self.assertIn(b"# skipped 0", completed.stdout)
+        summary_lines = completed.stdout.splitlines()
+        self.assertIn(b"# tests 6", summary_lines)
+        self.assertIn(b"# pass 6", summary_lines)
+        self.assertIn(b"# fail 0", summary_lines)
+        self.assertIn(b"# skipped 0", summary_lines)
 
 
 @unittest.skipUnless(
