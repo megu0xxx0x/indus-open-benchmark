@@ -1,0 +1,320 @@
+name: KP1979 V3 freeze core
+
+on:
+  workflow_call:
+    inputs:
+      freeze_kind:
+        description: Closed V3 artifact class
+        required: true
+        type: string
+      source_commit:
+        description: Full lowercase source commit built by the caller
+        required: true
+        type: string
+      expected_sha256:
+        description: Expected lowercase SHA-256 of the deterministic subject
+        required: true
+        type: string
+
+permissions: {}
+
+env:
+  EXPECTED_SHA256: ${{ inputs.expected_sha256 }}
+  FREEZE_KIND: ${{ inputs.freeze_kind }}
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  PYTHONHASHSEED: "0"
+  SOURCE_COMMIT: ${{ inputs.source_commit }}
+  SOURCE_DATE_EPOCH: "0"
+  TZ: UTC
+
+jobs:
+  validate:
+    name: Validate the closed call
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Validate inputs and caller identity
+        env:
+          CALLER_EVENT_NAME: ${{ github.event_name }}
+          CALLER_REF: ${{ github.ref }}
+          CALLER_REPOSITORY: ${{ github.repository }}
+          CALLER_SHA: ${{ github.sha }}
+          CALLER_WORKFLOW_REF: ${{ github.workflow_ref }}
+          CALLER_WORKFLOW_SHA: ${{ github.workflow_sha }}
+        run: |
+          set -euo pipefail
+          case "$FREEZE_KIND" in
+            control|detector|integration) ;;
+            *) exit 20 ;;
+          esac
+          case "$SOURCE_COMMIT" in
+            *[!0-9a-f]*|"") exit 21 ;;
+          esac
+          test "${#SOURCE_COMMIT}" -eq 40
+          case "$EXPECTED_SHA256" in
+            *[!0-9a-f]*|"") exit 22 ;;
+          esac
+          test "${#EXPECTED_SHA256}" -eq 64
+          test "$SOURCE_COMMIT" = "$CALLER_SHA"
+          test "$CALLER_REPOSITORY" = "megu0xxx0x/indus-open-benchmark"
+          test "$CALLER_EVENT_NAME" = "workflow_dispatch"
+          test "$CALLER_WORKFLOW_SHA" = "$CALLER_SHA"
+          test "$CALLER_WORKFLOW_REF" = \
+            "$CALLER_REPOSITORY/.github/workflows/kp1979-v3-freeze.yml@$CALLER_REF"
+          expected_ref_prefix="refs/heads/freeze/kp1979-v3-$FREEZE_KIND-"
+          case "$CALLER_REF" in
+            "$expected_ref_prefix"?*) ;;
+            *) exit 23 ;;
+          esac
+
+  build:
+    name: Build replica ${{ matrix.replica }}
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        replica: [a, b]
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          ref: ${{ inputs.source_commit }}
+
+      - name: Verify the checked-out identity
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
+          test -z "$(git status --porcelain)"
+
+      - name: Set up exact Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12.11"
+
+      - name: Set up exact uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: false
+          version: "0.11.7"
+
+      - name: Install the locked development environment
+        env:
+          UV_PROJECT_ENVIRONMENT: ${{ runner.temp }}/kp1979-v3-venv
+        run: uv sync --locked --extra dev
+
+      - name: Build and verify the deterministic subject twice
+        id: build_subject
+        env:
+          UV_PROJECT_ENVIRONMENT: ${{ runner.temp }}/kp1979-v3-venv
+        run: |
+          set -euo pipefail
+          case "$FREEZE_KIND" in
+            control)
+              subject_name=kp1979-v3-control-bundle.tar.gz
+              module=indusbench.kp1979_v3_control_freeze
+              max_bytes=16777216
+              ;;
+            detector)
+              subject_name=kp1979-v3-detector.pyz
+              module=indusbench.kp1979_v3_detector_freeze
+              max_bytes=8388608
+              ;;
+            integration)
+              subject_name=kp1979-v3-integration-binding.json
+              module=indusbench.kp1979_v3_integration_freeze
+              max_bytes=65536
+              ;;
+            *) exit 30 ;;
+          esac
+          build_root="$RUNNER_TEMP/kp1979-v3-build"
+          build_one="$build_root/build-one"
+          build_two="$build_root/build-two"
+          subject_dir="$build_root/freeze-subject"
+          install -d -m 700 "$build_root" "$build_one" "$build_two" "$subject_dir"
+          test "$("$UV_PROJECT_ENVIRONMENT/bin/python" -s -B -c \
+            'import sys; print(".".join(map(str, sys.version_info[:3])))')" = "3.12.11"
+          env -i LANG=C.UTF-8 LC_ALL=C.UTF-8 \
+            PATH="$UV_PROJECT_ENVIRONMENT/bin:/usr/bin:/bin" PYTHONHASHSEED=0 \
+            PYTHONNOUSERSITE=1 SOURCE_COMMIT="$SOURCE_COMMIT" SOURCE_DATE_EPOCH=0 TZ=UTC \
+            "$UV_PROJECT_ENVIRONMENT/bin/python" -s -B -m "$module" \
+            --output "$build_one/$subject_name"
+          env -i LANG=C.UTF-8 LC_ALL=C.UTF-8 \
+            PATH="$UV_PROJECT_ENVIRONMENT/bin:/usr/bin:/bin" PYTHONHASHSEED=0 \
+            PYTHONNOUSERSITE=1 SOURCE_COMMIT="$SOURCE_COMMIT" SOURCE_DATE_EPOCH=0 TZ=UTC \
+            "$UV_PROJECT_ENVIRONMENT/bin/python" -s -B -m "$module" \
+            --output "$build_two/$subject_name"
+          for build_dir in "$build_one" "$build_two"; do
+            candidate="$build_dir/$subject_name"
+            test "$(find "$build_dir" -mindepth 1 -maxdepth 1 -printf x | wc -c)" -eq 1
+            test -f "$candidate"
+            test ! -L "$candidate"
+            test "$(stat -c %F -- "$candidate")" = "regular file"
+            test "$(stat -c %h -- "$candidate")" -eq 1
+            size="$(stat -c %s -- "$candidate")"
+            test "$size" -gt 0
+            test "$size" -le "$max_bytes"
+          done
+          cmp -- "$build_one/$subject_name" "$build_two/$subject_name"
+          subject_path="$subject_dir/$subject_name"
+          install -m 600 "$build_one/$subject_name" "$subject_path"
+          test "$(find "$subject_dir" -mindepth 1 -maxdepth 1 -printf x | wc -c)" -eq 1
+          test -f "$subject_path"
+          test ! -L "$subject_path"
+          test "$(stat -c %F -- "$subject_path")" = "regular file"
+          test "$(stat -c %h -- "$subject_path")" -eq 1
+          test -z "$(git status --porcelain)"
+          git diff --quiet --
+          git diff --cached --quiet --
+          actual_sha256="$(sha256sum "$subject_path" | awk '{print $1}')"
+          test "$actual_sha256" = "$EXPECTED_SHA256"
+          printf 'subject_name=%s\n' "$subject_name" >> "$GITHUB_OUTPUT"
+          printf 'subject_path=%s\n' "$subject_path" >> "$GITHUB_OUTPUT"
+
+      - name: Retain this source replica
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: kp1979-v3-${{ inputs.freeze_kind }}-${{ inputs.source_commit }}-${{ matrix.replica }}
+          path: ${{ steps.build_subject.outputs.subject_path }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 90
+
+  attest:
+    name: Compare and attest replicas
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - name: Download replica A
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: kp1979-v3-${{ inputs.freeze_kind }}-${{ inputs.source_commit }}-a
+          path: replicas/a
+
+      - name: Download replica B
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: kp1979-v3-${{ inputs.freeze_kind }}-${{ inputs.source_commit }}-b
+          path: replicas/b
+
+      - name: Verify and stage the identical subject
+        id: verify_subject
+        run: |
+          set -euo pipefail
+          case "$FREEZE_KIND" in
+            control)
+              subject_name=kp1979-v3-control-bundle.tar.gz
+              max_bytes=16777216
+              magic_bytes=2
+              expected_magic=1f8b
+              ;;
+            detector)
+              subject_name=kp1979-v3-detector.pyz
+              max_bytes=8388608
+              magic_bytes=4
+              expected_magic=504b0304
+              ;;
+            integration)
+              subject_name=kp1979-v3-integration-binding.json
+              max_bytes=65536
+              magic_bytes=1
+              expected_magic=7b
+              ;;
+            *) exit 40 ;;
+          esac
+          for replica in a b; do
+            replica_dir="replicas/$replica"
+            candidate="$replica_dir/$subject_name"
+            test -d "$replica_dir"
+            test "$(find "$replica_dir" -mindepth 1 -maxdepth 1 -printf x | wc -c)" -eq 1
+            test -f "$candidate"
+            test ! -L "$candidate"
+            test "$(stat -c %F -- "$candidate")" = "regular file"
+            test "$(stat -c %h -- "$candidate")" -eq 1
+            size="$(stat -c %s -- "$candidate")"
+            test "$size" -gt 0
+            test "$size" -le "$max_bytes"
+          done
+          cmp -- "replicas/a/$subject_name" "replicas/b/$subject_name"
+          observed_magic="$(
+            od -An -tx1 -N "$magic_bytes" -- "replicas/a/$subject_name" | tr -d '[:space:]'
+          )"
+          test "$observed_magic" = "$expected_magic"
+          actual_sha256="$(sha256sum "replicas/a/$subject_name" | awk '{print $1}')"
+          test "$actual_sha256" = "$EXPECTED_SHA256"
+          install -d -m 700 attestation-subject
+          subject_path="attestation-subject/$subject_name"
+          install -m 600 "replicas/a/$subject_name" "$subject_path"
+          test -f "$subject_path"
+          test ! -L "$subject_path"
+          test "$(stat -c %h -- "$subject_path")" -eq 1
+          test "$(sha256sum "$subject_path" | awk '{print $1}')" = "$EXPECTED_SHA256"
+          printf 'subject_name=%s\n' "$subject_name" >> "$GITHUB_OUTPUT"
+          printf 'subject_path=%s\n' "$subject_path" >> "$GITHUB_OUTPUT"
+
+      - name: Generate the subject attestation
+        id: attestation
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
+        with:
+          subject-path: ${{ steps.verify_subject.outputs.subject_path }}
+
+      - name: Verify and stage the attestation bundle
+        id: verify_attestation
+        env:
+          ATTESTATION_BUNDLE_PATH: ${{ steps.attestation.outputs.bundle-path }}
+          ATTESTATION_ID: ${{ steps.attestation.outputs.attestation-id }}
+          ATTESTATION_URL: ${{ steps.attestation.outputs.attestation-url }}
+          ATTESTED_SUBJECT_PATH: ${{ steps.verify_subject.outputs.subject_path }}
+        run: |
+          set -euo pipefail
+          test -n "$ATTESTATION_BUNDLE_PATH"
+          test -n "$ATTESTATION_ID"
+          test -n "$ATTESTATION_URL"
+          case "$ATTESTATION_ID" in
+            *[!0-9]*|"") exit 50 ;;
+          esac
+          test "$ATTESTATION_URL" = \
+            "https://github.com/$GITHUB_REPOSITORY/attestations/$ATTESTATION_ID"
+          test -f "$ATTESTED_SUBJECT_PATH"
+          test ! -L "$ATTESTED_SUBJECT_PATH"
+          test "$(sha256sum "$ATTESTED_SUBJECT_PATH" | awk '{print $1}')" = \
+            "$EXPECTED_SHA256"
+          test -f "$ATTESTATION_BUNDLE_PATH"
+          test ! -L "$ATTESTATION_BUNDLE_PATH"
+          test "$(stat -c %F -- "$ATTESTATION_BUNDLE_PATH")" = "regular file"
+          test "$(stat -c %h -- "$ATTESTATION_BUNDLE_PATH")" -eq 1
+          bundle_size="$(stat -c %s -- "$ATTESTATION_BUNDLE_PATH")"
+          test "$bundle_size" -gt 0
+          test "$bundle_size" -le 16777216
+          test "$(head -c 1 -- "$ATTESTATION_BUNDLE_PATH")" = "{"
+          jq -e -s 'length >= 1 and all(.[]; type == "object")' \
+            "$ATTESTATION_BUNDLE_PATH" >/dev/null
+          install -d -m 700 retained-attestation
+          bundle_name="kp1979-v3-$FREEZE_KIND-$SOURCE_COMMIT.attestation.jsonl"
+          bundle_path="retained-attestation/$bundle_name"
+          install -m 600 "$ATTESTATION_BUNDLE_PATH" "$bundle_path"
+          test -f "$bundle_path"
+          test ! -L "$bundle_path"
+          test "$(stat -c %h -- "$bundle_path")" -eq 1
+          printf 'bundle_path=%s\n' "$bundle_path" >> "$GITHUB_OUTPUT"
+
+      - name: Retain the attestation bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: kp1979-v3-attestation-${{ inputs.freeze_kind }}-${{ inputs.source_commit }}
+          path: ${{ steps.verify_attestation.outputs.bundle_path }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 90
