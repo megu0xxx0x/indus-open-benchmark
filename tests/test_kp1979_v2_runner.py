@@ -514,24 +514,27 @@ class KP1979V2ProcessIsolationTests(unittest.TestCase):
         self.assertEqual(0, invoker.started_process_count)
 
     def test_interpreter_identity_and_state_path_ignore_environment_home(self) -> None:
-        accepted = runner._require_regular_owner_file(
-            Path(sys.executable),
-            executable=True,
-        )
-        self.assertEqual(Path(sys.executable).resolve(), accepted)
-
         with tempfile.TemporaryDirectory(prefix="indus-kp1979-v2-interpreter-test-") as raw_dir:
+            matching_interpreter = Path(raw_dir) / "matching-python"
+            matching_interpreter.write_bytes(b"#!/bin/sh\nexit 0\n")
+            os.chmod(matching_interpreter, 0o700)
             different_interpreter = Path(raw_dir) / "python"
             different_interpreter.write_bytes(b"#!/bin/sh\nexit 0\n")
             os.chmod(different_interpreter, 0o700)
-            with self.assertRaisesRegex(
-                runner.KP1979V2RunnerError,
-                "interpreter differs",
-            ):
-                runner._require_regular_owner_file(
-                    different_interpreter,
+            with patch.object(runner.sys, "executable", str(matching_interpreter)):
+                accepted = runner._require_regular_owner_file(
+                    matching_interpreter,
                     executable=True,
                 )
+                self.assertEqual(matching_interpreter.resolve(), accepted)
+                with self.assertRaisesRegex(
+                    runner.KP1979V2RunnerError,
+                    "interpreter differs",
+                ):
+                    runner._require_regular_owner_file(
+                        different_interpreter,
+                        executable=True,
+                    )
 
         with patch.dict(os.environ, {"HOME": "/tmp/untrusted-home-one"}):
             first_state = runner._canonical_state_directory()
@@ -543,6 +546,27 @@ class KP1979V2ProcessIsolationTests(unittest.TestCase):
             Path(".local/state/indus-open-benchmark/kp1979-v2-qualification-v1"),
             first_state.relative_to(first_state.parents[3]),
         )
+
+    def test_hardlinked_runner_interpreter_remains_rejected(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="indus-kp1979-v2-hardlink-test-") as raw_dir:
+            directory = Path(raw_dir)
+            interpreter = directory / "python"
+            alias = directory / "python-alias"
+            interpreter.write_bytes(b"#!/bin/sh\nexit 0\n")
+            os.chmod(interpreter, 0o700)
+            os.link(interpreter, alias)
+
+            with (
+                patch.object(runner.sys, "executable", str(interpreter)),
+                self.assertRaisesRegex(
+                    runner.KP1979V2RunnerError,
+                    "safe owner file",
+                ),
+            ):
+                runner._require_regular_owner_file(
+                    interpreter,
+                    executable=True,
+                )
 
 
 class KP1979V2OneShotTests(unittest.TestCase):
