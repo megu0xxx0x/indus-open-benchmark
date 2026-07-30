@@ -529,6 +529,7 @@ class KP1979V3SandboxFailureTests(unittest.TestCase):
             invoker = sandbox.SandboxedWorkerInvoker(
                 worker_artifact=artifact,
                 expected_sha256=digest,
+                python_executable=Path("/usr/bin/python3"),
             )
             with patch.object(
                 sandbox.subprocess,
@@ -603,6 +604,7 @@ class KP1979V3SandboxFailureTests(unittest.TestCase):
             invoker = sandbox.SandboxedWorkerInvoker(
                 worker_artifact=artifact,
                 expected_sha256=digest,
+                python_executable=Path("/usr/bin/python3"),
             )
             with patch.object(sandbox.subprocess, "Popen", new=fake_popen):
                 result = invoker(_request())
