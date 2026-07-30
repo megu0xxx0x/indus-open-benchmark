@@ -1207,3 +1207,58 @@ The controlled next sequence is:
    round; and
 4. begin detector implementation only after the control is publicly frozen
    and attested.
+
+## KP1979 V3 Quicknet verification dependency — 2026-07-30
+
+An offline verifier is specified as a pre-C3 qualification dependency. This
+checkpoint makes no claim that C3 is frozen or executed. Normal public Git
+history records the integrated bytes without a separate release assertion in
+this section.
+
+The component fixes the public Quicknet chain identity and the already-public
+past round 1000 qualification vector. It accepts externally supplied round,
+signature, and randomness values, requires canonical lossless input, checks
+`randomness = SHA256(signature)`, computes
+`SHA256(uint64be(round))`, and verifies the RFC 9380 BLS signature with the
+fixed G1-signature/G2-public-key scheme and DST. Infinity, non-subgroup,
+malformed, non-canonical, wrong-chain, wrong-key, wrong-schedule,
+wrong-randomness, and wrong-signature inputs fail closed.
+
+The exact minimal CommonJS closure contains 18 MIT-licensed upstream files from
+`@noble/curves@1.9.7` and `@noble/hashes@1.8.0`, plus a canonical provenance
+manifest and the verifier. Per-file hashes, npm tarball hashes and SRI, source
+commits, signed-tag observations, licenses, and the only exact upstream
+trailing-whitespace exception are fixed. Runtime checks the exact 20-file
+inventory and fetches or installs nothing.
+
+Portable BLS semantics are now mandatory in each main CI Python matrix job
+under exact Node 24.18.0, provisioned by full-SHA-pinned
+`actions/setup-node@v6.5.0` with package-manager caching disabled. The CI job
+asserts the version and runs the six-test known/adversarial Node suite with no
+skip path. The Python wrapper remains a separate legacy host qualification:
+it checks root-owned Node 18.19.1 and util-linux `prlimit` 2.39.3 launcher
+bytes and versions, uses a minimal environment and no shell, and applies
+address-space, core, CPU, output-size, file-descriptor, and wall-time bounds
+without Python `preexec_fn`.
+
+Focused evidence at this checkpoint includes 13 Python tests, six portable
+Node tests, one current-host CLI bound test, the round-1000 verification under
+official Node 24.18.0 with zero skips, and compatibility under a private
+network namespace. Fresh wheel and sdist trials contained the exact 20-file
+vendor inventory and an isolated wheel installation verified the manifest and
+round-1000 vector. The integrated state must repeat repository-wide and
+package checks and pass public CI; focused evidence does not pre-attest that
+future CI state.
+
+The launcher digests do not attest dynamic `libnode`, OpenSSL, glibc, the
+kernel, or the complete operating-system closure. Those root-owned components
+remain an explicit trusted host base. Node 18 is end-of-life and is
+qualification-only. The wrapper does not itself create a kernel network
+namespace, and same-UID concurrent replacement between checking and use remains
+outside the threat model. Provenance signatures and attestations are audit-time
+observations, not live offline revalidation.
+
+No future target or round is selected, reserved, fetched, or disclosed. The
+component supplies no trusted time, custody, freshness, external attestation,
+identifier, sequence, language, meaning, translation, decipherment, accuracy,
+or prize claim. A returned Python object is not an unforgeable receipt.

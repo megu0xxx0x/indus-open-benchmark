@@ -25,6 +25,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Set up exact supported Node for Quicknet semantics
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "24.18.0"
+          package-manager-cache: false
+
+      - name: Verify Quicknet portable BLS semantics
+        run: |
+          test "$(node --version)" = "v24.18.0"
+          node --test tests/node/kp1979_v3_quicknet.test.cjs
+
       - name: Set up uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
