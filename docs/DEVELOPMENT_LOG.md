@@ -211,3 +211,40 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
 - V2 is retired and must not be rerun, retuned, repaired, or used for
   extraction. The next controlled work is to create and publish a control-first
   V3 synthetic control before implementing its new detector identity.
+
+## 2026-07-30 — KP1979 V3 pre-detector control infrastructure
+
+- P0 published the reusable
+  [freeze core](../.github/workflows/kp1979-v3-freeze-core.yml) at commit
+  `6eebc904a1bee3eaa05be619796cc6336bb2d10e`, with exact workflow SHA-256
+  `9bd93bed5359bd8cb396a0f6be063b5bc6f76ad1b84e1d6338e1edc14ae0300a`.
+  P1 published the pinned
+  [manual caller](../.github/workflows/kp1979-v3-freeze.yml) at commit
+  `b530d1a2068135807f96dfe63ddbaf484b1acbb2`, with exact workflow SHA-256
+  `aca066fc5df3565af831669b28ab661482dc0a21f319f6759fd912365c3f3442`.
+- Python 3.11, 3.13, and 3.14 CI passed 753 tests per P0 job and 758 tests per
+  P1 job. No freeze dispatch or V3 attestation has occurred.
+- The closed
+  [protocol](../src/indusbench/kp1979_v3_protocol.py) fixes
+  `kp1979-label-lattice-synthetic-control-v3`,
+  `two-column-glyph-lattice-v3`, and
+  `kp1979-label-detector-v3-worker-v1`. Its ordered 12-positive,
+  14-negative, six-out-of-contract roster plus eight two-endpoint metamorphic
+  relations requires 48 fresh worker invocations.
+- Audited pre-detector primitives comprise a bounded canvas,
+  domain-separated PRF, mutually independent A/B renderers, and the fail-closed
+  [systemd/Landlock sandbox](../src/indusbench/kp1979_v3_sandbox.py) with a
+  separate bootstrap-owned handshake, seccomp, descriptor closure, and bounded
+  resources. This is process isolation rather than a virtual machine; the root
+  operating system, user manager, and trusted parent remain trusted.
+- No detector, case generator, evaluator, target Quicknet round, C3 artifact
+  or result, real-source access, decipherment, or prize claim exists. A C3 pass
+  can authorize only owner-only provisional candidates for pages 22 through
+  77. Page 78, public release, and every accuracy, identifier, sequence,
+  language, meaning, translation, decipherment, prize, and corpus claim remain
+  prohibited.
+- Next: wire the generators and evaluator to the audited primitives, integrate
+  the offline Quicknet verifier and deterministic freeze builder, publish the
+  complete C3 source, then choose an exact target round at least eight days
+  ahead and attest C3 at least seven days before it. Detector implementation
+  begins only after that control freeze and attestation.

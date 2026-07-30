@@ -1156,3 +1156,54 @@ independent synthetic control for a new V3 algorithm identity before
 implementing the V3 detector. The successor must treat V2 only as exposed
 development evidence and must include the known periodic confound and broader
 non-label families. No V3 implementation exists at this checkpoint.
+
+## KP1979 V3 pre-detector control infrastructure — 2026-07-30
+
+The reusable
+[freeze core](../.github/workflows/kp1979-v3-freeze-core.yml) was published as
+P0 at commit `6eebc904a1bee3eaa05be619796cc6336bb2d10e`; its exact workflow
+SHA-256 is
+`9bd93bed5359bd8cb396a0f6be063b5bc6f76ad1b84e1d6338e1edc14ae0300a`.
+The pinned
+[manual caller](../.github/workflows/kp1979-v3-freeze.yml) was published as P1
+at commit `b530d1a2068135807f96dfe63ddbaf484b1acbb2`; its exact workflow
+SHA-256 is
+`aca066fc5df3565af831669b28ab661482dc0a21f319f6759fd912365c3f3442`.
+For Python 3.11, 3.13, and 3.14, every P0 CI job passed 753 tests and every P1
+CI job passed 758 tests. Neither workflow has been dispatched for a freeze,
+and no V3 attestation exists.
+
+The answer-free
+[V3 protocol](../src/indusbench/kp1979_v3_protocol.py) fixes control identity
+`kp1979-label-lattice-synthetic-control-v3`, algorithm identity
+`two-column-glyph-lattice-v3`, and worker identity
+`kp1979-label-detector-v3-worker-v1`. Its ordered roster contains 12 positive,
+14 negative, and six out-of-contract cases. Eight two-endpoint metamorphic
+relations make the closed execution total 48 fresh worker invocations.
+
+The current pre-detector source candidate adds an audited bounded canvas,
+domain-separated deterministic PRF, mutually independent orthogonal-graph and
+bitmap-mask renderers, and a fail-closed
+[systemd/Landlock sandbox](../src/indusbench/kp1979_v3_sandbox.py). The sandbox
+uses a bootstrap-owned separate handshake, seccomp restrictions, descriptor
+closure, and bounded resources. This is defense-in-depth process isolation,
+not a virtual machine. The root operating system, user manager, and trusted
+parent process remain in the trust base.
+
+No V3 detector, case generator, evaluator, target Quicknet round, C3 artifact
+or result, real-source access, decipherment, or prize claim exists at this
+checkpoint. A future C3 pass may authorize only owner-only provisional
+candidates for pages 22 through 77. It cannot authorize page 78, public
+release, accuracy, identifier, sequence, language, meaning, translation,
+decipherment, prize, or corpus claims.
+
+The controlled next sequence is:
+
+1. wire the closed protocol, case generators, evaluator, and audited
+   primitives while preserving the answer-free worker boundary;
+2. integrate an offline Quicknet verifier and deterministic C3 freeze builder;
+3. publish the complete C3 source, then select an exact Quicknet target round
+   at least eight days ahead and attest C3 at least seven days before that
+   round; and
+4. begin detector implementation only after the control is publicly frozen
+   and attested.
