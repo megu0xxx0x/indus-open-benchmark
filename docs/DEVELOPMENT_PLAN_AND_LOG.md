@@ -1262,3 +1262,41 @@ No future target or round is selected, reserved, fetched, or disclosed. The
 component supplies no trusted time, custody, freshness, external attestation,
 identifier, sequence, language, meaning, translation, decipherment, accuracy,
 or prize claim. A returned Python object is not an unforgeable receipt.
+
+## KP1979 V3 Quicknet CI and worker-wire checkpoint — 2026-07-30
+
+The Quicknet dependency was published at commit
+`af9e757087505137a4b9d17d1e7ae4811b63432d`. Public CI run `30519982857`
+passed Python 3.11, 3.13, and 3.14 with 845 tests and 22
+environment-specific skips in every matrix job and built both source and wheel
+distributions. An earlier run's only failure was a test-reporter prefix that
+varied between Node 18 and Node 24; the portable BLS semantic step already
+passed in every job. The corrective commit fixed the reporter explicitly and
+did not change production-verifier or vendored-cryptography bytes.
+
+The answer-free
+[worker wire](../src/indusbench/kp1979_v3_wire.py) was published at commit
+`f79e437`, with permanent boundary additions at `cef6299`. A request contains
+only the exact worker interface version, raw-P4 bytes, public width and height,
+and scan bands. It cannot carry a case identity, expected answer, truth, seed,
+relation identity, or generator metadata.
+
+The outer boundary admits the six predeclared semantically invalid fixtures so
+that each reaches exactly one sandbox invocation. Worker rejection applies the
+fixed precedence header, dimensions, payload size, then scan bands. Responses
+use only `proposed`, `abstained`, or `rejected`; predictions are sorted,
+unique, lane-bounded, page-bounded, and at most 128 pixels high. The future
+scientific evaluator must still require the intended exact height of 96
+pixels. Deep JSON and pathological numeric values fail with one generic error
+that discloses neither path nor parser detail.
+
+Independent adversarial review, including permanent compound-precedence and
+request/response huge-number tests, reported zero blocker and zero major
+findings. Public CI run `30522383744` then passed Python 3.11, 3.13, and 3.14.
+Each matrix job passed all 871 tests with 22 environment-specific skips,
+passed the six mandatory Quicknet BLS tests with zero failures, and built both
+source and wheel distributions.
+
+This checkpoint still creates no accepted trial-state component, generator,
+evaluator, freeze artifact, target Quicknet round, detector, C3 result,
+real-source result, decipherment evidence, or prize evidence.

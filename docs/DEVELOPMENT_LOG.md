@@ -248,3 +248,42 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   complete C3 source, then choose an exact target round at least eight days
   ahead and attest C3 at least seven days before it. Detector implementation
   begins only after that control freeze and attestation.
+
+## 2026-07-30T16:15:04+09:00 — Quicknet CI and V3 worker-wire checkpoint
+
+- The offline Quicknet dependency was published at commit
+  `af9e757087505137a4b9d17d1e7ae4811b63432d`. Public CI run `30519982857`
+  passed Python 3.11, 3.13, and 3.14 with 845 tests and 22
+  environment-specific skips in each matrix job, and built both source and
+  wheel distributions.
+- An earlier public run exposed only a test-reporter portability assumption:
+  Node 24 used a different TAP informational prefix than the legacy Node 18
+  host. The portable BLS semantics step had already passed in every matrix
+  job. The follow-up made the TAP reporter explicit; production verifier and
+  vendored cryptographic bytes were unchanged.
+- The answer-free
+  [worker wire](../src/indusbench/kp1979_v3_wire.py) was published at commit
+  `f79e437`. Its request has exactly five fields: interface version, raw-P4
+  bytes, width, height, and scan bands. It carries no case identity, expected
+  answer, truth, seed, relation identity, or generator metadata.
+- Responses use the closed `proposed`, `abstained`, and `rejected` states.
+  Proposed predictions are unique and sorted, restricted to lanes zero and
+  one, page-bounded, and at most 128 pixels high. The future evaluator must
+  separately require the intended exact height of 96 pixels; that scientific
+  rule is deliberately not weakened into the transport parser.
+- All six out-of-contract fixtures are accepted by the outer answer-free
+  envelope and reach one sandbox invocation. Worker-owned semantic rejection
+  follows the fixed precedence header, dimensions, payload size, then scan
+  bands. Deep JSON, oversized integer, and non-finite exponent parser failures
+  are reduced to the same path-free, detail-free outer error.
+- Commit `cef6299` permanently tests compound semantic precedence and huge
+  numeric failures at both request and response boundaries. Independent
+  adversarial review after those additions reported zero blocker and zero
+  major findings.
+- Public CI run `30522383744` passed Python 3.11, 3.13, and 3.14. Every matrix
+  job passed all 871 tests with 22 environment-specific skips, passed the six
+  mandatory Quicknet BLS tests with zero failures, and built both source and
+  wheel distributions.
+- No V3 trial-state component, case generator, evaluator, deterministic freeze
+  artifact, target Quicknet round, detector, C3 result, real-source access, or
+  decipherment or prize evidence is established by this checkpoint.
