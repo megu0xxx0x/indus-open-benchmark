@@ -781,3 +781,96 @@ activation and an official runner are deferred until a real experiment
 exposes a reproducible need. The next research design is a separately frozen
 non-sign source-link attempt. It must select rows without sign, glyph, or
 sequence similarity, and a no-link outcome is a valid terminal result.
+
+## 2026-08-01T03:23:18+09:00 — Static source-reported-link decision policy published
+
+Commit `c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`, whose parent is
+`54fccb7a86a0d45de4e626b57a6332d091c11db2`, freezes a static
+repository-only policy, exact Draft 2020-12 schema, and tests. The exact
+three-file, mode-`100644`, 898-addition binary diff has SHA-256
+`a635c012adefc52e05677aa1b337afe45ba53a25d4589bcb71446c7c2c0e8982`.
+The file SHA-256 values are:
+
+- registry:
+  `c29c4c2b4beb672e5ce47d6dbc1eb56bbbfe242ef5dd84a09d36a45e672e1d90`;
+- schema:
+  `d951541892bb6a5ef092d44e9a5564da2261f960e52e3e84a95ecd5ef8e61aff`;
+  and
+- test:
+  `8870593c1195aad4138626343d9e051da0815fb6695c8f6515f9e9270b5af045`.
+
+All six parent preselection rows remain in source-table order and receive one
+result slot each. The exact terminal-state precedence is `contract_blocked`,
+`unresolved`, `source_reported_link`, then `no_link`. Hard rejection precedes
+state evaluation and is not a result. Aggregate answers, missing rows, and
+post-hoc target substitution are prohibited. `source_reported_link` means
+only a dual source report under exact external prerequisites; it is not a
+positive/truth state, physical-identity finding, or admitted join.
+
+The mode is two separately sealed coded machine passes. Only `pass_id` and
+`seal_sha256` must differ. Human, model, and organizational independence,
+blinding, nonexposure, and authorship authenticity remain unverified. A
+row-absent `no_link` requires exact complete-roster evidence from both passes;
+a bare not-found result remains `unresolved`.
+
+The current prerequisite state is `contract_blocked`. The registered Mackay
+locator is unknown-rights and link-only. The Penn item page is unregistered,
+null-bound, unknown-rights, and link-only, and does not inherit Penn bulk
+metadata's CC BY 4.0 license. A separate source registration and rights
+contract must bind exact revisions, rights handling, inspection procedure,
+and the complete ordered source roster before any execution decision.
+
+The Schema `const` is semantically exact but treats JSON numbers such as `6`
+and `6.0` as equivalent. The policy therefore separately requires canonical
+byte identity and hard-rejects noncanonical input. The exact build produced a
+345-member sdist, SHA-256
+`378f38b04f9e396e96881d4d0a195003080a790256bd34958bb8992114c15033`,
+containing all three policy files, and a 165-member wheel, SHA-256
+`3f7cb59e4eb7ace577f7dadf2e8e056d644791bf138889e8dbfdaf2e04aba9a5`,
+containing only the schema from that set. There is no installed loader or
+runtime evaluator and no package/runtime-gate claim.
+
+Before the static design was chosen, a local untracked runtime-evaluator
+prototype underwent pre-publication design/security review. It could
+misrepresent an incomplete roster as complete, return an aggregate that hid
+five rows, trust duck-typed verification values, let raw parser exceptions
+escape the closed error boundary, and fail installed-schema lookup. The draft
+was never staged, committed, pushed, packaged, or used on source data. It
+produced no observation or result and was deleted. The checkpoint was narrowed
+to the static policy so these defects could not become a public runtime claim.
+
+Validation evidence:
+
+- all 7 focused policy tests and all 20 combined policy/parent/publication
+  tests passed;
+- Ruff lint passed, Ruff format accepted all 183 files, and Pyright reported
+  zero errors, warnings, or information messages;
+- the first full suite ran 1,094 tests in 1034.566s with 19 skips and recorded
+  two failures and two errors, solely because Quicknet fail-closed checks
+  rejected vendored Noble files/directories inherited at `0664`/`0775` in the
+  isolated worktree;
+- only those isolated-worktree modes were normalized to `0644`/`0755`, with
+  tracked bytes, hashes, and candidate diff unchanged; Quicknet then passed
+  23/23 in 4.197s;
+- the clean rerun passed 1,094 tests in 1084.894s with `OK (skipped=19)`;
+- the final independent audit reported zero blockers, zero major findings,
+  and zero minor findings; and
+- Gitleaks scanned 69 commits and 7,292,640 bytes with no leaks.
+
+Public CI run `30654728606` succeeded at exact head
+`c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`. Python 3.11, 3.13, and 3.14
+passed Quicknet 6/6 in 398.928145ms, 522.070668ms, and 542.131729ms,
+respectively, and passed all 1,094 tests with 22 skips in 636.266s, 910.867s,
+and 930.525s. Every matrix job asserted Node 24.18.1 on Linux/x64, passed Ruff,
+accepted all 183 files as formatted, reported zero Pyright errors, warnings,
+or information messages, and built both the sdist and wheel.
+
+During this static-policy checkpoint, no research or protected source endpoint
+was requested; no external source byte, image, page, plate, media, Helsinki
+row, or protected corpus was opened; and no institution or source holder was
+contacted. No evaluator, pass, observation, inspection, roster attestation,
+source-reported-link/no-link outcome, join, translation, decipherment evidence,
+claim authorization, submission, or prize result exists. Repository
+publication and CI are outside that statement and authorize none of those
+actions. Next is the separate source registration and rights contract;
+execution remains unauthorized.

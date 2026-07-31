@@ -36,6 +36,7 @@ Current assets:
 - [Helsinki 1982 sign-list Batch 0 protocol](KP1982_BATCH0_PROTOCOL.md)
 - [2026-07-28 decipherment-efficiency audit](DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
 - [context source-link preselection gate](CONTEXT_SOURCE_LINK_PRESELECTION_GATE.md)
+- [static source-reported-link decision policy](SOURCE_REPORTED_LINK_POLICY_V1.md)
 - [Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 - [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
@@ -77,15 +78,30 @@ Current assets:
   1,087-test full suite with `OK (skipped=22)` in 810.027s, 946.248s, and
   759.619s, respectively. Every job also passed Ruff, Ruff format for all 182
   files, zero-finding Pyright, and sdist plus wheel builds.
-- [ ] Design and separately freeze one non-sign source-link attempt before
-  accessing any source. Use source locators and preregistered contextual
-  fields only; never use sign, glyph, transcription, or sequence similarity
-  to choose a row. Preserve all conflicts and accept `no_link` as a valid
-  terminal result rather than substituting another row after inspection.
+- [x] Design and freeze the static non-sign source-link decision policy at
+  commit `c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`. Bind exactly one result
+  slot to each of the six parent rows, forbid aggregation/omission/post-hoc
+  substitution, and fix precedence `contract_blocked`, `unresolved`,
+  `source_reported_link`, then `no_link`. Hard rejection occurs before state
+  evaluation. `source_reported_link` is a source report rather than a
+  positive/truth state or join admission. The two passes differ only in
+  identifier and seal; independence, blinding, and nonexposure are not
+  verified. Current state: `contract_blocked`, with no evaluator, execution,
+  observation, source byte, result, or join.
+- [ ] Freeze a separate source registration and rights contract covering the
+  Penn item page, exact source revisions, rights handling, inspection
+  procedure, and complete ordered source roster. Penn bulk metadata's CC BY
+  4.0 license is not inherited; do not access or inspect a source under the
+  static policy.
+- [ ] Only after new explicit authority, implement and review a strict runtime
+  evaluator and execute two coded machine passes. Preserve all six row-level
+  states and forbidden channels; do not infer human/model/organizational
+  independence from distinct IDs and seals.
 - [ ] Add strict `decode_json`, registry resource-inclusion, and installed
   distribution tests before making any operational or packaged runtime claim
-  for the source-link gate. The current registry and tests are absent from the
-  wheel; only the schema is included.
+  for the source-link gate. Static publication does not implement this step:
+  the current registry and tests are absent from the wheel; only the schema is
+  included.
 - [x] Hard-freeze infrastructure expansion for this research step. Defer host
   Node 24 activation, dynamic-closure expansion, and an official runner until
   a real experiment exposes a reproducible need. This does not authorize

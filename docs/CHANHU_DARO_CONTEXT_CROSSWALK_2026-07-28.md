@@ -166,3 +166,27 @@ are outside that statement. It authorizes none. The next research design is
 a separately frozen non-sign source-link attempt. Source rows must never be
 chosen through sign, glyph, transcription, or sequence similarity, and a
 valid no-link outcome must stop without post-hoc substitution.
+
+## Static source-reported-link policy follow-up — 2026-08-01
+
+The separately frozen
+[static source-reported-link decision policy](SOURCE_REPORTED_LINK_POLICY_V1.md)
+binds one result slot to each of the six parent rows without changing this
+crosswalk or resolving any source conflict. The slots remain in source-table
+order, not rank order, and aggregation, row omission, and post-inspection row
+substitution are forbidden.
+
+SF 3495 keeps its unresolved excavation-location axis. SF 3051 and SF 2558
+remain two distinct parent rows in the same Penn-target collision group. A
+future `source_reported_link` would mean only that two separately sealed coded
+machine passes reported the same bounded source-local locator for one parent
+row. It would not approve a crosswalk join, establish physical identity, or
+resolve either conflict.
+
+The current state is `contract_blocked`: the Penn item page is unregistered,
+its source-registry binding is null, its rights are unknown, and Penn bulk
+metadata's CC BY 4.0 license is not inherited. No runtime evaluator,
+inspection, observation, source byte, source-reported-link/no-link result,
+join, translation, or decipherment result exists. A separate source
+registration and rights contract is required before any source-access or
+execution decision.

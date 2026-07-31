@@ -80,10 +80,11 @@ The rights record has exactly three layers:
    contains no media.
 2. `penn_item_page_association` is an extra-bulk item-page layer. It is not
    registered in the source registry, its source binding is null, its license
-   is null, its rights are unknown, redistribution is false, and its scope is
-   link-only.
-3. `mackay_report_locator` has a null license, unknown rights, no
-   redistribution permission, link-only scope, and no media.
+   is null, its rights are unknown, its scope is link-only, and it records
+   `redistribution_permitted=false` without making a legal-rights conclusion.
+3. `mackay_report_locator` has a null license, unknown rights, link-only scope,
+   no media, and the same frozen false field without an inferred legal
+   prohibition.
 
 The CC BY 4.0 status of Penn bulk metadata does not flow into the Penn item
 page. No image, crop, PDF page, plate, scan, or other media byte is part of
@@ -220,10 +221,38 @@ Infrastructure expansion is hard-frozen for this step. Host Node 24
 activation, dynamic-closure expansion, and an official one-shot runner are
 deferred unless a real experiment exposes a reproducible need.
 
-The next work is to design and separately freeze one non-sign source-link
-attempt. It must choose its source rows without using sign, glyph,
-transcription, or sequence similarity. It must preserve SF 3495's conflict,
-keep SF 3051 and SF 2558 separate, and treat `no_link` as a fully valid stop.
-It must not inspect a result and substitute a different source row.
+At source checkpoint `fd5148431b0fa9136336650208e2d570d0f176d8`, the next
+work was to design and separately freeze one non-sign source-link attempt. It
+had to choose source rows without using sign, glyph, transcription, or
+sequence similarity; preserve SF 3495's conflict; keep SF 3051 and SF 2558
+separate; treat `no_link` as a fully valid stop; and forbid substitution after
+inspection.
 
 This document does not authorize source access or execution of that attempt.
+
+## Follow-up policy freeze — 2026-08-01
+
+Commit `c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9` freezes that decision
+surface as the separate
+[static source-reported-link policy](SOURCE_REPORTED_LINK_POLICY_V1.md). The
+preselection gate remains the immutable parent input table; it was not turned
+into a runtime gate and was not executed.
+
+The follow-up policy requires one mutually exclusive terminal state for each
+of the six parent rows under precedence `contract_blocked`, `unresolved`,
+`source_reported_link`, then `no_link`. It forbids aggregation, omitted rows,
+and post-hoc substitution. Hard rejection precedes state evaluation and is not
+a result. `source_reported_link` is a source-report label only, not a
+positive/truth state or admitted join.
+
+The current real state is `contract_blocked` because the Penn item page is
+unregistered and unknown-rights and because no external exact source revision,
+rights-handling, inspection, and complete-roster contract exists. The two
+future passes are coded machine passes with distinct identifiers and seals
+only; their human, model, and organizational independence, blinding, and
+nonexposure are unverified.
+
+No runtime evaluator, source access, source byte, observation, pass,
+source-reported-link/no-link outcome, join, transcription, translation,
+decipherment evidence, or prize result exists. The next gate is a separate
+source registration and rights contract, not execution under this document.

@@ -76,9 +76,25 @@ yet. Public CI run `30635957691` succeeded for event `push` at exact head SHA
 format with all 182 files accepted, Pyright with zero errors, warnings, or
 information messages, and both sdist and wheel builds.
 
-This publication does not authorize source access or a join. The next
-research design is a separately frozen, non-sign source-link attempt for
-which a no-link outcome is a valid stop.
+The separately frozen
+[static source-reported-link decision policy](docs/SOURCE_REPORTED_LINK_POLICY_V1.md)
+now binds one terminal state to each of those six parent rows. Its exact state
+precedence is `contract_blocked`, `unresolved`, `source_reported_link`, then
+`no_link`; a hard reject occurs before state evaluation and is not a result.
+Aggregation, row omission, and post-hoc row substitution are forbidden.
+`source_reported_link` means only that two coded machine passes reported the
+same bounded source-local locator. It is not a positive/truth state or an
+admitted join.
+
+The passes are separately sealed, but only their `pass_id` and `seal_sha256`
+must differ. Human, model, and organizational independence, blinding, and
+nonexposure are not verified. The present state is `contract_blocked` because
+the Penn item-page source is unregistered and its rights are unknown; Penn
+bulk metadata's CC BY 4.0 license is not inherited by that item page. There is
+no runtime evaluator, execution, observation, source byte, source-link/no-link
+outcome, join, translation, decipherment evidence, or prize result. A separate
+source-registration and rights contract is the next gate and this publication
+does not authorize source access.
 
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also

@@ -7,6 +7,78 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A static, repository-only source-reported-link decision policy at commit
+  `c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`, parent
+  `54fccb7a86a0d45de4e626b57a6332d091c11db2`. The exact three-file,
+  mode-`100644`, 898-addition binary diff has SHA-256
+  `a635c012adefc52e05677aa1b337afe45ba53a25d4589bcb71446c7c2c0e8982`.
+  The registry, schema, and test SHA-256 values are
+  `c29c4c2b4beb672e5ce47d6dbc1eb56bbbfe242ef5dd84a09d36a45e672e1d90`,
+  `d951541892bb6a5ef092d44e9a5564da2261f960e52e3e84a95ecd5ef8e61aff`,
+  and
+  `8870593c1195aad4138626343d9e051da0815fb6695c8f6515f9e9270b5af045`.
+
+  The policy binds all six parent rows in source-table order to an exact
+  six-slot result vector. Every row must receive exactly one mutually
+  exclusive terminal state under precedence `contract_blocked`, `unresolved`,
+  `source_reported_link`, then `no_link`. Hard rejection precedes state
+  evaluation and is not a result state. Aggregation, row omission, and
+  post-inspection substitution are forbidden. A complete-roster proof is
+  required for a row-absent `no_link`; a bare “not found” stays `unresolved`.
+  `source_reported_link` is the only success-side name and means a source
+  report, not a positive/truth state, physical identity, or admitted join.
+
+  The two passes are separately sealed coded machine passes; only `pass_id`
+  and `seal_sha256` must differ. Human, model, and organizational
+  independence, blinding, and nonexposure remain unverified. The Mackay
+  locator is registered but unknown-rights and link-only. The Penn item page
+  is unregistered, null-bound, unknown-rights, and link-only; Penn bulk
+  metadata's CC BY 4.0 license is explicitly not inherited. The current state
+  is therefore `contract_blocked`, pending a separate source-registration and
+  rights contract.
+
+  Draft 2020-12 `const` fixes the policy semantically but treats JSON numbers
+  such as `6` and `6.0` as equivalent. Canonical byte identity is separately
+  mandatory and noncanonical input hard-rejects. No runtime evaluator or
+  installed policy loader exists. The 345-member sdist contains the exact
+  three files; the 165-member wheel contains only their schema. The artifact
+  SHA-256 values are
+  `378f38b04f9e396e96881d4d0a195003080a790256bd34958bb8992114c15033`
+  and
+  `3f7cb59e4eb7ace577f7dadf2e8e056d644791bf138889e8dbfdaf2e04aba9a5`.
+  This remains a source-repository contract, not a package/runtime gate.
+
+  Focused policy validation passed 7 tests and the combined policy,
+  preselection, and publication-boundary set passed 20. Ruff lint, formatting
+  of all 183 files, zero-finding Pyright, and exact builds passed. The first
+  full run reached 1,094 tests in 1034.566s with 19 skips and recorded two
+  failures plus two errors, solely because Quicknet rejected vendored Noble
+  files/directories inherited at `0664`/`0775` in the isolated worktree. Only
+  those worktree modes were normalized to `0644`/`0755`; tracked bytes,
+  hashes, and diff stayed unchanged. Quicknet then passed 23/23 in 4.197s,
+  and the clean full rerun passed 1,094 tests in 1084.894s with
+  `OK (skipped=19)`. The exact candidate's independent audit reported zero
+  blockers, zero major findings, and zero minor findings. Gitleaks scanned 69
+  commits and 7,292,640 bytes with no leaks.
+
+  Public CI run `30654728606` succeeded at exact head
+  `c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`. Python 3.11, 3.13, and 3.14
+  passed Quicknet 6/6 in 398.928145ms, 522.070668ms, and 542.131729ms,
+  respectively, and passed all 1,094 tests with 22 skips in 636.266s,
+  910.867s, and 930.525s. Every job also asserted Node 24.18.1 on Linux/x64,
+  passed Ruff, accepted all 183 files as formatted, reported zero Pyright
+  findings, and built the sdist and wheel. No source evaluator, inspection,
+  observation,
+  source-reported-link/no-link outcome, source byte, join, translation,
+  decipherment evidence, or prize result exists.
+
+  A preceding local untracked runtime prototype was discarded after
+  pre-publication design/security review found incomplete-roster,
+  aggregate-row-hiding, duck-typed-verification, raw-parser-exception, and
+  installed-schema-lookup defects. It was never staged, committed, pushed,
+  packaged, or used on source data, and was deleted before this static
+  freeze.
+
 - A static, repository-only Chanhu-Daro context source-link preselection gate
   at commit `fd5148431b0fa9136336650208e2d570d0f176d8`. Its canonical source
   table fixes exactly six rows, in order: SF 2000, SF 3495, SF 3493, SF 2428,
@@ -648,6 +720,10 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Scientific limitations
 
+- The source-reported-link policy has no runtime evaluator and has not been
+  executed. Its current state is `contract_blocked`; there is no observation,
+  source-reported-link result, no-link result, admitted join, translation,
+  decipherment evidence, claim authorization, submission, or prize result.
 - KP1979 V2 did not qualify or advance. Its raw synthetic control passed 18 of
   19 cases but remained `not_qualified`; separately, the detector-before-
   control freeze and post-freeze periodic two-tier non-label confound force the

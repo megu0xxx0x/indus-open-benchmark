@@ -1,8 +1,8 @@
 # Public development plan and status
 
-**Status date:** 2026-07-31
+**Status date:** 2026-08-01
 
-**Last source-level update:** 2026-07-31
+**Last source-level update:** 2026-08-01
 
 **Project:** Open Indus Benchmark
 
@@ -25,6 +25,9 @@ separate and traceable.
   corpus release.
 - Normative schemas, validators, importers, audit tools, synthetic examples,
   tests, and scientific/governance documentation are public.
+- The static source-reported-link decision policy is frozen, but its current
+  real state is `contract_blocked`. No runtime evaluator, source access,
+  observation, link/no-link outcome, or admitted join exists.
 - The current split and evaluator are development-only. They are not blind or
   final.
 - No private corpus, provider download, museum image bundle, private review
@@ -172,6 +175,8 @@ Current assurance layers:
 | MTAAC real known-script control | V1 error preserved; single frozen V2 run returned `NO_GO` |
 | Penn metadata context registry | 34 entries; five pending originality review and 29 negative controls |
 | Extra-bulk field-number/context admission | not admitted; two conflicts remain open |
+| Source-reported-link decision policy | static and frozen; six parent-row slots; not a runtime result |
+| Source registration, rights, and execution | blocked; not authorized; not executed |
 | Scientific functional-anchor validation | not executed or claimed |
 | Independent external replication | not executed or claimed |
 
@@ -1853,10 +1858,11 @@ verification and admission nonclaims are false.
 
 Only Penn bulk metadata is recorded as CC BY 4.0, redistributable metadata.
 The extra-bulk Penn item-page association has an unregistered/null source
-binding, null license, unknown rights, no redistribution permission, and
-link-only scope. The Mackay locator is also unknown-rights, nonredistributable,
-and link-only. No layer includes media, and no image, page, or plate bytes are
-part of the gate.
+binding, null license, unknown rights, link-only scope, and records
+`redistribution_permitted=false` without making a legal-rights conclusion.
+The Mackay locator is also unknown-rights and link-only, with the same frozen
+false field and no inferred legal prohibition. No layer includes media, and no
+image, page, or plate bytes are part of the gate.
 
 The Draft 2020-12 schema fixes six canonical `prefixItems`, rejects every
 additional item with `items: false`, and binds the complete rights and
@@ -1913,3 +1919,113 @@ sign, glyph, transcription, or sequence similarity to select among these
 rows. The attempt must preserve conflicts, and a fully valid no-link outcome
 must stop rather than trigger post-hoc row substitution. Only a later,
 separately reviewed contract could authorize source access or any join.
+
+## Static source-reported-link decision policy — 2026-08-01
+
+Source commit `c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`, whose parent is
+`54fccb7a86a0d45de4e626b57a6332d091c11db2`, freezes the policy described in
+[the detailed decision contract](SOURCE_REPORTED_LINK_POLICY_V1.md). It adds
+exactly three mode-`100644` files and 898 lines. The binary diff SHA-256 is
+`a635c012adefc52e05677aa1b337afe45ba53a25d4589bcb71446c7c2c0e8982`.
+The registry, schema, and test hashes are recorded in the detailed contract.
+
+### Frozen decision surface
+
+All six preselection rows remain in source-table order, not rank order, with
+one required result slot per row. The mutually exclusive terminal states use
+precedence `contract_blocked`, `unresolved`, `source_reported_link`, then
+`no_link`. Hard rejection precedes state evaluation and is not a terminal
+state. Results may not be aggregated, omitted, or replaced after inspection.
+
+There is no state named `positive`. `source_reported_link` means only that two
+coded machine passes report the same bounded ASCII source-local locator for
+the same parent row and exact source revision after all external prerequisites
+match. It is not truth authentication, context verification, physical
+identity, or join admission. A row-absent `no_link` requires exact complete
+ordered-roster evidence from both passes; a bare not-found report is
+`unresolved`.
+
+### Pass and independence boundary
+
+The frozen mode is two separately sealed coded machine passes. Only
+`pass_id` and `seal_sha256` are required to differ. Human, model, and
+organizational independence, blinding, nonexposure, and authorship
+authenticity are not verified. Distinct IDs and seals must not be relabeled as
+independent human review or external replication.
+
+Sign, glyph, sequence, token, transcription, visual, linguistic, similarity,
+confidence, OCR, raw/source bytes, excerpts, pages, images, media, notes, and
+free text are forbidden channels. Malformed, noncanonical, premature-
+observation, parent-mismatched, verification-mismatched, and forbidden-channel
+inputs hard-reject before result classification.
+
+### Rights and execution blocker
+
+The Mackay locator is registered but unknown-rights and link-only; the frozen
+policy records `redistribution_permitted=false` without making a legal-rights
+conclusion. The Penn item page is unregistered, has a null source-registry
+binding and license, unknown rights, link-only scope, and the same false field
+without an inferred legal prohibition. Penn bulk metadata's CC BY 4.0 license
+is explicitly not inherited by that item page.
+
+The current state is therefore `contract_blocked`, with empty observations,
+`not_authorized` execution, and no runtime evaluator. Unblocking requires a
+separate contract binding source registration, exact revisions, rights
+handling, inspection procedure, and the complete ordered source roster. This
+policy does not authorize source access to prepare or execute that contract.
+
+### Validation and abandoned prototype
+
+The Schema `const` is semantically exact but treats JSON numeric `6` and `6.0`
+as equivalent. Canonical byte identity is separately mandatory and
+noncanonical input hard-rejects. The exact build produced a 345-member sdist
+containing the policy, schema, and test and a 165-member wheel containing only
+the schema from that set. Artifact hashes and exact inclusion boundaries are
+recorded in the detailed policy document. No installed loader or package-
+runtime claim exists.
+
+A local untracked runtime prototype was abandoned after pre-publication
+design/security review found incomplete-roster misrepresentation, an aggregate
+result that hid five rows, trust in duck-typed verification, raw parser
+exceptions outside the closed boundary, and a broken installed-schema lookup.
+It was never staged, committed, pushed, packaged, or used on source data and
+was deleted. It produced no observation or result.
+
+Focused policy tests passed 7/7 and the combined policy, parent, and
+publication-boundary set passed 20/20. Ruff lint, formatting of 183 files,
+zero-finding Pyright, exact builds, and an independent zero-blocker/
+zero-major/zero-minor audit passed. Gitleaks scanned 69 commits and 7,292,640
+bytes with no leaks.
+
+The first full run reached 1,094 tests in 1034.566s with 19 skips and recorded
+two failures and two errors solely because Quicknet rejected `0664`/`0775`
+vendored Noble modes inherited by the isolated worktree. Only those worktree
+modes were normalized to `0644`/`0755`; tracked bytes, hashes, and diff were
+unchanged. Quicknet then passed 23/23 in 4.197s, and the clean full rerun passed
+1,094 tests in 1084.894s with `OK (skipped=19)`. The failed first run remains
+part of the record.
+
+Public CI run `30654728606` succeeded at exact head
+`c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`. Python 3.11, 3.13, and 3.14
+passed Quicknet 6/6 in 398.928145ms, 522.070668ms, and 542.131729ms,
+respectively, and passed all 1,094 tests with 22 skips in 636.266s, 910.867s,
+and 930.525s. Every job also asserted Node 24.18.1 on Linux/x64, passed Ruff,
+accepted all 183 files as formatted, reported zero Pyright errors, warnings,
+or information messages, and built both the sdist and wheel.
+
+### Authority boundary and next step
+
+During this static-policy checkpoint, no research/protected source endpoint
+was requested, no external source byte or media was opened, no Helsinki row or
+protected corpus was accessed, and no institution or source holder was
+contacted. No evaluator, source inspection, pass, observation, locator
+comparison, roster attestation, source-reported-link/no-link outcome, join,
+transcription, translation, decipherment evidence, public-claim authorization,
+submission, or prize result exists. Repository publication and CI are outside
+that statement and authorize none of those actions.
+
+The next gate is a separate source registration and rights contract. Only a
+new explicit authority decision after that contract could permit runtime
+implementation or two-pass execution. Infrastructure remains hard-frozen
+unless this research gate exposes a concrete reproducible need. KP1979 V2 and
+all other retired controls remain immutable.
