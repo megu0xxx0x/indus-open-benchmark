@@ -314,8 +314,37 @@ permission by itself.
   No C3 controller or freeze builder has been implemented; no freeze has been
   dispatched; and no C3 run, target selection, detector, real-source access or
   result, decipherment evidence, or prize result exists. KP1979 V2 remains
-  immutable. The next source work is the non-operational C3 controller/freeze
-  builder and a fixed Quicknet `BaseException` cleanup/runtime policy.
+  immutable.
+- Bounded best-effort Quicknet interruption cleanup, published at commit
+  `eda8af5791ed3ad6073d80308fa0696434ab89b6`. A `BaseException` raised by the
+  initial verifier `communicate` now triggers bounded process-group
+  termination attempts, bounded `communicate` and `wait`, and a bare re-raise
+  that preserves the original exception object. For an ordinary timeout,
+  `OSError`, or `SubprocessError`, the first cleanup `BaseException` from
+  process-group kill, `communicate`, or `wait` is retained while every bounded
+  cleanup stage continues, then re-raised as the same object. An interrupted
+  first kill is retried, and an interrupted wait receives one bounded retry.
+  Ordinary public Quicknet failures remain path-free and detail-free.
+  This is bounded best-effort cleanup, not a guarantee against repeated
+  hostile interrupts. Local validation passed 9/9 focused interruption tests,
+  including a 27-case ordinary-primary × cleanup-location ×
+  `BaseException`-wrapper matrix. A separate real-process regression covers
+  an interrupted first kill followed by the second kill/reap path; the matrix
+  does not claim that every combination starts a real process. All 23
+  Quicknet tests passed, and all 984 repository tests completed locally with
+  19 environment-specific skips in 976.360s, together with Ruff, formatting,
+  Pyright, Gitleaks, an exact two-file scope check, and an independent audit
+  reporting zero blockers, zero major findings, and zero minor findings.
+  Public CI run `30608426512` succeeded in 16m27s on Python 3.11, 3.13, and
+  3.14. Every job passed Quicknet 6/6, all 984 tests with 22
+  environment-specific skips, Ruff, formatting of all 179 files, Pyright with
+  no findings, and both distribution builds. Portable semantic CI remains
+  fixed to exact Node 24.18.0. The legacy host wrapper remains fixed to
+  end-of-life Node 18.19.1 for qualification only; a supported runtime policy
+  is unresolved before any official runner. No official C3 runner,
+  controller, or freeze builder exists. The next source task is a
+  non-operational, source-only control-bundle builder plus that supported
+  runtime policy, without selecting a target.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.

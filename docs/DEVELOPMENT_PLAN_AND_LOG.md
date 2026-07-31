@@ -1452,11 +1452,69 @@ dispatched; and no C3 run, target selection, detector, real-source access or
 result, decipherment evidence, or prize result exists. KP1979 V2 remains
 retired and immutable.
 
-The next controlled source task is a non-operational C3 controller
-and deterministic freeze builder. Its future official runner must internally
-construct and own an exact `SandboxedWorkerInvoker` and allow no
-caller-injected invoker. It must also fix the Quicknet `BaseException`
-cleanup/runtime policy before any operational runner integration. The
-Quicknet target round remains unselected. This step does not authorize a
-freeze dispatch, worker execution, detector implementation,
-real-source access, public claim, or prize action.
+At that checkpoint, the next controlled source task was a non-operational C3
+controller and deterministic freeze builder plus the then-unresolved
+Quicknet interruption-cleanup and runtime-policy work. The target round
+remained unselected.
+
+## KP1979 V3 Quicknet interruption-hardening checkpoint — 2026-07-31
+
+Bounded best-effort Quicknet interruption cleanup is implemented at commit
+`eda8af5791ed3ad6073d80308fa0696434ab89b6`. If `BaseException` interrupts the
+initial verifier `communicate`, cleanup attempts process-group termination,
+bounded `communicate`, and bounded `wait`; cleanup exceptions are suppressed
+on that path and a bare raise preserves the exact original exception object.
+
+After an ordinary timeout, `OSError`, or `SubprocessError`, the first cleanup
+`BaseException` from process-group kill, `communicate`, or `wait` is retained
+while every bounded cleanup stage continues. An interrupted first kill is
+retried. An interrupted wait is retried once with the same bound. The exact
+first cleanup exception object is then re-raised. In the absence of a cleanup
+interrupt, ordinary public Quicknet failures retain their stable path-free,
+detail-free boundary.
+
+These are bounded best-effort termination and reaping attempts, not a
+guarantee under repeated hostile interrupts. The focused tests include a
+27-case ordinary-primary × cleanup-location × `BaseException`-wrapper matrix
+using controlled process doubles. A distinct real-process regression
+interrupts the first process-group kill and verifies the second kill/reap
+path; it does not represent every matrix combination as a real process.
+
+Local source evidence at this checkpoint:
+
+- all 9 focused interruption tests passed, including the 27-case matrix;
+- all 23 Quicknet tests passed;
+- all 984 repository tests completed with 19 environment-specific skips in
+  976.360s;
+- Ruff lint and format checks, Pyright, Gitleaks, and an exact two-file
+  production-source/test scope check passed; and
+- independent audit reported zero blockers, zero major findings, and zero
+  minor findings.
+
+Public CI run `30608426512` succeeded in 16m27s. Python 3.11 passed Quicknet
+6/6 in 448.623633ms and all 984 tests with 22 environment-specific skips in
+640.818s, with an 11m11s job duration. Python 3.13 passed Quicknet 6/6 in
+527.92177ms and the same 984-test, 22-skip suite in 950.240s, with a 16m17s
+job duration. Python 3.14 passed Quicknet 6/6 in 546.222152ms and that suite
+in 925.641s, with a 16m05s job duration. Every matrix job passed Ruff, checked
+all 179 files as formatted, reported zero Pyright errors, warnings, or
+information messages, and built both the sdist and wheel.
+
+Portable semantic CI remains fixed to exact Node 24.18.0. The host wrapper
+remains fixed to end-of-life Node 18.19.1 and is qualification-only. A
+supported runtime policy remains unresolved before any official runner.
+
+No official C3 runner, controller, or freeze builder has been implemented. No
+freeze was dispatched, and no target round was selected, reserved, or
+fetched. No detector execution, real-source access or result, decipherment
+evidence, or prize result exists. The evaluator still accepts a caller-
+injected invoker, so its component result remains a non-attestation of the
+official sandbox path or execution. KP1979 V2 remains retired and immutable.
+
+The next controlled source task is a non-operational, source-only
+control-bundle builder plus the supported runtime policy. It must not select a
+target or expose an operational runner. A future official runner must
+internally construct and own an exact `SandboxedWorkerInvoker`, permit no
+caller-supplied invoker, and preserve the one-shot and aggregate-only
+boundaries. This step authorizes no freeze dispatch, worker or detector
+execution, real-source access, public claim, or prize action.

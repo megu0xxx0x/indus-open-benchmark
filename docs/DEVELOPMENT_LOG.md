@@ -414,6 +414,58 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   dispatched; and no C3 run, target selection, detector, real-source access or
   result, decipherment evidence, or prize result exists. KP1979 V2 remains
   immutable.
-- Next: implement the non-operational C3 controller/freeze builder and fix the
-  Quicknet `BaseException` cleanup/runtime policy without selecting a target
-  or dispatching a freeze.
+- At that checkpoint, next was the non-operational C3 controller/freeze
+  builder plus Quicknet interruption cleanup, without target selection or
+  freeze dispatch.
+
+## 2026-07-31 — Quicknet interruption cleanup hardened
+
+- Commit `eda8af5791ed3ad6073d80308fa0696434ab89b6` hardens the bounded
+  best-effort cleanup path around the fixed Quicknet verifier subprocess.
+- A `BaseException` raised by the initial `communicate` triggers
+  process-group termination attempts, bounded `communicate`, bounded `wait`,
+  and a bare re-raise preserving the original exception object. Cleanup
+  on this path do not replace that primary exception.
+- After an ordinary timeout, `OSError`, or `SubprocessError`, the first
+  cleanup `BaseException` from process-group kill, `communicate`, or `wait`
+  is retained. Every bounded cleanup stage continues, an interrupted first
+  kill is retried, an interrupted wait is retried once boundedly, and the
+  exact first cleanup exception object is then re-raised. Ordinary public
+  Quicknet failures remain path-free and detail-free.
+- This is bounded best-effort cleanup, not a guarantee of process termination
+  under repeated hostile interrupts. The 27-case ordinary-primary ×
+  cleanup-location × `BaseException`-wrapper matrix uses controlled process
+  doubles. A separate real-process regression specifically interrupts the
+  first kill and verifies the second kill/reap path; it does not imply that
+  every matrix combination starts a real process.
+- Local evidence passed:
+  - all 9 focused interruption tests, including the 27-case matrix;
+  - all 23 Quicknet tests;
+  - all 984 repository tests with 19 environment-specific skips in 976.360s;
+  - Ruff, formatting, Pyright, Gitleaks, and exact two-file source/test scope
+    checks; and
+  - independent review with zero blockers, zero major findings, and zero
+    minor findings.
+- Public CI run `30608426512` succeeded in 16m27s:
+  - Python 3.11 passed Quicknet 6/6 in 448.623633ms and all 984 tests with 22
+    environment-specific skips in 640.818s; its job completed in 11m11s;
+  - Python 3.13 passed Quicknet 6/6 in 527.92177ms and all 984 tests with 22
+    environment-specific skips in 950.240s; its job completed in 16m17s; and
+  - Python 3.14 passed Quicknet 6/6 in 546.222152ms and all 984 tests with 22
+    environment-specific skips in 925.641s; its job completed in 16m05s.
+  Every matrix job passed Ruff, checked all 179 files as formatted, reported
+  zero Pyright errors, warnings, or information messages, and built the sdist
+  and wheel.
+- Portable semantic CI remains fixed to exact Node 24.18.0. The host wrapper
+  remains fixed to end-of-life Node 18.19.1 for qualification only. A
+  supported runtime policy remains unresolved before any official runner.
+- No official C3 runner, controller, or freeze builder has been implemented.
+  No freeze was dispatched, and no target round was selected or
+  fetched. No detector, real-source access or result, decipherment evidence,
+  or prize result exists. The evaluator's caller-injected invoker boundary
+  still means its component result is not an execution attestation. KP1979 V2
+  remains retired and immutable.
+- Next: implement the non-operational, source-only control-bundle builder and
+  supported runtime policy. This does not authorize target selection, freeze
+  dispatch, detector execution, real-source access, or a public or prize
+  claim.

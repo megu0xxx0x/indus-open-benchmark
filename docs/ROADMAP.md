@@ -116,15 +116,33 @@ Current assets:
     Python 3.11, 3.13, and 3.14, passing Quicknet 6/6 and all 975 tests with
     22 environment-specific skips in every matrix job, plus Ruff, Ruff format
     on 179 files, Pyright with no findings, and both distribution builds.
-  - [ ] Implement the non-operational C3 controller and deterministic
-    freeze builder without dispatching a freeze or worker. The official
-    runner must internally construct and own an exact
-    `SandboxedWorkerInvoker`, permit no caller-supplied invoker, verify its
-    counters and the one-shot state transition, and fix the Quicknet
-    `BaseException` cleanup/runtime policy before operational integration.
-    No target round is selected.
-    This step authorizes no freeze, C3 run, detector, real-source access,
-    decipherment claim, or prize action.
+  - [x] Harden bounded best-effort Quicknet interruption cleanup at commit
+    `eda8af5791ed3ad6073d80308fa0696434ab89b6`. Initial-`communicate`
+    `BaseException` now triggers bounded process-group kill/reap attempts and
+    is bare-re-raised as the original object. For ordinary primary failures,
+    the first cleanup `BaseException` is retained while every bounded stage
+    continues; interrupted first kill and wait stages receive their declared
+    bounded retries. Ordinary public failures stay path-free and detail-free.
+    This does not guarantee cleanup under repeated hostile interrupts.
+    Local evidence passed 9/9 focused interruption tests, the 27-case
+    ordinary-primary × cleanup-location × `BaseException`-wrapper matrix, all
+    23 Quicknet tests, all 984 repository tests with 19 environment-specific
+    skips, static and publication checks, and an independent zero-finding
+    audit. Public CI run `30608426512` succeeded on Python 3.11, 3.13, and
+    3.14 with Quicknet 6/6, all 984 tests and 22 environment-specific skips
+    per job, Ruff, formatting of all 179 files, Pyright with no findings, and
+    both builds.
+  - [ ] Implement the non-operational, source-only C3 control-bundle builder
+    without dispatching a freeze or worker, and establish a supported runtime
+    policy before any official runner. Portable semantic CI remains exact
+    Node 24.18.0; the fixed Node 18.19.1 host wrapper remains end-of-life and
+    qualification-only. A future official runner must internally construct
+    and own an exact `SandboxedWorkerInvoker`, permit no caller-supplied
+    invoker, and verify its counters and the one-shot state transition. The
+    evaluator's injected-invoker result remains a non-attestation.
+    No official C3 runner, controller, or freeze builder exists, and no target
+    round is selected. This step authorizes no freeze, C3 run, detector,
+    real-source access, decipherment claim, or prize action.
   - [ ] Obtain two genuinely separate human passes, compare them only after
     sealing, complete no-invention adjudication, and retain future-evaluation
     values outside detector custody. This is the promotion gate for externally

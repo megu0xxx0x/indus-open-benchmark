@@ -7,6 +7,45 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- Quicknet interruption cleanup hardened at commit
+  `eda8af5791ed3ad6073d80308fa0696434ab89b6`. A `BaseException` from the
+  initial verifier `communicate` now starts bounded best-effort cleanup:
+  process-group termination attempts, bounded `communicate`, bounded `wait`,
+  and a bare re-raise preserving the original exception object. After an
+  timeout, `OSError`, or `SubprocessError`, the first cleanup
+  `BaseException` from kill, `communicate`, or `wait` is retained; every
+  bounded cleanup stage still runs; an interrupted first kill is retried; an
+  interrupted wait is retried once boundedly; and the exact first cleanup
+  exception object is then re-raised. Ordinary public Quicknet failures remain
+  path-free and detail-free.
+  Cleanup is bounded best effort and does not claim guaranteed termination
+  under repeated hostile interrupts. Local evidence passed all 9 focused
+  interruption tests, including a 27-case ordinary-primary × cleanup-location
+  × `BaseException`-wrapper matrix, and all 23 Quicknet tests. The
+  real-process regression specifically interrupts the first kill and verifies
+  the second kill/reap path; not every matrix combination is represented as a
+  real-process test. All 984 repository tests completed with 19
+  environment-specific skips in 976.360s. Ruff, formatting, Pyright,
+  Gitleaks, and an exact two-file source/test scope check passed; independent
+  audit reported zero blockers, zero major findings, and zero minor findings.
+  Public CI run `30608426512` succeeded in 16m27s:
+  - Python 3.11 passed Quicknet 6/6 in 448.623633ms and all 984 tests with 22
+    environment-specific skips in 640.818s; its job completed in 11m11s;
+  - Python 3.13 passed Quicknet 6/6 in 527.92177ms and all 984 tests with 22
+    environment-specific skips in 950.240s; its job completed in 16m17s; and
+  - Python 3.14 passed Quicknet 6/6 in 546.222152ms and all 984 tests with 22
+    environment-specific skips in 925.641s; its job completed in 16m05s.
+  Every matrix job passed Ruff, checked all 179 files as formatted, reported
+  zero Pyright errors, warnings, or information messages, and built both the
+  sdist and wheel. Portable semantic CI remains exact Node 24.18.0. The fixed
+  Node 18.19.1 host wrapper remains end-of-life and qualification-only; the
+  supported runtime policy is unresolved before an official runner. No
+  official C3 runner, controller, or freeze builder exists; no freeze has
+  been dispatched; and no target round, detector, real-source access or
+  result, decipherment evidence, or prize result exists. The evaluator's
+  injected-invoker result remains a non-attestation. KP1979 V2 remains
+  immutable. Next is a non-operational, source-only control-bundle builder and
+  supported runtime policy, with no target selection.
 - A streaming, aggregate-only KP1979 V3 evaluator at commit
   `ee847035867fe92dbca8b3e0aa9422dcfd43f138`. It builds and
   same-seed-validates one canonical case or relation at a time and passes only
@@ -40,9 +79,9 @@ immutable content-addressed identifiers for corpus and split releases.
   No C3 controller or freeze builder has been implemented; no freeze has been
   dispatched; and no C3 run, target selection, detector, real-source access or
   result, decipherment evidence, or prize result exists. KP1979 V2 remains
-  immutable. Next is a non-operational C3 controller/freeze-builder boundary
-  plus a fixed Quicknet `BaseException` cleanup/runtime policy; no target round
-  has been selected.
+  immutable. At that checkpoint, next was a non-operational C3
+  controller/freeze-builder boundary plus Quicknet interruption cleanup; no
+  target round had been selected.
 - A synthetic-only deterministic KP1979 V3 generator checkpoint at commit
   `88794f9748e909eef66f54c4c56d82fee5e9e521`, with 12 positive, 14 negative,
   and six out-of-contract cases plus eight fixed two-endpoint metamorphic
