@@ -7,7 +7,6 @@ not claim to create a kernel-enforced network sandbox.
 
 from __future__ import annotations
 
-import contextlib
 import hashlib
 import json
 import os
@@ -57,6 +56,7 @@ MAX_MANIFEST_BYTES = 16_384
 MAX_REQUEST_BYTES = 4_096
 MAX_OUTPUT_BYTES = 4_096
 WALL_TIMEOUT_SECONDS = 10
+_INTERRUPT_CLEANUP_TIMEOUT_SECONDS = 1
 
 _VENDOR_ROOT = Path(__file__).resolve().parent / "_vendor" / "noble"
 _NODE_VERIFIER = _VENDOR_ROOT / "quicknet_verify.cjs"
@@ -457,6 +457,61 @@ def _parse_verified_output(
         _fail()
 
 
+def _kill_and_reap_process(
+    process: subprocess.Popen[bytes],
+    *,
+    reraise_cleanup_interrupt: bool,
+) -> None:
+    """Run bounded termination and optionally re-raise its first interruption."""
+
+    first_cleanup_interrupt: BaseException | None = None
+    kill_was_interrupted = False
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except Exception:
+        pass
+    except BaseException as error:
+        first_cleanup_interrupt = error
+        kill_was_interrupted = True
+
+    if kill_was_interrupted:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except Exception:
+            pass
+        except BaseException:
+            pass
+
+    try:
+        process.communicate(timeout=_INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+    except Exception:
+        pass
+    except BaseException as error:
+        if first_cleanup_interrupt is None:
+            first_cleanup_interrupt = error
+
+    wait_was_interrupted = False
+    try:
+        process.wait(timeout=_INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+    except Exception:
+        pass
+    except BaseException as error:
+        wait_was_interrupted = True
+        if first_cleanup_interrupt is None:
+            first_cleanup_interrupt = error
+
+    if wait_was_interrupted:
+        try:
+            process.wait(timeout=_INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+        except Exception:
+            pass
+        except BaseException:
+            pass
+
+    if reraise_cleanup_interrupt and first_cleanup_interrupt is not None:
+        raise first_cleanup_interrupt
+
+
 def verify_quicknet_beacon(
     round_number: int,
     signature: str,
@@ -508,15 +563,22 @@ def verify_quicknet_beacon(
                 process.communicate(input=request, timeout=WALL_TIMEOUT_SECONDS)
             except subprocess.TimeoutExpired:
                 timed_out = True
-                with contextlib.suppress(ProcessLookupError):
-                    os.killpg(process.pid, signal.SIGKILL)
-                process.communicate()
+                _kill_and_reap_process(
+                    process,
+                    reraise_cleanup_interrupt=True,
+                )
             except (OSError, subprocess.SubprocessError):
-                with contextlib.suppress(ProcessLookupError):
-                    os.killpg(process.pid, signal.SIGKILL)
-                with contextlib.suppress(OSError, subprocess.SubprocessError):
-                    process.communicate()
+                _kill_and_reap_process(
+                    process,
+                    reraise_cleanup_interrupt=True,
+                )
                 _fail()
+            except BaseException:
+                _kill_and_reap_process(
+                    process,
+                    reraise_cleanup_interrupt=False,
+                )
+                raise
             stdout_handle.flush()
             stderr_handle.flush()
             stdout_handle.seek(0)

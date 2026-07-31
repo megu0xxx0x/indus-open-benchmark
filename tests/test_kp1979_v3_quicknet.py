@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import base64
+import contextlib
 import hashlib
 import inspect
 import json
+import os
 import re
 import shutil
+import signal
 import stat
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -221,6 +225,330 @@ class KP1979V3QuicknetContractTests(unittest.TestCase):
         portable_suite = NODE_TEST.read_text(encoding="utf-8")
         self.assertNotIn("skip:", portable_suite)
         self.assertNotIn("kp1979_v3_quicknet_host.test.cjs", workflow)
+
+
+class KP1979V3QuicknetInterruptionTests(unittest.TestCase):
+    def _verify_with_process(self, process: Any) -> quicknet.VerifiedQuicknetBeacon:
+        with (
+            mock.patch.object(
+                quicknet,
+                "verify_vendored_noble",
+                return_value=quicknet.VENDOR_MANIFEST_SHA256,
+            ),
+            mock.patch.object(quicknet, "_require_safe_file"),
+            mock.patch.object(quicknet, "_verify_host_prerequisites"),
+            mock.patch.object(quicknet.subprocess, "Popen", return_value=process),
+        ):
+            return quicknet.verify_quicknet_beacon(
+                1000,
+                EXPECTED_SIGNATURE,
+                EXPECTED_RANDOMNESS,
+            )
+
+    def _assert_same_exception(self, expected: BaseException, process: Any) -> None:
+        try:
+            self._verify_with_process(process)
+        except BaseException as caught:
+            self.assertIs(expected, caught)
+        else:
+            self.fail("expected BaseException")
+
+    def test_communicate_baseexceptions_kill_and_reap_before_exact_reraise(self) -> None:
+        for interruption in (
+            KeyboardInterrupt("keyboard-detail"),
+            SystemExit("system-exit-detail"),
+            GeneratorExit("generator-exit-detail"),
+        ):
+            process = mock.Mock()
+            process.pid = 424_242
+            process.communicate.side_effect = [interruption, (b"", b"")]
+            process.wait.return_value = -signal.SIGKILL
+            with (
+                self.subTest(interruption=type(interruption).__name__),
+                mock.patch.object(quicknet.os, "killpg") as killpg,
+            ):
+                self._assert_same_exception(interruption, process)
+            self.assertEqual(
+                [
+                    mock.call(input=_known_request(), timeout=quicknet.WALL_TIMEOUT_SECONDS),
+                    mock.call(timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS),
+                ],
+                process.communicate.call_args_list,
+            )
+            killpg.assert_called_once_with(process.pid, signal.SIGKILL)
+            process.wait.assert_called_once_with(
+                timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS
+            )
+
+    def test_cleanup_processlookup_and_cleanup_failures_cannot_replace_interrupt(self) -> None:
+        scenarios = [
+            (ProcessLookupError("already-gone"), None),
+            (None, KeyboardInterrupt("cleanup-communicate")),
+        ]
+        for kill_failure, communicate_failure in scenarios:
+            interruption = SystemExit("original")
+            process = mock.Mock()
+            process.pid = 434_343
+            process.communicate.side_effect = [interruption, communicate_failure]
+            process.wait.side_effect = GeneratorExit("cleanup-wait")
+            kill_side_effect = kill_failure if kill_failure is not None else None
+            with (
+                self.subTest(
+                    kill_failure=type(kill_failure).__name__ if kill_failure else None,
+                    communicate_failure=(
+                        type(communicate_failure).__name__ if communicate_failure else None
+                    ),
+                ),
+                mock.patch.object(
+                    quicknet.os,
+                    "killpg",
+                    side_effect=kill_side_effect,
+                ) as killpg,
+            ):
+                self._assert_same_exception(interruption, process)
+            killpg.assert_called_once_with(process.pid, signal.SIGKILL)
+            self.assertEqual(2, process.wait.call_count)
+            process.wait.assert_called_with(timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+
+    def test_already_exited_process_still_gets_bounded_best_effort_cleanup(self) -> None:
+        interruption = KeyboardInterrupt("after-exit")
+        process = mock.Mock()
+        process.pid = 444_444
+        process.returncode = 0
+        process.communicate.side_effect = [interruption, (b"", b"")]
+        process.wait.return_value = 0
+        with mock.patch.object(
+            quicknet.os,
+            "killpg",
+            side_effect=ProcessLookupError,
+        ) as killpg:
+            self._assert_same_exception(interruption, process)
+        killpg.assert_called_once_with(process.pid, signal.SIGKILL)
+        process.communicate.assert_called_with(timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+        process.wait.assert_called_once_with(timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+
+    def test_invalid_request_and_popen_interrupt_without_handle_trigger_no_cleanup(self) -> None:
+        with mock.patch.object(quicknet.subprocess, "Popen") as popen:
+            with self.assertRaisesRegex(
+                quicknet.QuicknetVerificationError,
+                "^quicknet_verification_failed$",
+            ):
+                quicknet.verify_quicknet_beacon(
+                    0,
+                    EXPECTED_SIGNATURE,
+                    EXPECTED_RANDOMNESS,
+                )
+            popen.assert_not_called()
+
+        interruption = KeyboardInterrupt("popen-detail")
+        with (
+            mock.patch.object(
+                quicknet,
+                "verify_vendored_noble",
+                return_value=quicknet.VENDOR_MANIFEST_SHA256,
+            ),
+            mock.patch.object(quicknet, "_require_safe_file"),
+            mock.patch.object(quicknet, "_verify_host_prerequisites"),
+            mock.patch.object(
+                quicknet.subprocess,
+                "Popen",
+                side_effect=interruption,
+            ) as popen,
+            mock.patch.object(quicknet.os, "killpg") as killpg,
+        ):
+            try:
+                quicknet.verify_quicknet_beacon(
+                    1000,
+                    EXPECTED_SIGNATURE,
+                    EXPECTED_RANDOMNESS,
+                )
+            except BaseException as caught:
+                self.assertIs(interruption, caught)
+            else:
+                self.fail("expected KeyboardInterrupt")
+        killpg.assert_not_called()
+        launch_kwargs = popen.call_args.kwargs
+        self.assertTrue(launch_kwargs["start_new_session"])
+        self.assertFalse(launch_kwargs["shell"])
+        self.assertEqual(subprocess.PIPE, launch_kwargs["stdin"])
+
+    def test_ordinary_communication_failures_remain_detail_free(self) -> None:
+        for failure in (
+            OSError("private-operating-detail"),
+            subprocess.SubprocessError("private-subprocess-detail"),
+            subprocess.TimeoutExpired("private-command", 10),
+        ):
+            process = mock.Mock()
+            process.pid = 454_545
+            process.returncode = -signal.SIGKILL
+            process.communicate.side_effect = [failure, (b"", b"")]
+            with (
+                self.subTest(failure=type(failure).__name__),
+                mock.patch.object(quicknet.os, "killpg") as killpg,
+                self.assertRaisesRegex(
+                    quicknet.QuicknetVerificationError,
+                    "^quicknet_verification_failed$",
+                ),
+            ):
+                self._verify_with_process(process)
+            killpg.assert_called_once_with(process.pid, signal.SIGKILL)
+            process.communicate.assert_called_with(
+                timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS
+            )
+            process.wait.assert_called_once_with(
+                timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS
+            )
+
+    def test_each_cleanup_interrupt_after_ordinary_failure_is_reaped_and_reraised(
+        self,
+    ) -> None:
+        for failure in (
+            OSError("initial-operating-detail"),
+            subprocess.SubprocessError("initial-subprocess-detail"),
+            subprocess.TimeoutExpired("initial-command", 10),
+        ):
+            for location in ("killpg", "communicate", "wait"):
+                for interruption in (
+                    KeyboardInterrupt(f"cleanup-{location}"),
+                    SystemExit(f"cleanup-{location}"),
+                    GeneratorExit(f"cleanup-{location}"),
+                ):
+                    with self.subTest(
+                        failure=type(failure).__name__,
+                        interruption=type(interruption).__name__,
+                        location=location,
+                    ):
+                        process = mock.Mock()
+                        process.pid = 464_646
+                        process.communicate.side_effect = [
+                            failure,
+                            interruption if location == "communicate" else (b"", b""),
+                        ]
+                        process.wait.side_effect = (
+                            [interruption, KeyboardInterrupt("later-wait")]
+                            if location == "wait"
+                            else None
+                        )
+                        process.wait.return_value = -signal.SIGKILL
+                        kill_side_effect = (
+                            [interruption, SystemExit("later-kill")]
+                            if location == "killpg"
+                            else None
+                        )
+                        with mock.patch.object(
+                            quicknet.os,
+                            "killpg",
+                            side_effect=kill_side_effect,
+                        ) as killpg:
+                            self._assert_same_exception(interruption, process)
+                        self.assertEqual(2 if location == "killpg" else 1, killpg.call_count)
+                        self.assertEqual(
+                            [
+                                mock.call(
+                                    input=_known_request(),
+                                    timeout=quicknet.WALL_TIMEOUT_SECONDS,
+                                ),
+                                mock.call(timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS),
+                            ],
+                            process.communicate.call_args_list,
+                        )
+                        self.assertEqual(2 if location == "wait" else 1, process.wait.call_count)
+                        process.wait.assert_called_with(
+                            timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS
+                        )
+
+    def test_first_cleanup_interrupt_wins_while_every_cleanup_stage_is_attempted(
+        self,
+    ) -> None:
+        first = KeyboardInterrupt("first-kill")
+        process = mock.Mock()
+        process.pid = 474_747
+        process.communicate.side_effect = [
+            OSError("initial"),
+            GeneratorExit("later-communicate"),
+        ]
+        process.wait.side_effect = SystemExit("later-wait")
+        with mock.patch.object(
+            quicknet.os,
+            "killpg",
+            side_effect=[first, KeyboardInterrupt("later-kill")],
+        ) as killpg:
+            self._assert_same_exception(first, process)
+        self.assertEqual(2, killpg.call_count)
+        self.assertEqual(2, process.communicate.call_count)
+        self.assertEqual(2, process.wait.call_count)
+        process.wait.assert_called_with(timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+
+    def test_original_primary_interrupt_wins_over_every_cleanup_interrupt(self) -> None:
+        original = GeneratorExit("original")
+        process = mock.Mock()
+        process.pid = 484_848
+        process.communicate.side_effect = [
+            original,
+            SystemExit("cleanup-communicate"),
+        ]
+        process.wait.side_effect = KeyboardInterrupt("cleanup-wait")
+        with mock.patch.object(
+            quicknet.os,
+            "killpg",
+            side_effect=[
+                KeyboardInterrupt("cleanup-first-kill"),
+                GeneratorExit("cleanup-second-kill"),
+            ],
+        ) as killpg:
+            self._assert_same_exception(original, process)
+        self.assertEqual(2, killpg.call_count)
+        self.assertEqual(2, process.communicate.call_count)
+        self.assertEqual(2, process.wait.call_count)
+        process.wait.assert_called_with(timeout=quicknet._INTERRUPT_CLEANUP_TIMEOUT_SECONDS)
+
+    @unittest.skipUnless(hasattr(os, "killpg"), "process groups unavailable")
+    def test_interrupted_first_kill_is_retried_and_real_process_is_reaped(self) -> None:
+        try:
+            process = subprocess.Popen(
+                [sys.executable, "-I", "-c", "import time; time.sleep(60)"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                close_fds=True,
+                shell=False,
+                start_new_session=True,
+            )
+        except OSError as error:
+            self.skipTest(f"local process launch unavailable: {type(error).__name__}")
+        interruption = KeyboardInterrupt("first-real-kill")
+        real_killpg = os.killpg
+        kill_attempts = 0
+
+        def interrupt_once_then_kill(process_group: int, sig: int) -> None:
+            nonlocal kill_attempts
+            kill_attempts += 1
+            if kill_attempts == 1:
+                raise interruption
+            real_killpg(process_group, sig)
+
+        try:
+            with mock.patch.object(
+                quicknet.os,
+                "killpg",
+                side_effect=interrupt_once_then_kill,
+            ):
+                try:
+                    quicknet._kill_and_reap_process(
+                        process,
+                        reraise_cleanup_interrupt=True,
+                    )
+                except BaseException as caught:
+                    self.assertIs(interruption, caught)
+                else:
+                    self.fail("expected KeyboardInterrupt")
+            self.assertEqual(2, kill_attempts)
+            self.assertIsNotNone(process.returncode)
+        finally:
+            if process.poll() is None:
+                with contextlib.suppress(ProcessLookupError):
+                    os.killpg(process.pid, signal.SIGKILL)
+                process.wait(timeout=5)
 
 
 class KP1979V3QuicknetVendorTests(unittest.TestCase):
