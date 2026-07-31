@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:indus-open-benchmark:schema:kp1979-v3-control-bundle-manifest:v1",
+  "title": "KP1979 V3 non-operational control source bundle manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "version",
+    "source_commit",
+    "protocol_identity",
+    "control_identity",
+    "target_algorithm_identity",
+    "worker_identity",
+    "case_invocations",
+    "metamorphic_endpoint_invocations",
+    "total_worker_invocations",
+    "source_only",
+    "non_operational",
+    "target_round_selected",
+    "detector_component",
+    "integration_binding",
+    "payload"
+  ],
+  "properties": {
+    "format": {
+      "const": "kp1979-v3-control-bundle-manifest"
+    },
+    "version": {
+      "const": 1
+    },
+    "source_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "protocol_identity": {
+      "const": "kp1979-v3-closed-answer-free-protocol-v1"
+    },
+    "control_identity": {
+      "const": "kp1979-label-lattice-synthetic-control-v3"
+    },
+    "target_algorithm_identity": {
+      "const": "two-column-glyph-lattice-v3"
+    },
+    "worker_identity": {
+      "const": "kp1979-label-detector-v3-worker-v1"
+    },
+    "case_invocations": {
+      "const": 32
+    },
+    "metamorphic_endpoint_invocations": {
+      "const": 16
+    },
+    "total_worker_invocations": {
+      "const": 48
+    },
+    "source_only": {
+      "const": true
+    },
+    "non_operational": {
+      "const": true
+    },
+    "target_round_selected": {
+      "const": false
+    },
+    "detector_component": {
+      "const": "absent"
+    },
+    "integration_binding": {
+      "const": "absent"
+    },
+    "payload": {
+      "type": "array",
+      "minItems": 36,
+      "maxItems": 36,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "LICENSE"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "schemas/kp1979-v3-control-bundle-manifest.schema.json"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/__init__.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/VENDOR_MANIFEST.json"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/LICENSE"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/abstract/bls.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/abstract/curve.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/abstract/hash-to-curve.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/abstract/modular.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/abstract/tower.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/abstract/weierstrass.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/bls12-381.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/package.json"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/curves/utils.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/LICENSE"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/_md.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/_u64.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/cryptoNode.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/hmac.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/package.json"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/sha2.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/node_modules/@noble/hashes/utils.js"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/_vendor/noble/quicknet_verify.cjs"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_canvas.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_control_freeze.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_evaluator.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_generator.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_grammar.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_prf.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_protocol.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_quicknet.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_renderer_a.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_renderer_b.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_sandbox.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_state.py"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/payloadEntry",
+          "properties": {
+            "path": {
+              "const": "src/indusbench/kp1979_v3_wire.py"
+            }
+          }
+        }
+      ],
+      "items": false
+    }
+  },
+  "$defs": {
+    "payloadEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "size",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 524288
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}
