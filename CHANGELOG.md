@@ -7,6 +7,82 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A static, repository-only Chanhu-Daro context source-link preselection gate
+  at commit `fd5148431b0fa9136336650208e2d570d0f176d8`. Its canonical source
+  table fixes exactly six rows, in order: SF 2000, SF 3495, SF 3493, SF 2428,
+  SF 3051, and SF 2558. Every row is a source-namespaced
+  field-number/Penn-record/accession triple with
+  `preselection_status=source_locator_only` and
+  `future_join_status=not_joined_requires_separate_contract`. The role counts
+  are exactly three `lead_no_listed_material_conflict`, one
+  `excavation_location_axis_conflict`, and two
+  `shared_penn_target_identity_collision`. SF 3495 retains its unresolved
+  excavation-location axis. SF 3051 and SF 2558 remain separate Mackay rows
+  that point to the same Penn catalog target; no one-to-one physical identity
+  is inferred. Six links therefore map to five distinct Penn catalog records
+  and zero admitted joins.
+
+  Penn bulk metadata is the only CC BY 4.0 layer and is metadata-only. The
+  extra-bulk Penn item-page association has no registered source binding,
+  null license, unknown rights, and link-only scope. The Mackay locator also
+  has unknown rights and link-only scope. No media is included in any layer.
+  The registry contains no sign, glyph, sequence, transcription, Helsinki
+  row, positive/probable/exact status, admitted join, or decipherment claim.
+  All eleven scientific and admission assertions remain false.
+
+  Draft 2020-12 `prefixItems` fixes all six rows, `items: false` forbids a
+  seventh row, and canonical exact-byte tests bind the complete registry and
+  schema. A scoped recursive exercise rejected all 355 tested mutations.
+  This is not an operational gate: no production builder, API,
+  strict runtime loader, or registry runtime package exists. The registry and
+  test are absent from the wheel while the schema is included. Any future
+  operationalization needs strict `decode_json` parsing and explicit source
+  resource-inclusion tests before it can make a package or runtime claim.
+
+  The exact three-file, mode-`100644` code diff adds 979 lines and has binary
+  diff SHA-256
+  `56d8124f05223df5c9e010cfc97de328b5f7b6c3c2bc52f2aa8e8a7d10bd8de9`.
+  The final independent audit reported zero blockers, zero major findings,
+  and zero minor findings after an earlier review caught and corrected one
+  major bulk-versus-item source-binding issue and one minor
+  object-versus-catalog naming issue. Focused validation passed 9 tests in
+  about 0.03s; the related set passed 19 tests with one environment-specific
+  skip in 0.667s; and all four publication-boundary tests passed. Ruff lint,
+  Ruff format over 182 files, and Pyright with zero findings passed. The
+  successful offline isolated build contained 341 sdist members, including
+  the exact three new source files, and 164 wheel members, including only the
+  new schema from that three-file set. A prior non-isolated build command did
+  not start because its build backend was absent; no artifact was produced by
+  that attempt. Gitleaks scanned 67 commits and approximately 7.22 MB with no
+  leaks.
+
+  The first full-suite run reached 1,087 tests with 19 skips and recorded
+  exactly two failures and two errors because an isolated worktree inherited
+  `0664` files and `0775` directories in the vendored Noble closure; Quicknet
+  correctly failed closed. Only those worktree modes were normalized to
+  `0644`/`0755`; tracked bytes, content hashes, and the source diff did not
+  change. All 23 Quicknet tests then passed in 4.634s. The clean second run
+  completed the 1,087-test full suite with `OK (skipped=19)` in 976.546s.
+  Public CI run `30635957691` succeeded for event `push` at exact head SHA
+  `fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
+  `v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
+  527.702196ms, 655.421586ms, and 503.092653ms, respectively, and completed the
+  1,087-test full suite with `OK (skipped=22)` in 810.027s, 946.248s, and
+  759.619s, respectively. Each job also passed Ruff (`All checks passed`),
+  Ruff format with all 182 files accepted, Pyright with zero errors, warnings,
+  or information messages, and both sdist and wheel builds.
+
+  No network request to a research or source endpoint, external or protected
+  source-byte download, image/page/plate/media retrieval, Helsinki-row access,
+  institution or source-holder contact, operational gate, or real source-link
+  attempt occurred. Repository publication and CI are outside that statement.
+  This checkpoint authorizes none. The infrastructure lane is hard-frozen for
+  this research step: host Node 24 and
+  an official runner remain deferred unless a real experiment exposes a
+  reproducible need. Next is the design of a separately frozen, non-sign
+  source-link attempt; a no-link result is a valid stop, and sign, glyph, or
+  sequence similarity must never choose the source rows.
+
 - A deterministic, non-operational KP1979 V3 control source-bundle builder at
   commit `2e81afef7e188f9dd70059c60b9f1123019b3753`. Its exact allowlist has
   36 payload files and produces a 37-member canonical source-only subject

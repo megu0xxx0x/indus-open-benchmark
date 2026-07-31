@@ -35,6 +35,8 @@ Current assets:
 - [private transcription evidence bridge](TRANSCRIPTION_BRIDGE.md)
 - [Helsinki 1982 sign-list Batch 0 protocol](KP1982_BATCH0_PROTOCOL.md)
 - [2026-07-28 decipherment-efficiency audit](DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
+- [context source-link preselection gate](CONTEXT_SOURCE_LINK_PRESELECTION_GATE.md)
+- [Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 - [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
 - [2026-07-28 ORACC ED3b prospective-validation source audit](ORACC_ED3B_VALIDATION_SOURCE_2026-07-28.md)
@@ -51,6 +53,43 @@ Current assets:
 - Reproducible CLI and tests.
 
 ## Current research track — Information gain before corpus volume
+
+- [x] Freeze the repository-only Chanhu-Daro source-link preselection table at
+  commit `fd5148431b0fa9136336650208e2d570d0f176d8`: exactly six ordered
+  source-namespaced identifier triples for SF 2000, SF 3495, SF 3493, SF 2428,
+  SF 3051, and SF 2558. Keep all rows `source_locator_only` and
+  `not_joined_requires_separate_contract`; preserve the SF 3495
+  excavation-location conflict and the distinct SF 3051/SF 2558 rows that
+  share one Penn catalog target. Six links and five Penn catalog records are
+  not six verified physical objects. Rights remain layer-specific: CC BY 4.0
+  covers Penn bulk metadata only, while Penn item-page associations and
+  Mackay locators remain unknown-rights, link-only layers. No sign, glyph,
+  sequence, transcription, Helsinki row, join, or admission is frozen.
+  Static validation rejected all 355 tested mutations. The final audit was
+  zero/zero/zero after correction of the first audit's bulk-versus-item and
+  catalog-naming findings. Local validation completed the 1,087-test full suite
+  with `OK (skipped=19)` in 976.546s after preserving an earlier Quicknet
+  fail-closed worktree-mode incident. Public CI run `30635957691` succeeded
+  for event `push` at exact head SHA
+  `fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
+  `v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
+  527.702196ms, 655.421586ms, and 503.092653ms, respectively, and completed the
+  1,087-test full suite with `OK (skipped=22)` in 810.027s, 946.248s, and
+  759.619s, respectively. Every job also passed Ruff, Ruff format for all 182
+  files, zero-finding Pyright, and sdist plus wheel builds.
+- [ ] Design and separately freeze one non-sign source-link attempt before
+  accessing any source. Use source locators and preregistered contextual
+  fields only; never use sign, glyph, transcription, or sequence similarity
+  to choose a row. Preserve all conflicts and accept `no_link` as a valid
+  terminal result rather than substituting another row after inspection.
+- [ ] Add strict `decode_json`, registry resource-inclusion, and installed
+  distribution tests before making any operational or packaged runtime claim
+  for the source-link gate. The current registry and tests are absent from the
+  wheel; only the schema is included.
+- [x] Hard-freeze infrastructure expansion for this research step. Defer host
+  Node 24 activation, dynamic-closure expansion, and an official runner until
+  a real experiment exposes a reproducible need. This does not authorize
+  source access, worker execution, or a join.
 
 - [x] Audit whether the serial transcription-first path is the
   highest-efficiency route and record explicit resource allocations, claim

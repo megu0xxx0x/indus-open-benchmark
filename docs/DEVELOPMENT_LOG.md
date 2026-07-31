@@ -693,3 +693,91 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
 - Next after audited publication: resolve the supported host runtime and
   dynamic closure, then design an injection-free official one-shot runner.
   This draft authorizes none of those actions and no execution.
+
+## Context source-link preselection gate — 2026-07-31
+
+Commit `fd5148431b0fa9136336650208e2d570d0f176d8`, whose parent is
+`361b1532d08b642423dd202f2f03c40cd41cdbb2`, adds a static repository-only
+preselection registry, an exact Draft 2020-12 schema, and tests. The exact
+three-file, mode-`100644`, 979-addition binary diff has SHA-256
+`56d8124f05223df5c9e010cfc97de328b5f7b6c3c2bc52f2aa8e8a7d10bd8de9`.
+
+The source-table order is fixed as SF 2000, SF 3495, SF 3493, SF 2428,
+SF 3051, and SF 2558. Each row consists of exactly three source-namespaced
+identifiers: Mackay field number, Penn official record ID, and Penn accession
+number. Every row remains `source_locator_only` and
+`not_joined_requires_separate_contract`. The roles are three
+`lead_no_listed_material_conflict`, one
+`excavation_location_axis_conflict`, and two
+`shared_penn_target_identity_collision`. SF 3495 keeps its unresolved
+excavation-location axis. SF 3051 and SF 2558 stay separate while both point
+to Penn record 329820 / accession L-141-177.
+
+The recorded counts are six source links, five distinct Penn catalog records,
+and zero admitted joins. The five-record value is a catalog-record count, not
+an artifact or physical-identity assertion; `physical_identity_verified`
+remains false. The registry has no positive, probable, exact, joined, or
+admitted status, and no sign, glyph, token sequence, transcription, Helsinki
+row, reading, direction, language, translation, or decipherment value.
+
+Rights remain layered. Penn bulk metadata is CC BY 4.0, metadata-only, with no
+media. The Penn item-page association is outside that bulk source, has no
+registered source binding, a null license, unknown rights, and link-only
+scope. The Mackay report locator likewise has a null license, unknown rights,
+and link-only scope. No image, page, plate, or media bytes are in the gate.
+
+The schema uses six exact `prefixItems` with `items: false`, minimum and
+maximum six, and exact constants for the three rights layers and all
+nonclaims. The registry and schema are canonical exact bytes. All 355 tested
+mutations were rejected. This proves only the static repository contract. No
+production builder, API, strict runtime loader, source-access workflow, or
+registry runtime package exists. The registry and test are absent from the
+wheel; the schema is present. Future operationalization must use strict
+`decode_json` and add explicit resource-inclusion tests before any package or
+runtime gate can be claimed.
+
+Validation evidence:
+
+- Focused tests passed 9 cases in about 0.03s; related tests passed 19 cases
+  with one environment-specific skip in 0.667s; all four publication tests
+  passed.
+- Ruff lint passed; Ruff format accepted all 182 checked files; Pyright
+  reported zero errors, warnings, or information messages.
+- The offline isolated build produced a 341-member sdist containing all
+  three new source files and a 164-member wheel containing only the new
+  schema from that set. A preceding non-isolated build stopped before build
+  because the backend was unavailable and produced no artifact.
+- Gitleaks scanned 67 commits and approximately 7.22 MB with no leaks.
+- The final independent audit reported zero blockers, zero major findings,
+  and zero minor findings. An earlier audit had identified a major
+  bulk-versus-item source-binding overclaim and a minor object-versus-catalog
+  naming problem; both were corrected before the final audit.
+- The first complete run reached 1,087 tests with 19 skips but had exactly
+  two failures and two errors: Quicknet fail-closed checks rejected vendored
+  Noble files/directories at inherited `0664`/`0775` modes. Only the isolated
+  worktree modes were normalized to `0644`/`0755`; tracked bytes, hashes, and
+  diff did not change. All 23 Quicknet tests then passed in 4.634s. The clean
+  second run completed the 1,087-test full suite with `OK (skipped=19)` in
+  976.546s.
+- Public CI run `30635957691` succeeded for event `push` at exact head SHA
+  `fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
+  `v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
+  527.702196ms, 655.421586ms, and 503.092653ms, respectively, and completed the
+  1,087-test full suite with `OK (skipped=22)` in 810.027s, 946.248s, and
+  759.619s, respectively. Each job also passed Ruff (`All checks passed`),
+  Ruff format with all 182 files accepted, Pyright with zero errors, warnings,
+  or information messages, and both sdist and wheel builds.
+
+No network request to a research or source endpoint, external or protected
+source-byte download, image/page/plate retrieval, Helsinki-row access,
+institution or source-holder contact, operational source-link gate, or real
+source-link attempt occurred. Repository publication and CI are outside that
+statement. No source access is authorized by this commit. There is no
+admitted row, transcription, sequence, decipherment evidence, or
+prize result.
+
+Infrastructure is hard-frozen while the research lane resumes. Host Node 24
+activation and an official runner are deferred until a real experiment
+exposes a reproducible need. The next research design is a separately frozen
+non-sign source-link attempt. It must select rows without sign, glyph, or
+sequence similarity, and a no-link outcome is a valid terminal result.

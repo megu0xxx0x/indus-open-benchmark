@@ -49,6 +49,37 @@ functional-class machinery remains identifiable under short sequences,
 allographs, damage, uncertain direction, and duplicate families. Passing that
 method gate is not evidence that any Indus sign has been read.
 
+A static, repository-only
+[context source-link preselection gate](docs/CONTEXT_SOURCE_LINK_PRESELECTION_GATE.md)
+now freezes the six Chanhu-Daro source-table rows in this order: SF 2000,
+SF 3495, SF 3493, SF 2428, SF 3051, and SF 2558. Every row is only a
+source-namespaced identifier triple with status `source_locator_only` and
+`not_joined_requires_separate_contract`. The gate preserves the SF 3495
+excavation-location conflict and keeps SF 3051 and SF 2558 as separate rows
+pointing to the same Penn catalog record. Its five-record count is a count of
+distinct Penn catalog records, not a claim about physical identity.
+
+The gate contains no sign, glyph, sequence, transcription, Helsinki row,
+positive/probable/exact match, admitted join, or decipherment result. Penn
+bulk metadata is CC BY 4.0 metadata only. The extra-bulk Penn item-page
+association is unregistered and unknown-rights; the registered Mackay locator
+is also unknown-rights, and both are link-only. No external source, image,
+page, plate, or media bytes were retrieved or added for this checkpoint. The
+registry and test are not packaged in the wheel; only the schema is. There is
+no production builder, API, strict runtime loader, or package/runtime gate
+yet. Public CI run `30635957691` succeeded for event `push` at exact head SHA
+`fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
+`v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
+527.702196ms, 655.421586ms, and 503.092653ms, respectively, and completed the
+1,087-test full suite with `OK (skipped=22)` in 810.027s, 946.248s, and
+759.619s, respectively. Each job also passed Ruff (`All checks passed`), Ruff
+format with all 182 files accepted, Pyright with zero errors, warnings, or
+information messages, and both sdist and wheel builds.
+
+This publication does not authorize source access or a join. The next
+research design is a separately frozen, non-sign source-link attempt for
+which a no-link outcome is a valid stop.
+
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown

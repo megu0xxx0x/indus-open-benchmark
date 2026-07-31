@@ -108,3 +108,61 @@ the Penn page, retrieval evidence, field number, Mackay page, reviewer
 decision, and unresolved-conflict state. Only conflict-free records can then
 be joined to an independently admitted transcription for prospective
 functional testing.
+
+## Static preselection follow-up — 2026-07-31
+
+The repository now includes a deliberately narrower
+[context source-link preselection gate](CONTEXT_SOURCE_LINK_PRESELECTION_GATE.md).
+It does not implement the reviewed-evidence contract described above and does
+not reopen any source. It freezes only the six table rows, in source-table
+order, as source-namespaced locator triples:
+
+| Row | Mackay field number | Penn official record / accession | Frozen role |
+|---:|---|---|---|
+| 1 | SF 2000 | 83830 / L-141-160 | `lead_no_listed_material_conflict` |
+| 2 | SF 3495 | 83829 / L-141-159 | `excavation_location_axis_conflict` |
+| 3 | SF 3493 | 149372 / L-141-92 | `lead_no_listed_material_conflict` |
+| 4 | SF 2428 | 238862 / L-141-176 | `lead_no_listed_material_conflict` |
+| 5 | SF 3051 | 329820 / L-141-177 | `shared_penn_target_identity_collision` |
+| 6 | SF 2558 | 329820 / L-141-177 | `shared_penn_target_identity_collision` |
+
+Each triple records its source ID and identifier namespace. Every row has
+status `source_locator_only` and
+`not_joined_requires_separate_contract`. SF 3495 remains unresolved on the
+excavation-location axis. SF 3051 and SF 2558 remain two distinct field rows
+that point to one Penn catalog target. The gate therefore records six links,
+five distinct Penn catalog records, and zero admitted joins. Those are catalog
+counts, not verified physical-object identities.
+
+The rights record does not extend Penn's bulk CC BY 4.0 metadata license to
+the extra-bulk item-page association. That layer has no registered source
+binding, null license, unknown rights, and link-only scope. The Mackay
+locator is likewise unknown-rights and link-only. No image, page, plate, or
+media byte is included.
+
+The exact schema fixes all six rows with `prefixItems` and rejects additional
+rows with `items: false`; all 355 tested mutations were rejected. This is
+static repository validation only. There is no production builder, API,
+strict runtime loader, or packaged registry gate. The registry and test are
+not in the wheel; the schema is. Future operationalization needs strict
+`decode_json` parsing and resource-inclusion tests.
+
+The gate adds no positive, probable, exact, joined, or admitted status and no
+sign, glyph, sequence, transcription, Helsinki row, reading, direction,
+language, translation, or decipherment. Public CI run `30635957691` succeeded
+for event `push` at exact head SHA
+`fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
+`v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
+527.702196ms, 655.421586ms, and 503.092653ms, respectively, and completed the
+1,087-test full suite with `OK (skipped=22)` in 810.027s, 946.248s, and
+759.619s, respectively. Every job also passed Ruff, Ruff format for all 182
+files, zero-finding Pyright, and sdist plus wheel builds.
+
+This implementation made no network request to a research or source endpoint,
+no external source-byte download, no image/page/plate retrieval, no
+Helsinki-row access, no institution or source-holder contact, and no
+operational gate or real source-link attempt. Repository publication and CI
+are outside that statement. It authorizes none. The next research design is
+a separately frozen non-sign source-link attempt. Source rows must never be
+chosen through sign, glyph, transcription, or sequence similarity, and a
+valid no-link outcome must stop without post-hoc substitution.

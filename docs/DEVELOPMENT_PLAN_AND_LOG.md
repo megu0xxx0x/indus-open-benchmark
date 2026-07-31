@@ -1806,3 +1806,110 @@ decipherment evidence, public-claim authorization, or prize result. KP1979 V2
 remains retired and immutable. After audited publication, the separate next
 gates remain a supported host-runtime/dynamic-closure decision and an
 injection-free official one-shot runner. This source checkpoint authorizes neither.
+
+## Chanhu-Daro source-link preselection hard-freeze — 2026-07-31
+
+The project has shifted from infrastructure expansion back to the
+highest-information research bottleneck: whether an independently chosen
+context source can be linked without using the signs themselves. Source
+commit `fd5148431b0fa9136336650208e2d570d0f176d8` freezes the input table for
+that future question without executing it. Parent commit is
+`361b1532d08b642423dd202f2f03c40cd41cdbb2`; the exact three-file,
+mode-`100644`, 979-addition binary diff SHA-256 is
+`56d8124f05223df5c9e010cfc97de328b5f7b6c3c2bc52f2aa8e8a7d10bd8de9`.
+
+### Frozen table and nonclaims
+
+The exact source-table order is:
+
+1. SF 2000 / Penn 83830 / L-141-160 —
+   `lead_no_listed_material_conflict`;
+2. SF 3495 / Penn 83829 / L-141-159 —
+   `excavation_location_axis_conflict`, with the excavation-location axis
+   unresolved;
+3. SF 3493 / Penn 149372 / L-141-92 —
+   `lead_no_listed_material_conflict`;
+4. SF 2428 / Penn 238862 / L-141-176 —
+   `lead_no_listed_material_conflict`;
+5. SF 3051 / Penn 329820 / L-141-177 —
+   `shared_penn_target_identity_collision`; and
+6. SF 2558 / Penn 329820 / L-141-177 —
+   `shared_penn_target_identity_collision`.
+
+Each value is carried in an exact source-namespaced identifier triple, not as
+a bare identifier. Every row is `source_locator_only` and
+`not_joined_requires_separate_contract`; table order is source order, not
+rank. SF 3495 is not promoted past its conflict. SF 3051 and SF 2558 are not
+merged even though they address the same Penn catalog target. The count is
+six links, five distinct Penn catalog records, and zero admitted joins. It
+does not count or verify physical objects.
+
+The registry contains no positive, probable, exact, joined, or admitted
+status and no sign, glyph, sequence, transcription, Helsinki row, reading,
+direction, meaning, language, translation, or decipherment. All recorded
+verification and admission nonclaims are false.
+
+### Rights and implementation boundary
+
+Only Penn bulk metadata is recorded as CC BY 4.0, redistributable metadata.
+The extra-bulk Penn item-page association has an unregistered/null source
+binding, null license, unknown rights, no redistribution permission, and
+link-only scope. The Mackay locator is also unknown-rights, nonredistributable,
+and link-only. No layer includes media, and no image, page, or plate bytes are
+part of the gate.
+
+The Draft 2020-12 schema fixes six canonical `prefixItems`, rejects every
+additional item with `items: false`, and binds the complete rights and
+nonclaim records. All 355 tested mutations were rejected. This is a
+repository-only contract. There is no production builder, API, strict runtime
+loader, or packaged registry gate. The source distribution contains the
+registry, schema, and test; the wheel contains the schema but not the registry
+or test. Before any operational use, add strict `decode_json` parsing and
+explicit distribution/resource-inclusion tests.
+
+### Evidence and incidents
+
+Focused validation passed 9 tests in about 0.03s, the related set passed 19
+tests with one environment-specific skip in 0.667s, and all four publication
+tests passed. Ruff lint, formatting of 182 files, and Pyright with no findings
+passed. A locked offline isolated build produced a 341-member sdist and a
+164-member wheel with the inclusion boundary above. The earlier non-isolated
+build did not begin because its backend was absent; it produced no artifact.
+Gitleaks scanned 67 commits and approximately 7.22 MB with no leaks.
+
+The first full run reached 1,087 tests with 19 skips and recorded exactly two
+failures and two errors. Quicknet correctly rejected `0664` files and `0775`
+directories inherited by the isolated worktree's vendored Noble closure.
+Only those worktree modes were normalized to `0644` and `0755`; tracked
+content, hashes, and the code diff stayed unchanged. Quicknet then passed all
+23 tests in 4.634s. The clean second run completed the 1,087-test full suite
+with `OK (skipped=19)` in 976.546s.
+
+The final independent audit reported zero blockers, zero major findings, and
+zero minor findings. This followed correction of the first audit's major
+bulk-versus-item source-binding finding and minor object-versus-catalog naming
+finding. Public CI run `30635957691` succeeded for event `push` at exact head
+SHA `fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
+`v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
+527.702196ms, 655.421586ms, and 503.092653ms, respectively, and completed the
+1,087-test full suite with `OK (skipped=22)` in 810.027s, 946.248s, and
+759.619s, respectively. Each job also passed Ruff (`All checks passed`), Ruff
+format with all 182 files accepted, Pyright with zero errors, warnings, or
+information messages, and both sdist and wheel builds.
+
+### Authority boundary and next step
+
+No network request to a research or source endpoint, external or protected
+source-byte download, image/page/plate retrieval, Helsinki-row access,
+institution or source-holder contact, operational gate, or real source-link
+attempt occurred. Repository publication and CI are outside that statement.
+This hard-freeze neither authorizes research-source access nor admits a row.
+
+The infrastructure lane is hard-frozen for this research step. Host Node 24
+activation, dynamic-closure expansion, and an official runner are deferred
+until a real experiment demonstrates a reproducible need. The next step is to
+design and separately freeze one non-sign source-link attempt. It must not use
+sign, glyph, transcription, or sequence similarity to select among these
+rows. The attempt must preserve conflicts, and a fully valid no-link outcome
+must stop rather than trigger post-hoc row substitution. Only a later,
+separately reviewed contract could authorize source access or any join.
