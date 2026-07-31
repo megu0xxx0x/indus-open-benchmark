@@ -212,16 +212,29 @@ class KP1979V3QuicknetContractTests(unittest.TestCase):
 
     def test_ci_pins_supported_node_and_requires_portable_bls_suite(self) -> None:
         workflow = CI_WORKFLOW.read_text(encoding="utf-8")
-        setup_node = "uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0"
+        setup_node = "uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0"
         self.assertEqual(1, workflow.count(setup_node))
-        self.assertEqual(1, workflow.count('node-version: "24.18.0"'))
+        self.assertEqual(1, workflow.count('node-version: "24.18.1"'))
+        self.assertEqual(1, workflow.count('architecture: "x64"'))
         self.assertEqual(1, workflow.count("package-manager-cache: false"))
-        version_assertion = 'test "$(node --version)" = "v24.18.0"'
+        version_assertion = 'test "$(node --version)" = "v24.18.1"'
+        platform_assertion = 'test "$(node --print process.platform)" = "linux"'
+        architecture_assertion = 'test "$(node --print process.arch)" = "x64"'
         portable_command = "node --test tests/node/kp1979_v3_quicknet.test.cjs"
         self.assertEqual(1, workflow.count(version_assertion))
+        self.assertEqual(1, workflow.count(platform_assertion))
+        self.assertEqual(1, workflow.count(architecture_assertion))
         self.assertEqual(1, workflow.count(portable_command))
         self.assertLess(workflow.index(setup_node), workflow.index(version_assertion))
-        self.assertLess(workflow.index(version_assertion), workflow.index(portable_command))
+        self.assertLess(workflow.index(version_assertion), workflow.index(platform_assertion))
+        self.assertLess(
+            workflow.index(platform_assertion),
+            workflow.index(architecture_assertion),
+        )
+        self.assertLess(
+            workflow.index(architecture_assertion),
+            workflow.index(portable_command),
+        )
         portable_suite = NODE_TEST.read_text(encoding="utf-8")
         self.assertNotIn("skip:", portable_suite)
         self.assertNotIn("kp1979_v3_quicknet_host.test.cjs", workflow)
