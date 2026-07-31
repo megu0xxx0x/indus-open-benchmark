@@ -417,6 +417,82 @@ permission by itself.
   or real-run seed,
   schedule, truth, worker execution, detector, integration, runner,
   real-source access or result, decipherment evidence, or prize claim exists.
+- [KP1979 V3 sandbox cleanup hardening](docs/KP1979_V3_SANDBOX_CLEANUP.md),
+  implemented at source commit
+  `cd583fb12b12a80d132c80e8a3465e53f5c3151a`.
+  After the main sandbox client starts, timeouts, negative status, and other
+  abnormal client-lifecycle paths follow one bounded cleanup state machine:
+  (A) dispatch a unit-wide
+  `systemctl --user kill`, (B) send `SIGKILL` to the client process group,
+  (C) retry the unit kill only when no prior dispatch returned zero,
+  (D) call bounded `communicate`, and (E) call bounded `wait` with one retry.
+  A timeout result may expose output sizes only after the client is reaped and
+  at least one unit-kill helper returns zero. That zero status acknowledges
+  the dispatch command; it does not prove an empty cgroup, completed unit
+  teardown, custody, isolation, or execution attestation. A negative client
+  return code also enters cleanup before any output or handshake read.
+  A primary non-`Exception` `BaseException` is re-raised as the exact same
+  object after bounded cleanup. For an ordinary primary failure, the first
+  cleanup non-`Exception` `BaseException` is retained by identity while later
+  stages continue.
+  Artifact, handshake, and bounded-output reads use nonblocking, no-follow
+  descriptors where available; descriptor, exclusive-write, and temporary-
+  directory cleanup preserve the documented exception precedence. The public
+  invoker constructor/call signature, result schema, and failure-code surface
+  remain unchanged. Only a returned main-client handle increments the started
+  counter, and only a canonical verified handshake increments the verified
+  counter; unit-kill helpers count as neither.
+  This remains bounded best effort. Repeated hostile interrupts or privileged
+  interference can still leave residual processes or state, and a successful
+  command dispatch is not proof of termination. Finite attempts and explicit
+  `communicate`/`wait` timeouts are not a hard real-time bound on process
+  creation or kernel/filesystem calls.
+  Source-bound focused validation passed 47 tests with six skips under both the
+  normal interpreter and exact CPython 3.12.11, in 1.644s and 1.645s
+  respectively. The evaluator/worker-wire suites passed 51 tests without skips
+  in 27.230s. Two independent code audits of exact diff SHA-256
+  `7069fbae6e9749c401f00ef35b5e5cc8c74d0e262f00626c95d4a7192d71115d`
+  each reported zero blockers, zero major findings, and zero minor findings.
+  The first full run reached 1,078 tests with 19 skips and recorded
+  four Quicknet failure/error outcomes (two failures and two errors). All four
+  outcomes were fail-closed mode checks rejecting `0664`/`0775` Noble
+  worktree modes inherited from umask. Bytes, hashes, and the source diff were
+  unchanged; worktree-only
+  mode normalization restored `0644`/`0755`. This first attempt remains a
+  failed historical validation event.
+  After normalization, all 23 Quicknet tests passed. The clean full rerun
+  passed all 1,078 tests with 19 environment-specific skips in 1213.871s,
+  with a 1214.88s external wall duration. Ruff lint passed, Ruff format
+  accepted all 181 checked files, and Pyright reported zero errors, warnings,
+  or information messages. Distribution checks passed for a 337-member sdist
+  and 163-member wheel, including path, private-material, and source-hash
+  assertions. Gitleaks scanned 65 commits and approximately 7.15 MB with no
+  leaks, and the public-boundary check passed.
+  Public CI is closed by
+  [run 30623782622](/megu0xxx0x/indus-open-benchmark/actions/runs/30623782622)
+  for event `push` at exact head SHA
+  `cd583fb12b12a80d132c80e8a3465e53f5c3151a`: status `completed`, conclusion
+  `success`, and all three matrix jobs green. The overall run window was
+  `2026-07-31`, `10:30:29Z`–`10:46:17Z` (15m48s). Each Quicknet check
+  asserted Node `v24.18.1` on Linux/x64 and recorded zero failed, cancelled,
+  skipped, or todo tests. Python 3.11 ran
+  `10:30:33Z`–`10:44:34Z` (14m01s), with Quicknet 6/6
+  (`duration_ms=615.588048`) and unittest 1078 tests, 22 skipped, in 808.435s.
+  Python 3.13 ran `10:30:32Z`–`10:39:02Z` (8m30s), with Quicknet 6/6
+  (`duration_ms=292.030965`) and unittest 1078 tests, 22 skipped, in 483.182s.
+  Python 3.14 ran `10:30:32Z`–`10:46:16Z` (15m44s), with Quicknet 6/6
+  (`duration_ms=565.70517`) and unittest 1078 tests, 22 skipped, in 906.229s.
+  Every job also passed Ruff lint, Ruff format with 181 files already formatted,
+  Pyright with zero errors, warnings, or information messages, and sdist plus
+  wheel builds. The CI skip count is 22 per matrix job; it is distinct from,
+  and must not be substituted for, the 19 skips in the clean local full-suite
+  validation above.
+  The tests use controlled subprocess doubles and one inert local
+  sleep-process-group regression only. No real systemd service, worker,
+  detector, freeze, target, protected or real dataset, or decipherment run was
+  used. No control bundle or freeze was generated or dispatched; no target was
+  selected or fetched; and no scientific, decipherment, public-claim, or prize
+  result exists.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.

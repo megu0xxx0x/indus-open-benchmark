@@ -1682,3 +1682,127 @@ built or dispatched, no target was selected or fetched, no protected or real
 data was opened, and no worker or detector ran. This checkpoint establishes no
 C3 result, real-source result, decipherment evidence, claim authorization, or
 prize result.
+
+## KP1979 V3 sandbox cleanup hardening checkpoint — 2026-07-31
+
+Source commit `cd583fb12b12a80d132c80e8a3465e53f5c3151a`, whose parent is
+public main `0f120e813dd449dfdfd499e39fa154a804a6b77a`, changes exactly the
+sandbox implementation and its test module. Its exact binary diff SHA-256 is
+`7069fbae6e9749c401f00ef35b5e5cc8c74d0e262f00626c95d4a7192d71115d`.
+That digest identifies the source-commit diff bytes. It is not a signature,
+trusted timestamp, custody record, runtime receipt, or attestation.
+
+The implementation makes post-start cleanup an explicit bounded state machine:
+
+1. **A — unit kill dispatch:** start an isolated, bounded `systemctl --user
+   kill --kill-whom=all --signal=SIGKILL` helper.
+2. **B — client kill:** send `SIGKILL` to the main sandbox client process
+   group, independently of the helper outcome.
+3. **C — conditional retry:** when A did not return status zero, dispatch one
+   more bounded unit kill after the client kill.
+4. **D — drain:** call bounded `communicate` on the main client.
+5. **E — reap:** call bounded `wait`, with one bounded retry after failure or
+   interruption, then determine reaping only from a non-`None` return code.
+
+Every later stage is attempted after an earlier ordinary failure or interrupt.
+The unit-kill helper uses its own new process group and explicit bounded
+kill/communicate/wait cleanup if it fails or is interrupted. A helper return
+status of zero means only that the dispatch command completed successfully. It
+does not prove that the service cgroup is empty, that all descendants stopped,
+or that the sandbox path, custody, or execution was attested.
+
+Timeout output sizes may be read and returned only after both the main client
+is reaped and at least one unit-kill dispatch returned zero. If either fact is
+missing, the caller receives the existing redacted setup-failure surface and
+no output or handshake is read. A negative main-client return code also enters
+the full cleanup sequence before any output or handshake read. Normal
+nonnegative completion retains the existing output/handshake validation path.
+
+Exception precedence is explicit. A primary non-`Exception` `BaseException`
+is re-raised as the exact same object after bounded cleanup, even when cleanup
+is also interrupted. If the primary is ordinary, the first cleanup
+non-`Exception` `BaseException` is retained by identity while all remaining
+bounded stages are attempted. Ordinary failures remain path-free and
+detail-free through the existing public result vocabulary. Repeated hostile
+interruption can still defeat finite attempts or prevent later cleanup; this
+is best effort, not a termination guarantee.
+
+Bounded here means a finite attempt count and explicit timeouts on
+`communicate` and `wait`. It is not a hard real-time bound on `Popen` process
+creation, kernel scheduling, signal delivery, or filesystem/operating-system
+calls. Process creation occurs before the subprocess timeout can govern the
+child, so a stalled creation or kernel/filesystem operation can exceed the
+nominal timeout sum.
+
+Parent-side artifact, handshake, and output readers use no-follow and
+nonblocking opens where available, owner-safe regular-file validation, bounded
+reads, fingerprint revalidation, and explicit descriptor closing. Exclusive
+writes and temporary-directory cleanup apply the same primary-versus-cleanup
+exception rules. The public `SandboxedWorkerInvoker` construction/call
+signature and `SandboxInvocationResult` schema, dispositions, and failure
+codes remain unchanged. The started counter advances only when the main client
+handle is returned and never for unit-kill helpers; the verified counter
+advances only after a canonical handshake.
+
+The test design covers controlled ordinary and `BaseException` failures at
+process start, every cleanup stage, status access, bounded reads, descriptor
+close, exclusive writes, and temporary cleanup; primary/cleanup identity;
+stage order and bounded retries; timeout and negative-status gates; counters;
+and one inert local sleep process group killed and reaped after a synthetic
+first interrupt. It does not invoke a real systemd service or project worker.
+
+Source-commit-bound local validation passed the normal focused sandbox suite
+(47 tests in 1.644s, six environment-specific skips), the same suite under
+exact CPython 3.12.11 (47 tests in 1.645s, the same six skips), and the
+combined evaluator/worker-wire suites (51 tests in 27.230s, no skips). Two
+independent read-only code audits each reported zero blockers, zero major
+findings, and zero minor findings.
+
+The first complete-suite attempt ran 1,078 tests with 19
+environment-specific skips and recorded
+four Quicknet failure/error outcomes (two failures and two errors). All four
+outcomes were fail-closed mode
+prechecks caused by inherited umask in the isolated worktree:
+vendored Noble regular files were `0664` and directories were `0775`. Source
+bytes, hashes, and the source diff did not change. Worktree-only `chmod go-w`
+restored `0644`/`0755`, and focused Quicknet then passed. The attempt remains
+a failed historical validation event and is not relabeled as success.
+
+Final local validation after normalization passed all 23 Quicknet tests and
+all 1,078 repository tests with 19 environment-specific skips in 1213.871s,
+with a 1214.88s external wall duration. Ruff lint passed over the complete
+configured scope, Ruff format accepted all 181 checked files, and Pyright
+reported zero errors, warnings, or information messages. Distribution member
+checks passed for a 337-member sdist and 163-member wheel, including path,
+private-material, and source-hash assertions. Gitleaks scanned 65 commits and
+approximately 7.15 MB with no leaks, and the public-boundary check passed.
+
+The public-CI gate is now closed by
+[run 30623782622](/megu0xxx0x/indus-open-benchmark/actions/runs/30623782622),
+for event `push` at exact head SHA
+`cd583fb12b12a80d132c80e8a3465e53f5c3151a`: status `completed`, conclusion
+`success`, and all three matrix jobs green. The overall run window was
+`2026-07-31`, `10:30:29Z`–`10:46:17Z` (15m48s). Every Quicknet job
+asserted Node `v24.18.1` on Linux/x64 and recorded failed, cancelled, skipped,
+and todo counts of zero. Python 3.11 ran
+`10:30:33Z`–`10:44:34Z` (14m01s), with Quicknet 6/6
+(`duration_ms=615.588048`) and unittest 1078 tests, 22 skipped, in 808.435s.
+Python 3.13 ran `10:30:32Z`–`10:39:02Z` (8m30s), with Quicknet 6/6
+(`duration_ms=292.030965`) and unittest 1078 tests, 22 skipped, in 483.182s.
+Python 3.14 ran `10:30:32Z`–`10:46:16Z` (15m44s), with Quicknet 6/6
+(`duration_ms=565.70517`) and unittest 1078 tests, 22 skipped, in 906.229s.
+Each matrix job also passed Ruff lint, Ruff format with 181 files already
+formatted, Pyright with zero errors, warnings, or information messages, and
+sdist plus wheel builds. These are CI runs with 22 skipped tests per job; the
+clean local full-suite result above has 19 skips, and the counts must not be
+interchanged.
+
+No project or deployment runtime was installed or changed. No real systemd
+unit, worker, detector, control bundle, freeze, or target was created or run; no freeze was
+dispatched; no target was selected, reserved, or fetched; no protected or real
+data was opened; and no seed, schedule, truth, request, response, or oracle was
+instantiated for execution. There is no C3 result, real-source result,
+decipherment evidence, public-claim authorization, or prize result. KP1979 V2
+remains retired and immutable. After audited publication, the separate next
+gates remain a supported host-runtime/dynamic-closure decision and an
+injection-free official one-shot runner. This source checkpoint authorizes neither.

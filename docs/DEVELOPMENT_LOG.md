@@ -592,3 +592,104 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   no protected or real data was opened; and no worker or detector ran. This
   checkpoint establishes no C3 result, real-source result, decipherment
   evidence, claim authorization, or prize result.
+
+## 2026-07-31T18:53:13+09:00 — Sandbox cleanup hardening local draft
+
+- Source commit `cd583fb12b12a80d132c80e8a3465e53f5c3151a` changes only
+  the sandbox implementation and its test module. Its exact binary diff
+  SHA-256 is
+  `7069fbae6e9749c401f00ef35b5e5cc8c74d0e262f00626c95d4a7192d71115d`.
+  The digest is not a signature, trusted timestamp, custody record, or
+  execution attestation.
+- After the main sandbox client handle exists, timeout, an interrupt during
+  pre-output client communication or status establishment, a negative initial
+  client status, a missing initial status, and other abnormal paths before
+  output or handshake access enter the same
+  bounded state machine: (A) unit-wide kill dispatch, (B) client process-group
+  kill, (C) conditional unit-kill retry, (D) bounded `communicate`, and
+  (E) bounded `wait` with one retry. Each later stage is attempted after an
+  earlier ordinary failure or interrupt.
+- A timeout may return the stable public `timeout` result with captured byte
+  counts only when the client is reaped and at least one `systemctl kill`
+  helper returned zero. Status zero is only dispatch acknowledgement; it does
+  not prove that the service cgroup is empty or establish sandbox, custody, or
+  execution attestation. Without both conditions the path becomes a redacted
+  setup failure and does not read output or handshake files.
+- A primary non-`Exception` `BaseException` wins by exact identity over cleanup
+  faults. When the primary is ordinary, the first cleanup non-`Exception`
+  `BaseException` is retained by identity while all bounded stages continue.
+  Ordinary errors are normalized through the existing stable result surface.
+- Artifact, handshake, and bounded-output reads use `O_NOFOLLOW` and
+  `O_NONBLOCK` where available, owner-safe regular-file metadata checks,
+  bounded reads, before/after fingerprint checks, and explicit descriptor
+  closure. Exclusive writes and temporary-directory cleanup preserve the
+  documented primary/cleanup precedence. These are process-local hardening,
+  not a boundary against same-UID or privileged actors.
+- The public `SandboxedWorkerInvoker` constructor and `__call__` signatures,
+  `SandboxInvocationResult` fields, dispositions, and failure codes are
+  unchanged. `started_process_count` advances only after the main sandbox
+  client `Popen` returns; kill-helper processes never count.
+  `verified_invocation_count` advances only after the canonical handshake is
+  parsed, including when a later status access fails.
+- Bounded best effort is still not a termination guarantee. Repeated hostile
+  interrupts can defeat finite attempts, and privileged interference can leave
+  residual process or unit state. A successful kill dispatch is not proof of
+  final teardown. Bounded means finite attempts and explicit
+  `communicate`/`wait` timeouts, not a hard real-time bound on `Popen` process
+  creation, kernel scheduling, signal delivery, or filesystem/system calls.
+- Source-commit-bound focused evidence passed:
+  - the normal interpreter ran 47 sandbox tests in 1.644s with six
+    environment-specific skips;
+  - exact CPython 3.12.11 ran the same 47 tests in 1.645s with the same six
+    skips; and
+  - the combined evaluator and worker-wire suites ran 51 tests in 27.230s
+    with no skips.
+- Two independent read-only code audits of the exact source commit and diff
+  each reported zero blockers, zero major findings, and zero minor findings.
+- The first complete-suite attempt ran 1,078 tests with 19
+  environment-specific skips and recorded
+  four Quicknet failure/error outcomes (two failures and two errors).
+  All four outcomes were fail-closed mode prechecks caused by inherited umask
+  in the isolated
+  worktree: vendored Noble regular files were `0664` and directories were
+  `0775`. Source bytes, content hashes, and the source diff were unchanged. A
+  worktree-only `chmod go-w` normalization restored `0644` files and `0755`
+  directories, after which focused Quicknet passed. This attempt remains a
+  failed historical validation event and is not relabeled as success.
+- Final local validation after normalization passed:
+  - all 23 Quicknet tests;
+  - all 1,078 repository tests with 19 environment-specific skips in
+    1213.871s, with a 1214.88s external wall duration;
+  - Ruff lint over the complete configured scope and Ruff format over all 181
+    checked files;
+  - Pyright with zero errors, zero warnings, and zero information messages;
+  - distribution member checks for a 337-member sdist and 163-member wheel,
+    including path, private-material, and source-hash assertions;
+  - Gitleaks across 65 commits and approximately 7.15 MB with no leaks; and
+  - the public-boundary check.
+- Public CI gate closed: event `push`, exact head SHA
+  `cd583fb12b12a80d132c80e8a3465e53f5c3151a`, status `completed`, conclusion
+  `success`, and all three matrix jobs green in
+  [run 30623782622](/megu0xxx0x/indus-open-benchmark/actions/runs/30623782622).
+  The overall run window was `2026-07-31`, `10:30:29Z`–`10:46:17Z`
+  (15m48s). Each Quicknet job asserted Node `v24.18.1` on Linux/x64 and had
+  zero failed, cancelled, skipped, or todo tests. Python 3.11 ran
+  `10:30:33Z`–`10:44:34Z` (14m01s), Quicknet 6/6 at
+  `duration_ms=615.588048`, and unittest 1078 tests with 22 skipped in
+  808.435s. Python 3.13 ran `10:30:32Z`–`10:39:02Z` (8m30s), Quicknet 6/6 at
+  `duration_ms=292.030965`, and unittest 1078 tests with 22 skipped in
+  483.182s. Python 3.14 ran `10:30:32Z`–`10:46:16Z` (15m44s), Quicknet 6/6 at
+  `duration_ms=565.70517`, and unittest 1078 tests with 22 skipped in
+  906.229s. Each job also passed Ruff lint, Ruff format with all 181 files
+  already formatted, Pyright with zero errors, warnings, or information
+  messages, and sdist plus wheel builds. The CI skip count is 22 per job and
+  is intentionally recorded separately from the clean local run's 19 skips.
+- Controlled tests use subprocess doubles and one inert local Python sleep
+  process group. No real systemd service, project worker, detector, freeze,
+  target, protected or real corpus, or scientific run was accessed or
+  executed. No bundle or freeze was generated or dispatched; no target was
+  selected or fetched; and no decipherment evidence, claim authorization, or
+  prize result exists. KP1979 V2 remains retired and immutable.
+- Next after audited publication: resolve the supported host runtime and
+  dynamic closure, then design an injection-free official one-shot runner.
+  This draft authorizes none of those actions and no execution.

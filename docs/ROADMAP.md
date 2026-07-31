@@ -184,6 +184,61 @@ Current assets:
     job duration. Every matrix job passed Ruff, accepted all 181 checked files
     as formatted, reported zero Pyright errors, warnings, or information
     messages, and built both the sdist and wheel.
+    Source commit `cd583fb12b12a80d132c80e8a3465e53f5c3151a` implements
+    the planned post-start sequence:
+    unit-kill dispatch, client `killpg`, conditional unit-kill retry, bounded
+    `communicate`, and bounded `wait` with one retry. Timeout output is gated
+    on both client reaping and at least one zero-status unit-kill dispatch;
+    zero means dispatch acknowledgement, not proof that the cgroup is empty.
+    Negative client status enters cleanup before output or handshake reads.
+    Primary `BaseException` identity, first cleanup-interrupt identity after an
+    ordinary primary, nonblocking descriptor reads, FD/temp cleanup, and exact
+    main-client/verified-handshake counters are covered while the public API
+    stays unchanged. Repeated hostile interruption remains an explicit bounded
+    best-effort residual.
+    Source-commit-bound focused validation passed twice: 47 tests with six skips
+    under both the normal interpreter and exact CPython 3.12.11; the combined
+    evaluator/worker-wire suites passed 51 tests without skips. Two independent
+    code audits of diff SHA-256
+    `7069fbae6e9749c401f00ef35b5e5cc8c74d0e262f00626c95d4a7192d71115d`
+    each reported zero blockers, zero major findings, and zero minor findings.
+    The first full run reached 1,078 tests with 19 skips and recorded
+    four Quicknet failure/error outcomes (two failures and two errors). All four
+    outcomes were fail-closed mode checks rejecting `0664`/`0775` Noble modes inherited
+    from umask. Bytes, hashes, and the source diff were unchanged; worktree-only
+    `chmod go-w` restored `0644`/`0755`, and focused Quicknet passed. This first
+    attempt remains a failed historical validation event.
+    After normalization, all 23 Quicknet tests passed. The clean full rerun
+    passed all 1,078 repository tests with 19 environment-specific skips in
+    1213.871s, with a 1214.88s external wall duration. Ruff lint passed, Ruff
+    format accepted all 181 checked files, and Pyright reported zero errors,
+    warnings, or information messages. Distribution checks passed for a
+    337-member sdist and 163-member wheel, including path, private-material,
+    and source-hash assertions. Gitleaks scanned 65 commits and approximately
+    7.15 MB with no leaks, and the public-boundary check passed.
+    Public-CI
+    [run 30623782622](/megu0xxx0x/indus-open-benchmark/actions/runs/30623782622)
+    used event `push` at exact head SHA
+    `cd583fb12b12a80d132c80e8a3465e53f5c3151a`, completed with conclusion
+    `success`, and left all three matrix jobs green. The overall run window was
+    `2026-07-31`, `10:30:29Z`–`10:46:17Z` (15m48s). Every Quicknet
+    job asserted Node `v24.18.1` on Linux/x64 and recorded failed, cancelled,
+    skipped, and todo counts of zero. Python 3.11 ran
+    `10:30:33Z`–`10:44:34Z` (14m01s), Quicknet 6/6 at
+    `duration_ms=615.588048`, and unittest 1078 tests with 22 skipped in
+    808.435s. Python 3.13 ran `10:30:32Z`–`10:39:02Z` (8m30s), Quicknet 6/6
+    at `duration_ms=292.030965`, and unittest 1078 tests with 22 skipped in
+    483.182s. Python 3.14 ran `10:30:32Z`–`10:46:16Z` (15m44s), Quicknet 6/6
+    at `duration_ms=565.70517`, and unittest 1078 tests with 22 skipped in
+    906.229s. Each job also passed Ruff lint, Ruff format with 181 files already
+    formatted, Pyright with zero errors, warnings, or information messages,
+    and sdist plus wheel builds. The CI count is 22 skipped tests per job; the
+    clean local result's 19 skips remain a distinct measurement.
+    Tests use controlled process doubles and one inert local sleep group, with
+    no real systemd service or project worker. The separate supported
+    host-runtime/dynamic-closure sub-gate remains open.
+    No freeze, target, data, worker, detector, decipherment, or prize action is
+    authorized or performed by this work.
   - [ ] Implement an official one-shot runner only after those gates. It must
     internally construct and own an exact `SandboxedWorkerInvoker`, permit no
     caller-supplied invoker or factory, verify its process and invocation

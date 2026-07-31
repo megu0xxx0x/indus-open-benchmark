@@ -381,6 +381,83 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Security
 
+- Harden KP1979 V3 sandbox cleanup at source commit
+  `cd583fb12b12a80d132c80e8a3465e53f5c3151a`. Its timeout,
+  negative-status, and other abnormal client-lifecycle
+  paths use an explicit bounded sequence: (A) unit-wide kill dispatch,
+  (B) client-process-group `SIGKILL`,
+  (C) conditional unit-kill retry, (D) bounded `communicate`, and
+  (E) bounded `wait` with one retry. Cleanup stages continue after earlier
+  ordinary failures or interrupts. Timeout output sizes are read only after
+  the main client is reaped and at least one unit-kill helper returns zero;
+  helper status zero acknowledges command dispatch and is not proof that the
+  cgroup is empty or that isolation, custody, or execution was attested.
+  Negative client return codes now take the same cleanup path before output or
+  handshake reads.
+  A primary non-`Exception` `BaseException` retains exact object identity. If
+  the primary is ordinary, the first cleanup non-`Exception` `BaseException`
+  is retained by identity while all bounded stages continue. Parent artifact,
+  handshake, and output reads add `O_NONBLOCK` where available, bounded owner-safe reads,
+  descriptor closure, and mutation checks; exclusive-write and temporary-
+  directory cleanup apply the same primary/cleanup exception precedence.
+  The public invoker API, result fields, dispositions, and failure codes remain
+  unchanged. The started counter increments only after the main client handle
+  is returned, never for kill helpers; the verified counter increments only
+  after a canonical handshake.
+  This is bounded best effort, not guaranteed termination under repeated
+  hostile interrupts or privileged interference. A zero unit-kill helper exit
+  cannot establish service teardown. The finite attempts and explicit
+  `communicate`/`wait` timeouts are not a hard real-time bound on `Popen`
+  process creation or kernel/filesystem calls. The tests use controlled
+  process doubles plus one inert local sleep-process-group kill/reap regression;
+  they invoke no real systemd service or project worker.
+  The normal and exact CPython 3.12.11 focused suites each passed 47 tests with
+  six environment-specific skips, in 1.644s and 1.645s respectively. The
+  evaluator/worker-wire suites passed 51 tests with no skips in 27.230s. Two
+  independent code audits of exact diff SHA-256
+  `7069fbae6e9749c401f00ef35b5e5cc8c74d0e262f00626c95d4a7192d71115d`
+  each reported zero blockers, zero major findings, and zero minor findings.
+  An initial full run reached 1,078 tests with 19 skips and recorded
+  four Quicknet failure/error outcomes (two failures and two errors). All four
+  outcomes were fail-closed mode prechecks because inherited umask left
+  vendored Noble files
+  at `0664` and directories at `0775` in the isolated worktree. Bytes, hashes,
+  and the source diff were unchanged. Worktree-only `chmod go-w` restored
+  `0644`/`0755`; this first attempt remains a failed historical validation
+  event.
+  After normalization, all 23 Quicknet tests passed. The clean full rerun
+  passed all 1,078 tests with 19 environment-specific skips in 1213.871s,
+  with a 1214.88s external wall duration. Ruff lint passed, Ruff format
+  accepted all 181 checked files, and Pyright reported zero errors, warnings,
+  or information messages. Distribution checks passed for a 337-member sdist
+  and 163-member wheel, including path, private-material, and source-hash
+  assertions. Gitleaks scanned 65 commits and approximately 7.15 MB with no
+  leaks, and the public-boundary check passed.
+  Close the public-CI gate with
+  [run 30623782622](/megu0xxx0x/indus-open-benchmark/actions/runs/30623782622),
+  event `push`, exact head SHA
+  `cd583fb12b12a80d132c80e8a3465e53f5c3151a`, status `completed`, and
+  conclusion `success`; all three matrix jobs are green. The overall run was
+  `2026-07-31`, `10:30:29Z`–`10:46:17Z` (15m48s). Quicknet asserted
+  Node `v24.18.1` on Linux/x64 and reported failed/cancelled/skipped/todo all
+  zero in each matrix job. Python 3.11 ran
+  `10:30:33Z`–`10:44:34Z` (14m01s): Quicknet 6/6 at
+  `duration_ms=615.588048`, then unittest 1078 tests with 22 skipped in
+  808.435s. Python 3.13 ran `10:30:32Z`–`10:39:02Z` (8m30s): Quicknet 6/6 at
+  `duration_ms=292.030965`, then unittest 1078 tests with 22 skipped in
+  483.182s. Python 3.14 ran `10:30:32Z`–`10:46:16Z` (15m44s): Quicknet 6/6 at
+  `duration_ms=565.70517`, then unittest 1078 tests with 22 skipped in
+  906.229s. Ruff lint, Ruff format with 181 files already formatted, Pyright
+  with zero errors, warnings, or information messages, and sdist plus wheel
+  builds passed in every job. The public-CI count of 22 skipped tests per job
+  is separate from the clean local run's 19 skips and does not replace it.
+  The diff fingerprint is not a signature, custody record, or attestation.
+  No project or deployment runtime was installed or changed, no real systemd
+  unit or project worker ran, no
+  control bundle or freeze was built or dispatched, no target was selected or
+  fetched, and no protected or real data was opened. No detector, official
+  runner, C3 result, decipherment evidence, public claim authorization, or
+  prize result exists. KP1979 V2 remains retired and immutable.
 - Pin portable Quicknet semantic CI at commit
   `0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec` to exact Node 24.18.1 and
   `actions/setup-node` v7.0.0 full commit SHA
