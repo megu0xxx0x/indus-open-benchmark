@@ -12,8 +12,9 @@ immutable content-addressed identifiers for corpus and split releases.
   and six out-of-contract cases plus eight fixed two-endpoint metamorphic
   relations, yielding exactly 48 worker invocations. Authoritative validation
   requires the supplied suite seed and rejects any controller-side case or
-  relation that differs from exact canonical regeneration. Each worker
-  request remains limited to the five-field answer-free wire contract;
+  relation that differs from exact canonical regeneration. Only
+  `request_bytes` satisfying the exact five-field answer-free wire contract
+  may reach a worker.
   instantiated suite seeds, generated objects, full construction and truth
   metadata, generation commitments, and schedule metadata must not be
   persisted or published before execution or passed to a worker. Independent
