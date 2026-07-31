@@ -26,6 +26,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+from collections.abc import Iterator
 from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
@@ -236,17 +237,23 @@ def _read_frozen_artifact(path: Path, expected_sha256: str) -> _ArtifactSnapshot
         raise SandboxPreflightError("invalid frozen artifact declaration")
     try:
         unresolved_metadata = path.lstat()
-    except OSError as exc:
+    except Exception as exc:
         raise SandboxPreflightError("frozen artifact is unavailable") from exc
     if stat.S_ISLNK(unresolved_metadata.st_mode):
         raise SandboxPreflightError("frozen artifact must not be a symbolic link")
     flags = os.O_RDONLY | os.O_CLOEXEC
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
+    if hasattr(os, "O_NONBLOCK"):
+        flags |= os.O_NONBLOCK
     try:
         descriptor = os.open(path, flags)
-    except OSError as exc:
+    except Exception as exc:
         raise SandboxPreflightError("frozen artifact cannot be opened safely") from exc
+    before: os.stat_result | None = None
+    after: os.stat_result | None = None
+    content = b""
+    primary_error: BaseException | None = None
     try:
         before = os.fstat(descriptor)
         if (
@@ -267,8 +274,27 @@ def _read_frozen_artifact(path: Path, expected_sha256: str) -> _ArtifactSnapshot
             remaining -= len(block)
         content = b"".join(content_parts)
         after = os.fstat(descriptor)
-    finally:
+    except BaseException as exc:
+        primary_error = exc
+    close_error: BaseException | None = None
+    try:
         os.close(descriptor)
+    except BaseException as exc:
+        close_error = exc
+    if primary_error is not None:
+        if not isinstance(primary_error, Exception):
+            raise primary_error
+        if close_error is not None and not isinstance(close_error, Exception):
+            raise close_error
+        if isinstance(primary_error, SandboxPreflightError):
+            raise primary_error
+        raise SandboxPreflightError("frozen artifact cannot be read safely") from primary_error
+    if close_error is not None:
+        if not isinstance(close_error, Exception):
+            raise close_error
+        raise SandboxPreflightError("frozen artifact cannot be closed safely") from close_error
+    if before is None or after is None:
+        raise SandboxPreflightError("frozen artifact read did not complete")
     if (
         len(content) != before.st_size
         or len(content) > MAX_ARTIFACT_BYTES
@@ -290,7 +316,7 @@ def _require_safe_executable(path: Path) -> Path:
     try:
         resolved = path.resolve(strict=True)
         metadata = resolved.stat()
-    except OSError as exc:
+    except Exception as exc:
         raise SandboxPreflightError("sandbox executable is unavailable") from exc
     if (
         not resolved.is_absolute()
@@ -439,6 +465,7 @@ def _write_exclusive(path: Path, content: bytes, mode: int) -> None:
         os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_CLOEXEC,
         mode,
     )
+    primary_error: BaseException | None = None
     try:
         view = memoryview(content)
         while view:
@@ -447,8 +474,21 @@ def _write_exclusive(path: Path, content: bytes, mode: int) -> None:
                 raise OSError("short sandbox file write")
             view = view[written:]
         os.fsync(descriptor)
-    finally:
+    except BaseException as exc:
+        primary_error = exc
+    close_error: BaseException | None = None
+    try:
         os.close(descriptor)
+    except BaseException as exc:
+        close_error = exc
+    if primary_error is not None:
+        if not isinstance(primary_error, Exception):
+            raise primary_error
+        if close_error is not None and not isinstance(close_error, Exception):
+            raise close_error
+        raise primary_error
+    if close_error is not None:
+        raise close_error
 
 
 def _handshake_metadata_is_safe(metadata: os.stat_result, *, require_empty: bool) -> bool:
@@ -474,12 +514,20 @@ def _read_handshake_file(path: Path) -> bytes:
     flags = os.O_RDONLY | os.O_CLOEXEC
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
+    if hasattr(os, "O_NONBLOCK"):
+        flags |= os.O_NONBLOCK
     try:
         descriptor = os.open(path, flags)
-    except OSError as exc:
+    except Exception as exc:
         raise ValueError("handshake file cannot be opened safely") from exc
+    before: os.stat_result | None = None
+    after: os.stat_result | None = None
+    content = b""
+    primary_error: BaseException | None = None
     try:
         before = os.fstat(descriptor)
+        if not _handshake_metadata_is_safe(before, require_empty=False):
+            raise ValueError("handshake file is not a safe regular file")
         parts: list[bytes] = []
         remaining = MAX_HANDSHAKE_BYTES + 1
         while remaining:
@@ -490,8 +538,25 @@ def _read_handshake_file(path: Path) -> bytes:
             remaining -= len(block)
         content = b"".join(parts)
         after = os.fstat(descriptor)
-    finally:
+    except BaseException as exc:
+        primary_error = exc
+    close_error: BaseException | None = None
+    try:
         os.close(descriptor)
+    except BaseException as exc:
+        close_error = exc
+    if primary_error is not None:
+        if not isinstance(primary_error, Exception):
+            raise primary_error
+        if close_error is not None and not isinstance(close_error, Exception):
+            raise close_error
+        raise ValueError("handshake file cannot be read safely") from primary_error
+    if close_error is not None:
+        if not isinstance(close_error, Exception):
+            raise close_error
+        raise ValueError("handshake file cannot be closed safely") from close_error
+    if before is None or after is None:
+        raise ValueError("handshake file read did not complete")
     if (
         not _handshake_metadata_is_safe(before, require_empty=False)
         or _file_fingerprint(before) != _file_fingerprint(after)
@@ -501,6 +566,82 @@ def _read_handshake_file(path: Path) -> bytes:
     ):
         raise ValueError("handshake file contract")
     return content
+
+
+def _read_bounded_file(path: Path, maximum_bytes: int) -> bytes:
+    if maximum_bytes < 0:
+        raise ValueError("negative bounded-file limit")
+    flags = os.O_RDONLY | os.O_CLOEXEC
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    if hasattr(os, "O_NONBLOCK"):
+        flags |= os.O_NONBLOCK
+    descriptor = os.open(path, flags)
+    before: os.stat_result | None = None
+    after: os.stat_result | None = None
+    content = b""
+    primary_error: BaseException | None = None
+    try:
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or before.st_uid != os.getuid()
+            or before.st_nlink != 1
+            or stat.S_IMODE(before.st_mode) not in {0o400, 0o600}
+        ):
+            raise ValueError("bounded file is not an owner-safe regular file")
+        parts: list[bytes] = []
+        remaining = maximum_bytes + 1
+        while remaining:
+            block = os.read(descriptor, min(1_048_576, remaining))
+            if not block:
+                break
+            parts.append(block)
+            remaining -= len(block)
+        content = b"".join(parts)
+        after = os.fstat(descriptor)
+    except BaseException as exc:
+        primary_error = exc
+    close_error: BaseException | None = None
+    try:
+        os.close(descriptor)
+    except BaseException as exc:
+        close_error = exc
+    if primary_error is not None:
+        if not isinstance(primary_error, Exception):
+            raise primary_error
+        if close_error is not None and not isinstance(close_error, Exception):
+            raise close_error
+        raise primary_error
+    if close_error is not None:
+        raise close_error
+    if before is None or after is None:
+        raise ValueError("bounded file read did not complete")
+    if _file_fingerprint(before) != _file_fingerprint(after) or len(content) != min(
+        before.st_size, maximum_bytes + 1
+    ):
+        raise ValueError("bounded file changed while it was read")
+    return content
+
+
+@contextlib.contextmanager
+def _temporary_directory() -> Iterator[str]:
+    directory = tempfile.TemporaryDirectory(prefix="indus-kp1979-v3-sandbox-")
+    try:
+        yield directory.name
+    except BaseException as primary_error:
+        cleanup_error: BaseException | None = None
+        try:
+            directory.cleanup()
+        except BaseException as exc:
+            cleanup_error = exc
+        if not isinstance(primary_error, Exception):
+            raise primary_error
+        if cleanup_error is not None and not isinstance(cleanup_error, Exception):
+            raise cleanup_error from primary_error
+        raise primary_error
+    else:
+        directory.cleanup()
 
 
 def _redacted_result(
@@ -561,9 +702,52 @@ class SandboxedWorkerInvoker:
             refreshed.content, self._artifact.content
         )
 
-    def _kill_unit(self, unit_name: str) -> None:
-        with contextlib.suppress(OSError, subprocess.SubprocessError):
-            subprocess.run(
+    @staticmethod
+    def _remember_cleanup_interrupt(
+        remembered: BaseException | None,
+        error: BaseException,
+    ) -> BaseException | None:
+        if remembered is None and not isinstance(error, Exception):
+            return error
+        return remembered
+
+    @classmethod
+    def _cleanup_process_group(
+        cls,
+        process: subprocess.Popen[bytes],
+    ) -> tuple[bool, BaseException | None]:
+        cleanup_interrupt: BaseException | None = None
+        for _ in range(2):
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+                break
+            except ProcessLookupError:
+                break
+            except BaseException as exc:
+                cleanup_interrupt = cls._remember_cleanup_interrupt(cleanup_interrupt, exc)
+        try:
+            process.communicate(timeout=UNIT_KILL_TIMEOUT_SECONDS)
+        except BaseException as exc:
+            cleanup_interrupt = cls._remember_cleanup_interrupt(cleanup_interrupt, exc)
+        for _ in range(2):
+            try:
+                process.wait(timeout=UNIT_KILL_TIMEOUT_SECONDS)
+                break
+            except BaseException as exc:
+                cleanup_interrupt = cls._remember_cleanup_interrupt(cleanup_interrupt, exc)
+        try:
+            reaped = process.returncode is not None
+        except BaseException as exc:
+            cleanup_interrupt = cls._remember_cleanup_interrupt(cleanup_interrupt, exc)
+            reaped = False
+        return reaped, cleanup_interrupt
+
+    def _kill_unit(self, unit_name: str) -> bool:
+        process: subprocess.Popen[bytes] | None = None
+        primary_error: BaseException | None = None
+        successful = False
+        try:
+            process = subprocess.Popen(
                 [
                     str(self._systemctl),
                     "--user",
@@ -575,28 +759,101 @@ class SandboxedWorkerInvoker:
                 stdin=subprocess.DEVNULL,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                check=False,
                 close_fds=True,
                 shell=False,
-                timeout=UNIT_KILL_TIMEOUT_SECONDS,
+                start_new_session=True,
                 env=_systemd_client_environment(),
             )
+            try:
+                process.communicate(timeout=UNIT_KILL_TIMEOUT_SECONDS)
+                returncode = process.returncode
+                successful = returncode == 0
+                if returncode is None:
+                    primary_error = subprocess.SubprocessError(
+                        "unit-kill helper did not report an exit status"
+                    )
+            except BaseException as exc:
+                primary_error = exc
+        except BaseException as exc:
+            primary_error = exc
+
+        cleanup_interrupt: BaseException | None = None
+        if process is not None and primary_error is not None:
+            _, cleanup_interrupt = self._cleanup_process_group(process)
+        if primary_error is not None and not isinstance(primary_error, Exception):
+            raise primary_error
+        if cleanup_interrupt is not None:
+            raise cleanup_interrupt
+        if primary_error is not None:
+            return False
+        return successful
+
+    def _cleanup_started_process(
+        self,
+        process: subprocess.Popen[bytes],
+        unit_name: str,
+    ) -> tuple[bool, bool, BaseException | None]:
+        cleanup_interrupt: BaseException | None = None
+        unit_kill_succeeded = False
+        try:
+            unit_kill_succeeded = self._kill_unit(unit_name)
+        except BaseException as exc:
+            cleanup_interrupt = self._remember_cleanup_interrupt(cleanup_interrupt, exc)
+
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        except BaseException as exc:
+            cleanup_interrupt = self._remember_cleanup_interrupt(cleanup_interrupt, exc)
+
+        if not unit_kill_succeeded:
+            try:
+                unit_kill_succeeded = self._kill_unit(unit_name)
+            except BaseException as exc:
+                cleanup_interrupt = self._remember_cleanup_interrupt(cleanup_interrupt, exc)
+
+        try:
+            process.communicate(timeout=UNIT_KILL_TIMEOUT_SECONDS)
+        except BaseException as exc:
+            cleanup_interrupt = self._remember_cleanup_interrupt(cleanup_interrupt, exc)
+
+        for _ in range(2):
+            try:
+                process.wait(timeout=UNIT_KILL_TIMEOUT_SECONDS)
+                break
+            except BaseException as exc:
+                cleanup_interrupt = self._remember_cleanup_interrupt(cleanup_interrupt, exc)
+        try:
+            reaped = process.returncode is not None
+        except BaseException as exc:
+            cleanup_interrupt = self._remember_cleanup_interrupt(cleanup_interrupt, exc)
+            reaped = False
+        return reaped, unit_kill_succeeded, cleanup_interrupt
 
     def __call__(self, request: bytes) -> SandboxInvocationResult:
         try:
             _validate_answer_free_request(request)
         except _RequestContractError:
             return _redacted_result("request_rejected", "request_contract")
-        if not self._source_artifact_is_unchanged():
-            return _redacted_result("isolation_failure", "artifact_changed")
-
-        try:
-            return self._invoke(request)
-        except (OSError, SandboxPreflightError, subprocess.SubprocessError):
+        except Exception:
             return _redacted_result("transport_failure", "setup_failed")
 
+        started_before = getattr(self, "started_process_count", 0)
+        try:
+            if not self._source_artifact_is_unchanged():
+                return _redacted_result("isolation_failure", "artifact_changed")
+            return self._invoke(request)
+        except Exception:
+            return _redacted_result(
+                "transport_failure",
+                "setup_failed",
+                process_started=getattr(self, "started_process_count", started_before)
+                > started_before,
+            )
+
     def _invoke(self, request: bytes) -> SandboxInvocationResult:
-        with tempfile.TemporaryDirectory(prefix="indus-kp1979-v3-sandbox-") as raw_directory:
+        with _temporary_directory() as raw_directory:
             base_directory = Path(raw_directory)
             if stat.S_IMODE(base_directory.stat().st_mode) & 0o077:
                 raise SandboxPreflightError("temporary directory permissions")
@@ -615,7 +872,10 @@ class SandboxedWorkerInvoker:
             _write_exclusive(stderr_path, b"", 0o600)
             _write_exclusive(handshake_path, b"", 0o600)
             _require_empty_handshake_file(handshake_path)
-            if sha256(artifact_path.read_bytes()).hexdigest() != self._artifact.digest:
+            if (
+                sha256(_read_bounded_file(artifact_path, MAX_ARTIFACT_BYTES)).hexdigest()
+                != self._artifact.digest
+            ):
                 return _redacted_result("isolation_failure", "artifact_copy")
             if any(working_directory.iterdir()):
                 return _redacted_result("isolation_failure", "working_directory")
@@ -640,6 +900,10 @@ class SandboxedWorkerInvoker:
 
             process: subprocess.Popen[bytes] | None = None
             timed_out = False
+            primary_error: BaseException | None = None
+            reaped = False
+            unit_kill_succeeded = False
+            cleanup_attempted = False
             try:
                 process = subprocess.Popen(
                     command,
@@ -655,20 +919,51 @@ class SandboxedWorkerInvoker:
                 self.started_process_count += 1
                 try:
                     process.communicate(timeout=PARENT_WALL_TIMEOUT_SECONDS)
-                except subprocess.TimeoutExpired:
+                except subprocess.TimeoutExpired as exc:
                     timed_out = True
-                    self._kill_unit(unit_name)
-                    with contextlib.suppress(ProcessLookupError):
-                        os.killpg(process.pid, signal.SIGKILL)
-                    with contextlib.suppress(subprocess.TimeoutExpired):
-                        process.communicate(timeout=UNIT_KILL_TIMEOUT_SECONDS)
-                with stdout_path.open("rb") as stdout_handle:
-                    standard_output = stdout_handle.read(MAX_STDOUT_BYTES + 1)
-                with stderr_path.open("rb") as stderr_handle:
-                    standard_error = stderr_handle.read(MAX_STDERR_BYTES + 1)
-            except BaseException:
-                if process is not None:
-                    self._kill_unit(unit_name)
+                    primary_error = exc
+                except BaseException as exc:
+                    primary_error = exc
+                if primary_error is None:
+                    returncode: int | None = None
+                    try:
+                        returncode = process.returncode
+                        reaped = returncode is not None
+                    except BaseException as exc:
+                        primary_error = exc
+                    if primary_error is None and not reaped:
+                        primary_error = subprocess.SubprocessError(
+                            "sandbox client did not report an exit status"
+                        )
+                    elif primary_error is None and returncode is not None and returncode < 0:
+                        primary_error = subprocess.SubprocessError(
+                            "sandbox client terminated by signal"
+                        )
+                if primary_error is not None:
+                    cleanup_attempted = True
+                    reaped, unit_kill_succeeded, cleanup_interrupt = self._cleanup_started_process(
+                        process,
+                        unit_name,
+                    )
+                    if not isinstance(primary_error, Exception):
+                        raise primary_error
+                    if cleanup_interrupt is not None:
+                        raise cleanup_interrupt
+                    if not timed_out:
+                        raise primary_error
+                    if not reaped or not unit_kill_succeeded:
+                        raise RuntimeError("sandbox cleanup did not complete")
+                standard_output = _read_bounded_file(stdout_path, MAX_STDOUT_BYTES)
+                standard_error = _read_bounded_file(stderr_path, MAX_STDERR_BYTES)
+            except BaseException as exc:
+                if process is not None and not reaped and not cleanup_attempted:
+                    reaped, _, cleanup_interrupt = self._cleanup_started_process(process, unit_name)
+                    if not isinstance(exc, Exception):
+                        raise exc
+                    if cleanup_interrupt is not None:
+                        raise cleanup_interrupt from exc
+                    if not reaped:
+                        raise exc
                 raise
 
             if timed_out:
