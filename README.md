@@ -61,13 +61,14 @@ distinct Penn catalog records, not a claim about physical identity.
 
 The gate contains no sign, glyph, sequence, transcription, Helsinki row,
 positive/probable/exact match, admitted join, or decipherment result. Penn
-bulk metadata is CC BY 4.0 metadata only. The extra-bulk Penn item-page
-association is unregistered and unknown-rights; the registered Mackay locator
-is also unknown-rights, and both are link-only. No external source, image,
-page, plate, or media bytes were retrieved or added for this checkpoint. The
-registry and test are not packaged in the wheel; only the schema is. There is
-no production builder, API, strict runtime loader, or package/runtime gate
-yet. Public CI run `30635957691` succeeded for event `push` at exact head SHA
+bulk metadata is CC BY 4.0 metadata only. At that frozen gate checkpoint, the
+extra-bulk Penn item-page association was unregistered and unknown-rights;
+the registered Mackay locator was also unknown-rights, and both were
+link-only. No external source, image, page, plate, or media bytes were
+retrieved or added for that checkpoint. The registry and test are not
+packaged in the wheel; only the schema is. There is no production builder,
+API, strict runtime loader, or package/runtime gate yet. Public CI run
+`30635957691` succeeded for event `push` at exact head SHA
 `fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
 `v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
 527.702196ms, 655.421586ms, and 503.092653ms, respectively, and completed the
@@ -88,13 +89,20 @@ admitted join.
 
 The passes are separately sealed, but only their `pass_id` and `seal_sha256`
 must differ. Human, model, and organizational independence, blinding, and
-nonexposure are not verified. The present state is `contract_blocked` because
-the Penn item-page source is unregistered and its rights are unknown; Penn
-bulk metadata's CC BY 4.0 license is not inherited by that item page. There is
-no runtime evaluator, execution, observation, source byte, source-link/no-link
-outcome, join, translation, decipherment evidence, or prize result. A separate
-source-registration and rights contract is the next gate and this publication
-does not authorize source access.
+nonexposure are not verified. The policy's unregistered/null Penn item-page
+state remains an immutable fact about that checkpoint.
+
+A later, explicitly nonretroactive
+[static source registration and rights contract](docs/SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
+registers the five exact Penn item-page URIs in the live source registry and
+freezes conservative rights, request, receipt, revision-set, and six-slot
+roster requirements. Registration is not an exact Penn revision, rights
+clearance, source access, or execution. The policy prerequisite remains
+`contract_blocked`; authorization is `not_authorized`, and execution is
+`not_executed`. No receipt schema or commitment envelope, protected custody/
+deletion contract, parser, evaluator, receipt, digest, observation,
+source-link/no-link outcome, join, translation, decipherment evidence, or
+prize result exists.
 
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also

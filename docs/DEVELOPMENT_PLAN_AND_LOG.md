@@ -25,9 +25,12 @@ separate and traceable.
   corpus release.
 - Normative schemas, validators, importers, audit tools, synthetic examples,
   tests, and scientific/governance documentation are public.
-- The static source-reported-link decision policy is frozen, but its current
-  real state is `contract_blocked`. No runtime evaluator, source access,
-  observation, link/no-link outcome, or admitted join exists.
+- The static source-reported-link policy and its later nonretroactive source
+  registration/rights contract are frozen. The Penn item-page layer is
+  registered without an exact revision receipt or rights clearance; state is
+  still `contract_blocked`, authorization is `not_authorized`, and execution
+  is `not_executed`. No source access, runtime evaluator, observation,
+  link/no-link outcome, or admitted join exists.
 - The current split and evaluator are development-only. They are not blind or
   final.
 - No private corpus, provider download, museum image bundle, private review
@@ -176,7 +179,7 @@ Current assurance layers:
 | Penn metadata context registry | 34 entries; five pending originality review and 29 negative controls |
 | Extra-bulk field-number/context admission | not admitted; two conflicts remain open |
 | Source-reported-link decision policy | static and frozen; six parent-row slots; not a runtime result |
-| Source registration, rights, and execution | blocked; not authorized; not executed |
+| Source registration, rights, and execution | static registration/rights contract frozen; exact Penn revisions, receipt/custody, runtime evaluation, and execution absent and blocked |
 | Scientific functional-anchor validation | not executed or claimed |
 | Independent external replication | not executed or claimed |
 
@@ -2029,3 +2032,40 @@ new explicit authority decision after that contract could permit runtime
 implementation or two-pass execution. Infrastructure remains hard-frozen
 unless this research gate exposes a concrete reproducible need. KP1979 V2 and
 all other retired controls remain immutable.
+
+## Static source registration and rights contract — 2026-08-01
+
+Source checkpoint `90f3fd3bea1177034451283795ad13ccb4b31bcf`, based on parent
+`45d946a462dd85aa3025ed9ad9c0465541bd85be`, freezes the
+[detailed static source contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md).
+The linked documentation records the exact candidate identities, hashes,
+builds, request/receipt/custody rules, and validation evidence.
+
+The policy's `unregistered`/null Penn item-page state remains exact historical
+fact. The later, nonretroactive state is
+`registered_static_no_revision_receipt`: five exact Penn object-page URIs are
+statically bound without exact revisions or rights clearance. Five receipt
+members, six revision resources, and six result slots remain distinct;
+conflict and collision semantics are unchanged. Static registration does not
+authorize access, retention, inspection, or execution.
+
+The exact candidate passed 30 focused tests, Ruff lint and format,
+static/build/secret checks, and a final zero/zero/zero audit. Two earlier
+full-suite attempts were interrupted for specification hardening, then
+`Content-Encoding` nullability correction, not test failures. Final suite
+result is `Ran 1106 tests in 1023.743s; OK (skipped=19)`. Public
+[CI run 30667904927](/megu0xxx0x/indus-open-benchmark/actions/runs/30667904927)
+succeeded at exact head `90f3fd3bea1177034451283795ad13ccb4b31bcf`.
+Python 3.11, 3.13, and 3.14 respectively recorded Quicknet/full-suite
+durations of 425.727693 ms/642.201s, 522.243511 ms/978.761s, and
+512.327502 ms/887.018s. Each matrix passed Quicknet 6/6 and 1106 full tests
+with 22 skips, plus Ruff, the 184-file format check, zero-error Pyright,
+sdist, and wheel builds.
+
+Contract status is `preregistered_contract_blocked_pending_revision_receipt`;
+the policy prerequisite remains `contract_blocked`, authorization
+`not_authorized`, and execution `not_executed`. Required schemas, custody,
+digests, runtime surfaces, observations, and results are absent; no source was
+accessed. Next is to freeze those missing surfaces and obtain new explicit
+authority before acquisition or two-pass execution. Retired controls remain
+immutable.

@@ -7,6 +7,41 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A static, repository-only
+  [source registration and rights contract](docs/SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
+  at source commit `90f3fd3bea1177034451283795ad13ccb4b31bcf`, parent
+  `45d946a462dd85aa3025ed9ad9c0465541bd85be`. The linked documentation
+  records the exact five-file identities, their hashes and build values, and
+  the complete network, receipt, custody, and package boundaries.
+
+  The transition is nonretroactive: the frozen policy still records the Penn
+  item-page layer as unregistered/null-bound at its own checkpoint, while the
+  new live registry separately records five exact item-page URIs as
+  `registered_static_no_revision_receipt`. Rights remain unknown and
+  link-only; the bulk CC BY 4.0 license is not inherited. Five receipt
+  members, six revision resources, and six result slots remain distinct.
+  Registration is not a revision, rights clearance, access, or execution.
+
+  The focused 30-test set, static checks, builds, secret scan, and final
+  zero/zero/zero audit passed. Two earlier full-suite attempts were
+  intentionally interrupted for specification hardening and then
+  `Content-Encoding` nullability correction, not test failures. Final suite
+  evidence is `Ran 1106 tests in 1023.743s; OK (skipped=19)`. Public
+  [CI run 30667904927](/megu0xxx0x/indus-open-benchmark/actions/runs/30667904927)
+  succeeded at exact head `90f3fd3bea1177034451283795ad13ccb4b31bcf`.
+  Python 3.11, 3.13, and 3.14 respectively recorded Quicknet/full-suite
+  durations of 425.727693 ms/642.201s, 522.243511 ms/978.761s, and
+  512.327502 ms/887.018s. Each matrix passed Quicknet 6/6 and 1106 full
+  tests with 22 skips, plus Ruff, the 184-file format check, zero-error
+  Pyright, sdist, and wheel builds.
+
+  Contract status is
+  `preregistered_contract_blocked_pending_revision_receipt`; the policy
+  prerequisite remains `contract_blocked`, authorization `not_authorized`,
+  and execution `not_executed`. Required schemas, custody contract, runtime
+  surfaces, digests, and results are absent. No research/protected source was
+  accessed and no scientific or prize result exists.
+
 - A static, repository-only source-reported-link decision policy at commit
   `c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`, parent
   `54fccb7a86a0d45de4e626b57a6332d091c11db2`. The exact three-file,
@@ -720,10 +755,13 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Scientific limitations
 
-- The source-reported-link policy has no runtime evaluator and has not been
-  executed. Its current state is `contract_blocked`; there is no observation,
-  source-reported-link result, no-link result, admitted join, translation,
-  decipherment evidence, claim authorization, submission, or prize result.
+- The source-reported-link policy and its later nonretroactive static source
+  registration/rights contract have no runtime evaluator and have not been
+  executed. The Penn item-page source is registered without an exact revision
+  receipt or rights clearance, and the state remains `contract_blocked`.
+  There is no source access, observation, source-reported-link result, no-link
+  result, admitted join, translation, decipherment evidence, claim
+  authorization, submission, or prize result.
 - KP1979 V2 did not qualify or advance. Its raw synthetic control passed 18 of
   19 cases but remained `not_qualified`; separately, the detector-before-
   control freeze and post-freeze periodic two-tier non-label confound force the

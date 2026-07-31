@@ -874,3 +874,40 @@ claim authorization, submission, or prize result exists. Repository
 publication and CI are outside that statement and authorize none of those
 actions. Next is the separate source registration and rights contract;
 execution remains unauthorized.
+
+## 2026-08-01T07:07:54+09:00 — Static source registration and rights contract
+
+Source checkpoint `90f3fd3bea1177034451283795ad13ccb4b31bcf`, based on parent
+`45d946a462dd85aa3025ed9ad9c0465541bd85be`, freezes the
+[detailed source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md).
+The linked documentation records the exact five-file identities and hashes,
+request and receipt rules, custody states, package builds, and validation
+evidence.
+
+The policy's unregistered/null Penn item-page state remains frozen historical
+fact. This later contract records an explicitly nonretroactive
+`registered_static_no_revision_receipt` transition for the five exact Penn
+URIs. Rights remain unknown and link-only, and bulk CC BY 4.0 is not
+inherited. Five future Penn receipt members, six ordered revision resources,
+and six ordered result slots remain distinct. Registration is not revision
+capture, rights clearance, source access, inspection, or execution.
+
+The exact candidate passed the 30-test focused policy/contract/parent set,
+static/build/secret checks, and final zero/zero/zero audit. Two earlier full-
+suite attempts were intentionally interrupted for specification hardening,
+then `Content-Encoding` nullability correction, not test failures. Final
+suite result is `Ran 1106 tests in 1023.743s; OK (skipped=19)`. Public
+[CI run 30667904927](/megu0xxx0x/indus-open-benchmark/actions/runs/30667904927)
+succeeded at exact head `90f3fd3bea1177034451283795ad13ccb4b31bcf`.
+Python 3.11, 3.13, and 3.14 respectively recorded Quicknet/full-suite
+durations of 425.727693 ms/642.201s, 522.243511 ms/978.761s, and
+512.327502 ms/887.018s. Each matrix passed Quicknet 6/6 and 1106 full tests
+with 22 skips, plus Ruff, the 184-file format check, zero-error Pyright,
+sdist, and wheel builds.
+
+Contract status is `preregistered_contract_blocked_pending_revision_receipt`;
+the policy prerequisite remains `contract_blocked`, authorization
+`not_authorized`, and execution `not_executed`. Required schemas, protected
+custody/deletion contract, receipt, digests, parser, evaluator, observations,
+and results are absent. No source was accessed and no scientific or prize
+result exists.

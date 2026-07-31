@@ -190,3 +190,25 @@ inspection, observation, source byte, source-reported-link/no-link result,
 join, translation, or decipherment result exists. A separate source
 registration and rights contract is required before any source-access or
 execution decision.
+
+## Nonretroactive source-registration follow-up — 2026-08-01T07:07:54+09:00
+
+The unregistered/null statement above remains the exact historical state of
+the frozen policy checkpoint. The later
+[static source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
+records an explicitly nonretroactive transition to
+`registered_static_no_revision_receipt` for the five Penn item-page URIs. It
+does not revise this crosswalk and is not an exact source revision, rights
+clearance, source access, inspection, or execution.
+
+The follow-up deliberately preserves three different cardinalities: five
+future Penn receipt members, six ordered source-revision resources (the
+existing Mackay revision plus those five Penn revisions), and six ordered
+link/result slots. SF 3495 remains conflicted, while SF 3051 and SF 2558
+remain distinct slots that declare reuse of Penn resource 329820.
+
+The state is still `contract_blocked`, authorization is `not_authorized`, and
+execution is `not_executed`. No closed receipt schema, commitment-envelope
+schema, protected ephemeral custody/deletion contract, receipt, revision-set
+or completeness digest, parser, evaluator, observation, or result exists.
+No research or protected source was accessed for the static follow-up.

@@ -256,3 +256,26 @@ No runtime evaluator, source access, source byte, observation, pass,
 source-reported-link/no-link outcome, join, transcription, translation,
 decipherment evidence, or prize result exists. The next gate is a separate
 source registration and rights contract, not execution under this document.
+
+## Nonretroactive source-registration follow-up — 2026-08-01T07:07:54+09:00
+
+The unregistered/null state above is an immutable fact about policy commit
+`c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9`. The later
+[static source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
+does not rewrite this gate. It records a nonretroactive
+`registered_static_no_revision_receipt` transition for the five exact Penn
+item-page URIs, while preserving unknown rights, link-only scope, and the
+rule that Penn bulk metadata's CC BY 4.0 license is not inherited.
+
+Registration is not an exact revision receipt, rights clearance, source
+access, inspection, join, or execution. The contract distinguishes five
+future Penn receipt members, six ordered source-revision resources, and six
+parent-row link/result slots; SF 3051 and SF 2558 remain separate slots that
+reuse one declared Penn resource. SF 3495 remains unresolved.
+
+The prerequisite state remains `contract_blocked`, with authorization
+`not_authorized` and execution `not_executed`. No closed receipt or
+commitment-envelope schema, protected ephemeral custody/deletion contract,
+receipt, revision-set/completeness digest, parser, evaluator, source byte,
+observation, or result exists. No research or protected source was accessed
+for this static follow-up.

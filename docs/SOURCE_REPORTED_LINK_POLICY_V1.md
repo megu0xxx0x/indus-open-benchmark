@@ -238,3 +238,26 @@ precedence, hard-rejection boundary, conflicts, no-aggregation rule,
 no-substitution rule, forbidden channels, and canonical-byte checks. This
 policy itself authorizes none of that work and establishes no decipherment
 result.
+
+## Post-publication nonretroactive source contract — 2026-08-01T07:07:54+09:00
+
+This document is frozen historical policy. Its statements that the Penn
+item-page layer was current-state `unregistered` with a null registry binding
+describe exact source checkpoint
+`c9035109dc1ee9bc8bf02fdc85b88ce9f716eef9` and are not rewritten.
+
+The later
+[static source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
+records an explicitly nonretroactive transition to
+`registered_static_no_revision_receipt`. Static registration is not an exact
+Penn revision, rights clearance, source access, inspection, or permission to
+execute this policy. The five future Penn receipt members remain distinct
+from the six ordered source-revision resources and the six ordered parent-row
+link/result slots.
+
+The policy prerequisite therefore remains `contract_blocked`; authorization
+is `not_authorized` and execution is `not_executed`. The follow-up creates no
+closed receipt schema, commitment envelope, protected custody/deletion
+contract, receipt, revision-set or completeness digest, parser, evaluator,
+source observation, link/no-link result, join, translation, decipherment
+evidence, or prize result. No research or protected source was accessed.

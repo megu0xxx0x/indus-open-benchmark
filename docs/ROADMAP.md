@@ -37,6 +37,7 @@ Current assets:
 - [2026-07-28 decipherment-efficiency audit](DECIPHERMENT_EFFICIENCY_AUDIT_2026-07-28.md)
 - [context source-link preselection gate](CONTEXT_SOURCE_LINK_PRESELECTION_GATE.md)
 - [static source-reported-link decision policy](SOURCE_REPORTED_LINK_POLICY_V1.md)
+- [static source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
 - [Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 - [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
@@ -88,20 +89,32 @@ Current assets:
   identifier and seal; independence, blinding, and nonexposure are not
   verified. Current state: `contract_blocked`, with no evaluator, execution,
   observation, source byte, result, or join.
-- [ ] Freeze a separate source registration and rights contract covering the
-  Penn item page, exact source revisions, rights handling, inspection
-  procedure, and complete ordered source roster. Penn bulk metadata's CC BY
-  4.0 license is not inherited; do not access or inspect a source under the
-  static policy.
+- [x] Freeze the static, explicitly nonretroactive source registration and
+  rights contract at `90f3fd3bea1177034451283795ad13ccb4b31bcf`.
+  Register the five exact Penn item-page URIs without claiming revision
+  capture, rights clearance, source access, or execution. Preserve five
+  future Penn receipt members, six ordered source-revision resources, and six
+  parent-row result slots; preserve the SF 3495 conflict and distinct SF
+  3051/SF 2558 slots. Penn bulk metadata's CC BY 4.0 license is not inherited.
+  State remains `contract_blocked`, authorization `not_authorized`, and
+  execution `not_executed`.
+- [ ] Freeze a closed receipt schema, separate receipt-commitment envelope,
+  protected ephemeral custody/deletion contract, strict canonical loader,
+  operational parser, and runtime evaluator. Only after a new explicit
+  authority decision may one complete bounded acquisition retrieve the five
+  Penn members and construct the exact six-resource revision set and
+  completeness commitments. Invalid or partial prerequisites must remain
+  blocked and cannot become `unresolved` or `no_link`.
 - [ ] Only after new explicit authority, implement and review a strict runtime
   evaluator and execute two coded machine passes. Preserve all six row-level
   states and forbidden channels; do not infer human/model/organizational
   independence from distinct IDs and seals.
-- [ ] Add strict `decode_json`, registry resource-inclusion, and installed
-  distribution tests before making any operational or packaged runtime claim
-  for the source-link gate. Static publication does not implement this step:
-  the current registry and tests are absent from the wheel; only the schema is
-  included.
+- [ ] Add a strict `decode_json`-backed installed contract loader, registry
+  resource-inclusion checks, and installed-distribution tests before making
+  any operational or packaged runtime claim for the source-link gate. Static
+  publication does not implement this step. The modified source registry and
+  new contract schema are wheel resources; the contract registry and tests
+  are not. No installed contract loader, parser, or evaluator exists.
 - [x] Hard-freeze infrastructure expansion for this research step. Defer host
   Node 24 activation, dynamic-closure expansion, and an official runner until
   a real experiment exposes a reproducible need. This does not authorize
