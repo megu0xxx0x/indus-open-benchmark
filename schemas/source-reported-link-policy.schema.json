@@ -1,0 +1,252 @@
+{
+  "$id": "source-reported-link-policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "decision_policy": {
+      "contract_blocked_requires_empty_observations": true,
+      "contract_blocked_triggers": [
+        "external_source_registration_commitment_absent",
+        "external_source_revision_commitment_absent",
+        "external_rights_handling_commitment_absent",
+        "external_inspection_commitment_absent",
+        "external_ordered_source_roster_commitment_absent",
+        "observations_empty"
+      ],
+      "hard_reject_inputs": [
+        "malformed_input",
+        "noncanonical_input",
+        "observations_present_before_prerequisites",
+        "parent_commitment_mismatch",
+        "verification_commitment_mismatch",
+        "forbidden_channel_present"
+      ],
+      "hard_reject_is_result_state": false,
+      "hard_reject_precedes_state_evaluation": true,
+      "no_link": {
+        "allowed_alternatives": [
+          "dual_explicit_source_rejection",
+          "dual_row_absent_with_exact_completeness_attestation_digest"
+        ],
+        "complete_roster_applies_to": "dual_row_absent_with_exact_completeness_attestation_digest",
+        "complete_roster_requirements": {
+          "applies_to_both_passes": true,
+          "coverage_cardinality": "ordered_complete_source_roster_one_to_one",
+          "ordered_source_roster_count_exact": true,
+          "ordered_source_roster_sha256_exact": true,
+          "processed_count_equals_ordered_source_roster_count": true,
+          "source_revision_sha256_exact": true,
+          "zero_count_fields": [
+            "missing_count",
+            "extra_count",
+            "duplicate_count",
+            "unreadable_count",
+            "error_count",
+            "ambiguous_count"
+          ]
+        },
+        "explicit_source_rejection_requirements": [
+          "both_passes_same_exact_target",
+          "both_passes_same_source_revision",
+          "both_passes_explicit_source_rejection"
+        ],
+        "not_found_without_complete_roster_state": "unresolved",
+        "scope": "per_parent_row_only"
+      },
+      "source_reported_link_requirements": [
+        "separately_sealed_coded_machine_passes",
+        "external_prerequisites_exact",
+        "both_passes_same_source_revision",
+        "dual_exact_one_candidate",
+        "same_target_parent_link_id",
+        "same_source_local_locator",
+        "bounded_ascii_source_local_locator",
+        "forbidden_channels_not_used"
+      ],
+      "state_precedence": [
+        "contract_blocked",
+        "unresolved",
+        "source_reported_link",
+        "no_link"
+      ],
+      "terminal_states_mutually_exclusive": true,
+      "unresolved_triggers": [
+        "unreadable",
+        "inspection_error",
+        "ambiguous",
+        "multiple_candidates",
+        "pass_disagreement",
+        "source_revision_disagreement",
+        "ordered_source_roster_commitment_disagreement",
+        "incomplete_ordered_source_roster_coverage"
+      ]
+    },
+    "execution_boundary": {
+      "authorization_status": "not_authorized",
+      "canonical_byte_identity_required": true,
+      "current_prerequisite_state": "contract_blocked",
+      "execution_status": "not_executed",
+      "future_unblock_requires": "separate_source_registration_and_rights_contract",
+      "operational_verification_scope": "external_comparison_only_no_truth_authentication_or_anti_fabrication",
+      "runtime_evaluator_implemented": false,
+      "schema_validation_scope": "semantic_exact_const_with_json_number_equivalence"
+    },
+    "forbidden_channels": [
+      "confidence",
+      "excerpt",
+      "free_text",
+      "glyph",
+      "image",
+      "linguistic",
+      "media",
+      "notes",
+      "ocr",
+      "page",
+      "raw",
+      "sequence",
+      "sign",
+      "similarity",
+      "source_bytes",
+      "token",
+      "transcription",
+      "visual"
+    ],
+    "nonclaims": {
+      "caller_fabrication_prevented": false,
+      "context_correctness_verified": false,
+      "decipherment_evidence": false,
+      "evaluation_admitted": false,
+      "field_number_truth_verified": false,
+      "future_join_rights_verified": false,
+      "helsinki_source_used": false,
+      "join_admitted": false,
+      "object_authenticity_verified": false,
+      "physical_identity_resolved": false,
+      "selection_representativeness_verified": false,
+      "source_independence_verified": false,
+      "transcription_approved": false,
+      "truth_authenticated": false
+    },
+    "ordering": {
+      "all_six_rows_required": true,
+      "attempt_order": [
+        "chanhu-daro-preselection-v1:000",
+        "chanhu-daro-preselection-v1:001",
+        "chanhu-daro-preselection-v1:002",
+        "chanhu-daro-preselection-v1:003",
+        "chanhu-daro-preselection-v1:004",
+        "chanhu-daro-preselection-v1:005"
+      ],
+      "ordering_semantics": "source_table_order_only_not_rank",
+      "post_hoc_row_substitution_permitted": false,
+      "result_aggregation_permitted": false,
+      "result_vector_length": 6
+    },
+    "parent": {
+      "ordered_link_ids": [
+        "chanhu-daro-preselection-v1:000",
+        "chanhu-daro-preselection-v1:001",
+        "chanhu-daro-preselection-v1:002",
+        "chanhu-daro-preselection-v1:003",
+        "chanhu-daro-preselection-v1:004",
+        "chanhu-daro-preselection-v1:005"
+      ],
+      "registry": {
+        "id": "chanhu-daro-helsinki-gate-v1",
+        "sha256": "43c0fae1a8558fbffeb062725e401e0c3c1de570e5f8f7eef610ca2616cbfb3d",
+        "size": 6955
+      },
+      "schema": {
+        "id": "context-source-link-gate.schema.json",
+        "sha256": "72109818eb55aca008b0f34b1d6c627efd0e38bdbaff8c500cb3c60dc74e3002",
+        "size": 9216
+      }
+    },
+    "passes": {
+      "authorship": "machine",
+      "count": 2,
+      "mode": "separately_sealed_coded_machine_passes",
+      "nonclaims": {
+        "blinding_verified": false,
+        "human_independence_verified": false,
+        "model_independence_verified": false,
+        "nonexposure_verified": false,
+        "organizational_independence_verified": false
+      },
+      "required_distinct_fields": [
+        "pass_id",
+        "seal_sha256"
+      ],
+      "separation_scope": "distinct_identifiers_and_seals_only"
+    },
+    "policy_id": "source-reported-link-policy-v1",
+    "result_slots": [
+      {
+        "collision_group": null,
+        "index": 0,
+        "link_id": "chanhu-daro-preselection-v1:000",
+        "role": "lead_no_listed_material_conflict",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": null,
+        "index": 1,
+        "link_id": "chanhu-daro-preselection-v1:001",
+        "role": "excavation_location_axis_conflict",
+        "unresolved_axis": "excavation_location"
+      },
+      {
+        "collision_group": null,
+        "index": 2,
+        "link_id": "chanhu-daro-preselection-v1:002",
+        "role": "lead_no_listed_material_conflict",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": null,
+        "index": 3,
+        "link_id": "chanhu-daro-preselection-v1:003",
+        "role": "lead_no_listed_material_conflict",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": "chanhu-daro-penn-329820-collision",
+        "index": 4,
+        "link_id": "chanhu-daro-preselection-v1:004",
+        "role": "shared_penn_target_identity_collision",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": "chanhu-daro-penn-329820-collision",
+        "index": 5,
+        "link_id": "chanhu-daro-preselection-v1:005",
+        "role": "shared_penn_target_identity_collision",
+        "unresolved_axis": null
+      }
+    ],
+    "schema_version": "0.1.0",
+    "source_scope": [
+      {
+        "license_id": null,
+        "redistribution_permitted": false,
+        "registration_status": "registered",
+        "rights_status": "unknown",
+        "scope": "link_only",
+        "source_id": "mackay-chanhu-daro-1943",
+        "source_layer": "mackay_report_locator"
+      },
+      {
+        "bulk_metadata_license_inherited": false,
+        "bulk_metadata_source_id": "penn-museum-collections-data",
+        "license_id": null,
+        "noninherited_bulk_license_id": "CC-BY-4.0",
+        "redistribution_permitted": false,
+        "registration_status": "unregistered",
+        "rights_status": "unknown",
+        "scope": "link_only",
+        "source_id": "penn-museum-object-pages",
+        "source_layer": "penn_item_page_association",
+        "source_registry_binding": null
+      }
+    ]
+  }
+}
