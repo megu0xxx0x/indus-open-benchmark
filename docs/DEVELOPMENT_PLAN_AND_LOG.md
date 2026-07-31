@@ -1380,8 +1380,83 @@ builds, Gitleaks, and public-boundary checks. Public CI run `30599459365`
 passed all 947 tests with 22 environment-specific skips on Python 3.11, 3.13,
 and 3.14 and built both distributions in every matrix job.
 
-This checkpoint does not implement an evaluator and is not a C3 freeze or
-run. No target Quicknet round has been selected. No detector, real-source
-access or result, decipherment evidence, or prize evidence exists. KP1979 V2
-remains immutable. The next controlled implementation task is the V3
-evaluator.
+This generator checkpoint did not implement an evaluator and was not a C3
+freeze or run. No target Quicknet round had been selected. No detector,
+real-source access or result, decipherment evidence, or prize evidence existed
+at that checkpoint. KP1979 V2 remains immutable.
+
+## KP1979 V3 streaming evaluator checkpoint — 2026-07-31
+
+The streaming, aggregate-only
+[evaluator](../src/indusbench/kp1979_v3_evaluator.py) is implemented at commit
+`ee847035867fe92dbca8b3e0aa9422dcfd43f138`. It constructs and authoritatively
+validates one generator object at a time
+against exact same-seed canonical regeneration. It does not import or
+materialize the controller schedule. For all 32 cases and 16 relation
+endpoints, it passes only `request_bytes` to the supplied invoker. Generated
+objects, truth, responses, request digests, and schedule meaning remain
+ephemeral and absent from the result.
+
+Positive cases require exact `proposed` responses, 96-pixel height for every
+prediction, and sorted same-lane one-to-one matching whose prediction anchor
+lies in the corresponding half-open truth interval. Complete coverage is
+mandatory, so both false positives and false negatives are zero. Negative
+cases require exact `abstained`. Each out-of-contract case requires
+`rejected` with its predeclared error code. Both endpoints of every relation
+must first pass the positive gate; the evaluator then checks the five exact
+invariant relations, vertical translation by 11 pixels, lane swap, and
+deletion of exactly the matched omitted witness.
+
+A valid scientific failure does not short-circuit. All 48 worker calls are
+consumed before `not_qualified` is returned. A technical failure at any point
+collapses to `execution_failed` with no exception detail, no partial index,
+all five counts absent, and no authorization. `BaseException` deliberately
+propagates so the future one-shot integration can distinguish an interrupted
+or fatal attempt as `consumed_incomplete`.
+
+The closed aggregate result has ten fields and contains no case or relation
+identity, prediction, truth, stdout, request or PBM, suite seed, digest, error
+detail or code, or generation commitment. Only a complete scientific pass
+returns `qualified` and the protocol authorization. That authorization is
+limited to owner-only provisional candidates for pages 22 through 77;
+page 78 remains disallowed and every public claim permission remains false.
+
+The evaluator API accepts an injected invoker. Its component return value
+therefore is not an attestation of execution, isolation, custody, freshness,
+single use, or use of the official sandbox path. An official C3 runner
+has not been implemented. Any authoritative future use must internally
+construct and own an exact `SandboxedWorkerInvoker`, expose no
+caller-injection path, verify both process and invocation counters around
+every call, integrate the one-shot state boundary, and preserve the
+component's aggregate-only result.
+
+Local source evidence at this checkpoint:
+
+- all 28 focused evaluator tests passed;
+- all 975 repository tests completed with 19 environment-specific skips;
+- Ruff lint and format checks, Pyright, source and wheel builds, Gitleaks, and
+  public-boundary checks passed; and
+- two independent read-only source audits reported zero blockers, zero major
+  findings, and zero minor findings.
+
+Public CI run `30604750422` succeeded in 16m32s. Python 3.11 passed Quicknet
+6/6 in 528.547056ms and all 975 tests with 22 environment-specific skips in
+843.345s; Python 3.13 passed Quicknet 6/6 in 728.88314ms and the same 975-test,
+22-skip suite in 957.050s; and Python 3.14 passed Quicknet 6/6 in 608.578832ms
+and that suite in 906.624s. Every matrix job passed Ruff, checked all 179
+files with Ruff format, reported zero Pyright errors, warnings, or information
+messages, and built both the sdist and wheel.
+
+No C3 controller or freeze builder has been implemented; no freeze has been
+dispatched; and no C3 run, target selection, detector, real-source access or
+result, decipherment evidence, or prize result exists. KP1979 V2 remains
+retired and immutable.
+
+The next controlled source task is a non-operational C3 controller
+and deterministic freeze builder. Its future official runner must internally
+construct and own an exact `SandboxedWorkerInvoker` and allow no
+caller-injected invoker. It must also fix the Quicknet `BaseException`
+cleanup/runtime policy before any operational runner integration. The
+Quicknet target round remains unselected. This step does not authorize a
+freeze dispatch, worker execution, detector implementation,
+real-source access, public claim, or prize action.

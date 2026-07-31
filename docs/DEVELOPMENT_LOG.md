@@ -362,6 +362,58 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   environment-specific skips on Python 3.11, 3.13, and 3.14 and built both
   distributions in every matrix job.
 - This is a source checkpoint, not a C3 freeze or run. It establishes no
-  evaluator, target Quicknet round, detector, real-source access or result,
-  decipherment evidence, or prize evidence. KP1979 V2 remains immutable. The
-  V3 evaluator is the next implementation checkpoint.
+  target Quicknet round, detector, real-source access or result, decipherment
+  evidence, or prize evidence. KP1979 V2 remains immutable. At that
+  checkpoint, the V3 evaluator was the next implementation task.
+
+## 2026-07-31 — KP1979 V3 streaming evaluator implemented
+
+- At commit `ee847035867fe92dbca8b3e0aa9422dcfd43f138`, the aggregate-only
+  [evaluator](../src/indusbench/kp1979_v3_evaluator.py) builds and validates
+  one canonical generator object at a time under the same suite seed. It does
+  not import or materialize the controller schedule. It passes only
+  `request_bytes` to the supplied invoker for 32 case calls followed by 16
+  relation-endpoint calls.
+- A positive call passes only with `proposed`, exact height 96 for every
+  prediction, and complete sorted same-lane one-to-one anchor matching inside
+  half-open truth intervals, yielding no false positive or false negative.
+  Negative calls require exact `abstained`, each out-of-contract call requires
+  its expected `rejected` code, and five invariant relations plus
+  vertical-plus-11, lane-swap, and exact gap-deletion are checked.
+- A valid scientific failure does not short-circuit: all 48 calls complete and
+  the result is `not_qualified`. Any technical fault becomes the same
+  `execution_failed` result with no error detail, all five counts absent, and
+  no authorization. `BaseException` is intentionally not caught so a future
+  one-shot runner can record `consumed_incomplete`.
+- The result is a closed ten-field aggregate. Only a complete scientific pass
+  carries authorization, limited to owner-only provisional candidates for
+  pages 22 through 77. Page 78 authorization and every public claim permission
+  are false. No case or relation identity, prediction, truth, worker output,
+  request, seed, digest, error detail, or generation commitment is returned.
+- The evaluator API accepts an injected invoker, so the component result alone
+  is not an execution attestation and does not establish that the official
+  sandbox path was used. The official runner has not been implemented. Any
+  authoritative future use must internally construct and own an exact
+  `SandboxedWorkerInvoker` and must allow no caller-injected invoker.
+  Two independent read-only source audits reported zero blockers, zero major
+  findings, and zero minor findings.
+- Local source evidence passed all 28 focused evaluator tests and all 975
+  repository tests with 19 environment-specific skips, plus Ruff, formatting,
+  Pyright, source and wheel builds, Gitleaks, and public-boundary checks.
+- Public CI run `30604750422` succeeded in 16m32s:
+  - Python 3.11 passed Quicknet 6/6 in 528.547056ms and all 975 tests with 22
+    environment-specific skips in 843.345s;
+  - Python 3.13 passed Quicknet 6/6 in 728.88314ms and all 975 tests with 22
+    environment-specific skips in 957.050s; and
+  - Python 3.14 passed Quicknet 6/6 in 608.578832ms and all 975 tests with 22
+    environment-specific skips in 906.624s.
+  Every matrix job passed Ruff, checked all 179 files with Ruff format,
+  reported zero Pyright errors, warnings, or information messages, and built
+  both the sdist and wheel.
+- No C3 controller or freeze builder has been implemented; no freeze has been
+  dispatched; and no C3 run, target selection, detector, real-source access or
+  result, decipherment evidence, or prize result exists. KP1979 V2 remains
+  immutable.
+- Next: implement the non-operational C3 controller/freeze builder and fix the
+  Quicknet `BaseException` cleanup/runtime policy without selecting a target
+  or dispatching a freeze.

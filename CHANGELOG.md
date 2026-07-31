@@ -7,6 +7,42 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A streaming, aggregate-only KP1979 V3 evaluator at commit
+  `ee847035867fe92dbca8b3e0aa9422dcfd43f138`. It builds and
+  same-seed-validates one canonical case or relation at a time and passes only
+  `request_bytes` to the supplied invoker for all 48 sequential worker calls.
+  Positive cases require exact 96-pixel predictions and
+  zero-false-positive/zero-false-negative same-lane matching; negative cases
+  require `abstained`; out-of-contract cases require the expected `rejected`
+  code; and all eight fixed metamorphic relations are checked exactly.
+  Scientific gate failures still complete all 48 calls and return
+  `not_qualified`. Technical faults collapse to `execution_failed` with no
+  detail, counts, or authorization, while `BaseException` propagates for a
+  future one-shot runner to record `consumed_incomplete`. The closed
+  ten-field aggregate permits only owner-only provisional candidates on
+  pages 22–77 after a complete pass; page 78 authorization and every public
+  claim permission remain false. The component API accepts an injected
+  invoker, so its result alone is not an execution attestation. An official
+  runner is not implemented. Any authoritative future use must internally
+  construct and own an exact `SandboxedWorkerInvoker` and must expose no
+  caller-injection path.
+  Two independent read-only source audits reported zero blockers, zero major
+  findings, and zero minor findings. Local source evidence passed all 28
+  focused evaluator tests, all 975 repository tests with 19
+  environment-specific skips, Ruff lint and format checks, Pyright, source
+  and wheel builds, Gitleaks, and public-boundary checks. Public CI run
+  `30604750422` succeeded in 16m32s: Python 3.11, 3.13, and 3.14 respectively
+  passed Quicknet 6/6 in 528.547056ms, 728.88314ms, and 608.578832ms, then all
+  975 tests with 22 environment-specific skips in 843.345s, 957.050s, and
+  906.624s. Every matrix job passed Ruff, checked all 179 files with Ruff
+  format, reported zero Pyright errors, warnings, or information messages, and
+  built both the sdist and wheel.
+  No C3 controller or freeze builder has been implemented; no freeze has been
+  dispatched; and no C3 run, target selection, detector, real-source access or
+  result, decipherment evidence, or prize result exists. KP1979 V2 remains
+  immutable. Next is a non-operational C3 controller/freeze-builder boundary
+  plus a fixed Quicknet `BaseException` cleanup/runtime policy; no target round
+  has been selected.
 - A synthetic-only deterministic KP1979 V3 generator checkpoint at commit
   `88794f9748e909eef66f54c4c56d82fee5e9e521`, with 12 positive, 14 negative,
   and six out-of-contract cases plus eight fixed two-endpoint metamorphic
@@ -14,7 +50,7 @@ immutable content-addressed identifiers for corpus and split releases.
   requires the supplied suite seed and rejects any controller-side case or
   relation that differs from exact canonical regeneration. Only
   `request_bytes` satisfying the exact five-field answer-free wire contract
-  may reach a worker.
+  may reach a worker. At that generator-only checkpoint,
   instantiated suite seeds, generated objects, full construction and truth
   metadata, generation commitments, and schedule metadata must not be
   persisted or published before execution or passed to a worker. Independent
@@ -22,10 +58,9 @@ immutable content-addressed identifiers for corpus and split releases.
   minor findings. Public CI run `30599459365`
   passed all 947 tests with 22 environment-specific skips on Python 3.11,
   3.13, and 3.14 and built both distributions in every job. This checkpoint
-  contains no evaluator, C3 freeze or run, target Quicknet round, detector,
+  contained no evaluator, C3 freeze or run, target Quicknet round, detector,
   real-source access or result, decipherment evidence, or prize evidence.
-  KP1979 V2 remains immutable; the evaluator is the next implementation
-  checkpoint.
+  KP1979 V2 remains immutable.
 - A frozen public KP1979 V2 label-lattice qualification protocol, closed
   execution plan, one-shot runner, closed result contract, and
   [single published diagnostic result](benchmark/results/kp1979-label-lattice-v2-result-v1.json).

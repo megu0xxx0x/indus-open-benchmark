@@ -281,10 +281,41 @@ permission by itself.
   seeds, generated objects, full construction and truth metadata, generation
   commitments, and schedule metadata must not be persisted or published
   before execution or passed across that boundary. This is generator
-  infrastructure only: it includes no evaluator, C3 freeze or run,
-  target Quicknet round, detector, real-source access or result, decipherment
-  evidence, or prize evidence. KP1979 V2 remains immutable; the evaluator is
-  next.
+  infrastructure only and does not itself freeze or execute C3. KP1979 V2
+  remains immutable.
+- A streaming, aggregate-only
+  [KP1979 V3 evaluator](src/indusbench/kp1979_v3_evaluator.py), published at
+  commit `ee847035867fe92dbca8b3e0aa9422dcfd43f138`. It builds and
+  same-seed-validates one canonical generator object at a time, then passes
+  only its `request_bytes` to the supplied invoker for all 48 sequential calls.
+  Positive cases require `proposed`, exact 96-pixel predictions, and complete
+  same-lane one-to-one anchor matching with no false positives or false
+  negatives; negative cases require exact
+  abstention, out-of-contract cases require the expected rejection code, and
+  all eight fixed relations are checked exactly.
+  A scientifically wrong but valid response still completes all 48 calls and
+  returns `not_qualified`. A technical fault returns `execution_failed`
+  without error detail, counts, or authorization. `BaseException` is
+  deliberately propagated so a future one-shot runner can record
+  `consumed_incomplete`. The closed ten-field aggregate result can authorize
+  only owner-only provisional candidates for pages 22 through 77 after a
+  complete pass; page 78 authorization and every public claim permission
+  remain false.
+  The component result alone is not an execution attestation. Its public API
+  accepts an injected invoker, so this component does not establish that the
+  official sandbox path was used. An official runner is not yet implemented.
+  Any authoritative future use must internally construct and own an exact
+  `SandboxedWorkerInvoker` and must not allow caller injection of another
+  invoker.
+  Public CI run `30604750422` succeeded in 16m32s on Python 3.11, 3.13, and
+  3.14. Every job passed Quicknet 6/6, all 975 tests with 22
+  environment-specific skips, Ruff lint and formatting of all 179 files,
+  Pyright with no findings, and both distribution builds.
+  No C3 controller or freeze builder has been implemented; no freeze has been
+  dispatched; and no C3 run, target selection, detector, real-source access or
+  result, decipherment evidence, or prize result exists. KP1979 V2 remains
+  immutable. The next source work is the non-operational C3 controller/freeze
+  builder and a fixed Quicknet `BaseException` cleanup/runtime policy.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.

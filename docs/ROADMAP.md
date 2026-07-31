@@ -98,10 +98,33 @@ Current assets:
     answer-free wire contract may cross that boundary. Independent
     source-level QA reported zero blockers, zero major findings, and zero minor
     findings. KP1979 V2 remains immutable.
-  - [ ] Implement and independently audit the V3 evaluator next. The generator
-    checkpoint includes no evaluator, C3 freeze or run, target Quicknet round,
-    detector, real-source access or result, decipherment evidence, or prize
-    evidence.
+  - [x] Implement and independently audit the streaming V3 evaluator. It
+    is published at commit `ee847035867fe92dbca8b3e0aa9422dcfd43f138`,
+    same-seed-validates one canonical object at a time, passes only
+    `request_bytes` to the supplied invoker, and evaluates all 48 calls without
+    materializing or publishing a schedule. Positive cases require exact
+    height 96 and zero false positives or false negatives;
+    negative and out-of-contract behavior plus all eight fixed relations are
+    exact gates. Scientific failures complete all 48 calls as
+    `not_qualified`; technical failures expose no detail, counts, or
+    authorization, and `BaseException` propagates for future one-shot state
+    handling. A complete pass permits only owner-only provisional candidates
+    for pages 22–77; page 78 authorization and every public claim remain
+    false. The public API permits caller injection of the invoker, so the
+    ten-field component result is not an execution attestation. No official
+    runner exists yet. Public CI run `30604750422` succeeded in 16m32s across
+    Python 3.11, 3.13, and 3.14, passing Quicknet 6/6 and all 975 tests with
+    22 environment-specific skips in every matrix job, plus Ruff, Ruff format
+    on 179 files, Pyright with no findings, and both distribution builds.
+  - [ ] Implement the non-operational C3 controller and deterministic
+    freeze builder without dispatching a freeze or worker. The official
+    runner must internally construct and own an exact
+    `SandboxedWorkerInvoker`, permit no caller-supplied invoker, verify its
+    counters and the one-shot state transition, and fix the Quicknet
+    `BaseException` cleanup/runtime policy before operational integration.
+    No target round is selected.
+    This step authorizes no freeze, C3 run, detector, real-source access,
+    decipherment claim, or prize action.
   - [ ] Obtain two genuinely separate human passes, compare them only after
     sealing, complete no-invention adjudication, and retain future-evaluation
     values outside detector custody. This is the promotion gate for externally
