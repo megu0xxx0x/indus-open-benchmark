@@ -91,10 +91,13 @@ Current assets:
     14 negative, and six out-of-contract cases plus eight fixed two-endpoint
     metamorphic relations, for 48 worker invocations. Bind every
     controller-side case and relation to exact canonical regeneration under
-    the supplied suite seed. Instantiated controller metadata must not be
-    persisted or published before execution and must not be passed to a
-    worker. Independent source-level QA reported zero blockers, zero major
-    findings, and zero minor findings. KP1979 V2 remains immutable.
+    the supplied suite seed. Instantiated suite seeds, generated objects, full
+    construction and truth metadata, generation commitments, and schedule
+    metadata must not be persisted or published before execution and must not
+    be passed to a worker. Only `request_bytes` satisfying the exact five-field
+    answer-free wire contract may cross that boundary. Independent
+    source-level QA reported zero blockers, zero major findings, and zero minor
+    findings. KP1979 V2 remains immutable.
   - [ ] Implement and independently audit the V3 evaluator next. The generator
     checkpoint includes no evaluator, C3 freeze or run, target Quicknet round,
     detector, real-source access or result, decipherment evidence, or prize

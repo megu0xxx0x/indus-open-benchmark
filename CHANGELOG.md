@@ -14,10 +14,11 @@ immutable content-addressed identifiers for corpus and split releases.
   requires the supplied suite seed and rejects any controller-side case or
   relation that differs from exact canonical regeneration. Each worker
   request remains limited to the five-field answer-free wire contract;
-  instantiated controller-side seeds, oracles, generation commitments, and
-  schedule metadata must not be persisted or published before execution or
-  passed to a worker. Independent read-only source QA reported zero blockers,
-  zero major findings, and zero minor findings. Public CI run `30599459365`
+  instantiated suite seeds, generated objects, full construction and truth
+  metadata, generation commitments, and schedule metadata must not be
+  persisted or published before execution or passed to a worker. Independent
+  read-only source QA reported zero blockers, zero major findings, and zero
+  minor findings. Public CI run `30599459365`
   passed all 947 tests with 22 environment-specific skips on Python 3.11,
   3.13, and 3.14 and built both distributions in every job. This checkpoint
   contains no evaluator, C3 freeze or run, target Quicknet round, detector,
