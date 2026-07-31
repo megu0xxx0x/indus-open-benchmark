@@ -186,9 +186,31 @@ Several boundaries remain unresolved:
   interrupt during cleanup can still prevent termination or reaping. The
   sandbox subprocess path also requires explicit `BaseException` cleanup
   hardening before an official runner.
-- Portable semantic CI is pinned to exact Node 24.18.0. The existing host
-  wrapper is pinned to end-of-life Node 18.19.1 for qualification only. A
-  supported host-runtime policy remains unresolved.
+- Current portable semantic CI pins exact Node 24.18.1 on Linux/x64 through
+  `actions/setup-node` v7.0.0 full commit SHA
+  `820762786026740c76f36085b0efc47a31fe5020`, with package-manager caching
+  disabled and explicit version/platform/architecture assertions. The
+  control-bundle CI evidence above remains historical under its then-current
+  exact Node 24.18.0 and full-SHA-pinned `actions/setup-node` v6.5.0
+  configuration.
+- Semantic CI is not host or deployment-runtime attestation and does not close
+  the dynamic `libnode`, OpenSSL, glibc, kernel, or operating-system
+  dependency boundary. The existing Node 18.19.1 host wrapper remains
+  end-of-life and qualification-only. A supported host-runtime policy and
+  complete dynamic closure remain unresolved.
+
+Public CI run `30617537380` succeeded in 16m24s at exact source commit
+`0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`. Every matrix job used the
+full-SHA-pinned setup action, provisioned exact Node 24.18.1 on Linux/x64, and
+passed the exact version/platform/architecture assertions. Python 3.11 passed
+Quicknet 6/6 in 535.647147ms and all 1,047 tests with 22
+environment-specific skips in 856.889s, with a 14m50s job duration. Python
+3.13 passed Quicknet 6/6 in 525.265295ms and the same 1,047-test, 22-skip
+suite in 944.686s, with a 16m20s job duration. Python 3.14 passed Quicknet 6/6
+in 527.783322ms and that suite in 895.407s, with a 15m28s job duration. Every
+matrix job passed Ruff, accepted all 181 checked files as formatted, reported
+zero Pyright errors, warnings, or information messages, and built both the
+sdist and wheel.
 
 The control-bundle builder does not solve any of those problems.
 

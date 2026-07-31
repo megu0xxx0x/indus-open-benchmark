@@ -1627,3 +1627,58 @@ one-shot runner. External authenticity and custody controls must also be
 defined before any authoritative use. None of those tasks authorizes building
 or dispatching a freeze, selecting or fetching a target, running a worker or
 detector, opening real source material, or making a public or prize claim.
+
+## Portable Quicknet semantic-CI security pin — 2026-07-31
+
+The portable CI policy is updated at commit
+`0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`. The exact source scope is
+`.github/workflows/ci.yml` and `tests/test_kp1979_v3_quicknet.py`; production
+Quicknet, vendored Noble code, the Node 18 host wrapper, sandbox, generator,
+evaluator, control-bundle builder, and runtime source are unchanged.
+
+Each Python matrix job now provisions exact Node 24.18.1 through
+`actions/setup-node` v7.0.0 at full commit SHA
+`820762786026740c76f36085b0efc47a31fe5020`. The workflow requests x64,
+disables package-manager caching, and requires the following order before the
+portable Quicknet suite:
+
+1. exact `node --version == v24.18.1`;
+2. exact `process.platform == "linux"`;
+3. exact `process.arch == "x64"`; and
+4. the six-test no-skip semantic command.
+
+The source contract binds each setup field and assertion exactly once and
+excludes the qualification-host test. This is a semantic-CI configuration for
+deterministic public-input BLS checks in an ephemeral Linux/x64 job. It is not
+provenance, custody, isolation, or attestation for a project/deployment runtime,
+launcher, dynamic `libnode`, OpenSSL, glibc, kernel, sandbox, or worker.
+
+The fixed Node 18.19.1 host wrapper remains end-of-life and
+qualification-only. A supported host-runtime policy, complete dynamic
+dependency closure, and official injection-free runner remain unresolved.
+Earlier public evidence under exact Node 24.18.0 and full-SHA-pinned
+`actions/setup-node` v6.5.0 remains historical and unchanged; those results
+must not be relabeled as evidence for this configuration.
+
+Focused Quicknet contract tests, Ruff lint and formatting, Pyright, YAML
+parsing, diff checks, and an independent read-only zero-finding source review
+passed locally.
+
+Public CI run `30617537380` succeeded in 16m24s at exact source commit
+`0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`. Every matrix job used the
+full-SHA-pinned setup action, provisioned exact Node 24.18.1 on Linux/x64, and
+passed the exact version/platform/architecture assertions. Python 3.11 passed
+Quicknet 6/6 in 535.647147ms and all 1,047 tests with 22
+environment-specific skips in 856.889s, with a 14m50s job duration. Python
+3.13 passed Quicknet 6/6 in 525.265295ms and the same 1,047-test, 22-skip
+suite in 944.686s, with a 16m20s job duration. Python 3.14 passed Quicknet 6/6
+in 527.783322ms and that suite in 895.407s, with a 15m28s job duration. Every
+matrix job passed Ruff, accepted all 181 checked files as formatted, reported
+zero Pyright errors, warnings, or information messages, and built both the
+sdist and wheel.
+
+No project or deployment runtime was installed or changed. No freeze was
+built or dispatched, no target was selected or fetched, no protected or real
+data was opened, and no worker or detector ran. This checkpoint establishes no
+C3 result, real-source result, decipherment evidence, claim authorization, or
+prize result.

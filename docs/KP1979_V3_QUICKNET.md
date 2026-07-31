@@ -106,12 +106,35 @@ the round-1000 vector; no npm installation is part of build or runtime.
 ## CI and qualified host
 
 Portable cryptographic semantics are mandatory in the Python CI matrix under
-Node `24.18.0`. CI pins
-[`actions/setup-node`](https://github.com/actions/setup-node) v6.5.0 by full
-commit SHA, disables package-manager caching, asserts `node --version`, and
-runs the known vector plus identity, signature, randomness, canonical-JSON,
-infinity, malformed-compression, and on-curve non-subgroup adversarial cases.
-This portable suite has no skip path when the CI job is configured correctly.
+exact Node `24.18.1` on Linux/x64. CI pins
+[`actions/setup-node`](https://github.com/actions/setup-node) v7.0.0 by full
+commit SHA `820762786026740c76f36085b0efc47a31fe5020`, requests architecture
+`x64`, disables package-manager caching, and asserts the exact Node version,
+`process.platform == "linux"`, and `process.arch == "x64"` before the portable
+suite. It then runs the known vector plus identity, signature, randomness,
+canonical-JSON, infinity, malformed-compression, and on-curve non-subgroup
+adversarial cases. This suite has no skip path when the CI job is configured
+correctly.
+
+Before commit `0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`, published CI
+checkpoints used exact Node 24.18.0 with full-SHA-pinned
+`actions/setup-node` v6.5.0. Their recorded results remain historical and
+unchanged; they do not establish the new Node/action pin. The security update
+changes only the workflow and its contract test, not Quicknet verifier or
+vendored cryptography bytes.
+
+Public CI run `30617537380` succeeded in 16m24s at exact source commit
+`0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`. Every matrix job used the
+full-SHA-pinned setup action, provisioned exact Node 24.18.1 on Linux/x64, and
+passed the exact version/platform/architecture assertions. Python 3.11 passed
+Quicknet 6/6 in 535.647147ms and all 1,047 tests with 22
+environment-specific skips in 856.889s, with a 14m50s job duration. Python
+3.13 passed Quicknet 6/6 in 525.265295ms and the same 1,047-test, 22-skip
+suite in 944.686s, with a 16m20s job duration. Python 3.14 passed Quicknet 6/6
+in 527.783322ms and that suite in 895.407s, with a 15m28s job duration. Every
+matrix job passed Ruff, accepted all 181 checked files as formatted, reported
+zero Pyright errors, warnings, or information messages, and built both the
+sdist and wheel.
 
 The qualification-host Python wrapper in this component is deliberately
 narrower:
@@ -128,13 +151,18 @@ narrower:
 Node 18 is
 [end-of-life](https://nodejs.org/en/about/previous-releases). This wrapper is
 therefore legacy host-qualified only and is not a portable or
-supported-runtime release. CI checks the vendored BLS semantics on supported
-Node 24, but it does not silently authorize a different deployment launcher.
-A future deployment runner must pin and audit a supported runtime and update
-the closed host contract.
+supported-runtime release. Current CI is configured to check the vendored BLS
+semantics on exact Node 24.18.1/Linux/x64, but it does not silently
+authorize a deployment launcher or attest the provisioned runtime outside
+that ephemeral job. A future deployment runner must pin and audit a supported
+host runtime, its launcher and dynamic closure, and update the closed host
+contract.
 
 ## Trust boundary and residual risk
 
+- The setup action pin, version/platform/architecture assertions, and passing
+  BLS suite are semantic-CI evidence, not runtime provenance, deployment, or
+  execution attestation.
 - The Node and `prlimit` hashes cover their launcher files, not the dynamic
   `libnode`, OpenSSL, glibc, kernel, or complete operating-system closure.
   Those root-owned components are an explicit trusted host base.
@@ -154,6 +182,10 @@ the closed host contract.
   or evidence that a beacon is fresh.
 - No future target or round is selected, reserved, fetched, or disclosed by
   this component.
+
+No project or deployment runtime was installed or changed by the source
+update. It built or dispatched no freeze, accessed no protected or real data,
+and ran no worker or detector.
 
 ## Local checks
 

@@ -338,13 +338,44 @@ permission by itself.
   Public CI run `30608426512` succeeded in 16m27s on Python 3.11, 3.13, and
   3.14. Every job passed Quicknet 6/6, all 984 tests with 22
   environment-specific skips, Ruff, formatting of all 179 files, Pyright with
-  no findings, and both distribution builds. Portable semantic CI remains
-  fixed to exact Node 24.18.0. The legacy host wrapper remains fixed to
+  no findings, and both distribution builds. At that checkpoint portable
+  semantic CI was fixed to exact Node 24.18.0 through full-SHA-pinned
+  `actions/setup-node` v6.5.0. The legacy host wrapper remained fixed to
   end-of-life Node 18.19.1 for qualification only; a supported runtime policy
-  is unresolved before any official runner. At that checkpoint no official
-  C3 runner, controller, or freeze builder existed. The next source task was
-  a non-operational, source-only control-bundle builder plus that supported
+  was unresolved before any official runner. No official C3 runner,
+  controller, or freeze builder existed. The next source task was a
+  non-operational, source-only control-bundle builder plus that supported
   runtime policy, without target selection.
+- A portable Quicknet semantic-CI security update at commit
+  `0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`. The workflow now pins exact
+  Node 24.18.1 and `actions/setup-node` v7.0.0 by full commit SHA
+  `820762786026740c76f36085b0efc47a31fe5020`, fixes architecture `x64`, and
+  disables package-manager caching. Before the six mandatory Quicknet tests,
+  it asserts the exact Node version, Linux platform, and x64 architecture.
+  The contract test binds each setup field and assertion exactly once, fixes
+  the runtime assertion/command order, and excludes the host test from
+  portable CI.
+  This is public-input BLS semantic CI on an ephemeral Linux/x64 runner, not
+  an attestation of a deployment launcher, installed runtime, dynamic
+  libraries, kernel, custody, or official worker execution. The unchanged
+  Node 18.19.1 host wrapper remains end-of-life and qualification-only. A
+  supported host runtime and its dynamic closure remain unresolved.
+  Public CI run `30617537380` succeeded in 16m24s at that exact source
+  commit. Every matrix job used the full-SHA-pinned setup action, provisioned
+  exact Node 24.18.1 on Linux/x64, and passed the exact
+  version/platform/architecture assertions. Python 3.11 passed Quicknet 6/6
+  in 535.647147ms and all 1,047 tests with 22 environment-specific skips in
+  856.889s; its job completed in 14m50s. Python 3.13 passed Quicknet 6/6 in
+  525.265295ms and the same 1,047-test, 22-skip suite in 944.686s; its job
+  completed in 16m20s. Python 3.14 passed Quicknet 6/6 in 527.783322ms and
+  that suite in 895.407s; its job completed in 15m28s. Every matrix job
+  passed Ruff, accepted all 181 checked files as formatted, reported zero
+  Pyright errors, warnings, or information messages, and built both the sdist
+  and wheel.
+  No project or deployment runtime was installed or changed by this
+  source-only update. It selected or fetched no target, built or dispatched no
+  freeze, opened no protected or real data, ran no worker or detector, and
+  produced no decipherment or prize result.
 - A deterministic, non-operational
   [KP1979 V3 control source-bundle builder](docs/KP1979_V3_CONTROL_BUNDLE.md),
   published at commit `2e81afef7e188f9dd70059c60b9f1123019b3753`.

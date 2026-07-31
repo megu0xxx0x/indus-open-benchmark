@@ -381,6 +381,42 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Security
 
+- Pin portable Quicknet semantic CI at commit
+  `0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec` to exact Node 24.18.1 and
+  `actions/setup-node` v7.0.0 full commit SHA
+  `820762786026740c76f36085b0efc47a31fe5020`. The workflow explicitly
+  requests x64, disables package-manager caching, and asserts exact version,
+  Linux platform, and x64 architecture before running the six-test portable
+  BLS suite. Its contract test fixes each setup field and assertion exactly
+  once, fixes the runtime assertion/command order, and keeps the host test
+  outside the portable workflow.
+  Earlier public evidence under exact Node 24.18.0 and full-SHA-pinned
+  `actions/setup-node` v6.5.0 remains historical and unchanged; it is not
+  rewritten as evidence for the new pin.
+  This update configures deterministic public-input cryptographic semantic
+  checks in ephemeral Linux/x64 CI only. It does not attest a project or
+  deployment runtime, launcher, dynamic `libnode`, OpenSSL, glibc, kernel,
+  custody, sandbox path, or worker execution. The fixed Node 18.19.1 host
+  wrapper is unchanged, end-of-life, and qualification-only.
+  A supported host-runtime policy and complete dynamic closure remain
+  unresolved.
+  Public CI run `30617537380` succeeded in 16m24s at exact source commit
+  `0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`:
+  - Python 3.11 passed Quicknet 6/6 in 535.647147ms and all 1,047 tests with
+    22 environment-specific skips in 856.889s; its job completed in 14m50s;
+  - Python 3.13 passed Quicknet 6/6 in 525.265295ms and all 1,047 tests with
+    22 environment-specific skips in 944.686s; its job completed in 16m20s;
+    and
+  - Python 3.14 passed Quicknet 6/6 in 527.783322ms and all 1,047 tests with
+    22 environment-specific skips in 895.407s; its job completed in 15m28s.
+  Every job used the full-SHA-pinned setup action, provisioned exact Node
+  24.18.1 on Linux/x64, passed the exact version/platform/architecture
+  assertions, passed Ruff, accepted all 181 checked files as formatted,
+  reported zero Pyright errors, warnings, or information messages, and built
+  both the sdist and wheel.
+  No project or deployment runtime was installed or changed. No freeze,
+  target selection or fetch, protected-data access, worker or detector
+  execution, decipherment result, or prize result occurred.
 - Recognize only Penn's exact generic-object-URL terminal CSV sentinel after
   complete records; continue rejecting every other malformed-width,
   padded, nonterminal, or post-sentinel row.

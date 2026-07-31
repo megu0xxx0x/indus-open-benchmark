@@ -544,3 +544,51 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   then implement and audit an injection-free official one-shot runner. Those
   tasks authorize no freeze, target, worker, detector, real-source access, or
   public or prize claim.
+
+## 2026-07-31 — Portable Quicknet semantic-CI security pin updated
+
+- Commit `0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec` changes exactly the
+  portable CI workflow and its Quicknet contract test. No production Quicknet,
+  vendored cryptography, host wrapper, sandbox, generator, evaluator, builder,
+  or runtime source changed.
+- Portable semantic CI now requests exact Node 24.18.1 on Linux/x64 through
+  `actions/setup-node` v7.0.0 full commit SHA
+  `820762786026740c76f36085b0efc47a31fe5020`. Package-manager caching is
+  disabled. The workflow asserts exact version, `process.platform == "linux"`,
+  and `process.arch == "x64"` before the six mandatory semantic tests.
+- The source contract requires every setup field and assertion exactly once,
+  fixes the runtime assertion/command order, retains the no-skip command, and
+  excludes the qualification-host test from the workflow.
+- Earlier public runs under exact Node 24.18.0 and full-SHA-pinned
+  `actions/setup-node` v6.5.0 remain historical evidence and are not rewritten
+  as results for this configuration.
+- This step configures deterministic public-input BLS semantic checks in an
+  ephemeral Linux/x64 CI job. It is not provenance or attestation for a
+  project or deployment runtime, launcher, dynamic `libnode`, OpenSSL, glibc,
+  kernel, custody, sandbox path, or worker execution.
+- The unchanged Node 18.19.1 host wrapper remains end-of-life and
+  qualification-only. A supported host-runtime policy and complete dynamic
+  closure remain unresolved.
+- Focused Quicknet contract tests, Ruff lint and formatting, Pyright, YAML
+  parsing, and diff checks passed locally. Independent read-only review of the
+  two-file source change reported zero blockers, zero major findings, and zero
+  minor findings.
+- Public CI run `30617537380` succeeded in 16m24s at exact source commit
+  `0e30a61c8f2e1ef6ce557c5ebea5b0ee1b7606ec`:
+  - Python 3.11 passed Quicknet 6/6 in 535.647147ms and all 1,047 tests with
+    22 environment-specific skips in 856.889s; its job completed in 14m50s;
+  - Python 3.13 passed Quicknet 6/6 in 525.265295ms and all 1,047 tests with
+    22 environment-specific skips in 944.686s; its job completed in 16m20s;
+    and
+  - Python 3.14 passed Quicknet 6/6 in 527.783322ms and all 1,047 tests with
+    22 environment-specific skips in 895.407s; its job completed in 15m28s.
+  Every job used the full-SHA-pinned setup action, provisioned exact Node
+  24.18.1 on Linux/x64, passed the exact version/platform/architecture
+  assertions, passed Ruff, accepted all 181 checked files as formatted,
+  reported zero Pyright errors, warnings, or information messages, and built
+  both the sdist and wheel.
+- No project or deployment runtime was installed or changed. No freeze was
+  built or dispatched; no target was selected, reserved, fetched, or accessed;
+  no protected or real data was opened; and no worker or detector ran. This
+  checkpoint establishes no C3 result, real-source result, decipherment
+  evidence, claim authorization, or prize result.
