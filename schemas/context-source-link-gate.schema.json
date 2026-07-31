@@ -1,0 +1,277 @@
+{
+  "$id": "context-source-link-gate.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "counts": {
+      "const": {
+        "admitted_join_count": 0,
+        "distinct_penn_catalog_records": 5,
+        "links": 6
+      }
+    },
+    "links": {
+      "items": false,
+      "maxItems": 6,
+      "minItems": 6,
+      "prefixItems": [
+        {
+          "const": {
+            "collision_group": null,
+            "future_join_status": "not_joined_requires_separate_contract",
+            "identifiers": [
+              {
+                "identifier": "SF 2000",
+                "identifier_namespace": "field_number",
+                "source_id": "mackay-chanhu-daro-1943"
+              },
+              {
+                "identifier": "83830",
+                "identifier_namespace": "official_record_id",
+                "source_id": "penn-museum-collections-data"
+              },
+              {
+                "identifier": "L-141-160",
+                "identifier_namespace": "accession_number",
+                "source_id": "penn-museum-collections-data"
+              }
+            ],
+            "link_id": "chanhu-daro-preselection-v1:000",
+            "preselection_status": "source_locator_only",
+            "role": "lead_no_listed_material_conflict",
+            "unresolved_axis": null
+          }
+        },
+        {
+          "const": {
+            "collision_group": null,
+            "future_join_status": "not_joined_requires_separate_contract",
+            "identifiers": [
+              {
+                "identifier": "SF 3495",
+                "identifier_namespace": "field_number",
+                "source_id": "mackay-chanhu-daro-1943"
+              },
+              {
+                "identifier": "83829",
+                "identifier_namespace": "official_record_id",
+                "source_id": "penn-museum-collections-data"
+              },
+              {
+                "identifier": "L-141-159",
+                "identifier_namespace": "accession_number",
+                "source_id": "penn-museum-collections-data"
+              }
+            ],
+            "link_id": "chanhu-daro-preselection-v1:001",
+            "preselection_status": "source_locator_only",
+            "role": "excavation_location_axis_conflict",
+            "unresolved_axis": "excavation_location"
+          }
+        },
+        {
+          "const": {
+            "collision_group": null,
+            "future_join_status": "not_joined_requires_separate_contract",
+            "identifiers": [
+              {
+                "identifier": "SF 3493",
+                "identifier_namespace": "field_number",
+                "source_id": "mackay-chanhu-daro-1943"
+              },
+              {
+                "identifier": "149372",
+                "identifier_namespace": "official_record_id",
+                "source_id": "penn-museum-collections-data"
+              },
+              {
+                "identifier": "L-141-92",
+                "identifier_namespace": "accession_number",
+                "source_id": "penn-museum-collections-data"
+              }
+            ],
+            "link_id": "chanhu-daro-preselection-v1:002",
+            "preselection_status": "source_locator_only",
+            "role": "lead_no_listed_material_conflict",
+            "unresolved_axis": null
+          }
+        },
+        {
+          "const": {
+            "collision_group": null,
+            "future_join_status": "not_joined_requires_separate_contract",
+            "identifiers": [
+              {
+                "identifier": "SF 2428",
+                "identifier_namespace": "field_number",
+                "source_id": "mackay-chanhu-daro-1943"
+              },
+              {
+                "identifier": "238862",
+                "identifier_namespace": "official_record_id",
+                "source_id": "penn-museum-collections-data"
+              },
+              {
+                "identifier": "L-141-176",
+                "identifier_namespace": "accession_number",
+                "source_id": "penn-museum-collections-data"
+              }
+            ],
+            "link_id": "chanhu-daro-preselection-v1:003",
+            "preselection_status": "source_locator_only",
+            "role": "lead_no_listed_material_conflict",
+            "unresolved_axis": null
+          }
+        },
+        {
+          "const": {
+            "collision_group": "chanhu-daro-penn-329820-collision",
+            "future_join_status": "not_joined_requires_separate_contract",
+            "identifiers": [
+              {
+                "identifier": "SF 3051",
+                "identifier_namespace": "field_number",
+                "source_id": "mackay-chanhu-daro-1943"
+              },
+              {
+                "identifier": "329820",
+                "identifier_namespace": "official_record_id",
+                "source_id": "penn-museum-collections-data"
+              },
+              {
+                "identifier": "L-141-177",
+                "identifier_namespace": "accession_number",
+                "source_id": "penn-museum-collections-data"
+              }
+            ],
+            "link_id": "chanhu-daro-preselection-v1:004",
+            "preselection_status": "source_locator_only",
+            "role": "shared_penn_target_identity_collision",
+            "unresolved_axis": null
+          }
+        },
+        {
+          "const": {
+            "collision_group": "chanhu-daro-penn-329820-collision",
+            "future_join_status": "not_joined_requires_separate_contract",
+            "identifiers": [
+              {
+                "identifier": "SF 2558",
+                "identifier_namespace": "field_number",
+                "source_id": "mackay-chanhu-daro-1943"
+              },
+              {
+                "identifier": "329820",
+                "identifier_namespace": "official_record_id",
+                "source_id": "penn-museum-collections-data"
+              },
+              {
+                "identifier": "L-141-177",
+                "identifier_namespace": "accession_number",
+                "source_id": "penn-museum-collections-data"
+              }
+            ],
+            "link_id": "chanhu-daro-preselection-v1:005",
+            "preselection_status": "source_locator_only",
+            "role": "shared_penn_target_identity_collision",
+            "unresolved_axis": null
+          }
+        }
+      ],
+      "type": "array"
+    },
+    "nonclaims": {
+      "const": {
+        "context_correctness_verified": false,
+        "decipherment_evidence": false,
+        "evaluation_admitted": false,
+        "evaluation_nonexposure_verified": false,
+        "field_number_truth_verified": false,
+        "future_join_rights_verified": false,
+        "object_authenticity_verified": false,
+        "physical_identity_verified": false,
+        "selection_representativeness_verified": false,
+        "source_independence_verified": false,
+        "transcription_approved": false
+      }
+    },
+    "ordering_semantics": {
+      "const": "source_table_order_only_not_rank"
+    },
+    "record_state": {
+      "const": "preselection_only_no_source_join"
+    },
+    "registry_id": {
+      "const": "chanhu-daro-helsinki-gate-v1"
+    },
+    "rights_layers": {
+      "items": false,
+      "maxItems": 3,
+      "minItems": 3,
+      "prefixItems": [
+        {
+          "const": {
+            "layer": "penn_bulk_metadata",
+            "license_id": "CC-BY-4.0",
+            "media_included": false,
+            "redistribution_permitted": true,
+            "rights_status": "open_licensed",
+            "scope": "metadata_only",
+            "source_registry_id": "penn-museum-collections-data"
+          }
+        },
+        {
+          "const": {
+            "layer": "penn_item_page_association",
+            "license_id": null,
+            "media_included": false,
+            "redistribution_permitted": false,
+            "rights_status": "unknown",
+            "scope": "link_only",
+            "source_binding_status": "extra_bulk_item_page_not_registered",
+            "source_layer_id": "penn-museum-object-pages",
+            "source_registry_binding": null
+          }
+        },
+        {
+          "const": {
+            "layer": "mackay_report_locator",
+            "license_id": null,
+            "media_included": false,
+            "redistribution_permitted": false,
+            "rights_status": "unknown",
+            "scope": "link_only",
+            "source_registry_id": "mackay-chanhu-daro-1943"
+          }
+        }
+      ],
+      "type": "array"
+    },
+    "role_counts": {
+      "const": {
+        "excavation_location_axis_conflict": 1,
+        "lead_no_listed_material_conflict": 3,
+        "shared_penn_target_identity_collision": 2
+      }
+    },
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "selection_basis_id": {
+      "const": "chanhu-daro-context-crosswalk-audit:2026-07-28"
+    }
+  },
+  "required": [
+    "counts",
+    "links",
+    "nonclaims",
+    "ordering_semantics",
+    "record_state",
+    "registry_id",
+    "rights_layers",
+    "role_counts",
+    "schema_version",
+    "selection_basis_id"
+  ],
+  "type": "object"
+}
