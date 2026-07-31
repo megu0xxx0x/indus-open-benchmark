@@ -87,6 +87,18 @@ Current assets:
   - [ ] Develop any successor under a new KP1979 detector identifier. Keep the
     exposed V1 cases as regression tests and freeze a separate generator or
     seed before treating a new synthetic result as qualification evidence.
+  - [x] Complete the synthetic-only V3 generator checkpoint: 12 positive,
+    14 negative, and six out-of-contract cases plus eight fixed two-endpoint
+    metamorphic relations, for 48 worker invocations. Bind every
+    controller-side case and relation to exact canonical regeneration under
+    the supplied suite seed. Instantiated controller metadata must not be
+    persisted or published before execution and must not be passed to a
+    worker. Independent source-level QA reported zero blockers, zero major
+    findings, and zero minor findings. KP1979 V2 remains immutable.
+  - [ ] Implement and independently audit the V3 evaluator next. The generator
+    checkpoint includes no evaluator, C3 freeze or run, target Quicknet round,
+    detector, real-source access or result, decipherment evidence, or prize
+    evidence.
   - [ ] Obtain two genuinely separate human passes, compare them only after
     sealing, complete no-invention adjudication, and retain future-evaluation
     values outside detector custody. This is the promotion gate for externally

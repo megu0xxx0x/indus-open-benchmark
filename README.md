@@ -272,6 +272,17 @@ permission by itself.
   detector. V1 is retained as `not_qualified` after failing thin-stroke and
   periodic non-label counterexamples; the result is synthetic-only and makes
   no real-accuracy claim.
+- A synthetic-only deterministic KP1979 V3 generator covering 12 positive,
+  14 negative, and six out-of-contract cases plus eight fixed two-endpoint
+  relations, for exactly 48 worker invocations. Authoritative controller-side
+  validation binds every case and relation to exact canonical regeneration
+  under the supplied suite seed. Only the five-field answer-free request may
+  reach a worker; instantiated controller metadata must not be persisted or
+  published before execution or passed across that boundary. This is
+  generator infrastructure only: it includes no evaluator, C3 freeze or run,
+  target Quicknet round, detector, real-source access or result, decipherment
+  evidence, or prize evidence. KP1979 V2 remains immutable; the evaluator is
+  next.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.

@@ -331,3 +331,37 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
 - No state record has been created for C3, no worker has been invoked, and no
   generator, evaluator, freeze artifact, target round, detector, real-source
   result, decipherment evidence, or prize evidence is established here.
+
+## 2026-07-31T11:57:56+09:00 — KP1979 V3 deterministic generator published
+
+- Public CI run `30524604595` confirmed the preceding one-shot state
+  integration on Python 3.11, 3.13, and 3.14. Each matrix job completed 926
+  tests with 22 environment-specific skips and built both source and wheel
+  distributions.
+- The synthetic-only deterministic
+  [generator](../src/indusbench/kp1979_v3_generator.py) was published at
+  commit `88794f9748e909eef66f54c4c56d82fee5e9e521`. It implements the closed
+  roster of 12 positive, 14 negative, and six out-of-contract cases plus
+  eight fixed two-endpoint metamorphic relations, for exactly 48 worker
+  invocations.
+- Authoritative case and relation validation requires the supplied suite seed
+  and exact equality with deterministic canonical regeneration. Structural
+  certificate checks alone are not an acceptance boundary.
+- The suite seed, generated objects, construction and truth oracles,
+  generation commitments, and schedule metadata are controller-only. Once
+  instantiated, they must not be persisted or published before execution and
+  must never be passed to a worker. Only `request_bytes` under the exact
+  five-field answer-free wire contract may cross that boundary.
+- Independent read-only QA of the publication candidate reported zero
+  blockers, zero major findings, and zero minor findings. The local
+  integrated-source profile passed 99 focused generator/state/wire tests and
+  all 947 repository tests with 19 environment-specific skips, plus Ruff,
+  formatting, Pyright, source and wheel builds, Gitleaks, and public-boundary
+  checks.
+- Public CI run `30599459365` passed all 947 tests with 22
+  environment-specific skips on Python 3.11, 3.13, and 3.14 and built both
+  distributions in every matrix job.
+- This is a source checkpoint, not a C3 freeze or run. It establishes no
+  evaluator, target Quicknet round, detector, real-source access or result,
+  decipherment evidence, or prize evidence. KP1979 V2 remains immutable. The
+  V3 evaluator is the next implementation checkpoint.

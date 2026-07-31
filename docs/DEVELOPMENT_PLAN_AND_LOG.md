@@ -1,8 +1,8 @@
 # Public development plan and status
 
-**Status date:** 2026-07-30
+**Status date:** 2026-07-31
 
-**Last source-level update:** 2026-07-30
+**Last source-level update:** 2026-07-31
 
 **Project:** Open Indus Benchmark
 
@@ -1345,3 +1345,43 @@ No C3 attempt marker or terminal record has been created. This checkpoint
 executes no worker and establishes no generator, evaluator, freeze artifact,
 target round, detector, C3 result, real-source result, decipherment evidence,
 or prize evidence.
+
+## KP1979 V3 deterministic generator checkpoint — 2026-07-31
+
+The preceding one-shot state integration was confirmed by public CI run
+`30524604595`. Python 3.11, 3.13, and 3.14 each completed 926 tests with 22
+environment-specific skips and built both source and wheel distributions.
+
+The synthetic-only deterministic
+[generator](../src/indusbench/kp1979_v3_generator.py) was published at commit
+`88794f9748e909eef66f54c4c56d82fee5e9e521`. It implements all 12 positive,
+14 negative, and six out-of-contract cases and all eight two-endpoint
+metamorphic relations fixed by the protocol. The closed controller schedule
+therefore contains exactly 48 worker invocations.
+
+Every generated case and relation is authoritatively checked against exact
+canonical regeneration under the supplied suite seed. This seed-bound
+boundary rejects wrong-seed objects, cross-recipe substitutions, retagged
+construction metadata, relation substitutions, and commitment changes.
+Low-level structural certificate validation is not an authoritative
+acceptance boundary.
+
+The suite seed, generated objects, full construction and truth metadata,
+generation commitments, and schedule metadata are controller-only. Once
+instantiated, they must not be persisted or published before execution and
+must never be passed to a worker. A worker may receive only `request_bytes`
+satisfying the exact five-field answer-free wire contract.
+
+Independent read-only QA reported zero blockers, zero major findings, and zero
+minor findings. The local integrated-source profile passed 99 focused
+generator/state/wire tests and all 947 repository tests with 19
+environment-specific skips, plus Ruff, formatting, Pyright, both distribution
+builds, Gitleaks, and public-boundary checks. Public CI run `30599459365`
+passed all 947 tests with 22 environment-specific skips on Python 3.11, 3.13,
+and 3.14 and built both distributions in every matrix job.
+
+This checkpoint does not implement an evaluator and is not a C3 freeze or
+run. No target Quicknet round has been selected. No detector, real-source
+access or result, decipherment evidence, or prize evidence exists. KP1979 V2
+remains immutable. The next controlled implementation task is the V3
+evaluator.
