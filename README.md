@@ -341,10 +341,51 @@ permission by itself.
   no findings, and both distribution builds. Portable semantic CI remains
   fixed to exact Node 24.18.0. The legacy host wrapper remains fixed to
   end-of-life Node 18.19.1 for qualification only; a supported runtime policy
-  is unresolved before any official runner. No official C3 runner,
-  controller, or freeze builder exists. The next source task is a
-  non-operational, source-only control-bundle builder plus that supported
-  runtime policy, without selecting a target.
+  is unresolved before any official runner. At that checkpoint no official
+  C3 runner, controller, or freeze builder existed. The next source task was
+  a non-operational, source-only control-bundle builder plus that supported
+  runtime policy, without target selection.
+- A deterministic, non-operational
+  [KP1979 V3 control source-bundle builder](docs/KP1979_V3_CONTROL_BUNDLE.md),
+  published at commit `2e81afef7e188f9dd70059c60b9f1123019b3753`.
+  Its closed canonical representation contains exactly 36 source payloads and
+  37 regular-file members after adding the manifest. The manifest fixes the
+  protocol, control, target-algorithm, and worker identities; records 32 case
+  plus 16 relation-endpoint invocations; marks the subject source-only and
+  non-operational; records no target selection; and requires detector and
+  integration components to be absent.
+  Verification bounds and exactly reconstructs compact ASCII JSON, canonical
+  USTAR, and project-owned stored-DEFLATE gzip bytes.
+  The exact 63 focused tests passed under CPython 3.12.11 in 2.017s. All
+  1,047 repository tests completed locally in 1002.306s with 19
+  environment-specific skips; Ruff, formatting of 181 files, zero-finding
+  Pyright, sdist and wheel builds, Gitleaks, and public-boundary checks
+  passed. Two independent audits each reported zero blockers, zero major
+  findings, and zero minor findings.
+  Public CI run `30615528575` succeeded in 16m23s at exact source commit
+  `2e81afef7e188f9dd70059c60b9f1123019b3753`:
+  - Python 3.11 passed Quicknet 6/6 in 520.428152ms and all 1,047 tests with
+    22 environment-specific skips in 848.443s; its job completed in 14m35s;
+  - Python 3.13 passed Quicknet 6/6 in 537.327487ms and all 1,047 tests with
+    22 environment-specific skips in 943.488s; its job completed in 16m13s;
+    and
+  - Python 3.14 passed Quicknet 6/6 in 410.523122ms and all 1,047 tests with
+    22 environment-specific skips in 675.542s; its job completed in 11m48s.
+  Every matrix job passed Ruff, accepted all 181 checked files as formatted,
+  reported zero Pyright errors, warnings, or information messages, and built
+  both the sdist and wheel.
+  The supplied `source_commit` remains an unauthenticated label; Git
+  authenticity, custody, trusted time, and commit-to-checkout equality are
+  external. Descriptor and no-replace hardening do not form a security
+  boundary against same-UID or root actors or eliminate every race. The
+  evaluator's injected-invoker result remains a non-attestation. Quicknet
+  repeated-interrupt and sandbox `BaseException` cleanup residuals plus a
+  supported host-runtime policy remain unresolved before any official runner.
+  The code exists, but no real control bundle, freeze artifact, or subject
+  digest was generated or retained. No freeze or dispatch exists; no target
+  or real-run seed,
+  schedule, truth, worker execution, detector, integration, runner,
+  real-source access or result, decipherment evidence, or prize claim exists.
 - An atomic private review bundle that binds every policy entry to exact bytes,
   starts every source/right/use decision at deny-all pending review, and records
   structured anomalies without copying source values.

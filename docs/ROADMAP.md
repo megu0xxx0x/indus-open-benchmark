@@ -132,17 +132,49 @@ Current assets:
     3.14 with Quicknet 6/6, all 984 tests and 22 environment-specific skips
     per job, Ruff, formatting of all 179 files, Pyright with no findings, and
     both builds.
-  - [ ] Implement the non-operational, source-only C3 control-bundle builder
-    without dispatching a freeze or worker, and establish a supported runtime
-    policy before any official runner. Portable semantic CI remains exact
-    Node 24.18.0; the fixed Node 18.19.1 host wrapper remains end-of-life and
-    qualification-only. A future official runner must internally construct
-    and own an exact `SandboxedWorkerInvoker`, permit no caller-supplied
-    invoker, and verify its counters and the one-shot state transition. The
-    evaluator's injected-invoker result remains a non-attestation.
-    No official C3 runner, controller, or freeze builder exists, and no target
-    round is selected. This step authorizes no freeze, C3 run, detector,
-    real-source access, decipherment claim, or prize action.
+  - [x] Implement and independently audit the non-operational, source-only C3
+    control-bundle builder at commit
+    `2e81afef7e188f9dd70059c60b9f1123019b3753`. Its canonical source roster is
+    exactly 36 payloads and 37 members including the manifest. It records 32
+    case and 16 relation-endpoint invocations while fixing
+    `source_only=true`, `non_operational=true`, no target selection, and
+    absent detector and integration components. Local evidence passed all 63
+    focused tests under exact CPython 3.12.11 in 2.017s, all 1,047 repository
+    tests with 19 environment-specific skips in 1002.306s, Ruff, formatting
+    of 181 files, zero-finding Pyright, sdist and wheel builds, Gitleaks, and
+    public-boundary checks. Two independent read-only source audits each
+    reported zero blockers, zero major findings, and zero minor findings.
+    Public CI run `30615528575` succeeded in 16m23s at exact source commit
+    `2e81afef7e188f9dd70059c60b9f1123019b3753`:
+    - Python 3.11 passed Quicknet 6/6 in 520.428152ms and all 1,047 tests with
+      22 environment-specific skips in 848.443s; its job completed in 14m35s;
+    - Python 3.13 passed Quicknet 6/6 in 537.327487ms and all 1,047 tests with
+      22 environment-specific skips in 943.488s; its job completed in 16m13s;
+      and
+    - Python 3.14 passed Quicknet 6/6 in 410.523122ms and all 1,047 tests with
+      22 environment-specific skips in 675.542s; its job completed in 11m48s.
+    Every matrix job passed Ruff, accepted all 181 checked files as formatted,
+    reported zero Pyright errors, warnings, or information messages, and built
+    both the sdist and wheel.
+    The `source_commit` label does not prove Git authenticity or custody, and
+    same-UID/root race limitations remain. Exact CPython 3.12.11 is installed
+    locally, but no real control bundle, freeze artifact, or subject digest was
+    generated or retained.
+    This checkpoint dispatched no freeze or worker and selected no target.
+  - [ ] Establish a supported host-runtime policy and harden sandbox
+    `BaseException` cleanup before implementing any official runner. Portable
+    semantic CI remains exact Node 24.18.0; the fixed Node 18.19.1 host
+    wrapper remains end-of-life and qualification-only. Quicknet cleanup
+    remains bounded best effort under a second or repeated hostile interrupt.
+  - [ ] Implement an official one-shot runner only after those gates. It must
+    internally construct and own an exact `SandboxedWorkerInvoker`, permit no
+    caller-supplied invoker or factory, verify its process and invocation
+    counters, and bind the result to the one-shot state transition. The
+    current evaluator's injected-invoker result remains a non-attestation.
+    Git authenticity, commit-to-checkout equality, trusted time, artifact
+    custody, and privileged-actor controls remain external. This step does
+    not authorize a freeze, target selection or fetch, C3 execution,
+    detector, real-source access, decipherment claim, or prize action.
   - [ ] Obtain two genuinely separate human passes, compare them only after
     sealing, complete no-invention adjudication, and retain future-evaluation
     values outside detector custody. This is the promotion gate for externally

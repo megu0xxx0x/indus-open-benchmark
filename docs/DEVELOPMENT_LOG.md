@@ -469,3 +469,78 @@ in the [MTAAC V4 development protocol](MTAAC_V4_DEVELOPMENT.md).
   supported runtime policy. This does not authorize target selection, freeze
   dispatch, detector execution, real-source access, or a public or prize
   claim.
+
+## 2026-07-31 — KP1979 V3 control source-bundle builder published
+
+- Commit `2e81afef7e188f9dd70059c60b9f1123019b3753` adds the
+  deterministic, non-operational
+  [control source-bundle builder](KP1979_V3_CONTROL_BUNDLE.md) and its closed
+  manifest schema. The code exists, but no real control bundle, freeze
+  artifact, or subject digest has been generated or retained.
+- The exact roster contains 36 payloads and 37 regular-file members after
+  adding `MANIFEST.json`: the license, schema, package initializer, builder,
+  12 controller-side modules, and the exact 20-file vendored Noble/Quicknet
+  closure.
+- The manifest fixes all identities and the 32 case, 16 relation-endpoint, and
+  48 total invocation counts. It states that the subject is source-only and
+  non-operational, that no target round is selected, and that detector and
+  integration components are absent. Each payload entry binds its exact path,
+  size, and SHA-256.
+- The bounded verifier requires compact sorted-key ASCII JSON with one LF,
+  sorted regular-file-only canonical USTAR, and a fixed project-owned
+  stored-DEFLATE gzip stream. It rejects noncanonical metadata, framing,
+  rosters, hashes, paths, padding, links, special files, concatenation, and
+  trailing data, then reconstructs the exact subject bytes.
+- Source reads use descriptor-relative, no-follow access with ancestry,
+  directory, leaf, fingerprint, and forbidden-module revalidation. Output is
+  owner-only, synchronized, no-replace, and verified by namespace, inode, link
+  count, mode, size, and bytes. On failure, cleanup rechecks that the output
+  name identifies the builder-owned inode and otherwise preserves an unknown
+  entry. This is best effort and not atomic against same-UID or root namespace
+  replacement.
+- The exact CLI gate requires CPython 3.12.11, the exact `-s -B -m` invocation,
+  and exactly eight closed environment keys. That runtime is installed in the
+  local qualification environment, but it was not used to produce or retain
+  a real artifact.
+- Local evidence passed:
+  - all 63 focused control-bundle tests under exact CPython 3.12.11 in 2.017s;
+  - all 1,047 repository tests with 19 environment-specific skips in
+    1002.306s;
+  - Ruff lint, Ruff format over all 181 checked files, Pyright with zero
+    errors, warnings, or information messages, sdist and wheel builds,
+    Gitleaks, and public-boundary checks; and
+  - two independent audits, each reporting zero blockers, zero major
+    findings, and zero minor findings.
+- Public CI run `30615528575` succeeded in 16m23s at exact source commit
+  `2e81afef7e188f9dd70059c60b9f1123019b3753`:
+  - Python 3.11 passed Quicknet 6/6 in 520.428152ms and all 1,047 tests with
+    22 environment-specific skips in 848.443s; its job completed in 14m35s;
+  - Python 3.13 passed Quicknet 6/6 in 537.327487ms and all 1,047 tests with
+    22 environment-specific skips in 943.488s; its job completed in 16m13s;
+    and
+  - Python 3.14 passed Quicknet 6/6 in 410.523122ms and all 1,047 tests with
+    22 environment-specific skips in 675.542s; its job completed in 11m48s.
+  Every matrix job passed Ruff, accepted all 181 checked files as formatted,
+  reported zero Pyright errors, warnings, or information messages, and built
+  both the sdist and wheel.
+- The supplied `source_commit` is a 40-character label checked for manifest
+  equality; the builder does not verify Git, signatures, checkout equality,
+  trusted time, or custody. Descriptor and no-replace checks do not establish
+  a boundary against same-UID or root actors and cannot remove every race
+  window.
+- The evaluator's injected-invoker result remains a non-attestation. A future
+  official runner must internally own the exact `SandboxedWorkerInvoker`.
+  Quicknet cleanup retains a second/repeated-interrupt residual; the sandbox
+  needs explicit `BaseException` cleanup hardening; and the supported
+  host-runtime policy remains unresolved. Node 18.19.1 is end-of-life and
+  qualification-only.
+- No freeze was built or dispatched. No target was selected, reserved, fetched,
+  or accessed. No real-run suite seed, schedule, generated truth, worker
+  response, detector, integration binding, official runner, real-source
+  access or result, C3 result, decipherment evidence, translation, public
+  claim authorization, or prize evidence exists. KP1979 V2 remains retired
+  and immutable.
+- Next: resolve the supported host runtime and sandbox interruption cleanup,
+  then implement and audit an injection-free official one-shot runner. Those
+  tasks authorize no freeze, target, worker, detector, real-source access, or
+  public or prize claim.

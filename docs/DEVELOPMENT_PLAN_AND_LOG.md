@@ -1518,3 +1518,112 @@ internally construct and own an exact `SandboxedWorkerInvoker`, permit no
 caller-supplied invoker, and preserve the one-shot and aggregate-only
 boundaries. This step authorizes no freeze dispatch, worker or detector
 execution, real-source access, public claim, or prize action.
+
+## KP1979 V3 non-operational control source bundle — 2026-07-31
+
+The deterministic
+[control source-bundle builder](KP1979_V3_CONTROL_BUNDLE.md) is implemented at
+commit `2e81afef7e188f9dd70059c60b9f1123019b3753`. It packages public source
+only. The implementation does not select a target, derive a suite seed,
+instantiate a generator object, invoke a worker, evaluate a response, open
+one-shot state, or implement a detector, integration binding, controller, or
+runner.
+
+The closed payload roster has exactly 36 files: the project license, one
+manifest schema, the package initializer, the builder, 12 controller-side
+modules, and the exact 20-file vendored Noble/Quicknet closure. The canonical
+archive has 37 regular-file members after adding `MANIFEST.json`. The builder
+rejects any source tree containing the forbidden controller, detector,
+detector-freeze, integration, integration-freeze, or runner components.
+
+The compact canonical manifest fixes the protocol, control, target-algorithm,
+and worker identities; 32 case invocations; 16 metamorphic endpoints; 48 total
+invocations; `source_only=true`; `non_operational=true`;
+`target_round_selected=false`; and absent detector and integration components.
+It binds the exact ordered path, byte size, and SHA-256 of every payload.
+
+The subject representation is closed:
+
+- sorted regular-file-only USTAR uses mode `0644`, UID/GID and mtime zero,
+  empty owner names, canonical fields and padding, and exactly two terminal
+  zero blocks;
+- a project-owned stored-DEFLATE encoder emits one fixed gzip stream with
+  mtime zero, no filename, and OS byte 255; and
+- bounded verification checks the exact roster and manifest, payload sizes and
+  hashes, gzip CRC and size, and byte-for-byte reconstruction of both layers.
+
+Descriptor-relative source reads reject unsafe ownership, group- or
+other-writable or executable files, links, special files, and namespace or
+fingerprint changes.
+The output contract requires an absolute exact basename under an owner-only
+parent, writes and synchronizes an owner-only staging inode, publishes without
+replacement, and verifies the final namespace/inode/link/mode/size/bytes. On
+failure, cleanup rechecks that the output name identifies the builder-owned
+inode and otherwise preserves an unknown entry. This is best effort and not
+atomic against same-UID or root namespace replacement.
+
+The command-line environment is closed to exact CPython 3.12.11, exact
+`-s -B -m` invocation, and eight exact environment keys. Exact CPython 3.12.11
+is installed locally. No real source bundle was generated or retained, so
+there is no release artifact or subject digest.
+
+Local source evidence:
+
+- all 63 focused control-bundle tests passed under exact CPython 3.12.11 in
+  2.017s;
+- all 1,047 repository tests completed with 19 environment-specific skips in
+  1002.306s;
+- Ruff lint passed and Ruff format accepted all 181 files;
+- Pyright reported zero errors, warnings, or information messages;
+- sdist and wheel builds passed;
+- Gitleaks and public-boundary checks passed; and
+- two independent read-only audits each reported zero blockers, zero major
+  findings, and zero minor findings.
+
+Public CI run `30615528575` succeeded in 16m23s at exact source commit
+`2e81afef7e188f9dd70059c60b9f1123019b3753`:
+
+- Python 3.11 passed Quicknet 6/6 in 520.428152ms and all 1,047 tests with 22
+  environment-specific skips in 848.443s; its job completed in 14m35s.
+- Python 3.13 passed Quicknet 6/6 in 537.327487ms and all 1,047 tests with 22
+  environment-specific skips in 943.488s; its job completed in 16m13s.
+- Python 3.14 passed Quicknet 6/6 in 410.523122ms and all 1,047 tests with 22
+  environment-specific skips in 675.542s; its job completed in 11m48s.
+
+Every matrix job passed Ruff, accepted all 181 checked files as formatted,
+reported zero Pyright errors, warnings, or information messages, and built
+both the sdist and wheel.
+
+This evidence does not convert the builder into an attestation. The
+`source_commit` input is validated only as lowercase hexadecimal and manifest
+equality; authenticity, commit-to-checkout equality, signatures, trusted time,
+non-deletion, and independent custody remain external. Descriptor, inode, and
+namespace revalidation plus no-replace output do not defend against all
+same-UID or root actions and cannot eliminate every race.
+
+The evaluator still accepts a supplied invoker, so its aggregate result cannot
+prove use of the official sandbox. A future official runner must internally
+construct and own the exact `SandboxedWorkerInvoker`, permit no caller-supplied
+invoker or factory, verify process and invocation counters, and bind the
+aggregate result to the one-shot transition. Before that runner, the project
+must harden the sandbox `BaseException` process-cleanup path and resolve the
+supported host-runtime policy. Quicknet cleanup remains bounded best effort
+against a second or repeated hostile interrupt. Portable semantic CI uses
+exact Node 24.18.0, while the current fixed Node 18.19.1 host wrapper remains
+end-of-life and qualification-only.
+
+No real control bundle, freeze artifact, or subject digest was generated or retained.
+No freeze was dispatched. No target round was selected, reserved, fetched, or
+accessed. No real suite seed, schedule, generated object, truth, request,
+worker response, or oracle was instantiated or persisted. No detector,
+integration binding, official runner, worker execution, detector execution,
+real-source access or result, C3 result, decipherment evidence, translation,
+claim authorization, or prize evidence exists. KP1979 V2 remains retired and
+immutable.
+
+The next controlled source work is the supported host-runtime decision,
+sandbox interruption-cleanup hardening, and an injection-free official
+one-shot runner. External authenticity and custody controls must also be
+defined before any authoritative use. None of those tasks authorizes building
+or dispatching a freeze, selecting or fetching a target, running a worker or
+detector, opening real source material, or making a public or prize claim.

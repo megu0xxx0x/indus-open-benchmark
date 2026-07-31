@@ -7,6 +7,55 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A deterministic, non-operational KP1979 V3 control source-bundle builder at
+  commit `2e81afef7e188f9dd70059c60b9f1123019b3753`. Its exact allowlist has
+  36 payload files and produces a 37-member canonical source-only subject
+  after adding `MANIFEST.json`. The closed manifest fixes all protocol,
+  control, target-algorithm, and worker identities; 32 case, 16
+  relation-endpoint, and 48 total invocations; `source_only=true`;
+  `non_operational=true`; `target_round_selected=false`; and absent detector
+  and integration components. A bounded verifier requires compact canonical
+  ASCII JSON, canonical regular-file-only USTAR, project-owned
+  stored-DEFLATE gzip, exact roster, byte sizes and SHA-256 values, and exact
+  byte reconstruction.
+  Source reads are descriptor-relative and namespace-revalidated. Output uses
+  a private parent, owner-only staging, sync, no-replace hard-link publication,
+  and inode-and-byte verification. On failure, cleanup rechecks that the output
+  name identifies the builder-owned inode and otherwise preserves an unknown
+  entry; that check is best effort and not atomic against same-UID or root
+  replacement. These controls cannot prove
+  authenticity, custody, trusted time, or the absence of every race. The
+  supplied `source_commit` requires external authentication; it is not a Git
+  attestation.
+  The complete 63-test focused suite passed under exact CPython 3.12.11 in
+  2.017s, and all 1,047 repository tests completed in 1002.306s with 19
+  environment-specific skips. Ruff lint, Ruff format over 181 files, Pyright
+  with zero findings, sdist and wheel builds, Gitleaks, and public-boundary
+  checks passed. Two independent source audits each reported zero blockers,
+  zero major findings, and zero minor findings.
+  Public CI run `30615528575` succeeded in 16m23s at exact source commit
+  `2e81afef7e188f9dd70059c60b9f1123019b3753`:
+  - Python 3.11 passed Quicknet 6/6 in 520.428152ms and all 1,047 tests with
+    22 environment-specific skips in 848.443s; its job completed in 14m35s;
+  - Python 3.13 passed Quicknet 6/6 in 537.327487ms and all 1,047 tests with
+    22 environment-specific skips in 943.488s; its job completed in 16m13s;
+    and
+  - Python 3.14 passed Quicknet 6/6 in 410.523122ms and all 1,047 tests with
+    22 environment-specific skips in 675.542s; its job completed in 11m48s.
+  Every matrix job passed Ruff, accepted all 181 checked files as formatted,
+  reported zero Pyright errors, warnings, or information messages, and built
+  both the sdist and wheel.
+  Exact CPython 3.12.11 is installed locally, but no real control bundle,
+  freeze artifact, or subject digest was generated or retained. The evaluator
+  still accepts an injected
+  invoker and remains a non-attestation. Same-UID/root race and custody
+  limitations, Quicknet repeated-interrupt cleanup, sandbox
+  `BaseException` cleanup, and the supported host-runtime policy remain open.
+  Node 18.19.1 remains end-of-life and qualification-only.
+  No freeze was dispatched; no target or real-run seed, schedule, truth,
+  worker execution, detector, integration, official runner, real-source
+  access or result, decipherment evidence, or prize claim exists. KP1979 V2
+  remains retired and immutable.
 - Quicknet interruption cleanup hardened at commit
   `eda8af5791ed3ad6073d80308fa0696434ab89b6`. A `BaseException` from the
   initial verifier `communicate` now starts bounded best-effort cleanup:
@@ -39,13 +88,13 @@ immutable content-addressed identifiers for corpus and split releases.
   zero Pyright errors, warnings, or information messages, and built both the
   sdist and wheel. Portable semantic CI remains exact Node 24.18.0. The fixed
   Node 18.19.1 host wrapper remains end-of-life and qualification-only; the
-  supported runtime policy is unresolved before an official runner. No
-  official C3 runner, controller, or freeze builder exists; no freeze has
-  been dispatched; and no target round, detector, real-source access or
-  result, decipherment evidence, or prize result exists. The evaluator's
-  injected-invoker result remains a non-attestation. KP1979 V2 remains
-  immutable. Next is a non-operational, source-only control-bundle builder and
-  supported runtime policy, with no target selection.
+  supported runtime policy is unresolved before an official runner. At that
+  checkpoint no official C3 runner, controller, or freeze builder existed; no
+  freeze had been dispatched; and no target round, detector, real-source
+  access or result, decipherment evidence, or prize result existed. The
+  evaluator's injected-invoker result remained a non-attestation. KP1979 V2
+  remained immutable. Next was a non-operational, source-only control-bundle
+  builder and supported runtime policy, with no target selection.
 - A streaming, aggregate-only KP1979 V3 evaluator at commit
   `ee847035867fe92dbca8b3e0aa9422dcfd43f138`. It builds and
   same-seed-validates one canonical case or relation at a time and passes only
