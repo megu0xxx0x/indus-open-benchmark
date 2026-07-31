@@ -1,0 +1,779 @@
+{
+  "canonical_json_profile": {
+    "allow_nan": false,
+    "document_end": "single_lf",
+    "document_start": "no_bom",
+    "encoding": "utf-8",
+    "ensure_ascii": false,
+    "floats_permitted": false,
+    "indent_spaces_per_level": 2,
+    "item_separator": "comma_then_lf_and_indentation",
+    "key_order": "sort_keys_true_lexicographic_unicode_code_point",
+    "key_value_separator": "colon_then_space",
+    "noncanonical_raw_bytes_disposition": "hard_reject",
+    "number_policy": "integers_only_floats_forbidden",
+    "profile_id": "indusbench-io-encode-json-v1"
+  },
+  "contract_id": "source-reported-link-source-contract-v1",
+  "contract_status": "preregistered_contract_blocked_pending_revision_receipt",
+  "execution_boundary": {
+    "authorization_status": "not_authorized",
+    "canonical_byte_identity_required": true,
+    "execution_status": "not_executed",
+    "observations_present": false,
+    "operational_parser_implemented": false,
+    "pass_seals_present": false,
+    "results_present": false,
+    "revision_receipt_present": false,
+    "runtime_evaluator_implemented": false,
+    "schema_validation_scope": "semantic_exact_const_with_json_number_equivalence",
+    "source_access_performed_under_contract": false
+  },
+  "forbidden_channels": [
+    "confidence",
+    "excerpt",
+    "free_text",
+    "glyph",
+    "image",
+    "linguistic",
+    "media",
+    "notes",
+    "ocr",
+    "page",
+    "raw",
+    "sequence",
+    "sign",
+    "similarity",
+    "source_bytes",
+    "token",
+    "transcription",
+    "visual"
+  ],
+  "inspection_procedure": {
+    "allowed_lookup_namespaces": [
+      "field_number",
+      "official_record_id",
+      "accession_number"
+    ],
+    "candidate_cardinality": "zero_or_one_else_unresolved",
+    "conflicts_preserved": true,
+    "content_retention_boundary": {
+      "future_authorized_protected_ephemeral_pass_input_required": true,
+      "future_protected_ephemeral_retention_status": "required_but_not_authorized",
+      "persistent_retention_permitted": false,
+      "public_or_repository_retention_permitted": false,
+      "separate_custody_and_deletion_contract_status": "missing"
+    },
+    "future_completeness_attestation": {
+      "canonical_json_profile_id": "indusbench-io-encode-json-v1",
+      "coverage_key": "ordered_link_id_slots_one_to_one",
+      "digest_domain": "indusbench:source-reported-link:completeness-attestation:v1",
+      "digest_framing": "utf8_domain_then_nul_then_canonical_encode_json_attestation_without_pass_identity_or_seal",
+      "digest_input_fields": [
+        "contract_sha256",
+        "revision_receipt_sha256",
+        "source_revision_sha256",
+        "ordered_source_roster_count",
+        "ordered_source_roster_sha256",
+        "processed_link_ids",
+        "processed_count",
+        "missing_count",
+        "extra_count",
+        "duplicate_count",
+        "unreadable_count",
+        "error_count",
+        "ambiguous_count"
+      ],
+      "five_resource_coverage_substitution_permitted": false,
+      "fixed_inputs": {
+        "ambiguous_count": 0,
+        "duplicate_count": 0,
+        "error_count": 0,
+        "extra_count": 0,
+        "missing_count": 0,
+        "ordered_source_roster_count": 6,
+        "ordered_source_roster_sha256": "sha256:28fe425d8e3d2dcb0b6d6b5c89a3d5d8c3bcea0ab0b6ec86158e185bd0f7a86f",
+        "processed_count": 6,
+        "processed_link_ids": [
+          "chanhu-daro-preselection-v1:000",
+          "chanhu-daro-preselection-v1:001",
+          "chanhu-daro-preselection-v1:002",
+          "chanhu-daro-preselection-v1:003",
+          "chanhu-daro-preselection-v1:004",
+          "chanhu-daro-preselection-v1:005"
+        ],
+        "unreadable_count": 0
+      },
+      "input_mapping": {
+        "contract_sha256": "future_finalized_contract_exact_canonical_bytes_sha256",
+        "revision_receipt_sha256": "future_valid_receipt_digest_provenance_only",
+        "source_revision_sha256": "future_revision_set_digest_exact_parent_policy_source_revision_sha256_exact"
+      },
+      "revision_receipt_sha256_cannot_substitute_for_source_revision_sha256": true,
+      "shared_penn_resource_reuse_counts_as_duplicate": false,
+      "status": "not_created_before_execution",
+      "two_pass_digest_equality_required": true
+    },
+    "network_during_pass": "prohibited",
+    "no_link_rule": "source-reported-link-policy-v1-exact",
+    "operational_parser_status": "not_implemented",
+    "procedure_id": "source-reported-link-static-inspection-v1",
+    "row_order": "parent_source_table_order",
+    "row_substitution_permitted": false,
+    "source_acquisition_separate_from_pass": true,
+    "source_revision_mismatch": "hard_reject",
+    "task_aggregation_permitted": false,
+    "zero_candidate_without_complete_attestation": "unresolved"
+  },
+  "nonclaims": {
+    "caller_fabrication_prevented": false,
+    "context_correctness_verified": false,
+    "custody_verified": false,
+    "decipherment_evidence": false,
+    "evaluation_admitted": false,
+    "field_number_truth_verified": false,
+    "future_join_rights_verified": false,
+    "hash_proves_authenticity": false,
+    "hash_proves_rights": false,
+    "independent_custody_verified": false,
+    "inspection_authorized": false,
+    "join_admitted": false,
+    "object_authenticity_verified": false,
+    "physical_identity_resolved": false,
+    "rights_legal_conclusion_made": false,
+    "source_independence_verified": false,
+    "source_revision_set_complete": false,
+    "transcription_approved": false,
+    "trusted_time_verified": false,
+    "truth_authenticated": false
+  },
+  "ordered_inspection_roster": {
+    "canonical_json_profile_id": "indusbench-io-encode-json-v1",
+    "hash_domain": "indusbench:source-reported-link:ordered-inspection-roster:v1",
+    "hash_framing": "utf8_domain_then_nul_then_canonical_encode_json_tasks",
+    "ordered_source_roster_count": 6,
+    "ordered_source_roster_sha256": "sha256:28fe425d8e3d2dcb0b6d6b5c89a3d5d8c3bcea0ab0b6ec86158e185bd0f7a86f",
+    "ordering_semantics": "parent_source_table_order_only_not_rank",
+    "post_hoc_row_substitution_permitted": false,
+    "result_aggregation_permitted": false,
+    "tasks": [
+      {
+        "collision_group": null,
+        "index": 0,
+        "link_id": "chanhu-daro-preselection-v1:000",
+        "mackay_locator": {
+          "identifier": "SF 2000",
+          "identifier_namespace": "field_number",
+          "resource_id": "source-resource-v1:mackay-report"
+        },
+        "penn_locators": [
+          {
+            "identifier": "83830",
+            "identifier_namespace": "official_record_id"
+          },
+          {
+            "identifier": "L-141-160",
+            "identifier_namespace": "accession_number"
+          }
+        ],
+        "penn_resource_id": "source-resource-v1:penn-object-83830",
+        "role": "lead_no_listed_material_conflict",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": null,
+        "index": 1,
+        "link_id": "chanhu-daro-preselection-v1:001",
+        "mackay_locator": {
+          "identifier": "SF 3495",
+          "identifier_namespace": "field_number",
+          "resource_id": "source-resource-v1:mackay-report"
+        },
+        "penn_locators": [
+          {
+            "identifier": "83829",
+            "identifier_namespace": "official_record_id"
+          },
+          {
+            "identifier": "L-141-159",
+            "identifier_namespace": "accession_number"
+          }
+        ],
+        "penn_resource_id": "source-resource-v1:penn-object-83829",
+        "role": "excavation_location_axis_conflict",
+        "unresolved_axis": "excavation_location"
+      },
+      {
+        "collision_group": null,
+        "index": 2,
+        "link_id": "chanhu-daro-preselection-v1:002",
+        "mackay_locator": {
+          "identifier": "SF 3493",
+          "identifier_namespace": "field_number",
+          "resource_id": "source-resource-v1:mackay-report"
+        },
+        "penn_locators": [
+          {
+            "identifier": "149372",
+            "identifier_namespace": "official_record_id"
+          },
+          {
+            "identifier": "L-141-92",
+            "identifier_namespace": "accession_number"
+          }
+        ],
+        "penn_resource_id": "source-resource-v1:penn-object-149372",
+        "role": "lead_no_listed_material_conflict",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": null,
+        "index": 3,
+        "link_id": "chanhu-daro-preselection-v1:003",
+        "mackay_locator": {
+          "identifier": "SF 2428",
+          "identifier_namespace": "field_number",
+          "resource_id": "source-resource-v1:mackay-report"
+        },
+        "penn_locators": [
+          {
+            "identifier": "238862",
+            "identifier_namespace": "official_record_id"
+          },
+          {
+            "identifier": "L-141-176",
+            "identifier_namespace": "accession_number"
+          }
+        ],
+        "penn_resource_id": "source-resource-v1:penn-object-238862",
+        "role": "lead_no_listed_material_conflict",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": "chanhu-daro-penn-329820-collision",
+        "index": 4,
+        "link_id": "chanhu-daro-preselection-v1:004",
+        "mackay_locator": {
+          "identifier": "SF 3051",
+          "identifier_namespace": "field_number",
+          "resource_id": "source-resource-v1:mackay-report"
+        },
+        "penn_locators": [
+          {
+            "identifier": "329820",
+            "identifier_namespace": "official_record_id"
+          },
+          {
+            "identifier": "L-141-177",
+            "identifier_namespace": "accession_number"
+          }
+        ],
+        "penn_resource_id": "source-resource-v1:penn-object-329820",
+        "role": "shared_penn_target_identity_collision",
+        "unresolved_axis": null
+      },
+      {
+        "collision_group": "chanhu-daro-penn-329820-collision",
+        "index": 5,
+        "link_id": "chanhu-daro-preselection-v1:005",
+        "mackay_locator": {
+          "identifier": "SF 2558",
+          "identifier_namespace": "field_number",
+          "resource_id": "source-resource-v1:mackay-report"
+        },
+        "penn_locators": [
+          {
+            "identifier": "329820",
+            "identifier_namespace": "official_record_id"
+          },
+          {
+            "identifier": "L-141-177",
+            "identifier_namespace": "accession_number"
+          }
+        ],
+        "penn_resource_id": "source-resource-v1:penn-object-329820",
+        "role": "shared_penn_target_identity_collision",
+        "unresolved_axis": null
+      }
+    ]
+  },
+  "parent_commitments": {
+    "base_commit": "45d946a462dd85aa3025ed9ad9c0465541bd85be",
+    "policy": {
+      "id": "source-reported-link-policy-v1",
+      "sha256": "sha256:c29c4c2b4beb672e5ce47d6dbc1eb56bbbfe242ef5dd84a09d36a45e672e1d90",
+      "size": 7967
+    },
+    "policy_schema": {
+      "id": "source-reported-link-policy.schema.json",
+      "sha256": "sha256:d951541892bb6a5ef092d44e9a5564da2261f960e52e3e84a95ecd5ef8e61aff",
+      "size": 8589
+    },
+    "preselection_registry": {
+      "id": "chanhu-daro-helsinki-gate-v1",
+      "sha256": "sha256:43c0fae1a8558fbffeb062725e401e0c3c1de570e5f8f7eef610ca2616cbfb3d",
+      "size": 6955
+    },
+    "preselection_schema": {
+      "id": "context-source-link-gate.schema.json",
+      "sha256": "sha256:72109818eb55aca008b0f34b1d6c627efd0e38bdbaff8c500cb3c60dc74e3002",
+      "size": 9216
+    },
+    "source_registry": {
+      "id": "indus-open-benchmark:sources",
+      "sha256": "sha256:e5efa34c8efb4b0b8f0530c9fe4c3e84b8248ecaba0c2cee054825a553133584",
+      "size": 43235
+    },
+    "source_registry_schema": {
+      "id": "source-registry.schema.json",
+      "sha256": "sha256:6272a824cd09fb7a3b50225006ffedd4191c707545ad3f98c7d971438906beb3",
+      "size": 8295
+    }
+  },
+  "registration_transition": {
+    "bulk_metadata_license_inherited": false,
+    "bulk_metadata_source_id": "penn-museum-collections-data",
+    "from_policy_registration_status": "unregistered",
+    "from_policy_source_registry_binding": null,
+    "item_source_id": "penn-museum-object-pages",
+    "new_registration_status": "registered_static_no_revision_receipt",
+    "new_source_registry_binding": "indus-open-benchmark:sources#penn-museum-object-pages",
+    "noninherited_bulk_license_id": "CC-BY-4.0",
+    "transition_is_retroactive": false
+  },
+  "retrieval_resources": {
+    "count": 6,
+    "ordering_semantics": "mackay_container_then_penn_first_parent_occurrence",
+    "resources": [
+      {
+        "resource_id": "source-resource-v1:mackay-report",
+        "resource_kind": "fixed_report_container",
+        "revision": {
+          "byte_size": 27802606,
+          "sha256": "sha256:93a76551ab048c6a455b4239730dce718b96cd5b3747852b025858d86b253ef0"
+        },
+        "revision_status": "exact_existing_registry_revision",
+        "source_id": "mackay-chanhu-daro-1943"
+      },
+      {
+        "requested_uri": "https://collections.penn.museum/collections/object/83830",
+        "resource_id": "source-resource-v1:penn-object-83830",
+        "resource_kind": "item_record",
+        "revision_status": "absent_pending_authorized_receipt",
+        "source_id": "penn-museum-object-pages",
+        "source_local_locator": {
+          "identifier": "83830",
+          "identifier_namespace": "official_record_id"
+        }
+      },
+      {
+        "requested_uri": "https://collections.penn.museum/collections/object/83829",
+        "resource_id": "source-resource-v1:penn-object-83829",
+        "resource_kind": "item_record",
+        "revision_status": "absent_pending_authorized_receipt",
+        "source_id": "penn-museum-object-pages",
+        "source_local_locator": {
+          "identifier": "83829",
+          "identifier_namespace": "official_record_id"
+        }
+      },
+      {
+        "requested_uri": "https://collections.penn.museum/collections/object/149372",
+        "resource_id": "source-resource-v1:penn-object-149372",
+        "resource_kind": "item_record",
+        "revision_status": "absent_pending_authorized_receipt",
+        "source_id": "penn-museum-object-pages",
+        "source_local_locator": {
+          "identifier": "149372",
+          "identifier_namespace": "official_record_id"
+        }
+      },
+      {
+        "requested_uri": "https://collections.penn.museum/collections/object/238862",
+        "resource_id": "source-resource-v1:penn-object-238862",
+        "resource_kind": "item_record",
+        "revision_status": "absent_pending_authorized_receipt",
+        "source_id": "penn-museum-object-pages",
+        "source_local_locator": {
+          "identifier": "238862",
+          "identifier_namespace": "official_record_id"
+        }
+      },
+      {
+        "requested_uri": "https://collections.penn.museum/collections/object/329820",
+        "resource_id": "source-resource-v1:penn-object-329820",
+        "resource_kind": "item_record",
+        "revision_status": "absent_pending_authorized_receipt",
+        "source_id": "penn-museum-object-pages",
+        "source_local_locator": {
+          "identifier": "329820",
+          "identifier_namespace": "official_record_id"
+        }
+      }
+    ]
+  },
+  "revision_receipt_requirement": {
+    "closed_receipt_schema_status": "separate_closed_schema_not_implemented",
+    "expected_members": [
+      {
+        "bound_link_ids": [
+          "chanhu-daro-preselection-v1:000"
+        ],
+        "index": 0,
+        "requested_uri": "https://collections.penn.museum/collections/object/83830",
+        "resource_id": "source-resource-v1:penn-object-83830"
+      },
+      {
+        "bound_link_ids": [
+          "chanhu-daro-preselection-v1:001"
+        ],
+        "index": 1,
+        "requested_uri": "https://collections.penn.museum/collections/object/83829",
+        "resource_id": "source-resource-v1:penn-object-83829"
+      },
+      {
+        "bound_link_ids": [
+          "chanhu-daro-preselection-v1:002"
+        ],
+        "index": 2,
+        "requested_uri": "https://collections.penn.museum/collections/object/149372",
+        "resource_id": "source-resource-v1:penn-object-149372"
+      },
+      {
+        "bound_link_ids": [
+          "chanhu-daro-preselection-v1:003"
+        ],
+        "index": 3,
+        "requested_uri": "https://collections.penn.museum/collections/object/238862",
+        "resource_id": "source-resource-v1:penn-object-238862"
+      },
+      {
+        "bound_link_ids": [
+          "chanhu-daro-preselection-v1:004",
+          "chanhu-daro-preselection-v1:005"
+        ],
+        "index": 4,
+        "requested_uri": "https://collections.penn.museum/collections/object/329820",
+        "resource_id": "source-resource-v1:penn-object-329820"
+      }
+    ],
+    "failure_handling": {
+      "failure_codes": [
+        "transport_error",
+        "tls_error",
+        "tls_certificate_validation_error",
+        "hostname_validation_error",
+        "timeout",
+        "proxy_configuration_present",
+        "credential_source_present",
+        "cached_response_reuse_detected",
+        "redirect_chain_incomplete",
+        "redirect_hop_limit_exceeded",
+        "redirect_uri_constraint_violation",
+        "source_substitution",
+        "non_200_http_status",
+        "content_type_invalid",
+        "content_encoding_invalid",
+        "decompression_error",
+        "response_truncated",
+        "response_empty",
+        "missing_receipt_member",
+        "extra_receipt_member",
+        "duplicate_resource_id",
+        "duplicate_requested_uri",
+        "receipt_member_order_mismatch",
+        "resource_id_requested_uri_mapping_mismatch",
+        "receipt_member_field_missing",
+        "byte_size_mismatch",
+        "sha256_mismatch",
+        "contract_sha256_mismatch",
+        "source_registry_sha256_mismatch",
+        "noncanonical_receipt",
+        "duplicate_json_key",
+        "receipt_digest_mismatch",
+        "revision_set_digest_mismatch"
+      ],
+      "failure_record_surface": "closed_code_only_future_schema_not_implemented",
+      "invalid_input_disposition": "hard_reject",
+      "no_link_or_unresolved_permitted": false,
+      "partial_digest_creation_permitted": false,
+      "partial_receipt_permitted": false,
+      "prerequisite_state_after_failure": "contract_blocked",
+      "qualifying_receipt_error_field_permitted": false,
+      "retry_scope": "entire_five_member_ordered_attempt_under_separate_authority_only",
+      "scientific_terminal_result_emitted": false
+    },
+    "fixed_request_profile": {
+      "additional_end_to_end_headers_permitted": false,
+      "application_or_browser_cache_reuse_permitted": false,
+      "authentication_permitted": false,
+      "browser_execution_permitted": false,
+      "cached_response_bytes_permitted": false,
+      "client_certificates_permitted": false,
+      "connect_timeout_seconds": 10,
+      "cookies_permitted": false,
+      "derived_host_header": "from_requested_uri_only",
+      "environment_proxy_permitted": false,
+      "fresh_network_response_required": true,
+      "header_scope": "end_to_end_headers_excluding_protocol_required_connection_fields",
+      "hostname_validation_required": true,
+      "http_method": "GET",
+      "netrc_or_credential_file_permitted": false,
+      "proxy_permitted": false,
+      "read_idle_timeout_seconds": 10,
+      "request_body_permitted": false,
+      "request_headers": [
+        {
+          "name": "Accept",
+          "value": "text/html"
+        },
+        {
+          "name": "Accept-Encoding",
+          "value": "identity"
+        }
+      ],
+      "request_overall_deadline_seconds": 30,
+      "script_execution_permitted": false,
+      "status": "frozen_not_authorized",
+      "tls_certificate_validation_required": true,
+      "uri_scheme": "https"
+    },
+    "future_receipt_digest": {
+      "canonical_json_profile_id": "indusbench-io-encode-json-v1",
+      "digest_domain": "indusbench:source-reported-link:source-revision-receipt:v1",
+      "digest_framing": "utf8_domain_then_nul_then_canonical_encode_json_complete_receipt_payload_excluding_revision_receipt_sha256",
+      "external_commitment_field": "revision_receipt_sha256",
+      "external_commitment_location": "separate_receipt_commitment_envelope_not_receipt_payload",
+      "hashed_payload_contains_external_commitment": false,
+      "receipt_payload_self_hash_field_permitted": false,
+      "separate_commitment_envelope_schema_status": "not_implemented",
+      "status": "absent_not_computed"
+    },
+    "future_receipt_id": "source-reported-link-source-revision-receipt-v1",
+    "future_receipt_top_level": {
+      "contract_id": "source-reported-link-source-contract-v1",
+      "contract_sha256_semantics": "sha256_of_exact_finalized_contract_canonical_bytes_external_to_contract",
+      "expected_source_registry_sha256": "sha256:e5efa34c8efb4b0b8f0530c9fe4c3e84b8248ecaba0c2cee054825a553133584",
+      "member_count": 5,
+      "ordered_resource_ids": [
+        "source-resource-v1:penn-object-83830",
+        "source-resource-v1:penn-object-83829",
+        "source-resource-v1:penn-object-149372",
+        "source-resource-v1:penn-object-238862",
+        "source-resource-v1:penn-object-329820"
+      ],
+      "receipt_id": "source-reported-link-source-revision-receipt-v1",
+      "receipt_schema_version": "v1",
+      "receipt_status": "complete",
+      "required_fields": [
+        "receipt_id",
+        "receipt_schema_version",
+        "receipt_status",
+        "contract_id",
+        "contract_sha256",
+        "source_registry_sha256",
+        "member_count",
+        "ordered_resource_ids",
+        "members"
+      ],
+      "source_registry_sha256_semantics": "exact_post_transition_parent_commitment"
+    },
+    "media_retrieval_permitted": false,
+    "member_ordering_semantics": "expected_members_order_exact_first_parent_occurrence",
+    "nonnullable_member_fields": [
+      "resource_id",
+      "requested_uri",
+      "final_uri",
+      "redirect_chain",
+      "retrieved_at",
+      "http_status",
+      "content_type",
+      "content_encoding",
+      "response_representation",
+      "byte_size",
+      "sha256"
+    ],
+    "nullable_member_fields": [
+      "etag",
+      "last_modified"
+    ],
+    "penn_item_resource_count": 5,
+    "receipt_creation_authorized": false,
+    "receipt_status": "absent_not_created",
+    "redirect_policy": {
+      "final_uri_equals_requested_uri": true,
+      "full_ordered_chain_required": true,
+      "host": "collections.penn.museum",
+      "maximum_hops": 0,
+      "nondefault_port_permitted": false,
+      "path_rule": "exact_/collections/object/{bound_official_record_id}",
+      "query_fragment_or_userinfo_permitted": false,
+      "redirect_chain_required_value": [],
+      "redirects_permitted": false,
+      "scheme": "https",
+      "source_substitution_permitted": false
+    },
+    "requested_uri_exact_match_required": true,
+    "requested_uri_uniqueness_required": true,
+    "required_member_fields": [
+      "resource_id",
+      "requested_uri",
+      "final_uri",
+      "redirect_chain",
+      "retrieved_at",
+      "http_status",
+      "content_type",
+      "content_encoding",
+      "response_representation",
+      "byte_size",
+      "sha256",
+      "etag",
+      "last_modified"
+    ],
+    "resource_id_uniqueness_required": true,
+    "response_representation": "exact_http_response_body_after_transfer_decoding_before_text_decoding",
+    "response_requirements": {
+      "aggregate_maximum_byte_size": 52428800,
+      "byte_identity_layer": "after_http_transfer_decoding_before_any_charset_or_text_decoding",
+      "byte_size_and_sha256_recomputed_over_identity_layer": true,
+      "content_encoding_allowed_values": [
+        "identity"
+      ],
+      "content_encoding_normalization": "missing_header_to_identity_ascii_casefold_identity_to_identity_other_rejected",
+      "content_type_normalization": "split_at_first_semicolon_trim_ascii_ows_ascii_lowercase_media_type_parameters_trimmed_for_syntax_then_excluded_from_receipt_value",
+      "decompression_permitted": false,
+      "final_http_status": 200,
+      "full_body_required": true,
+      "metadata_cannot_substitute_for": [
+        "revision_identity",
+        "rights",
+        "trusted_time"
+      ],
+      "metadata_nonidentity_fields": [
+        "etag",
+        "last_modified",
+        "retrieved_at"
+      ],
+      "normalized_content_type": "text/html",
+      "partial_or_truncated_body_permitted": false,
+      "per_member_maximum_byte_size": 10485760,
+      "per_member_minimum_byte_size": 1,
+      "sha256_format": "sha256_tagged_lowercase_hex"
+    },
+    "revision_set_status": "absent_not_computed",
+    "source_revision_set_specification": {
+      "canonical_json_profile_id": "indusbench-io-encode-json-v1",
+      "content_identity_fields": [
+        "resource_id",
+        "byte_size",
+        "sha256"
+      ],
+      "contract_sha256_semantics": "sha256_of_exact_finalized_contract_canonical_bytes_external_to_contract",
+      "digest_domain": "indusbench:source-reported-link:source-revision-set:v1",
+      "digest_framing": "utf8_domain_then_nul_then_canonical_encode_json_ordered_revision_set_payload",
+      "digest_output_field": "source_revision_sha256",
+      "mackay_existing_revision_null_projection_fields": [
+        "requested_uri",
+        "final_uri",
+        "response_representation"
+      ],
+      "member_count": 6,
+      "member_projection_fields": [
+        "resource_id",
+        "requested_uri",
+        "final_uri",
+        "response_representation",
+        "byte_size",
+        "sha256"
+      ],
+      "metadata_excluded": [
+        "retrieved_at",
+        "etag",
+        "last_modified"
+      ],
+      "ordered_resource_ids": [
+        "source-resource-v1:mackay-report",
+        "source-resource-v1:penn-object-83830",
+        "source-resource-v1:penn-object-83829",
+        "source-resource-v1:penn-object-149372",
+        "source-resource-v1:penn-object-238862",
+        "source-resource-v1:penn-object-329820"
+      ],
+      "ordering_semantics": "mackay_container_then_exact_ordered_penn_receipt_members",
+      "parent_policy_mapping": {
+        "both_passes_same_source_revision": "both_passes_bind_same_future_source_revision_sha256",
+        "source_revision_sha256_exact": "exact_future_source_revision_sha256_from_this_domain_and_framing"
+      },
+      "payload_constants": {
+        "resource_count": 6,
+        "revision_set_version": "v1"
+      },
+      "payload_required_fields": [
+        "revision_set_version",
+        "contract_sha256",
+        "resource_count",
+        "resources"
+      ],
+      "penn_member_projection_source": "validated_receipt_members",
+      "status": "absent_not_computed"
+    },
+    "subresource_retrieval_permitted": false
+  },
+  "rights_handling": {
+    "bulk_metadata_license_applies_to": "penn_bulk_metadata_only",
+    "item_page_bulk_license_inherited": false,
+    "legal_determination_made": false,
+    "missing_rights_information_handling": "unknown_and_no_redistribution",
+    "project_scope": "link_only_no_content_redistribution",
+    "rights_clearance_claimed": false
+  },
+  "schema_version": "0.1.0",
+  "source_layers": [
+    {
+      "commercial_use_permitted": null,
+      "contract_content_included": false,
+      "derivatives_permitted": false,
+      "handling_is_legal_conclusion": false,
+      "license_id": null,
+      "license_uri": null,
+      "media_included": false,
+      "redistribution_permitted": false,
+      "registration_status": "registered",
+      "revision": {
+        "byte_size": 27802606,
+        "sha256": "sha256:93a76551ab048c6a455b4239730dce718b96cd5b3747852b025858d86b253ef0",
+        "status": "exact_existing_registry_revision"
+      },
+      "rights_evidence_status": "existing_registry_access_evidence_not_legal_determination",
+      "rights_status": "unknown",
+      "scope": "link_only",
+      "source_id": "mackay-chanhu-daro-1943",
+      "source_layer": "mackay_report_locator",
+      "source_registry_binding": "indus-open-benchmark:sources#mackay-chanhu-daro-1943"
+    },
+    {
+      "bulk_metadata_license_inherited": false,
+      "bulk_metadata_source_id": "penn-museum-collections-data",
+      "commercial_use_permitted": null,
+      "contract_content_included": false,
+      "derivatives_permitted": false,
+      "handling_is_legal_conclusion": false,
+      "license_id": null,
+      "license_uri": null,
+      "media_included": false,
+      "noninherited_bulk_license_id": "CC-BY-4.0",
+      "redistribution_permitted": false,
+      "registration_status": "registered_static_no_revision_receipt",
+      "revision_status": "absent_pending_authorized_receipt",
+      "rights_evidence_status": "absent",
+      "rights_evidence_uri": null,
+      "rights_holder": null,
+      "rights_status": "unknown",
+      "rights_verified_at": null,
+      "scope": "link_only",
+      "source_id": "penn-museum-object-pages",
+      "source_layer": "penn_item_page_association",
+      "source_registry_binding": "indus-open-benchmark:sources#penn-museum-object-pages"
+    }
+  ]
+}

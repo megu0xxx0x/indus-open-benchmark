@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
   "registry_id": "indus-open-benchmark:sources",
-  "generated_at": "2026-07-28T23:54:05+09:00",
+  "generated_at": "2026-08-01T04:14:13+09:00",
   "sources": [
     {
       "source_id": "penn-museum-collections-data",
@@ -802,6 +802,68 @@
         "description": "Lemmatized Early Dynastic IIIb administrative cuneiform JSON with line order, grapheme-description arrays, proper-name annotation, conventional numerical tokens, and metrological-unit guide words. The project emits only a source-domain-separated, annotation-key-stripped transliteration view for future validation.",
         "transformation_history": [],
         "quality_notes": "All eligibility-qualified records after a fixed 16-document audit-example exclusion are reserved as a feature-safety-exposed prospective V3 validation source. Rights, schema, archive-wide and joined-source class counts, limited examples, and gold-conditioned GDL-key rates were inspected; those rates informed the frozen sanitizer. No candidate model was trained, selected, tuned, or evaluated. ED3b is not feature-unseen, distribution-blind, binding confirmation, native-glyph evidence, or evidence of an Indus reading."
+      }
+    },
+    {
+      "source_id": "penn-museum-object-pages",
+      "title": "Penn Museum collection object pages",
+      "source_type": "museum_collection",
+      "citation": {
+        "title": "Penn Museum collection object pages",
+        "creators": [
+          "Penn Museum"
+        ],
+        "issued": null,
+        "publisher": "Penn Museum",
+        "identifiers": [
+          {
+            "scheme": "uri",
+            "value": "https://collections.penn.museum/collections/object/83830"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://collections.penn.museum/collections/object/83829"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://collections.penn.museum/collections/object/149372"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://collections.penn.museum/collections/object/238862"
+          },
+          {
+            "scheme": "uri",
+            "value": "https://collections.penn.museum/collections/object/329820"
+          }
+        ]
+      },
+      "access": {
+        "access_method": "public_web",
+        "landing_page": null,
+        "accessed_at": null,
+        "snapshot_hash": null,
+        "retrieval_instructions": "Registration-only family for the five exact item-record URIs already named in the public Chanhu-Daro crosswalk. No access, retrieval, revision capture, source inspection, subresource request, or media request is authorized by this record."
+      },
+      "rights": {
+        "status": "unknown",
+        "license_id": null,
+        "license_uri": null,
+        "rights_holder": null,
+        "redistribution": false,
+        "derivatives": false,
+        "commercial_use": null,
+        "statement": "The item-page association layer has no verified item-page license or rights-evidence revision. False redistribution and derivatives fields are conservative project handling, not a legal prohibition. The CC BY 4.0 license recorded for the separate bulk metadata source is not inherited.",
+        "evidence_uri": null,
+        "verified_at": null
+      },
+      "provenance": {
+        "record_method": "other",
+        "maintainer": "Penn Museum",
+        "upstream_source_ids": [],
+        "description": "Registration-only source family for five Penn item-record locators already named in the public Chanhu-Daro crosswalk.",
+        "transformation_history": [],
+        "quality_notes": "No response body, media, exact revision, field-number truth, physical identity, source join, transcription, or decipherment result is admitted."
       }
     }
   ]

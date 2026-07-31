@@ -377,7 +377,14 @@ class SourceReportedLinkPolicyTests(unittest.TestCase):
         self.assertLessEqual(
             {"mackay-chanhu-daro-1943", "penn-museum-collections-data"}, source_ids
         )
-        self.assertNotIn("penn-museum-object-pages", source_ids)
+        self.assertEqual(
+            ("penn-museum-object-pages", "unregistered", None),
+            (
+                penn["source_id"],
+                penn["registration_status"],
+                penn["source_registry_binding"],
+            ),
+        )
         passes = self.policy["passes"]
         self.assertEqual("machine", passes["authorship"])
         self.assertEqual(["pass_id", "seal_sha256"], passes["required_distinct_fields"])
