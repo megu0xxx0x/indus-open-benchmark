@@ -98,11 +98,20 @@ registers the five exact Penn item-page URIs in the live source registry and
 freezes conservative rights, request, receipt, revision-set, and six-slot
 roster requirements. Registration is not an exact Penn revision, rights
 clearance, source access, or execution. The policy prerequisite remains
-`contract_blocked`; authorization is `not_authorized`, and execution is
-`not_executed`. No receipt schema or commitment envelope, protected custody/
-deletion contract, parser, evaluator, receipt, digest, observation,
-source-link/no-link outcome, join, translation, decipherment evidence, or
-prize result exists.
+`contract_blocked`.
+
+The subsequent
+[static evidence-prerequisite contract](docs/SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md)
+freezes closed schemas for the five-member receipt, separate commitment
+envelope, six-resource revision set, and conditional six-slot completeness
+attestation, plus a protected ephemeral custody/deletion/recovery blueprint.
+It does not instantiate any dynamic artifact or authorize a request. The
+independent bootstrap trust root, strict runtime verifier, acquisition client,
+parser, evaluator, durable state machines, and exact one-attempt authority
+record remain unimplemented hard blockers. Authorization is `not_authorized`,
+execution is `not_executed`, and source-access status is
+`NONE_no_source_access_executed`. There is no source-link/no-link outcome,
+join, translation, decipherment evidence, prize submission, or prize result.
 
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also

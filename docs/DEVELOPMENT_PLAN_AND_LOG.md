@@ -25,12 +25,13 @@ separate and traceable.
   corpus release.
 - Normative schemas, validators, importers, audit tools, synthetic examples,
   tests, and scientific/governance documentation are public.
-- The static source-reported-link policy and its later nonretroactive source
-  registration/rights contract are frozen. The Penn item-page layer is
-  registered without an exact revision receipt or rights clearance; state is
-  still `contract_blocked`, authorization is `not_authorized`, and execution
-  is `not_executed`. No source access, runtime evaluator, observation,
-  link/no-link outcome, or admitted join exists.
+- The static source-reported-link policy, nonretroactive source
+  registration/rights contract, four evidence-artifact schemas, and protected
+  ephemeral custody/deletion contract are frozen. No dynamic revision receipt,
+  authority proof, protected source byte, custody workspace, runtime
+  bootstrap/parser/evaluator, observation, result, or admitted join exists.
+  State remains `contract_blocked`, authorization is `not_authorized`, and
+  execution is `not_executed`.
 - The current split and evaluator are development-only. They are not blind or
   final.
 - No private corpus, provider download, museum image bundle, private review
@@ -179,7 +180,7 @@ Current assurance layers:
 | Penn metadata context registry | 34 entries; five pending originality review and 29 negative controls |
 | Extra-bulk field-number/context admission | not admitted; two conflicts remain open |
 | Source-reported-link decision policy | static and frozen; six parent-row slots; not a runtime result |
-| Source registration, rights, and execution | static registration/rights contract frozen; exact Penn revisions, receipt/custody, runtime evaluation, and execution absent and blocked |
+| Source evidence, custody, rights, and execution | static policy, registration/rights contract, four evidence schemas, and protected-ephemeral custody/deletion contract frozen; dynamic receipts, authority proof, bootstrap/trust roots, strict runtime verifier/parser/evaluator, source access, and execution absent and blocked |
 | Scientific functional-anchor validation | not executed or claimed |
 | Independent external replication | not executed or claimed |
 
@@ -2069,3 +2070,91 @@ digests, runtime surfaces, observations, and results are absent; no source was
 accessed. Next is to freeze those missing surfaces and obtain new explicit
 authority before acquisition or two-pass execution. Retired controls remain
 immutable.
+
+## Static evidence prerequisites and custody blueprint — 2026-08-01
+
+Static prerequisite commit `698c029b038b08d8f7e5538e048fdc42eb659160`,
+based on parent `68ae5cff9065477be3a34ccc07b152636f44eb2f`, freezes the
+[detailed evidence-prerequisite contract](SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md).
+The validated head is the test-only Pyright narrowing commit
+`93609e39263fde2617a6ea13b2f4de64947cd17e`; it changes no contract, schema,
+or scientific semantics.
+
+### What is now frozen
+
+The static package closes four dynamic payload shapes: the five-member
+source-revision receipt, its separate self-cycle-free commitment envelope,
+the six-resource revision set, and the conditional six-slot completeness
+attestation. Their exact schema-set digest is
+`sha256:f4cd8e02a6065ff57170182a0347e2e10bb9f922c5fadf2fbf37694148c5ab9f`.
+It also freezes the protected ephemeral custody/deletion/recovery blueprint,
+one-time attempt and durable registry/ledger relations, source-access status
+lattice, internal retention-review boundary, and nonclaims.
+
+The contract preserves the distinct 5/6/6 cardinalities and all six parent
+rows. Content-bearing response/parser/inspection bytes are memory-only;
+the workspace is an exact-zero content-leaf isolation boundary. Cleanup is
+descriptor-pinned and records logical absence without claiming secure
+erasure. Unknown state, partial state, guessed deletion, untracked
+descriptors, or cleanup uncertainty blocks scientific retention and
+publication.
+
+The executable models in the test are non-security reference semantics only.
+They do not implement or establish a bootstrap trust root, signature/MAC
+authenticity, strict runtime validation, durable custody, source access,
+execution, or a result. The strict verifier, root classifier, terminalizer,
+restart implementation, acquisition client, deterministic parser, evaluator,
+future dynamic schemas, transitive runtime manifest, distribution binding,
+and exact authority proof are still missing hard blockers.
+
+### Validation and public evidence
+
+Focused validation passed 22 prerequisite tests, 12 parent source-contract
+tests, and seven policy tests. The closed reference-model evidence includes
+five no-ledger branches, 20 other branches, all 990 Cartesian branch
+combinations with zero mismatches, 34 storage-state cases, and 25 additional
+storage assertions. Ruff, formatting of 185 files, locked Pyright 1.1.409,
+canonical/schema validation, exact builds, and diff-scoped secret/public
+boundary checks passed. Three independent read-only AI audits of the frozen
+candidate reported zero P0, P1, and P2 findings; this is not human or external
+scientific review.
+
+A local validation run under unsupported Node 18.19.1 completed 1,128 tests in
+912.511 seconds with 19 skips and four Quicknet-only fail-closed
+failures/errors. All V8 tests passed. The first public CI run, `30691454425`,
+passed Node 24 Quicknet and lint in all three matrix jobs, then stopped at
+seven Pyright narrowing diagnostics confined to the new reference-model test.
+The test-only follow-up fixed those diagnostics without changing contract or
+schema bytes. Public
+[CI run 30692592441](https://github.com/megu0xxx0x/indus-open-benchmark/actions/runs/30692592441)
+then succeeded at exact head
+`93609e39263fde2617a6ea13b2f4de64947cd17e` under required Node 24.18.1.
+Python 3.11, 3.13, and 3.14 passed Quicknet 6/6, Ruff, the 185-file format
+check, zero-error Pyright, all 1,128 tests with 22 skips in 832.968s,
+942.715s, and 865.301s respectively, and both distribution builds.
+
+### Exact current boundary and next step
+
+Current contract status is
+`preregistered_static_prerequisite_blocked_not_authorized`; authorization is
+`not_authorized`, execution is `not_executed`, and source-access status is
+`NONE_no_source_access_executed`. No research/protected source request,
+external source byte, receipt, revision-set instance, completeness
+attestation, pass, observation, source-link/no-link result, join,
+transcription, translation, decipherment evidence, submission, or prize
+result exists.
+
+The next checkpoint is source-free runtime implementation. Build and freeze
+the missing schemas, independent bootstrap verifier and external trust-root
+interface, strict cross-artifact verifier, root classifier, terminalizer,
+one-time registry/ledger recovery, custody supervisor, exact acquisition
+client, bounded deterministic parser, two-pass evaluator, and review/retention
+state machines. Bind their complete transitive manifest and reproducible
+distribution to a distinct runtime commit and independently audit it.
+
+Only after that checkpoint may a new exact authenticated authority proof bind
+both commits and permit one complete acquisition. Earlier generic approvals
+or instructions to continue cannot be reused as that one-attempt authority.
+Even a valid source-reported-link result would be bounded contextual evidence,
+not a decipherment; it must feed the separate hypothesis-tournament and
+prospective-validation track without weakening the claim gate.

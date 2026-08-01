@@ -280,3 +280,15 @@ explicit authority decision exist. Only then could a separately authorized
 five-member acquisition create the exact six-resource revision set needed for
 the two coded machine passes. Any invalid or incomplete prerequisite remains
 blocked and cannot be relabeled as a source-link or no-link result.
+
+## Later static prerequisite follow-up
+
+The later
+[static evidence-prerequisite contract](SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md)
+nonretroactively freezes the receipt, commitment-envelope, revision-set, and
+completeness schemas plus a protected custody/deletion/recovery blueprint.
+That follow-up preserves every historical absence and nonclaim above. It does
+not implement the independent bootstrap trust root, strict runtime verifier,
+acquisition client, deterministic parser, evaluator, dynamic authority or
+result schemas, durable recovery state machines, or an authority record. No
+source access or execution occurred.

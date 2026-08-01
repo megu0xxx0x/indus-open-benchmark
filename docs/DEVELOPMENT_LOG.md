@@ -911,3 +911,64 @@ the policy prerequisite remains `contract_blocked`, authorization
 custody/deletion contract, receipt, digests, parser, evaluator, observations,
 and results are absent. No source was accessed and no scientific or prize
 result exists.
+
+## 2026-08-01T18:17:48+09:00 — Static evidence prerequisites validated and published
+
+Commit `698c029b038b08d8f7e5538e048fdc42eb659160`, based on
+`68ae5cff9065477be3a34ccc07b152636f44eb2f`, published the
+[static evidence-prerequisite contract](SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md),
+four closed dynamic-payload schemas, the exact-const custody-contract schema,
+and prerequisite tests. Commit
+`93609e39263fde2617a6ea13b2f4de64947cd17e` then made a test-only locked
+Pyright narrowing fix without changing contract/schema bytes or semantics.
+
+The checkpoint freezes the five-member receipt, separate commitment envelope,
+six-resource revision set, conditional six-slot completeness payload, and the
+protected ephemeral custody/deletion/recovery blueprint. It preserves exact
+5/6/6 cardinalities, six row slots, conflict and collision semantics,
+one-attempt anti-replay requirements, and the closed source-access status
+lattice. Test-local executable models remain explicitly non-security
+reference semantics, not a runtime verifier or authority boundary.
+
+Validation evidence:
+
+- the focused policy/source/prerequisite set passed 41/41;
+- reference matrices passed five no-ledger branches, 20 other branches, all
+  990 Cartesian combinations with zero mismatches, 34 storage cases, and 25
+  additional storage assertions;
+- Ruff, the 185-file format check, locked Pyright 1.1.409, canonical/schema
+  checks, builds, and exact-diff secret/public-boundary checks passed;
+- three independent read-only AI audits reported zero P0/P1/P2 findings,
+  without claiming human or external review; and
+- public
+  [CI run 30692592441](https://github.com/megu0xxx0x/indus-open-benchmark/actions/runs/30692592441)
+  succeeded at exact head
+  `93609e39263fde2617a6ea13b2f4de64947cd17e`. Node 24.18.1 and Python
+  3.11/3.13/3.14 each passed Quicknet 6/6, zero-error Pyright, all 1,128
+  tests with 22 skips, and both builds. Full-suite times were 832.968s,
+  942.715s, and 865.301s.
+
+One retained local-host incident used unsupported Node 18.19.1: 1,128 tests
+ran in 912.511s with 19 skips and exactly four Quicknet-only fail-closed
+failures/errors. The V8 tests passed, and required-Node public CI established
+the environment diagnosis.
+
+The first public run, `30691454425`, passed required-Node Quicknet and lint in
+all three jobs, then stopped on seven Pyright narrowing diagnostics in the new
+reference-model test. The test-only `93609e3` fix added fail-closed type
+narrowing and changed no registry or schema byte.
+
+Present status is
+`preregistered_static_prerequisite_blocked_not_authorized`,
+`not_authorized`, `not_executed`, and
+`NONE_no_source_access_executed`. The strict bootstrap/root classifier/
+terminalizer/verifier, runtime schemas, acquisition, parser, evaluator,
+durable recovery, trust root, runtime manifest/distribution binding, and exact
+one-attempt authority proof are not implemented. No source was accessed and
+no receipt, pass, observation, result, join, decipherment evidence,
+submission, or prize result exists.
+
+Next: implement and freeze that entire runtime boundary without source access,
+audit the distinct runtime commit, and only then request a new authenticated
+authority proof binding both commits. Generic earlier approval is not that
+authority.

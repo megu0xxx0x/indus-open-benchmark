@@ -38,6 +38,7 @@ Current assets:
 - [context source-link preselection gate](CONTEXT_SOURCE_LINK_PRESELECTION_GATE.md)
 - [static source-reported-link decision policy](SOURCE_REPORTED_LINK_POLICY_V1.md)
 - [static source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
+- [static source evidence-prerequisite contract](SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md)
 - [Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 - [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
@@ -98,23 +99,33 @@ Current assets:
   3051/SF 2558 slots. Penn bulk metadata's CC BY 4.0 license is not inherited.
   State remains `contract_blocked`, authorization `not_authorized`, and
   execution `not_executed`.
-- [ ] Freeze a closed receipt schema, separate receipt-commitment envelope,
-  protected ephemeral custody/deletion contract, strict canonical loader,
-  operational parser, and runtime evaluator. Only after a new explicit
-  authority decision may one complete bounded acquisition retrieve the five
-  Penn members and construct the exact six-resource revision set and
-  completeness commitments. Invalid or partial prerequisites must remain
-  blocked and cannot become `unresolved` or `no_link`.
-- [ ] Only after new explicit authority, implement and review a strict runtime
-  evaluator and execute two coded machine passes. Preserve all six row-level
-  states and forbidden channels; do not infer human/model/organizational
-  independence from distinct IDs and seals.
-- [ ] Add a strict `decode_json`-backed installed contract loader, registry
-  resource-inclusion checks, and installed-distribution tests before making
-  any operational or packaged runtime claim for the source-link gate. Static
-  publication does not implement this step. The modified source registry and
-  new contract schema are wheel resources; the contract registry and tests
-  are not. No installed contract loader, parser, or evaluator exists.
+- [x] Freeze the static evidence-prerequisite surface at
+  `698c029b038b08d8f7e5538e048fdc42eb659160`, with the test-only locked
+  Pyright narrowing at validated head
+  `93609e39263fde2617a6ea13b2f4de64947cd17e`. This adds closed schemas for
+  the five-member receipt, separate receipt-commitment envelope, six-resource
+  revision set, and conditional six-slot completeness attestation, plus the
+  protected ephemeral custody/deletion/recovery contract. Static reference
+  models cover the closed registry/ledger/status relations but are explicitly
+  non-security test models. No strict runtime verifier, bootstrap trust root,
+  acquisition, parser, evaluator, dynamic artifact, authority, observation,
+  or result exists. State remains blocked, not authorized, and not executed.
+- [ ] Without source access, implement and independently review the strict
+  installed loader and generic resource preflight, the independent bootstrap
+  verifier and fixed external trust-root interface, the root classifier and
+  terminalizer, one-time reservation, append-only registry/ledger recovery,
+  custody supervisor, exact acquisition client, deterministic parser,
+  two-pass evaluator, and review/retention state machines. Freeze all missing
+  dynamic schemas, the complete transitive runtime manifest, a reproducible
+  distribution, and a distinct runtime commit before any authority request.
+- [ ] Only after that implementation checkpoint passes, obtain a new exact
+  authenticated authority proof binding both the static prerequisite and
+  runtime commits and permitting one complete five-member acquisition. Then
+  execute two coded machine passes, preserving all six row-level states,
+  conflicts, collisions, and forbidden channels. Invalid or partial
+  prerequisites remain blocked and cannot become `unresolved` or `no_link`;
+  distinct IDs and seals do not establish human, model, or organizational
+  independence.
 - [x] Hard-freeze infrastructure expansion for this research step. Defer host
   Node 24 activation, dynamic-closure expansion, and an official runner until
   a real experiment exposes a reproducible need. This does not authorize
