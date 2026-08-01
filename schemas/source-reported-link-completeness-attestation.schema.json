@@ -1,0 +1,122 @@
+{
+  "$comment": "Closed unhashed zero-count row-absent completeness payload validity schema. Its external digest is SHA-256 over UTF-8(indusbench:source-reported-link:completeness-attestation:v1) || NUL || indusbench.io.encode_json(validated payload), including the terminal LF. It covers six ordered link slots even though the receipt has five unique Penn resources. When at least one row_absent and no valid unresolved U-code exists, each pass reference is independently null or one valid parent-bound digest: zero nonnull means unresolved and no node, one nonnull means unresolved and one node, two equal nonnull means dual-row-absent no_link basis with one deduplicated node, and two unequal nonnull is a hard reject. If any valid U-code exists or no row_absent exists, both references must be null and no payload node is permitted. Pass IDs and seals remain outside this digest. Schema validity proves payload shape only and never requires payload existence, reference presence, applicability, equality, execution, or terminal state.",
+  "$id": "source-reported-link-completeness-attestation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "ambiguous_count": {
+      "const": 0
+    },
+    "contract_sha256": {
+      "const": "sha256:e319e8bdd0021ea58986155788118481c82166a13424ff49d5c949f58876286f"
+    },
+    "duplicate_count": {
+      "const": 0
+    },
+    "error_count": {
+      "const": 0
+    },
+    "extra_count": {
+      "const": 0
+    },
+    "missing_count": {
+      "const": 0
+    },
+    "ordered_source_roster_count": {
+      "const": 6
+    },
+    "ordered_source_roster_sha256": {
+      "const": "sha256:28fe425d8e3d2dcb0b6d6b5c89a3d5d8c3bcea0ab0b6ec86158e185bd0f7a86f"
+    },
+    "processed_count": {
+      "const": 6
+    },
+    "processed_link_ids": {
+      "const": [
+        "chanhu-daro-preselection-v1:000",
+        "chanhu-daro-preselection-v1:001",
+        "chanhu-daro-preselection-v1:002",
+        "chanhu-daro-preselection-v1:003",
+        "chanhu-daro-preselection-v1:004",
+        "chanhu-daro-preselection-v1:005"
+      ]
+    },
+    "revision_receipt_sha256": {
+      "maxLength": 71,
+      "minLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_revision_sha256": {
+      "maxLength": 71,
+      "minLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "unreadable_count": {
+      "const": 0
+    }
+  },
+  "required": [
+    "contract_sha256",
+    "revision_receipt_sha256",
+    "source_revision_sha256",
+    "ordered_source_roster_count",
+    "ordered_source_roster_sha256",
+    "processed_link_ids",
+    "processed_count",
+    "missing_count",
+    "extra_count",
+    "duplicate_count",
+    "unreadable_count",
+    "error_count",
+    "ambiguous_count"
+  ],
+  "title": "Source-reported-link conditional six-slot zero-count completeness attestation payload",
+  "type": "object",
+  "x-creation-prerequisites": {
+    "admission_or_owner_only_retention_before_required_reference_relation_resolution_permitted": false,
+    "applicability_closed_values": [
+      "applicable_parent_zero_count_payload_permitted",
+      "applicable_but_payload_forbidden_due_valid_U",
+      "not_applicable_no_row_absent_observation"
+    ],
+    "applicability_derivation": "applicable_if_and_only_if_at_least_one_exact_slot_in_either_pass_has_row_absent_observation",
+    "authorization_status": "not_authorized",
+    "blinding_verified": false,
+    "digest_domain": "indusbench:source-reported-link:completeness-attestation:v1",
+    "distinct_pass_id_required": true,
+    "distinct_seal_sha256_required": true,
+    "execution_status": "not_executed",
+    "future_terminal_decision_artifact_schema_status": "missing_not_implemented",
+    "future_typed_internal_retention_review_proof_bundle_schema_status": "missing_not_implemented",
+    "future_typed_pass_proof_bundle_schema_status": "missing_not_implemented",
+    "human_independence_verified": false,
+    "model_independence_verified": false,
+    "nonexposure_verified": false,
+    "organizational_independence_verified": false,
+    "pass_count": 2,
+    "pass_ids_and_seals_in_digest_permitted": false,
+    "pass_mode": "separately_sealed_coded_machine_passes",
+    "reference_cardinality_states_when_payload_permitted": [
+      "zero_valid_nonnull",
+      "one_valid_nonnull",
+      "two_valid_nonnull_equal",
+      "two_valid_nonnull_unequal_hard_reject"
+    ],
+    "reference_rule_when_any_valid_U_or_no_row_absent": "both_null_payload_and_node_forbidden",
+    "schema_validation_proves_execution_equality_applicability_or_presence": false,
+    "two_valid_nonnull_attestation_digest_equality_required": true,
+    "valid_null_reference_is_missing_or_malformed": false,
+    "valid_unresolved_is_operational_failure": false
+  },
+  "x-digest-output-profile": {
+    "conditional_output_rule": "digest_in_exactly_the_nonnull_pass_references_and_one_deduplicated_terminal_graph_review_and_batch_node_iff_at_least_one_valid_nonnull_reference_else_forbidden",
+    "future_terminal_decision_artifact_schema_status": "missing_not_implemented",
+    "future_typed_internal_retention_review_proof_bundle_schema_status": "missing_not_implemented",
+    "future_typed_pass_proof_bundle_schema_status": "missing_not_implemented",
+    "generic_naked_digest_persistence_permitted": false,
+    "output_field": "completeness_attestation_sha256",
+    "output_location": "one_or_two_future_typed_pass_proof_bundles_and_one_deduplicated_future_terminal_decision_graph_review_and_batch_node_iff_any_valid_nonnull_reference"
+  }
+}

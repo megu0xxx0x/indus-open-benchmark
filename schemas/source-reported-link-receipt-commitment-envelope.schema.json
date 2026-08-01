@@ -1,0 +1,73 @@
+{
+  "$comment": "The digest is SHA-256 over UTF-8(digest_domain) || NUL || indusbench.io.encode_json(validated complete receipt payload). The encode_json terminal LF is included. The receipt must first validate against the closed receipt schema and must not be modified by silently removing a self-hash field. This envelope is neither a signature nor trusted-time or independent-custody evidence.",
+  "$id": "source-reported-link-receipt-commitment-envelope.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "canonical_json_profile_id": {
+      "const": "indusbench-io-encode-json-v1"
+    },
+    "contract_id": {
+      "const": "source-reported-link-source-contract-v1"
+    },
+    "contract_sha256": {
+      "const": "sha256:e319e8bdd0021ea58986155788118481c82166a13424ff49d5c949f58876286f"
+    },
+    "digest_domain": {
+      "const": "indusbench:source-reported-link:source-revision-receipt:v1"
+    },
+    "digest_framing": {
+      "const": "utf8_domain_then_nul_then_canonical_encode_json_complete_receipt_payload_excluding_revision_receipt_sha256"
+    },
+    "digest_input_bom_permitted": {
+      "const": false
+    },
+    "digest_input_terminal_lf_included": {
+      "const": true
+    },
+    "envelope_id": {
+      "const": "source-reported-link-receipt-commitment-envelope-v1"
+    },
+    "envelope_schema_version": {
+      "const": "v1"
+    },
+    "envelope_status": {
+      "const": "complete"
+    },
+    "receipt_id": {
+      "const": "source-reported-link-source-revision-receipt-v1"
+    },
+    "receipt_payload_self_hash_field_permitted": {
+      "const": false
+    },
+    "revision_receipt_sha256": {
+      "maxLength": 71,
+      "minLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "envelope_id",
+    "envelope_schema_version",
+    "envelope_status",
+    "contract_id",
+    "contract_sha256",
+    "receipt_id",
+    "canonical_json_profile_id",
+    "digest_domain",
+    "digest_framing",
+    "digest_input_bom_permitted",
+    "digest_input_terminal_lf_included",
+    "receipt_payload_self_hash_field_permitted",
+    "revision_receipt_sha256"
+  ],
+  "title": "Source-reported-link receipt digest commitment envelope",
+  "type": "object",
+  "x-digest-output-profile": {
+    "generic_naked_digest_persistence_permitted": false,
+    "output_field": "revision_receipt_sha256",
+    "output_location": "this_typed_receipt_commitment_envelope_only",
+    "signature_or_trusted_time_claimed": false
+  }
+}

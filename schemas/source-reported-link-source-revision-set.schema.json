@@ -1,0 +1,211 @@
+{
+  "$comment": "Closed unhashed payload schema. source_revision_sha256 is external and is SHA-256 over UTF-8(indusbench:source-reported-link:source-revision-set:v1) || NUL || indusbench.io.encode_json(validated payload), including the terminal LF. The Mackay member uses its already frozen revision; each Penn byte_size and sha256 must be projected from a validated receipt member and recomputed over exact response body bytes after HTTP transfer decoding and before text decoding. Metadata timestamps and validators are excluded.",
+  "$defs": {
+    "pennProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_size": {
+          "maximum": 10485760,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "final_uri": {
+          "type": "string"
+        },
+        "requested_uri": {
+          "type": "string"
+        },
+        "resource_id": {
+          "type": "string"
+        },
+        "response_representation": {
+          "const": "exact_http_response_body_after_transfer_decoding_before_text_decoding"
+        },
+        "sha256": {
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource_id",
+        "requested_uri",
+        "final_uri",
+        "response_representation",
+        "byte_size",
+        "sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "source-reported-link-source-revision-set.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "contract_sha256": {
+      "const": "sha256:e319e8bdd0021ea58986155788118481c82166a13424ff49d5c949f58876286f"
+    },
+    "resource_count": {
+      "const": 6
+    },
+    "resources": {
+      "items": false,
+      "maxItems": 6,
+      "minItems": 6,
+      "prefixItems": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "byte_size": {
+              "const": 27802606
+            },
+            "final_uri": {
+              "const": null
+            },
+            "requested_uri": {
+              "const": null
+            },
+            "resource_id": {
+              "const": "source-resource-v1:mackay-report"
+            },
+            "response_representation": {
+              "const": null
+            },
+            "sha256": {
+              "const": "sha256:93a76551ab048c6a455b4239730dce718b96cd5b3747852b025858d86b253ef0"
+            }
+          },
+          "required": [
+            "resource_id",
+            "requested_uri",
+            "final_uri",
+            "response_representation",
+            "byte_size",
+            "sha256"
+          ],
+          "type": "object"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/pennProjection"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83830"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83830"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-83830"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/pennProjection"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83829"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83829"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-83829"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/pennProjection"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/149372"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/149372"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-149372"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/pennProjection"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/238862"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/238862"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-238862"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/pennProjection"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/329820"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/329820"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-329820"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "type": "array"
+    },
+    "revision_set_version": {
+      "const": "v1"
+    }
+  },
+  "required": [
+    "revision_set_version",
+    "contract_sha256",
+    "resource_count",
+    "resources"
+  ],
+  "title": "Source-reported-link six-resource revision set payload",
+  "type": "object",
+  "x-digest-output-profile": {
+    "digest_domain": "indusbench:source-reported-link:source-revision-set:v1",
+    "generic_naked_digest_persistence_permitted": false,
+    "output_field": "source_revision_sha256",
+    "output_location": "validated_completeness_attestation_and_future_typed_pass_or_release_artifact",
+    "typed_pass_or_release_artifact_schema_status": "missing_not_implemented"
+  }
+}

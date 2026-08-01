@@ -731,9 +731,12 @@ class SourceReportedLinkSourceContractTests(unittest.TestCase):
             (ROOT / "src" / "indusbench" / "source_reported_link_source_contract.py").exists()
         )
         self.assertFalse((ROOT / "src" / "indusbench" / "source_reported_link.py").exists())
-        self.assertFalse(
-            (ROOT / "schemas" / "source-reported-link-source-revision-receipt.schema.json").exists()
+        receipt_schema_path = (
+            ROOT / "schemas" / "source-reported-link-source-revision-receipt.schema.json"
         )
+        self.assertTrue(receipt_schema_path.exists())
+        receipt_schema = decode_json(receipt_schema_path.read_bytes())
+        self.assertNotIn("revision_receipt_sha256", receipt_schema["properties"])
 
     def test_forbidden_channels_and_publication_markers_remain_absent(self) -> None:
         policy = decode_json(POLICY_PATH.read_bytes())
@@ -746,8 +749,8 @@ class SourceReportedLinkSourceContractTests(unittest.TestCase):
             path.read_text(encoding="utf-8")
             for path in (CONTRACT_PATH, SCHEMA_PATH, SOURCE_REGISTRY_PATH)
         )
-        self.assertNotIn("data/raw/", candidate_text)
-        self.assertNotIn("data/derived/", candidate_text)
+        self.assertNotIn("data/" + "raw/", candidate_text)
+        self.assertNotIn("data/" + "derived/", candidate_text)
         for label, pattern in PRIVATE_MARKERS.items():
             with self.subTest(label=label):
                 self.assertIsNone(pattern.search(candidate_text))

@@ -1,0 +1,292 @@
+{
+  "$comment": "Static closed-shape schema only. It creates no source-access authority and performs no acquisition. retrieved_at is an untrusted local observation in exact UTC RFC3339 whole-second Z lexical form. ETag and Last-Modified are absent-as-null; if present, exactly one header occurrence is required, surrounding ASCII OWS is removed, multiple occurrences or CR/LF/U+2028/U+2029 are hard rejects, and ETag weak tags are preserved. Last-Modified validation here is IMF-fixdate-shaped lexical validation only; calendar validity and weekday agreement require the future strict verifier and schema validity alone makes no such claim. Each byte_size and sha256 must be recomputed from the exact identity-layer body before receipt creation; schema validity cannot substitute for that comparison. The receipt payload must not contain revision_receipt_sha256; that digest is carried only by the separate commitment envelope.",
+  "$defs": {
+    "etag": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "maxLength": 1024,
+          "minLength": 2,
+          "not": {
+            "pattern": "[\\r\\n\\u2028\\u2029]"
+          },
+          "pattern": "^(?:W/)?\"[!#-~]*\"$",
+          "type": "string"
+        }
+      ]
+    },
+    "lastModified": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "maxLength": 29,
+          "minLength": 29,
+          "pattern": "^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun), (?:0[1-9]|[12][0-9]|3[01]) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{4} (?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9] GMT$",
+          "type": "string"
+        }
+      ]
+    },
+    "member": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_size": {
+          "maximum": 10485760,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "content_encoding": {
+          "const": "identity"
+        },
+        "content_type": {
+          "const": "text/html"
+        },
+        "etag": {
+          "$ref": "#/$defs/etag"
+        },
+        "final_uri": {
+          "type": "string"
+        },
+        "http_status": {
+          "const": 200
+        },
+        "last_modified": {
+          "$ref": "#/$defs/lastModified"
+        },
+        "redirect_chain": {
+          "const": []
+        },
+        "requested_uri": {
+          "type": "string"
+        },
+        "resource_id": {
+          "type": "string"
+        },
+        "response_representation": {
+          "const": "exact_http_response_body_after_transfer_decoding_before_text_decoding"
+        },
+        "retrieved_at": {
+          "format": "date-time",
+          "maxLength": 20,
+          "minLength": 20,
+          "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        },
+        "sha256": {
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource_id",
+        "requested_uri",
+        "final_uri",
+        "redirect_chain",
+        "retrieved_at",
+        "http_status",
+        "content_type",
+        "content_encoding",
+        "response_representation",
+        "byte_size",
+        "sha256",
+        "etag",
+        "last_modified"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "source-reported-link-source-revision-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "contract_id": {
+      "const": "source-reported-link-source-contract-v1"
+    },
+    "contract_sha256": {
+      "const": "sha256:e319e8bdd0021ea58986155788118481c82166a13424ff49d5c949f58876286f"
+    },
+    "member_count": {
+      "const": 5
+    },
+    "members": {
+      "items": false,
+      "maxItems": 5,
+      "minItems": 5,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/member"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83830"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83830"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-83830"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/member"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83829"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/83829"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-83829"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/member"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/149372"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/149372"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-149372"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/member"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/238862"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/238862"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-238862"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/member"
+            },
+            {
+              "properties": {
+                "final_uri": {
+                  "const": "https://collections.penn.museum/collections/object/329820"
+                },
+                "requested_uri": {
+                  "const": "https://collections.penn.museum/collections/object/329820"
+                },
+                "resource_id": {
+                  "const": "source-resource-v1:penn-object-329820"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "type": "array"
+    },
+    "ordered_resource_ids": {
+      "const": [
+        "source-resource-v1:penn-object-83830",
+        "source-resource-v1:penn-object-83829",
+        "source-resource-v1:penn-object-149372",
+        "source-resource-v1:penn-object-238862",
+        "source-resource-v1:penn-object-329820"
+      ]
+    },
+    "receipt_id": {
+      "const": "source-reported-link-source-revision-receipt-v1"
+    },
+    "receipt_schema_version": {
+      "const": "v1"
+    },
+    "receipt_status": {
+      "const": "complete"
+    },
+    "source_registry_sha256": {
+      "const": "sha256:e5efa34c8efb4b0b8f0530c9fe4c3e84b8248ecaba0c2cee054825a553133584"
+    }
+  },
+  "required": [
+    "receipt_id",
+    "receipt_schema_version",
+    "receipt_status",
+    "contract_id",
+    "contract_sha256",
+    "source_registry_sha256",
+    "member_count",
+    "ordered_resource_ids",
+    "members"
+  ],
+  "title": "Source-reported-link five-member source revision receipt",
+  "type": "object",
+  "x-member-observation-profile": {
+    "body_identity": {
+      "byte_identity_layer": "after_http_transfer_decoding_before_any_charset_or_text_decoding",
+      "recompute_byte_size_and_sha256_required": true,
+      "schema_validation_can_substitute_for_byte_comparison": false
+    },
+    "etag": {
+      "absent_receipt_value": null,
+      "ascii_only": true,
+      "cr_lf_permitted": false,
+      "maximum_length": 1024,
+      "multiple_header_occurrences_disposition": "hard_reject",
+      "normalization": "strip_leading_and_trailing_ascii_sp_htab_only",
+      "unicode_line_separator_permitted": false,
+      "unicode_paragraph_separator_permitted": false,
+      "weak_prefix_preserved": true
+    },
+    "last_modified": {
+      "absent_receipt_value": null,
+      "ascii_only": true,
+      "calendar_and_weekday_roundtrip_verifier_status": "future_strict_verifier_not_implemented",
+      "cr_lf_permitted": false,
+      "lexical_profile": "imf_fixdate_shaped_exact_29_ascii_characters_only",
+      "multiple_header_occurrences_disposition": "hard_reject",
+      "normalization": "strip_leading_and_trailing_ascii_sp_htab_only",
+      "obsolete_http_date_permitted": false
+    },
+    "retrieved_at": {
+      "capture_event": "immediately_after_complete_identity_layer_body_received",
+      "lexical_profile": "utc_rfc3339_seconds_exact_uppercase_z_calendar_valid_and_roundtrip_equal",
+      "trusted_time_claimed": false
+    }
+  }
+}
