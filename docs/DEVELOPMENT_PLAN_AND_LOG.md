@@ -2311,7 +2311,16 @@ tracked tree and all 66 reachable commits retained four reviewed
 `generic-api-key` findings, all duplicates of the already-public fixed test
 vector in the frozen V1 custody contract and its `const` schema; this is not a
 zero-finding full-history claim. All 223 local Markdown links resolved. Exact
-Node 24.18.1 public-CI evidence remains pending until push.
+Node 24.18.1 public-CI evidence was pending until push.
+
+Public CI run `30711703762` subsequently succeeded at exact implementation
+head `edeb6ebe80215f2bf9fa287ae8f058a3d32f33f5`. Python 3.11, 3.13, and
+3.14 respectively passed Quicknet 6/6 in 527.822667 ms, 528.849668 ms, and
+441.521465 ms, then passed all 1,175 tests with 22 skips in 866.169s,
+948.759s, and 642.752s. Every job used exact Node 24.18.1 on Linux/x64,
+passed Ruff, accepted all 191 files as formatted, reported zero Pyright
+findings, built both distributions, and passed the isolated installed-wheel
+V2 verifier.
 
 Next, implement and independently audit a distinct V2-aware exact-16 installed
 resolver while preserving permanent V1 ineligibility and a V2-specific

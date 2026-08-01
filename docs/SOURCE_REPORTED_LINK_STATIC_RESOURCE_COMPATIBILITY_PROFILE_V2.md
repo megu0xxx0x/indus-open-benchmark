@@ -155,3 +155,18 @@ and validated. Adding only the two missing runtime identities is insufficient.
 Package-local agreement is not package provenance, authority, source access,
 evidence, a physical join, a source-link/no-link result, translation,
 decipherment, submission, or prize eligibility.
+
+## Validation and publication evidence
+
+Pre-publication Linux validation passed the related 91-test set, the dedicated
+12-test V2 set, Ruff, formatting of 191 files, zero-finding locked Pyright,
+both distribution builds, isolated installed-wheel verification, and the
+complete 1,175-test suite with 19 skips. Three final independent read-only AI
+engineering audits reported P0/P1/P2 as 0/0/0; this is not human or external
+scientific review.
+
+Public CI run `30711703762` then succeeded at exact implementation head
+`edeb6ebe80215f2bf9fa287ae8f058a3d32f33f5`. Python 3.11, 3.13, and 3.14
+each passed exact Node 24.18.1 Quicknet, Ruff, 191-file format, zero-finding
+Pyright, all 1,175 tests with 22 skips, both builds, and the isolated
+installed-wheel V2 verifier.

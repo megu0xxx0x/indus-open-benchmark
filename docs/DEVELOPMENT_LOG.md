@@ -1098,7 +1098,15 @@ all 223 local Markdown links resolved, and the staged secret scan found zero
 new findings. The complete tracked tree and 66-commit history retain four
 reviewed scanner findings, all the already-public fixed test vector duplicated
 between the frozen V1 custody contract and its `const` schema. Exact Node
-24.18.1 CI evidence is pending publication.
+24.18.1 CI evidence was pending publication.
+
+Public CI run `30711703762` then succeeded at exact implementation head
+`edeb6ebe80215f2bf9fa287ae8f058a3d32f33f5`. Python 3.11, 3.13, and 3.14
+passed Quicknet 6/6 in 527.822667 ms, 528.849668 ms, and 441.521465 ms and
+passed all 1,175 tests with 22 skips in 866.169s, 948.759s, and 642.752s.
+Every job used exact Node 24.18.1 on Linux/x64, passed Ruff, 191-file format,
+zero-finding Pyright, both builds, and the isolated installed-wheel V2
+verifier.
 
 Next: implement and independently review a dedicated exact-16 V2-aware
 installed resolver with a distinct package-local conformance state. Only
