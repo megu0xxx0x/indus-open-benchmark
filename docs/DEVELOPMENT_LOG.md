@@ -940,9 +940,7 @@ Validation evidence:
   checks, builds, and exact-diff secret/public-boundary checks passed;
 - three independent read-only AI audits reported zero P0/P1/P2 findings,
   without claiming human or external review; and
-- public
-  [CI run 30692592441](https://github.com/megu0xxx0x/indus-open-benchmark/actions/runs/30692592441)
-  succeeded at exact head
+- public GitHub Actions run `30692592441` succeeded at exact head
   `93609e39263fde2617a6ea13b2f4de64947cd17e`. Node 24.18.1 and Python
   3.11/3.13/3.14 each passed Quicknet 6/6, zero-error Pyright, all 1,128
   tests with 22 skips, and both builds. Full-suite times were 832.968s,
@@ -957,6 +955,13 @@ The first public run, `30691454425`, passed required-Node Quicknet and lint in
 all three jobs, then stopped on seven Pyright narrowing diagnostics in the new
 reference-model test. The test-only `93609e3` fix added fail-closed type
 narrowing and changed no registry or schema byte.
+
+Documentation-only run `30693842726` later rejected exact head `c8d7231`
+in all three Python jobs after the full suite found two publication-boundary
+regressions: one literal operational-document digest and three
+repository-specific Actions links. The follow-up removes those public
+machine-specific literals without changing any frozen contract or schema
+byte.
 
 Present status is
 `preregistered_static_prerequisite_blocked_not_authorized`,

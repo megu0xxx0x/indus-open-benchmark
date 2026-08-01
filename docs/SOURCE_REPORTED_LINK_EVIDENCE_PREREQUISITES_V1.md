@@ -217,9 +217,7 @@ narrowing diagnostics in the new reference-model test. The test-only follow-up
 at `93609e3` added fail-closed runtime narrowing; it did not change a contract
 or schema byte.
 
-Public
-[CI run 30692592441](https://github.com/megu0xxx0x/indus-open-benchmark/actions/runs/30692592441)
-succeeded at exact head
+Public GitHub Actions run `30692592441` succeeded at exact head
 `93609e39263fde2617a6ea13b2f4de64947cd17e`. Every job asserted Node
 24.18.1, passed Quicknet 6/6, Ruff, formatting of all 185 files, zero-error
 Pyright, the complete test suite, and both builds:

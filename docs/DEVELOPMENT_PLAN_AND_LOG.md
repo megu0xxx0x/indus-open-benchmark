@@ -2085,8 +2085,8 @@ or scientific semantics.
 The static package closes four dynamic payload shapes: the five-member
 source-revision receipt, its separate self-cycle-free commitment envelope,
 the six-resource revision set, and the conditional six-slot completeness
-attestation. Their exact schema-set digest is
-`sha256:f4cd8e02a6065ff57170182a0347e2e10bb9f922c5fadf2fbf37694148c5ab9f`.
+attestation. Their exact schema-set digest is frozen in the linked detailed
+evidence-prerequisite contract.
 It also freezes the protected ephemeral custody/deletion/recovery blueprint,
 one-time attempt and durable registry/ledger relations, source-access status
 lattice, internal retention-review boundary, and nonclaims.
@@ -2125,13 +2125,19 @@ failures/errors. All V8 tests passed. The first public CI run, `30691454425`,
 passed Node 24 Quicknet and lint in all three matrix jobs, then stopped at
 seven Pyright narrowing diagnostics confined to the new reference-model test.
 The test-only follow-up fixed those diagnostics without changing contract or
-schema bytes. Public
-[CI run 30692592441](https://github.com/megu0xxx0x/indus-open-benchmark/actions/runs/30692592441)
-then succeeded at exact head
+schema bytes. Public GitHub Actions run `30692592441` then succeeded at exact
+head
 `93609e39263fde2617a6ea13b2f4de64947cd17e` under required Node 24.18.1.
 Python 3.11, 3.13, and 3.14 passed Quicknet 6/6, Ruff, the 185-file format
 check, zero-error Pyright, all 1,128 tests with 22 skips in 832.968s,
 942.715s, and 865.301s respectively, and both distribution builds.
+
+Documentation-only run `30693842726` subsequently rejected exact head
+`c8d7231` after all three Python jobs found the same two classes of
+publication-boundary regression: a literal digest in this operational
+document and repository-specific Actions links in three public documents.
+The corrective follow-up removes those literals and changes no contract,
+schema, or scientific semantics.
 
 ### Exact current boundary and next step
 
