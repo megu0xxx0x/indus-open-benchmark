@@ -7,6 +7,27 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- The first source-free
+  [installed static loader and canonical-resource preflight](docs/SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md).
+  The preflight fixes all 21 raw artifact roles and applies bounded strict
+  canonical JSON checks without claiming schema, digest, authority, or
+  evidence status. The argument-free loader verifies 14 installed package
+  resources, nine Draft 2020-12 schemas, five registry/contract instances,
+  parent bindings, the six-task roster digest, and the four-schema-set
+  digest. It returns only six static identities and explicitly leaves the
+  runtime distribution and transitive runtime-input manifest absent.
+
+  Five registries are individually included in the wheel. Post-build CI
+  independently checks exact wheel-member parity and loads the extracted
+  wheel from an empty working directory with no repository fallback. Two
+  frozen legacy resources have an exact-key re-encoding exception only after
+  their raw size/hash match, repeated at the decoder boundary; the remaining
+  12 require canonical equality. Because frozen V1 separately hard-rejects
+  noncanonical raw bytes, the snapshot is fixed as strict-V1-ineligible until
+  a successor normative profile or re-frozen parent chain resolves that
+  conflict. This is package-local consistency, not package provenance,
+  authority, source access, execution, or a decipherment result.
+
 - A static, repository-only
   [source registration and rights contract](docs/SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
   at source commit `90f3fd3bea1177034451283795ad13ccb4b31bcf`, parent

@@ -39,6 +39,7 @@ Current assets:
 - [static source-reported-link decision policy](SOURCE_REPORTED_LINK_POLICY_V1.md)
 - [static source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
 - [static source evidence-prerequisite contract](SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md)
+- [installed static loader and canonical-resource preflight](SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md)
 - [Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 - [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
@@ -110,14 +111,28 @@ Current assets:
   non-security test models. No strict runtime verifier, bootstrap trust root,
   acquisition, parser, evaluator, dynamic artifact, authority, observation,
   or result exists. State remains blocked, not authorized, and not executed.
-- [ ] Without source access, implement and independently review the strict
-  installed loader and generic resource preflight, the independent bootstrap
-  verifier and fixed external trust-root interface, the root classifier and
-  terminalizer, one-time reservation, append-only registry/ledger recovery,
-  custody supervisor, exact acquisition client, deterministic parser,
-  two-pass evaluator, and review/retention state machines. Freeze all missing
-  dynamic schemas, the complete transitive runtime manifest, a reproducible
-  distribution, and a distinct runtime commit before any authority request.
+- [x] Without source access, implement the first hardened static preflight slice: bounded
+  canonical-JSON preflight for all 21 declared raw artifact roles, an
+  installed-package loader for the exact 14 frozen static resources,
+  Draft 2020-12 plus explicit format validation, parent/roster/schema-set
+  recomputation, fixed six-identity output, and isolated built-wheel
+  verification with no repository fallback. Keep the two legacy byte-order
+  exceptions closed to their exact pinned resources and fix the output as
+  ineligible for frozen strict V1, whose canonical-byte rule still conflicts
+  with those parents. This is package-local consistency, not package
+  authenticity, authority, runtime validation, source access, or scientific
+  evidence.
+- [ ] Without source access, implement and independently review the remaining
+  runtime boundary: independent bootstrap verifier and fixed external
+  trust-root interface, root classifier and terminalizer, one-time
+  reservation, append-only registry/ledger recovery, custody supervisor,
+  exact acquisition client, deterministic parser, two-pass evaluator, and
+  review/retention state machines. Freeze the missing dynamic schemas,
+  complete transitive runtime manifest, reproducible runtime distribution,
+  and distinct runtime commit before any authority request. Separately freeze
+  a successor normative profile for the exact-two parent-byte exception or
+  re-freeze the affected parent chain; adding only the two runtime identities
+  cannot make the current snapshot strict-V1-eligible.
 - [ ] Only after that implementation checkpoint passes, obtain a new exact
   authenticated authority proof binding both the static prerequisite and
   runtime commits and permitting one complete five-member acquisition. Then

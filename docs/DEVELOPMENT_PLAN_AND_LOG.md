@@ -2164,3 +2164,73 @@ or instructions to continue cannot be reused as that one-attempt authority.
 Even a valid source-reported-link result would be bounded contextual evidence,
 not a decipherment; it must feed the separate hypothesis-tournament and
 prospective-validation track without weakening the claim gate.
+
+## Installed static loader and canonical-resource preflight — 2026-08-01
+
+The first source-free implementation slice is now described in the
+[detailed loader report](SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md). It adds a
+closed canonical-JSON preflight for all 21 raw artifact roles and an
+argument-free installed-package loader for exactly 14 frozen static
+resources.
+
+The raw preflight implements only the first five verification stages:
+per-role byte limits, BOM-free strict UTF-8, duplicate-key rejection,
+integer-only bounded JSON, and exact `encode_json` byte equality. It does not
+claim schema validity, a domain digest, parent/attempt binding, authority, or
+evidence admissibility.
+
+The installed loader uses descriptor-relative no-follow reads and fixed
+size/hash identities, validates nine Draft 2020-12 schemas and five
+registry/contract instances, and recomputes the ordered six-task roster and
+four-schema set. Its immutable output contains six package-local identities.
+The runtime-distribution and transitive runtime-input-manifest bindings remain
+explicitly absent, so the future eight-way binding set is still incomplete.
+
+Two frozen legacy resources predate the current canonical key order. Their
+re-encoding exception is closed to those exact two compiled keys and applies
+only after fixed raw size/hash agreement, which the decoder independently
+rechecks. Their decoded form is never written back or adopted; the other 12
+resources require canonical equality.
+
+Frozen strict V1 separately hard-rejects every noncanonical raw input.
+Consequently the snapshot fixes `strict_v1_resolver_eligible=False` and names
+the two parent-byte conflicts as blockers. Adding the runtime-distribution
+and transitive-manifest identities alone cannot make it eligible. A successor
+normative profile defining the exact-two rule, or a re-frozen parent chain,
+must precede any strict resolver or authority path.
+
+The wheel packages the five required registries individually. A post-build
+check independently verifies the 14 exact wheel members and then loads only
+the extracted wheel from an empty working directory under isolated Python,
+with no repository fallback and socket audit events trapped. Its extraction
+uses a temporary deterministic `0022` umask and restores the caller's umask in
+`finally`, avoiding ambient build-host group-write modes.
+
+Focused pre-publication validation passed 76/76, including 22 raw-preflight
+and 13 static-loader tests. Targeted Ruff, formatting, locked Pyright, both
+distribution builds, wheel parity, and isolated-wheel loading passed. The
+four publication-boundary tests also passed. Three independent read-only AI
+audits each reported P0/P1/P2 as 0/0/0.
+
+The local macOS full suite discovered all 1,163 tests and completed in
+587.892s with 55 skips, but was not green. Its five failures and six errors
+were confined to unchanged KP1979 V3 control-freeze host tests involving
+Darwin directory revalidation and an AF_UNIX path-length limit; none involved
+the new modules or changed packaging boundary. Required public Linux CI
+remains a separate pending gate.
+
+This changes the next-step boundary but not the authorization state. Remaining
+work is the independent bootstrap/trust interface, transitive runtime
+manifest, reproducible runtime distribution, missing dynamic schemas, strict
+cross-artifact verifier, root classifier, terminalizer, recovery/state
+machines, acquisition client, deterministic parser, and two-pass evaluator,
+plus resolution of the frozen-V1 canonical conflict. Only a later exact
+authenticated authority proof may bind an eligible static profile and the
+completed runtime commit.
+
+Current state remains
+`preregistered_static_prerequisite_blocked_not_authorized`,
+`not_authorized`, `not_executed`, and
+`NONE_no_source_access_executed`. No source was accessed and no receipt,
+observation, result, decipherment evidence, submission, or prize result
+exists.

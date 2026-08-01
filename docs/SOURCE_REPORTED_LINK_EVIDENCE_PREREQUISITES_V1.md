@@ -228,6 +228,27 @@ Pyright, the complete test suite, and both builds:
 | 3.13 | 553.422972 ms | 1,128 tests, 22 skips, 942.715 s |
 | 3.14 | 535.736492 ms | 1,128 tests, 22 skips, 865.301 s |
 
+## Source-free implementation follow-up
+
+The later
+[installed static loader and canonical-resource preflight](SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md)
+implements the first five raw-resource checks for all 21 declared roles and
+loads the exact 14 static package resources needed to reproduce the six
+currently available static identities. It validates the nine schemas and five
+instances, recomputes parent/roster/schema-set bindings, and is exercised from
+an isolated built wheel without a repository fallback.
+
+That implementation does not alter any frozen contract or schema byte. It
+also does not complete the future eight-way authority binding: the transitive
+runtime-input manifest and runtime-distribution identities are still absent.
+Moreover, two frozen parent resources are noncanonical under the strict V1
+byte profile. The package-local snapshot is therefore explicitly
+strict-V1-ineligible; a successor normative profile or re-frozen parent chain
+is required, and adding only the two runtime identities is insufficient.
+The bootstrap trust root, authenticated authority proof, strict runtime
+verifier, acquisition, parsing, evaluation, and execution blockers therefore
+remain closed.
+
 ## Non-execution and nonclaims
 
 No research or protected source endpoint was requested while preparing,
@@ -258,8 +279,12 @@ built and independently validated:
    evidence, review, and retention state machines without executing them;
 4. bind the full transitive runtime manifest and reproducible distribution to
    a new runtime commit and audit that frozen implementation; and
-5. only then obtain a new exact external authority proof that binds the static
-   and runtime commits and permits one complete attempt.
+5. freeze a successor profile for the exact-two parent-byte rule or re-freeze
+   the affected parent chain so the static input is strict-resolver-eligible;
+   and
+6. only then obtain a new exact external authority proof that binds the
+   eligible static profile and runtime commit and permits one complete
+   attempt.
 
 Only a valid authority record after those steps could permit the five-member
 acquisition and two coded passes. A valid result would still be a bounded

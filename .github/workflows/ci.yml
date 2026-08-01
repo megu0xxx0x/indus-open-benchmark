@@ -60,4 +60,6 @@ jobs:
         run: uv run python -m unittest discover -s tests -v
 
       - name: Build source and wheel distributions
-        run: uv build
+        run: |
+          uv build
+          uv run python tests/verify_source_reported_link_installed_distribution.py dist/*.whl

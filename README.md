@@ -65,9 +65,11 @@ bulk metadata is CC BY 4.0 metadata only. At that frozen gate checkpoint, the
 extra-bulk Penn item-page association was unregistered and unknown-rights;
 the registered Mackay locator was also unknown-rights, and both were
 link-only. No external source, image, page, plate, or media bytes were
-retrieved or added for that checkpoint. The registry and test are not
-packaged in the wheel; only the schema is. There is no production builder,
-API, strict runtime loader, or package/runtime gate yet. Public CI run
+retrieved or added for that checkpoint. At that historical checkpoint the
+registry and test were not packaged in the wheel and only the schema was
+included. A later source-free static-prerequisite slice now packages that
+registry as one of 14 fixed resources; this does not retroactively create a
+join, source revision, or execution. Public CI run
 `30635957691` succeeded for event `push` at exact head SHA
 `fd5148431b0fa9136336650208e2d570d0f176d8`. Every job asserted Node
 `v24.18.1` on Linux/x64. Python 3.11, 3.13, and 3.14 passed Quicknet 6/6 in
@@ -112,6 +114,28 @@ record remain unimplemented hard blockers. Authorization is `not_authorized`,
 execution is `not_executed`, and source-access status is
 `NONE_no_source_access_executed`. There is no source-link/no-link outcome,
 join, translation, decipherment evidence, prize submission, or prize result.
+
+The first source-free implementation slice is documented in the
+[static loader and canonical-resource preflight report](docs/SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md).
+It adds a bounded canonical-JSON preflight for all 21 declared future raw
+artifact roles and an installed-package loader for exactly 14 frozen static
+resources. The loader performs descriptor-relative no-follow reads, fixed
+size/hash checks, strict JSON checks, Draft 2020-12 validation for nine
+schemas, five registry/contract validations, and roster/schema-set
+recomputation. Built-wheel CI runs the loader from an empty working directory
+without a repository fallback.
+
+This slice establishes only six package-local static identities. The
+transitive runtime-input manifest and runtime-distribution identities remain
+missing, so it is not the future eight-way authority binding, a trust root, a
+strict runtime verifier, source authorization, or scientific evidence. Two
+older frozen resources retain their exact legacy byte order; only those two
+have a closed canonical re-encoding exception after their fixed raw
+size/hash has matched. Because frozen V1 separately hard-rejects
+noncanonical raw bytes, the snapshot is explicitly marked ineligible for its
+strict resolver. A successor normative profile or a re-frozen parent chain is
+required in addition to the two runtime bindings. No source endpoint or
+protected byte was accessed.
 
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also

@@ -6704,7 +6704,9 @@ process.exit(crypto.verify(null, message, key, signature) &&
         self.assertRegex(deletion_record_digest, r"^sha256:[0-9a-f]{64}$")
         self.assertNotIn("custody_deletion_record_sha256", success)
 
-    def test_future_strict_verifier_and_resource_preflight_remain_unimplemented(self) -> None:
+    def test_strict_verifier_remains_unimplemented_and_preflight_contract_is_frozen(
+        self,
+    ) -> None:
         verifier = self.custody["cross_artifact_verifier_contract"]
         self.assertEqual("not_implemented", verifier["status"])
         self.assertIs(False, verifier["schema_validity_alone_is_evidence"])
@@ -7010,10 +7012,16 @@ process.exit(crypto.verify(null, message, key, signature) &&
             self.assertFalse((ROOT / "src" / "indusbench" / module_name).exists())
         pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         self.assertIn('"schemas" = "indusbench/schemas"', pyproject)
-        self.assertNotIn(
+        for packaged_registry in (
+            "chanhu-daro-helsinki-gate-v1.json",
+            "sources.json",
+            "source-reported-link-policy-v1.json",
+            "source-reported-link-source-contract-v1.json",
             "source-reported-link-protected-ephemeral-custody-contract-v1.json",
-            pyproject,
-        )
+        ):
+            self.assertIn(f'"registry/{packaged_registry}"', pyproject)
+        self.assertTrue((ROOT / "src" / "indusbench" / "source_reported_link_resource.py").exists())
+        self.assertTrue((ROOT / "src" / "indusbench" / "source_reported_link_static.py").exists())
         self.assertIs(
             False,
             self.custody["artifact_boundaries"][

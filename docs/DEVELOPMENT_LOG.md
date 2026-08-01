@@ -977,3 +977,73 @@ Next: implement and freeze that entire runtime boundary without source access,
 audit the distinct runtime commit, and only then request a new authenticated
 authority proof binding both commits. Generic earlier approval is not that
 authority.
+
+## 2026-08-01T19:20:49+09:00 — First source-free static preflight slice
+
+Publication-boundary correction `81269ebf2a3e27e8bb8914733c7e37cc47524ccb`
+restored the required publication boundary without changing a frozen
+contract or schema byte. GitHub Actions run `30694616450` then succeeded on
+Python 3.11, 3.13, and 3.14. Each job passed Quicknet, Ruff, formatting,
+zero-error Pyright, all 1,128 tests with 22 skips, and both distribution
+builds.
+
+The subsequent source-free implementation candidate adds the
+[static loader and canonical-resource preflight](SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md):
+
+- a closed 21-role raw-resource API implementing byte limit, BOM-free strict
+  UTF-8, duplicate-key rejection, integer-only JSON, structural bounds, and
+  exact `encode_json` byte equality;
+- an argument-free installed-package loader for 14 compiled resources using
+  descriptor-relative no-follow reads, fixed size/hash checks, ownership/
+  mode/link/device checks, before/after fingerprints, bounded reads, and
+  fail-closed descriptor cleanup;
+- explicit Draft 2020-12 validation of nine schemas with local-only refs,
+  `date-time`/`uri` format enforcement, and five registry/contract instance
+  validations;
+- parent binding, ordered six-task roster, four-schema set, and
+  domain-separated digest recomputation;
+- a six-identity immutable snapshot that explicitly leaves the runtime
+  distribution and transitive runtime-input manifest bindings absent; and
+- exact wheel inclusion plus an isolated empty-CWD built-wheel loader check
+  with repository fallback excluded, socket audit events trapped, and a
+  temporary deterministic `0022` extraction umask restored in `finally`.
+
+Static audit found that the already-frozen `registry/sources.json` and
+`schemas/source-registry.schema.json` predate the current canonical key order.
+Reformatting them would invalidate existing parent and const-schema
+commitments. The implementation therefore has a compiled exact-two
+re-encoding exception only after those resources match their frozen raw
+size/hash. All other strict JSON, schema, and cross-binding checks remain
+mandatory, the normalized bytes are never adopted, and the other 12
+resources require canonical equality.
+
+The frozen V1 resolver nevertheless requires canonical equality for every raw
+input. The snapshot is therefore fixed as
+`strict_v1_resolver_eligible=False`, with both noncanonical parents named as
+blockers. The decoder repeats the exact size/hash check itself, so a private
+helper cannot activate the exception by key alone. Supplying the two runtime
+identities would not resolve this normative incompatibility; a successor
+profile or re-frozen parent chain is also required before strict resolution.
+
+Pre-publication focused evidence is 76/76: 22 resource-preflight tests, 13
+static-loader tests, seven policy tests, 12 source-contract tests, and 22
+evidence-prerequisite tests. Targeted Ruff/format and locked Pyright passed,
+as did sdist/wheel builds, exact wheel-member parity, and isolated wheel
+execution. Four publication-boundary tests also passed. At
+2026-08-01T19:54:34+09:00, three independent read-only AI audits each reported
+P0/P1/P2 as 0/0/0.
+
+The local macOS full suite discovered all 1,163 tests and completed in
+587.892s with 55 skips. It was not green: five failures and six errors were
+confined to unchanged KP1979 V3 control-freeze host tests involving Darwin
+directory revalidation and an AF_UNIX path-length limit. No new preflight,
+static-loader, package, policy, source-contract, evidence-prerequisite, or
+publication-boundary test failed. Required public Linux CI remains pending
+and must be appended after completion.
+
+No research or protected source request was made. No external source byte,
+receipt, pass, observation, source-link/no-link result, join, transcription,
+translation, decipherment evidence, submission, or prize result exists. The
+loader proves only package-local agreement with compiled identities; it does
+not authenticate the package, satisfy frozen strict V1, grant authority,
+validate a runtime, or permit source access.

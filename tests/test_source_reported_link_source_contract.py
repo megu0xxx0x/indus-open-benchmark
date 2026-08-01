@@ -770,10 +770,28 @@ class SourceReportedLinkSourceContractTests(unittest.TestCase):
     def test_static_packaging_boundary_makes_no_runtime_resource_claim(self) -> None:
         pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         self.assertIn('"schemas" = "indusbench/schemas"', pyproject)
-        self.assertIn('"registry/sources.json" = "indusbench/registry/sources.json"', pyproject)
+        for packaged_registry in (
+            "chanhu-daro-helsinki-gate-v1.json",
+            "sources.json",
+            "source-reported-link-policy-v1.json",
+            "source-reported-link-source-contract-v1.json",
+            "source-reported-link-protected-ephemeral-custody-contract-v1.json",
+        ):
+            self.assertIn(
+                f'"registry/{packaged_registry}" = "indusbench/registry/{packaged_registry}"',
+                pyproject,
+            )
         self.assertIn('"/registry"', pyproject)
         self.assertIn('"/tests"', pyproject)
-        self.assertNotIn("source-reported-link-source-contract-v1.json", pyproject)
+        self.assertTrue((ROOT / "src" / "indusbench" / "source_reported_link_resource.py").exists())
+        self.assertTrue((ROOT / "src" / "indusbench" / "source_reported_link_static.py").exists())
+        for runtime_module in (
+            "source_reported_link_acquisition.py",
+            "source_reported_link_parser.py",
+            "source_reported_link_evaluator.py",
+            "source_reported_link_strict_verifier.py",
+        ):
+            self.assertFalse((ROOT / "src" / "indusbench" / runtime_module).exists())
 
 
 if __name__ == "__main__":
