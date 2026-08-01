@@ -230,8 +230,19 @@ Validation update at 2026-08-01 19:54:34 JST:
 - no new preflight, static-loader, packaging, policy, source-contract,
   evidence-prerequisite, or publication-boundary test failed.
 
-The required public Linux CI remains a separate pending gate for this
-implementation candidate.
+Public Linux CI run `30696751707` then succeeded at exact implementation head
+`8cdaaa29c03d535d9590958194a3de31d0291797`:
+
+| Python | Quicknet | Full suite |
+|---|---:|---:|
+| 3.11 | 537.059591 ms | 1,163 tests, 22 skips, 845.198 s |
+| 3.13 | 545.911912 ms | 1,163 tests, 22 skips, 954.779 s |
+| 3.14 | 517.956550 ms | 1,163 tests, 22 skips, 912.584 s |
+
+Every job used exact Node 24.18.1 and passed Ruff, formatting of all 190
+files, zero-error Pyright, the complete suite, both distribution builds, and
+the isolated installed-wheel verifier. This closes the publication gate for
+the implementation commit; it does not change any nonclaim below.
 
 ## Explicit nonclaims and next blockers
 

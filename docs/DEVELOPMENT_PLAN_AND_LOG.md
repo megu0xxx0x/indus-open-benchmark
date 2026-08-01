@@ -2216,8 +2216,16 @@ The local macOS full suite discovered all 1,163 tests and completed in
 587.892s with 55 skips, but was not green. Its five failures and six errors
 were confined to unchanged KP1979 V3 control-freeze host tests involving
 Darwin directory revalidation and an AF_UNIX path-length limit; none involved
-the new modules or changed packaging boundary. Required public Linux CI
-remains a separate pending gate.
+the new modules or changed packaging boundary.
+
+Public Linux CI run `30696751707` subsequently succeeded at exact
+implementation head `8cdaaa29c03d535d9590958194a3de31d0291797`.
+Python 3.11, 3.13, and 3.14 each passed exact Node 24.18.1 Quicknet, Ruff,
+formatting of all 190 files, zero-error Pyright, all 1,163 tests with 22
+skips, both builds, and the isolated installed-wheel verifier. Full-suite
+times were 845.198s, 954.779s, and 912.584s respectively. The implementation
+publication gate is therefore closed; the strict-V1, runtime, authority,
+source-access, and scientific blockers remain unchanged.
 
 This changes the next-step boundary but not the authorization state. Remaining
 work is the independent bootstrap/trust interface, transitive runtime

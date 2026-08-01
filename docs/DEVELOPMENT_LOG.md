@@ -1038,8 +1038,16 @@ The local macOS full suite discovered all 1,163 tests and completed in
 confined to unchanged KP1979 V3 control-freeze host tests involving Darwin
 directory revalidation and an AF_UNIX path-length limit. No new preflight,
 static-loader, package, policy, source-contract, evidence-prerequisite, or
-publication-boundary test failed. Required public Linux CI remains pending
-and must be appended after completion.
+publication-boundary test failed.
+
+At 2026-08-01T20:15:19+09:00, public Linux CI run `30696751707` succeeded at
+exact implementation head `8cdaaa29c03d535d9590958194a3de31d0291797`.
+All three jobs used exact Node 24.18.1, passed Quicknet, Ruff, formatting of
+all 190 files, zero-error Pyright, all 1,163 tests with 22 skips, both
+distribution builds, and the isolated installed-wheel verifier. Full-suite
+times were 845.198s on Python 3.11, 954.779s on Python 3.13, and 912.584s on
+Python 3.14. This closes the public-CI gate for the implementation commit
+without changing any authorization, execution, access, or result state.
 
 No research or protected source request was made. No external source byte,
 receipt, pass, observation, source-link/no-link result, join, transcription,
