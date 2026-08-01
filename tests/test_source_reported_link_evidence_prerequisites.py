@@ -1159,6 +1159,8 @@ def model_resolve_ledger_chain(
             and index >= terminal_prefix
         ):
             claimed = payload.get("registry_checkpoint")
+            if not isinstance(claimed, str):
+                raise CorpusFormatError("terminal suffix lacks a valid registry checkpoint")
             if suffix_checkpoint is None:
                 suffix_checkpoint = claimed
             if claimed != suffix_checkpoint:
@@ -1328,11 +1330,21 @@ def _terminal_copy_payload(
         ),
         None,
     )
-    g20_payload = (
-        decode_canonical(g20_ref.raw, source="reference copied g20")
-        if g20_ref is not None
-        else None
-    )
+    g20_generation: dict[str, Any] | None = None
+    if g20_ref is not None:
+        g20_payload = decode_canonical(g20_ref.raw, source="reference copied g20")
+        if not isinstance(g20_payload, dict):
+            raise CorpusFormatError("reference copied g20 is not an object")
+        g20_generation = {
+            "canonical_size": g20_ref.canonical_size,
+            "generation_index": g20_ref.generation_index,
+            "generation_name": g20_ref.generation_name,
+            "g20_sanitized_control_projection": g20_payload["g20_sanitized_control_projection"],
+            "g20_sanitized_control_projection_sha256": g20_payload[
+                "g20_sanitized_control_projection_sha256"
+            ],
+            "sha256": g20_ref.domain_digest,
+        }
     terminal_branch_disposition, prefix_text = expanded_terminal_branch_id.rsplit(":", maxsplit=1)
     if int(prefix_text) != chain.success_prefix_count:
         raise CorpusFormatError("terminal ledger branch/prefix mismatch")
@@ -1344,20 +1356,7 @@ def _terminal_copy_payload(
         "complete_body_count_status": body_status,
         "confirmed_application_dispatch_count": dispatch,
         "confirmed_application_dispatch_count_status": dispatch_status,
-        "g20_generation": (
-            {
-                "canonical_size": g20_ref.canonical_size,
-                "generation_index": g20_ref.generation_index,
-                "generation_name": g20_ref.generation_name,
-                "g20_sanitized_control_projection": g20_payload["g20_sanitized_control_projection"],
-                "g20_sanitized_control_projection_sha256": g20_payload[
-                    "g20_sanitized_control_projection_sha256"
-                ],
-                "sha256": g20_ref.domain_digest,
-            }
-            if g20_ref is not None
-            else None
-        ),
+        "g20_generation": g20_generation,
         "ledger_generation_count": len(chain.generations),
         "ledger_head_generation_index": (
             chain.generations[-1].generation_index if chain.generations else None
@@ -4162,8 +4161,11 @@ process.exit(crypto.verify(null, message, key, signature) &&
                 "workspace_never_created_with_initial_ledger:1",
             ),
         ):
-            self.assertIsNotNone(w_chain.terminal_ledger_copy)
-            w_copy = w_chain.terminal_ledger_copy.payload
+            w_terminal_copy = w_chain.terminal_ledger_copy
+            self.assertIsNotNone(w_terminal_copy)
+            if w_terminal_copy is None:
+                self.fail("W registry chain lacks its terminal ledger copy")
+            w_copy = w_terminal_copy.payload
             self.assertEqual(disposition, w_copy["terminal_branch_disposition"])
             self.assertEqual(prefix, w_copy["success_prefix_count"])
             self.assertEqual(expanded_id, w_copy["expanded_terminal_branch_id"])
@@ -4466,18 +4468,18 @@ process.exit(crypto.verify(null, message, key, signature) &&
         )
         self.assertEqual("review_denied", denied_final.selected_branch_id)
 
-        self.assertIsInstance(
-            post_l_registry.terminal_ledger_copy,
-            ReferenceTerminalLedgerCopy,
-        )
+        post_l_terminal_copy = post_l_registry.terminal_ledger_copy
+        self.assertIsInstance(post_l_terminal_copy, ReferenceTerminalLedgerCopy)
+        if not isinstance(post_l_terminal_copy, ReferenceTerminalLedgerCopy):
+            self.fail("post-L registry lacks its terminal ledger copy")
         self.assertFalse(
             any(isinstance(value, ReferenceLedgerChain) for value in vars(post_l_registry).values())
         )
-        self.assertNotIn("raw", post_l_registry.terminal_ledger_copy.payload)
+        self.assertNotIn("raw", post_l_terminal_copy.payload)
         self.assertTrue(
             all(
                 "raw" not in member
-                for member in post_l_registry.terminal_ledger_copy.payload[
+                for member in post_l_terminal_copy.payload[
                     "ordered_ledger_generation_name_digest_state_size_roster"
                 ]
             )
@@ -4523,11 +4525,11 @@ process.exit(crypto.verify(null, message, key, signature) &&
             )
         with self.assertRaisesRegex(CorpusFormatError, "ReferenceSourceAccessEvidence"):
             model_derive_source_access_status({})  # type: ignore[arg-type]
+        attacker_keywords = {
+            "allowed_expanded_sequences": {"attacker": ("ATTACKER_DEFINED_DURABLE",)}
+        }
         with self.assertRaises(TypeError):
-            model_resolve_ledger_chain(  # type: ignore[call-arg]
-                (),
-                allowed_expanded_sequences={"attacker": ("ATTACKER_DEFINED_DURABLE",)},
-            )
+            model_resolve_ledger_chain((), **attacker_keywords)
         self.assertEqual(18, len(terminal_crosswalk))
         self.assertEqual(
             {"R", "P", "A", "C", "E", "T", "L", "M", "W"},
