@@ -781,6 +781,11 @@ class SourceReportedLinkSourceContractTests(unittest.TestCase):
                 f'"registry/{packaged_registry}" = "indusbench/registry/{packaged_registry}"',
                 pyproject,
             )
+        v2_wrapper = "source-reported-link-protected-ephemeral-custody-contract-v2.json"
+        self.assertIn(
+            f'"registry/{v2_wrapper}" = "indusbench/registry/{v2_wrapper}"',
+            pyproject,
+        )
         self.assertIn('"/registry"', pyproject)
         self.assertIn('"/tests"', pyproject)
         self.assertTrue((ROOT / "src" / "indusbench" / "source_reported_link_resource.py").exists())

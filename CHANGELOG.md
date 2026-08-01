@@ -7,6 +7,26 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A source-free
+  [V2 static-resource compatibility wrapper](docs/SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
+  and closed Draft 2020-12 `const` schema. The wrapper incorporates the frozen
+  V1 custody/source contracts by exact raw size and SHA-256 and supersedes
+  their canonical-byte rule only for the ordered pair `registry/sources.json`
+  and `schemas/source-registry.schema.json`. Each exception requires its
+  historical raw identity and a separately fixed canonical re-encoding
+  size/hash canary; normalized bytes never become an identity, output, or
+  writeback. Every other resource remains canonical-only, and callers cannot
+  select or extend the exception set.
+
+  The wheel packages the wrapper and schema as a separate exact-two surface,
+  and its post-build verifier checks member identity, repository parity,
+  canonical bytes, schema validity, and `const` equality. The existing
+  exact-14 loader and six-identity snapshot are unchanged, strict V1
+  eligibility remains false, and no V2-aware resolver is implemented. The
+  wrapper does not establish package provenance, runtime eligibility,
+  authority, source access, evidence, translation, decipherment, submission,
+  or prize eligibility.
+
 - The first source-free
   [installed static loader and canonical-resource preflight](docs/SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md).
   The preflight fixes all 21 raw artifact roles and applies bounded strict

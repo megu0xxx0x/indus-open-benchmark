@@ -8,6 +8,7 @@ empty working directory under isolated Python.
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import stat
 import subprocess
@@ -15,6 +16,8 @@ import sys
 import tempfile
 import zipfile
 from pathlib import Path, PurePosixPath
+
+from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -74,6 +77,17 @@ EXPECTED_RESOURCES = {
     "schemas/source-reported-link-completeness-attestation.schema.json": (
         5627,
         "a8ae0f32fbda8cd1bb7e29db3d3444ec0659ffa9f9818ea85331288d0f018c02",
+    ),
+}
+
+EXPECTED_V2_WRAPPER_RESOURCES = {
+    "registry/source-reported-link-protected-ephemeral-custody-contract-v2.json": (
+        16981,
+        "a064331361057947e8b4079dcc114e3d7918459a538107039199f7074bc4c86c",
+    ),
+    "schemas/source-reported-link-protected-ephemeral-custody-contract-v2.schema.json": (
+        17694,
+        "1523534dabf734c2381d454f4c7a387f271fd4088f81c3d15a4d0e4915fed671",
     ),
 }
 
@@ -157,6 +171,42 @@ def _validate_member_name(name: str) -> None:
         _fail("unsafe wheel member name")
 
 
+def _reject_duplicate_keys(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    value: dict[str, object] = {}
+    for key, child in pairs:
+        if key in value:
+            _fail("duplicate wrapper JSON key")
+        value[key] = child
+    return value
+
+
+def _decode_canonical_json(raw: bytes) -> object:
+    try:
+        value = json.loads(
+            raw.decode("utf-8"),
+            object_pairs_hook=_reject_duplicate_keys,
+            parse_constant=lambda _: _fail("non-finite wrapper JSON number"),
+            parse_float=lambda _: _fail("floating wrapper JSON number"),
+        )
+        canonical = (
+            json.dumps(
+                value,
+                ensure_ascii=False,
+                allow_nan=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n"
+        ).encode("utf-8")
+    except (UnicodeError, ValueError, TypeError) as error:
+        raise SystemExit(
+            "installed-distribution verification failed: invalid wrapper JSON"
+        ) from error
+    if canonical != raw:
+        _fail("noncanonical wrapper JSON")
+    return value
+
+
 def verify(wheel: Path) -> None:
     if not wheel.is_file() or wheel.suffix != ".whl":
         _fail("exactly one wheel path is required")
@@ -194,6 +244,46 @@ def verify(wheel: Path) -> None:
                 _fail("wheel resource digest mismatch")
             if raw != (ROOT / relative_path).read_bytes():
                 _fail("wheel and repository resource bytes differ")
+
+        decoded_v2_resources = {}
+        for relative_path, (
+            expected_size,
+            expected_sha256,
+        ) in EXPECTED_V2_WRAPPER_RESOURCES.items():
+            wheel_name = f"indusbench/{relative_path}"
+            matching = [member for member in members if member.filename == wheel_name]
+            if len(matching) != 1:
+                _fail("exact V2 wrapper resource set is incomplete")
+            member = matching[0]
+            if not stat.S_ISREG(member.external_attr >> 16):
+                _fail("V2 wrapper resource is not a regular wheel member")
+            if member.file_size != expected_size:
+                _fail("V2 wrapper resource size mismatch")
+            raw = archive.read(member)
+            if len(raw) != expected_size:
+                _fail("V2 wrapper resource short read")
+            if hashlib.sha256(raw).hexdigest() != expected_sha256:
+                _fail("V2 wrapper resource digest mismatch")
+            if raw != (ROOT / relative_path).read_bytes():
+                _fail("wheel and repository V2 wrapper bytes differ")
+            decoded_v2_resources[relative_path] = _decode_canonical_json(raw)
+
+        wrapper = decoded_v2_resources[
+            "registry/source-reported-link-protected-ephemeral-custody-contract-v2.json"
+        ]
+        wrapper_schema = decoded_v2_resources[
+            "schemas/source-reported-link-protected-ephemeral-custody-contract-v2.schema.json"
+        ]
+        if not isinstance(wrapper_schema, dict):
+            _fail("V2 wrapper schema is not an object")
+        if set(wrapper_schema) != {"$id", "$schema", "const"}:
+            _fail("V2 wrapper schema surface mismatch")
+        if wrapper_schema["$schema"] != "https://json-schema.org/draft/2020-12/schema":
+            _fail("V2 wrapper schema dialect mismatch")
+        if wrapper_schema["const"] != wrapper:
+            _fail("V2 wrapper const mismatch")
+        Draft202012Validator.check_schema(wrapper_schema)
+        Draft202012Validator(wrapper_schema).validate(wrapper)
 
         previous_umask = os.umask(0o022)
         try:

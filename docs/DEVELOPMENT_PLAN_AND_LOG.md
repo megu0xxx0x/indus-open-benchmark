@@ -1,8 +1,8 @@
 # Public development plan and status
 
-**Status date:** 2026-08-01
+**Status date:** 2026-08-02
 
-**Last source-level update:** 2026-08-01
+**Last source-level update:** 2026-08-02
 
 **Project:** Open Indus Benchmark
 
@@ -27,9 +27,11 @@ separate and traceable.
   tests, and scientific/governance documentation are public.
 - The static source-reported-link policy, nonretroactive source
   registration/rights contract, four evidence-artifact schemas, and protected
-  ephemeral custody/deletion contract are frozen. No dynamic revision receipt,
-  authority proof, protected source byte, custody workspace, runtime
-  bootstrap/parser/evaluator, observation, result, or admitted join exists.
+  ephemeral custody/deletion contract are frozen. A source-free V2
+  static-resource compatibility wrapper is also frozen and packaged but has
+  no installed resolver. No dynamic revision receipt, authority proof,
+  protected source byte, custody workspace, runtime bootstrap/parser/evaluator,
+  observation, result, or admitted join exists.
   State remains `contract_blocked`, authorization is `not_authorized`, and
   execution is `not_executed`.
 - The current split and evaluator are development-only. They are not blind or
@@ -2242,3 +2244,83 @@ Current state remains
 `NONE_no_source_access_executed`. No source was accessed and no receipt,
 observation, result, decipherment evidence, submission, or prize result
 exists.
+
+## V2 static-resource compatibility wrapper — 2026-08-02
+
+The source-free
+[V2 compatibility wrapper](SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
+resolves the next specification blocker without modifying a frozen V1 byte.
+It incorporates the V1 custody contract/schema and source contract/schema by
+exact raw size and SHA-256. Its closed supersession applies canonical-byte
+compatibility only to the ordered historical pair `registry/sources.json` and
+`schemas/source-registry.schema.json` after their raw identities match.
+
+For each member, the wrapper also fixes the size and SHA-256 of its canonical
+`encode_json` re-encoding as a verification canary. The canary is not an
+identity, source revision, output, writeback, or retained derivative. Every
+other selected static, dynamic, or runtime resource remains canonical-only,
+and a caller cannot select or extend the exception set.
+
+The two new canonical artifacts are:
+
+| Artifact | Bytes | SHA-256 |
+|---|---:|---|
+| V2 custody/resolver wrapper | 16,981 | `a064331361057947e8b4079dcc114e3d7918459a538107039199f7074bc4c86c` |
+| V2 Draft 2020-12 `const` schema | 17,694 | `1523534dabf734c2381d454f4c7a387f271fd4088f81c3d15a4d0e4915fed671` |
+
+The wheel selects the wrapper individually and includes its schema through the
+existing schema package rule. The post-build verifier checks both exact wheel
+members, repository parity, canonical JSON, Draft 2020-12 validity, and exact
+`const` equality. A dedicated source-free test recomputes all incorporated
+parent identities, both raw/canonical exception identities, mutation
+rejection, and unchanged general-preflight rejection.
+
+This remains a specification-only checkpoint. The current installed loader is
+still exact-14, its snapshot still has six static identities, and
+`strict_v1_resolver_eligible=False` is permanent for that V1 surface. The V2
+wrapper records `resolver_implementation_status=not_implemented` and
+`successor_static_profile_conformant=false`. Packaging cannot activate it.
+
+Three independent read-only AI audits converged on this narrow wrapper rather
+than rewriting the frozen V1 parent chain. They required raw-hash V1
+incorporation, an exact-two ordered exception, external future binding of the
+wrapper/schema, preservation of the existing exact-eight field names, and no
+generic eligibility state. This is engineering review, not human or external
+scientific review.
+
+The first final-candidate audit then caught two release-blocking composition
+defects before commit: reuse of the V1 canonical profile ID with a different
+disposition, and replacement of the complete V1 resolver order rather than
+one canonical-check splice. It also identified ambiguous self-cycle wording,
+missing instance-versus-schema validation modes, and one packaging-document
+error. The candidate was corrected so the V1 profile is exact-equal, the
+compatibility ID is separate, one literal token is composed while the signed
+digest/manifest/distribution tail remains exact, both custody schemas are an
+additive exclusion, and all parent/replacement pointers are mechanically
+resolved in tests. The three final read-only AI re-audits reported
+P0/P1/P2 as 0/0/0.
+
+Pre-publication Linux validation completed at 2026-08-02 03:02:12 JST. The
+related source-link set passed 91/91 and the dedicated V2 set passed 12/12.
+Ruff, formatting of all 191 files, and locked Pyright passed with zero
+findings. The complete Linux suite passed all 1,175 tests with 19 skips in
+1,060.149 seconds. Fresh sdist and wheel builds passed exact installed-wheel
+verification; the wheel had 179 members and the sdist 368, with no forbidden
+archive member name. The staged change scan found zero secrets. The complete
+tracked tree and all 66 reachable commits retained four reviewed
+`generic-api-key` findings, all duplicates of the already-public fixed test
+vector in the frozen V1 custody contract and its `const` schema; this is not a
+zero-finding full-history claim. All 223 local Markdown links resolved. Exact
+Node 24.18.1 public-CI evidence remains pending until push.
+
+Next, implement and independently audit a distinct V2-aware exact-16 installed
+resolver while preserving permanent V1 ineligibility and a V2-specific
+package-local conformance state. After that, the complete runtime manifest,
+reproducible distribution, bootstrap trust boundary, missing schemas,
+custody/recovery runtime, acquisition client, parser, evaluator, and typed
+authenticated one-attempt authority proof remain required in that order.
+
+No research source was requested or opened. No protected source byte,
+receipt, pass, observation, source-link/no-link result, join, transcription,
+translation, decipherment evidence, submission, prize eligibility, or prize
+result exists.

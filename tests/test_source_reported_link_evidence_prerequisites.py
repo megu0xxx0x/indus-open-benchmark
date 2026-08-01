@@ -7020,6 +7020,10 @@ process.exit(crypto.verify(null, message, key, signature) &&
             "source-reported-link-protected-ephemeral-custody-contract-v1.json",
         ):
             self.assertIn(f'"registry/{packaged_registry}"', pyproject)
+        self.assertIn(
+            '"registry/source-reported-link-protected-ephemeral-custody-contract-v2.json"',
+            pyproject,
+        )
         self.assertTrue((ROOT / "src" / "indusbench" / "source_reported_link_resource.py").exists())
         self.assertTrue((ROOT / "src" / "indusbench" / "source_reported_link_static.py").exists())
         self.assertIs(

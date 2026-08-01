@@ -57,6 +57,7 @@ packages = ["src/indusbench"]
 "registry/source-reported-link-policy-v1.json" = "indusbench/registry/source-reported-link-policy-v1.json"
 "registry/source-reported-link-source-contract-v1.json" = "indusbench/registry/source-reported-link-source-contract-v1.json"
 "registry/source-reported-link-protected-ephemeral-custody-contract-v1.json" = "indusbench/registry/source-reported-link-protected-ephemeral-custody-contract-v1.json"
+"registry/source-reported-link-protected-ephemeral-custody-contract-v2.json" = "indusbench/registry/source-reported-link-protected-ephemeral-custody-contract-v2.json"
 "registry/kp1979_corpus.json" = "indusbench/registry/kp1979_corpus.json"
 "registry/kp1979_page_map.json" = "indusbench/registry/kp1979_page_map.json"
 "registry/kp1982_batch0.json" = "indusbench/registry/kp1982_batch0.json"

@@ -40,6 +40,7 @@ Current assets:
 - [static source registration and rights contract](SOURCE_REPORTED_LINK_SOURCE_CONTRACT_V1.md)
 - [static source evidence-prerequisite contract](SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md)
 - [installed static loader and canonical-resource preflight](SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md)
+- [V2 static-resource compatibility wrapper](SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
 - [Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 - [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
@@ -122,17 +123,28 @@ Current assets:
   with those parents. This is package-local consistency, not package
   authenticity, authority, runtime validation, source access, or scientific
   evidence.
+- [x] Without source access, freeze and package the V2 static-resource
+  compatibility wrapper and exact Draft 2020-12 `const` schema. Incorporate
+  V1 by exact raw hash and supersede canonical-byte equality only for the
+  ordered two historical parents after both their raw identities and fixed
+  canonical re-encoding canaries match. Keep every other resource
+  canonical-only, keep the existing exact-14 loader and six-identity snapshot
+  unchanged, and keep strict V1 eligibility false. The wrapper is a
+  source-free successor specification, not an activated resolver, authority,
+  runtime, source access, or scientific result.
 - [ ] Without source access, implement and independently review the remaining
   runtime boundary: independent bootstrap verifier and fixed external
   trust-root interface, root classifier and terminalizer, one-time
   reservation, append-only registry/ledger recovery, custody supervisor,
   exact acquisition client, deterministic parser, two-pass evaluator, and
-  review/retention state machines. Freeze the missing dynamic schemas,
+  review/retention state machines. First implement a dedicated V2-aware
+  exact-16 static resolver against the frozen compatibility wrapper while
+  preserving a V2-specific package-local conformance state and permanent V1
+  ineligibility. Freeze the missing dynamic schemas,
   complete transitive runtime manifest, reproducible runtime distribution,
-  and distinct runtime commit before any authority request. Separately freeze
-  a successor normative profile for the exact-two parent-byte exception or
-  re-freeze the affected parent chain; adding only the two runtime identities
-  cannot make the current snapshot strict-V1-eligible.
+  and distinct runtime commit before any authority request. Bind the V2
+  wrapper/schema externally; adding only the two runtime identities cannot
+  activate the successor or make the current snapshot strict-V1-eligible.
 - [ ] Only after that implementation checkpoint passes, obtain a new exact
   authenticated authority proof binding both the static prerequisite and
   runtime commits and permitting one complete five-member acquisition. Then

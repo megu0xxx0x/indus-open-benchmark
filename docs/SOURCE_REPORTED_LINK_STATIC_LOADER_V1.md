@@ -135,6 +135,25 @@ this incompatibility. A later authority-bearing path must first either freeze
 a successor contract/profile that explicitly defines the exact-two rule or
 re-freeze the affected parent chain under canonical bytes.
 
+## Source-free V2 follow-up
+
+The separately frozen
+[V2 static-resource compatibility wrapper](SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
+now supplies that successor specification. It incorporates the V1 custody and
+source contracts by exact raw size and SHA-256 and supersedes canonical-byte
+equality only for the ordered two historical resources after both their raw
+identities and fixed canonical re-encoding canaries match. The canonical
+projections remain canaries only and cannot be persisted, returned, written
+back, or adopted as identity.
+
+This V1 implementation remains historical and unchanged: its resource count
+is still 14, its output still contains six static identities, and
+`strict_v1_resolver_eligible` remains `False`. The V2 wrapper and `const`
+schema are packaged and independently verified as a separate exact-two
+surface, but no installed resolver consumes them at this checkpoint. A later
+dedicated V2-aware loader must validate the resulting exact-16 package-local
+surface without renaming or weakening the V1 state.
+
 ## Schema and cross-binding validation
 
 After raw identity and strict JSON checks, the loader:

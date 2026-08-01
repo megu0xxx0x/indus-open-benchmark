@@ -137,6 +137,19 @@ strict resolver. A successor normative profile or a re-frozen parent chain is
 required in addition to the two runtime bindings. No source endpoint or
 protected byte was accessed.
 
+The subsequent source-free checkpoint freezes a
+[V2 static-resource compatibility wrapper](docs/SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
+and exact Draft 2020-12 `const` schema. It incorporates the frozen V1 custody
+and source contracts by raw SHA-256 and supersedes canonical-byte equality
+only for the same ordered two historical resources after both their raw
+identities and fixed canonical re-encoding canaries match. Every other
+resource remains canonical-only. The wrapper and schema are packaged and
+independently checked as two additional resources, but the existing exact-14
+loader does not consume them. V1 eligibility remains false; the V2 resolver,
+runtime manifest/distribution, trust root, authority, acquisition, and
+execution remain absent. Packaging the wrapper does not authorize source
+access or establish scientific evidence.
+
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown

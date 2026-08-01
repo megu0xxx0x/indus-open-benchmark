@@ -14,7 +14,7 @@ PUBLIC_TEXT_FILES = (
     ROOT / "README.md",
     ROOT / "SECURITY.md",
 )
-PUBLIC_TEXT_ROOTS = (ROOT / ".github", ROOT / "docs", ROOT / "registry")
+PUBLIC_TEXT_ROOTS = (ROOT / ".github", ROOT / "docs", ROOT / "registry", ROOT / "schemas")
 TEXT_SUFFIXES = {".json", ".md", ".toml", ".yaml", ".yml"}
 
 FORBIDDEN_PUBLIC_PATTERNS = {

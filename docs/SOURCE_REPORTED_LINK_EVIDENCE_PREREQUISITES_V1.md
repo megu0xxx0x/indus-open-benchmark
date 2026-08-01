@@ -249,6 +249,14 @@ The bootstrap trust root, authenticated authority proof, strict runtime
 verifier, acquisition, parsing, evaluation, and execution blockers therefore
 remain closed.
 
+The subsequent source-free
+[V2 static-resource compatibility wrapper](SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
+now freezes the successor rule without modifying V1. It incorporates the V1
+contracts by exact raw hash and limits the alternate canonical check to the
+same ordered two resources. The wrapper and schema are packaged but not
+consumed by an installed resolver, so they do not yet establish V2
+package-local conformance or remove any runtime or authority blocker.
+
 ## Non-execution and nonclaims
 
 No research or protected source endpoint was requested while preparing,
@@ -270,21 +278,22 @@ claim authorization, prize submission, prize eligibility, or prize result.
 Work must remain source-free while the following implementation checkpoint is
 built and independently validated:
 
-1. freeze the missing dynamic schemas and exact generic resource preflight;
-2. implement the independent bootstrap verifier, fixed external trust-root
+1. implement a dedicated V2-aware exact-16 static resolver against the frozen
+   wrapper and preserve both permanent V1 ineligibility and a distinct,
+   package-local-only V2 conformance state;
+2. freeze the missing dynamic schemas and exact generic resource preflight;
+3. implement the independent bootstrap verifier, fixed external trust-root
    interface, strict cross-artifact verifier, root classifier, terminalizer,
    one-time reservation, registry/ledger recovery, and custody supervisor;
-3. implement the exact five-request acquisition client, bounded deterministic
+4. implement the exact five-request acquisition client, bounded deterministic
    body-to-parser profile, closed parser codebook, two-pass evaluator, deletion
    evidence, review, and retention state machines without executing them;
-4. bind the full transitive runtime manifest and reproducible distribution to
-   a new runtime commit and audit that frozen implementation; and
-5. freeze a successor profile for the exact-two parent-byte rule or re-freeze
-   the affected parent chain so the static input is strict-resolver-eligible;
-   and
+5. bind the V2 wrapper/schema, full transitive runtime manifest, and
+   reproducible distribution to a new runtime commit and audit that frozen
+   implementation; and
 6. only then obtain a new exact external authority proof that binds the
-   eligible static profile and runtime commit and permits one complete
-   attempt.
+   V2-aware static conformance state and runtime commit and permits one
+   complete attempt.
 
 Only a valid authority record after those steps could permit the five-member
 acquisition and two coded passes. A valid result would still be a bounded

@@ -1055,3 +1055,57 @@ translation, decipherment evidence, submission, or prize result exists. The
 loader proves only package-local agreement with compiled identities; it does
 not authenticate the package, satisfy frozen strict V1, grant authority,
 validate a runtime, or permit source access.
+
+## 2026-08-02T02:36:40+09:00 — V2 compatibility wrapper frozen source-free
+
+Three independent read-only AI audits compared two ways to resolve the
+frozen-V1 canonical-byte conflict: re-freezing the affected parent chain and
+adding a narrow successor wrapper. Re-freezing would require a multi-artifact
+digest cascade across the source registry, source contract, four dynamic
+schemas, artifact schema-set, custody contract, and exact authority bindings.
+The narrower safe checkpoint is a V2 wrapper that incorporates V1 by raw hash
+and supersedes only the conflicting static resolver rule.
+
+The new
+[V2 compatibility wrapper](SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
+and Draft 2020-12 `const` schema are canonical, exact-byte public artifacts.
+They bind the historical raw and canonical re-encoding identities of exactly
+two ordered resources. The canonical bytes are verification canaries only;
+they cannot replace the historical identity, be written back, or be selected
+or extended by a caller. All unlisted V1 rules and all other resource
+canonical checks remain unchanged.
+
+The wrapper is individually selected into the wheel and the schema is
+included by the existing schema package rule. The post-build verifier now
+checks both resources separately from the historical exact-14 loader surface.
+The V1 loader, its six static identities, and its permanent
+`strict_v1_resolver_eligible=False` state are unchanged. The wrapper declares
+that no V2-aware resolver implementation is present and that packaging does
+not activate authority, runtime, or source access.
+
+The first final-candidate audit caught and blocked a same-ID canonical-profile
+redefinition and a whole-resolver-order replacement, plus narrower
+self-cycle, validation-mode, and documentation ambiguities. All were
+corrected before commit. The final three independent read-only AI audits
+reported P0/P1/P2 as 0/0/0; this is engineering review, not human or external
+scientific review.
+
+At 2026-08-02T03:02:12+09:00, source-link validation passed 91/91 and the V2
+wrapper set passed 12/12. Ruff, 191-file formatting, and locked Pyright passed;
+the full Linux suite passed 1,175 tests with 19 skips in 1,060.149 seconds.
+Fresh sdist/wheel builds and isolated installed-wheel verification passed,
+all 223 local Markdown links resolved, and the staged secret scan found zero
+new findings. The complete tracked tree and 66-commit history retain four
+reviewed scanner findings, all the already-public fixed test vector duplicated
+between the frozen V1 custody contract and its `const` schema. Exact Node
+24.18.1 CI evidence is pending publication.
+
+Next: implement and independently review a dedicated exact-16 V2-aware
+installed resolver with a distinct package-local conformance state. Only
+after that may work continue on the source-free runtime manifest,
+distribution, trust root, custody/recovery machinery, parser/evaluator, and
+typed authenticated one-attempt authority boundary.
+
+No research source was requested or opened. No protected byte, receipt,
+observation, source-link/no-link result, join, translation, decipherment,
+submission, prize eligibility, or prize result exists.
