@@ -51,9 +51,11 @@ PUBLIC_COMMITMENT_PATHS = {
     ),
     "result_schema_sha256": RESULT_SCHEMA,
     "scorer_module_sha256": ROOT / "src/indusbench/kp1979_label_scoring.py",
-    "uv_lock_sha256": ROOT / "uv.lock",
     "worker_module_sha256": ROOT / "src/indusbench/kp1979_detector_v2_worker.py",
 }
+# The published result binds its historical execution lock. Later project
+# dependency updates must not reinterpret that immutable digest as the current
+# repository lock identity.
 
 
 def _all_mapping_keys(value: object) -> set[str]:

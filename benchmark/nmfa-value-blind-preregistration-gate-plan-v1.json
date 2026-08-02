@@ -1,0 +1,542 @@
+{
+  "canonicalization": {
+    "encoding": "UTF-8_without_BOM_LF_terminated",
+    "floats": "forbidden",
+    "integer_range": "signed_64_bit",
+    "manifest_self_hash_exclusion": "remove_only_top_level_manifest_sha256_before_reencoding",
+    "profile": "indusbench-canonical-json-sort-keys-indent-2-v1",
+    "receipt_self_hash_exclusion": "compute_before_adding_top_level_receipt_sha256"
+  },
+  "claim_chain_policy": {
+    "candidate_limit": "declarations_and_internal_digest_chain_only_external_registry_not_verified_by_this_gate",
+    "external_registration_requirement": "reserve_one_claim_slot_and_register_one_active_chain_head_binding_exact_draft_parent_plan_gate_bundle_typed_full_NMFA_execution_evaluator_bundle_manifest_prevalue_inventory_population_seals_signed_X_Y_audit_receipts_joint_E_G_review_identifier_rederivation_split_inventory_complete_split_eligible_roster_and_all_aborted_prior_slots",
+    "fork_rule": "parallel_active_chains_retry_resalt_event_reuse_and_post_registration_supersession_forbidden",
+    "nonce_anchor": "first_qualifying_event_strictly_after_external_registration_receipt_for_the_single_active_chain",
+    "resource_availability_order": "parent_updated_at_strictly_before_plan_created_at_strictly_before_bundle_created_at_strictly_before_claim_slot_reservation_recorded_at_all_canonical_UTC_seconds_gate_does_not_verify_external_time"
+  },
+  "created_at": "2026-08-02T09:33:50Z",
+  "decision": {
+    "contract_error": "PREFLIGHT_CONTRACT_INVALID",
+    "pass_state": "CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW",
+    "terminal_precedence": [
+      "SOURCE_VALUE_BLINDNESS_BREACH",
+      "AUTHORITY_BLOCKED",
+      "RIGHTS_BLOCKED",
+      "CUSTODY_BLOCKED",
+      "TARGET_CONTRACT_INCOMPLETE",
+      "SOURCE_FRAME_INCOMPLETE",
+      "POPULATION_MANIFEST_INVALID",
+      "DEPENDENCE_CONTEXT_INVALID",
+      "INSUFFICIENT_ELIGIBLE_G",
+      "COMPUTATION_LIMIT_BLOCKED",
+      "NO_FEASIBLE_DOMAIN_TUPLE",
+      "N2_UNIVERSAL_SUPPORT_BLOCKED",
+      "CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW"
+    ]
+  },
+  "digest_dag": [
+    {
+      "inputs": [
+        "exact_parent_protocol_raw_bytes"
+      ],
+      "node": "parent_protocol_sha256"
+    },
+    {
+      "inputs": [
+        "exact_gate_plan_raw_bytes"
+      ],
+      "node": "gate_plan_sha256"
+    },
+    {
+      "inputs": [
+        "exact_evaluator_bundle_raw_bytes"
+      ],
+      "node": "evaluator_bundle_sha256"
+    },
+    {
+      "inputs": [
+        "payload.context_contract:manifest.context_contract"
+      ],
+      "node": "context_contract_sha256"
+    },
+    {
+      "inputs": [
+        "payload.nuisance_vocabularies:manifest.context_contract.nuisance_vocabularies"
+      ],
+      "node": "nuisance_value_vocabularies_sha256"
+    },
+    {
+      "inputs": [
+        "payload.relation_policy:fixed_evaluator_relation_policy"
+      ],
+      "node": "relation_policy_sha256"
+    },
+    {
+      "inputs": [
+        "payload.rights:manifest.rights_when_every_evidence_sha256_is_nonnull"
+      ],
+      "node": "rights_evidence_set_sha256_or_null"
+    },
+    {
+      "inputs": [
+        "payload.ordered_opaque_source_roster:manifest.source_records",
+        "payload.source_frame:manifest.source_frame"
+      ],
+      "node": "source_frame_sha256"
+    },
+    {
+      "inputs": [
+        "payload.sealed_dataset:manifest.sealed_datasets.transcription_x"
+      ],
+      "node": "transcription_seal_sha256"
+    },
+    {
+      "inputs": [
+        "payload.sealed_dataset:manifest.sealed_datasets.target_y"
+      ],
+      "node": "target_seal_sha256"
+    },
+    {
+      "inputs": [
+        "payload.claim_slot_id:manifest.claim_policy.claim_slot_id",
+        "payload.data_layer:target_y_or_transcription_x",
+        "payload.experiment_instance_id:manifest.experiment_instance_id",
+        "payload.ordered_f_ids:manifest.units.f_id_in_manifest_order"
+      ],
+      "node": "sealed_f_roster_sha256_per_layer"
+    },
+    {
+      "inputs": [
+        "payload.claim_policy:manifest.claim_policy",
+        "payload.context_rule_contract:fixed_context_mapping_policy_without_observed_ids",
+        "payload.custody_contract_sha256:manifest.bindings.custody_contract_sha256",
+        "payload.evaluator_bundle_sha256:manifest.bindings.evaluator_bundle_sha256",
+        "payload.evidence_envelope_contract:manifest.evidence_envelope_contract",
+        "payload.experiment_instance_id:manifest.experiment_instance_id",
+        "payload.gate_plan_sha256:manifest.bindings.gate_plan_sha256",
+        "payload.governance:manifest.governance",
+        "payload.identifier_policy_without_key_commitment:manifest.identifier_contract_minus_key_commitment_sha256_field",
+        "payload.nonce_event_contract:manifest.nonce_event_contract",
+        "payload.parent_protocol_sha256:manifest.bindings.parent_protocol_sha256",
+        "payload.prospective:manifest.prospective",
+        "payload.protection:manifest.protection",
+        "payload.rights:manifest.rights",
+        "payload.sealed_dataset_contracts:manifest.sealed_datasets.contracts_only",
+        "payload.source_frame_rule_contract:fixed_source_frame_rules_without_observed_roster",
+        "payload.staged_release_contract:manifest.staged_release_contract",
+        "payload.target_contract_without_opaque_unit_id:manifest.target_without_canonical_unit_id"
+      ],
+      "node": "claim_slot_reservation_sha256"
+    },
+    {
+      "inputs": [
+        "payload.claim_slot_reservation_receipt:manifest.freeze_sequence.claim_slot_reservation_receipt",
+        "payload.claim_slot_reservation_sha256:recomputed_claim_slot_reservation_sha256",
+        "payload.claim_slot_id:manifest.claim_policy.claim_slot_id",
+        "payload.experiment_instance_id:manifest.experiment_instance_id",
+        "payload.identifier_contract:manifest.identifier_contract"
+      ],
+      "node": "identifier_key_ceremony_sha256"
+    },
+    {
+      "inputs": [
+        "payload.claim_policy:manifest.claim_policy",
+        "payload.claim_slot_reservation_receipt:manifest.freeze_sequence.claim_slot_reservation_receipt",
+        "payload.claim_slot_reservation_sha256:manifest.bindings.claim_slot_reservation_sha256",
+        "payload.context_contract:manifest.context_contract",
+        "payload.custody_contract_sha256:manifest.bindings.custody_contract_sha256",
+        "payload.evaluator_bundle_sha256:manifest.bindings.evaluator_bundle_sha256",
+        "payload.evidence_envelope_contract:manifest.evidence_envelope_contract",
+        "payload.experiment_instance_id:manifest.experiment_instance_id",
+        "payload.exposure_control:manifest.exposure_control",
+        "payload.gate_plan_sha256:manifest.bindings.gate_plan_sha256",
+        "payload.governance:manifest.governance",
+        "payload.identifier_contract:manifest.identifier_contract",
+        "payload.identifier_key_ceremony_sha256:manifest.bindings.identifier_key_ceremony_sha256",
+        "payload.identifier_key_generation_receipt:manifest.freeze_sequence.identifier_key_generation_receipt",
+        "payload.n1_deferred_contract:manifest.n1_deferred_contract",
+        "payload.nonce_event_contract:manifest.nonce_event_contract",
+        "payload.parent_protocol_sha256:manifest.bindings.parent_protocol_sha256",
+        "payload.prevalue_f_context_inventory:manifest.units_exact_F_C_context_evidence_physical_identity_evidence_and_source_membership_without_post_X_relation_evidence",
+        "payload.prevalue_prior_project_exposure:manifest.eligibility_exact_F_and_prior_project_exposure_only",
+        "payload.prospective:manifest.prospective",
+        "payload.protection:manifest.protection",
+        "payload.relation_policy:fixed_evaluator_relation_policy",
+        "payload.rights:manifest.rights",
+        "payload.sealed_dataset_contracts.target_y:manifest.sealed_datasets.target_y.contract",
+        "payload.sealed_dataset_contracts.transcription_x:manifest.sealed_datasets.transcription_x.contract",
+        "payload.clean_roles_first_claim_instance_source_metadata_access_receipt:manifest.freeze_sequence.clean_roles_first_claim_instance_source_metadata_access_receipt",
+        "payload.source_frame:manifest.source_frame_exact_prevalue_state",
+        "payload.source_records:manifest.source_records_exact_ordered_record_revision_view_entry_and_F_mapping",
+        "payload.staged_release_contract:manifest.staged_release_contract",
+        "payload.target:manifest.target"
+      ],
+      "node": "preinventory_contract_sha256"
+    },
+    {
+      "inputs": [
+        "payload.claim_policy:manifest.claim_policy",
+        "payload.context_contract:manifest.context_contract",
+        "payload.eligibility:manifest.eligibility",
+        "payload.evidence_envelope_contract:manifest.evidence_envelope_contract",
+        "payload.experiment_instance_id:manifest.experiment_instance_id",
+        "payload.exposure:manifest.exposure",
+        "payload.exposure_control:manifest.exposure_control",
+        "payload.identifier_contract:manifest.identifier_contract",
+        "payload.relations:manifest.relations",
+        "payload.sealed_datasets:manifest.sealed_datasets",
+        "payload.source_frame:manifest.source_frame",
+        "payload.source_records:manifest.source_records",
+        "payload.staged_release_contract:manifest.staged_release_contract",
+        "payload.target:manifest.target",
+        "payload.units:manifest.units"
+      ],
+      "node": "population_inventory_sha256"
+    },
+    {
+      "inputs": [
+        "payload.axis_order:site_period_medium_object_type",
+        "payload.context_semantics:closure_nuisance_vocabularies_and_provenance_policy",
+        "payload.eligibility:manifest.eligibility_without_attestation_ids",
+        "payload.relations:manifest.relations_without_evidence_envelopes",
+        "payload.units:manifest.units_F_and_C_only"
+      ],
+      "node": "split_structural_input_sha256"
+    },
+    {
+      "inputs": [
+        "payload.claim_slot_reservation_receipt:manifest.freeze_sequence.claim_slot_reservation_receipt",
+        "payload.claim_slot_reservation_sha256:recomputed_claim_slot_reservation_sha256",
+        "payload.claim_slot_id:manifest.claim_policy.claim_slot_id",
+        "payload.evaluator_bundle_sha256:manifest.bindings.evaluator_bundle_sha256",
+        "payload.evidence_envelope_contract:manifest.evidence_envelope_contract",
+        "payload.experiment_instance_id:manifest.experiment_instance_id",
+        "payload.gate_plan_sha256:manifest.bindings.gate_plan_sha256",
+        "payload.identifier_key_ceremony_sha256:recomputed_identifier_key_ceremony_sha256",
+        "payload.identifier_key_generation_receipt:manifest.freeze_sequence.identifier_key_generation_receipt",
+        "payload.parent_protocol_sha256:manifest.bindings.parent_protocol_sha256",
+        "payload.population_inventory_sha256:recomputed_population_inventory_sha256",
+        "payload.preinventory_contract_receipt:manifest.freeze_sequence.preinventory_contract_receipt",
+        "payload.preinventory_contract_sha256:recomputed_preinventory_contract_sha256",
+        "payload.source_frame_sha256:recomputed_source_frame_sha256",
+        "payload.split_structural_input_sha256:recomputed_split_structural_input_sha256",
+        "payload.earliest_target_y_access_receipt:manifest.freeze_sequence.earliest_target_y_access_receipt",
+        "payload.target_seal_receipt:manifest.freeze_sequence.target_seal_receipt",
+        "payload.target_seal_sha256:recomputed_target_seal_sha256",
+        "payload.earliest_transcription_x_access_receipt:manifest.freeze_sequence.earliest_transcription_x_access_receipt",
+        "payload.clean_roles_first_claim_instance_source_metadata_access_receipt:manifest.freeze_sequence.clean_roles_first_claim_instance_source_metadata_access_receipt",
+        "payload.transcription_seal_receipt:manifest.freeze_sequence.transcription_seal_receipt",
+        "payload.transcription_seal_sha256:recomputed_transcription_seal_sha256"
+      ],
+      "node": "population_freeze_claim_sha256"
+    },
+    {
+      "inputs": [
+        "payload.freeze_sequence:manifest.freeze_sequence_including_reservation_identifier_source_metadata_preinventory_X_Y_seals_and_population_receipts"
+      ],
+      "node": "freeze_sequence_sha256"
+    },
+    {
+      "inputs": [
+        "payload.sampler:gate_plan.n1.sampler"
+      ],
+      "node": "n1_sampler_contract_sha256"
+    },
+    {
+      "inputs": [
+        "complete_manifest_without_manifest_sha256"
+      ],
+      "node": "manifest_sha256"
+    },
+    {
+      "inputs": [
+        "payload.axis_order:site_period_medium_object_type",
+        "payload.closure_tables:validated_reflexive_transitive_laminar_closures",
+        "payload.components:every_final_G_with_explicit_complete_C_exact_base_E_M_G_effective_split_eligibility_and_C_members",
+        "payload.nuisance_semantics:ordered_fields_vocabularies_and_provenance_policy"
+      ],
+      "node": "eligible_split_inventory_sha256"
+    },
+    {
+      "inputs": [
+        "payload.canonical_tuples:complete_parent_V1_split_eligible_roster_in_search_order_without_N2_filtering"
+      ],
+      "node": "split_eligible_tuple_roster_sha256"
+    },
+    {
+      "inputs": [
+        "complete_private_report_without_top_level_receipt_sha256"
+      ],
+      "node": "receipt_sha256"
+    }
+  ],
+  "digest_profile": {
+    "claim_slot_reservation_domain": "indusbench:nmfa:claim-slot-reservation:v1",
+    "context_contract_domain": "indusbench:nmfa:context-contract:v1",
+    "eligible_split_inventory_domain": "indusbench:nmfa:eligible-split-inventory:v1",
+    "encoding": "indusbench.io.encode_json_canonical_UTF8_sort_keys_indent_2_LF",
+    "framing": "SHA256_UTF8_domain_then_NUL_then_canonical_payload_bytes",
+    "freeze_sequence_domain": "indusbench:nmfa:freeze-sequence:v1",
+    "identifier_key_ceremony_domain": "indusbench:nmfa:identifier-key-ceremony:v1",
+    "manifest_domain": "indusbench:nmfa:preregistration-manifest:v1",
+    "n1_sampler_domain": "indusbench:nmfa:n1-sampler-contract:v1",
+    "nuisance_vocabulary_domain": "indusbench:nmfa:nuisance-vocabulary:v1",
+    "population_domain": "indusbench:nmfa:population-inventory:v1",
+    "population_freeze_claim_domain": "indusbench:nmfa:population-freeze-claim:v1",
+    "preinventory_domain": "indusbench:nmfa:preinventory-contract:v1",
+    "primary_f_domain": "indusbench:nmfa:preregistration-primary-f:v1",
+    "primary_f_framing": "SHA256_UTF8_domain_then_NUL_then_ascii_gate_plan_sha256_then_NUL_then_ascii_candidate_F_id",
+    "raw_file_digest": "SHA256_exact_raw_bytes_without_domain",
+    "receipt_domain": "indusbench:nmfa:preregistration-receipt:v1",
+    "relation_policy_domain": "indusbench:nmfa:relation-policy:v1",
+    "rights_evidence_domain": "indusbench:nmfa:rights-evidence-set:v1",
+    "sealed_f_roster_domain": "indusbench:nmfa:sealed-F-roster:v1",
+    "source_frame_domain": "indusbench:nmfa:source-frame:v1",
+    "split_eligible_tuple_roster_domain": "indusbench:nmfa:feasible-tuple-roster:v1",
+    "split_structural_input_domain": "indusbench:nmfa:split-structural-input:v1",
+    "target_seal_domain": "indusbench:nmfa:target-seal:v1",
+    "transcription_seal_domain": "indusbench:nmfa:transcription-seal:v1"
+  },
+  "eligibility_policy": {
+    "base_e_reason_rule": "reason_codes_is_sorted_unique_complete_set_of_all_applicable_closed_reasons_E_true_iff_exactly_ELIGIBLE_and_any_intersection_with_g_contaminating_reasons_triggers_whole_G_conflict",
+    "closure_rule": "observed_canonical_values_must_be_group_ids_closures_must_be_reflexive_transitive_and_laminar",
+    "g_exclusion_precedence": "PRIOR_EXPOSURE_COMPONENT_then_CONFLICT_COMPONENT_then_DEPENDENCE_COMPONENT_then_NONE",
+    "nuisance_rule": "ordered_field_ids_and_complete_canonical_value_vocabularies_are_machine_checked_and_domain_digest_bound",
+    "parent_e_refinement_rule": "this_gate_conservatively_refines_parent_V1_one_closed_reason_code_prose_to_a_sorted_unique_complete_reason_codes_set_with_E_true_only_for_exactly_ELIGIBLE_without_mutating_the_immutable_draft_parent_bytes",
+    "prevalue_inventory_rule": "before_any_X_or_Y_access_one_signed_receipt_binds_the_exact_ordered_source_record_revision_view_entry_to_F_mapping_exact_F_roster_exact_per_F_C_and_prior_project_exposure_and_both_later_sealed_archives_must_cover_that_same_ordered_F_roster",
+    "relation_derivation_rule": "transcription_curator_derives_preseal_graph_relation_curator_receives_graph_only_and_a_distinct_independent_transcription_auditor_rederives_in_place_the_complete_F_roster_exact_X_or_status_side_line_token_allograph_order_source_record_revision_view_binding_transcription_E_contribution_and_complete_relation_graph_before_registration_without_plaintext_or_key_release",
+    "source_record_functional_dependency": "one_source_record_id_must_map_to_exactly_one_F_id_across_revisions_and_views",
+    "target_audit_rule": "a_distinct_independent_target_auditor_rederives_target_contract_all_F_roster_target_E_contribution_and_exact_Y_or_status_in_place_before_registration_while_external_review_rederives_joint_base_E_and_component_exclusions_without_cross_role_value_release",
+    "universal_n2_rule": "N2_does_not_filter_split_tickets_and_candidate_requires_every_parent_V1_split_eligible_tuple_to_meet_N2_support",
+    "value_blind_exposure_rule": "prior_project_exposure_is_independent_of_primary_eligibility_reason_and_excludes_the_entire_final_G_component"
+  },
+  "execution_boundary": {
+    "decipherment_claim_allowed": false,
+    "execution_authorized": false,
+    "external_registration_completed": false,
+    "numeric_target_access_allowed": false,
+    "prize_submission_eligible": false,
+    "real_manifest_included": false,
+    "source_access_authorized": false,
+    "source_values_included": false
+  },
+  "format_version": "1.0.0",
+  "g_contaminating_reasons": [
+    "CONTEXT_INCOMPLETE_OR_CONFLICTING",
+    "IDENTITY_UNRESOLVED",
+    "PROVENANCE_INCOMPLETE",
+    "SOURCE_BINDING_INCOMPLETE",
+    "TARGET_AMBIGUOUS_OR_CONFLICTING",
+    "TRANSCRIPTION_INCOMPLETE_OR_AMBIGUOUS"
+  ],
+  "gate_id": "nmfa-value-blind-preregistration-gate-v1",
+  "limits": {
+    "max_context_groups_per_axis": 512,
+    "max_json_bytes": 67108864,
+    "max_json_depth": 64,
+    "max_n2_primary_assignments": 2000000,
+    "max_n2_tuple_evaluations": 10000,
+    "max_primary_cache_entries": 200000,
+    "max_relations": 100000,
+    "max_tuple_evaluations": 200000,
+    "max_units": 20000
+  },
+  "n1": {
+    "actual_candidate_classes_allowed_in_preregistration_manifest": false,
+    "alternative_pool_minimum_per_class": 2,
+    "candidate_class_maximum": 8,
+    "candidate_class_minimum": 1,
+    "global_injective_support_feasibility_required_pre_holdout_x": true,
+    "model_selection_policy_at_deferred_stage": "exactly_one_predeclared_model_or_one_predeclared_fallback_rule",
+    "opaque_candidate_classes_before_holdout_open_required": true,
+    "preregistration_claim_of_actual_support_allowed": false,
+    "sample_assignment_freeze_stage": "post_holdout_prediction_manifest_pre_holdout_Y_open",
+    "sampler": {
+      "candidate_order": "canonical_class_commitment_ascending",
+      "counter_block": "HMAC_SHA256_key_later_pre_Y_frozen_protocol_chain_head_raw_digest_message_UTF8_stream_label_NUL_uint64be_run_index_NUL_uint64be_counter",
+      "distribution": "uniform_over_all_complete_injective_matchings",
+      "enumeration": "depth_first_lexicographic_over_sorted_alternative_commitments",
+      "index_draw": "HMAC_SHA256_counter_stream_unsigned_big_endian_rejection_without_modulo_bias",
+      "key_material": "raw_32_byte_later_externally_bound_pre_Y_frozen_protocol_chain_head_SHA256_digest",
+      "key_must_bind": "all_aborted_prior_claim_slots_signed_transcription_and_target_audit_receipts_joint_E_G_review_identifier_rederivation_external_registration_receipt_raw_split_nonce_bytes_nonce_provider_and_extraction_receipt_selector_roster_and_ticket_receipt_single_model_N1_pools_support_holdout_prediction_manifest_typed_evaluator_and_no_retry_or_supersession",
+      "retry_or_resalt": false,
+      "stream_label": "control-n1-v1",
+      "test_vector_counter": 0,
+      "test_vector_hmac_block_hex": "bdf831d83dd0388424ddf3caebff8f92826c5c3e725a2fe1a46e587863669335",
+      "test_vector_key_hex": "0000000000000000000000000000000000000000000000000000000000000000",
+      "test_vector_message_hex": "636f6e74726f6c2d6e312d7631000000000000000000000000000000000000",
+      "test_vector_run_index": 0
+    },
+    "support_feasibility_stage": "model_frozen_pre_holdout_X_open",
+    "support_feasibility_without_random_draw_required": true
+  },
+  "nonce": {
+    "event_contract_must_precede_population_inventory": true,
+    "event_selection_after_inventory_forbidden": true,
+    "extraction_rule_must_be_frozen": true,
+    "provider_and_event_selection_rule_must_be_frozen": true,
+    "retry_or_resalt": false,
+    "value_must_be_externally_verifiable": true
+  },
+  "normative_evaluator_policy": {
+    "manifest_semantics": "exact_typed_evaluator_and_schemas_in_the_committed_evaluator_bundle_are_normative_plan_prose_is_explanatory",
+    "report_authenticity": "requires_deterministic_reexecution_from_exact_manifest_and_bundle_and_byte_equality_schema_alone_is_structural",
+    "review_requirement": "external_registration_review_must_reexecute_the_exact_bundle_and_rederive_external_evidence_in_custody"
+  },
+  "operational_activation_blockers": {
+    "execution_rule": "real_claim_instance_metadata_X_and_Y_access_remain_forbidden_until_the_respective_future_preflight_receipts_exist_and_are_externally_verified",
+    "premetadata_ready": "future_signed_deterministic_evaluator_must_check_authority_rights_custody_role_assignments_and_frozen_source_target_rules_before_claim_instance_metadata_access_current_gate_does_not_implement_it",
+    "prevalue_ready": "future_signed_deterministic_evaluator_must_check_exact_prevalue_inventory_plan_bundle_archive_contracts_and_no_value_boundary_before_X_or_Y_access_current_gate_does_not_implement_it",
+    "typed_execution_stack": "before_external_registration_freeze_one_full_NMFA_execution_bundle_covering_nonce_split_and_primary_F_selection_model_interface_parser_and_scorer_midrank_effect_and_length_metrics_cell_gates_10000_run_bootstrap_CI_N1_matching_unranking_and_runs_N2_permutation_and_runs_terminal_precedence_and_prospective_evaluation_with_receipt_schemas_current_gate_implements_none_of_them"
+  },
+  "parent_protocol": {
+    "bytes": 25450,
+    "path": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json",
+    "record_state": "source_free_draft",
+    "registration_rule": "V1_may_register_only_these_exact_draft_bytes_any_finalized_parent_requires_a_new_gate_version_and_fresh_external_chain",
+    "sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307"
+  },
+  "phase_boundary": {
+    "phase_a": "public_source_free_protocol_plan_and_gate_implementation_current",
+    "phase_b": "authorized_protected_curation_sealing_population_manifest_and_candidate_gate_future",
+    "phase_c": "independent_in_place_transcription_and_target_audits_joint_base_E_component_review_external_registration_then_first_qualifying_nonce_event_and_split_future",
+    "phase_d": "development_only_model_selection_exactly_one_model_freeze_pre_H_X_N1_support_feasibility_H_X_release_prediction_freeze_then_pre_Y_N1_sample_assignment_future",
+    "phase_e": "confirmatory_holdout_open_and_frozen_evaluation_future",
+    "phase_f": "new_prospective_frame_replication_future"
+  },
+  "relation_policy": {
+    "confirmed": [
+      "union"
+    ],
+    "possible": [
+      "union",
+      "exclude_both"
+    ],
+    "unresolved": [
+      "union",
+      "exclude_both"
+    ]
+  },
+  "rights": {
+    "layers": [
+      "source_frame_metadata",
+      "transcription_x",
+      "context_c",
+      "physical_identity_f",
+      "dependence_g",
+      "target_y",
+      "derived_aggregate"
+    ],
+    "required_permissions_for_data_layers": [
+      "retrieve",
+      "retain_protected",
+      "analyze",
+      "derive",
+      "custodial_transfer"
+    ],
+    "required_permissions_for_derived_aggregate": [
+      "derive",
+      "publish_aggregate",
+      "prize_submit"
+    ],
+    "status_vocabulary": [
+      "permitted",
+      "denied",
+      "unknown",
+      "not_applicable"
+    ]
+  },
+  "sealed_data_policy": {
+    "algorithm": "XChaCha20_Poly1305_per_record_randomized_AEAD_plus_SHA256_Merkle_root",
+    "development_release": "after_external_registration_and_split_receipt_open_only_D_X_and_D_Y_with_AEAD_and_Merkle_verification",
+    "holdout_x_release": "after_exactly_one_model_freeze_and_successful_N1_support_feasibility_receipts_without_random_draw",
+    "holdout_y_release": "after_holdout_prediction_manifest_and_frozen_N1_sample_assignment_receipts",
+    "leaf_aad": "bind_experiment_instance_claim_slot_layer_F_id_canonical_position_and_payload_contract",
+    "roster_binding": "the_signed_prevalue_inventory_receipt_binds_exact_source_records_F_C_and_prior_exposure_before_X_Y_access_and_each_later_X_Y_archive_binds_that_same_exact_ordered_F_roster",
+    "separation": "X_and_Y_use_distinct_archives_custodians_keys_payload_contracts_and_Merkle_roots"
+  },
+  "split_feasibility": {
+    "axis_order": [
+      "site",
+      "period",
+      "medium",
+      "object_type"
+    ],
+    "candidate_group_prefilter": "per_axis_keep_UTF8_sorted_group_ids_whose_global_eligible_trigger_G_bit_count_is_at_least_cell_minimum_G",
+    "candidate_product_budget": "max_tuple_evaluations_applies_to_lexicographic_Cartesian_product_after_candidate_group_prefilter",
+    "cell_minimum_g": 20,
+    "complement_minimum_g": 80,
+    "eligible_g_minimum": 160,
+    "holdout_minimum_g": 80,
+    "n2_is_split_tuple_predicate": false,
+    "n2_minimum_movable_g": 64,
+    "n2_minimum_movable_percent": 80,
+    "n2_primary_assignment_counter": "number_of_holdout_G_assignments_charged_when_an_N2_tuple_evaluation_is_admitted_including_an_attempt_later_stopped_by_cache_limit",
+    "n2_tuple_evaluation_counter": "number_of_split_eligible_tuples_admitted_to_N2_evaluation_including_an_attempt_later_stopped_by_cache_limit",
+    "primary_cache_admission": "check_cap_before_each_missing_key_insert_cache_None_results_and_stop_LIMIT_REACHED_without_insert_when_full",
+    "primary_cache_key": "eligible_component_index_assigned_axis_group_id",
+    "primary_cache_traversal": "canonical_tuple_then_axis_order_then_ascending_component_bit_index",
+    "primary_f_selection": {
+      "domain": "indusbench:nmfa:preregistration-primary-f:v1",
+      "inputs": [
+        "gate_plan_sha256",
+        "candidate_F_id"
+      ],
+      "rule": "minimum_pair_SHA256_over_domain_NUL_gate_plan_digest_NUL_candidate_F_id_then_ASCII_candidate_F_id_tie_break",
+      "test_vector_candidate_f_id": "hmac-sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "test_vector_gate_plan_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "test_vector_primary_rank_sha256": "sha256:dd89bf3fa32d41d560bf122c5c52cfa4d24a02d972187ab2476653decffdfac5"
+    },
+    "tuple_evaluation_counter": "number_of_canonical_tuples_whose_structural_predicate_evaluation_started_and_did_not_exceed_the_tuple_cap",
+    "tuple_order": "lexicographic_UTF8_byte_order_over_canonical_context_ids",
+    "universal_n2_candidate_requirement": "every_parent_V1_split_eligible_tuple_in_the_complete_roster_meets_both_N2_support_floors"
+  },
+  "split_selection": {
+    "candidate_policy": "retain_every_parent_V1_split_eligible_canonical_tuple_without_equivalence_deduplication_or_N2_filtering",
+    "canonical_tuple_encoding": "indusbench.io.encode_json_on_exact_array_site_period_medium_object_type_including_terminal_LF",
+    "choice_rule": "minimum_unsigned_SHA256_digest_then_lexicographic_canonical_tuple_only_for_impossible_hash_tie",
+    "inventory_binding": "eligible_split_inventory_sha256_binds_exact_base_E_boolean_F_final_G_M_G_effective_split_eligibility_and_C_semantics_without_reasons_edges_evidence_or_seal_randomness",
+    "n2_gate_policy": "N2_is_not_a_split_tuple_predicate_candidate_requires_every_split_eligible_tuple_to_pass_the_frozen_N2_support_floor",
+    "test_vector_canonical_tuple_json_hex": "5b0a202022686d61632d7368613235363a31313131313131313131313131313131313131313131313131313131313131313131313131313131313131313131313131313131313131313131313131313131222c0a202022686d61632d7368613235363a32323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232222c0a202022686d61632d7368613235363a33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333222c0a202022686d61632d7368613235363a34343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434220a5d0a",
+    "test_vector_inventory_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "test_vector_nonce_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "test_vector_ticket_sha256": "sha256:9154a3c3e25df28d782926dbefaa4fb57d3468112d40458040e55b11264993cf",
+    "ticket_hash_framing": "SHA256_raw_split_nonce_bytes_then_ASCII_NUL_then_UTF8_eligible_split_inventory_sha256_then_ASCII_NUL_then_canonical_tuple_bytes"
+  },
+  "stopping_rules": [
+    {
+      "action": "forbid_further_acquisition_audit_registration_nonce_key_release_and_target_reveal",
+      "rule_id": "PF-STOP-001",
+      "trigger": "authority_rights_custody_or_finite_complete_source_frame_missing"
+    },
+    {
+      "action": "invalidate_instance_and_require_fresh_population_and_split",
+      "rule_id": "PF-STOP-002",
+      "trigger": "numeric_target_prediction_target_digest_or_roster_mutation_inconsistency"
+    },
+    {
+      "action": "forbid_nonce_registration_and_target_reveal_without_scientific_refutation_claim",
+      "rule_id": "PF-STOP-003",
+      "trigger": "eligible_G_below_160_no_parent_V1_split_eligible_tuple_not_every_split_eligible_tuple_has_N2_support_or_search_budget_exhausted"
+    }
+  ],
+  "target": {
+    "allowed_families": [
+      "direct_count",
+      "mass",
+      "capacity"
+    ],
+    "families_per_manifest": 1,
+    "numeric_values_forbidden": true,
+    "required_conversion": "exact_positive_rational_to_one_canonical_unit_without_rounding",
+    "required_measurement_policies": {
+      "approximate": "ineligible",
+      "conflicting": "ineligible",
+      "derived_from_inscription": "forbidden",
+      "imputed": "forbidden",
+      "range": "ineligible",
+      "repeated": "single_frozen_resolution_rule",
+      "rounding": "forbidden"
+    }
+  }
+}

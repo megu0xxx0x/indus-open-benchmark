@@ -371,7 +371,7 @@ class KP1979V3StateTests(unittest.TestCase):
     def test_acl_ancestor_and_final_directory_are_rejected(self) -> None:
         if state_module.sys.platform != "linux":
             self.skipTest("Linux listxattr ACL test")
-        real_listxattr = state_module.os.listxattr
+        real_listxattr = vars(state_module.os)["listxattr"]
         for target in (self.root, self.state_directory):
             with self.subTest(target=target.name):
                 target_metadata = target.stat()
@@ -398,7 +398,7 @@ class KP1979V3StateTests(unittest.TestCase):
             self.skipTest("Linux listxattr ACL test")
         target_metadata = self.state_directory.stat()
         target_identity = (target_metadata.st_dev, target_metadata.st_ino)
-        real_listxattr = state_module.os.listxattr
+        real_listxattr = vars(state_module.os)["listxattr"]
         for acl_name in (
             "system.nfs4_acl",
             b"security.NTACL",
@@ -428,7 +428,7 @@ class KP1979V3StateTests(unittest.TestCase):
             self.skipTest("Linux listxattr ACL test")
         target_metadata = self.state_directory.stat()
         target_identity = (target_metadata.st_dev, target_metadata.st_ino)
-        real_listxattr = state_module.os.listxattr
+        real_listxattr = vars(state_module.os)["listxattr"]
 
         def listxattr(descriptor: int) -> list[str]:
             metadata = os.fstat(descriptor)
@@ -590,7 +590,7 @@ class KP1979V3StateTests(unittest.TestCase):
         )
         terminal_metadata = (self.state_directory / TERMINAL_RECORD_NAME).stat()
         terminal_identity = (terminal_metadata.st_dev, terminal_metadata.st_ino)
-        real_listxattr = state_module.os.listxattr
+        real_listxattr = vars(state_module.os)["listxattr"]
 
         def listxattr(descriptor: int) -> list[str]:
             metadata = os.fstat(descriptor)

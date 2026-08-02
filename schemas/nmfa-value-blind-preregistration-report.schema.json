@@ -1,0 +1,509 @@
+{
+  "$comment": "This schema validates closed report structure only. Authenticity and cross-field semantic invariants require exact deterministic evaluator re-execution from the committed manifest and bundle and byte equality with the report.",
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "checksum_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/checksum"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nonnegative_integer": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "nonnegative_integer_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reason_code": {
+      "enum": [
+        "AUTHORITY_ATTESTATION_INCOMPLETE",
+        "CUSTODY_ATTESTATION_INCOMPLETE",
+        "DEPENDENCE_OR_CONTEXT_CONTRACT_INVALID",
+        "ELIGIBLE_G_BELOW_MINIMUM",
+        "EXPOSURE_DECLARATION_BREACH",
+        "NO_DOMAIN_TUPLE_MEETS_ALL_GATES",
+        "POPULATION_OR_SOURCE_ROSTER_INCONSISTENT",
+        "RIGHTS_ATTESTATION_INCOMPLETE",
+        "SEARCH_BUDGET_EXHAUSTED",
+        "SPLIT_ELIGIBLE_ROSTER_NOT_UNIVERSALLY_N2_SUPPORTED",
+        "SOURCE_FRAME_ATTESTATION_INCOMPLETE",
+        "TARGET_OR_PROSPECTIVE_CONTRACT_INCOMPLETE"
+      ]
+    },
+    "state": {
+      "enum": [
+        "SOURCE_VALUE_BLINDNESS_BREACH",
+        "AUTHORITY_BLOCKED",
+        "RIGHTS_BLOCKED",
+        "CUSTODY_BLOCKED",
+        "TARGET_CONTRACT_INCOMPLETE",
+        "SOURCE_FRAME_INCOMPLETE",
+        "POPULATION_MANIFEST_INVALID",
+        "DEPENDENCE_CONTEXT_INVALID",
+        "INSUFFICIENT_ELIGIBLE_G",
+        "COMPUTATION_LIMIT_BLOCKED",
+        "NO_FEASIBLE_DOMAIN_TUPLE",
+        "N2_UNIVERSAL_SUPPORT_BLOCKED",
+        "CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW"
+      ]
+    },
+    "tuple_aggregate": {
+      "additionalProperties": false,
+      "properties": {
+        "complement_g": {
+          "minimum": 80,
+          "type": "integer"
+        },
+        "holdout_g": {
+          "minimum": 80,
+          "type": "integer"
+        },
+        "medium_cell_g": {
+          "minimum": 20,
+          "type": "integer"
+        },
+        "n2_movable_g": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "object_type_cell_g": {
+          "minimum": 20,
+          "type": "integer"
+        },
+        "period_cell_g": {
+          "minimum": 20,
+          "type": "integer"
+        },
+        "site_cell_g": {
+          "minimum": 20,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "complement_g",
+        "holdout_g",
+        "medium_cell_g",
+        "n2_movable_g",
+        "object_type_cell_g",
+        "period_cell_g",
+        "site_cell_g"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "nmfa-value-blind-preregistration-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "terminal_state": {
+            "const": "CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW"
+          }
+        },
+        "required": [
+          "terminal_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "assurance": {
+            "properties": {
+              "source_records_seen_by_curator_roles_declared": {
+                "const": true
+              },
+              "target_values_seen_by_target_curator_declared": {
+                "const": true
+              },
+              "transcription_values_seen_by_transcription_curator_declared": {
+                "const": true
+              }
+            }
+          },
+          "counts": {
+            "properties": {
+              "eligible_g": {
+                "minimum": 160,
+                "type": "integer"
+              },
+              "structural_counts_evaluated": {
+                "const": true
+              }
+            }
+          },
+          "feasibility": {
+            "properties": {
+              "eligible_split_inventory_sha256": {
+                "$ref": "#/$defs/checksum"
+              },
+              "first_split_eligible_aggregate_in_canonical_search": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/tuple_aggregate"
+                  },
+                  {
+                    "properties": {
+                      "n2_movable_g": {
+                        "minimum": 64
+                      }
+                    }
+                  }
+                ]
+              },
+              "n2_supported_tuple_count": {
+                "minimum": 1
+              },
+              "search_outcome": {
+                "const": "EXHAUSTED_SPLIT_ROSTER_N2_SAFE"
+              },
+              "split_eligible_tuple_count": {
+                "minimum": 1
+              },
+              "split_eligible_tuple_roster_sha256": {
+                "$ref": "#/$defs/checksum"
+              },
+              "structural_status": {
+                "const": "SPLIT_FEASIBLE_N2_UNIVERSALLY_SUPPORTED"
+              }
+            }
+          },
+          "reason_codes": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "assurance": {
+      "additionalProperties": false,
+      "properties": {
+        "decipherment_claim_allowed": {
+          "const": false
+        },
+        "execution_authorized": {
+          "const": false
+        },
+        "external_evidence_verified_by_gate": {
+          "const": false
+        },
+        "externally_registered": {
+          "const": false
+        },
+        "prize_submission_eligible": {
+          "const": false
+        },
+        "scientific_result": {
+          "const": false
+        },
+        "source_accessed_by_evaluator": {
+          "const": false
+        },
+        "source_records_seen_by_curator_roles_declared": {
+          "type": "boolean"
+        },
+        "target_values_loaded_by_gate_or_evaluator": {
+          "const": false
+        },
+        "target_values_seen_by_target_curator_declared": {
+          "type": "boolean"
+        },
+        "transcription_values_seen_by_transcription_curator_declared": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "decipherment_claim_allowed",
+        "execution_authorized",
+        "external_evidence_verified_by_gate",
+        "externally_registered",
+        "prize_submission_eligible",
+        "scientific_result",
+        "source_accessed_by_evaluator",
+        "source_records_seen_by_curator_roles_declared",
+        "target_values_loaded_by_gate_or_evaluator",
+        "target_values_seen_by_target_curator_declared",
+        "transcription_values_seen_by_transcription_curator_declared"
+      ],
+      "type": "object"
+    },
+    "bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_slot_reservation_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "evaluator_bundle_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "gate_plan_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "identifier_key_ceremony_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "manifest_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "parent_protocol_sha256": {
+          "const": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307"
+        },
+        "population_freeze_claim_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "population_inventory_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "preinventory_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "source_frame_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "split_structural_input_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "target_seal_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "transcription_seal_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_slot_reservation_sha256",
+        "evaluator_bundle_sha256",
+        "gate_plan_sha256",
+        "identifier_key_ceremony_sha256",
+        "manifest_sha256",
+        "parent_protocol_sha256",
+        "population_inventory_sha256",
+        "population_freeze_claim_sha256",
+        "preinventory_contract_sha256",
+        "source_frame_sha256",
+        "split_structural_input_sha256",
+        "target_seal_sha256",
+        "transcription_seal_sha256"
+      ],
+      "type": "object"
+    },
+    "counts": {
+      "additionalProperties": false,
+      "properties": {
+        "base_e_eligible_f": {
+          "$ref": "#/$defs/nonnegative_integer_or_null"
+        },
+        "eligible_g": {
+          "$ref": "#/$defs/nonnegative_integer_or_null"
+        },
+        "relation_edges": {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        "source_frame_entries": {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        "source_frame_physical_originals": {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        "split_eligible_f": {
+          "$ref": "#/$defs/nonnegative_integer_or_null"
+        },
+        "split_excluded_f": {
+          "$ref": "#/$defs/nonnegative_integer_or_null"
+        },
+        "structural_counts_evaluated": {
+          "type": "boolean"
+        },
+        "total_g": {
+          "$ref": "#/$defs/nonnegative_integer_or_null"
+        }
+      },
+      "required": [
+        "base_e_eligible_f",
+        "eligible_g",
+        "split_eligible_f",
+        "split_excluded_f",
+        "relation_edges",
+        "source_frame_entries",
+        "source_frame_physical_originals",
+        "structural_counts_evaluated",
+        "total_g"
+      ],
+      "type": "object"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "feasibility": {
+      "additionalProperties": false,
+      "properties": {
+        "actual_n1_support": {
+          "const": "DEFERRED_NOT_EVALUATED"
+        },
+        "eligible_split_inventory_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "external_assurance": {
+          "const": "UNVERIFIED"
+        },
+        "first_split_eligible_aggregate_in_canonical_search": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/tuple_aggregate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "n2_included_in_split_tuple_predicate": {
+          "const": false
+        },
+        "n2_primary_assignments": {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        "n2_supported_tuple_count": {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        "n2_tuple_evaluations": {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        "search_outcome": {
+          "enum": [
+            "NOT_RUN",
+            "EXHAUSTED_SPLIT_ROSTER_N2_SAFE",
+            "EXHAUSTED_SPLIT_ROSTER_N2_UNSAFE",
+            "EXHAUSTED_NO_SPLIT_ELIGIBLE_TUPLE",
+            "LIMIT_REACHED"
+          ]
+        },
+        "split_eligible_tuple_count": {
+          "$ref": "#/$defs/nonnegative_integer"
+        },
+        "split_eligible_tuple_roster_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "structural_status": {
+          "enum": [
+            "NOT_EVALUATED",
+            "SPLIT_FEASIBLE_N2_UNIVERSALLY_SUPPORTED",
+            "SPLIT_FEASIBLE_N2_NOT_UNIVERSALLY_SUPPORTED",
+            "SPLIT_INFEASIBLE",
+            "INDETERMINATE"
+          ]
+        },
+        "tuple_evaluations": {
+          "$ref": "#/$defs/nonnegative_integer"
+        }
+      },
+      "required": [
+        "actual_n1_support",
+        "eligible_split_inventory_sha256",
+        "split_eligible_tuple_roster_sha256",
+        "external_assurance",
+        "split_eligible_tuple_count",
+        "first_split_eligible_aggregate_in_canonical_search",
+        "n2_included_in_split_tuple_predicate",
+        "n2_primary_assignments",
+        "n2_supported_tuple_count",
+        "n2_tuple_evaluations",
+        "search_outcome",
+        "structural_status",
+        "tuple_evaluations"
+      ],
+      "type": "object"
+    },
+    "format_version": {
+      "const": "1.0.0"
+    },
+    "privacy": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregate_only": {
+          "const": true
+        },
+        "context_ids_disclosed": {
+          "const": false
+        },
+        "item_ids_disclosed": {
+          "const": false
+        },
+        "paths_disclosed": {
+          "const": false
+        },
+        "private_values_disclosed": {
+          "const": false
+        },
+        "public_release_authorized": {
+          "const": false
+        },
+        "publication_review_required": {
+          "const": true
+        },
+        "source_names_disclosed": {
+          "const": false
+        }
+      },
+      "required": [
+        "aggregate_only",
+        "context_ids_disclosed",
+        "item_ids_disclosed",
+        "paths_disclosed",
+        "private_values_disclosed",
+        "publication_review_required",
+        "public_release_authorized",
+        "source_names_disclosed"
+      ],
+      "type": "object"
+    },
+    "reason_codes": {
+      "items": {
+        "$ref": "#/$defs/reason_code"
+      },
+      "maxItems": 24,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "receipt_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "record_kind": {
+      "const": "nmfa_private_aggregate_preregistration_report"
+    },
+    "terminal_state": {
+      "$ref": "#/$defs/state"
+    }
+  },
+  "required": [
+    "assurance",
+    "bindings",
+    "counts",
+    "created_at",
+    "feasibility",
+    "format_version",
+    "privacy",
+    "reason_codes",
+    "receipt_sha256",
+    "record_kind",
+    "terminal_state"
+  ],
+  "title": "NMFA private aggregate value-blind preregistration report",
+  "type": "object"
+}

@@ -174,6 +174,22 @@ evidence, or result record or value. It is not preregistered or executed and
 makes no sign-value, language, translation, decipherment, submission, or prize
 claim.
 
+The follow-on [worldwide target-source audit](docs/NMFA_GLOBAL_TARGET_SOURCE_AUDIT_2026-08-02.md)
+found no verified reusable public source that joins complete transcription X,
+physical identity F, dependence G, canonical context C, complete base E, and
+one direct numeric target Y at the required scale. The new
+[source-free value-blind preregistration candidate gate](docs/NMFA_VALUE_BLIND_PREREGISTRATION_GATE_V1.md)
+therefore hardens the experiment before protected-source work: an exact
+prevalue source/F/C inventory, separated X/Y seals and audits, leakage-safe
+split feasibility, universal N2 support, staged release, and private-only
+reports. Synthetic passage means only
+`CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW`. It does not authorize source
+access or execution and is not evidence of a reading or prize eligibility.
+Separate deterministic `PREMETADATA_READY` and `PREVALUE_READY` preflights, a
+complete typed split/model/metric/bootstrap/control/prospective evaluator,
+external custody, and a rights-compatible source remain mandatory future
+blockers.
+
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown

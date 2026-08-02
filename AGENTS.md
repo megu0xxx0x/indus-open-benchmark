@@ -100,3 +100,16 @@ non-blind development protocols, extend synthetic interoperability tests, or
 prepare non-operational specifications. Do not infer rights, promote private
 material, fabricate a custodian, generate real hidden data, or claim a blind
 evaluation.
+
+The current NMFA lane is a source-free value-blind preregistration candidate
+gate with synthetic tests only. Its worldwide source audit found no verified
+reusable public X/F/G/C/E/Y join at the required scale. A synthetic pass is
+only `CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW`, not access authority,
+registration, evidence, a reading, or prize eligibility. Before any real
+claim-instance metadata or protected X/Y access, implement and externally
+receipt separate deterministic `PREMETADATA_READY` and `PREVALUE_READY`
+preflights. Before registration or execution, also implement the complete
+typed split, model, metric, bootstrap, N1/N2, terminal, and prospective
+execution stack. Preserve the immutable parent V1 bytes; its complete-set E-
+reason handling is a stricter typed gate refinement, not an in-place parent
+rewrite.

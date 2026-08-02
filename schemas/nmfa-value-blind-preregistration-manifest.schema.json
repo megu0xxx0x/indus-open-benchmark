@@ -1,0 +1,1686 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "checksum_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/checksum"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "closure_group": {
+      "additionalProperties": false,
+      "properties": {
+        "group_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "member_value_ids": {
+          "items": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "maxItems": 20000,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "group_id",
+        "member_value_ids"
+      ],
+      "type": "object"
+    },
+    "closure_table": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "enum": [
+            "site",
+            "period",
+            "medium",
+            "object_type"
+          ]
+        },
+        "groups": {
+          "items": {
+            "$ref": "#/$defs/closure_group"
+          },
+          "maxItems": 512,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "axis",
+        "groups"
+      ],
+      "type": "object"
+    },
+    "context": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        },
+        "nuisance": {
+          "items": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "maxItems": 16,
+          "type": "array"
+        },
+        "object_type": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        },
+        "period": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        },
+        "site": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        }
+      },
+      "required": [
+        "medium",
+        "nuisance",
+        "object_type",
+        "period",
+        "site"
+      ],
+      "type": "object"
+    },
+    "eligibility_reason": {
+      "enum": [
+        "ELIGIBLE",
+        "CONTEXT_INCOMPLETE_OR_CONFLICTING",
+        "IDENTITY_UNRESOLVED",
+        "NOT_PHYSICAL_ORIGINAL",
+        "PROVENANCE_INCOMPLETE",
+        "RIGHTS_INSUFFICIENT",
+        "SOURCE_BINDING_INCOMPLETE",
+        "TARGET_AMBIGUOUS_OR_CONFLICTING",
+        "TARGET_IMPUTED_OR_DERIVED",
+        "TARGET_MISSING",
+        "TARGET_UNIT_INCOMPATIBLE",
+        "TRANSCRIPTION_INCOMPLETE_OR_AMBIGUOUS"
+      ]
+    },
+    "eligibility_row": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "properties": {
+              "reason_codes": {
+                "not": {
+                  "contains": {
+                    "const": "ELIGIBLE"
+                  }
+                }
+              }
+            }
+          },
+          "if": {
+            "properties": {
+              "eligible": {
+                "const": true
+              }
+            },
+            "required": [
+              "eligible"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason_codes": {
+                "const": [
+                  "ELIGIBLE"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "all_applicable_reason_codes_recorded": {
+          "const": true
+        },
+        "attestation_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "g_exclusion_reason": {
+          "enum": [
+            "NONE",
+            "DEPENDENCE_COMPONENT",
+            "PRIOR_EXPOSURE_COMPONENT",
+            "CONFLICT_COMPONENT"
+          ]
+        },
+        "prior_project_exposure": {
+          "type": "boolean"
+        },
+        "reason_codes": {
+          "items": {
+            "$ref": "#/$defs/eligibility_reason"
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "all_applicable_reason_codes_recorded",
+        "attestation_id",
+        "eligible",
+        "f_id",
+        "g_exclusion_reason",
+        "prior_project_exposure",
+        "reason_codes"
+      ],
+      "type": "object"
+    },
+    "freeze_receipt": {
+      "additionalProperties": false,
+      "properties": {
+        "attestor_key_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "receipt_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "receipt_kind": {
+          "enum": [
+            "claim_slot_reservation",
+            "identifier_key_ceremony",
+            "preinventory_contract",
+            "clean_roles_first_claim_instance_source_metadata_access",
+            "earliest_transcription_x_access",
+            "earliest_target_y_access",
+            "transcription_seal",
+            "target_seal",
+            "population_freeze_claim"
+          ]
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+          "type": "string"
+        },
+        "signed_receipt_evidence_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "subject_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "attestor_key_id",
+        "recorded_at",
+        "receipt_kind",
+        "receipt_id",
+        "signed_receipt_evidence_sha256",
+        "subject_sha256"
+      ],
+      "type": "object"
+    },
+    "nuisance_vocabulary": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_value_ids": {
+          "items": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "maxItems": 20000,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "field_id": {
+          "$ref": "#/$defs/opaque_id"
+        }
+      },
+      "required": [
+        "canonical_value_ids",
+        "field_id"
+      ],
+      "type": "object"
+    },
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "opaque_id_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/opaque_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "permission_status": {
+      "enum": [
+        "permitted",
+        "denied",
+        "unknown",
+        "not_applicable"
+      ]
+    },
+    "positive_decimal_integer_string": {
+      "pattern": "^[1-9][0-9]*$",
+      "type": "string"
+    },
+    "registry_id": {
+      "pattern": "^registry-id:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "relation": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "union",
+            "exclude_both"
+          ]
+        },
+        "evidence_envelope_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "kind": {
+          "enum": [
+            "cast_or_impression",
+            "common_mold_or_template",
+            "exact_normalized_sequence",
+            "production_batch",
+            "workshop",
+            "recovery_locus",
+            "assemblage",
+            "unresolved_dependence"
+          ]
+        },
+        "left_f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "right_f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "status": {
+          "enum": [
+            "confirmed",
+            "possible",
+            "unresolved"
+          ]
+        }
+      },
+      "required": [
+        "disposition",
+        "evidence_envelope_sha256",
+        "kind",
+        "left_f_id",
+        "right_f_id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "rights_row": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "layer": {
+          "enum": [
+            "source_frame_metadata",
+            "transcription_x",
+            "context_c",
+            "physical_identity_f",
+            "dependence_g",
+            "target_y",
+            "derived_aggregate"
+          ]
+        },
+        "purposes": {
+          "additionalProperties": false,
+          "properties": {
+            "analyze": {
+              "$ref": "#/$defs/permission_status"
+            },
+            "custodial_transfer": {
+              "$ref": "#/$defs/permission_status"
+            },
+            "derive": {
+              "$ref": "#/$defs/permission_status"
+            },
+            "prize_submit": {
+              "$ref": "#/$defs/permission_status"
+            },
+            "publish_aggregate": {
+              "$ref": "#/$defs/permission_status"
+            },
+            "publish_item": {
+              "$ref": "#/$defs/permission_status"
+            },
+            "retain_protected": {
+              "$ref": "#/$defs/permission_status"
+            },
+            "retrieve": {
+              "$ref": "#/$defs/permission_status"
+            }
+          },
+          "required": [
+            "analyze",
+            "custodial_transfer",
+            "derive",
+            "prize_submit",
+            "publish_aggregate",
+            "publish_item",
+            "retain_protected",
+            "retrieve"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "evidence_sha256",
+        "layer",
+        "purposes"
+      ],
+      "type": "object"
+    },
+    "sealed_dataset": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "data_layer": {
+                "const": "target_y"
+              }
+            },
+            "required": [
+              "data_layer"
+            ]
+          },
+          "then": {
+            "properties": {
+              "contract": {
+                "properties": {
+                  "archive_custodian_role": {
+                    "const": "independent_target_archive_custodian"
+                  },
+                  "payload_scope": {
+                    "const": "all_F_to_exact_rational_Y_or_explicit_status_with_family_unit_conversion_missingness_and_repeated_resolution"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "data_layer": {
+                "const": "transcription_x"
+              }
+            },
+            "required": [
+              "data_layer"
+            ]
+          },
+          "then": {
+            "properties": {
+              "contract": {
+                "properties": {
+                  "archive_custodian_role": {
+                    "const": "independent_transcription_archive_custodian"
+                  },
+                  "payload_scope": {
+                    "const": "all_F_to_approved_X_or_explicit_status_with_side_line_token_allograph_order_and_source_revision_binding"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "commitment": {
+          "$ref": "#/$defs/sealed_dataset_commitment"
+        },
+        "contract": {
+          "$ref": "#/$defs/sealed_dataset_contract"
+        },
+        "data_layer": {
+          "enum": [
+            "target_y",
+            "transcription_x"
+          ]
+        }
+      },
+      "required": [
+        "commitment",
+        "contract",
+        "data_layer"
+      ],
+      "type": "object"
+    },
+    "sealed_dataset_commitment": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_f_order": {
+          "const": true
+        },
+        "ciphertext_archive_manifest_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "ciphertext_merkle_root_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "committed_f_count": {
+          "maximum": 20000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "complete_f_roster_covered": {
+          "const": true
+        },
+        "ordered_f_roster_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "plaintext_digest_present": {
+          "const": false
+        },
+        "seal_created_before_population_receipt": {
+          "const": true
+        }
+      },
+      "required": [
+        "canonical_f_order",
+        "committed_f_count",
+        "complete_f_roster_covered",
+        "ordered_f_roster_sha256",
+        "ciphertext_archive_manifest_sha256",
+        "ciphertext_merkle_root_sha256",
+        "plaintext_digest_present",
+        "seal_created_before_population_receipt"
+      ],
+      "type": "object"
+    },
+    "sealed_dataset_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "XChaCha20-Poly1305-record-AEAD-SHA256-Merkle-v1"
+        },
+        "archive_custodian_role": {
+          "enum": [
+            "independent_target_archive_custodian",
+            "independent_transcription_archive_custodian"
+          ]
+        },
+        "canonical_payload_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "encryption_profile_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "independent_random_record_keys": {
+          "const": true
+        },
+        "leaf_aad_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "merkle_profile_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "payload_scope": {
+          "enum": [
+            "all_F_to_approved_X_or_explicit_status_with_side_line_token_allograph_order_and_source_revision_binding",
+            "all_F_to_exact_rational_Y_or_explicit_status_with_family_unit_conversion_missingness_and_repeated_resolution"
+          ]
+        },
+        "record_keys_independently_wrapped_for_staged_release": {
+          "const": true
+        },
+        "separate_archive_and_keys_from_other_layer": {
+          "const": true
+        },
+        "unique_random_nonce_per_record": {
+          "const": true
+        }
+      },
+      "required": [
+        "algorithm",
+        "archive_custodian_role",
+        "canonical_payload_contract_sha256",
+        "encryption_profile_sha256",
+        "independent_random_record_keys",
+        "leaf_aad_contract_sha256",
+        "merkle_profile_sha256",
+        "payload_scope",
+        "record_keys_independently_wrapped_for_staged_release",
+        "separate_archive_and_keys_from_other_layer",
+        "unique_random_nonce_per_record"
+      ],
+      "type": "object"
+    },
+    "source_record": {
+      "additionalProperties": false,
+      "properties": {
+        "f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "source_entry_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "source_entry_kind": {
+          "enum": [
+            "catalog_record",
+            "cross_edition_record",
+            "publication_view",
+            "image_view",
+            "fragment_record",
+            "duplicate_record"
+          ]
+        },
+        "source_order": {
+          "maximum": 99999,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "source_record_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "source_revision_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "source_view_id": {
+          "$ref": "#/$defs/opaque_id"
+        }
+      },
+      "required": [
+        "f_id",
+        "source_entry_id",
+        "source_entry_kind",
+        "source_order",
+        "source_record_id",
+        "source_revision_id",
+        "source_view_id"
+      ],
+      "type": "object"
+    },
+    "unit": {
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "context_evidence_envelope_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "physical_identity_evidence_envelope_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "relation_coverage_evidence_envelope_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "source_membership_complete": {
+          "const": true
+        }
+      },
+      "required": [
+        "context",
+        "context_evidence_envelope_sha256",
+        "f_id",
+        "physical_identity_evidence_envelope_sha256",
+        "relation_coverage_evidence_envelope_sha256",
+        "source_membership_complete"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "nmfa-value-blind-preregistration-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_slot_reservation_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "context_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "custody_contract_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "evaluator_bundle_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "freeze_sequence_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "gate_plan_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "identifier_key_ceremony_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "manifest_sha256_domain": {
+          "const": "indusbench:nmfa:preregistration-manifest:v1"
+        },
+        "parent_protocol_sha256": {
+          "const": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307"
+        },
+        "population_freeze_claim_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "population_inventory_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "preinventory_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "relation_policy_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "rights_evidence_set_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "source_frame_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "split_structural_input_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "target_seal_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "transcription_seal_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_slot_reservation_sha256",
+        "context_contract_sha256",
+        "custody_contract_sha256",
+        "evaluator_bundle_sha256",
+        "freeze_sequence_sha256",
+        "gate_plan_sha256",
+        "identifier_key_ceremony_sha256",
+        "manifest_sha256_domain",
+        "parent_protocol_sha256",
+        "population_inventory_sha256",
+        "population_freeze_claim_sha256",
+        "preinventory_contract_sha256",
+        "relation_policy_sha256",
+        "rights_evidence_set_sha256",
+        "source_frame_sha256",
+        "split_structural_input_sha256",
+        "target_seal_sha256",
+        "transcription_seal_sha256"
+      ],
+      "type": "object"
+    },
+    "claim_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "aborted_and_prior_slots_must_be_enumerable": {
+          "const": true
+        },
+        "claim_family_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "claim_slot_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "external_registry_single_active_chain_required": {
+          "const": true
+        },
+        "fork_or_parallel_registration_forbidden": {
+          "const": true
+        },
+        "prior_chain_head_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "registry_scope_evidence_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "supersession_after_external_registration_forbidden": {
+          "const": true
+        }
+      },
+      "required": [
+        "aborted_and_prior_slots_must_be_enumerable",
+        "claim_family_id",
+        "claim_slot_id",
+        "external_registry_single_active_chain_required",
+        "fork_or_parallel_registration_forbidden",
+        "prior_chain_head_sha256",
+        "registry_scope_evidence_sha256",
+        "supersession_after_external_registration_forbidden"
+      ],
+      "type": "object"
+    },
+    "context_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "alias_and_descendant_closures_frozen": {
+          "type": "boolean"
+        },
+        "axis_mapping_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "canonical_vocabularies_frozen": {
+          "type": "boolean"
+        },
+        "closure_tables": {
+          "items": {
+            "$ref": "#/$defs/closure_table"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array"
+        },
+        "multiple_or_overlapping_values_ineligible": {
+          "const": true
+        },
+        "nuisance_field_ids": {
+          "items": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "maxItems": 16,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "nuisance_fields_complete": {
+          "type": "boolean"
+        },
+        "nuisance_mapping_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "nuisance_value_vocabularies_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "nuisance_vocabularies": {
+          "items": {
+            "$ref": "#/$defs/nuisance_vocabulary"
+          },
+          "maxItems": 16,
+          "type": "array"
+        },
+        "provenance_policy": {
+          "enum": [
+            "single_prespecified_regime",
+            "complete_canonical_nuisance_tuple",
+            "incomplete"
+          ]
+        },
+        "single_regime_contract_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "taxonomy_evidence_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "unknown_values_ineligible": {
+          "const": true
+        }
+      },
+      "required": [
+        "alias_and_descendant_closures_frozen",
+        "axis_mapping_rule_sha256",
+        "canonical_vocabularies_frozen",
+        "closure_tables",
+        "multiple_or_overlapping_values_ineligible",
+        "nuisance_fields_complete",
+        "nuisance_field_ids",
+        "nuisance_mapping_rule_sha256",
+        "nuisance_value_vocabularies_sha256",
+        "nuisance_vocabularies",
+        "provenance_policy",
+        "single_regime_contract_sha256",
+        "taxonomy_evidence_sha256",
+        "unknown_values_ineligible"
+      ],
+      "type": "object"
+    },
+    "created_at": {
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    },
+    "eligibility": {
+      "items": {
+        "$ref": "#/$defs/eligibility_row"
+      },
+      "maxItems": 20000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "evidence_envelope_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "randomized_AEAD_or_signed_nonce_envelope"
+        },
+        "external_rederivation_and_content_review_required": {
+          "const": true
+        },
+        "profile_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "raw_source_context_transcription_or_target_digest_forbidden": {
+          "const": true
+        }
+      },
+      "required": [
+        "algorithm",
+        "external_rederivation_and_content_review_required",
+        "profile_sha256",
+        "raw_source_context_transcription_or_target_digest_forbidden"
+      ],
+      "type": "object"
+    },
+    "experiment_instance_id": {
+      "$ref": "#/$defs/registry_id"
+    },
+    "exposure": {
+      "additionalProperties": false,
+      "properties": {
+        "development_subset_values_released": {
+          "type": "boolean"
+        },
+        "holdout_mapping_opened": {
+          "type": "boolean"
+        },
+        "holdout_x_seen_by_evaluator_or_model_before_model_freeze": {
+          "type": "boolean"
+        },
+        "holdout_y_seen_before_prediction_manifest_freeze": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_context_curator_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_evaluator_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_identifier_custodian_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_physical_identity_curator_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_relation_curator_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_source_frame_curator_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_split_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_target_curator": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_target_seal_custodian_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_transcription_role": {
+          "type": "boolean"
+        },
+        "numeric_y_seen_by_transcription_seal_custodian_role": {
+          "type": "boolean"
+        },
+        "score_or_prediction_material_present": {
+          "type": "boolean"
+        },
+        "score_or_predictions_seen_by_target_curator_role": {
+          "type": "boolean"
+        },
+        "sealed_record_keys_released_before_external_registration": {
+          "type": "boolean"
+        },
+        "source_records_seen_by_curator_roles": {
+          "type": "boolean"
+        },
+        "transcription_x_seen_by_evaluator_or_model_before_split_receipt": {
+          "type": "boolean"
+        },
+        "transcription_x_seen_by_identifier_custodian_role": {
+          "type": "boolean"
+        },
+        "transcription_x_seen_by_relation_curator_role": {
+          "type": "boolean"
+        },
+        "transcription_x_seen_by_target_curator_role": {
+          "type": "boolean"
+        },
+        "transcription_x_seen_by_target_seal_custodian_role": {
+          "type": "boolean"
+        },
+        "transcription_x_seen_by_transcription_role": {
+          "type": "boolean"
+        },
+        "transcription_x_seen_by_transcription_seal_custodian_role": {
+          "type": "boolean"
+        },
+        "unkeyed_target_value_digest_present": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "holdout_mapping_opened",
+        "numeric_y_seen_by_context_curator_role",
+        "numeric_y_seen_by_evaluator_role",
+        "numeric_y_seen_by_identifier_custodian_role",
+        "numeric_y_seen_by_physical_identity_curator_role",
+        "numeric_y_seen_by_relation_curator_role",
+        "numeric_y_seen_by_split_role",
+        "numeric_y_seen_by_source_frame_curator_role",
+        "numeric_y_seen_by_transcription_role",
+        "numeric_y_seen_by_target_curator",
+        "numeric_y_seen_by_target_seal_custodian_role",
+        "numeric_y_seen_by_transcription_seal_custodian_role",
+        "score_or_prediction_material_present",
+        "score_or_predictions_seen_by_target_curator_role",
+        "source_records_seen_by_curator_roles",
+        "development_subset_values_released",
+        "holdout_x_seen_by_evaluator_or_model_before_model_freeze",
+        "holdout_y_seen_before_prediction_manifest_freeze",
+        "sealed_record_keys_released_before_external_registration",
+        "transcription_x_seen_by_evaluator_or_model_before_split_receipt",
+        "transcription_x_seen_by_target_curator_role",
+        "transcription_x_seen_by_identifier_custodian_role",
+        "transcription_x_seen_by_relation_curator_role",
+        "transcription_x_seen_by_target_seal_custodian_role",
+        "transcription_x_seen_by_transcription_role",
+        "transcription_x_seen_by_transcription_seal_custodian_role",
+        "unkeyed_target_value_digest_present"
+      ],
+      "type": "object"
+    },
+    "exposure_control": {
+      "additionalProperties": false,
+      "properties": {
+        "audit_plaintext_or_keys_release_forbidden": {
+          "const": true
+        },
+        "audit_roles_separate_from_identifier_source_frame_physical_identity_and_context_roles": {
+          "const": true
+        },
+        "base_e_joint_derivation_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "candidate_coverage_complete": {
+          "type": "boolean"
+        },
+        "exposed_f_marking_complete": {
+          "type": "boolean"
+        },
+        "exposed_g_ineligible": {
+          "const": true
+        },
+        "external_registration_review_rederives_complete_base_e_and_component_exclusions": {
+          "const": true
+        },
+        "independent_target_audit_custodian_in_place_pre_registration_rederivation_required": {
+          "const": true
+        },
+        "independent_transcription_audit_custodian_in_place_pre_registration_rederivation_required": {
+          "const": true
+        },
+        "prevalue_exact_source_record_f_context_and_prior_exposure_inventory_committed": {
+          "const": true
+        },
+        "project_access_ledger_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "relation_curator_receives_only_relation_graph_and_evidence_envelopes": {
+          "const": true
+        },
+        "relation_derivation_before_seal_role": {
+          "const": "transcription_curator"
+        },
+        "target_audit_rederives_target_contract_all_f_roster_target_e_contribution_and_exact_y_or_status": {
+          "const": true
+        },
+        "target_audit_role_separate_from_transcription_context_relation_split_evaluator_and_model_roles": {
+          "const": true
+        },
+        "target_auditor_distinct_from_originating_curator_and_seal_custodian": {
+          "const": true
+        },
+        "transcription_audit_rederives_all_f_exact_x_or_status_source_revision_transcription_e_and_complete_relations": {
+          "const": true
+        },
+        "transcription_audit_role_separate_from_relation_split_evaluator_model_and_target_roles": {
+          "const": true
+        },
+        "transcription_auditor_distinct_from_originating_curator_and_seal_custodian": {
+          "const": true
+        }
+      },
+      "required": [
+        "candidate_coverage_complete",
+        "exposed_f_marking_complete",
+        "exposed_g_ineligible",
+        "project_access_ledger_sha256",
+        "audit_plaintext_or_keys_release_forbidden",
+        "audit_roles_separate_from_identifier_source_frame_physical_identity_and_context_roles",
+        "base_e_joint_derivation_contract_sha256",
+        "external_registration_review_rederives_complete_base_e_and_component_exclusions",
+        "independent_transcription_audit_custodian_in_place_pre_registration_rederivation_required",
+        "prevalue_exact_source_record_f_context_and_prior_exposure_inventory_committed",
+        "relation_curator_receives_only_relation_graph_and_evidence_envelopes",
+        "relation_derivation_before_seal_role",
+        "independent_target_audit_custodian_in_place_pre_registration_rederivation_required",
+        "target_audit_role_separate_from_transcription_context_relation_split_evaluator_and_model_roles",
+        "target_audit_rederives_target_contract_all_f_roster_target_e_contribution_and_exact_y_or_status",
+        "target_auditor_distinct_from_originating_curator_and_seal_custodian",
+        "transcription_audit_rederives_all_f_exact_x_or_status_source_revision_transcription_e_and_complete_relations",
+        "transcription_audit_role_separate_from_relation_split_evaluator_model_and_target_roles",
+        "transcription_auditor_distinct_from_originating_curator_and_seal_custodian"
+      ],
+      "type": "object"
+    },
+    "format_version": {
+      "const": "1.0.0"
+    },
+    "freeze_sequence": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_slot_reservation_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "clean_roles_first_claim_instance_source_metadata_access_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "earliest_target_y_access_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "earliest_transcription_x_access_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "external_timestamp_validation": {
+          "const": "not_performed_by_gate"
+        },
+        "identifier_key_generation_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "population_inventory_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "preinventory_contract_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "target_seal_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        },
+        "target_values_revealed_to_evaluator_at": {
+          "type": "null"
+        },
+        "transcription_seal_receipt": {
+          "$ref": "#/$defs/freeze_receipt"
+        }
+      },
+      "required": [
+        "claim_slot_reservation_receipt",
+        "external_timestamp_validation",
+        "identifier_key_generation_receipt",
+        "population_inventory_receipt",
+        "preinventory_contract_receipt",
+        "earliest_target_y_access_receipt",
+        "earliest_transcription_x_access_receipt",
+        "clean_roles_first_claim_instance_source_metadata_access_receipt",
+        "target_seal_receipt",
+        "target_values_revealed_to_evaluator_at",
+        "transcription_seal_receipt"
+      ],
+      "type": "object"
+    },
+    "governance": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_evidence_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "external_registration_capability": {
+          "enum": [
+            "verified",
+            "not_verified",
+            "unavailable"
+          ]
+        },
+        "independent_role_separation_capability": {
+          "enum": [
+            "verified",
+            "not_verified",
+            "unavailable"
+          ]
+        },
+        "protected_custody_capability": {
+          "enum": [
+            "verified",
+            "not_verified",
+            "unavailable"
+          ]
+        },
+        "registration_route_evidence_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "role_assignment_contract_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "role_separation_evidence_sha256": {
+          "$ref": "#/$defs/checksum_or_null"
+        },
+        "source_access_authority": {
+          "enum": [
+            "authorized",
+            "not_authorized",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "authority_evidence_sha256",
+        "external_registration_capability",
+        "independent_role_separation_capability",
+        "protected_custody_capability",
+        "registration_route_evidence_sha256",
+        "role_assignment_contract_sha256",
+        "role_separation_evidence_sha256",
+        "source_access_authority"
+      ],
+      "type": "object"
+    },
+    "identifier_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "HMAC-SHA256"
+        },
+        "canonicalization_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "domain_separation_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "full_rederivation_at_external_review_required": {
+          "const": true
+        },
+        "input_framing_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "key_commitment_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "key_disclosed": {
+          "const": false
+        },
+        "key_generated_before_claim_instance_identifier_mapping_access": {
+          "const": true
+        },
+        "key_generation_profile": {
+          "const": "CSPRNG_minimum_256_bits"
+        },
+        "key_holder_role": {
+          "const": "independent_identifier_custodian"
+        },
+        "rotation_or_resalting_allowed": {
+          "const": false
+        }
+      },
+      "required": [
+        "algorithm",
+        "canonicalization_rule_sha256",
+        "domain_separation_rule_sha256",
+        "input_framing_sha256",
+        "key_commitment_sha256",
+        "key_disclosed",
+        "key_generated_before_claim_instance_identifier_mapping_access",
+        "key_generation_profile",
+        "key_holder_role",
+        "rotation_or_resalting_allowed",
+        "full_rederivation_at_external_review_required"
+      ],
+      "type": "object"
+    },
+    "manifest_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "n1_deferred_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "actual_candidate_classes_present": {
+          "const": false
+        },
+        "sample_assignment_freeze_stage": {
+          "const": "post_holdout_prediction_manifest_pre_holdout_y_open"
+        },
+        "sample_assignments_frozen": {
+          "const": false
+        },
+        "sampler_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "support_feasibility_evaluated": {
+          "const": false
+        },
+        "support_feasibility_stage": {
+          "const": "model_frozen_pre_holdout_x_open"
+        }
+      },
+      "required": [
+        "actual_candidate_classes_present",
+        "sample_assignments_frozen",
+        "sample_assignment_freeze_stage",
+        "sampler_contract_sha256",
+        "support_feasibility_evaluated",
+        "support_feasibility_stage"
+      ],
+      "type": "object"
+    },
+    "nonce_event_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "event_anchor": {
+          "const": "first_qualifying_event_strictly_after_external_registration_receipt"
+        },
+        "event_selection_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "extraction_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "minimum_entropy_bits": {
+          "minimum": 128,
+          "type": "integer"
+        },
+        "provider_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "retry_or_resalt_allowed": {
+          "const": false
+        },
+        "target_event_value_present": {
+          "const": false
+        }
+      },
+      "required": [
+        "event_anchor",
+        "event_selection_rule_sha256",
+        "extraction_rule_sha256",
+        "minimum_entropy_bits",
+        "provider_rule_sha256",
+        "retry_or_resalt_allowed",
+        "target_event_value_present"
+      ],
+      "type": "object"
+    },
+    "prospective": {
+      "additionalProperties": false,
+      "properties": {
+        "complete_future_frame_committed": {
+          "type": "boolean"
+        },
+        "first_availability_policy_committed": {
+          "type": "boolean"
+        },
+        "first_availability_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "fixed_close_date_rule_committed": {
+          "type": "boolean"
+        },
+        "fixed_close_date_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "future_frame_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "power_or_sensitivity_rationale_committed": {
+          "type": "boolean"
+        },
+        "power_or_sensitivity_rationale_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "complete_future_frame_committed",
+        "future_frame_rule_sha256",
+        "first_availability_policy_committed",
+        "first_availability_rule_sha256",
+        "fixed_close_date_rule_committed",
+        "fixed_close_date_rule_sha256",
+        "power_or_sensitivity_rationale_committed",
+        "power_or_sensitivity_rationale_sha256"
+      ],
+      "type": "object"
+    },
+    "protection": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "protected_do_not_publish"
+        },
+        "contains_numeric_target_values": {
+          "const": false
+        },
+        "contains_predictions": {
+          "const": false
+        },
+        "contains_randomized_aead_dataset_commitments": {
+          "const": true
+        },
+        "contains_sign_or_sequence_values": {
+          "const": false
+        },
+        "contains_unkeyed_dataset_digests": {
+          "const": false
+        },
+        "public_release_authorized": {
+          "const": false
+        },
+        "publication_review_required": {
+          "const": true
+        }
+      },
+      "required": [
+        "classification",
+        "contains_numeric_target_values",
+        "contains_predictions",
+        "contains_sign_or_sequence_values",
+        "contains_randomized_aead_dataset_commitments",
+        "contains_unkeyed_dataset_digests",
+        "publication_review_required",
+        "public_release_authorized"
+      ],
+      "type": "object"
+    },
+    "record_kind": {
+      "const": "nmfa_protected_value_blind_preregistration_manifest"
+    },
+    "relations": {
+      "items": {
+        "$ref": "#/$defs/relation"
+      },
+      "maxItems": 100000,
+      "type": "array"
+    },
+    "rights": {
+      "items": {
+        "$ref": "#/$defs/rights_row"
+      },
+      "maxItems": 7,
+      "minItems": 7,
+      "type": "array"
+    },
+    "sealed_datasets": {
+      "additionalProperties": false,
+      "properties": {
+        "target_y": {
+          "$ref": "#/$defs/sealed_dataset"
+        },
+        "transcription_x": {
+          "$ref": "#/$defs/sealed_dataset"
+        }
+      },
+      "required": [
+        "target_y",
+        "transcription_x"
+      ],
+      "type": "object"
+    },
+    "source_frame": {
+      "additionalProperties": false,
+      "properties": {
+        "complete": {
+          "type": "boolean"
+        },
+        "completeness_rule_committed": {
+          "type": "boolean"
+        },
+        "declared_physical_original_count": {
+          "maximum": 20000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "declared_source_entry_count": {
+          "maximum": 100000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "enumeration_and_order_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "exact_revisions_frozen": {
+          "type": "boolean"
+        },
+        "finite": {
+          "type": "boolean"
+        },
+        "mutation_status": {
+          "enum": [
+            "stable",
+            "changed",
+            "unknown"
+          ]
+        },
+        "ordered_roster_committed": {
+          "type": "boolean"
+        },
+        "pagination_or_enumeration_complete": {
+          "type": "boolean"
+        },
+        "query_and_filter_frozen": {
+          "type": "boolean"
+        },
+        "query_filter_rule_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "revision_policy_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "universe_definition_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "complete",
+        "completeness_rule_committed",
+        "declared_physical_original_count",
+        "declared_source_entry_count",
+        "enumeration_and_order_rule_sha256",
+        "exact_revisions_frozen",
+        "finite",
+        "mutation_status",
+        "ordered_roster_committed",
+        "pagination_or_enumeration_complete",
+        "query_and_filter_frozen",
+        "query_filter_rule_sha256",
+        "revision_policy_sha256",
+        "universe_definition_sha256"
+      ],
+      "type": "object"
+    },
+    "source_records": {
+      "items": {
+        "$ref": "#/$defs/source_record"
+      },
+      "maxItems": 100000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "staged_release_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "development_x_y_release_stage": {
+          "const": "after_external_registration_and_split_receipt"
+        },
+        "holdout_x_release_stage": {
+          "const": "after_exactly_one_model_freeze_and_successful_N1_support_feasibility_receipts"
+        },
+        "holdout_y_release_stage": {
+          "const": "after_holdout_prediction_manifest_and_frozen_N1_sample_assignment_receipts"
+        },
+        "per_record_aead_and_merkle_proof_verification_required": {
+          "const": true
+        },
+        "release_policy_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "unlisted_release_forbidden": {
+          "const": true
+        }
+      },
+      "required": [
+        "development_x_y_release_stage",
+        "holdout_x_release_stage",
+        "holdout_y_release_stage",
+        "per_record_aead_and_merkle_proof_verification_required",
+        "release_policy_sha256",
+        "unlisted_release_forbidden"
+      ],
+      "type": "object"
+    },
+    "target": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_unit_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "contract_complete": {
+          "type": "boolean"
+        },
+        "conversion_denominator": {
+          "$ref": "#/$defs/positive_decimal_integer_string"
+        },
+        "conversion_numerator": {
+          "$ref": "#/$defs/positive_decimal_integer_string"
+        },
+        "conversion_table_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "measurement_policy_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "policies": {
+          "additionalProperties": false,
+          "properties": {
+            "approximate": {
+              "const": "ineligible"
+            },
+            "conflicting": {
+              "const": "ineligible"
+            },
+            "derived_from_inscription": {
+              "const": "forbidden"
+            },
+            "imputed": {
+              "const": "forbidden"
+            },
+            "range": {
+              "const": "ineligible"
+            },
+            "repeated": {
+              "const": "single_frozen_resolution_rule"
+            },
+            "rounding": {
+              "const": "forbidden"
+            }
+          },
+          "required": [
+            "approximate",
+            "conflicting",
+            "derived_from_inscription",
+            "imputed",
+            "range",
+            "repeated",
+            "rounding"
+          ],
+          "type": "object"
+        },
+        "target_family": {
+          "enum": [
+            "direct_count",
+            "mass",
+            "capacity"
+          ]
+        },
+        "target_values_present": {
+          "const": false
+        }
+      },
+      "required": [
+        "canonical_unit_id",
+        "contract_complete",
+        "conversion_denominator",
+        "conversion_numerator",
+        "conversion_table_sha256",
+        "measurement_policy_sha256",
+        "policies",
+        "target_family",
+        "target_values_present"
+      ],
+      "type": "object"
+    },
+    "units": {
+      "items": {
+        "$ref": "#/$defs/unit"
+      },
+      "maxItems": 20000,
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "bindings",
+    "claim_policy",
+    "context_contract",
+    "created_at",
+    "eligibility",
+    "evidence_envelope_contract",
+    "experiment_instance_id",
+    "exposure",
+    "exposure_control",
+    "freeze_sequence",
+    "format_version",
+    "governance",
+    "identifier_contract",
+    "manifest_sha256",
+    "n1_deferred_contract",
+    "nonce_event_contract",
+    "prospective",
+    "protection",
+    "record_kind",
+    "relations",
+    "rights",
+    "sealed_datasets",
+    "staged_release_contract",
+    "source_frame",
+    "source_records",
+    "target",
+    "units"
+  ],
+  "title": "NMFA protected value-blind preregistration manifest",
+  "type": "object"
+}

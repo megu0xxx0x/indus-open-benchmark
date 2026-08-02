@@ -1295,3 +1295,48 @@ job passed Ruff, accepted all 194 files as formatted, reported zero Pyright
 errors/warnings/information messages, built the sdist and wheel, and passed
 the installed-distribution verifier, including packaged protocol/schema byte
 parity and schema validation.
+
+## 2026-08-02 — NMFA worldwide source audit and candidate gate
+
+The worldwide
+[NMFA target-source audit](NMFA_GLOBAL_TARGET_SOURCE_AUDIT_2026-08-02.md)
+found no verified reusable public source that currently joins complete
+transcription X, physical identity F, dependence G, canonical context C,
+complete base E, and one direct numeric Y at the required scale. Public access
+was not treated as reuse permission, blocked sources were not scraped, and no
+institution was contacted.
+
+The source-free
+[NMFA value-blind preregistration gate](NMFA_VALUE_BLIND_PREREGISTRATION_GATE_V1.md)
+now packages a closed plan, evaluator bundle, protected-manifest schema,
+private-report schema, typed evaluator, adversarial synthetic tests, and an
+installed-distribution verifier. It binds the exact ordered source/F/C/prior-
+exposure inventory before protected X or Y access; later X/Y seals must cover
+that same F roster. Base E remains separate from whole-G exclusion, every
+applicable closed reason is retained, N2 is a universal feasibility condition
+rather than a split filter, and reports have no public-summary surface.
+
+Independent review closed three design defects before freeze: post-value
+roster/C selection, asymmetric X auditing and originator overlap, and a
+circular N1 chronology. The corrected N1 order is draw-free support
+feasibility before holdout X, prediction freeze after X, sampled-assignment
+freeze from the externally bound pre-Y chain, then holdout Y. The immutable
+draft parent V1 is not rewritten; the gate explicitly records its stricter
+complete-set E-reason refinement.
+
+Focused adversarial tests, canonical and Draft 2020-12 validation, lint,
+formatting, type checks, differential tuple/N2 checks, distribution builds,
+and isolated installed-wheel verification pass. This is synthetic method
+evidence only. A pass is only
+`CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW` and establishes no external time,
+rights, custody, role independence, scientific result, decipherment, or prize
+eligibility.
+
+Operational work remains blocked. The next implementation slice is separate
+deterministic signed `PREMETADATA_READY` and `PREVALUE_READY` preflight
+evaluators. Before external registration, the project also needs one complete
+typed NMFA execution bundle covering split/primary-F selection, model parsing
+and scoring, primary/length/cell/bootstrap metrics, N1/N2, terminal precedence,
+prospective evaluation, and receipt schemas. Only after those exist may an
+authorized rights/custody review of one source candidate be considered; no
+protected source access or real run is authorized now.

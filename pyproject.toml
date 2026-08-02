@@ -7,7 +7,7 @@ name = "indus-open-benchmark"
 version = "0.1.0"
 description = "Rights-aware Indus corpus validation and infrastructure for future custodial evaluation"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.15"
 license = { file = "LICENSE" }
 authors = [
   { name = "Open Indus Benchmark contributors" },
@@ -23,7 +23,16 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
   "Topic :: Scientific/Engineering :: Information Analysis",
 ]
-dependencies = ["jsonschema[format]>=4.25.1,<5"]
+dependencies = [
+  "attrs==26.1.0",
+  "jsonschema[format]==4.26.0",
+  "jsonschema-specifications==2025.9.1",
+  "referencing==0.37.0",
+  "rfc3339-validator==0.1.4",
+  "rpds-py==2026.6.3",
+  "six==1.17.0",
+  "typing-extensions==4.16.0; python_version < '3.13'",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -64,6 +73,8 @@ packages = ["src/indusbench"]
 "registry/kp1982_batch0_layout_seed.json" = "indusbench/registry/kp1982_batch0_layout_seed.json"
 "benchmark/development-evaluator.json" = "indusbench/benchmark/development-evaluator.json"
 "benchmark/numeral-metrology-functional-anchor-protocol-v1.json" = "indusbench/benchmark/numeral-metrology-functional-anchor-protocol-v1.json"
+"benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json" = "indusbench/benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json"
+"benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json" = "indusbench/benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json"
 "benchmark/kp1979-label-lattice-synthetic-control-v2.json" = "indusbench/benchmark/kp1979-label-lattice-synthetic-control-v2.json"
 "benchmark/kp1979-label-lattice-synthetic-control-v2-execution-v1.json" = "indusbench/benchmark/kp1979-label-lattice-synthetic-control-v2-execution-v1.json"
 "benchmark/mtaac-known-script-control-v1.json" = "indusbench/benchmark/mtaac-known-script-control-v1.json"

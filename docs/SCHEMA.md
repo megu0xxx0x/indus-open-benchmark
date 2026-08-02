@@ -526,6 +526,19 @@ those prose rules executable or registered; a real run still
 requires a new externally receipted version and typed evaluator/result
 contracts.
 
+The follow-on
+[NMFA value-blind preregistration gate](NMFA_VALUE_BLIND_PREREGISTRATION_GATE_V1.md)
+adds closed schemas for a protected structural manifest and private report,
+plus a closed schema for its source-free gate plan. The manifest contains no
+plaintext X or numeric Y. Before either protected layer is accessed, its
+preinventory digest is designed to bind the exact source-record-to-F roster,
+actual per-F C, physical-identity/context evidence, and prior-exposure map.
+Later X/Y seals cover that same F roster. The report schema is structural only:
+authenticity requires deterministic reexecution with the exact manifest and
+evaluator bundle and byte equality. A schema-valid or synthetic candidate
+state is not access authority, external registration, a scientific result, or
+prize eligibility.
+
 ## Quarantine manifest
 
 The quarantine manifest's canonical self-digest excludes only its

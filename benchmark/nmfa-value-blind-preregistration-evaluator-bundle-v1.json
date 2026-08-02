@@ -1,0 +1,94 @@
+{
+  "bundle_id": "nmfa-value-blind-preregistration-evaluator-bundle-v1",
+  "created_at": "2026-08-02T09:34:36Z",
+  "files": [
+    {
+      "bytes": 30641,
+      "path": "benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json",
+      "sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 25450,
+      "path": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json",
+      "sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 5175,
+      "path": "pyproject.toml",
+      "sha256": "sha256:c81b01d0ceccf915932a6c238de2a28794e569f12f675773702847ee169f8e15",
+      "verification": "ci_only"
+    },
+    {
+      "bytes": 15667,
+      "path": "schemas/nmfa-value-blind-preregistration-gate-plan.schema.json",
+      "sha256": "sha256:3aba45075fd440affb379e959e4a33cbd24db0c89be22bf2095b7257643b0e03",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 47868,
+      "path": "schemas/nmfa-value-blind-preregistration-manifest.schema.json",
+      "sha256": "sha256:68eb7dbefef5c2bdc4cd670318b190d4beb0db2a7afb5ee096c4e514a6f496c8",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 13980,
+      "path": "schemas/nmfa-value-blind-preregistration-report.schema.json",
+      "sha256": "sha256:b37b9f4b885ffc0b434924b80a335e6d83e776496678312e7e6388295d0c844e",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 4129,
+      "path": "src/indusbench/io.py",
+      "sha256": "sha256:7517f6da8724f64934b44492ab104e7357c081ca50ae859f66102a3b980b965c",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 79284,
+      "path": "src/indusbench/nmfa_preregistration.py",
+      "sha256": "sha256:53736d4f44e8cd2a909dc5c4b407d7987d505a2d3cff9d45e132965bf623abad",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 49644,
+      "path": "uv.lock",
+      "sha256": "sha256:d9401bcbec41dcb3ca6091192f91e4cf197c6f78fd1bc7dac474db3da01510cf",
+      "verification": "ci_only"
+    }
+  ],
+  "format_version": "1.0.0",
+  "runtime_profile": {
+    "canonical_encoder": "indusbench.io:encode_json",
+    "conditional_dependencies": {
+      "python_version_less_than_3_13": {
+        "typing-extensions": "4.16.0"
+      }
+    },
+    "dependencies": {
+      "attrs": "26.1.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "referencing": "0.37.0",
+      "rfc3339-validator": "0.1.4",
+      "rpds-py": "2026.6.3",
+      "six": "1.17.0"
+    },
+    "dependency_lock": "uv.lock",
+    "dependency_scope": "evaluator_semantic_import_closure_not_all_optional_format_extras",
+    "entrypoint": "indusbench.nmfa_preregistration:evaluate_preregistration_manifest",
+    "implementation": "CPython",
+    "supported_python_minors": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ]
+  },
+  "security_boundary": {
+    "external_timestamp_verified_by_bundle": false,
+    "real_manifest_included": false,
+    "runtime_environment_attested_by_bundle": false,
+    "source_values_included": false
+  }
+}

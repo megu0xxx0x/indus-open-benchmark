@@ -1,0 +1,609 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "closed_false_map": {
+      "additionalProperties": {
+        "const": false
+      },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "closed_scalar_map": {
+      "additionalProperties": {
+        "type": [
+          "string",
+          "boolean",
+          "integer"
+        ]
+      },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "closed_string_map": {
+      "additionalProperties": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "positive_integer": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "state": {
+      "enum": [
+        "SOURCE_VALUE_BLINDNESS_BREACH",
+        "AUTHORITY_BLOCKED",
+        "RIGHTS_BLOCKED",
+        "CUSTODY_BLOCKED",
+        "TARGET_CONTRACT_INCOMPLETE",
+        "SOURCE_FRAME_INCOMPLETE",
+        "POPULATION_MANIFEST_INVALID",
+        "DEPENDENCE_CONTEXT_INVALID",
+        "INSUFFICIENT_ELIGIBLE_G",
+        "COMPUTATION_LIMIT_BLOCKED",
+        "NO_FEASIBLE_DOMAIN_TUPLE",
+        "N2_UNIVERSAL_SUPPORT_BLOCKED",
+        "CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW"
+      ]
+    },
+    "symbol": {
+      "maxLength": 200,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "type": "string"
+    }
+  },
+  "$id": "nmfa-value-blind-preregistration-gate-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "canonicalization": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "claim_chain_policy": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "created_at": {
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    },
+    "decision": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_error": {
+          "const": "PREFLIGHT_CONTRACT_INVALID"
+        },
+        "pass_state": {
+          "const": "CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW"
+        },
+        "terminal_precedence": {
+          "items": {
+            "$ref": "#/$defs/state"
+          },
+          "maxItems": 13,
+          "minItems": 13,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "contract_error",
+        "pass_state",
+        "terminal_precedence"
+      ],
+      "type": "object"
+    },
+    "digest_dag": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "inputs": {
+            "items": {
+              "$ref": "#/$defs/symbol"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "node": {
+            "$ref": "#/$defs/symbol"
+          }
+        },
+        "required": [
+          "inputs",
+          "node"
+        ],
+        "type": "object"
+      },
+      "maxItems": 23,
+      "minItems": 23,
+      "type": "array"
+    },
+    "digest_profile": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "eligibility_policy": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "execution_boundary": {
+      "$ref": "#/$defs/closed_false_map"
+    },
+    "format_version": {
+      "const": "1.0.0"
+    },
+    "g_contaminating_reasons": {
+      "items": {
+        "enum": [
+          "CONTEXT_INCOMPLETE_OR_CONFLICTING",
+          "IDENTITY_UNRESOLVED",
+          "PROVENANCE_INCOMPLETE",
+          "SOURCE_BINDING_INCOMPLETE",
+          "TARGET_AMBIGUOUS_OR_CONFLICTING",
+          "TRANSCRIPTION_INCOMPLETE_OR_AMBIGUOUS"
+        ]
+      },
+      "maxItems": 6,
+      "minItems": 6,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "gate_id": {
+      "const": "nmfa-value-blind-preregistration-gate-v1"
+    },
+    "limits": {
+      "additionalProperties": false,
+      "properties": {
+        "max_context_groups_per_axis": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_json_bytes": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_json_depth": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_n2_primary_assignments": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_n2_tuple_evaluations": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_primary_cache_entries": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_relations": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_tuple_evaluations": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "max_units": {
+          "$ref": "#/$defs/positive_integer"
+        }
+      },
+      "required": [
+        "max_context_groups_per_axis",
+        "max_json_bytes",
+        "max_json_depth",
+        "max_n2_tuple_evaluations",
+        "max_n2_primary_assignments",
+        "max_primary_cache_entries",
+        "max_relations",
+        "max_tuple_evaluations",
+        "max_units"
+      ],
+      "type": "object"
+    },
+    "n1": {
+      "additionalProperties": false,
+      "properties": {
+        "actual_candidate_classes_allowed_in_preregistration_manifest": {
+          "const": false
+        },
+        "alternative_pool_minimum_per_class": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "candidate_class_maximum": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "candidate_class_minimum": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "global_injective_support_feasibility_required_pre_holdout_x": {
+          "const": true
+        },
+        "model_selection_policy_at_deferred_stage": {
+          "$ref": "#/$defs/symbol"
+        },
+        "opaque_candidate_classes_before_holdout_open_required": {
+          "const": true
+        },
+        "preregistration_claim_of_actual_support_allowed": {
+          "const": false
+        },
+        "sample_assignment_freeze_stage": {
+          "$ref": "#/$defs/symbol"
+        },
+        "sampler": {
+          "$ref": "#/$defs/closed_scalar_map"
+        },
+        "support_feasibility_stage": {
+          "$ref": "#/$defs/symbol"
+        },
+        "support_feasibility_without_random_draw_required": {
+          "const": true
+        }
+      },
+      "required": [
+        "actual_candidate_classes_allowed_in_preregistration_manifest",
+        "alternative_pool_minimum_per_class",
+        "candidate_class_maximum",
+        "candidate_class_minimum",
+        "global_injective_support_feasibility_required_pre_holdout_x",
+        "model_selection_policy_at_deferred_stage",
+        "opaque_candidate_classes_before_holdout_open_required",
+        "preregistration_claim_of_actual_support_allowed",
+        "sample_assignment_freeze_stage",
+        "sampler",
+        "support_feasibility_stage",
+        "support_feasibility_without_random_draw_required"
+      ],
+      "type": "object"
+    },
+    "nonce": {
+      "$ref": "#/$defs/closed_scalar_map"
+    },
+    "normative_evaluator_policy": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "operational_activation_blockers": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "parent_protocol": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "path": {
+          "const": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json"
+        },
+        "record_state": {
+          "const": "source_free_draft"
+        },
+        "registration_rule": {
+          "$ref": "#/$defs/symbol"
+        },
+        "sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "bytes",
+        "path",
+        "record_state",
+        "registration_rule",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "phase_boundary": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "relation_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmed": {
+          "const": [
+            "union"
+          ]
+        },
+        "possible": {
+          "const": [
+            "union",
+            "exclude_both"
+          ]
+        },
+        "unresolved": {
+          "const": [
+            "union",
+            "exclude_both"
+          ]
+        }
+      },
+      "required": [
+        "confirmed",
+        "possible",
+        "unresolved"
+      ],
+      "type": "object"
+    },
+    "rights": {
+      "additionalProperties": false,
+      "properties": {
+        "layers": {
+          "items": {
+            "$ref": "#/$defs/symbol"
+          },
+          "maxItems": 7,
+          "minItems": 7,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "required_permissions_for_data_layers": {
+          "items": {
+            "$ref": "#/$defs/symbol"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "required_permissions_for_derived_aggregate": {
+          "items": {
+            "$ref": "#/$defs/symbol"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "status_vocabulary": {
+          "items": {
+            "enum": [
+              "permitted",
+              "denied",
+              "unknown",
+              "not_applicable"
+            ]
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "layers",
+        "required_permissions_for_data_layers",
+        "required_permissions_for_derived_aggregate",
+        "status_vocabulary"
+      ],
+      "type": "object"
+    },
+    "sealed_data_policy": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "split_feasibility": {
+      "additionalProperties": false,
+      "properties": {
+        "axis_order": {
+          "items": {
+            "enum": [
+              "site",
+              "period",
+              "medium",
+              "object_type"
+            ]
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "candidate_group_prefilter": {
+          "$ref": "#/$defs/symbol"
+        },
+        "candidate_product_budget": {
+          "$ref": "#/$defs/symbol"
+        },
+        "cell_minimum_g": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "complement_minimum_g": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "eligible_g_minimum": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "holdout_minimum_g": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "n2_is_split_tuple_predicate": {
+          "const": false
+        },
+        "n2_minimum_movable_g": {
+          "$ref": "#/$defs/positive_integer"
+        },
+        "n2_minimum_movable_percent": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "n2_primary_assignment_counter": {
+          "$ref": "#/$defs/symbol"
+        },
+        "n2_tuple_evaluation_counter": {
+          "$ref": "#/$defs/symbol"
+        },
+        "primary_cache_admission": {
+          "$ref": "#/$defs/symbol"
+        },
+        "primary_cache_key": {
+          "$ref": "#/$defs/symbol"
+        },
+        "primary_cache_traversal": {
+          "$ref": "#/$defs/symbol"
+        },
+        "primary_f_selection": {
+          "additionalProperties": false,
+          "properties": {
+            "domain": {
+              "$ref": "#/$defs/symbol"
+            },
+            "inputs": {
+              "items": {
+                "$ref": "#/$defs/symbol"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "rule": {
+              "$ref": "#/$defs/symbol"
+            },
+            "test_vector_candidate_f_id": {
+              "$ref": "#/$defs/symbol"
+            },
+            "test_vector_gate_plan_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "test_vector_primary_rank_sha256": {
+              "$ref": "#/$defs/checksum"
+            }
+          },
+          "required": [
+            "domain",
+            "inputs",
+            "rule",
+            "test_vector_candidate_f_id",
+            "test_vector_gate_plan_sha256",
+            "test_vector_primary_rank_sha256"
+          ],
+          "type": "object"
+        },
+        "tuple_evaluation_counter": {
+          "$ref": "#/$defs/symbol"
+        },
+        "tuple_order": {
+          "$ref": "#/$defs/symbol"
+        },
+        "universal_n2_candidate_requirement": {
+          "$ref": "#/$defs/symbol"
+        }
+      },
+      "required": [
+        "axis_order",
+        "candidate_group_prefilter",
+        "candidate_product_budget",
+        "cell_minimum_g",
+        "complement_minimum_g",
+        "eligible_g_minimum",
+        "holdout_minimum_g",
+        "n2_is_split_tuple_predicate",
+        "n2_minimum_movable_g",
+        "n2_minimum_movable_percent",
+        "n2_primary_assignment_counter",
+        "n2_tuple_evaluation_counter",
+        "primary_f_selection",
+        "primary_cache_admission",
+        "primary_cache_key",
+        "primary_cache_traversal",
+        "tuple_evaluation_counter",
+        "tuple_order",
+        "universal_n2_candidate_requirement"
+      ],
+      "type": "object"
+    },
+    "split_selection": {
+      "$ref": "#/$defs/closed_string_map"
+    },
+    "stopping_rules": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "$ref": "#/$defs/symbol"
+          },
+          "rule_id": {
+            "pattern": "^PF-STOP-00[1-3]$",
+            "type": "string"
+          },
+          "trigger": {
+            "$ref": "#/$defs/symbol"
+          }
+        },
+        "required": [
+          "action",
+          "rule_id",
+          "trigger"
+        ],
+        "type": "object"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "type": "array"
+    },
+    "target": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_families": {
+          "items": {
+            "enum": [
+              "direct_count",
+              "mass",
+              "capacity"
+            ]
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "families_per_manifest": {
+          "const": 1
+        },
+        "numeric_values_forbidden": {
+          "const": true
+        },
+        "required_conversion": {
+          "$ref": "#/$defs/symbol"
+        },
+        "required_measurement_policies": {
+          "$ref": "#/$defs/closed_string_map"
+        }
+      },
+      "required": [
+        "allowed_families",
+        "families_per_manifest",
+        "numeric_values_forbidden",
+        "required_conversion",
+        "required_measurement_policies"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "canonicalization",
+    "claim_chain_policy",
+    "created_at",
+    "decision",
+    "digest_dag",
+    "digest_profile",
+    "eligibility_policy",
+    "execution_boundary",
+    "format_version",
+    "gate_id",
+    "g_contaminating_reasons",
+    "limits",
+    "n1",
+    "nonce",
+    "normative_evaluator_policy",
+    "operational_activation_blockers",
+    "parent_protocol",
+    "phase_boundary",
+    "rights",
+    "relation_policy",
+    "sealed_data_policy",
+    "split_selection",
+    "split_feasibility",
+    "stopping_rules",
+    "target"
+  ],
+  "title": "NMFA source-free value-blind preregistration gate plan",
+  "type": "object"
+}

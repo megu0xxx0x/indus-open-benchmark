@@ -5,6 +5,14 @@ corpus. A website that can be searched is not automatically an open dataset. No 
 release until its record-level provenance and redistribution scope are documented in
 `registry/sources.json`.
 
+The dated
+[worldwide NMFA target-source audit](NMFA_GLOBAL_TARGET_SOURCE_AUDIT_2026-08-02.md)
+reviews the current public candidates for a direct count, mass, or capacity
+experiment. It found no verified reusable public source that supplies the
+complete X/F/G/C/E/Y join at the required scale. That finding does not convert
+blocked or reference-only sources into importable data and authorizes no
+automated access or institutional contact.
+
 ## Rights-cleared museum image pilot sources
 
 ### The Metropolitan Museum of Art Open Access

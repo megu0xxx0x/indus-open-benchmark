@@ -405,6 +405,21 @@ Current assets:
   observations, predictions, evidence, execution, or result, and is not a
   preregistration receipt. Repeated-tablet tests remain a later separate
   protocol.
+- [x] Complete the worldwide NMFA target-source audit and implement the
+  source-free value-blind preregistration candidate gate. It freezes an exact
+  prevalue source/F/C/prior-exposure inventory, separate X/Y archive and audit
+  contracts, complete E/G/context semantics, split-feasibility and universal
+  N2 gates, private reports, and installed-distribution verification. Only
+  synthetic data have passed; this is not an external registration or result.
+- [ ] Implement separately signed deterministic `PREMETADATA_READY` and
+  `PREVALUE_READY` preflight evaluators before any real claim-instance metadata
+  or X/Y access. The current retrospective post-seal gate cannot authorize
+  either access boundary.
+- [ ] Implement and freeze the complete typed NMFA execution stack: nonce/split
+  and primary-F selection; model parser/scorer; primary/length/cell/bootstrap
+  metrics; N1 support, matching, and runs; N2 permutations and runs; terminal
+  precedence; prospective evaluation; receipt schemas; and the external chain.
+  None of this may be deferred past registration.
 - [ ] Instantiate and externally register a new version only after one
   rights-compatible target family and canonical unit, at least 160 eligible
   transitive leakage superfamilies, typed evaluator/result contracts, sealed

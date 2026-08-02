@@ -7,6 +7,26 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A source-free
+  [NMFA value-blind preregistration candidate gate](docs/NMFA_VALUE_BLIND_PREREGISTRATION_GATE_V1.md)
+  and [worldwide target-source audit](docs/NMFA_GLOBAL_TARGET_SOURCE_AUDIT_2026-08-02.md).
+  The gate binds an exact source/F/C/prior-exposure inventory before protected
+  X or Y access, then requires separate encrypted X/Y archives, complete
+  independent in-custody audits, transitive dependence closure, leakage-safe
+  split feasibility, universal N2 support, staged value release, and
+  deterministic private reporting. Its packaged plan, evaluator bundle,
+  closed schemas, evaluator, synthetic adversarial tests, and installed-wheel
+  verifier contain no real source or target values.
+
+  Passing means only `CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW`; external
+  time, custody, independence, rights, scientific validity, execution,
+  decipherment, and prize eligibility remain unverified. The audit found no
+  verified reusable public source with the complete X/F/G/C/E/Y join at the
+  required scale. Operational metadata/value access remains blocked until
+  separate signed `PREMETADATA_READY` and `PREVALUE_READY` evaluators and
+  receipts exist, and the complete typed split, model, metric, bootstrap,
+  N1/N2, terminal, and prospective execution stack is still required.
+
 - A source-free machine-readable
   [draft numeral/metrology functional-anchor protocol V1](docs/NUMERAL_METROLOGY_FUNCTIONAL_ANCHOR_PROTOCOL_V1.md)
   under the existing hypothesis schema. It tests at most one positive additive

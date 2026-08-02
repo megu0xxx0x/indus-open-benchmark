@@ -2504,3 +2504,62 @@ job passed Ruff, accepted all 194 files as formatted, reported zero Pyright
 errors/warnings/information messages, built the sdist and wheel, and passed
 the installed-distribution verifier, including packaged protocol/schema byte
 parity and schema validation.
+
+## NMFA source audit and protected candidate gate — 2026-08-02
+
+### Current source-level outcome
+
+The worldwide
+[NMFA target-source audit](NMFA_GLOBAL_TARGET_SOURCE_AUDIT_2026-08-02.md)
+found no verified reusable public source that currently joins complete
+transcription X, physical identity F, dependence G, canonical context C,
+complete base E, and one direct numeric Y at the required scale. Public access
+was not treated as reuse permission, blocked sources were not scraped, and no
+institution was contacted.
+
+The source-free
+[NMFA value-blind preregistration gate](NMFA_VALUE_BLIND_PREREGISTRATION_GATE_V1.md)
+is implemented as a closed plan, evaluator bundle, protected-manifest schema,
+private-report schema, typed evaluator, synthetic adversarial suite, and
+installed-distribution verifier. It binds the exact ordered source/F/C/prior-
+exposure inventory before protected X or Y access, then requires both sealed
+archives to cover that same F roster. It separates base E from effective
+whole-G exclusion, retains every applicable closed eligibility reason, keeps
+N2 out of split-ticket selection, and emits only a protected private report.
+
+Independent code and science review closed the post-value roster/C-selection
+hole, made X and Y audits symmetric and distinct from their originating
+curators/custodians, and separated N1 support feasibility from its prediction-
+bound random assignment. The immutable draft parent V1 remains unchanged; the
+gate explicitly records its conservative complete-set E-reason refinement.
+
+Focused adversarial tests, canonical JSON and Draft 2020-12 checks, lint,
+formatting, type checks, differential tuple/N2 comparison, distribution builds,
+and isolated installed-wheel verification pass. No real source record,
+transcription, measurement, target, split, model, prediction, result, external
+registration, submission, or decipherment claim was created. Synthetic passage
+means only `CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW`.
+
+### Continuation order
+
+1. Implement a deterministic signed `PREMETADATA_READY` evaluator over
+   authority, rights, custody, role assignments, and frozen source/target rules.
+   It must pass before claim-instance metadata access.
+2. Implement a deterministic signed `PREVALUE_READY` evaluator over the exact
+   source/F/C/prior-exposure inventory, plan, bundle, archive contracts, and
+   no-value boundary. It must pass before either X or Y access.
+3. Implement and freeze one complete typed NMFA execution bundle before
+   external registration: nonce/split and primary-F selection; model interface,
+   parser, and scorer; primary/length/cell/bootstrap metrics; N1 support,
+   matching/unranking, and runs; N2 permutations and runs; terminal precedence;
+   prospective evaluation; and closed receipt schemas.
+4. Only then assess one source candidate under explicit authority, documented
+   reuse rights, protected custody, clean-role assignments, and an external
+   claim-slot registry. Do not contact an institution or access protected
+   source values without separate authority.
+5. After in-custody X/Y audits and external registration, execute the frozen
+   chain once. Preserve failures; do not retry, resalt, fork, or promote a
+   candidate state into a decipherment or prize claim.
+
+Until steps 1–3 exist and step 4 is separately authorized, the correct state is
+source-free, non-operational, and blocked from real metadata/X/Y access.
