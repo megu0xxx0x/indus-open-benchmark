@@ -13,9 +13,11 @@ PUBLIC_TEXT_FILES = (
     ROOT / "DATA_POLICY.md",
     ROOT / "README.md",
     ROOT / "SECURITY.md",
+    ROOT / "benchmark" / "numeral-metrology-functional-anchor-protocol-v1.json",
 )
 PUBLIC_CODE_FILES = (
     ROOT / "src" / "indusbench" / "source_reported_link_static_v2.py",
+    ROOT / "tests" / "test_numeral_metrology_functional_anchor_protocol.py",
     ROOT / "tests" / "test_source_reported_link_static_v2.py",
     ROOT / "tests" / "verify_source_reported_link_installed_distribution.py",
 )

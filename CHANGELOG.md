@@ -7,6 +7,31 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A source-free machine-readable
+  [draft numeral/metrology functional-anchor protocol V1](docs/NUMERAL_METROLOGY_FUNCTIONAL_ANCHOR_PROTOCOL_V1.md)
+  under the existing hypothesis schema. It tests at most one positive additive
+  token-count score against exactly one independently curated count, mass, or
+  capacity family and one canonical unit. The draft fixes transitive leakage
+  superfamilies, a minimum-160-superfamily strict domain split, four disjoint
+  sealed holdout cells, frozen documentation/measurement-provenance nuisance
+  handling, paired score-versus-length uncertainty gates, a 99,999-run token
+  specificity control, a separate 99,999-run full-context no-association null,
+  a closed single-claim boundary, and an all-at-cutoff prospective tranche
+  limited to units and information first available after immutable model/
+  policy/prediction-algorithm freeze; its target stays sealed until the sample,
+  score, and context-support gates pass. Exact historical/prospective
+  reclosure, terminal precedence, and exactly three kill criteria are also
+  fixed.
+
+  The machine record is included in the wheel and has focused schema and
+  semantic tests. It remains `draft`, unfrozen, unregistered, unreceipted, and
+  unexecuted; its source/scope references, sign mappings, predictions,
+  evidence, and exceptions are empty, and its sole prospective claim has
+  confidence zero. It contains no source value or result and is not a
+  functional finding, sign reading, language assignment, translation,
+  decipherment, submission,
+  or prize claim.
+
 - A distinct source-free
   [exact-16 installed static resolver V2](docs/SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md).
   Its zero-argument sidecar API reads all 16 compiled resources in one

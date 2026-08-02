@@ -1,0 +1,202 @@
+{
+  "schema_version": "0.1.0",
+  "hypothesis_id": "numeral-metrology-functional-anchor-protocol-v1",
+  "version": "1.0.0-draft",
+  "title": "Draft numeral/metrology functional-anchor protocol V1 — source-free and unexecuted",
+  "status": "draft",
+  "created_at": "2026-08-02T02:45:00Z",
+  "updated_at": "2026-08-02T03:48:48Z",
+  "authors": [
+    {
+      "name": "Open Indus Benchmark contributors",
+      "orcid": null,
+      "affiliation": null
+    }
+  ],
+  "license_id": "CC0-1.0",
+  "preregistration": {
+    "frozen": false,
+    "registered_at": null,
+    "registry_uri": null,
+    "content_hash": null
+  },
+  "scope": {
+    "artifact_ids": [],
+    "site_ids": [],
+    "period_labels": [],
+    "object_types": [],
+    "exclusions": [
+      "No real source, artifact, site, sign, sequence, measurement, leakage-superfamily, split, or observation identifier is present.",
+      "No transcription, sign value, target value, direction choice, allograph choice, result, execution, or source-access event is present.",
+      "Repeated-tablet, seal/sealing, phonetic, language, translation, full-decipherment, and prize-submission tests are outside this protocol.",
+      "This draft is not frozen, externally registered, independently receipted, executed, evidential, or a decipherment claim."
+    ]
+  },
+  "assumptions": [
+    {
+      "assumption_id": "NMFA-STATE-001",
+      "category": "other",
+      "statement": "draft_source_free_no_registration_receipt_no_evidence_no_sign_value_language_translation_or_decipherment_claim",
+      "confidence": 0.0,
+      "alternatives_considered": [
+        "A later version may become eligible only after its exact payload and execution materials receive a separate external registration receipt.",
+        "Changing this record's status alone cannot establish registration, evidence, execution, or a result."
+      ]
+    },
+    {
+      "assumption_id": "NMFA-DATA-001",
+      "category": "function",
+      "statement": "A future registered version must bind eight roles: X is an approved complete transcription; Y is exactly one independently curated direct metrology target family in one canonical unit; E is the complete value-free Y eligibility/unit/completeness commitment; C is canonical site, period, medium, and object-type split metadata plus frozen non-outcome documentation/measurement-provenance nuisance fields; F is one physical-original all-side analysis unit; G is the target-blind transitive leakage/dependence superfamily of F; H is sealed split and mapping custody; and N is the matched-control specification. Independent curators freeze the source/data roles before a controlled evaluator joins development and validation X/Y; H remains hidden until the model is frozen.",
+      "confidence": 0.0,
+      "alternatives_considered": [
+        "The X holder receives Y or H and target blindness fails.",
+        "The Y curator receives X or predictions and target independence fails.",
+        "E omits a population unit, exposes a numeric Y value, or cannot prove the locked target family, unit, completeness, and closed eligibility reason.",
+        "The evaluator cannot join development and validation X/Y after data and split freeze while keeping H hidden through model freeze.",
+        "Role separation is operational compartmentalization and does not prove that people, AI systems, or organizations are independent."
+      ]
+    },
+    {
+      "assumption_id": "NMFA-TARGET-001",
+      "category": "function",
+      "statement": "One small positive additive token-count score may monotonically predict exactly one sign-independent direct count, mass, or capacity family across unseen physical-object and archaeological-context families.",
+      "confidence": 0.0,
+      "alternatives_considered": [
+        "The selected marks are non-numerical or emblematic.",
+        "Any association is caused by site, period, medium, object type, duplication, or selection leakage.",
+        "The relation is non-additive, non-monotone, or absent."
+      ]
+    },
+    {
+      "assumption_id": "NMFA-POLICY-001",
+      "category": "sign_inventory",
+      "statement": "Direction, segmentation, damaged-token, and allograph policies must be enumerated before validation and exactly one resulting score must be frozen before H is unsealed.",
+      "confidence": 0.0,
+      "alternatives_considered": [
+        "One policy is independently fixed before target access.",
+        "A predeclared policy lattice is reduced using development and validation only.",
+        "No auditable policy path exists, so the version is ineligible."
+      ]
+    },
+    {
+      "assumption_id": "NMFA-NONCLAIM-001",
+      "category": "language",
+      "statement": "Passing would establish at most a narrow functional-association candidate and assigns no phonetic value, language, gloss, translation, commodity, office, person, numeric reading, or full administrative meaning.",
+      "confidence": 0.0,
+      "alternatives_considered": [
+        "A functional association is non-linguistic.",
+        "A linguistic account requires a separate registered protocol and independent evidence.",
+        "No functional association survives."
+      ]
+    }
+  ],
+  "sign_mappings": [],
+  "rules": [
+    {
+      "rule_id": "NMFA-ELIG-001",
+      "rule_type": "contextual",
+      "description": "Admit only reviewed originals with complete observations, one direct finite target, all four context fields, frozen provenance-nuisance handling, exact joins, rights, and provenance.",
+      "formalism": "Each unit must be a reviewed original, not a replica or modern object, with one complete unambiguous approved transcription, source-bound identity, rights, provenance, and exactly one canonical value for each of site, period, medium, and object_type. Freeze mutually exclusive vocabularies, alias/parent-child crosswalks, and unknown-value handling before admission; ambiguous, multiple, overlapping, or incompatible context values are pre-split ineligible. Y must be exactly one family in {direct_count, mass, capacity} and one canonical unit: count is an integer >=0; mass or capacity is finite and >0. Y must not be inferred from the inscription, catalog title or description, a dimension proxy, or a claimed meaning. Before splitting, freeze one documentation/measurement-provenance policy: either all X and Y are restricted to one prespecified transcription/annotation and measurement source/method/calibration regime, or C includes a complete canonical nuisance tuple for transcription/publication source, edition/batch, measurement source, method, campaign, instrument/calibration, and batch, using explicit not_applicable values where justified; unknown nuisance provenance is ineligible. Before splitting, the Y curator must receipt E over the complete frozen population: one row per unit with only source/digest binding, target-family/unit commitment, eligible boolean, and one closed reason code; E exposes no numeric Y. Include every E-eligible unit, including future S=0. Missing, ambiguous, conflicting, or imputed required data are pre-split ineligible. Any post-split E error is BENCHMARK_INVALID and requires a new version and fresh H.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-MODEL-001",
+      "rule_type": "numeric",
+      "description": "Limit the candidate to one positive additive score with a fixed small complexity budget and no context-specific rescue terms.",
+      "formalism": "For the selected physical-original unit F, x is the deterministic canonical concatenation of every eligible side/inscription in frozen side, line, and token order; no side is selected after seeing Y. Freeze two generic length proxies from the same x: L_total=all eligible token count and L_distinct=distinct frozen token/allograph-class count. S(x)=sum_j(w_j*n_j(x)); 1<=J<=8 pairwise-disjoint frozen token or allograph classes; each integer weight satisfies 1<=w_j<=16; gcd(w_1,...,w_J)=1; n_j is a nonnegative count under the one frozen policy. Site, period, medium, object, artifact, or inscription terms; interactions; negative weights; exceptions; direction flips; post-H allograph merges; and post-H refits are forbidden. Fit on development, select exactly one ordinal score on validation, and freeze it before H is unsealed.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-FAMILY-001",
+      "rule_type": "contextual",
+      "description": "Build one all-side physical-original analysis unit F, close every known leakage/dependence relation into G, and score one target-blind F per G.",
+      "formalism": "F collapses every side/inscription, catalog alias, publication view/image hash, cross-edition record, confirmed fragment of the same original, and exact duplicate record of one physical original; its X is the all-side aggregate fixed by NMFA-MODEL-001, so object-level Y is counted once rather than once per side. A distinct cast, replica, impression, or mold product is never merged into F. G is closed across every F, eligible or not, through cast/impression/common mold/template, exact normalized sequence, and any known common production batch, workshop, recovery locus, or assemblage. A declared possible/unresolved relation must either conservatively union every involved F into one G or make all involved F/G ineligible before splitting; unknown relation status is never treated as evidence of independence. Every G is one split, bootstrap, permutation, and primary-count unit. Define M_G={F in G:E(F)=true}; G is eligible only if M_G is nonempty and every F in G has complete canonical C. If physical identity, content, E, or C conflicts remain, the whole G is pre-split ineligible. After H cells are fixed, choose one primary F per G without Y, model score, or outcome information: for an H cell use the minimum hash among M_G members whose canonical C triggers that assigned cell; for D use the minimum hash over M_G. Retain other F only for a mandatory secondary consistency report. After H opens, a correction/new edge among historical F, or an incoming F that bridges >=2 historical G or crosses historical partitions, is BENCHMARK_INVALID and requires fresh H. An incoming F connected to exactly one historical G is absorbed into that G and excluded from the prospective cohort without changing historical scores; prospective-only relations close prospectively.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-SPLIT-001",
+      "rule_type": "contextual",
+      "description": "Construct four disjoint domain holdout cells and one development/validation complement by a committed target-blind hash rule.",
+      "formalism": "Require at least 160 eligible G under the frozen population rule, complete value-free E, and canonical C vocabularies. With numeric Y values sealed, build F from frozen X and source-bound physical-identity evidence, close G across all F from frozen exact-sequence/C and source-bound relation evidence, apply E to every complete-population F, derive each M_G, and freeze the exact E/F/G/M_G/C eligible-inventory digest. For each axis define C_axis(G) as the set of frozen canonical groups of every F in G, including E-ineligible F. Only then obtain one externally verifiable unpredictable split_nonce committed after that digest and before tuple selection; no actor may choose or retry it. Enumerate canonical tuples (s,p,m,o). Sequentially set H_site={G: closure_C(s) intersects C_site(G)}; H_period={remaining G: closure_C(p) intersects C_period(G)}; H_medium={remaining G: closure_C(m) intersects C_medium(G)}; H_object={remaining G: closure_C(o) intersects C_object_type(G)}. A tuple is eligible only when every disjoint cell has >=20 G, union H has >=80 G, complement D has >=80 G, none of the four selected closures intersects the corresponding C_axis of any D member, and every H member has at least one F in M_G whose C triggers its assigned cell. Choose the tuple using only split_nonce, E, F, G, M_G, and C by minimum SHA-256(split_nonce, ASCII NUL, inventory_digest, ASCII NUL, canonical_tuple). Retry and resalting are forbidden. Sort D by its G hash and repeat [development, development, validation], giving at least 54/26 when |D|=80. Release joined D only after source/data/split freeze; keep H mapping and numeric Y values sealed until the ordinal score is frozen, then open H once.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-METRIC-001",
+      "rule_type": "numeric",
+      "description": "Use one locked positive-direction rank association with fixed overall, paired length-difference uncertainty, domain-cell, and level-count gates.",
+      "formalism": "Primary rho_H is average-midrank Spearman correlation between frozen ordinal S and Y on the >=80 sealed primary F, exactly one per G. Y's locked canonical-unit conversion is used only to normalize and rank Y; no numeric S-to-Y reading is fitted or claimed. On the same units compute rho_total=Spearman(L_total,Y), rho_distinct=Spearman(L_distinct,Y), map an undefined/nonfinite length correlation to 0, set rho_length=max(0,rho_total,rho_distinct), and define delta_length=rho_H-rho_length. Derive deterministic randomness from the externally bound frozen protocol digest and label bootstrap-v1. Run 10,000 H-cell-stratified G bootstrap replicates; in each identical resample recompute rho_H, both length correlations, rho_length, and paired delta_length. An undefined/nonfinite bootstrap rho_H is assigned -1; an undefined/nonfinite bootstrap length correlation is assigned 0; no replicate is discarded or redrawn. Sort the 10,000 rho_H values and 10,000 paired delta_length values separately ascending; each percentile CI95 lower endpoint is the 250th one-based value. An undefined/nonfinite observed or cell rho_H is NO_GO. The effect gate requires rho_H>=0.40, delta_length>=0.10, lower(CI95_rho)>0.20, lower(CI95_delta_length)>0.00, rho_cell>=0.20 separately in H_site, H_period, H_medium, and H_object, and >=4 distinct observed levels for both S and Y in H. All gates are conjunctive. The point delta is a prespecified effect-size margin and the paired interval must independently exclude zero. No alternate transform, subset, direction, metric, or representative may replace the locked primary result.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-NULL-001",
+      "rule_type": "numeric",
+      "description": "Require the frozen score to beat one frequency-matched specificity control and one full-context-matched no-association null under exact deterministic gates.",
+      "formalism": "Use R=99,999 deterministic runs whose pseudorandom stream is keyed by frozen protocol digest, distinct label control-n1-v1 or null-n2-v1, and run index; repeated draws are retained. Before H opens, freeze each selected class's alternative pool as all pairwise-disjoint noncandidate classes outside every selected allograph group that satisfy the same annotation rules, development occurrence-count power-of-two bin, and development G-prevalence power-of-two bin. Each N1 run samples one injective assignment with >=2 eligible alternatives per selected class, preserves the frozen weights, refits nothing, and recomputes rho_H. N1 is a token-specificity negative control, not an exchangeable global no-association test; its add-one quantity is named specificity_tail_fraction, not an inferential p value. For N2, freeze each H primary F's exact full-C tuple: canonical (site,period,medium,object_type) plus every canonical documentation/measurement-provenance nuisance field required by NMFA-ELIG-001, and stratify separately inside its assigned H cell. Before Y opens, require at least 80% and at least 64 H G to lie in full-C strata containing >=2 G; otherwise the version is ineligible. Each N2 run permutes whole-G Y only within those frozen full-C strata, leaves singleton strata fixed, preserves every observed C and nuisance association, and recomputes rho_H; its add-one quantity is the randomization p value. Assign any undefined/nonfinite control rho=+1. Sort the 99,999 values ascending; q0.99 is the 99,000th one-based value. Observed rho_H must strictly exceed q0.99 for both; N1 specificity_tail_fraction=(1+count(rho_N1>=rho_H))/100000 must be <=0.01, and N2 p=(1+count(rho_N2>=rho_H))/100000 with ties counted by >= must be <=0.01. If N1 or N2 support cannot be constructed before H opens, the version is ineligible. Omission or failure of either control is NO_GO.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-MULT-001",
+      "rule_type": "other",
+      "description": "Require exactly one target, unit, ordinal score, direction, and primary metric per confirmatory holdout.",
+      "formalism": "K=1 is mandatory. A second target, unit, score, direction, primary metric, or primary claim may not share H or the prospective tranche for confirmatory use and requires a separately registered protocol with fresh H. Any post-H alternative is exploratory and cannot rescue failure. Therefore the fixed matched-control threshold remains 0.01 and q0.99; no multiplicity branch is selected after access.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-PROSP-001",
+      "rule_type": "contextual",
+      "description": "Require an untouched later acquisition tranche before issuing a functional-anchor-candidate label.",
+      "formalism": "Before H opens, a registered version must commit the prospective source frame, complete population/eligibility rule, acquisition start, fixed close date, canonical source ordering, ordinal model S, Y unit conversion, policies, prediction algorithm, and a design-stage sensitivity/power rationale for that frame and close date. The >=20 G rule is only an evaluability floor, not a claim of adequate power. Every prospective unit's first eligibility-qualifying source-bound availability, and the first availability of any of its X/C/F/G/Y information, must be strictly later than the immutable model, policy, and prediction-algorithm freeze; receipt those timestamps. Any unit or associated information available earlier is historical and ineligible for the prospective cohort. At the close date include every qualifying unit in that frame rather than stopping at a favorable count. With prospective Y sealed, rebuild F, apply E, and re-close relations against all historical and prospective F. An incoming F joined to exactly one historical G is absorbed and excluded from the prospective count; an incoming F bridging >=2 historical G or historical partitions is BENCHMARK_INVALID and requires fresh H; relations only among incoming F close into one prospective G. Require nonempty M_G and complete C, choose one F from M_G per new G by the frozen target-blind hash, compute exactly one integer ordinal S plus frozen L_total/L_distinct from its canonical all-side X, and commit the complete G-to-S prediction manifest while Y remains sealed. Before Y reveal, require >=20 new G, exactly one valid S for 100% of them, and >=4 distinct S levels; freeze each primary F's exact full-C tuple, including the NMFA-ELIG-001 nuisance fields, and require at least 80% and at least 16 prospective G in strata containing >=2 G. Fewer than 20 G is INSUFFICIENT_PROSPECTIVE_DATA; fewer than four S levels is INSUFFICIENT_PROSPECTIVE_VARIATION; inadequate movable strata is INSUFFICIENT_PROSPECTIVE_CONTEXT_SUPPORT; a missing/invalid S follows NMFA-ERR-001. Do not reveal Y in any of those states. Only after all pre-reveal gates pass may Y be revealed once. No S-to-Y numeric mapping or refit is allowed. After reveal, fewer than four distinct Y levels is INSUFFICIENT_PROSPECTIVE_VARIATION. Otherwise require prospective average-midrank Spearman rho>=0.40, prospective delta_length=rho-rho_length>=0.10 under the NMFA-METRIC-001 length rule, lower(CI95_rho)>0.20 and lower(CI95_delta_length)>0.00 from 10,000 paired G-bootstrap replicates under its rank/undefined rules, and a 99,999-run one-sided whole-G Y-permutation within the frozen full-C strata with add-one p<=0.01. Use distinct deterministic stream labels prospective-bootstrap-v1 and prospective-null-n2-v1; the future typed evaluator must freeze exact seed encoding and generator semantics before H opens. Any INSUFFICIENT_PROSPECTIVE_* state is never GO but is not a scientific refutation.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-ERR-001",
+      "rule_type": "other",
+      "description": "Apply one exact terminal precedence to benchmark, evaluator, candidate, insufficiency, statistical, and passing states; never impute or partially score.",
+      "formalism": "Terminal precedence from highest to lowest is BENCHMARK_INVALID > EVALUATION_VOID > CANDIDATE_INVALID/NO_GO > CONFIRMATORY_NO_GO > any INSUFFICIENT_PROSPECTIVE_* state > PROSPECTIVE_NO_GO > FUNCTIONAL_ANCHOR_CANDIDATE, where the insufficiency family is exactly {INSUFFICIENT_PROSPECTIVE_DATA, INSUFFICIENT_PROSPECTIVE_VARIATION, INSUFFICIENT_PROSPECTIVE_CONTEXT_SUPPORT}. A required benchmark field, hash, identity, unit, target, source, rights, custody, leakage, split, or post-freeze-mutation defect is BENCHMARK_INVALID: emit no score and require a new benchmark version and fresh H. Evaluator fault before feedback is EVALUATION_VOID; rerun identical bytes only if H remained sealed, otherwise require fresh H. Candidate missing, extra, duplicate, or nonfinite output; crash; timeout; or out-of-memory is CANDIDATE_INVALID/NO_GO. Imputation and partial scoring are forbidden. Evaluate H first: any NMFA-KILL-001 or NMFA-KILL-002 failure is terminal CONFIRMATORY_NO_GO and cannot be masked by later prospective insufficiency. Only after every H/control gate passes may prospective insufficiency be reported; an evaluable NMFA-KILL-003 failure is PROSPECTIVE_NO_GO. FUNCTIONAL_ANCHOR_CANDIDATE requires every eligibility, H effect, matched-control, single-claim, and prospective gate and remains a non-decipherment label.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    },
+    {
+      "rule_id": "NMFA-CHANGE-001",
+      "rule_type": "other",
+      "description": "Require a new version, fresh eligible holdout, and new external receipt for every decision-relevant post-freeze change.",
+      "formalism": "Changing any data role, historical E row/reason, target family, unit, conversion, eligibility rule, canonical context or nuisance vocabulary/crosswalk, provenance policy, class, weight, frozen historical F/G edge or component, relation-closure rule, representative, inventory digest, split key, nonce, domain tuple, metric, threshold, bootstrap, randomization, matched control, single-claim boundary, prospective source frame/start/cutoff/order, error rule, code, dependency, or runtime after freeze creates a new version and requires a new independently retained receipt and fresh confirmatory H. The only relation updates allowed under the frozen prospective rule are prospective-only edges and attachment of an incoming F to exactly one historical G as specified in NMFA-FAMILY-001; neither may alter historical partition membership or scores. This draft has no receipt and cannot be promoted by editing status alone.",
+      "applies_to": [],
+      "claim_id": "NMFA-HYP-001"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "NMFA-HYP-001",
+      "claim_type": "functional_interpretation",
+      "statement": "Prospective hypothesis only: under a later source-bound and externally registered version, one small positive additive token-count score may monotonically predict one independently measured count, mass, or capacity family across unseen physical-object and archaeological-context families.",
+      "observation_refs": [],
+      "proposed_value": {
+        "text": null,
+        "sign_ids": [],
+        "boundaries": [],
+        "direction": "unknown",
+        "language": null,
+        "value_type": "functional",
+        "numeric_value": null
+      },
+      "confidence": 0.0,
+      "falsification_criteria": [
+        "NMFA-KILL-001 — generalization failure: kill or revise if primary/cell rho is undefined or nonfinite, primary rho_H<0.40, delta_length=rho_H-rho_length<0.10 against total/distinct-token baselines, the 10,000-replicate stratified G-bootstrap lower(CI95_rho)<=0.20 or paired lower(CI95_delta_length)<=0.00, any of H_site/H_period/H_medium/H_object has rho_cell<0.20, or S or Y has fewer than four distinct levels in H.",
+        "NMFA-KILL-002 — matched-control failure: kill or revise if N1 does not exceed q0.99 or has specificity_tail_fraction>0.01, or if N2 does not exceed q0.99 or has one-sided randomization p>0.01.",
+        "NMFA-KILL-003 — prospective failure: after a complete evaluable tranche of at least 20 new eligible G with exactly one valid S for every G, at least four S and Y levels, and adequate full-C permutation support exists, kill or revise if prospective rho<0.40, prospective delta_length=rho-rho_length<0.10, the 10,000 paired G-bootstrap lower(CI95_rho)<=0.20 or lower(CI95_delta_length)<=0.00, or the 99,999-run one-sided full-C-stratified whole-G Y-permutation add-one p>0.01; any INSUFFICIENT_PROSPECTIVE_* state is not GO and not a scientific refutation."
+      ]
+    }
+  ],
+  "predictions": [],
+  "evidence": [],
+  "exceptions": []
+}

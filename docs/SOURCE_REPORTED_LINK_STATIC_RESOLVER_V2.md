@@ -157,7 +157,19 @@ sdist and wheel builds, the forward/reverse installed-wheel verifier, archive
 safety, publication, secret, and Markdown-link checks passed. Three final
 independent read-only AI audits reported P0/P1/P2 as 0/0/0 after their
 findings were fixed. This is engineering review, not external scientific
-review. Public CI evidence is pending publication.
+review.
+
+Public
+[CI run 30728985001](/megu0xxx0x/indus-open-benchmark/actions/runs/30728985001)
+then succeeded at exact implementation head
+`c469668ada6466faf5add471254822e635d987a9`. Python 3.11, 3.13, and 3.14
+used exact Node 24.18.1 on Linux/x64 and passed Quicknet 6/6 in
+555.070931 ms, 555.662477 ms, and 530.85453 ms. Their complete suites each
+passed 1,189 tests with 22 skips in 866.692s, 1,016.315s, and 918.882s.
+Every matrix job also passed Ruff, accepted all 193 files as formatted,
+reported zero Pyright errors/warnings/information messages, built both
+distributions, and passed the isolated installed-wheel forward/reverse V2
+verifier.
 
 ## Remaining blockers
 

@@ -158,6 +158,22 @@ manifest/distribution, trust root, authority, acquisition, and execution are
 still absent; package-local V2 conformance does not authorize source access or
 establish scientific evidence.
 
+The next high-information source-free slice is now a machine-readable
+[draft numeral/metrology functional-anchor protocol](docs/NUMERAL_METROLOGY_FUNCTIONAL_ANCHOR_PROTOCOL_V1.md).
+It requires a future registered version to select exactly one target family
+and canonical unit and fixes a small positive additive score class from which
+that version selects one score, plus transitive leakage/dependence superfamily
+closure, four disjoint site/period/medium/object holdout cells,
+documentation/measurement nuisance control, paired effect/length uncertainty
+thresholds, a 99,999-run token-specificity control, a separate 99,999-run
+full-context no-association null, and a target-sealed later prospective
+tranche whose units and associated information must first become available
+after immutable model/policy/prediction-algorithm freeze. It
+remains `draft` and contains no source, observation, prediction,
+evidence, or result record or value. It is not preregistered or executed and
+makes no sign-value, language, translation, decipherment, submission, or prize
+claim.
+
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown

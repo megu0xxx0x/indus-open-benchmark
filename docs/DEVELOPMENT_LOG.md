@@ -1157,7 +1157,7 @@ the sdist 371, with no duplicate, case-colliding, unsafe, linked, special, or
 forbidden credential-like member. Three independent final read-only AI audits
 reported P0/P1/P2 as 0/0/0 after their findings were fixed. This is
 engineering review, not external scientific review. Public CI evidence is
-pending publication.
+recorded below.
 
 The source-link lane's next dependency order would be the missing dynamic
 schemas, exact generic preflight closure, runtime manifest/distribution,
@@ -1183,3 +1183,103 @@ No research or protected source was requested or opened. No protected byte,
 receipt, pass, observation, source-link/no-link result, join, transcription,
 translation, decipherment evidence, submission, prize eligibility, or prize
 result exists.
+
+Public
+[CI run 30728985001](/megu0xxx0x/indus-open-benchmark/actions/runs/30728985001)
+subsequently succeeded at exact V2 resolver implementation head
+`c469668ada6466faf5add471254822e635d987a9`. Python 3.11, 3.13, and 3.14
+used exact Node 24.18.1 on Linux/x64 and passed Quicknet 6/6 in
+555.070931 ms, 555.662477 ms, and 530.85453 ms. The three complete suites
+each passed 1,189 tests with 22 skips in 866.692s, 1,016.315s, and 918.882s.
+Every job passed Ruff, accepted all 193 files as formatted, reported zero
+Pyright errors/warnings/information messages, built the sdist and wheel, and
+passed the isolated installed-wheel forward/reverse V2 verifier.
+
+## 2026-08-02 — Numeral/metrology functional-anchor draft fixed source-free
+
+**Final draft revision/checkpoint:** 2026-08-02 12:48:48 JST
+
+The machine-readable
+[numeral/metrology functional-anchor protocol V1](NUMERAL_METROLOGY_FUNCTIONAL_ANCHOR_PROTOCOL_V1.md)
+now records the highest-information next experiment under the existing
+hypothesis schema. It asks only whether one positive additive score over one
+to eight disjoint token/allograph classes can predict exactly one independent
+`count`, `mass`, or `capacity` family in one canonical unit.
+
+The final source-free design separates the approved transcription `X`, hidden
+target `Y`, value-free target-eligibility commitment `E`, canonical context
+and frozen documentation/measurement nuisance tuple `C`, all-side
+physical-original unit `F`, transitive leakage/dependence
+superfamily `G`, sealed mapping `H`, and controls `N`. All sides of one
+original become one ordinal input; casts/impressions remain separate `F` but
+join the same `G` where related. Known mold/template, exact-sequence,
+production-batch, workshop, locus, and assemblage dependence also closes in
+`G`. One `E=true` `F` is selected per `G` without targets or model scores.
+
+The draft requires four disjoint domain cells selected without numeric target
+values: site, then period among the remainder, medium among the next
+remainder, and object type among the final remainder. Each cell requires at
+least 20 independent `G`, their sealed union at least 80, and the
+development/validation complement at least 80, so initial eligibility
+requires at least 160. Context axes use frozen mutually exclusive vocabularies
+and alias/descendant closures. After the complete `E/F/G/M_G/C` inventory digest
+is fixed, one externally verifiable unpredictable nonce selects the tuple;
+retry and resalting are forbidden.
+
+The provenance policy either restricts every transcription/measurement to one
+prespecified regime or requires complete canonical documentation and
+measurement nuisance fields. The primary gates are sealed Spearman
+`rho >= 0.40`, paired improvement of at least 0.10 over total-token and
+distinct-token length proxies, a 10,000-`G` bootstrap rho lower endpoint above
+0.20 and paired length-difference lower endpoint above zero, each domain cell
+`rho >= 0.20`, and at least four score and target levels. A 99,999-run frequency/prevalence-
+matched token-specificity control uses a descriptive tail fraction, not an
+inferential p value. A separate 99,999-run no-association null permutes whole
+`G` targets only within frozen full-context-plus-nuisance strata, with at
+least 80% and 64 holdout `G` movable; both controls must exceed `q0.99` and
+their respective 0.01 tail gates.
+
+The prospective source frame, ordering, start, and cutoff are fixed before
+opening `H`, together with a design-stage sensitivity/power rationale; 20 new
+`G` is only an evaluability floor. Each prospective unit and any associated
+information must first become source-bound and available strictly after
+immutable model/policy/prediction-algorithm freeze; earlier-available material
+is historical. Every qualifying later unit at cutoff is included. With
+targets sealed, relations are reclosed across historical and incoming `F`.
+Attachment to one
+historical `G` is absorbed and excluded; a bridge across two historical `G`
+or a historical partition invalidates the benchmark; incoming-only relations
+close prospectively. One integer ordinal score is committed per new `G`.
+Sample size, complete outputs, score variation, and full-context-plus-nuisance
+support must pass before targets are revealed, and no numeric reading or refit
+is allowed. A passing label then requires four target levels, `rho >= 0.40`,
+length-baseline improvement of at least 0.10, paired bootstrap rho and
+length-difference lower gates, and a 99,999-run stratified permutation
+`p <= 0.01`. Prospective bootstrap/permutation streams have distinct labels;
+the future typed evaluator must freeze exact seed and generator semantics.
+
+Exactly three kill criteria cover generalization, matched-control, and
+completed prospective failure. Technical invalidity, confirmatory failure,
+prospective insufficiency, prospective failure, and the final narrow label
+have phase-safe terminal precedence, so later insufficiency cannot mask a
+failed holdout. The earlier
+provisional random 50/25/25 split was rejected during design review because
+it conflicted with strict domain holdouts; only the disjoint cell design is
+retained.
+
+The JSON validates against the existing hypothesis schema, is selected into
+the wheel, and has focused semantic tests. It remains `draft` with
+false/null registration fields, empty scope IDs, sign mappings, predictions,
+evidence, exceptions, and observation references, and zero confidence for
+the sole prospective claim, which has exactly three falsification criteria.
+The schema does not provide typed metric or evaluator enforcement, so
+decision-critical fragments and the complete payload digest are test-locked.
+A future
+registered executable version still needs typed split/evaluator/result
+contracts, exact custody, an external receipt, and separate execution
+authority.
+
+No research or protected source was requested or opened. No real source ID or
+value, artifact ID, sign, sequence, transcription, measurement, target,
+realized split assignment, instantiated prediction, evidence, result,
+execution, submission, prize eligibility, or decipherment claim was created.

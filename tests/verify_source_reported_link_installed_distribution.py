@@ -16,12 +16,17 @@ import sys
 import tempfile
 import zipfile
 from pathlib import Path, PurePosixPath
+from typing import Never
 
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 
 EXPECTED_RESOURCES = {
+    "benchmark/numeral-metrology-functional-anchor-protocol-v1.json": (
+        25450,
+        "b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+    ),
     "registry/chanhu-daro-helsinki-gate-v1.json": (
         6955,
         "43c0fae1a8558fbffeb062725e401e0c3c1de570e5f8f7eef610ca2616cbfb3d",
@@ -45,6 +50,10 @@ EXPECTED_RESOURCES = {
     "schemas/context-source-link-gate.schema.json": (
         9216,
         "72109818eb55aca008b0f34b1d6c627efd0e38bdbaff8c500cb3c60dc74e3002",
+    ),
+    "schemas/hypothesis.schema.json": (
+        15581,
+        "47cbe121b6b51af8c1f87e0827705f5db0ade16bb095c8db09cce03e8434bbe7",
     ),
     "schemas/source-registry.schema.json": (
         8295,
@@ -274,7 +283,7 @@ print(json.dumps({"isolated_wheel_static_snapshots": order}, sort_keys=True))
 """
 
 
-def _fail(message: str) -> None:
+def _fail(message: str) -> Never:
     raise SystemExit(f"installed-distribution verification failed: {message}")
 
 
@@ -294,9 +303,22 @@ def _reject_duplicate_keys(pairs: list[tuple[str, object]]) -> dict[str, object]
     value: dict[str, object] = {}
     for key, child in pairs:
         if key in value:
-            _fail("duplicate wrapper JSON key")
+            _fail("duplicate JSON key")
         value[key] = child
     return value
+
+
+def _decode_json(raw: bytes, label: str) -> object:
+    try:
+        return json.loads(
+            raw.decode("utf-8"),
+            object_pairs_hook=_reject_duplicate_keys,
+            parse_constant=lambda _: _fail(f"non-finite {label} JSON number"),
+        )
+    except (UnicodeError, ValueError, TypeError) as error:
+        raise SystemExit(
+            f"installed-distribution verification failed: invalid {label} JSON"
+        ) from error
 
 
 def _decode_canonical_json(raw: bytes) -> object:
@@ -363,6 +385,26 @@ def verify(wheel: Path) -> None:
                 _fail("wheel resource digest mismatch")
             if raw != (ROOT / relative_path).read_bytes():
                 _fail("wheel and repository resource bytes differ")
+
+        protocol = _decode_json(
+            archive.read(
+                "indusbench/benchmark/numeral-metrology-functional-anchor-protocol-v1.json"
+            ),
+            "numeral/metrology protocol",
+        )
+        hypothesis_schema = _decode_json(
+            archive.read("indusbench/schemas/hypothesis.schema.json"),
+            "hypothesis schema",
+        )
+        if not isinstance(hypothesis_schema, dict):
+            _fail("hypothesis schema is not an object")
+        try:
+            Draft202012Validator.check_schema(hypothesis_schema)
+            Draft202012Validator(hypothesis_schema).validate(protocol)
+        except Exception as error:
+            raise SystemExit(
+                "installed-distribution verification failed: packaged protocol/schema mismatch"
+            ) from error
 
         decoded_v2_resources = {}
         for relative_path, (

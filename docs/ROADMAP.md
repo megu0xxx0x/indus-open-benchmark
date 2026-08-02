@@ -394,12 +394,22 @@ Current assets:
   and official landing URLs. Do not copy catalogue metadata or images without
   a separate reuse basis; do not call all 413 site-origin candidates
   inscribed objects.
-- [ ] Next source-free slice: draft and freeze one narrow numeral/metrology
-  functional-anchor protocol with independent data roles, site, period,
-  medium, and object holdouts, matched nulls, thresholds, and kill rules.
-  Keep it `draft` until separately registered, and include no source values,
-  observations, or result. Repeated-tablet tests remain a later separate
+- [x] Draft one narrow
+  [numeral/metrology functional-anchor protocol](NUMERAL_METROLOGY_FUNCTIONAL_ANCHOR_PROTOCOL_V1.md)
+  with independent data roles, strict disjoint site/period/medium/object
+  holdouts, frozen provenance-nuisance handling, paired score/length
+  uncertainty, a matched specificity control and full-context no-association
+  null, strictly post-freeze prospective availability, terminal precedence,
+  and exactly three
+  kill rules. The machine record remains `draft`, has no source values,
+  observations, predictions, evidence, execution, or result, and is not a
+  preregistration receipt. Repeated-tablet tests remain a later separate
   protocol.
+- [ ] Instantiate and externally register a new version only after one
+  rights-compatible target family and canonical unit, at least 160 eligible
+  transitive leakage superfamilies, typed evaluator/result contracts, sealed
+  custody, prospective cutoff, and exact execution authority exist. Do not
+  open target values or run the draft merely to fill these fields.
 - [ ] Run equal-budget linguistic, non-linguistic, hybrid, and multilingual
   hypotheses against the same sealed tests and matched controls.
 

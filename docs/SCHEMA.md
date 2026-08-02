@@ -516,6 +516,16 @@ candidate root and the separate
 [external receipt envelope](PREREGISTRATION_RECEIPT_ENVELOPE_TEMPLATE.md)
 outside `S` to avoid a digest self-reference.
 
+The checked-in
+[numeral/metrology functional-anchor protocol V1](NUMERAL_METROLOGY_FUNCTIONAL_ANCHOR_PROTOCOL_V1.md)
+is a source-free `draft` instance of this schema. Because version 0.1.0 has no
+typed metric, split, null, or terminal-state fields, that draft records them
+in closed rule/formalism strings. Focused semantic tests lock decision-critical
+fragments and the exact raw payload digest. Schema validity does not make
+those prose rules executable or registered; a real run still
+requires a new externally receipted version and typed evaluator/result
+contracts.
+
 ## Quarantine manifest
 
 The quarantine manifest's canonical self-digest excludes only its

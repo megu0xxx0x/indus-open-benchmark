@@ -2372,7 +2372,18 @@ publication, staged-secret, and Markdown-link checks passed. The wheel has
 linked, special, or forbidden credential-like member. Three independent final
 read-only AI audits reported P0/P1/P2 as 0/0/0 after their findings were
 fixed. This is engineering review, not external scientific review. Public CI
-evidence is pending publication.
+evidence is recorded here.
+
+Public
+[CI run 30728985001](/megu0xxx0x/indus-open-benchmark/actions/runs/30728985001)
+succeeded at exact implementation head
+`c469668ada6466faf5add471254822e635d987a9`. Python 3.11, 3.13, and 3.14
+used exact Node 24.18.1 on Linux/x64 and passed Quicknet 6/6 in
+555.070931 ms, 555.662477 ms, and 530.85453 ms. Their full suites each passed
+1,189 tests with 22 skips in 866.692s, 1,016.315s, and 918.882s. All jobs
+also passed Ruff, accepted all 193 files as formatted, reported zero Pyright
+findings, built both distributions, and passed the isolated installed-wheel
+forward/reverse V2 verifier.
 
 This checkpoint does not supply a transitive runtime manifest, reproducible
 runtime distribution, bootstrap trust root, typed authority proof,
@@ -2403,3 +2414,81 @@ No research or protected source was requested or opened. No external source
 byte, receipt, pass, observation, source-link/no-link result, join,
 transcription, translation, decipherment evidence, submission, prize
 eligibility, or prize result exists.
+
+## Numeral/metrology functional-anchor draft — 2026-08-02
+
+**Initial draft checkpoint:** 2026-08-02 11:50:26 JST
+**Final draft revision/checkpoint:** 2026-08-02 12:48:48 JST
+
+The machine-readable
+[numeral/metrology functional-anchor protocol V1](NUMERAL_METROLOGY_FUNCTIONAL_ANCHOR_PROTOCOL_V1.md)
+now fixes the next high-information experiment without importing or opening
+source values. It uses the existing hypothesis schema and asks exactly one
+question: whether one small positive additive token-count score predicts one
+independently curated `count`, `mass`, or `capacity` target family in one
+canonical unit.
+
+Future eligibility requires a complete value-free target-eligibility mask,
+canonical context vocabularies, a frozen documentation/measurement provenance
+policy, one all-side physical-original unit `F`, and
+at least 160 transitive leakage/dependence superfamilies `G`. A single
+externally verifiable unpredictable nonce obtained after the complete
+inventory digest is fixed selects four sequentially disjoint holdout cells
+for site, period, medium, and object type, each with at least 20 `G`; their
+sealed union and development/validation complement each contain at least 80.
+Selected alias/descendant closures are absent from the complement. This strict
+construction supersedes the discarded provisional 50/25/25 random-split idea.
+
+The primary effect gate requires sealed Spearman `rho >= 0.40`, at least 0.10
+improvement over total/distinct-token length controls, a 10,000-`G` paired
+bootstrap rho lower endpoint above 0.20 and length-difference lower endpoint
+above zero, `rho >= 0.20` in each domain cell, and four score/target levels. A 99,999-run frequency/prevalence-matched token-
+specificity control uses a descriptive tail fraction. A separate 99,999-run
+no-association null permutes whole-`G` targets only within full canonical
+context-plus-documentation/measurement-nuisance strata; both require `q0.99`
+and a 0.01 tail gate.
+
+The prospective frame includes all qualifying units at a frozen cutoff, but
+its registered form must first bind a sensitivity/power rationale; 20 new `G`
+is only an evaluability floor. It includes units only when each unit and all
+associated information first became source-bound
+and available strictly after immutable model/policy/prediction-algorithm
+freeze; earlier-available material is historical. It recloses every incoming
+`F` against all historical/incoming `F`. Attachment
+to exactly one historical `G` is absorbed and excluded; a bridge across two
+historical `G` or a historical partition invalidates the benchmark;
+incoming-only relations close prospectively. One integer ordinal score per
+new `G` is committed. Sample size, output completeness, score variation, and
+full-context-plus-nuisance support must pass while targets remain sealed.
+Only then may targets be revealed once. Any candidate label also requires
+four target levels, `rho >= 0.40`, length improvement at least 0.10, paired
+bootstrap rho and length-difference lower gates, and stratified permutation
+`p <= 0.01`, with no numeric reading or refit.
+
+Distinct prospective stream labels are fixed; exact seed encoding and
+generator semantics remain mandatory fields of the future typed evaluator.
+
+One prospective claim is present because the existing hypothesis schema
+requires a nonempty claim array. It has exactly three kill criteria for
+generalization, matched-control, and completed prospective failure, plus
+confidence zero, empty observations, no sign IDs, no values, and no language.
+Scope IDs, sign mappings, predictions, evidence, and exceptions are empty.
+Registration is false/null, and the record remains `draft`.
+
+Focused tests validate the existing schema, exact payload digest, source-free
+state, ID and claim closure, thresholds/counts/controls/terminal states,
+three-criterion boundary, publication scan, and wheel inclusion. No new
+schema, CLI, dependency, runner, source access, or result surface was
+introduced.
+
+Next, do not execute this draft. First identify one rights-compatible target
+family without opening its values during protocol design; prove the family
+and domain minima; create typed split/evaluator/result contracts and exact
+custody; populate predictions only in a new version; obtain an independently
+retained external receipt; and obtain separate source-access and execution
+authority. Repeated-tablet tests remain a separate later protocol.
+
+No real source ID/value, artifact ID, sign, sequence, transcription,
+measurement, target, realized split assignment, instantiated prediction,
+evidence, result, execution, submission, prize eligibility, or decipherment
+claim was created.
