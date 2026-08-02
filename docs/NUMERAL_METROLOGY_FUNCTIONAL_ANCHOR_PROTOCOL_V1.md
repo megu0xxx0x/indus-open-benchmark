@@ -333,3 +333,17 @@ may alter historical partition membership or scores.
 - execute only under separate explicit source-access and run authority.
 
 Until all of those exist, the correct state is an unexecuted source-free draft.
+
+## Published implementation validation
+
+Public
+[CI run 30733414007](/megu0xxx0x/indus-open-benchmark/actions/runs/30733414007)
+succeeded for exact implementation commit
+`a92593c456e616ad6d81dec2e2a4c0e8b73999b2`. Python 3.11, 3.13, and
+3.14 used exact Node 24.18.1 on Linux/x64 and passed Quicknet 6/6 in
+525.998623 ms, 520.628547 ms, and 556.612795 ms. Their complete suites each
+passed 1,200 tests with 22 skips in 832.204s, 954.108s, and 912.837s. Every
+job passed Ruff, accepted all 194 files as formatted, reported zero Pyright
+errors/warnings/information messages, built the sdist and wheel, and passed
+the installed-distribution verifier, including packaged protocol/schema byte
+parity and schema validation.
