@@ -1,0 +1,138 @@
+{
+  "assurance_boundary": {
+    "candidate_or_tofu_trust_forbidden": true,
+    "decipherment_claim_allowed": false,
+    "evaluator_holds_private_keys": false,
+    "execution_authorized": false,
+    "external_independence_proven": false,
+    "metadata_byte_channel_verified": false,
+    "opaque_identifier_origin_verified": false,
+    "private_reports_only": true,
+    "prize_submission_eligible": false,
+    "protected_source_accessed_by_installed_evaluator": false,
+    "public_summary_allowed": false
+  },
+  "bound_assets": {
+    "parent_protocol": {
+      "bytes": 25450,
+      "path": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json",
+      "sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307"
+    },
+    "preregistration_evaluator_bundle": {
+      "bytes": 3181,
+      "path": "benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json",
+      "sha256": "sha256:ec9ba6fbaa5df13dce438f819114206da2d6ca6e68afb521476635d5abd91a79"
+    },
+    "preregistration_gate_plan": {
+      "bytes": 30641,
+      "path": "benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json",
+      "sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af"
+    }
+  },
+  "canonicalization": {
+    "encoding": "UTF-8_without_BOM_LF_terminated",
+    "floats": "forbidden",
+    "integer_range": "signed_64_bit",
+    "profile": "indusbench-canonical-json-sort-keys-indent-2-v1"
+  },
+  "chronology": [
+    "source_free_bundles_frozen",
+    "claim_slot_reserved",
+    "identifier_key_ceremony_completed",
+    "PREMETADATA_evaluator_package_verified",
+    "PREMETADATA_READY_registry_consumed",
+    "first_metadata_access",
+    "declared_inventory_frozen",
+    "both_value_layers_PREPARED_LOCKED",
+    "prevalue_request_subject_frozen",
+    "prevalue_request_signatures_collected",
+    "PREVALUE_evaluator_package_verified",
+    "PREVALUE_READY_registry_consumed",
+    "both_value_layers_ARMED_NOT_RELEASED_via_CAS",
+    "first_transcription_or_target_access"
+  ],
+  "compiled_blockers": {
+    "activation_wrapper_sha256": null,
+    "consumption_registry_profile_sha256": null,
+    "external_time_anchor_profile_sha256": null,
+    "external_trust_profile_sha256": null,
+    "typed_execution_bundle_sha256": null
+  },
+  "created_at": "2026-08-02T14:43:20Z",
+  "cryptography": {
+    "algorithm": "Ed25519",
+    "canonical_base64url_without_padding": true,
+    "key_id_rule": "ed25519_colon_sha256_raw_public_key",
+    "public_key_bytes": 32,
+    "reject_noncanonical_R": true,
+    "reject_noncanonical_S": true,
+    "require_nonidentity_prime_subgroup_public_key_and_R": true,
+    "signature_bytes": 64
+  },
+  "decision": {
+    "premetadata_blocked": "PREMETADATA_BLOCKED",
+    "premetadata_ready": "PREMETADATA_READY",
+    "prevalue_blocked": "PREVALUE_BLOCKED",
+    "prevalue_ready": "PREVALUE_READY",
+    "ready_requires_empty_reason_codes": true
+  },
+  "digest_dag": [
+    "required_future_E_typed_execution_core_bundle",
+    "required_future_P_preflight_evaluator_bundle_binds_E_and_V1",
+    "required_future_A_activation_root_binds_E_P_and_V1",
+    "claim_reservation_binds_A",
+    "identifier_ceremony_binds_claim",
+    "PREMETADATA_binds_claim_identifier_and_zero_access_head",
+    "PREVALUE_binds_PREMETADATA_inventory_barriers_and_access_head",
+    "first_value_access_binds_verified_PREVALUE_composite"
+  ],
+  "digest_dag_status": "FUTURE_REQUIRED_NOT_INSTALLED",
+  "format_version": "1.0.0",
+  "installed_semantic_scope": {
+    "authority_and_rights_evidence": "SIGNED_DECLARATIONS_AND_OPAQUE_COMMITMENTS_ONLY",
+    "expected_trust_digest_origin": "CALLER_SUPPLIED_NOT_AUTHENTICATED",
+    "inventory_universe": "DECLARED_ROSTER_CONSISTENCY_ONLY_EXTERNAL_COMPLETENESS_NOT_VERIFIED",
+    "ledger_prefix": "AGGREGATE_HEAD_DECLARATION_ONLY",
+    "metadata_channel": "POLICY_REQUIREMENTS_ONLY_PROVIDER_BYTES_NOT_VERIFIED",
+    "opaque_identifier_origin": "SYNTAX_ONLY_NOT_VERIFIED",
+    "prize_submission": "OUTSIDE_PREFLIGHT_NOT_EVALUATED",
+    "r0_completeness": "DEFERRED_TO_TYPED_EXECUTION_BUNDLE_AND_ACTIVATION_WRAPPER",
+    "relation_edges": "DECLARED_SET_STRUCTURE_ONLY",
+    "rpre_closure": "DEFERRED_TO_TYPED_EXECUTION_BUNDLE_AND_ACTIVATION_WRAPPER",
+    "value_surface": "CLOSED_NAMED_TYPED_FIELDS_ONLY_NO_PROVENANCE_PROOF"
+  },
+  "limits": {
+    "max_inventory_rows": 200000,
+    "max_json_bytes": 67108864,
+    "max_json_depth": 64,
+    "max_json_nodes": 2000000,
+    "max_string_length": 16384
+  },
+  "plan_id": "nmfa-activation-preflight-plan-v1",
+  "role_policy": {
+    "all_actor_controller_and_conflict_domains_distinct": true,
+    "premetadata_signature_roles": [
+      "authority",
+      "governance_reviewer",
+      "metadata_controller"
+    ],
+    "prevalue_signature_roles": [
+      "authority",
+      "governance_reviewer",
+      "metadata_controller",
+      "target_controller",
+      "transcription_controller",
+      "value_barrier_coordinator"
+    ],
+    "structural_separation_is_not_real_world_independence_proof": true
+  },
+  "value_surface_policy": {
+    "actual_archive_material_has_no_typed_surface_prevalue": true,
+    "eligible_or_final_g_has_no_typed_input_prevalue": true,
+    "free_text_and_urls_have_no_typed_surface": true,
+    "mixed_byte_channel_rejection_requires_external_wrapper": true,
+    "opaque_identifier_origin_not_proven_by_syntax": true,
+    "predictions_scores_and_value_digests_have_no_typed_surface_prevalue": true,
+    "target_or_transcription_status_has_no_typed_surface_prevalue": true
+  }
+}

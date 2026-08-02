@@ -25,8 +25,11 @@ classifiers = [
 ]
 dependencies = [
   "attrs==26.1.0",
+  "cffi==2.1.0",
+  "cryptography==50.0.0",
   "jsonschema[format]==4.26.0",
   "jsonschema-specifications==2025.9.1",
+  "pycparser==3.0",
   "referencing==0.37.0",
   "rfc3339-validator==0.1.4",
   "rpds-py==2026.6.3",
@@ -72,6 +75,8 @@ packages = ["src/indusbench"]
 "registry/kp1982_batch0.json" = "indusbench/registry/kp1982_batch0.json"
 "registry/kp1982_batch0_layout_seed.json" = "indusbench/registry/kp1982_batch0_layout_seed.json"
 "benchmark/development-evaluator.json" = "indusbench/benchmark/development-evaluator.json"
+"benchmark/nmfa-activation-preflight-evaluator-bundle-v1.json" = "indusbench/benchmark/nmfa-activation-preflight-evaluator-bundle-v1.json"
+"benchmark/nmfa-activation-preflight-plan-v1.json" = "indusbench/benchmark/nmfa-activation-preflight-plan-v1.json"
 "benchmark/numeral-metrology-functional-anchor-protocol-v1.json" = "indusbench/benchmark/numeral-metrology-functional-anchor-protocol-v1.json"
 "benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json" = "indusbench/benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json"
 "benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json" = "indusbench/benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json"

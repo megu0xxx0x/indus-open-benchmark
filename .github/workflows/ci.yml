@@ -64,3 +64,4 @@ jobs:
           uv build
           uv run python tests/verify_source_reported_link_installed_distribution.py dist/*.whl
           uv run python tests/verify_nmfa_preregistration_installed_distribution.py dist/*.whl
+          uv run python tests/verify_nmfa_preflight_installed_distribution.py dist/*.whl

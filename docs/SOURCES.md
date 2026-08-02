@@ -13,6 +13,16 @@ complete X/F/G/C/E/Y join at the required scale. That finding does not convert
 blocked or reference-only sources into importable data and authorizes no
 automated access or institutional contact.
 
+The later
+[NMFA activation preflight companion](NMFA_ACTIVATION_PREFLIGHT_V1.md) is
+source-free infrastructure. It adds no source candidate, locator, inventory,
+rights inference, access result, or value. Its metadata-channel contract
+declares byte-level separation from X/Y as an operational requirement. The
+installed evaluator does not receive provider bytes; a future activation
+wrapper must inspect and reject mixed value-bearing transport. The companion
+remains non-operational and does not change any source's rights or access
+status.
+
 ## Rights-cleared museum image pilot sources
 
 ### The Metropolitan Museum of Art Open Access

@@ -1,0 +1,269 @@
+{
+  "$comment": "Private deterministic report. Authenticity requires evaluator re-execution and byte equality; the evaluator never signs it.",
+  "$defs": {
+    "reason": {
+      "enum": [
+        "ACCESS_LEDGER_INVALID",
+        "ACTIVATION_WRAPPER_UNBOUND",
+        "ARCHIVE_PREPARE_INVALID",
+        "AUTHORITY_SCOPE_INVALID",
+        "CHRONOLOGY_INVALID",
+        "CONSUMPTION_REGISTRY_UNBOUND",
+        "CUSTODY_NOT_READY",
+        "EXTERNAL_TIME_ANCHOR_UNBOUND",
+        "EXTERNAL_TRUST_PROFILE_UNBOUND",
+        "FORBIDDEN_VALUE_SURFACE",
+        "INVENTORY_INVALID",
+        "PREMETADATA_CHAIN_INVALID",
+        "PREVALUE_E_CONTRIBUTION_INVALID",
+        "RELATION_CONTRIBUTION_INVALID",
+        "RESOURCE_BINDING_MISMATCH",
+        "RIGHTS_NOT_READY",
+        "ROLE_SEPARATION_INVALID",
+        "SIGNATURE_INVALID",
+        "SOURCE_RULE_INVALID",
+        "TARGET_RULE_INVALID",
+        "TRUST_PROFILE_INVALID",
+        "TYPED_EXECUTION_BUNDLE_UNBOUND",
+        "VALUE_BARRIER_INVALID"
+      ]
+    },
+    "sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "sha256_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "timestamp": {
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    }
+  },
+  "$id": "nmfa-activation-preflight-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "terminal_state": {
+            "enum": [
+              "PREMETADATA_READY",
+              "PREVALUE_READY"
+            ]
+          }
+        },
+        "required": [
+          "terminal_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reason_codes": {
+            "maxItems": 0
+          },
+          "semantic_core_valid": {
+            "const": true
+          },
+          "signatures_valid": {
+            "const": true
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "assurance": {
+      "additionalProperties": false,
+      "properties": {
+        "access_ledger_prefix_authenticated": {
+          "const": false
+        },
+        "authority_evidence_authenticated": {
+          "const": false
+        },
+        "decipherment_claim_allowed": {
+          "const": false
+        },
+        "evaluator_holds_private_keys": {
+          "const": false
+        },
+        "execution_authorized": {
+          "const": false
+        },
+        "external_independence_proven": {
+          "const": false
+        },
+        "external_time_proven_by_signature": {
+          "const": false
+        },
+        "metadata_channel_byte_separation_verified": {
+          "const": false
+        },
+        "opaque_identifier_origin_verified": {
+          "const": false
+        },
+        "prize_program_acceptance_verified": {
+          "const": false
+        },
+        "prize_submission_eligible": {
+          "const": false
+        },
+        "protected_source_accessed_by_evaluator": {
+          "const": false
+        },
+        "public_release_authorized": {
+          "const": false
+        },
+        "rights_evidence_authenticated": {
+          "const": false
+        },
+        "target_or_transcription_loaded_by_evaluator": {
+          "const": false
+        }
+      },
+      "required": [
+        "access_ledger_prefix_authenticated",
+        "authority_evidence_authenticated",
+        "decipherment_claim_allowed",
+        "evaluator_holds_private_keys",
+        "execution_authorized",
+        "external_independence_proven",
+        "external_time_proven_by_signature",
+        "metadata_channel_byte_separation_verified",
+        "opaque_identifier_origin_verified",
+        "prize_program_acceptance_verified",
+        "prize_submission_eligible",
+        "protected_source_accessed_by_evaluator",
+        "public_release_authorized",
+        "rights_evidence_authenticated",
+        "target_or_transcription_loaded_by_evaluator"
+      ],
+      "type": "object"
+    },
+    "bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_preflight_evaluator_bundle_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "activation_preflight_plan_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "external_trust_profile_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "predecessor_report_sha256": {
+          "$ref": "#/$defs/sha256_or_null"
+        },
+        "request_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "subject_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "activation_preflight_evaluator_bundle_sha256",
+        "activation_preflight_plan_sha256",
+        "external_trust_profile_sha256",
+        "predecessor_report_sha256",
+        "request_sha256",
+        "subject_sha256"
+      ],
+      "type": "object"
+    },
+    "created_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "format_version": {
+      "const": "1.0.0"
+    },
+    "privacy": {
+      "additionalProperties": false,
+      "properties": {
+        "counts_disclosed": {
+          "const": false
+        },
+        "identifiers_disclosed": {
+          "const": false
+        },
+        "private_digests_publicly_releasable": {
+          "const": false
+        },
+        "private_report": {
+          "const": true
+        },
+        "source_names_or_paths_disclosed": {
+          "const": false
+        }
+      },
+      "required": [
+        "counts_disclosed",
+        "identifiers_disclosed",
+        "private_digests_publicly_releasable",
+        "private_report",
+        "source_names_or_paths_disclosed"
+      ],
+      "type": "object"
+    },
+    "reason_codes": {
+      "items": {
+        "$ref": "#/$defs/reason"
+      },
+      "maxItems": 23,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "record_kind": {
+      "const": "nmfa_private_activation_preflight_report"
+    },
+    "report_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "request_kind": {
+      "enum": [
+        "PREMETADATA",
+        "PREVALUE"
+      ]
+    },
+    "semantic_core_valid": {
+      "type": "boolean"
+    },
+    "signatures_valid": {
+      "type": "boolean"
+    },
+    "terminal_state": {
+      "enum": [
+        "PREMETADATA_BLOCKED",
+        "PREMETADATA_READY",
+        "PREVALUE_BLOCKED",
+        "PREVALUE_READY"
+      ]
+    }
+  },
+  "required": [
+    "assurance",
+    "bindings",
+    "created_at",
+    "format_version",
+    "privacy",
+    "reason_codes",
+    "record_kind",
+    "report_sha256",
+    "request_kind",
+    "semantic_core_valid",
+    "signatures_valid",
+    "terminal_state"
+  ],
+  "type": "object"
+}

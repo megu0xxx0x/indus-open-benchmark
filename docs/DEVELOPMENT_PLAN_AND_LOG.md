@@ -2563,3 +2563,96 @@ means only `CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW`.
 
 Until steps 1–3 exist and step 4 is separately authorized, the correct state is
 source-free, non-operational, and blocked from real metadata/X/Y access.
+
+## NMFA activation preflight V1 and next executor gate — 2026-08-03
+
+**Checkpoint recorded:** 2026-08-03 00:10 JST
+
+### Completed state
+
+The source-free signed activation companion is implemented as an additive,
+content-addressed layer. Its public package contains:
+
+1. one closed activation-preflight plan and exact evaluator bundle;
+2. closed plan, trust-profile, PREMETADATA/PREVALUE request, and private-report
+   schemas;
+3. a deterministic, no-network, no-write, no-clock, no-random, no-private-key
+   evaluator;
+4. canonical request-subject signing with exact empty-or-complete rosters:
+   three PREMETADATA roles and all six PREVALUE roles;
+5. strict Ed25519 point/scalar/base64url verification, including nonidentity
+   prime-subgroup checks for both `A` and `R`;
+6. deterministic `Epre`, supplied-roster, declared-edge, archive, barrier,
+   predecessor, aggregate-ledger, authority/rights-declaration, and local
+   chronology checks; and
+7. focused adversarial tests plus source-link, predecessor-gate, and new
+   installed-wheel distribution verification.
+
+The predecessor V1 bytes remain immutable. The successor also records its
+limits explicitly: declared-roster consistency is not external completeness;
+declared relation edges are not complete `R0`/`Rpre`; a caller-expected trust
+digest is not an authenticated trust root; closed typed fields do not prove
+opaque-value provenance; aggregate ledger declarations are not an
+authenticated complete prefix; authority/rights commitments are not legal
+evidence; and the evaluator does not verify provider-byte separation, trusted
+time, registry state, atomic barrier arming, external independence, prize
+rules, or runtime/backend provenance.
+
+Five compiled blockers keep both stages non-operational:
+
+- `TYPED_EXECUTION_BUNDLE_UNBOUND`;
+- `EXTERNAL_TRUST_PROFILE_UNBOUND`;
+- `EXTERNAL_TIME_ANCHOR_UNBOUND`;
+- `CONSUMPTION_REGISTRY_UNBOUND`; and
+- `ACTIVATION_WRAPPER_UNBOUND`.
+
+Do not remove these values or fill their null bindings in place. Installed
+PREMETADATA can never establish operational READY, so the public PREVALUE API
+cannot cross a real predecessor READY boundary. Positive PREVALUE core vectors
+are internal synthetic consistency tests only.
+
+### Verification record
+
+- Linux reference environment: 1,267 tests passed, 19 environment-specific
+  skips, 1,159.620 seconds.
+- Focused activation/distribution policy: 38 tests passed.
+- Ruff lint/format and Pyright: clean.
+- Built wheel: all three installed-distribution verifiers passed.
+- Independent Ed25519 review: no remaining P0/P1/P2 finding and no randomized
+  arithmetic/vector mismatch.
+- Trivy high/critical, relevant Semgrep rules, changed-file secret scan, public
+  topology/privacy scan, schema validation, canonical JSON, bundle parity, and
+  `git diff --check`: clean. Full-tree secret scanning has only four unchanged
+  known false positives from public fixed test vectors.
+
+### Continuation order for the next AI agent
+
+1. Build a new source-free typed execution bundle `E`; do not access real
+   metadata, X, or Y. Start with exact closed types and fixed vectors for nonce
+   normalization, source/event verification, split-ticket enumeration, and
+   target-blind primary-F selection.
+2. Implement exact X ordering/parsing, one positive-additive model interface,
+   Y canonical-unit conversion to irreducible rationals, doubled-integer
+   midranks, exact covariance/variance, fixed-point Spearman, integer square
+   root, round-half-even, undefined sentinels, and boundary vectors.
+3. Implement all 10,000 paired bootstrap draws; N1 bin/candidate/matching,
+   Hall-feasibility, unranking, and 99,999 assignments; N2 full-context strata,
+   movable support, whole-G shuffle, and 99,999 permutations. Freeze resource
+   bounds and terminal precedence before any data use.
+4. Add prospective-frame, acquisition-time, historical-bridge, completeness,
+   pre-Y prediction, metric, bootstrap, permutation, and terminal contracts.
+   Enforce selector/model/target/joint-metric information separation in code,
+   not prose alone.
+5. Independently audit and freeze `E`. Then create a new operational successor
+   preflight bundle `P` binding exact `E` and V1 resources. Finally create an
+   external activation wrapper `A` binding trust, time, permanent one-use
+   registry, authority/rights/custody evidence, metadata-byte channel, and
+   joint barrier compare-and-swap.
+6. Only after `E -> P -> A` is complete may a separately authorized review
+   consider one real source candidate. Preserve any failure and never retry,
+   resalt, fork, or reinterpret a candidate/READY state as a scientific,
+   decipherment, submission, or prize result.
+
+The current correct state is source-free and blocked. The project goal remains
+a defensible decipherment attempt, but this checkpoint is only a safer and
+more reproducible pre-execution boundary, not progress evidence for a reading.

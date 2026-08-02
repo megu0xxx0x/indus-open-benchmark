@@ -1,0 +1,124 @@
+{
+  "$comment": "The installed API only matches these exact canonical bytes to a caller-expected digest and does not authenticate that digest's origin. Operational use requires an externally pinned successor trust boundary; candidate-selected or first-use operational trust is forbidden.",
+  "$defs": {
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "authority",
+        "governance_reviewer",
+        "metadata_controller",
+        "transcription_controller",
+        "target_controller",
+        "value_barrier_coordinator"
+      ]
+    },
+    "role_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "algorithm": {
+          "const": "Ed25519"
+        },
+        "conflict_domain_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "controller_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "public_key_base64url": {
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "status": {
+          "const": "ACTIVE"
+        }
+      },
+      "required": [
+        "actor_id",
+        "algorithm",
+        "conflict_domain_id",
+        "controller_id",
+        "key_id",
+        "public_key_base64url",
+        "role",
+        "status"
+      ],
+      "type": "object"
+    },
+    "sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    }
+  },
+  "$id": "nmfa-external-trust-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "expires_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "format_version": {
+      "const": "1.0.0"
+    },
+    "issuer_id": {
+      "$ref": "#/$defs/opaque_id"
+    },
+    "profile_id": {
+      "$ref": "#/$defs/opaque_id"
+    },
+    "record_kind": {
+      "const": "nmfa_external_trust_profile"
+    },
+    "registry_sequence": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "revocation_snapshot_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "role_bindings": {
+      "items": {
+        "$ref": "#/$defs/role_binding"
+      },
+      "maxItems": 6,
+      "minItems": 6,
+      "type": "array"
+    },
+    "trust_domain_id": {
+      "$ref": "#/$defs/opaque_id"
+    }
+  },
+  "required": [
+    "created_at",
+    "expires_at",
+    "format_version",
+    "issuer_id",
+    "profile_id",
+    "record_kind",
+    "registry_sequence",
+    "revocation_snapshot_sha256",
+    "role_bindings",
+    "trust_domain_id"
+  ],
+  "type": "object"
+}

@@ -411,15 +411,23 @@ Current assets:
   contracts, complete E/G/context semantics, split-feasibility and universal
   N2 gates, private reports, and installed-distribution verification. Only
   synthetic data have passed; this is not an external registration or result.
-- [ ] Implement separately signed deterministic `PREMETADATA_READY` and
-  `PREVALUE_READY` preflight evaluators before any real claim-instance metadata
-  or X/Y access. The current retrospective post-seal gate cannot authorize
-  either access boundary.
+- [x] Implement the source-free
+  [NMFA activation preflight companion V1](NMFA_ACTIVATION_PREFLIGHT_V1.md)
+  with closed PREMETADATA/PREVALUE, external-trust, detached-signature, and
+  private-report contracts. The installed companion intentionally binds no
+  live trust profile, trusted-time profile, one-time registry, complete typed
+  executor, or final activation wrapper, so it cannot issue an operational
+  ready receipt or authorize real metadata/X/Y access.
 - [ ] Implement and freeze the complete typed NMFA execution stack: nonce/split
   and primary-F selection; model parser/scorer; primary/length/cell/bootstrap
   metrics; N1 support, matching, and runs; N2 permutations and runs; terminal
   precedence; prospective evaluation; receipt schemas; and the external chain.
   None of this may be deferred past registration.
+- [ ] After that typed executor is audited, freeze a successor preflight and
+  activation wrapper that authenticate the complete external inventory and
+  relation universe, authority and rights evidence, provider-byte separation,
+  ledger prefix, trusted time, one-use registry, and post-consumption barrier
+  CAS. Do not patch the blocked V1 companion's null identities in place.
 - [ ] Instantiate and externally register a new version only after one
   rights-compatible target family and canonical unit, at least 160 eligible
   transitive leakage superfamilies, typed evaluator/result contracts, sealed

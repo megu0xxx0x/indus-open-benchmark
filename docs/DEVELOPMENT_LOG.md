@@ -1340,3 +1340,73 @@ and scoring, primary/length/cell/bootstrap metrics, N1/N2, terminal precedence,
 prospective evaluation, and receipt schemas. Only after those exist may an
 authorized rights/custody review of one source candidate be considered; no
 protected source access or real run is authorized now.
+
+## 2026-08-03 — NMFA signed activation preflight companion V1
+
+**Checkpoint recorded:** 2026-08-03 00:10 JST
+
+The source-free
+[NMFA activation preflight companion V1](NMFA_ACTIVATION_PREFLIGHT_V1.md)
+is now implemented and frozen as an additive successor to the immutable draft
+parent protocol and V1 candidate gate. It defines closed `PREMETADATA` and
+`PREVALUE` requests, a separately supplied trust-profile contract, private
+reports, a pure evaluator, an exact installed-resource bundle, synthetic
+adversarial tests, and isolated-wheel verification. The parent protocol, gate
+plan, gate evaluator bundle, and gate schemas were not edited.
+
+The signing flow uses the canonical request subject with the `signatures`
+array omitted. The public message builder accepts only an unsigned request;
+the completed request must contain exactly three PREMETADATA signatures or all
+six PREVALUE signatures. The evaluator uses exact-version Ed25519 support and
+prechecks canonical unpadded base64url, 32-byte public keys, 64-byte
+signatures, canonical scalar `S`, and nonidentity prime-subgroup membership of
+both public point `A` and signature point `R`. This closes the low-order
+identity-forgery class accepted by a library-only verification path. Missing
+Ed25519 backend support is normalized to a fixed package failure.
+
+The machine contract deliberately narrows claims that the installed evaluator
+cannot establish. It verifies consistency only within the supplied roster,
+not completeness against an external source universe. It rederives
+metadata-known `Epre` reasons and validates only the declared pre-X relation
+edges; complete `R0` and transitive `Rpre` remain future executor/wrapper work.
+The access ledger is only an aggregate declared head/counter chain, authority
+and rights are signed declarations with opaque evidence commitments, the
+metadata channel is a policy requirement rather than verified provider bytes,
+and opaque identifier origin is not proven. The expected trust digest is
+caller supplied and its origin is explicitly unauthenticated. Prize submission
+is outside this preflight and fixed to not applicable.
+
+The chronology now freezes both value barriers in
+`PREPARED_LOCKED_NOT_ARMED_NOT_RELEASED`, verifies and consumes the PREVALUE
+package through a future permanent registry, and only then permits a joint
+compare-and-swap to `ARMED_NOT_RELEASED`. The installed companion performs no
+registry mutation or source/value access. It retains exactly five mandatory
+blockers: typed execution bundle, external trust, external time, permanent
+consumption registry, and activation wrapper. Therefore even a valid synthetic
+request remains blocked and cannot authorize metadata, X, Y, execution, or a
+ready receipt.
+
+Validation completed on the Linux reference environment: Ruff lint and format
+checks passed, Pyright reported zero errors or warnings, 38 focused preflight
+and distribution-policy tests passed, all three installed-wheel verifiers
+passed, and the complete repository suite passed 1,267 tests with 19
+environment-specific skips in 1,159.620 seconds. Independent Ed25519 arithmetic
+comparison found no mismatch across randomized addition, scalar,
+subgroup-membership, generated-key/signature, and RFC-vector checks. Trivy
+reported no high/critical vulnerability, secret, or configuration finding;
+Semgrep reported no relevant finding; all changed and new files passed secret
+scanning. Four full-tree secret-scan alerts remain known false positives in
+unchanged public fixed test vectors.
+
+The next project slice is the complete source-free typed execution bundle
+`E`, not source access. It must close nonce and split selection, primary-F
+selection, X/Y parsing, the single fixed model and scorer, exact rational and
+rank statistics, bootstrap, N1 matching/unranking, N2 permutations, terminal
+precedence, prospective evaluation, resource limits, receipt schemas, and
+positive/adversarial vectors. After independent audit, freeze a new
+operational preflight bundle `P` that binds `E`, then an external activation
+wrapper `A`; do not patch the five null bindings in this V1 companion.
+
+No real source identifier, inventory, transcription, target, prediction,
+result, operational key/signature, registration, execution, submission,
+prize eligibility, reading, translation, or decipherment claim was created.

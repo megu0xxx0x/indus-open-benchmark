@@ -539,6 +539,24 @@ evaluator bundle and byte equality. A schema-valid or synthetic candidate
 state is not access authority, external registration, a scientific result, or
 prize eligibility.
 
+The additive
+[NMFA activation preflight companion](NMFA_ACTIVATION_PREFLIGHT_V1.md) uses
+four further Draft 2020-12 schemas: an immutable source-free plan, a
+separately supplied trust profile, a `oneOf` PREMETADATA/PREVALUE protected
+request, and a private deterministic report. Every object is closed. Opaque
+identifiers use the fixed `hmac-sha256:` shape; signatures use canonical
+unpadded base64url Ed25519 envelopes and never carry a public key. PREVALUE has
+no schema fields for transcription or target values, value-bearing statuses,
+eligibility, final G exclusion, predictions, scores, ciphertext, Merkle roots,
+nonces, or actual seals. Schema validity alone is insufficient: the evaluator
+recomputes resource, request, receipt, ledger, supplied-inventory, roster,
+archive and report digests; verifies signatures against that profile; reexecutes
+the exact PREMETADATA predecessor; and checks cross-field chronology and
+declared-roster consistency. It does not prove external source-universe or
+R0/Rpre completeness, provider-byte separation, or opaque-identifier origin.
+The installed plan's five null activation identities force a private blocked
+report even when the synthetic semantic core and signatures validate.
+
 ## Quarantine manifest
 
 The quarantine manifest's canonical self-digest excludes only its

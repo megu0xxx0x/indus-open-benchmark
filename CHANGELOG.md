@@ -8,6 +8,41 @@ immutable content-addressed identifiers for corpus and split releases.
 ### Added
 
 - A source-free
+  [NMFA activation preflight companion V1](docs/NMFA_ACTIVATION_PREFLIGHT_V1.md)
+  that leaves the frozen parent/gate V1 bytes unchanged. It packages closed
+  plan, external-trust, PREMETADATA/PREVALUE request, and private-report
+  schemas; a deterministic evaluator; strict canonical Ed25519 verification;
+  an exact evaluator bundle; adversarial synthetic tests; and isolated-wheel
+  verification. PREVALUE separately freezes a supplied source-record-to-F
+  roster, deterministic metadata-known Epre codes, declared pre-X relation
+  edges, prior-exposure commitments, value-empty archive contracts, and both
+  prepared value barriers. Its closed schema has no named typed surface for
+  actual X/Y, value-bearing status, eligibility/final-G inputs, predictions,
+  scores, ciphertext, Merkle roots, nonces, or seals. External-universe
+  completeness, provider-byte separation, and opaque-identifier origin remain
+  unverified and are explicitly deferred.
+
+  Exact trust bytes must match a separately supplied expected digest before a
+  request is parsed. The installed API cannot authenticate that digest's
+  origin, so candidate-selected or trust-on-first-use keys cannot activate the
+  protocol and the external-trust blocker remains. The evaluator holds no
+  private key. Its readable report fields and bytes are private-only, its
+  representation is non-disclosing, and no public-summary serialization is
+  authorized. The installed plan deliberately leaves the typed execution bundle,
+  live external trust profile, trusted-time profile, permanent one-time
+  registry, and final activation wrapper unbound. Those five blockers force
+  `PREMETADATA_BLOCKED`/`PREVALUE_BLOCKED` even for valid synthetic signatures;
+  no source access, execution, scientific result, decipherment, submission, or
+  prize eligibility is established.
+
+  The immutable predecessor bundle's `ci_only` `pyproject.toml` and `uv.lock`
+  rows remain historical freeze-time commitments rather than assertions about
+  current repository bytes. A distribution-policy regression pins those exact
+  historical identities, while both predecessor and companion wheel verifiers
+  enforce each evaluator's enumerated exact-version dependency set from wheel
+  metadata; unrelated additions and backend/runtime provenance are not attested.
+
+- A source-free
   [NMFA value-blind preregistration candidate gate](docs/NMFA_VALUE_BLIND_PREREGISTRATION_GATE_V1.md)
   and [worldwide target-source audit](docs/NMFA_GLOBAL_TARGET_SOURCE_AUDIT_2026-08-02.md).
   The gate binds an exact source/F/C/prior-exposure inventory before protected

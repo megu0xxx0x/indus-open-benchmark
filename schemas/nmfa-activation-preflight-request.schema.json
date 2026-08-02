@@ -1,0 +1,1189 @@
+{
+  "$comment": "Closed protected-input contract. It deliberately has no fields for X/Y values, signs, tokens, predictions, scores, actual archive seals, eligibility, or final G exclusion.",
+  "$defs": {
+    "access_ledger": {
+      "additionalProperties": false,
+      "properties": {
+        "event_head_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "ledger_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "metadata_access_count": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "prior_event_head_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "recorded_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "source_value_access_count": {
+          "const": 0
+        },
+        "target_y_access_count": {
+          "const": 0
+        },
+        "transcription_x_access_count": {
+          "const": 0
+        }
+      },
+      "required": [
+        "event_head_sha256",
+        "ledger_id",
+        "metadata_access_count",
+        "prior_event_head_sha256",
+        "recorded_at",
+        "sequence",
+        "source_value_access_count",
+        "target_y_access_count",
+        "transcription_x_access_count"
+      ],
+      "type": "object"
+    },
+    "archive_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_profile_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "controller_role": {
+          "enum": [
+            "target_controller",
+            "transcription_controller"
+          ]
+        },
+        "data_layer": {
+          "enum": [
+            "target_y",
+            "transcription_x"
+          ]
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "f_roster_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "planned_f_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "prevalue_inventory_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "record_state": {
+          "const": "CONTRACT_ONLY_NO_ARCHIVE_MATERIAL"
+        },
+        "slot_id": {
+          "$ref": "#/$defs/opaque_id"
+        }
+      },
+      "required": [
+        "archive_profile_sha256",
+        "controller_role",
+        "data_layer",
+        "experiment_instance_id",
+        "f_roster_sha256",
+        "planned_f_count",
+        "prevalue_inventory_sha256",
+        "record_state",
+        "slot_id"
+      ],
+      "type": "object"
+    },
+    "authority_scope": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "const": [
+            "enumerate_metadata",
+            "read_allowlisted_projection",
+            "freeze_prevalue_inventory"
+          ]
+        },
+        "authority_evidence_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "decision": {
+          "const": "AUTHORIZED"
+        },
+        "phase": {
+          "const": "metadata_only"
+        },
+        "purposes": {
+          "const": [
+            "scientific_preregistration",
+            "rights_aware_custodial_evaluation"
+          ]
+        },
+        "revocation_snapshot_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "valid_from": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "valid_until": {
+          "$ref": "#/$defs/timestamp"
+        }
+      },
+      "required": [
+        "actions",
+        "authority_evidence_sha256",
+        "decision",
+        "phase",
+        "purposes",
+        "revocation_snapshot_sha256",
+        "valid_from",
+        "valid_until"
+      ],
+      "type": "object"
+    },
+    "barrier": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "cas_token_commitment_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "controller_role": {
+          "enum": [
+            "target_controller",
+            "transcription_controller"
+          ]
+        },
+        "data_layer": {
+          "enum": [
+            "target_y",
+            "transcription_x"
+          ]
+        },
+        "expected_prior_event_head_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "prepared_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "state": {
+          "const": "PREPARED_LOCKED_NOT_ARMED_NOT_RELEASED"
+        },
+        "value_access_count": {
+          "const": 0
+        }
+      },
+      "required": [
+        "archive_contract_sha256",
+        "cas_token_commitment_sha256",
+        "controller_role",
+        "data_layer",
+        "expected_prior_event_head_sha256",
+        "prepared_at",
+        "sequence",
+        "state",
+        "value_access_count"
+      ],
+      "type": "object"
+    },
+    "bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_preflight_evaluator_bundle_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "activation_preflight_plan_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "activation_root_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "external_time_anchor_profile_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "external_trust_profile_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "one_time_consumption_registry_profile_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "parent_protocol_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "preregistration_evaluator_bundle_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "preregistration_gate_plan_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "typed_execution_bundle_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "activation_preflight_evaluator_bundle_sha256",
+        "activation_preflight_plan_sha256",
+        "activation_root_sha256",
+        "external_time_anchor_profile_sha256",
+        "external_trust_profile_sha256",
+        "one_time_consumption_registry_profile_sha256",
+        "parent_protocol_sha256",
+        "preregistration_evaluator_bundle_sha256",
+        "preregistration_gate_plan_sha256",
+        "typed_execution_bundle_sha256"
+      ],
+      "type": "object"
+    },
+    "context_axis": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "enum": [
+            "medium",
+            "object_type",
+            "period",
+            "site"
+          ]
+        },
+        "evidence_envelope_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "status": {
+          "enum": [
+            "AMBIGUOUS",
+            "CONFLICTING",
+            "EXACT",
+            "MISSING"
+          ]
+        },
+        "value_id": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        }
+      },
+      "required": [
+        "axis",
+        "evidence_envelope_sha256",
+        "status",
+        "value_id"
+      ],
+      "type": "object"
+    },
+    "custody": {
+      "additionalProperties": false,
+      "properties": {
+        "access_mediation_required": {
+          "const": true
+        },
+        "custody_contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "decision": {
+          "const": "READY"
+        },
+        "ephemeral_processing_required": {
+          "const": true
+        },
+        "publication_review_required": {
+          "const": true
+        },
+        "retention_policy_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "access_mediation_required",
+        "custody_contract_sha256",
+        "decision",
+        "ephemeral_processing_required",
+        "publication_review_required",
+        "retention_policy_sha256"
+      ],
+      "type": "object"
+    },
+    "declared_pre_x_relation_edge": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "EXCLUDE_BOTH",
+            "UNION"
+          ]
+        },
+        "evidence_envelope_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "kind": {
+          "enum": [
+            "ASSEMBLAGE",
+            "FIND_CONTEXT",
+            "PHYSICAL_IDENTITY",
+            "WORKSHOP"
+          ]
+        },
+        "left_f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "right_f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "status": {
+          "enum": [
+            "CONFIRMED",
+            "POSSIBLE",
+            "UNRESOLVED"
+          ]
+        }
+      },
+      "required": [
+        "disposition",
+        "evidence_envelope_sha256",
+        "kind",
+        "left_f_id",
+        "right_f_id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "first_metadata_access": {
+      "additionalProperties": false,
+      "properties": {
+        "event_head_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "metadata_projection_contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "premetadata_report_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "prior_event_head_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "recorded_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "sequence": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "event_head_sha256",
+        "metadata_projection_contract_sha256",
+        "premetadata_report_sha256",
+        "prior_event_head_sha256",
+        "recorded_at",
+        "sequence"
+      ],
+      "type": "object"
+    },
+    "nuisance_value": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_envelope_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "field_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "status": {
+          "enum": [
+            "AMBIGUOUS",
+            "CONFLICTING",
+            "EXACT",
+            "MISSING"
+          ]
+        },
+        "value_ids": {
+          "items": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "maxItems": 16,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "evidence_envelope_sha256",
+        "field_id",
+        "status",
+        "value_ids"
+      ],
+      "type": "object"
+    },
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "opaque_id_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/opaque_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "predecessor": {
+      "additionalProperties": false,
+      "properties": {
+        "premetadata_report_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "premetadata_request_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "premetadata_subject_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "premetadata_report_sha256",
+        "premetadata_request_sha256",
+        "premetadata_subject_sha256"
+      ],
+      "type": "object"
+    },
+    "prevalue_exposure": {
+      "additionalProperties": false,
+      "properties": {
+        "access_ledger_proof_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "alias_closure_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "policy_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "status": {
+          "enum": [
+            "EXPOSED",
+            "NOT_EXPOSED",
+            "UNKNOWN"
+          ]
+        }
+      },
+      "required": [
+        "access_ledger_proof_sha256",
+        "alias_closure_sha256",
+        "f_id",
+        "policy_sha256",
+        "status"
+      ],
+      "type": "object"
+    },
+    "prevalue_source_record": {
+      "additionalProperties": false,
+      "properties": {
+        "entry_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "metadata_projection_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "record_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "source_order": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "view_id": {
+          "$ref": "#/$defs/opaque_id"
+        }
+      },
+      "required": [
+        "entry_id",
+        "f_id",
+        "metadata_projection_sha256",
+        "record_id",
+        "revision_id",
+        "source_order",
+        "view_id"
+      ],
+      "type": "object"
+    },
+    "prevalue_unit": {
+      "additionalProperties": false,
+      "properties": {
+        "context_axes": {
+          "items": {
+            "$ref": "#/$defs/context_axis"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array"
+        },
+        "epre_reason_codes": {
+          "items": {
+            "enum": [
+              "NOT_PHYSICAL_ORIGINAL",
+              "IDENTITY_UNRESOLVED",
+              "SOURCE_BINDING_INCOMPLETE",
+              "CONTEXT_INCOMPLETE_OR_CONFLICTING",
+              "PROVENANCE_INCOMPLETE",
+              "RIGHTS_INSUFFICIENT"
+            ]
+          },
+          "maxItems": 6,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "identity_evidence_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "identity_status": {
+          "enum": [
+            "RESOLVED",
+            "UNRESOLVED"
+          ]
+        },
+        "nuisance_values": {
+          "items": {
+            "$ref": "#/$defs/nuisance_value"
+          },
+          "maxItems": 32,
+          "type": "array"
+        },
+        "physical_original_status": {
+          "enum": [
+            "CONFIRMED_PHYSICAL_ORIGINAL",
+            "NOT_PHYSICAL_ORIGINAL",
+            "UNKNOWN"
+          ]
+        },
+        "provenance_evidence_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "provenance_status": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE"
+          ]
+        },
+        "rights_evidence_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "rights_status": {
+          "enum": [
+            "INSUFFICIENT",
+            "SUFFICIENT"
+          ]
+        },
+        "source_binding_evidence_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_binding_status": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE"
+          ]
+        },
+        "unit_order": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "context_axes",
+        "epre_reason_codes",
+        "f_id",
+        "identity_evidence_sha256",
+        "identity_status",
+        "nuisance_values",
+        "physical_original_status",
+        "provenance_evidence_sha256",
+        "provenance_status",
+        "rights_evidence_sha256",
+        "rights_status",
+        "source_binding_evidence_sha256",
+        "source_binding_status",
+        "unit_order"
+      ],
+      "type": "object"
+    },
+    "receipt": {
+      "additionalProperties": false,
+      "properties": {
+        "event_head_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "external_time_anchor_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "identifier_key_commitment_sha256": {
+          "$ref": "#/$defs/sha256_or_null"
+        },
+        "kind": {
+          "enum": [
+            "CLAIM_SLOT_RESERVATION",
+            "IDENTIFIER_KEY_CEREMONY"
+          ]
+        },
+        "prior_event_head_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "receipt_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "recorded_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "subject_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "event_head_sha256",
+        "external_time_anchor_sha256",
+        "identifier_key_commitment_sha256",
+        "kind",
+        "prior_event_head_sha256",
+        "receipt_id",
+        "recorded_at",
+        "sequence",
+        "subject_sha256"
+      ],
+      "type": "object"
+    },
+    "rights_row": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_envelope_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "layer": {
+          "enum": [
+            "context_c",
+            "dependence_g",
+            "derived_aggregate",
+            "physical_identity_f",
+            "source_frame_metadata",
+            "target_y",
+            "transcription_x"
+          ]
+        },
+        "permissions": {
+          "additionalProperties": false,
+          "properties": {
+            "analyze": {
+              "enum": [
+                "NOT_APPLICABLE",
+                "PERMITTED"
+              ]
+            },
+            "custodial_transfer": {
+              "enum": [
+                "NOT_APPLICABLE",
+                "PERMITTED"
+              ]
+            },
+            "derive": {
+              "enum": [
+                "NOT_APPLICABLE",
+                "PERMITTED"
+              ]
+            },
+            "prize_submit": {
+              "const": "NOT_APPLICABLE"
+            },
+            "publish_aggregate": {
+              "enum": [
+                "NOT_APPLICABLE",
+                "PERMITTED"
+              ]
+            },
+            "retain_protected": {
+              "enum": [
+                "NOT_APPLICABLE",
+                "PERMITTED"
+              ]
+            },
+            "retrieve": {
+              "enum": [
+                "NOT_APPLICABLE",
+                "PERMITTED"
+              ]
+            }
+          },
+          "required": [
+            "analyze",
+            "custodial_transfer",
+            "derive",
+            "prize_submit",
+            "publish_aggregate",
+            "retain_protected",
+            "retrieve"
+          ],
+          "type": "object"
+        },
+        "scope_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "status": {
+          "const": "READY"
+        }
+      },
+      "required": [
+        "evidence_envelope_sha256",
+        "layer",
+        "permissions",
+        "scope_sha256",
+        "status"
+      ],
+      "type": "object"
+    },
+    "role_separation": {
+      "additionalProperties": false,
+      "properties": {
+        "conflict_matrix_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "same_actor_for_incompatible_roles_forbidden": {
+          "const": true
+        },
+        "same_conflict_domain_for_incompatible_roles_forbidden": {
+          "const": true
+        },
+        "same_controller_for_incompatible_roles_forbidden": {
+          "const": true
+        },
+        "separation_evidence_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "structural_only_not_human_independence_proof": {
+          "const": true
+        }
+      },
+      "required": [
+        "conflict_matrix_sha256",
+        "same_actor_for_incompatible_roles_forbidden",
+        "same_conflict_domain_for_incompatible_roles_forbidden",
+        "same_controller_for_incompatible_roles_forbidden",
+        "separation_evidence_sha256",
+        "structural_only_not_human_independence_proof"
+      ],
+      "type": "object"
+    },
+    "sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "sha256_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "signature": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "algorithm": {
+          "const": "Ed25519"
+        },
+        "key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "authority",
+            "governance_reviewer",
+            "metadata_controller",
+            "target_controller",
+            "transcription_controller",
+            "value_barrier_coordinator"
+          ]
+        },
+        "signature_base64url": {
+          "pattern": "^[A-Za-z0-9_-]{86}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "actor_id",
+        "algorithm",
+        "key_id",
+        "role",
+        "signature_base64url"
+      ],
+      "type": "object"
+    },
+    "source_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "browser_forbidden": {
+          "const": true
+        },
+        "cache_forbidden": {
+          "const": true
+        },
+        "log_body_forbidden": {
+          "const": true
+        },
+        "metadata_projection_contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "mixed_value_transport_forbidden": {
+          "const": true
+        },
+        "parser_profile_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "proxy_body_capture_forbidden": {
+          "const": true
+        },
+        "transport_profile_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "value_fields_byte_inaccessible_required": {
+          "const": true
+        }
+      },
+      "required": [
+        "browser_forbidden",
+        "cache_forbidden",
+        "log_body_forbidden",
+        "metadata_projection_contract_sha256",
+        "mixed_value_transport_forbidden",
+        "parser_profile_sha256",
+        "proxy_body_capture_forbidden",
+        "transport_profile_sha256",
+        "value_fields_byte_inaccessible_required"
+      ],
+      "type": "object"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    }
+  },
+  "$id": "nmfa-activation-preflight-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "bindings": {
+          "$ref": "#/$defs/bindings"
+        },
+        "claim_family_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "claim_reservation": {
+          "$ref": "#/$defs/receipt"
+        },
+        "created_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "custody": {
+          "$ref": "#/$defs/custody"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "format_version": {
+          "const": "1.0.0"
+        },
+        "identifier_ceremony": {
+          "$ref": "#/$defs/receipt"
+        },
+        "no_access_ledger": {
+          "$ref": "#/$defs/access_ledger"
+        },
+        "record_kind": {
+          "const": "nmfa_activation_preflight_request"
+        },
+        "request_kind": {
+          "const": "PREMETADATA"
+        },
+        "rights": {
+          "items": {
+            "$ref": "#/$defs/rights_row"
+          },
+          "maxItems": 7,
+          "minItems": 7,
+          "type": "array"
+        },
+        "role_separation": {
+          "$ref": "#/$defs/role_separation"
+        },
+        "sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "signatures": {
+          "items": {
+            "$ref": "#/$defs/signature"
+          },
+          "maxItems": 3,
+          "oneOf": [
+            {
+              "maxItems": 0
+            },
+            {
+              "minItems": 3
+            }
+          ],
+          "type": "array"
+        },
+        "slot_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "source_policy": {
+          "$ref": "#/$defs/source_policy"
+        },
+        "source_scope": {
+          "$ref": "#/$defs/authority_scope"
+        },
+        "target_policy": {
+          "additionalProperties": false,
+          "properties": {
+            "key_release_forbidden_before_verified_prevalue_composite": {
+              "const": true
+            },
+            "target_y_access_forbidden": {
+              "const": true
+            },
+            "transcription_x_access_forbidden": {
+              "const": true
+            }
+          },
+          "required": [
+            "key_release_forbidden_before_verified_prevalue_composite",
+            "target_y_access_forbidden",
+            "transcription_x_access_forbidden"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "bindings",
+        "claim_reservation",
+        "claim_family_id",
+        "created_at",
+        "custody",
+        "experiment_instance_id",
+        "format_version",
+        "identifier_ceremony",
+        "no_access_ledger",
+        "record_kind",
+        "request_kind",
+        "rights",
+        "role_separation",
+        "sequence",
+        "signatures",
+        "slot_id",
+        "source_policy",
+        "source_scope",
+        "target_policy"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "access_ledger": {
+          "$ref": "#/$defs/access_ledger"
+        },
+        "archives": {
+          "additionalProperties": false,
+          "properties": {
+            "target_y": {
+              "$ref": "#/$defs/archive_contract"
+            },
+            "transcription_x": {
+              "$ref": "#/$defs/archive_contract"
+            }
+          },
+          "required": [
+            "target_y",
+            "transcription_x"
+          ],
+          "type": "object"
+        },
+        "barriers": {
+          "additionalProperties": false,
+          "properties": {
+            "target_y": {
+              "$ref": "#/$defs/barrier"
+            },
+            "transcription_x": {
+              "$ref": "#/$defs/barrier"
+            }
+          },
+          "required": [
+            "target_y",
+            "transcription_x"
+          ],
+          "type": "object"
+        },
+        "bindings": {
+          "$ref": "#/$defs/bindings"
+        },
+        "claim_family_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "created_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "first_metadata_access": {
+          "$ref": "#/$defs/first_metadata_access"
+        },
+        "format_version": {
+          "const": "1.0.0"
+        },
+        "inventory": {
+          "additionalProperties": false,
+          "properties": {
+            "context_contract_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "declared_pre_x_relation_edges": {
+              "items": {
+                "$ref": "#/$defs/declared_pre_x_relation_edge"
+              },
+              "maxItems": 200000,
+              "type": "array"
+            },
+            "declared_source_record_count": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "declared_unit_count": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "exposure_cutoff_event_head_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "prevalue_exposure": {
+              "items": {
+                "$ref": "#/$defs/prevalue_exposure"
+              },
+              "maxItems": 100000,
+              "minItems": 1,
+              "type": "array"
+            },
+            "source_records": {
+              "items": {
+                "$ref": "#/$defs/prevalue_source_record"
+              },
+              "maxItems": 200000,
+              "minItems": 1,
+              "type": "array"
+            },
+            "units": {
+              "items": {
+                "$ref": "#/$defs/prevalue_unit"
+              },
+              "maxItems": 100000,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "context_contract_sha256",
+            "declared_source_record_count",
+            "declared_unit_count",
+            "exposure_cutoff_event_head_sha256",
+            "prevalue_exposure",
+            "declared_pre_x_relation_edges",
+            "source_records",
+            "units"
+          ],
+          "type": "object"
+        },
+        "predecessor": {
+          "$ref": "#/$defs/predecessor"
+        },
+        "record_kind": {
+          "const": "nmfa_activation_preflight_request"
+        },
+        "request_kind": {
+          "const": "PREVALUE"
+        },
+        "sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "signatures": {
+          "items": {
+            "$ref": "#/$defs/signature"
+          },
+          "maxItems": 6,
+          "oneOf": [
+            {
+              "maxItems": 0
+            },
+            {
+              "minItems": 6
+            }
+          ],
+          "type": "array"
+        },
+        "slot_id": {
+          "$ref": "#/$defs/opaque_id"
+        }
+      },
+      "required": [
+        "access_ledger",
+        "archives",
+        "barriers",
+        "bindings",
+        "claim_family_id",
+        "created_at",
+        "experiment_instance_id",
+        "first_metadata_access",
+        "format_version",
+        "inventory",
+        "predecessor",
+        "record_kind",
+        "request_kind",
+        "sequence",
+        "signatures",
+        "slot_id"
+      ],
+      "type": "object"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "bundle_id": "nmfa-activation-preflight-evaluator-bundle-v1",
+  "created_at": "2026-08-02T14:43:21Z",
+  "files": [
+    {
+      "bytes": 5513,
+      "path": "benchmark/nmfa-activation-preflight-plan-v1.json",
+      "sha256": "sha256:2d75e6f4ceec9f599b4b96720e4373327758b7f863bb0bd884c2361690d11d96",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 3181,
+      "path": "benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json",
+      "sha256": "sha256:ec9ba6fbaa5df13dce438f819114206da2d6ca6e68afb521476635d5abd91a79",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 30641,
+      "path": "benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json",
+      "sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 25450,
+      "path": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json",
+      "sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 13013,
+      "path": "schemas/nmfa-activation-preflight-plan.schema.json",
+      "sha256": "sha256:d15372283c9ee9a5ce573e8d456ff7f4648e36b41e3c9804da8a953ce22cc3b1",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 6822,
+      "path": "schemas/nmfa-activation-preflight-report.schema.json",
+      "sha256": "sha256:a329393cfe38c22cfaaa5296d1f81e64910a9c81b9ed987df057ee70cd75286e",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 29656,
+      "path": "schemas/nmfa-activation-preflight-request.schema.json",
+      "sha256": "sha256:b2223622af7cc0c8e23aab846c5cb0d79ed9578fbaa5bd3594f2cd1efe3194c5",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 3006,
+      "path": "schemas/nmfa-external-trust-profile.schema.json",
+      "sha256": "sha256:66a989243b43a7511834effd52149be4ec16c7bf525a347ac4ce1d4b2e672c40",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 4129,
+      "path": "src/indusbench/io.py",
+      "sha256": "sha256:7517f6da8724f64934b44492ab104e7357c081ca50ae859f66102a3b980b965c",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 55248,
+      "path": "src/indusbench/nmfa_preflight.py",
+      "sha256": "sha256:3ef25798988e67b9d74cd28343b938986430f9879ecb34839462321472572430",
+      "verification": "runtime_and_ci"
+    }
+  ],
+  "format_version": "1.0.0",
+  "runtime_profile": {
+    "canonical_encoder": "indusbench.io:encode_json",
+    "conditional_dependencies": {
+      "python_version_less_than_3_13": {
+        "typing-extensions": "4.16.0"
+      }
+    },
+    "cryptography_contract": {
+      "algorithm": "Ed25519",
+      "public_key_format": "Raw_32_bytes",
+      "strict_canonical_S_precheck": true,
+      "strict_nonidentity_prime_subgroup_A_and_R_precheck": true
+    },
+    "dependencies": {
+      "attrs": "26.1.0",
+      "cffi": "2.1.0",
+      "cryptography": "50.0.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "pycparser": "3.0",
+      "referencing": "0.37.0",
+      "rfc3339-validator": "0.1.4",
+      "rpds-py": "2026.6.3",
+      "six": "1.17.0"
+    },
+    "dependency_lock": "uv.lock",
+    "entrypoints": [
+      "indusbench.nmfa_preflight:evaluate_premetadata_preflight",
+      "indusbench.nmfa_preflight:evaluate_prevalue_preflight"
+    ],
+    "implementation": "CPython",
+    "supported_python_minors": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ]
+  },
+  "security_boundary": {
+    "candidate_or_tofu_trust_accepted": false,
+    "evaluator_private_keys_included": false,
+    "external_time_verified_by_bundle": false,
+    "one_time_registry_verified_by_bundle": false,
+    "protected_requests_included": false,
+    "runtime_artifact_provenance_attested": false,
+    "runtime_environment_attested": false,
+    "source_or_target_values_included": false
+  }
+}

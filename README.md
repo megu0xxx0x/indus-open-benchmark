@@ -185,10 +185,17 @@ split feasibility, universal N2 support, staged release, and private-only
 reports. Synthetic passage means only
 `CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW`. It does not authorize source
 access or execution and is not evidence of a reading or prize eligibility.
-Separate deterministic `PREMETADATA_READY` and `PREVALUE_READY` preflights, a
-complete typed split/model/metric/bootstrap/control/prospective evaluator,
-external custody, and a rights-compatible source remain mandatory future
-blockers.
+The additive
+[activation preflight companion](docs/NMFA_ACTIVATION_PREFLIGHT_V1.md) now
+implements closed PREMETADATA/PREVALUE request, separately supplied trust, and private-
+report contracts plus strict detached Ed25519 verification. It leaves the
+immutable gate V1 untouched and deliberately compiles five blockers: no full
+typed execution bundle, externally fixed live trust profile, trusted-time
+profile, permanent one-time registry, or final activation wrapper is bound.
+Consequently even a correctly signed synthetic request remains blocked; no
+real metadata, X, or Y access is authorized. The complete typed execution
+stack, external custody and rights, and a rights-compatible source remain
+mandatory future work.
 
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also

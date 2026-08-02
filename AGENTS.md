@@ -105,11 +105,15 @@ The current NMFA lane is a source-free value-blind preregistration candidate
 gate with synthetic tests only. Its worldwide source audit found no verified
 reusable public X/F/G/C/E/Y join at the required scale. A synthetic pass is
 only `CANDIDATE_FOR_EXTERNAL_REGISTRATION_REVIEW`, not access authority,
-registration, evidence, a reading, or prize eligibility. Before any real
-claim-instance metadata or protected X/Y access, implement and externally
-receipt separate deterministic `PREMETADATA_READY` and `PREVALUE_READY`
-preflights. Before registration or execution, also implement the complete
-typed split, model, metric, bootstrap, N1/N2, terminal, and prospective
-execution stack. Preserve the immutable parent V1 bytes; its complete-set E-
-reason handling is a stricter typed gate refinement, not an in-place parent
-rewrite.
+registration, evidence, a reading, or prize eligibility. The additive NMFA
+activation preflight companion now validates separately supplied Ed25519
+PREMETADATA/PREVALUE contracts, but its installed plan permanently leaves five
+activation identities unbound and therefore cannot issue an operational ready
+receipt; it does not authenticate the origin of the expected trust digest. Do
+not patch those null bindings in place or treat a synthetic signed
+request as access authority. Next freeze a separate complete typed execution
+core bundle, then a successor preflight bundle and final activation wrapper;
+only an externally pinned live trust/time/one-use registry chain can precede
+real metadata or protected X/Y access. Preserve the immutable parent and gate
+V1 bytes; complete-set E-reason handling is a stricter typed gate refinement,
+not an in-place parent rewrite.
