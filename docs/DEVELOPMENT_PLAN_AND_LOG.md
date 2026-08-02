@@ -2656,3 +2656,64 @@ are internal synthetic consistency tests only.
 The current correct state is source-free and blocked. The project goal remains
 a defensible decipherment attempt, but this checkpoint is only a safer and
 more reproducible pre-execution boundary, not progress evidence for a reading.
+
+## NMFA source-free selector core V1 — 2026-08-03
+
+**Checkpoint recorded:** 2026-08-03 02:12 JST
+
+The first executable component toward typed bundle `E` is implemented and
+documented as [NMFA selector core V1](NMFA_SELECTOR_CORE_V1.md). It is an
+additive development component and does not modify the immutable parent,
+candidate gate, or activation-preflight bytes.
+
+The component defines an exact-const plan schema plus closed canonical
+structural-inventory and protected declared-assignment schemas. It rederives
+the exact immutable-gate eligible projection digest against a separately
+supplied expected digest, fixes component identity within each frozen
+historical member roster, checks declared 32-byte nonce syntax, exhausts the
+sequential site/period/medium/object tuple search, enforces universal N2
+support, preserves predecessor ticket and primary-F framing, and assigns the
+complement deterministically. The public evaluator performs no network,
+clock, random, or write operation and has no X, Y, prediction, score,
+source-value, realized-split, or public-summary surface.
+
+A 160-component synthetic fixture produces four disjoint 20-component cells
+and an 80-component complement. The selector and the immutable gate's
+independent structural oracle agree on tuple/N2 counts, resource counters, and
+the tuple-roster commitment. Adversarial cases cover multiple tuples and
+closures, multi-member G, ineligible members, all four resource limits, forged
+handles, bundle changes, assignment tampering, huge integers, insufficient
+population, absent tuple, universal N2 failure, noncanonical JSON, floats,
+extra fields, ordering, and alternate nonce representations. The protected
+declaration contains 80 holdout, 54 development, and 26 validation assignments
+and only a digest of the nonce.
+
+Focused selector tests (22), exact schema validation, Ruff, formatting,
+Pyright, and all four isolated installed-wheel verifiers pass. The reference
+Linux full suite passed 1,289 tests with 19 expected skips and no failures or
+errors. Changed-file leak scanning, high/critical vulnerability and
+misconfiguration scanning, and focused Python security analysis are clean.
+Publication and public CI are still required before this checkpoint is frozen.
+
+This does not clear `TYPED_EXECUTION_BUNDLE_UNBOUND`. The selector does not
+authenticate the external expected digest or claim binding, real nonce
+provenance, trusted time, retry absence, source or relation-universe
+completeness, identifier non-grinding, or full runtime custody.
+It also omits X/model, Y/rational conversion, exact statistics, bootstrap,
+N1/N2 random runs, confirmatory/prospective orchestration, and terminal
+receipts. No real source or inventory was accessed and no split was realized.
+
+### Continuation order for the next AI agent
+
+1. Preserve this selector component and all predecessor bytes; do not promote
+   it to complete `E`.
+2. Implement the separate exact X/model/scoring and Y/rational/statistics
+   components. Freeze doubled midranks and exact Spearman state before choosing
+   any fixed-point display representation.
+3. Implement the common HMAC counter stream, unbiased draws, paired bootstrap,
+   N1 Hall feasibility/matching unranking, and N2 whole-G permutation schedules
+   with boundary vectors.
+4. Add confirmatory and prospective orchestration plus terminal receipts, then
+   independently audit one final content-addressed `E` bundle.
+5. Only a new successor preflight and external activation wrapper may bind the
+   completed `E`; do not fill the blocked V1 identities in place.

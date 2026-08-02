@@ -1410,3 +1410,41 @@ wrapper `A`; do not patch the five null bindings in this V1 companion.
 No real source identifier, inventory, transcription, target, prediction,
 result, operational key/signature, registration, execution, submission,
 prize eligibility, reading, translation, or decipherment claim was created.
+
+## 2026-08-03 — NMFA source-free selector core V1
+
+**Checkpoint recorded:** 2026-08-03 02:12 JST
+
+Implemented the first additive execution component for NMFA without changing
+the immutable parent protocol, candidate gate, or activation preflight. The
+new selector core validates a closed canonical structural inventory, rederives
+the exact immutable-gate eligible projection digest against a separately
+supplied expected digest, derives a frozen-roster component identity,
+normalizes a declared nonce without claiming its provenance, exhausts all
+sequentially disjoint domain tuples, enforces universal N2 support, selects the
+immutable minimum split ticket, chooses one target-blind primary F per G, and
+assigns the complement deterministically to development and validation.
+
+The exact-const plan/schema, evaluator bundle, inventory schema, protected
+declared-assignment schema, pure
+module, adversarial tests, and installed-wheel verifier are source-free. The
+synthetic 160-G fixture agrees exactly with the immutable gate oracle and
+produces 80 holdout, 54 development, and 26 validation assignments. The
+assignment suppresses protected values in `repr`, records only the nonce
+digest, never the raw nonce, and marks digest/claim/identifier/nonce origin,
+one-use, realized split, and scientific-result assurances false.
+
+Focused selector tests (22), exact schema validation, Ruff, formatting,
+Pyright, and all four isolated-wheel verifiers pass. The reference Linux full
+suite passed 1,289 tests with 19 expected skips and no failures or errors.
+Changed-file leak scanning, high/critical vulnerability and misconfiguration
+scanning, and focused Python security analysis are clean. Publication and
+public CI remain pending at this checkpoint.
+
+This is explicitly `development_component_not_complete_E`. The callable
+permits repeated declared-nonce analysis and realizes no split. It proves no
+external digest or claim-binding origin, nonce provenance/one-use,
+relation/source completeness, access authority, execution, scientific result,
+reading, decipherment, or prize eligibility. Next implement the separate exact
+X/Y/statistics and deterministic bootstrap/N1/N2 components, then
+confirmatory/prospective orchestration and a final audited `E` bundle.

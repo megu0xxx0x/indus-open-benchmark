@@ -1,0 +1,302 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "closure_groups": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "group_id": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "member_value_ids": {
+            "items": {
+              "$ref": "#/$defs/opaque_id"
+            },
+            "maxItems": 20000,
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "group_id",
+          "member_value_ids"
+        ],
+        "type": "object"
+      },
+      "maxItems": 512,
+      "minItems": 1,
+      "type": "array"
+    },
+    "context": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        },
+        "nuisance": {
+          "items": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "maxItems": 16,
+          "type": "array"
+        },
+        "object_type": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        },
+        "period": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        },
+        "site": {
+          "$ref": "#/$defs/opaque_id_or_null"
+        }
+      },
+      "required": [
+        "medium",
+        "nuisance",
+        "object_type",
+        "period",
+        "site"
+      ],
+      "type": "object"
+    },
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "opaque_id_or_null": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/opaque_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "registry_id": {
+      "pattern": "^registry-id:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-selector-inventory.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "claim_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_family_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "claim_slot_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "predecessor_chain_head_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_family_id",
+        "claim_slot_id",
+        "experiment_instance_id",
+        "predecessor_chain_head_sha256"
+      ],
+      "type": "object"
+    },
+    "eligible_split_inventory": {
+      "additionalProperties": false,
+      "properties": {
+        "axis_order": {
+          "const": [
+            "site",
+            "period",
+            "medium",
+            "object_type"
+          ],
+          "type": "array"
+        },
+        "closure_tables": {
+          "additionalProperties": false,
+          "properties": {
+            "medium": {
+              "$ref": "#/$defs/closure_groups"
+            },
+            "object_type": {
+              "$ref": "#/$defs/closure_groups"
+            },
+            "period": {
+              "$ref": "#/$defs/closure_groups"
+            },
+            "site": {
+              "$ref": "#/$defs/closure_groups"
+            }
+          },
+          "required": [
+            "medium",
+            "object_type",
+            "period",
+            "site"
+          ],
+          "type": "object"
+        },
+        "components": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "complete_c": {
+                "type": "boolean"
+              },
+              "m_g_member_ids": {
+                "items": {
+                  "$ref": "#/$defs/opaque_id"
+                },
+                "maxItems": 20000,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "members": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "context": {
+                      "$ref": "#/$defs/context"
+                    },
+                    "e_eligible": {
+                      "type": "boolean"
+                    },
+                    "f_id": {
+                      "$ref": "#/$defs/opaque_id"
+                    },
+                    "split_eligible": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "context",
+                    "e_eligible",
+                    "f_id",
+                    "split_eligible"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 20000,
+                "minItems": 1,
+                "type": "array"
+              },
+              "split_eligible_g": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "complete_c",
+              "m_g_member_ids",
+              "members",
+              "split_eligible_g"
+            ],
+            "type": "object"
+          },
+          "maxItems": 20000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "nuisance_semantics": {
+          "additionalProperties": false,
+          "properties": {
+            "nuisance_field_ids": {
+              "items": {
+                "$ref": "#/$defs/opaque_id"
+              },
+              "maxItems": 16,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "nuisance_vocabularies": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "canonical_value_ids": {
+                    "items": {
+                      "$ref": "#/$defs/opaque_id"
+                    },
+                    "maxItems": 20000,
+                    "minItems": 1,
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "field_id": {
+                    "$ref": "#/$defs/opaque_id"
+                  }
+                },
+                "required": [
+                  "canonical_value_ids",
+                  "field_id"
+                ],
+                "type": "object"
+              },
+              "maxItems": 16,
+              "type": "array"
+            },
+            "provenance_policy": {
+              "enum": [
+                "single_prespecified_regime",
+                "complete_canonical_nuisance_tuple"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "nuisance_field_ids",
+            "nuisance_vocabularies",
+            "provenance_policy"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "axis_order",
+        "closure_tables",
+        "components",
+        "nuisance_semantics"
+      ],
+      "type": "object"
+    },
+    "format_version": {
+      "const": "1.0.0",
+      "type": "string"
+    },
+    "gate_plan_sha256": {
+      "const": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "type": "string"
+    },
+    "parent_protocol_sha256": {
+      "const": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "type": "string"
+    },
+    "record_kind": {
+      "const": "nmfa_selector_inventory",
+      "type": "string"
+    },
+    "selector_plan_sha256": {
+      "const": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+      "type": "string"
+    }
+  },
+  "required": [
+    "claim_binding",
+    "eligible_split_inventory",
+    "format_version",
+    "gate_plan_sha256",
+    "parent_protocol_sha256",
+    "record_kind",
+    "selector_plan_sha256"
+  ],
+  "title": "NMFA source-free selector inventory",
+  "type": "object"
+}

@@ -197,6 +197,20 @@ real metadata, X, or Y access is authorized. The complete typed execution
 stack, external custody and rights, and a rights-compatible source remain
 mandatory future work.
 
+The first additive executor component is now the source-free
+[NMFA selector core V1](docs/NMFA_SELECTOR_CORE_V1.md). It closes canonical
+structural inventory validation, exact gate-projection digest rederivation,
+frozen-roster component identity, declared-nonce representation, exhaustive
+disjoint tuple enumeration, universal N2 support, split tickets, target-blind
+primary-F selection, and deterministic development/validation assignment. It
+agrees with the immutable gate on synthetic differential fixtures and is
+verified again from an isolated wheel. Its output is a protected declared
+assignment, not a realized split. It explicitly remains a development
+component rather than complete `E`: it authenticates neither the external
+digest/claim binding nor nonce provenance, one-use, or relation evidence, and
+it has no X, Y, model, metric, randomization-run, prospective, or activation
+surface.
+
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown

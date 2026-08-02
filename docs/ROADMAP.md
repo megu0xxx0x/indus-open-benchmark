@@ -423,6 +423,16 @@ Current assets:
   metrics; N1 support, matching, and runs; N2 permutations and runs; terminal
   precedence; prospective evaluation; receipt schemas; and the external chain.
   None of this may be deferred past registration.
+- [x] Implement the first non-operational executor component,
+  [NMFA selector core V1](NMFA_SELECTOR_CORE_V1.md): closed structural
+  inventory/declared-assignment contracts, exact gate-projection digest
+  rederivation, frozen-roster G identity, strict declared-nonce representation,
+  exhaustive split tuple enumeration, universal N2 support, immutable ticket
+  and primary-F framing, exact reexecution, and deterministic development/
+  validation assignment. This component is not complete `E`; it realizes no
+  split and does not authenticate digest/claim origins, nonce provenance or
+  one-use, relation-universe completeness, X/Y, metrics, controls, or
+  activation.
 - [ ] After that typed executor is audited, freeze a successor preflight and
   activation wrapper that authenticate the complete external inventory and
   relation universe, authority and rights evidence, provider-byte separation,

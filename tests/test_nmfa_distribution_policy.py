@@ -10,6 +10,9 @@ from tests.verify_nmfa_preflight_installed_distribution import (
 from tests.verify_nmfa_preregistration_installed_distribution import (
     metadata_preserves_exact_requirements as preregistration_requirements_valid,
 )
+from tests.verify_nmfa_selector_installed_distribution import (
+    metadata_preserves_exact_requirements as selector_requirements_valid,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,7 +42,11 @@ class NMFADistributionPolicyTest(unittest.TestCase):
                 "Requires-Dist: attrs==26.1.0\nRequires-Dist: attrs==26.1.0\n",
             ),
         )
-        for validator in (preflight_requirements_valid, preregistration_requirements_valid):
+        for validator in (
+            preflight_requirements_valid,
+            preregistration_requirements_valid,
+            selector_requirements_valid,
+        ):
             self.assertTrue(validator(valid, expected))
             for metadata in invalid[1:]:
                 self.assertFalse(validator(metadata, expected))

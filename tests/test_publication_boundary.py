@@ -16,14 +16,19 @@ PUBLIC_TEXT_FILES = (
     ROOT / "benchmark" / "numeral-metrology-functional-anchor-protocol-v1.json",
     ROOT / "benchmark" / "nmfa-value-blind-preregistration-evaluator-bundle-v1.json",
     ROOT / "benchmark" / "nmfa-value-blind-preregistration-gate-plan-v1.json",
+    ROOT / "benchmark" / "nmfa-selector-core-evaluator-bundle-v1.json",
+    ROOT / "benchmark" / "nmfa-selector-core-plan-v1.json",
 )
 PUBLIC_CODE_FILES = (
     ROOT / "src" / "indusbench" / "nmfa_preregistration.py",
+    ROOT / "src" / "indusbench" / "nmfa_selector_core.py",
     ROOT / "src" / "indusbench" / "source_reported_link_static_v2.py",
     ROOT / "tests" / "test_numeral_metrology_functional_anchor_protocol.py",
     ROOT / "tests" / "test_nmfa_preregistration.py",
+    ROOT / "tests" / "test_nmfa_selector_core.py",
     ROOT / "tests" / "test_source_reported_link_static_v2.py",
     ROOT / "tests" / "verify_nmfa_preregistration_installed_distribution.py",
+    ROOT / "tests" / "verify_nmfa_selector_installed_distribution.py",
     ROOT / "tests" / "verify_source_reported_link_installed_distribution.py",
 )
 PUBLIC_TEXT_ROOTS = (ROOT / ".github", ROOT / "docs", ROOT / "registry", ROOT / "schemas")

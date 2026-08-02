@@ -1,0 +1,94 @@
+{
+  "bundle_id": "nmfa-selector-core-evaluator-bundle-v1",
+  "created_at": "2026-08-02T15:50:25Z",
+  "files": [
+    {
+      "bytes": 11046,
+      "path": "benchmark/nmfa-selector-core-plan-v1.json",
+      "sha256": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 3181,
+      "path": "benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json",
+      "sha256": "sha256:ec9ba6fbaa5df13dce438f819114206da2d6ca6e68afb521476635d5abd91a79",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 30641,
+      "path": "benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json",
+      "sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 25450,
+      "path": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json",
+      "sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 11782,
+      "path": "schemas/nmfa-selector-core-plan.schema.json",
+      "sha256": "sha256:54784e1e554fdaac69d058d0f32619fad358d9d912d45c7caa3383b272902844",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 7893,
+      "path": "schemas/nmfa-selector-inventory.schema.json",
+      "sha256": "sha256:8a3be3bc73b393f620b3fe5c3ea87619c11b8791bcb996c4b790e03f4d03b382",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 6743,
+      "path": "schemas/nmfa-selector-receipt.schema.json",
+      "sha256": "sha256:7ff0e3a7d13ce6b83b2b5bcbc5f8c0e232805322732ec5107d3f387fa71c2735",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 4129,
+      "path": "src/indusbench/io.py",
+      "sha256": "sha256:7517f6da8724f64934b44492ab104e7357c081ca50ae859f66102a3b980b965c",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 44317,
+      "path": "src/indusbench/nmfa_selector_core.py",
+      "sha256": "sha256:df87085dea9a7141da77330958317b996b06f703e79491453feae56bd7bc25ae",
+      "verification": "runtime_and_ci"
+    }
+  ],
+  "format_version": "1.0.0",
+  "runtime_profile": {
+    "canonical_encoder": "indusbench.io:encode_json",
+    "dependencies": {
+      "jsonschema": "4.26.0"
+    },
+    "dependency_requirement": "jsonschema[format]==4.26.0",
+    "dependency_scope": "direct_declared_requirement_only_runtime_environment_not_attested",
+    "entrypoints": [
+      "indusbench.nmfa_selector_core:validate_nmfa_selector_inventory",
+      "indusbench.nmfa_selector_core:evaluate_nmfa_selector_inventory",
+      "indusbench.nmfa_selector_core:normalize_nmfa_split_nonce",
+      "indusbench.nmfa_selector_core:derive_nmfa_selector_assignment",
+      "indusbench.nmfa_selector_core:verify_nmfa_selector_assignment"
+    ],
+    "implementation": "CPython",
+    "integer_arithmetic": "arbitrary_precision_with_frozen_input_and_search_limits",
+    "supported_python_minors": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ]
+  },
+  "security_boundary": {
+    "activation_or_source_authority_included": false,
+    "complete_execution_bundle": false,
+    "external_nonce_trust_verified": false,
+    "network_clock_random_or_file_write_used": false,
+    "protected_declared_assignment_included": false,
+    "protected_inventory_included": false,
+    "runtime_environment_attested": false,
+    "source_or_target_values_included": false
+  }
+}

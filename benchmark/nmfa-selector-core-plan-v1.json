@@ -1,0 +1,243 @@
+{
+  "algorithms": {
+    "claim_binding": {
+      "assignment_semantics": "declared_only_and_never_authenticated_by_this_component",
+      "origin_verified_here": false,
+      "selector_inventory_binding": "included_in_the_whole_selector_inventory_domain_commitment"
+    },
+    "complement_assignment": {
+      "cycle": [
+        "development",
+        "development",
+        "validation"
+      ],
+      "order": "ascending_raw_G_digest_bytes_then_G_identifier"
+    },
+    "component_identity": {
+      "domain": "indusbench:nmfa:executor-g:v1",
+      "framing": "SHA256_UTF8_domain_then_NUL_then_canonical_JSON_object_with_sorted_member_f_ids",
+      "input_component_order": "canonical_member_F_roster_ascending_as_in_the_immutable_gate_projection",
+      "output_complement_order": "ascending_raw_G_digest_bytes_then_G_identifier",
+      "stability_scope": "frozen_historical_member_F_roster_only_prospective_attachments_must_not_rewrite_historical_G_identity"
+    },
+    "declared_assignment_commitment": {
+      "domain": "indusbench:nmfa:selector-assignment:v1",
+      "exact_reexecution": "rederive_from_raw_inventory_external_expected_digest_and_declared_nonce_then_require_exact_canonical_byte_equality",
+      "framing": "SHA256_UTF8_domain_then_NUL_then_exact_canonical_declared_assignment_JSON_with_terminal_LF",
+      "nonce_commitment": "plain_SHA256_of_the_declared_32_nonce_bytes",
+      "realized_split": false
+    },
+    "eligible_inventory_projection": {
+      "digest_domain": "indusbench:nmfa:eligible-split-inventory:v1",
+      "expected_digest_origin_verified_here": false,
+      "policy": "rederive_the_exact_immutable_gate_payload_digest_and_compare_to_a_separately_supplied_expected_digest",
+      "public_call_rule": "raw_inventory_bytes_and_the_external_expected_digest_are_required_again_for_every_analysis_derivation_and_verification_call"
+    },
+    "n2_universal_support": {
+      "historical_stratum": [
+        "assigned_cell",
+        "site",
+        "period",
+        "medium",
+        "object_type",
+        "ordered_nuisance_values"
+      ],
+      "minimum_movable_g": 64,
+      "minimum_movable_percent": 80,
+      "movable_g_definition": "sum_all_G_counts_in_assigned_cell_full_context_ordered_nuisance_strata_with_count_at_least_2",
+      "policy": "every_structurally_split_eligible_tuple_must_pass_and_N2_never_filters_the_ticket_roster"
+    },
+    "nonce_normalization": {
+      "assignment_is_realized_split": false,
+      "declared_nonce_may_be_retried_here": true,
+      "external_provenance_verified_here": false,
+      "representation": "exactly_64_lowercase_hex_characters_decoding_to_32_bytes"
+    },
+    "primary_f": {
+      "domain": "indusbench:nmfa:preregistration-primary-f:v1",
+      "holdout_candidates": "split_eligible_members_whose_context_triggers_the_assigned_cell",
+      "non_holdout_candidates": "all_split_eligible_members",
+      "rank": "minimum_SHA256_domain_NUL_gate_plan_sha256_NUL_ASCII_f_id_then_ASCII_f_id_tie_break"
+    },
+    "runtime_snapshot": {
+      "assignment_self_check": "canonical_schema_domain_digest_and_current_bundle_binding_revalidated_before_protected_payload_access",
+      "policy": "capture_validated_selector_bundle_digest_and_require_the_same_digest_immediately_before_analysis_or_assignment_return"
+    },
+    "selector_inventory_commitment": {
+      "domain": "indusbench:nmfa:selector-inventory:v1",
+      "framing": "SHA256_UTF8_domain_then_NUL_then_exact_canonical_whole_selector_inventory_JSON_with_terminal_LF"
+    },
+    "split_enumeration": {
+      "axis_order": [
+        "site",
+        "period",
+        "medium",
+        "object_type"
+      ],
+      "candidate_prefilter_minimum_trigger_g": 20,
+      "cell_assignment": "sequentially_disjoint_in_axis_order_over_remaining_G",
+      "cell_membership": "any_member_context_intersects_the_selected_axis_closure",
+      "cell_minimum_g": 20,
+      "complement_minimum_g": 80,
+      "eligible_g_minimum": 160,
+      "equivalence_deduplication": false,
+      "holdout_minimum_g": 80,
+      "holdout_trigger_requirement": "every_assigned_G_has_at_least_one_split_eligible_member_context_intersecting_that_axis_closure",
+      "receipt_assignment_order": "ascending_raw_G_digest_bytes_then_G_identifier",
+      "tuple_order": "lexicographic_ASCII_identifier_order",
+      "tuple_roster_digest_domain": "indusbench:nmfa:feasible-tuple-roster:v1",
+      "tuple_roster_digest_framing": "SHA256_UTF8_domain_then_NUL_then_canonical_JSON_object_with_complete_canonical_tuples_in_search_order_and_terminal_LF"
+    },
+    "split_ticket": {
+      "choice": "minimum_unsigned_digest_then_canonical_tuple_bytes_only_for_impossible_digest_tie",
+      "framing": "SHA256_raw_nonce_NUL_ASCII_eligible_split_inventory_sha256_NUL_canonical_tuple_JSON_with_terminal_LF"
+    }
+  },
+  "assurance_boundary": {
+    "claim_binding_origin_verified": false,
+    "complete_typed_execution_bundle": false,
+    "decipherment_claim_allowed": false,
+    "eligible_inventory_digest_origin_verified": false,
+    "execution_authorized": false,
+    "external_nonce_provenance_verified": false,
+    "external_registration_completed": false,
+    "numeric_target_access_allowed": false,
+    "prize_submission_eligible": false,
+    "real_inventory_included": false,
+    "relation_evidence_origin_verified": false,
+    "scientific_result": false,
+    "source_access_authorized": false,
+    "source_values_included": false,
+    "value_free_identifier_origin_verified": false
+  },
+  "bindings": {
+    "gate_plan_sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+    "parent_protocol_sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307"
+  },
+  "canonicalization": {
+    "encoding": "UTF-8_without_BOM_LF_terminated",
+    "floats": "forbidden",
+    "identifier_profiles": "gate_projection_uses_exact_hmac_sha256_lowerhex_ids_and_claim_binding_uses_exact_registry_id_lowerhex_ids",
+    "profile": "indusbench.io.encode_json_sort_keys_indent_2_v1"
+  },
+  "compiled_blockers": [
+    "CLAIM_BINDING_ORIGIN_UNBOUND",
+    "COMPLETE_RELATION_CLOSURE_UNBOUND",
+    "EXTERNAL_ELIGIBLE_INVENTORY_DIGEST_ORIGIN_UNBOUND",
+    "VALUE_FREE_IDENTIFIER_ORIGIN_UNBOUND",
+    "NONCE_EVENT_TRUST_UNBOUND",
+    "ONE_USE_CONSUMPTION_UNBOUND",
+    "TYPED_X_MODEL_UNBOUND",
+    "TYPED_Y_METRICS_UNBOUND",
+    "N1_N2_RUNNER_UNBOUND",
+    "PROSPECTIVE_EVALUATOR_UNBOUND",
+    "TERMINAL_ORCHESTRATOR_UNBOUND",
+    "ACTIVATION_WRAPPER_UNBOUND",
+    "COMPLETE_EXECUTION_BUNDLE_UNBOUND"
+  ],
+  "created_at": "2026-08-02T15:50:24Z",
+  "decision": {
+    "assignment_state": "DECLARED_SELECTOR_ASSIGNMENT_ONLY",
+    "contract_errors_are_scientific_results": false,
+    "derive_allowed_only_from": "READY_FOR_DECLARED_NONCE_ANALYSIS",
+    "limit_outcome_payload": "discard_tuple_roster_and_split_counts_but_preserve_charged_computation_counters",
+    "nonce_ready_state": "READY_FOR_DECLARED_NONCE_ANALYSIS",
+    "outcomes": [
+      "INSUFFICIENT_ELIGIBLE_G",
+      "COMPUTATION_LIMIT_BLOCKED",
+      "NO_FEASIBLE_DOMAIN_TUPLE",
+      "N2_UNIVERSAL_SUPPORT_BLOCKED",
+      "READY_FOR_DECLARED_NONCE_ANALYSIS",
+      "DECLARED_SELECTOR_ASSIGNMENT_ONLY"
+    ],
+    "precedence": [
+      "CONTRACT_ERROR_AS_FIXED_EXCEPTION",
+      "INSUFFICIENT_ELIGIBLE_G",
+      "COMPUTATION_LIMIT_BLOCKED",
+      "NO_FEASIBLE_DOMAIN_TUPLE",
+      "N2_UNIVERSAL_SUPPORT_BLOCKED",
+      "READY_FOR_DECLARED_NONCE_ANALYSIS",
+      "DECLARED_SELECTOR_ASSIGNMENT_ONLY"
+    ]
+  },
+  "fixed_vectors": {
+    "component_identity": {
+      "expected_g_id": "sha256:8c9cfae241fd2c4ccc72f354912c5d9ff42ce49d21b52b52d2a7bb286f953793",
+      "member_f_ids": [
+        "hmac-sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "hmac-sha256:2222222222222222222222222222222222222222222222222222222222222222"
+      ]
+    },
+    "nonce": {
+      "hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+    },
+    "primary_f_rank": {
+      "candidate_f_id": "hmac-sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "expected_rank_sha256": "sha256:dd89bf3fa32d41d560bf122c5c52cfa4d24a02d972187ab2476653decffdfac5",
+      "gate_plan_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "split_ticket": {
+      "canonical_tuple": [
+        "hmac-sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "hmac-sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "hmac-sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "hmac-sha256:4444444444444444444444444444444444444444444444444444444444444444"
+      ],
+      "eligible_split_inventory_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_ticket_sha256": "sha256:9154a3c3e25df28d782926dbefaa4fb57d3468112d40458040e55b11264993cf",
+      "nonce_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+    }
+  },
+  "format_version": "1.0.0",
+  "limits": {
+    "max_closure_members_per_group": 20000,
+    "max_context_groups_per_axis": 512,
+    "max_json_bytes": 67108864,
+    "max_json_depth": 64,
+    "max_json_nodes": 2000000,
+    "max_json_string_length": 16384,
+    "max_n2_primary_assignments": 2000000,
+    "max_n2_tuple_evaluations": 10000,
+    "max_nuisance_fields": 16,
+    "max_nuisance_values_per_field": 20000,
+    "max_primary_cache_entries": 200000,
+    "max_tuple_evaluations": 200000,
+    "max_units": 20000
+  },
+  "plan_id": "nmfa-selector-core-plan-v1",
+  "privacy": {
+    "protected_assignment_has_public_summary": false,
+    "protected_declared_assignments_may_be_committed": false,
+    "real_inventory_may_be_committed": false,
+    "repr_discloses_protected_values": false
+  },
+  "scope": {
+    "included": [
+      "canonical_selector_inventory_validation",
+      "exact_gate_eligible_inventory_projection_digest_rederivation",
+      "component_identity_stable_only_for_each_frozen_historical_member_roster",
+      "nonce_representation_normalization",
+      "complete_structural_tuple_enumeration",
+      "universal_N2_support_check",
+      "split_ticket_selection",
+      "target_blind_primary_F_selection",
+      "development_validation_assignment",
+      "protected_declared_selector_assignment_and_exact_reexecution"
+    ],
+    "omitted": [
+      "source_universe_completeness",
+      "claim_binding_origin_authentication",
+      "external_expected_inventory_digest_origin_authentication",
+      "value_free_identifier_origin_authentication_and_non_grinding",
+      "relation_evidence_authenticity_and_complete_closure",
+      "nonce_provider_trust_time_and_retry_absence",
+      "X_parser_model_and_predictions",
+      "Y_parser_unit_conversion_and_values",
+      "bootstrap_N1_N2_random_runs",
+      "confirmatory_and_prospective_metrics",
+      "scientific_terminal_orchestration",
+      "external_activation_and_runtime_attestation"
+    ],
+    "status": "development_component_not_complete_E"
+  }
+}
