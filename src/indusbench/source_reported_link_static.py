@@ -116,6 +116,8 @@ class _ResourceKey(StrEnum):
     RECEIPT_ENVELOPE_SCHEMA = "receipt_envelope_schema"
     REVISION_SET_SCHEMA = "revision_set_schema"
     COMPLETENESS_SCHEMA = "completeness_schema"
+    CUSTODY_CONTRACT_V2 = "custody_contract_v2"
+    CUSTODY_CONTRACT_V2_SCHEMA = "custody_contract_v2_schema"
 
 
 # Re-freezing these two exact V1 byte resources would invalidate frozen parent
@@ -568,7 +570,10 @@ def _read_exact_resource(
     return raw
 
 
-def _read_static_package(root: Path) -> dict[_ResourceKey, bytes]:
+def _read_static_package_exact(
+    root: Path,
+    specs: tuple[_StaticResourceSpec, ...],
+) -> dict[_ResourceKey, bytes]:
     _require_supported_platform()
     root = _validate_root_argument(root)
     parent_descriptor: int | None = None
@@ -629,7 +634,7 @@ def _read_static_package(root: Path) -> dict[_ResourceKey, bytes]:
             "schemas": schemas_descriptor,
         }
         raw_resources: dict[_ResourceKey, bytes] = {}
-        for spec in _RESOURCE_SPECS:
+        for spec in specs:
             raw_resources[spec.key] = _read_exact_resource(
                 directory_descriptors[spec.directory],
                 spec,
@@ -682,6 +687,12 @@ def _read_static_package(root: Path) -> dict[_ResourceKey, bytes]:
                 close_failed = True
         if close_failed:
             _fail(SourceLinkStaticErrorCode.RESOURCE_BOUNDARY_INVALID)
+
+
+def _read_static_package(root: Path) -> dict[_ResourceKey, bytes]:
+    """Read the frozen V1 exact-14 package surface."""
+
+    return _read_static_package_exact(root, _RESOURCE_SPECS)
 
 
 def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:

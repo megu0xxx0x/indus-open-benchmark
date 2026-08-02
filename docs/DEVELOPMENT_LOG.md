@@ -1117,3 +1117,69 @@ typed authenticated one-attempt authority boundary.
 No research source was requested or opened. No protected byte, receipt,
 observation, source-link/no-link result, join, translation, decipherment,
 submission, prize eligibility, or prize result exists.
+
+## 2026-08-02T10:12:22+09:00 — V2 exact-16 installed resolver implemented source-free
+
+The new
+[V2 exact-16 installed static resolver](SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md)
+is a sidecar to the unchanged V1 API. The shared private traversal now accepts
+an internally compiled resource tuple: V1 supplies its frozen exact 14 and V2
+supplies those 14 plus the wrapper and const schema. V2 therefore reads all 16
+files in one pinned descriptor traversal rather than combining two separate
+package snapshots.
+
+The V2 decoder requires each raw identity before strict JSON. It applies the
+frozen raw/canonical inequality and canonical size/hash canary only to the
+ordered historical pair, never returns the canonical projection, and requires
+canonical bytes for the other 14 resources. The resolver repeats every V1
+schema, parent, roster, schema-set, and digest check, then validates the V2
+const schema, exact-16 order, validation modes, binding pointers,
+incorporation, one-token composition, supersession rules, exact-eight names,
+self-cycle exclusion, and frozen nonclaims.
+
+The immutable result is explicitly
+`validated_package_local_exact16_only`. V1 remains exact 14 with the same
+snapshot, blockers, representation, and `strict_v1_resolver_eligible=False`.
+V2 also keeps strict V1 eligibility false and records authority not authorized,
+runtime not validated, source access not performed, result not established,
+and external activation blocked. The wrapper's historical
+`not_implemented`/false fields remain frozen rather than being rewritten.
+
+The build verifier now checks the resolver module in the wheel and executes
+V1 → V2 → V1 and V2 → V1 → V2 in fresh isolated processes. Pre-publication
+Linux validation completed at 2026-08-02 11:17:04 JST. The focused V1, V2,
+wrapper, and publication set passed 43/43 in 4.848 seconds; Ruff, formatting
+of all 193 files, and locked Pyright passed with zero findings. The complete
+suite passed 1,189 tests with 19 skips in 1,107.947 seconds. Fresh sdist and
+wheel builds, both installed-wheel orders, archive safety, publication,
+secret, and Markdown-link checks passed. The wheel contains 180 members and
+the sdist 371, with no duplicate, case-colliding, unsafe, linked, special, or
+forbidden credential-like member. Three independent final read-only AI audits
+reported P0/P1/P2 as 0/0/0 after their findings were fixed. This is
+engineering review, not external scientific review. Public CI evidence is
+pending publication.
+
+The source-link lane's next dependency order would be the missing dynamic
+schemas, exact generic preflight closure, runtime manifest/distribution,
+bootstrap trust, custody/recovery, acquisition, parser/evaluator, and typed
+one-attempt authority. That order is not the project's global next priority.
+The adopted efficiency audit rates further generic verifier infrastructure as
+low immediate information gain and the roadmap already defers it until a real
+experiment exposes a specific need. A read-only inventory also found a future
+runtime release blocker: the embedded deletion-record schema requires
+`pre_source_empty_workspace_cleanup` in its pre-source branch while omitting
+that value from the same property's outer enum. The frozen V1/V2 bytes remain
+unchanged, and that schema must not be copied into a new freeze without a
+separate source-free successor correction.
+
+The highest-value next source-free slice is therefore a narrow draft
+numeral/metrology functional-anchor protocol using the existing hypothesis
+schema: fixed independent data roles, holdouts, matched nulls, thresholds,
+and kill rules, with no source values or execution. It must remain `draft`
+until separately registered; it is not evidence or a preregistration receipt.
+No source access is authorized by this checkpoint.
+
+No research or protected source was requested or opened. No protected byte,
+receipt, pass, observation, source-link/no-link result, join, transcription,
+translation, decipherment evidence, submission, prize eligibility, or prize
+result exists.

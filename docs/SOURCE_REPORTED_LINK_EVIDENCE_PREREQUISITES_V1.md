@@ -254,8 +254,10 @@ The subsequent source-free
 now freezes the successor rule without modifying V1. It incorporates the V1
 contracts by exact raw hash and limits the alternate canonical check to the
 same ordered two resources. The wrapper and schema are packaged but not
-consumed by an installed resolver, so they do not yet establish V2
-package-local conformance or remove any runtime or authority blocker.
+consumed by an installed resolver at that checkpoint. The later
+[V2 exact-16 installed static resolver](SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md)
+now establishes only the distinct package-local conformance state. It removes
+no runtime or authority blocker.
 
 ## Non-execution and nonclaims
 
@@ -273,25 +275,23 @@ retention review, source-reported-link/no-link outcome, admitted join,
 transcription, translation, language identification, decipherment evidence,
 claim authorization, prize submission, prize eligibility, or prize result.
 
-## Next gate for a continuing agent
+## Deferred source-link activation gate
 
-Work must remain source-free while the following implementation checkpoint is
-built and independently validated:
+If a concrete source-link experiment later reactivates this lane, work must
+remain source-free while the following implementation checkpoint is built and
+independently validated:
 
-1. implement a dedicated V2-aware exact-16 static resolver against the frozen
-   wrapper and preserve both permanent V1 ineligibility and a distinct,
-   package-local-only V2 conformance state;
-2. freeze the missing dynamic schemas and exact generic resource preflight;
-3. implement the independent bootstrap verifier, fixed external trust-root
+1. freeze the missing dynamic schemas and exact generic resource preflight;
+2. implement the independent bootstrap verifier, fixed external trust-root
    interface, strict cross-artifact verifier, root classifier, terminalizer,
    one-time reservation, registry/ledger recovery, and custody supervisor;
-4. implement the exact five-request acquisition client, bounded deterministic
+3. implement the exact five-request acquisition client, bounded deterministic
    body-to-parser profile, closed parser codebook, two-pass evaluator, deletion
    evidence, review, and retention state machines without executing them;
-5. bind the V2 wrapper/schema, full transitive runtime manifest, and
+4. bind the V2 wrapper/schema, full transitive runtime manifest, and
    reproducible distribution to a new runtime commit and audit that frozen
    implementation; and
-6. only then obtain a new exact external authority proof that binds the
+5. only then obtain a new exact external authority proof that binds the
    V2-aware static conformance state and runtime commit and permits one
    complete attempt.
 
@@ -300,3 +300,19 @@ acquisition and two coded passes. A valid result would still be a bounded
 source-reported context-link finding, not a decipherment. It should feed the
 separate hypothesis-tournament and prospective-validation track without
 weakening any claim gate.
+
+This dependency order is not the global next priority. The adopted
+decipherment-efficiency audit and roadmap defer further generic runtime
+infrastructure until a real experiment exposes a reproducible need. The next
+source-free project slice is instead a narrow draft numeral/metrology
+functional-anchor protocol using existing hypothesis machinery.
+
+A later read-only inventory also found that the embedded deletion-record
+schema cannot yet be copied into a frozen external schema. Its pre-source
+branch requires `pre_source_empty_workspace_cleanup`, while the same
+property's outer enum omits that value. Draft 2020-12 requires both constraints
+to hold, so the branch is unreachable. Frozen V1/V2 bytes remain historical
+and unchanged; any reactivated schema lane must first introduce and validate
+a separate source-free successor correction. This finding does not affect the
+exact-14 or exact-16 package-local static loaders and does not authorize
+runtime or source access.

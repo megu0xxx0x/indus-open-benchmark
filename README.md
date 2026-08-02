@@ -144,11 +144,19 @@ and source contracts by raw SHA-256 and supersedes canonical-byte equality
 only for the same ordered two historical resources after both their raw
 identities and fixed canonical re-encoding canaries match. Every other
 resource remains canonical-only. The wrapper and schema are packaged and
-independently checked as two additional resources, but the existing exact-14
-loader does not consume them. V1 eligibility remains false; the V2 resolver,
-runtime manifest/distribution, trust root, authority, acquisition, and
-execution remain absent. Packaging the wrapper does not authorize source
-access or establish scientific evidence.
+independently checked as two additional resources. At that freeze the
+existing exact-14 loader did not consume them.
+
+The later source-free
+[exact-16 installed static resolver V2](docs/SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md)
+now consumes the frozen wrapper through a separate zero-argument API. It reads
+all 16 selected resources in one descriptor-bound package traversal, checks
+the exact-two canaries plus V1/V2 schema and composition bindings, and returns
+only a V2-specific package-local conformance snapshot. The V1 exact-14 API,
+snapshot, blockers, and ineligibility remain unchanged. The runtime
+manifest/distribution, trust root, authority, acquisition, and execution are
+still absent; package-local V2 conformance does not authorize source access or
+establish scientific evidence.
 
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also

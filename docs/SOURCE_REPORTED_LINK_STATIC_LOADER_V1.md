@@ -146,13 +146,16 @@ identities and fixed canonical re-encoding canaries match. The canonical
 projections remain canaries only and cannot be persisted, returned, written
 back, or adopted as identity.
 
-This V1 implementation remains historical and unchanged: its resource count
-is still 14, its output still contains six static identities, and
-`strict_v1_resolver_eligible` remains `False`. The V2 wrapper and `const`
-schema are packaged and independently verified as a separate exact-two
-surface, but no installed resolver consumes them at this checkpoint. A later
-dedicated V2-aware loader must validate the resulting exact-16 package-local
-surface without renaming or weakening the V1 state.
+This V1 public contract and behavior remain historical and unchanged: its
+resource count is still 14, its output still contains six static identities,
+and `strict_v1_resolver_eligible` remains `False`. The shared private
+filesystem traversal was later generalized to accept an internally compiled
+resource tuple without changing those V1 semantics. The V2 wrapper and
+`const` schema were packaged and independently verified as a separate
+exact-two surface without being consumed at that checkpoint. The later
+[V2 exact-16 installed static resolver](SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md)
+now consumes them through a distinct API and snapshot without renaming,
+weakening, or changing this V1 state.
 
 ## Schema and cross-binding validation
 

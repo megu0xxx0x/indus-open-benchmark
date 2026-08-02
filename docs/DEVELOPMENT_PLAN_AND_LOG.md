@@ -28,8 +28,9 @@ separate and traceable.
 - The static source-reported-link policy, nonretroactive source
   registration/rights contract, four evidence-artifact schemas, and protected
   ephemeral custody/deletion contract are frozen. A source-free V2
-  static-resource compatibility wrapper is also frozen and packaged but has
-  no installed resolver. No dynamic revision receipt, authority proof,
+  static-resource compatibility wrapper is also frozen and packaged, and a
+  distinct exact-16 installed resolver now validates its package-local static
+  surface. No dynamic revision receipt, authority proof,
   protected source byte, custody workspace, runtime bootstrap/parser/evaluator,
   observation, result, or admitted join exists.
   State remains `contract_blocked`, authorization is `not_authorized`, and
@@ -87,6 +88,9 @@ separate and traceable.
      transcription-promotion tooling.
    - Exact-byte KP1982 layout and proposal-value-stripped 700-cell bootstrap
      assignment preparation/verification tooling.
+   - Separate exact-14 V1 and exact-16 V2 installed source-link static
+     loaders. V2 establishes package-local conformance only and leaves V1
+     permanently ineligible.
    - Non-circular KP1982 structurally distinct bootstrap-review records,
      private two-review audit, and no-invention adjudication verification
      tooling. The software does not establish real-world independence.
@@ -2333,3 +2337,69 @@ No research source was requested or opened. No protected source byte,
 receipt, pass, observation, source-link/no-link result, join, transcription,
 translation, decipherment evidence, submission, prize eligibility, or prize
 result exists.
+
+## V2 exact-16 installed static resolver — 2026-08-02
+
+**Implementation checkpoint recorded at:** 2026-08-02 10:12:22 JST
+
+The source-free
+[V2 exact-16 installed static resolver](SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md)
+now consumes the frozen compatibility wrapper through a distinct sidecar API.
+It opens all 16 compiled resources during one descriptor-bound package
+traversal, validates the historical exact-two canonical canaries, repeats the
+complete V1 schema and cross-binding validation, and checks the V2 const
+schema, incorporation, composition, exact-eight crosswalk, self-cycle, and
+nonclaim boundaries.
+
+The V1 public API remains exact 14. Its six identities, two canonical-byte
+blockers, representation, and `strict_v1_resolver_eligible=False` result are
+unchanged. The V2 snapshot uses a distinct
+`validated_package_local_exact16_only` state and keeps V1 eligibility false.
+It records authority as not authorized, runtime as not validated, source
+access as not performed, result as not established, and activation as blocked
+on external prerequisites. The frozen wrapper's earlier `not_implemented`
+and false-conformance fields remain unchanged historical values.
+
+The installed-wheel verifier checks the new module and runs both V1 → V2 → V1
+and V2 → V1 → V2 from fresh isolated processes in an empty working directory.
+Pre-publication Linux validation completed at 2026-08-02 11:17:04 JST. The
+focused V1, V2, wrapper, and publication set passed 43/43 in 4.848 seconds;
+Ruff, all-193-file formatting, and locked Pyright passed with zero findings.
+The complete suite passed 1,189 tests with 19 skips in 1,107.947 seconds.
+Fresh sdist and wheel builds, both installed-wheel orders, archive safety,
+publication, staged-secret, and Markdown-link checks passed. The wheel has
+180 members and the sdist 371, with no duplicate, case-colliding, unsafe,
+linked, special, or forbidden credential-like member. Three independent final
+read-only AI audits reported P0/P1/P2 as 0/0/0 after their findings were
+fixed. This is engineering review, not external scientific review. Public CI
+evidence is pending publication.
+
+This checkpoint does not supply a transitive runtime manifest, reproducible
+runtime distribution, bootstrap trust root, typed authority proof,
+custody/recovery runtime, acquisition client, parser, evaluator, dynamic
+artifact instance, or source access. Within this source-link lane, the missing
+dynamic schemas and exact generic resource preflight precede the remaining
+runtime and trust boundary, and adding only the two missing runtime binding
+values remains insufficient. This lane is deferred as a global priority until
+a real experiment exposes a specific need: it is long, authority-dependent,
+and can yield only a bounded context-link result rather than decipherment.
+
+A read-only schema inventory found an additional future-runtime release
+blocker. The embedded deletion-record schema's pre-source branch requires
+`pre_source_empty_workspace_cleanup`, but the same property's outer enum omits
+that value, making the branch unreachable under Draft 2020-12 intersection
+semantics. Frozen V1/V2 bytes are unchanged. Any future schema work must first
+use a separate source-free successor correction rather than copying the
+embedded schema.
+
+The next source-free project slice is instead a narrow draft
+numeral/metrology functional-anchor protocol using the existing hypothesis
+schema. It will fix independent data roles, holdouts, matched nulls,
+thresholds, and kill rules without source values or execution, and will remain
+`draft` until separately registered. It is not an external preregistration,
+evidence, or a result.
+
+No research or protected source was requested or opened. No external source
+byte, receipt, pass, observation, source-link/no-link result, join,
+transcription, translation, decipherment evidence, submission, prize
+eligibility, or prize result exists.

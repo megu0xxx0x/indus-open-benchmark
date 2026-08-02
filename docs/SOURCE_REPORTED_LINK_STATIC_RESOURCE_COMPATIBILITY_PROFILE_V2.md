@@ -134,9 +134,9 @@ installed loader remains an exact-14 loader and its
 
 ## Current and future boundary
 
-This checkpoint has no V2-aware production loader. It establishes only a
-reviewable, exact-byte successor specification and package presence. In
-particular:
+At this wrapper-freeze checkpoint there was no V2-aware production loader. It
+established only a reviewable, exact-byte successor specification and package
+presence. Its embedded historical state therefore remains:
 
 - `resolver_implementation_status=not_implemented`;
 - `successor_static_profile_conformant=false`;
@@ -144,9 +144,13 @@ particular:
 - execution is `not_executed`; and
 - source access did not occur.
 
-Before any later activation, a separate implementation must validate the
-exact 16-resource package-local surface and preserve a V2-specific state name
-rather than a generic `eligible=true`. A complete transitive manifest,
+The later
+[V2 exact-16 installed static resolver](SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md)
+now validates that package-local surface through a separate API and reports
+`package_local_v2_static_profile_conformant=True`. It does not rewrite the
+wrapper's frozen historical values or use a generic `eligible=true` state.
+
+Before any activation, a complete transitive manifest,
 distinct reproducible runtime distribution, bootstrap verifier, fixed trust
 root, typed signed authority proof, custody/recovery runtime, acquisition
 client, parser, evaluator, and remaining closed schemas must also be present

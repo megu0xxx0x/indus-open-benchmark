@@ -41,6 +41,7 @@ Current assets:
 - [static source evidence-prerequisite contract](SOURCE_REPORTED_LINK_EVIDENCE_PREREQUISITES_V1.md)
 - [installed static loader and canonical-resource preflight](SOURCE_REPORTED_LINK_STATIC_LOADER_V1.md)
 - [V2 static-resource compatibility wrapper](SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
+- [V2 exact-16 installed static resolver](SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md)
 - [Chanhu-Daro context crosswalk audit](CHANHU_DARO_CONTEXT_CROSSWALK_2026-07-28.md)
 - [2026-07-28 Helsinki corpus fast-path audit](HELSINKI_CORPUS_FAST_PATH_2026-07-28.md)
 - [2026-07-28 global known-script source audit](V3_GLOBAL_KNOWN_SCRIPT_SOURCE_AUDIT_2026-07-28.md)
@@ -132,19 +133,28 @@ Current assets:
   unchanged, and keep strict V1 eligibility false. The wrapper is a
   source-free successor specification, not an activated resolver, authority,
   runtime, source access, or scientific result.
-- [ ] Without source access, implement and independently review the remaining
-  runtime boundary: independent bootstrap verifier and fixed external
+- [x] Without source access, implement and independently review a distinct
+  V2-aware exact-16 installed static resolver against the frozen wrapper. Read
+  all 16 resources in one descriptor-bound package traversal, validate the
+  exact-two canaries and V1/V2 cross-bindings, preserve the exact-14 V1 API and
+  its permanent ineligibility, and return only a V2-specific package-local
+  conformance state. Verify both loader orders from an isolated built wheel.
+  This is not package authenticity, runtime eligibility, authority, source
+  access, evidence, or a scientific result.
+- [ ] Deferred: without source access, implement and independently review the
+  remaining runtime boundary only when a concrete source-link experiment
+  exposes a reproducible need: independent bootstrap verifier and fixed external
   trust-root interface, root classifier and terminalizer, one-time
   reservation, append-only registry/ledger recovery, custody supervisor,
   exact acquisition client, deterministic parser, two-pass evaluator, and
-  review/retention state machines. First implement a dedicated V2-aware
-  exact-16 static resolver against the frozen compatibility wrapper while
-  preserving a V2-specific package-local conformance state and permanent V1
-  ineligibility. Freeze the missing dynamic schemas,
+  review/retention state machines. Freeze the missing dynamic schemas,
   complete transitive runtime manifest, reproducible runtime distribution,
   and distinct runtime commit before any authority request. Bind the V2
   wrapper/schema externally; adding only the two runtime identities cannot
   activate the successor or make the current snapshot strict-V1-eligible.
+  Before freezing any deletion-record schema, correct through a separate
+  successor the embedded pre-source branch whose required cleanup reason is
+  absent from its outer enum. Do not rewrite frozen V1/V2 bytes.
 - [ ] Only after that implementation checkpoint passes, obtain a new exact
   authenticated authority proof binding both the static prerequisite and
   runtime commits and permitting one complete five-member acquisition. Then
@@ -384,8 +394,12 @@ Current assets:
   and official landing URLs. Do not copy catalogue metadata or images without
   a separate reuse basis; do not call all 413 site-origin candidates
   inscribed objects.
-- [ ] Preregister numeral/metrology and repeated-tablet functional-anchor
-  tests with site, period, medium, and object holdouts.
+- [ ] Next source-free slice: draft and freeze one narrow numeral/metrology
+  functional-anchor protocol with independent data roles, site, period,
+  medium, and object holdouts, matched nulls, thresholds, and kill rules.
+  Keep it `draft` until separately registered, and include no source values,
+  observations, or result. Repeated-tablet tests remain a later separate
+  protocol.
 - [ ] Run equal-budget linguistic, non-linguistic, hybrid, and multilingual
   hypotheses against the same sealed tests and matched controls.
 

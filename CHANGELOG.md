@@ -7,6 +7,22 @@ immutable content-addressed identifiers for corpus and split releases.
 
 ### Added
 
+- A distinct source-free
+  [exact-16 installed static resolver V2](docs/SOURCE_REPORTED_LINK_STATIC_RESOLVER_V2.md).
+  Its zero-argument sidecar API reads all 16 compiled resources in one
+  descriptor-bound package traversal, enforces the exact-two canonical
+  canaries, validates the V2 `const` schema and all V1/V2 composition and
+  cross-bindings, and returns only a package-local V2 conformance snapshot.
+  The exact-14 V1 API, snapshot, blockers, representation, and permanent
+  strict-V1 ineligibility remain unchanged.
+
+  The built-wheel verifier now checks the V2 module and runs V1 → V2 → V1 and
+  V2 → V1 → V2 in fresh isolated processes from an empty working directory.
+  The V2 result remains `not_authorized`, runtime-not-validated,
+  source-access-not-performed, result-not-established, and externally blocked.
+  It is not package provenance, authority, source access, evidence,
+  translation, decipherment, submission, or prize eligibility.
+
 - A source-free
   [V2 static-resource compatibility wrapper](docs/SOURCE_REPORTED_LINK_STATIC_RESOURCE_COMPATIBILITY_PROFILE_V2.md)
   and closed Draft 2020-12 `const` schema. The wrapper incorporates the frozen
@@ -22,8 +38,9 @@ immutable content-addressed identifiers for corpus and split releases.
   and its post-build verifier checks member identity, repository parity,
   canonical bytes, schema validity, and `const` equality. The existing
   exact-14 loader and six-identity snapshot are unchanged, strict V1
-  eligibility remains false, and no V2-aware resolver is implemented. The
-  wrapper does not establish package provenance, runtime eligibility,
+  eligibility remains false, and no V2-aware resolver existed at that wrapper
+  freeze. The later exact-16 sidecar consumes it without modifying the frozen
+  wrapper. Neither checkpoint establishes package provenance, runtime eligibility,
   authority, source access, evidence, translation, decipherment, submission,
   or prize eligibility.
 

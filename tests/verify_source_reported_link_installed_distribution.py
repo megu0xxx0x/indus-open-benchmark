@@ -108,13 +108,15 @@ sys.addaudithook(deny_network)
 
 import indusbench
 from indusbench.source_reported_link_static import load_installed_source_link_static
+from indusbench.source_reported_link_static_v2 import (
+    load_installed_source_link_static_profile_v2,
+)
 
 package_file = pathlib.Path(indusbench.__file__).resolve()
 if not package_file.is_relative_to(wheel_root):
     raise SystemExit("source checkout shadowed the extracted wheel")
 
-snapshot = load_installed_source_link_static()
-expected = {
+expected_v1 = {
     "artifact_schema_set_sha256": (
         "sha256:f4cd8e02a6065ff57170182a0347e2e10bb9f922c5fadf2fbf37694148c5ab9f"
     ),
@@ -134,24 +136,141 @@ expected = {
         "sha256:e5efa34c8efb4b0b8f0530c9fe4c3e84b8248ecaba0c2cee054825a553133584"
     ),
 }
-observed = {name: getattr(snapshot, name) for name in expected}
-if observed != expected:
-    raise SystemExit("static snapshot mismatch")
-if snapshot.resource_count != 14:
-    raise SystemExit("static resource count mismatch")
-if snapshot.missing_binding_fields != (
-    "runtime_distribution_sha256",
-    "transitive_runtime_input_manifest_sha256",
-):
-    raise SystemExit("missing-binding boundary mismatch")
-if snapshot.strict_v1_resolver_eligible is not False:
-    raise SystemExit("strict-v1 eligibility boundary mismatch")
-if snapshot.strict_v1_resolver_blockers != (
-    "source_registry_noncanonical_raw_bytes",
-    "source_registry_schema_noncanonical_raw_bytes",
-):
-    raise SystemExit("strict-v1 blocker boundary mismatch")
-print(json.dumps({"isolated_wheel_static_snapshot": "ok"}, sort_keys=True))
+expected_v2 = {
+    "artifact_schema_set_sha256": (
+        "sha256:f4cd8e02a6065ff57170182a0347e2e10bb9f922c5fadf2fbf37694148c5ab9f"
+    ),
+    "compatibility_profile_id": (
+        "source-reported-link-exact-two-static-byte-compatibility-v2"
+    ),
+    "compatibility_wrapper_sha256": (
+        "sha256:a064331361057947e8b4079dcc114e3d7918459a538107039199f7074bc4c86c"
+    ),
+    "compatibility_wrapper_schema_sha256": (
+        "sha256:1523534dabf734c2381d454f4c7a387f271fd4088f81c3d15a4d0e4915fed671"
+    ),
+    "incorporated_v1_custody_contract_sha256": (
+        "sha256:917306d82d7e52551d8a88cc3a82448bbce4b595ed7d08eeaa681ac090222914"
+    ),
+    "ordered_source_roster_sha256": (
+        "sha256:28fe425d8e3d2dcb0b6d6b5c89a3d5d8c3bcea0ab0b6ec86158e185bd0f7a86f"
+    ),
+    "source_contract_sha256": (
+        "sha256:e319e8bdd0021ea58986155788118481c82166a13424ff49d5c949f58876286f"
+    ),
+    "source_policy_sha256": (
+        "sha256:c29c4c2b4beb672e5ce47d6dbc1eb56bbbfe242ef5dd84a09d36a45e672e1d90"
+    ),
+    "source_registry_sha256": (
+        "sha256:e5efa34c8efb4b0b8f0530c9fe4c3e84b8248ecaba0c2cee054825a553133584"
+    ),
+}
+
+def validate_v1(snapshot):
+    observed = {name: getattr(snapshot, name) for name in expected_v1}
+    if observed != expected_v1:
+        raise SystemExit("V1 static snapshot mismatch")
+    if snapshot.resource_count != 14:
+        raise SystemExit("V1 static resource count mismatch")
+    if snapshot.missing_binding_fields != (
+        "runtime_distribution_sha256",
+        "transitive_runtime_input_manifest_sha256",
+    ):
+        raise SystemExit("V1 missing-binding boundary mismatch")
+    if snapshot.strict_v1_resolver_eligible is not False:
+        raise SystemExit("V1 eligibility boundary mismatch")
+    if snapshot.strict_v1_resolver_blockers != (
+        "source_registry_noncanonical_raw_bytes",
+        "source_registry_schema_noncanonical_raw_bytes",
+    ):
+        raise SystemExit("V1 blocker boundary mismatch")
+    return {
+        **observed,
+        "resource_count": snapshot.resource_count,
+        "missing_binding_fields": snapshot.missing_binding_fields,
+        "strict_v1_resolver_eligible": snapshot.strict_v1_resolver_eligible,
+        "strict_v1_resolver_blockers": snapshot.strict_v1_resolver_blockers,
+    }
+
+def validate_v2(snapshot):
+    observed = {name: getattr(snapshot, name) for name in expected_v2}
+    if observed != expected_v2:
+        raise SystemExit("V2 static snapshot mismatch")
+    if snapshot.resource_count != 16:
+        raise SystemExit("V2 static resource count mismatch")
+    if snapshot.missing_binding_fields != (
+        "runtime_distribution_sha256",
+        "transitive_runtime_input_manifest_sha256",
+    ):
+        raise SystemExit("V2 missing-binding boundary mismatch")
+    if snapshot.package_local_static_prevalidation_status != (
+        "validated_package_local_exact16_only"
+    ):
+        raise SystemExit("V2 package-local status mismatch")
+    if snapshot.package_local_v2_static_profile_conformant is not True:
+        raise SystemExit("V2 package-local conformance mismatch")
+    if snapshot.strict_v1_resolver_eligible is not False:
+        raise SystemExit("V2 strict-V1 boundary mismatch")
+    if snapshot.strict_v1_resolver_blockers != (
+        "source_registry_noncanonical_raw_bytes",
+        "source_registry_schema_noncanonical_raw_bytes",
+    ):
+        raise SystemExit("V2 strict-V1 blocker boundary mismatch")
+    if (
+        snapshot.authority_status != "not_authorized"
+        or snapshot.runtime_status != "not_validated"
+        or snapshot.source_access_status != "not_performed"
+        or snapshot.result_status != "not_established"
+        or snapshot.activation_status != "blocked_external_prerequisites_absent"
+    ):
+        raise SystemExit("V2 activation nonclaim mismatch")
+    for absent in (
+        "custody_contract_sha256",
+        "eligible",
+        "authorized",
+        "runtime_distribution_sha256",
+        "transitive_runtime_input_manifest_sha256",
+        "protected_bytes",
+        "decoded_wrapper",
+    ):
+        if hasattr(snapshot, absent):
+            raise SystemExit("V2 forbidden snapshot field")
+    return {
+        **observed,
+        "resource_count": snapshot.resource_count,
+        "missing_binding_fields": snapshot.missing_binding_fields,
+        "package_local_static_prevalidation_status": (
+            snapshot.package_local_static_prevalidation_status
+        ),
+        "package_local_v2_static_profile_conformant": (
+            snapshot.package_local_v2_static_profile_conformant
+        ),
+        "strict_v1_resolver_eligible": snapshot.strict_v1_resolver_eligible,
+        "strict_v1_resolver_blockers": snapshot.strict_v1_resolver_blockers,
+        "authority_status": snapshot.authority_status,
+        "runtime_status": snapshot.runtime_status,
+        "source_access_status": snapshot.source_access_status,
+        "result_status": snapshot.result_status,
+        "activation_status": snapshot.activation_status,
+    }
+
+order = sys.argv[2]
+if order == "forward":
+    v1_before = validate_v1(load_installed_source_link_static())
+    validate_v2(load_installed_source_link_static_profile_v2())
+    v1_after = validate_v1(load_installed_source_link_static())
+    if v1_before != v1_after:
+        raise SystemExit("V1 snapshot mutated by V2 load")
+elif order == "reverse":
+    v2_before = validate_v2(load_installed_source_link_static_profile_v2())
+    validate_v1(load_installed_source_link_static())
+    v2_after = validate_v2(load_installed_source_link_static_profile_v2())
+    if v2_before != v2_after:
+        raise SystemExit("V2 snapshot mutated by V1 load")
+else:
+    raise SystemExit("invalid isolated verification order")
+
+print(json.dumps({"isolated_wheel_static_snapshots": order}, sort_keys=True))
 """
 
 
@@ -285,6 +404,19 @@ def verify(wheel: Path) -> None:
         Draft202012Validator.check_schema(wrapper_schema)
         Draft202012Validator(wrapper_schema).validate(wrapper)
 
+        v2_module_name = "indusbench/source_reported_link_static_v2.py"
+        matching_v2_modules = [member for member in members if member.filename == v2_module_name]
+        if len(matching_v2_modules) != 1:
+            _fail("V2 resolver module is absent or duplicated")
+        v2_module_member = matching_v2_modules[0]
+        if not stat.S_ISREG(v2_module_member.external_attr >> 16):
+            _fail("V2 resolver module is not a regular wheel member")
+        if (
+            archive.read(v2_module_member)
+            != (ROOT / "src" / "indusbench" / "source_reported_link_static_v2.py").read_bytes()
+        ):
+            _fail("wheel and repository V2 resolver module bytes differ")
+
         previous_umask = os.umask(0o022)
         try:
             with tempfile.TemporaryDirectory(prefix="indus-wheel-static-") as raw_directory:
@@ -293,30 +425,43 @@ def verify(wheel: Path) -> None:
                 extracted.mkdir()
                 empty_cwd.mkdir()
                 archive.extractall(extracted)
-                completed = subprocess.run(
-                    [
-                        sys.executable,
-                        "-I",
-                        "-s",
-                        "-B",
-                        "-c",
-                        _ISOLATED_PROGRAM,
-                        str(extracted),
-                    ],
-                    cwd=empty_cwd,
-                    check=False,
-                    capture_output=True,
-                    text=True,
-                    timeout=60,
-                )
+                completed_runs = []
+                for order in ("forward", "reverse"):
+                    completed_runs.append(
+                        (
+                            order,
+                            subprocess.run(
+                                [
+                                    sys.executable,
+                                    "-I",
+                                    "-s",
+                                    "-B",
+                                    "-c",
+                                    _ISOLATED_PROGRAM,
+                                    str(extracted),
+                                    order,
+                                ],
+                                cwd=empty_cwd,
+                                check=False,
+                                capture_output=True,
+                                text=True,
+                                timeout=60,
+                            ),
+                        )
+                    )
         finally:
             os.umask(previous_umask)
-    if completed.returncode != 0:
-        _fail("isolated wheel loader rejected the distribution")
-    if completed.stdout.strip() != '{"isolated_wheel_static_snapshot": "ok"}':
-        _fail("isolated wheel loader emitted unexpected output")
-    if completed.stderr:
-        _fail("isolated wheel loader emitted stderr")
+    for order, completed in completed_runs:
+        if completed.returncode != 0:
+            _fail("isolated wheel loader rejected the distribution")
+        expected_stdout = json.dumps(
+            {"isolated_wheel_static_snapshots": order},
+            sort_keys=True,
+        )
+        if completed.stdout.strip() != expected_stdout:
+            _fail("isolated wheel loader emitted unexpected output")
+        if completed.stderr:
+            _fail("isolated wheel loader emitted stderr")
 
 
 def main() -> None:

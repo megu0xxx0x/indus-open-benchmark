@@ -14,6 +14,11 @@ PUBLIC_TEXT_FILES = (
     ROOT / "README.md",
     ROOT / "SECURITY.md",
 )
+PUBLIC_CODE_FILES = (
+    ROOT / "src" / "indusbench" / "source_reported_link_static_v2.py",
+    ROOT / "tests" / "test_source_reported_link_static_v2.py",
+    ROOT / "tests" / "verify_source_reported_link_installed_distribution.py",
+)
 PUBLIC_TEXT_ROOTS = (ROOT / ".github", ROOT / "docs", ROOT / "registry", ROOT / "schemas")
 TEXT_SUFFIXES = {".json", ".md", ".toml", ".yaml", ".yml"}
 
@@ -49,7 +54,7 @@ OPERATIONAL_PUBLIC_DOCS = (
 
 
 def public_text_paths() -> list[Path]:
-    paths = [path for path in PUBLIC_TEXT_FILES if path.exists()]
+    paths = [path for path in (*PUBLIC_TEXT_FILES, *PUBLIC_CODE_FILES) if path.exists()]
     for directory in PUBLIC_TEXT_ROOTS:
         paths.extend(
             path
