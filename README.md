@@ -224,6 +224,15 @@ confirmatory/prospective orchestration, terminal decisions, and activation
 remain blocked. Synthetic arithmetic success is not a scientific result or
 evidence of decipherment.
 
+The third additive component is the source-free
+[NMFA deterministic resampling core V1](docs/NMFA_RESAMPLING_CORE_V1.md).
+It preserves the frozen N1-compatible HMAC framing, uses unbiased full-block
+index draws, orders exact Spearman and paired score-minus-length states without
+float or Q12, and reexecutes the fixed 10,000-run four-cell bootstrap into one
+protected aggregate receipt. It does not authenticate the supplied chain head
+or receipt origins, evaluate a confirmatory gate, run N1/N2, access real data,
+or establish a reading, decipherment, submission, or prize claim.
+
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown

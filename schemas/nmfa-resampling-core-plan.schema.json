@@ -1,0 +1,351 @@
+{
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-resampling-core-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "algorithms": {
+      "bootstrap": {
+        "cell_order": [
+          "site",
+          "period",
+          "medium",
+          "object_type"
+        ],
+        "cell_roster": "every_and_only_selector_assignment_row_with_partition_holdout_metric_roster_must_equal_this_set_in_canonical_G_F_order",
+        "draw_order": "run_index_then_fixed_cell_order_then_local_draw_index",
+        "draws_per_cell": "exactly_the_observed_cell_size_with_replacement",
+        "paired_sample": "one_identical_sampled_G_occurrence_sequence_is_used_for_score_l_total_l_distinct_and_target",
+        "replicate_policy": "all_10000_runs_are_retained_without_discard_redraw_retry_resalt_or_deduplication",
+        "run_indices": [
+          0,
+          9999
+        ],
+        "runs": 10000,
+        "undefined_candidate": "exact_numeric_sentinel_negative_one",
+        "undefined_length": "exact_numeric_sentinel_zero",
+        "undefined_metric_statuses": [
+          "undefined_insufficient_observations",
+          "undefined_zero_variance_both",
+          "undefined_zero_variance_left",
+          "undefined_zero_variance_target"
+        ]
+      },
+      "counter_stream": {
+        "algorithm": "HMAC-SHA256_RFC_2104",
+        "block_interpretation": "complete_32_byte_block_as_one_unsigned_256_bit_big_endian_integer",
+        "counter_scope": "starts_at_zero_for_each_label_and_run_and_advances_once_per_generated_block",
+        "framing": "UTF8_exact_label_then_NUL_then_uint64be_run_index_then_NUL_then_uint64be_counter",
+        "key": "raw_32_bytes_decoded_from_the_separately_supplied_pre_Y_frozen_protocol_chain_head_sha256",
+        "key_origin_verified_here": false,
+        "labels": [
+          "bootstrap-v1",
+          "control-n1-v1",
+          "null-n2-v1",
+          "prospective-bootstrap-v1",
+          "prospective-null-n2-v1"
+        ],
+        "purpose": "deterministic_reproducible_schedule_not_entropy_DRBG_or_unpredictability_attestation",
+        "uniform_index": "for_bound_m_accept_u_below_2_pow_256_minus_2_pow_256_mod_m_then_return_u_mod_m",
+        "unit_bound_draw": "returns_zero_and_consumes_no_HMAC_block"
+      },
+      "delta_order": {
+        "delta": "candidate_rho_minus_max_of_exact_zero_total_length_rho_and_distinct_length_rho",
+        "delta_sign": "exact_candidate_vs_selected_length_rho_comparison",
+        "length_tie_precedence": [
+          "zero",
+          "l_total",
+          "l_distinct"
+        ],
+        "method": "same_sign_delta_squared_magnitude_comparison_reduced_to_exact_sign_of_R_plus_P_sqrt_A_plus_Q_sqrt_B",
+        "numeric_approximation_used": false,
+        "one_radical_sign": "sign_first_then_squared_rational_cross_multiplication_when_terms_have_opposite_sign",
+        "q12_decision_use": false,
+        "two_radical_sign": "split_t_equals_R_plus_P_sqrt_A_if_t_and_Q_have_opposite_sign_compare_t_squared_to_Q_squared_times_B_using_one_radical_sign",
+        "undefined_or_limit_error_is_numeric_sentinel": false
+      },
+      "digest_framing": {
+        "bootstrap_receipt_domain": "indusbench:nmfa:bootstrap-state:v1",
+        "canonical_payload": "UTF8_JSON_ensure_ascii_false_allow_nan_false_indent_2_sort_keys_true_terminal_LF",
+        "cell_roster_digest": "SHA256_domain_indusbench_colon_nmfa_colon_bootstrap_cell_roster_colon_v1_NUL_then_canonical_JSON_object_with_rows_of_g_id_primary_f_id_cell_in_metric_roster_order",
+        "raw_digest": "SHA256_raw_bytes_without_domain_prefix",
+        "schedule_domain": "indusbench:nmfa:bootstrap-schedule:v1",
+        "schedule_fields_in_exact_order": [
+          "UTF8_schedule_domain_then_NUL",
+          "raw32_decoded_cell_roster_sha256",
+          "raw32_decoded_frozen_protocol_chain_head_sha256_which_is_the_HMAC_key",
+          "uint64be_run_count",
+          "uint64be_total_holdout_rows",
+          "uint64be_cell_count_fixed_to_4",
+          "four_uint64be_cell_sizes_in_site_period_medium_object_type_order",
+          "each_accepted_local_index_as_uint64be_in_run_cell_draw_order"
+        ],
+        "wire_format": "lowercase_sha256_colon_64_hex"
+      },
+      "endpoint": {
+        "delta_lower": "250th_one_based_value_after_exact_ascending_delta_order",
+        "index_zero_based": 249,
+        "rho_lower": "250th_one_based_value_after_exact_ascending_candidate_rho_order",
+        "sort": "deterministic_stable_merge_sort_with_run_index_as_representation_only_exact_tie_breaker"
+      },
+      "input_alignment": {
+        "full_roster": "must_equal_every_selector_assignment_G_F_row_exactly",
+        "join_key": [
+          "g_id",
+          "primary_f_id"
+        ],
+        "metric_roster": "must_equal_every_and_only_holdout_selector_assignment_G_F_row",
+        "receipt_binding": "selector_score_target_and_rosters_must_share_claim_binding_assignment_roster_and_selector_assignment_raw_digest",
+        "selector_assignment_origin_verified_here": false
+      },
+      "resource_drift": {
+        "policy": "capture_the_validated_resampling_bundle_digest_at_entry_and_require_the_same_complete_bundle_before_return_or_protected_receipt_access",
+        "predecessor_bundles": "selector_and_measurement_receipt_decoders_independently_validate_their_own_immutable_bundles"
+      },
+      "rho_order": {
+        "bootstrap_sentinels": [
+          "negative_one",
+          "zero"
+        ],
+        "defined_form": "covariance_C_divided_by_square_root_of_positive_denominator_radicand_D",
+        "method": "sign_then_C_squared_times_other_D_exact_integer_cross_multiplication_reverse_magnitude_order_for_two_negative_values",
+        "primitive_supported_sentinels": [
+          "negative_one",
+          "zero",
+          "positive_one_for_future_control_compatibility_only"
+        ]
+      }
+    },
+    "assurance_boundary": {
+      "N1_or_N2_control_evaluated": false,
+      "activation_or_source_authority_included": false,
+      "complete_typed_execution_bundle": false,
+      "confirmatory_gate_evaluated": false,
+      "decipherment_claim_allowed": false,
+      "external_frozen_protocol_chain_head_origin_verified": false,
+      "external_receipt_or_roster_origin_verified": false,
+      "numeric_reading_fitted": false,
+      "prize_submission_eligible": false,
+      "process_custody_information_separation_enforced": false,
+      "prospective_evaluation_included": false,
+      "real_source_or_target_values_included": false,
+      "runtime_environment_attested": false,
+      "scientific_result": false
+    },
+    "bindings": {
+      "gate_bundle_sha256": "sha256:ec9ba6fbaa5df13dce438f819114206da2d6ca6e68afb521476635d5abd91a79",
+      "gate_plan_sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "measurement_bundle_sha256": "sha256:c1b8d41cf6acc7edca9b9e0f0381fe309a2b862020d185d44b0df4f294e8ff12",
+      "measurement_plan_sha256": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+      "parent_protocol_sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "selector_bundle_sha256": "sha256:c8aa0101a5e0396dbd7a577154302e1823235d31075bd2407247a8fbe0209eb6",
+      "selector_plan_sha256": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190"
+    },
+    "compiled_blockers": [
+      "CLAIM_BINDING_ORIGIN_UNBOUND",
+      "SELECTOR_ASSIGNMENT_ROSTER_ORIGIN_UNBOUND",
+      "METRIC_ROSTER_ORIGIN_UNBOUND",
+      "MODEL_DIGEST_ORIGIN_UNBOUND",
+      "TARGET_CONTRACT_DIGEST_ORIGIN_UNBOUND",
+      "X_BATCH_DIGEST_ORIGIN_UNBOUND",
+      "Y_BATCH_DIGEST_ORIGIN_UNBOUND",
+      "SCORE_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+      "TARGET_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+      "FROZEN_PROTOCOL_CHAIN_HEAD_ORIGIN_UNBOUND",
+      "PROCESS_CUSTODY_INFORMATION_SEPARATION_UNBOUND",
+      "X_SOURCE_PROJECTION_ORIGIN_UNBOUND",
+      "Y_TARGET_PROVENANCE_ORIGIN_UNBOUND",
+      "MODEL_SELECTION_AND_FREEZE_ORCHESTRATOR_UNBOUND",
+      "N1_N2_RUNNER_UNBOUND",
+      "CONFIRMATORY_GATE_ORCHESTRATOR_UNBOUND",
+      "PROSPECTIVE_EVALUATOR_UNBOUND",
+      "TERMINAL_ORCHESTRATOR_UNBOUND",
+      "ACTIVATION_WRAPPER_UNBOUND",
+      "COMPLETE_EXECUTION_BUNDLE_UNBOUND"
+    ],
+    "created_at": "2026-08-03T12:18:40Z",
+    "decision": {
+      "contract_or_resource_errors_are_scientific_results": false,
+      "delta_lower_endpoint_is_exact": true,
+      "scientific_gate_evaluated": false,
+      "state": "EXACT_PAIRED_BOOTSTRAP_STATE_ONLY"
+    },
+    "fixed_vectors": {
+      "bootstrap_schedule": {
+        "accepted_local_indices": [
+          1,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          2
+        ],
+        "cell_roster_rows": [
+          {
+            "cell": "site",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "primary_f_id": "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000064"
+          },
+          {
+            "cell": "site",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+            "primary_f_id": "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000065"
+          },
+          {
+            "cell": "period",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000002",
+            "primary_f_id": "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000066"
+          },
+          {
+            "cell": "period",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000003",
+            "primary_f_id": "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000067"
+          },
+          {
+            "cell": "period",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000004",
+            "primary_f_id": "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000068"
+          },
+          {
+            "cell": "medium",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000005",
+            "primary_f_id": "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000069"
+          },
+          {
+            "cell": "medium",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000006",
+            "primary_f_id": "hmac-sha256:000000000000000000000000000000000000000000000000000000000000006a"
+          },
+          {
+            "cell": "object_type",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000007",
+            "primary_f_id": "hmac-sha256:000000000000000000000000000000000000000000000000000000000000006b"
+          },
+          {
+            "cell": "object_type",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000008",
+            "primary_f_id": "hmac-sha256:000000000000000000000000000000000000000000000000000000000000006c"
+          },
+          {
+            "cell": "object_type",
+            "g_id": "sha256:0000000000000000000000000000000000000000000000000000000000000009",
+            "primary_f_id": "hmac-sha256:000000000000000000000000000000000000000000000000000000000000006d"
+          }
+        ],
+        "cell_sizes": [
+          2,
+          3,
+          2,
+          3
+        ],
+        "expected_cell_roster_sha256_hex": "b14c5a9fc5787e8bcaf68527b2e6c05bba0a2221bc13cb9ee61a084af94bb7a4",
+        "expected_schedule_sha256_hex": "2223dfaf141a821bb7882d93f3c49531e81be23178d9b4470f08b4c0ad4cd83a",
+        "frozen_protocol_chain_head_sha256_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "run_count": 2,
+        "total_holdout_rows": 10
+      },
+      "counter_blocks_zero_key": [
+        {
+          "block_hex": "bdf831d83dd0388424ddf3caebff8f92826c5c3e725a2fe1a46e587863669335",
+          "counter": 0,
+          "label": "control-n1-v1",
+          "message_hex": "636f6e74726f6c2d6e312d7631000000000000000000000000000000000000",
+          "run_index": 0
+        },
+        {
+          "block_hex": "796035efff9fa84895ee049e6aaaca77666e2972cce850da3fdd951f8b22bdc9",
+          "counter": 0,
+          "label": "bootstrap-v1",
+          "run_index": 0
+        },
+        {
+          "block_hex": "a616fc573b1c3a9b436db069b82b90b5cbfad6a75b1f18a9c3cb228e1216c9ff",
+          "counter": 0,
+          "label": "null-n2-v1",
+          "run_index": 0
+        }
+      ],
+      "delta_order": {
+        "left": "1_over_sqrt_2_minus_1_over_sqrt_3",
+        "relation": "less_than",
+        "right": "1_over_sqrt_3_minus_1_over_sqrt_5"
+      },
+      "rejection_bound_10": {
+        "accept_highest": "2_pow_256_minus_7",
+        "accepted_index": 9,
+        "first_rejected": "2_pow_256_minus_6"
+      },
+      "scaled_radicand_equality": {
+        "left": "1_over_sqrt_2",
+        "relation": "equal",
+        "right": "2_over_sqrt_8"
+      }
+    },
+    "format_version": "1.0.0",
+    "limits": {
+      "bootstrap_runs": 10000,
+      "counter_attempts_per_draw": 16,
+      "counter_blocks_per_run": 320000,
+      "counter_index_bound_maximum_inclusive": "2_pow_128",
+      "exact_derived_operand_bits_maximum": 262144,
+      "exact_rho_component_bits_maximum": 2048,
+      "holdout_minimum_units": 80,
+      "max_json_bytes": 67108864,
+      "max_json_depth": 64,
+      "max_json_nodes": 2000000,
+      "max_json_string_length": 16384,
+      "max_sampled_positions": 200000000,
+      "max_units": 20000,
+      "minimum_units_per_cell": 20
+    },
+    "plan_id": "nmfa-resampling-core-plan-v1",
+    "privacy": {
+      "exact_arithmetic_repr_discloses_protected_values": false,
+      "protected_receipt_has_item_rows": false,
+      "protected_receipt_repr_discloses_protected_values": false,
+      "real_X_Y_or_assignment_may_be_committed": false,
+      "schedule_materialized_or_exposed": false
+    },
+    "references": [
+      "https://www.rfc-editor.org/rfc/rfc2104",
+      "https://doi.org/10.1214/aos/1176344552"
+    ],
+    "scope": {
+      "included": [
+        "frozen_N1_compatible_HMAC_counter_block_framing",
+        "unbiased_full_block_rejection_sampling",
+        "exact_defined_and_sentinel_rho_order",
+        "exact_paired_delta_order_without_floating_point_or_Q12",
+        "exact_selector_holdout_and_measurement_roster_alignment",
+        "10000_run_four_cell_stratified_paired_G_bootstrap",
+        "streamed_schedule_commitment",
+        "protected_aggregate_exact_lower_endpoint_receipt",
+        "complete_deterministic_receipt_reexecution"
+      ],
+      "omitted": [
+        "real_source_or_target_access",
+        "external_digest_provenance_or_chain_head_authentication",
+        "N1_class_universe_support_matching_unranking_or_runs",
+        "N2_full_context_nuisance_strata_or_permutation_runs",
+        "confirmatory_overall_point_cell_or_control_gate_decision",
+        "prospective_bootstrap_or_permutation",
+        "scientific_terminal_or_activation_orchestration",
+        "numeric_S_to_Y_reading",
+        "complete_execution_bundle_E"
+      ],
+      "status": "development_component_not_complete_E"
+    }
+  }
+}

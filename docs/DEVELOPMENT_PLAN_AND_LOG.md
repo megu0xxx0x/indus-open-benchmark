@@ -2817,3 +2817,120 @@ At this handoff, publication and public CI for the measurement slice remain
 pending. The next highest-value coding milestone is the deterministic
 counter-stream and resampling core, not source access and not a claimed
 reading.
+
+## NMFA source-free deterministic resampling core V1 — 2026-08-03
+
+**Checkpoint recorded:** 2026-08-03 22:01 JST
+
+The third additive executor component toward typed bundle `E` is implemented,
+audited, packaged, and ready for publication. It preserves every frozen
+parent, candidate-gate, activation-preflight, selector, and measurement byte.
+
+### Completed state
+
+The new component fixes one RFC 2104 HMAC-SHA256 counter stream with five
+closed labels, full-block unbiased rejection sampling, a per-draw attempt cap,
+and deterministic per-run accounting. Exact rho comparison uses sign and
+integer squared cross products. Exact paired candidate-minus-length ordering
+uses only bounded integer and rational arithmetic and the sign of at most two
+radicals; float, Decimal, Q12, and iterative precision are absent from the
+evaluator.
+
+The public bootstrap entrypoint requires exact full-roster, every-and-only
+holdout metric-roster, selector-assignment, score-receipt, and target-receipt
+alignment. It performs exactly 10,000 paired, four-cell, with-replacement
+runs. The same sampled G occurrences drive score, total length, distinct
+length, and target. Undefined candidate rho becomes exact negative one; each
+undefined length rho becomes exact zero. Every run is retained, and the 250th
+one-based exact candidate-rho and paired-delta values are recorded in one
+aggregate protected receipt. Verification reexecutes all 10,000 runs and
+requires canonical byte equality.
+
+Final engineering audit hardening closed all reported P2/P3 defects before
+freeze:
+
+1. protected bootstrap states are factory-issued and reject ordinary direct
+   construction; external receipts must use full reexecution rather than a
+   self-digest;
+2. only the four frozen predecessor undefined statuses may become sentinels;
+3. candidate and length endpoint schemas and runtime checks now forbid
+   generation-impossible sentinel roles;
+4. rho-component and derived-intermediate bit ceilings are separate and
+   checked;
+5. the normative schedule vector derives a canonical ten-row roster digest,
+   accepted indices, and final commitment from distinct nonzero roster/key
+   material, with field-swap and omission negatives; and
+6. aggregate counter receipts must satisfy both directions of the exact
+   maximum-versus-total rejection feasibility inequality.
+
+The evaluator bundle contains 20 exact runtime resources. The wheel verifier
+checks safe ZIP structure, every RECORD hash and size, one metadata directory,
+exact dependency metadata, complete repository/wheel inventory parity,
+canonical plan/schema validity, isolated source-free imports, fixed counter,
+exact-order, and schedule vectors, and a literal 10,000-run bootstrap
+snapshot. All six installed-distribution verifiers pass against the same
+built wheel.
+
+### Verification record
+
+- Focused resampling, distribution-policy, and publication-boundary suite:
+  47 tests passed in 15.619 seconds.
+- Ruff formatting and lint: clean. Pyright: zero errors, warnings, or
+  informational findings.
+- Three independent read-only AI-agent engineering audits, not human or
+  external scientific review, converged after fixes with no open P0, P1, P2,
+  or P3 finding.
+- Linux reference environment: 1,342 tests passed, 19 expected skips, zero
+  failures or errors, 1,144.168 seconds test time and 1,145.53 seconds wall
+  time.
+- A Darwin-host full run was not release-valid: existing strict filesystem
+  ancestry tests reject that host's temporary-directory and file-semantics
+  surface. It reported 31 failures and 56 errors before the separate Linux
+  reference run passed; none was in the new resampling tests.
+- Changed-file Gitleaks, focused Semgrep, offline high/critical Trivy,
+  publication-boundary tests, public topology search, canonical JSON/schema,
+  bundle parity, and `git diff --check`: clean. Full-tree secret alerts remain
+  only the unchanged known public fixed-vector false positives already logged.
+
+### Boundary that remains in force
+
+This is still `development_component_not_complete_E`. The component does not
+authenticate the external chain-head, roster, receipt, claim, authority,
+chronology, one-use, or custody origins. Factory-issued Python state is an API
+misuse barrier, not same-process authentication. It contains no real X or Y,
+does not run N1 or N2, does not evaluate confirmatory or prospective gates,
+and does not authorize real metadata or value access.
+
+There is still no reading, translation, scientific result, decipherment,
+prize eligibility, prize submission, or award. Do not report this engineering
+checkpoint as any of those states.
+
+### Continuation order for the next AI agent
+
+1. Implement N2 before N1. Revalidate the existing structural selector
+   inventory and assignment to derive a protected pre-Y full-context stratum
+   row for every and only holdout primary G. Bind assigned cell, all four
+   canonical context axes, the complete ordered nuisance tuple, and a derived
+   stratum identity; recompute the movable-support gate exactly.
+2. Implement 99,999 `null-n2-v1` whole-G within-stratum permutations. Start
+   each stratum from its original labeled donor roster for every run, use a
+   descending unbiased shuffle, retain identities and duplicate schedules,
+   stream the schedule commitment, compute exact rho, the fixed 0.99 order
+   statistic, exceedance count, and add-one state, then verify by complete
+   reexecution. Do not emit a scientific gate verdict in this slice.
+3. Implement N1 after separately typing the target-blind allograph/class
+   universe, development-only occurrence and G-prevalence bins, complete and
+   disjoint alternative pools, Hall feasibility, exact matching count,
+   holdout count surface, lexicographic unranking, and all 99,999 pre-Y-frozen
+   assignments.
+4. Add confirmatory point/cell/control orchestration, exact terminal
+   precedence, prospective chronology and relation reclosure, pre-Y
+   prediction receipts, prospective bootstrap/permutation, and one final
+   content-addressed `E` bundle.
+5. Only a new successor preflight and externally authenticated activation
+   wrapper may bind completed `E`. Real-source access remains a separate
+   authority decision and is not authorized by this checkpoint.
+
+The next concrete coding task is therefore the source-free N2 full-context
+stratum and permutation core, not publication of a claim and not an attempted
+translation.

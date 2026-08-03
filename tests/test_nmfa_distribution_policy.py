@@ -13,6 +13,9 @@ from tests.verify_nmfa_preflight_installed_distribution import (
 from tests.verify_nmfa_preregistration_installed_distribution import (
     metadata_preserves_exact_requirements as preregistration_requirements_valid,
 )
+from tests.verify_nmfa_resampling_installed_distribution import (
+    metadata_preserves_exact_requirements as resampling_requirements_valid,
+)
 from tests.verify_nmfa_selector_installed_distribution import (
     metadata_preserves_exact_requirements as selector_requirements_valid,
 )
@@ -50,6 +53,7 @@ class NMFADistributionPolicyTest(unittest.TestCase):
             preregistration_requirements_valid,
             selector_requirements_valid,
             measurement_requirements_valid,
+            resampling_requirements_valid,
         ):
             self.assertTrue(validator(valid, expected))
             for metadata in invalid[1:]:

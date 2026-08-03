@@ -443,8 +443,27 @@ Current assets:
   origins or process separation and does not implement delta ordering,
   bootstrap, N1/N2 runs, gates, prospective evaluation, terminals, or
   activation.
-- [ ] After that typed executor is audited, freeze a successor preflight and
-  activation wrapper that authenticate the complete external inventory and
+- [x] Implement the third non-operational executor component,
+  [NMFA deterministic resampling core V1](NMFA_RESAMPLING_CORE_V1.md): the
+  frozen N1-compatible HMAC counter framing, unbiased index draws, exact rho
+  and paired-delta ordering, complete holdout/cell alignment, and the fixed
+  10,000-run paired four-cell bootstrap with protected aggregate receipt and
+  exact reexecution. It does not authenticate the chain-head or receipt
+  origins and does not implement N1/N2, gates, prospective evaluation,
+  terminals, activation, or complete `E`.
+- [ ] Implement the fourth source-free component as the N2 full-context
+  control core. Revalidate the selector inventory and assignment to derive one
+  pre-Y protected full-C stratum receipt for every holdout primary G, then run
+  99,999 whole-G within-stratum permutations with `null-n2-v1`, exact rho/
+  quantile/add-one states, schedule commitment, and byte-exact reexecution.
+  Keep N1 and every scientific/orchestration blocker open.
+- [ ] Implement N1 only after separately typing the target-blind allograph/
+  class universe, development-only occurrence and G-prevalence bins, complete
+  alternative pools, Hall feasibility, exact matching counts, holdout count
+  surface, lexicographic unranking, and 99,999 pre-Y-frozen assignments.
+- [ ] After the complete typed executor is audited, freeze a successor
+  preflight and activation wrapper that authenticate the complete external
+  inventory and
   relation universe, authority and rights evidence, provider-byte separation,
   ledger prefix, trusted time, one-use registry, and post-consumption barrier
   CAS. Do not patch the blocked V1 companion's null identities in place.

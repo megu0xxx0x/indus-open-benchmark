@@ -1,0 +1,162 @@
+{
+  "bundle_id": "nmfa-resampling-core-evaluator-bundle-v1",
+  "created_at": "2026-08-03T12:18:41Z",
+  "files": [
+    {
+      "bytes": 5876,
+      "path": "benchmark/nmfa-measurement-core-evaluator-bundle-v1.json",
+      "sha256": "sha256:c1b8d41cf6acc7edca9b9e0f0381fe309a2b862020d185d44b0df4f294e8ff12",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 14270,
+      "path": "benchmark/nmfa-measurement-core-plan-v1.json",
+      "sha256": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 14574,
+      "path": "benchmark/nmfa-resampling-core-plan-v1.json",
+      "sha256": "sha256:0dc48fbfa188ce7bef6ce6a229fe9ea9639ff9ba607828ce4cda21ff3c3c0549",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 3493,
+      "path": "benchmark/nmfa-selector-core-evaluator-bundle-v1.json",
+      "sha256": "sha256:c8aa0101a5e0396dbd7a577154302e1823235d31075bd2407247a8fbe0209eb6",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 11046,
+      "path": "benchmark/nmfa-selector-core-plan-v1.json",
+      "sha256": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 3181,
+      "path": "benchmark/nmfa-value-blind-preregistration-evaluator-bundle-v1.json",
+      "sha256": "sha256:ec9ba6fbaa5df13dce438f819114206da2d6ca6e68afb521476635d5abd91a79",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 30641,
+      "path": "benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json",
+      "sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 25450,
+      "path": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json",
+      "sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 14904,
+      "path": "schemas/nmfa-bootstrap-receipt.schema.json",
+      "sha256": "sha256:42b4f1073c1b230ba723b5e84d8f2fe7588b5e34641731df066f177837f6ac1a",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 15441,
+      "path": "schemas/nmfa-resampling-core-plan.schema.json",
+      "sha256": "sha256:5233a22ffaf6bb4b4e7c9459184854452289fd445751e3e97700060104ad070a",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 6743,
+      "path": "schemas/nmfa-selector-receipt.schema.json",
+      "sha256": "sha256:7ff0e3a7d13ce6b83b2b5bcbc5f8c0e232805322732ec5107d3f387fa71c2735",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 4129,
+      "path": "src/indusbench/io.py",
+      "sha256": "sha256:7517f6da8724f64934b44492ab104e7357c081ca50ae859f66102a3b980b965c",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 32867,
+      "path": "src/indusbench/nmfa_bootstrap_core.py",
+      "sha256": "sha256:6815d7d0c6dcc848861b855d9233922e87d3e6ba9113e5d0b58731d906e3efb0",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 7706,
+      "path": "src/indusbench/nmfa_counter_stream.py",
+      "sha256": "sha256:1ec39499c5a3ab99f87df0321171784125f4f2921280bb016a82b817678da147",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 11954,
+      "path": "src/indusbench/nmfa_exact_order.py",
+      "sha256": "sha256:1f62824f50772d99e95c78a4dff92ad898b1f7042b7b1cc451305257c1d0496e",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 21502,
+      "path": "src/indusbench/nmfa_measurement_common.py",
+      "sha256": "sha256:a3160ab62318889e953e6578bd95e23cc2877aae75e8f72b246be4bb07f4b7ab",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 19135,
+      "path": "src/indusbench/nmfa_rank_statistics_core.py",
+      "sha256": "sha256:eb4c4d5a8dd94c02148d787b15461e3d62d08e7551579cc88d6b4c1c12290d0a",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 16927,
+      "path": "src/indusbench/nmfa_resampling_common.py",
+      "sha256": "sha256:5a926887f1e21936b86995bdcffd844cd0004c3aefdb14db99156196b8000376",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 11312,
+      "path": "src/indusbench/nmfa_x_model_core.py",
+      "sha256": "sha256:a176e4760f6656a6ad78c02b9972a76daf071325a767748f2de449f292e2f060",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 12588,
+      "path": "src/indusbench/nmfa_y_rational_core.py",
+      "sha256": "sha256:aa38e727be3d92c46b9db781318018449166c8939fa312a7ffeaca20b2f729ba",
+      "verification": "runtime_and_ci"
+    }
+  ],
+  "format_version": "1.0.0",
+  "runtime_profile": {
+    "canonical_encoder": "indusbench.io:encode_json",
+    "dependencies": {
+      "jsonschema": "4.26.0"
+    },
+    "dependency_requirement": "jsonschema[format]==4.26.0",
+    "dependency_scope": "direct_declared_requirement_only_runtime_environment_not_attested",
+    "entrypoints": [
+      "indusbench.nmfa_resampling_common:load_installed_nmfa_resampling_plan",
+      "indusbench.nmfa_counter_stream:nmfa_hmac_counter_block",
+      "indusbench.nmfa_counter_stream:NMFACounterStream",
+      "indusbench.nmfa_exact_order:compare_exact_rho",
+      "indusbench.nmfa_exact_order:compare_exact_paired_delta",
+      "indusbench.nmfa_bootstrap_core:evaluate_nmfa_paired_bootstrap",
+      "indusbench.nmfa_bootstrap_core:verify_nmfa_bootstrap_receipt"
+    ],
+    "implementation": "CPython",
+    "integer_arithmetic": "exact_bounded_integer_and_fraction_intermediates",
+    "supported_python_minors": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ]
+  },
+  "security_boundary": {
+    "activation_or_source_authority_included": false,
+    "complete_execution_bundle": false,
+    "external_chain_head_or_receipt_origin_verified": false,
+    "network_clock_random_or_file_write_used": false,
+    "protected_input_or_receipt_included": false,
+    "real_source_or_target_values_included": false,
+    "runtime_environment_attested": false,
+    "scientific_result": false
+  }
+}

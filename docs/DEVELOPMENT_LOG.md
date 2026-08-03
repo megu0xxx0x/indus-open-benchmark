@@ -1493,3 +1493,38 @@ confirmatory/prospective orchestration and a final audited `E` bundle.
 - No real source, inventory, transcription, target, model choice, split,
   prediction, scientific result, reading, decipherment, submission, or prize
   state was created.
+
+## 2026-08-03 — NMFA deterministic resampling core V1
+
+**Checkpoint recorded:** 2026-08-03 22:01 JST
+
+- Added the third source-free executor component: a closed HMAC-SHA256 counter
+  stream, unbiased bounded-index draws, exact rho and paired multi-radical
+  delta ordering, and the fixed 10,000-run four-cell paired bootstrap.
+- The evaluator binds the complete selector assignment, every-and-only
+  holdout metric roster, score and target receipts, and a separately supplied
+  chain-head checksum. It returns only protected aggregate exact endpoints and
+  deterministic consumption commitments; verification reexecutes every run
+  and requires receipt-byte equality.
+- Final AI-agent engineering audits closed direct protected-state
+  construction, unknown-status sentinel conversion, role-ambiguous endpoint
+  sentinels, under-specified arithmetic caps, a weak schedule vector, and
+  impossible counter-aggregate combinations. Final review has no open P0–P3
+  finding; this is not human or external scientific review.
+- Focused tests passed 47/47. The Linux reference environment passed 1,342
+  tests with 19 expected skips and no failures or errors in 1,144.168 seconds.
+  Ruff, Pyright, all six same-wheel installed verifiers, Gitleaks on changed
+  files, Semgrep, offline high/critical Trivy, publication-boundary tests,
+  canonical JSON/schema, bundle parity, and diff checks passed.
+- A separate Darwin-host full run was not release-valid because legacy strict
+  filesystem-safety tests reject that host's temporary-directory ancestry and
+  file semantics. The Linux reference result above is the authoritative full
+  regression result; all new focused tests passed on both hosts.
+- The component still authenticates no external origin or custody, accesses no
+  real X/Y, runs neither N1 nor N2, and emits no scientific result, reading,
+  translation, decipherment, submission, prize eligibility, or award.
+- Next implement N2 first: a pre-Y protected full-context stratum receipt from
+  existing selector inputs, followed by 99,999 `null-n2-v1` whole-G
+  within-stratum permutations and exact quantile/add-one state. Then implement
+  N1's separately typed class universe, development count bins, Hall support,
+  exact matching/unranking, holdout count surface, and 99,999 assignments.

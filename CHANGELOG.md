@@ -8,6 +8,19 @@ immutable content-addressed identifiers for corpus and split releases.
 ### Added
 
 - A source-free
+  [NMFA deterministic resampling core V1](docs/NMFA_RESAMPLING_CORE_V1.md)
+  with the frozen HMAC-SHA256 counter framing, unbiased full-block rejection
+  draws, exact rho and paired multi-radical delta ordering, the fixed 10,000-
+  run four-cell bootstrap, streamed schedule commitments, protected aggregate
+  endpoints, exact reexecution, and installed-wheel checks. N1/N2 typed input
+  surfaces, scientific gates, real-data authority, orchestration,
+  decipherment, submission, and prize eligibility remain unimplemented.
+  Final audit hardening makes the aggregate state factory-issued, closes the
+  four allowed undefined statuses and endpoint sentinel roles, separates rho
+  component from derived-arithmetic limits, and derives the schedule vector
+  from distinct canonical roster and key material.
+
+- A source-free
   [NMFA exact measurement core V1](docs/NMFA_MEASUREMENT_CORE_V1.md) with
   separate X scoring, Y rational normalization, and joint exact-rank modules;
   closed canonical plans, schemas, and protected receipts; individually unique
