@@ -1,0 +1,416 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "claim_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_family_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "claim_slot_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "predecessor_chain_head_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_family_id",
+        "claim_slot_id",
+        "experiment_instance_id",
+        "predecessor_chain_head_sha256"
+      ],
+      "type": "object"
+    },
+    "defined_metric": {
+      "additionalProperties": false,
+      "properties": {
+        "covariance_c": {
+          "$ref": "#/$defs/signed_decimal"
+        },
+        "denominator_radicand": {
+          "$ref": "#/$defs/unsigned_decimal"
+        },
+        "distinct_left_levels": {
+          "maximum": 20000,
+          "minimum": 2,
+          "type": "integer"
+        },
+        "distinct_target_levels": {
+          "maximum": 20000,
+          "minimum": 2,
+          "type": "integer"
+        },
+        "left_doubled_ranks_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "n": {
+          "maximum": 20000,
+          "minimum": 2,
+          "type": "integer"
+        },
+        "rho_decimal_12": {
+          "pattern": "^(?:0\\.[0-9]{12}|1\\.000000000000|-(?:0\\.(?!000000000000$)[0-9]{12}|1\\.000000000000))$",
+          "type": "string"
+        },
+        "rho_scaled_1e12": {
+          "maximum": 1000000000000,
+          "minimum": -1000000000000,
+          "type": "integer"
+        },
+        "status": {
+          "const": "defined",
+          "type": "string"
+        },
+        "target_doubled_ranks_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "variance_left": {
+          "$ref": "#/$defs/unsigned_decimal"
+        },
+        "variance_target": {
+          "$ref": "#/$defs/unsigned_decimal"
+        }
+      },
+      "required": [
+        "covariance_c",
+        "denominator_radicand",
+        "distinct_left_levels",
+        "distinct_target_levels",
+        "left_doubled_ranks_sha256",
+        "n",
+        "rho_decimal_12",
+        "rho_scaled_1e12",
+        "status",
+        "target_doubled_ranks_sha256",
+        "variance_left",
+        "variance_target"
+      ],
+      "type": "object"
+    },
+    "metric": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/defined_metric"
+        },
+        {
+          "$ref": "#/$defs/undefined_metric"
+        }
+      ]
+    },
+    "registry_id": {
+      "pattern": "^registry-id:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "signed_decimal": {
+      "pattern": "^(?:0|-?[1-9][0-9]{0,38})$",
+      "type": "string"
+    },
+    "undefined_metric": {
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "distinct_left_levels": {
+              "const": 1
+            },
+            "distinct_target_levels": {
+              "const": 1
+            },
+            "n": {
+              "const": 1
+            },
+            "status": {
+              "const": "undefined_insufficient_observations"
+            }
+          }
+        },
+        {
+          "properties": {
+            "distinct_left_levels": {
+              "const": 1
+            },
+            "distinct_target_levels": {
+              "const": 1
+            },
+            "n": {
+              "minimum": 2
+            },
+            "status": {
+              "const": "undefined_zero_variance_both"
+            }
+          }
+        },
+        {
+          "properties": {
+            "distinct_left_levels": {
+              "const": 1
+            },
+            "distinct_target_levels": {
+              "minimum": 2
+            },
+            "n": {
+              "minimum": 2
+            },
+            "status": {
+              "const": "undefined_zero_variance_left"
+            }
+          }
+        },
+        {
+          "properties": {
+            "distinct_left_levels": {
+              "minimum": 2
+            },
+            "distinct_target_levels": {
+              "const": 1
+            },
+            "n": {
+              "minimum": 2
+            },
+            "status": {
+              "const": "undefined_zero_variance_target"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "distinct_left_levels": {
+          "maximum": 20000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "distinct_target_levels": {
+          "maximum": 20000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "left_doubled_ranks_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "n": {
+          "maximum": 20000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "undefined_insufficient_observations",
+            "undefined_zero_variance_both",
+            "undefined_zero_variance_left",
+            "undefined_zero_variance_target"
+          ],
+          "type": "string"
+        },
+        "target_doubled_ranks_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "distinct_left_levels",
+        "distinct_target_levels",
+        "left_doubled_ranks_sha256",
+        "n",
+        "status",
+        "target_doubled_ranks_sha256"
+      ],
+      "type": "object"
+    },
+    "unsigned_decimal": {
+      "pattern": "^(0|[1-9][0-9]{0,76})$",
+      "type": "string"
+    }
+  },
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-metric-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assurance_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmatory_or_prospective_gate_evaluated": {
+          "const": false,
+          "type": "boolean"
+        },
+        "metric_roster_origin_verified": {
+          "const": false,
+          "type": "boolean"
+        },
+        "process_custody_information_separation_enforced": {
+          "const": false,
+          "type": "boolean"
+        },
+        "scientific_result": {
+          "const": false,
+          "type": "boolean"
+        },
+        "score_receipt_digest_origin_verified": {
+          "const": false,
+          "type": "boolean"
+        },
+        "selector_assignment_roster_origin_verified": {
+          "const": false,
+          "type": "boolean"
+        },
+        "target_receipt_digest_origin_verified": {
+          "const": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "confirmatory_or_prospective_gate_evaluated",
+        "metric_roster_origin_verified",
+        "process_custody_information_separation_enforced",
+        "scientific_result",
+        "score_receipt_digest_origin_verified",
+        "selector_assignment_roster_origin_verified",
+        "target_receipt_digest_origin_verified"
+      ],
+      "type": "object"
+    },
+    "bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "assignment_roster_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "gate_plan_sha256": {
+          "const": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+          "type": "string"
+        },
+        "measurement_bundle_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "measurement_plan_sha256": {
+          "const": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+          "type": "string"
+        },
+        "metric_roster_raw_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "metric_roster_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "model_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "parent_protocol_sha256": {
+          "const": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+          "type": "string"
+        },
+        "score_receipt_raw_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "selector_assignment_raw_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "selector_plan_sha256": {
+          "const": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+          "type": "string"
+        },
+        "target_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "target_receipt_raw_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "assignment_roster_sha256",
+        "gate_plan_sha256",
+        "measurement_bundle_sha256",
+        "measurement_plan_sha256",
+        "model_sha256",
+        "parent_protocol_sha256",
+        "score_receipt_raw_sha256",
+        "selector_assignment_raw_sha256",
+        "selector_plan_sha256",
+        "target_contract_sha256",
+        "target_receipt_raw_sha256",
+        "metric_roster_raw_sha256",
+        "metric_roster_sha256"
+      ],
+      "type": "object"
+    },
+    "claim_binding": {
+      "$ref": "#/$defs/claim_binding"
+    },
+    "compiled_blockers": {
+      "const": [
+        "CLAIM_BINDING_ORIGIN_UNBOUND",
+        "SELECTOR_ASSIGNMENT_ROSTER_ORIGIN_UNBOUND",
+        "METRIC_ROSTER_ORIGIN_UNBOUND",
+        "MODEL_DIGEST_ORIGIN_UNBOUND",
+        "TARGET_CONTRACT_DIGEST_ORIGIN_UNBOUND",
+        "X_BATCH_DIGEST_ORIGIN_UNBOUND",
+        "Y_BATCH_DIGEST_ORIGIN_UNBOUND",
+        "SCORE_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+        "TARGET_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+        "PROCESS_CUSTODY_INFORMATION_SEPARATION_UNBOUND",
+        "X_SOURCE_PROJECTION_ORIGIN_UNBOUND",
+        "Y_TARGET_PROVENANCE_ORIGIN_UNBOUND",
+        "MODEL_SELECTION_AND_FREEZE_ORCHESTRATOR_UNBOUND",
+        "MULTIRADICAL_DELTA_ORDERING_UNBOUND",
+        "HMAC_COUNTER_STREAM_UNBOUND",
+        "BOOTSTRAP_RUNNER_UNBOUND",
+        "N1_N2_RUNNER_UNBOUND",
+        "CONFIRMATORY_GATE_ORCHESTRATOR_UNBOUND",
+        "PROSPECTIVE_EVALUATOR_UNBOUND",
+        "TERMINAL_ORCHESTRATOR_UNBOUND",
+        "ACTIVATION_WRAPPER_UNBOUND",
+        "COMPLETE_EXECUTION_BUNDLE_UNBOUND"
+      ],
+      "type": "array"
+    },
+    "format_version": {
+      "const": "1.0.0",
+      "type": "string"
+    },
+    "metrics": {
+      "additionalProperties": false,
+      "properties": {
+        "l_distinct_vs_target": {
+          "$ref": "#/$defs/metric"
+        },
+        "l_total_vs_target": {
+          "$ref": "#/$defs/metric"
+        },
+        "score_vs_target": {
+          "$ref": "#/$defs/metric"
+        }
+      },
+      "required": [
+        "l_distinct_vs_target",
+        "l_total_vs_target",
+        "score_vs_target"
+      ],
+      "type": "object"
+    },
+    "record_kind": {
+      "const": "nmfa_protected_rank_metric_state",
+      "type": "string"
+    },
+    "terminal_state": {
+      "const": "EXACT_RANK_METRIC_STATE_ONLY",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assurance_boundary",
+    "bindings",
+    "claim_binding",
+    "compiled_blockers",
+    "format_version",
+    "metrics",
+    "record_kind",
+    "terminal_state"
+  ],
+  "title": "NMFA protected exact rank metric state",
+  "type": "object"
+}

@@ -2717,3 +2717,103 @@ receipts. No real source or inventory was accessed and no split was realized.
    independently audit one final content-addressed `E` bundle.
 5. Only a new successor preflight and external activation wrapper may bind the
    completed `E`; do not fill the blocked V1 identities in place.
+
+## NMFA source-free exact measurement core V1 — 2026-08-03
+
+**Checkpoint recorded:** 2026-08-03 11:17 JST
+
+The second executable component toward typed bundle `E` is implemented and
+documented as [NMFA exact measurement core V1](NMFA_MEASUREMENT_CORE_V1.md).
+It is additive and preserves every predecessor byte.
+
+### Completed state
+
+The package now contains one exact-const measurement plan, one 18-resource
+evaluator bundle, eight closed Draft 2020-12 schemas, four runtime modules,
+the shared canonical encoder, focused adversarial tests, and an isolated
+installed-wheel verifier. The four NMFA modules are split into shared
+value-free roster validation, target-blind X model/scoring, X-blind Y rational
+normalization, and joint exact-rank statistics.
+
+The full roster requires at least 160 rows and enforces sorted, individually
+unique G and primary-F identities. X and Y must each cover it exactly and are
+separately bound by expected raw digests. X fixes complete side/line/token
+array order, globally unique side/line identities, closed dispositions, one to
+eight disjoint model classes, positive integer weights with gcd one, score,
+`L_total`, and a dedicated frozen identity for `L_distinct`. Y fixes a single
+target family and canonical unit, exact irreducible input and conversion
+rationals, direct-count zero, positive mass/capacity, cross-cancellation, and
+126-bit reduced outputs.
+
+The metric layer consumes only protected receipts and a separate value-free
+metric subset. It computes doubled average midranks; exact `C`, `Vx`, and `Vy`;
+closed undefined states; and integer-square-root round-half-even display. Q12
+is explicitly non-decision-bearing. The included exact threshold helper is
+limited to one defined rho against one nonnegative unit-interval rational.
+Future delta, bootstrap, and control ordering need separately frozen exact
+algorithms.
+
+Every component checks installed resources at capture and return, and each
+verifier reexecutes its available inputs and requires exact canonical receipt
+bytes. The synthetic 160-row chain uses a four-row metric subset and produces
+the fixed tied-rank state documented in the component report. Focused tests,
+Ruff, formatting, Pyright, package builds, and the isolated wheel check pass.
+
+### Boundary that must not be weakened
+
+This is still `development_component_not_complete_E`. The expected roster,
+claim, X, Y, model, target-contract, metric-roster, and receipt digests are
+caller supplied; this component does not authenticate their origin. The
+protected objects expose bytes to their authorized caller and therefore do not
+enforce separate principals or processes. The metric module recomputes from
+the supplied receipts, not from raw X and Y. Use the X/Y receipt reexecution
+APIs and a future external orchestrator to bind those identities.
+
+The package does not establish source completeness, source projection,
+target provenance, all-side truth, model selection, trusted chronology,
+one-use, immutable runtime custody, rights, external registration, scientific
+gate passage, or activation. Do not access real X or Y on the authority of
+this component. No result in this checkpoint is decipherment evidence.
+
+Final pre-publication hardening also normalizes malformed installed-bundle
+JSON, including unencodable lone Unicode surrogates, to the fixed
+package-resource error. The earlier raw interpreter-exception edge is covered
+by regression testing and no longer remains as handoff debt.
+
+At 2026-08-03 12:04 JST, three independent read-only AI-agent
+engineering audits (not human or external scientific review) approved the
+final freeze with no open P0, P1, P2, or P3 finding. Across the three audits,
+they rechecked arithmetic oracles, adversarial receipt states, bundle drift,
+canonical schemas, complete bundle parity, static analysis, publication
+boundaries, secret scanning, and isolated-wheel execution.
+
+At 2026-08-03 12:30 JST, the authoritative Linux reference-environment run
+completed 1,301 tests in 1,234.517 seconds with zero failures and 19 expected
+source-dependent or environment-dependent skips; elapsed wall time was
+1,237.51 seconds. Full reference-environment validation of this frozen slice
+is therefore complete. Publication and public CI remain independent gates.
+
+### Continuation order for the next AI agent
+
+1. Preserve the parent, gate, preflight, selector, and measurement bundle
+   bytes. Do not patch their identities in place.
+2. Specify and freeze the common deterministic counter stream, domain framing,
+   rejection sampling, unbiased index generation, resource limits, and exact
+   ordering of individual rho and multi-radical delta states.
+3. Implement the 10,000 paired cell-stratified bootstrap schedules and exact
+   lower-order statistics. Undefined-value substitutions belong to the future
+   orchestrator, not this primitive core.
+4. Implement N1 support, Hall feasibility, deterministic matching unranking,
+   and 99,999 assignments; then N2 strata, whole-G permutations, and 99,999
+   runs using the same counter stream.
+5. Add confirmatory cell/effect/control orchestration, exact terminal
+   precedence, prospective chronology, pre-Y prediction receipts, and
+   prospective metric/null handling.
+6. Independently audit and freeze one final `E` bundle. Only a new successor
+   preflight and externally authenticated custodial activation wrapper may
+   bind it and consider separately authorized real-source work.
+
+At this handoff, publication and public CI for the measurement slice remain
+pending. The next highest-value coding milestone is the deterministic
+counter-stream and resampling core, not source access and not a claimed
+reading.

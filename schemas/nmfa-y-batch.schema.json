@@ -1,0 +1,230 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "claim_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_family_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "claim_slot_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "predecessor_chain_head_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_family_id",
+        "claim_slot_id",
+        "experiment_instance_id",
+        "predecessor_chain_head_sha256"
+      ],
+      "type": "object"
+    },
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "positive_rational": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "denominator",
+        "numerator"
+      ],
+      "type": "object"
+    },
+    "registry_id": {
+      "pattern": "^registry-id:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_rational": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "denominator",
+        "numerator"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-y-batch.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignment_roster_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "claim_binding": {
+      "$ref": "#/$defs/claim_binding"
+    },
+    "format_version": {
+      "const": "1.0.0",
+      "type": "string"
+    },
+    "gate_plan_sha256": {
+      "const": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "type": "string"
+    },
+    "measurement_plan_sha256": {
+      "const": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+      "type": "string"
+    },
+    "parent_protocol_sha256": {
+      "const": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "type": "string"
+    },
+    "record_kind": {
+      "const": "nmfa_y_target_batch",
+      "type": "string"
+    },
+    "selector_assignment_raw_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "selector_plan_sha256": {
+      "const": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+      "type": "string"
+    },
+    "target_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_unit_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "conversions": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "multiplier": {
+                "$ref": "#/$defs/positive_rational"
+              },
+              "source_unit_id": {
+                "$ref": "#/$defs/opaque_id"
+              }
+            },
+            "required": [
+              "multiplier",
+              "source_unit_id"
+            ],
+            "type": "object"
+          },
+          "maxItems": 512,
+          "minItems": 1,
+          "type": "array"
+        },
+        "policy_commitments": {
+          "additionalProperties": false,
+          "properties": {
+            "canonical_unit_conversion_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "measurement_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "repeated_measurement_resolution_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            }
+          },
+          "required": [
+            "canonical_unit_conversion_policy_sha256",
+            "measurement_policy_sha256",
+            "repeated_measurement_resolution_policy_sha256"
+          ],
+          "type": "object"
+        },
+        "target_family": {
+          "enum": [
+            "capacity",
+            "direct_count",
+            "mass"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_unit_id",
+        "conversions",
+        "policy_commitments",
+        "target_family"
+      ],
+      "type": "object"
+    },
+    "units": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "g_id": {
+            "$ref": "#/$defs/checksum"
+          },
+          "primary_f_id": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "source_binding_sha256": {
+            "$ref": "#/$defs/checksum"
+          },
+          "source_unit_id": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "source_value": {
+            "$ref": "#/$defs/source_rational"
+          }
+        },
+        "required": [
+          "g_id",
+          "primary_f_id",
+          "source_unit_id",
+          "source_value",
+          "source_binding_sha256"
+        ],
+        "type": "object"
+      },
+      "maxItems": 20000,
+      "minItems": 160,
+      "type": "array"
+    }
+  },
+  "required": [
+    "claim_binding",
+    "format_version",
+    "gate_plan_sha256",
+    "measurement_plan_sha256",
+    "parent_protocol_sha256",
+    "record_kind",
+    "selector_plan_sha256",
+    "target_contract",
+    "units",
+    "assignment_roster_sha256",
+    "selector_assignment_raw_sha256"
+  ],
+  "title": "NMFA protected exact target batch",
+  "type": "object"
+}

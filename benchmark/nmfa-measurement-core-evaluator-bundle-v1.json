@@ -1,0 +1,154 @@
+{
+  "bundle_id": "nmfa-measurement-core-evaluator-bundle-v1",
+  "created_at": "2026-08-03T01:10:01Z",
+  "files": [
+    {
+      "bytes": 14270,
+      "path": "benchmark/nmfa-measurement-core-plan-v1.json",
+      "sha256": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 3493,
+      "path": "benchmark/nmfa-selector-core-evaluator-bundle-v1.json",
+      "sha256": "sha256:c8aa0101a5e0396dbd7a577154302e1823235d31075bd2407247a8fbe0209eb6",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 11046,
+      "path": "benchmark/nmfa-selector-core-plan-v1.json",
+      "sha256": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 30641,
+      "path": "benchmark/nmfa-value-blind-preregistration-gate-plan-v1.json",
+      "sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 25450,
+      "path": "benchmark/numeral-metrology-functional-anchor-protocol-v1.json",
+      "sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 2735,
+      "path": "schemas/nmfa-gf-roster.schema.json",
+      "sha256": "sha256:494b004262467247cf1dcec068347d9fc8d814533b3b009750c0913508830a68",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 15152,
+      "path": "schemas/nmfa-measurement-core-plan.schema.json",
+      "sha256": "sha256:2e2e99e4971de9383edb4c314239b5506b80a97fe726096527b52ed940fdb531",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 11250,
+      "path": "schemas/nmfa-metric-receipt.schema.json",
+      "sha256": "sha256:88b22ee0c495f906977fa2d575ef0ad8ba67ae198d8df11e7212676f652e8f4a",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 2426,
+      "path": "schemas/nmfa-metric-roster.schema.json",
+      "sha256": "sha256:90d191ce2fd4aef6778f9f16c28d0bc9e90f065f3e45c9531924edf810bab564",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 6349,
+      "path": "schemas/nmfa-score-receipt.schema.json",
+      "sha256": "sha256:9b8cf85f3605661acb86108d173d6b38f3f066b3b68ff7e0fcf809f63171473a",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 6734,
+      "path": "schemas/nmfa-target-receipt.schema.json",
+      "sha256": "sha256:02c34a9557402d83df41d26c49d023f86ad965ca4dcd457e0f86c5ab419c8093",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 7629,
+      "path": "schemas/nmfa-x-batch.schema.json",
+      "sha256": "sha256:2ef23e518e906c2c127025ffdf6188be6fbcbaade533d95e533f1f8c0ff92393",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 5910,
+      "path": "schemas/nmfa-y-batch.schema.json",
+      "sha256": "sha256:3ccb7df6c1491fbc50c244d341290707a9a87010e9cf5391ff6a67c54b616968",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 4129,
+      "path": "src/indusbench/io.py",
+      "sha256": "sha256:7517f6da8724f64934b44492ab104e7357c081ca50ae859f66102a3b980b965c",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 21502,
+      "path": "src/indusbench/nmfa_measurement_common.py",
+      "sha256": "sha256:a3160ab62318889e953e6578bd95e23cc2877aae75e8f72b246be4bb07f4b7ab",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 19135,
+      "path": "src/indusbench/nmfa_rank_statistics_core.py",
+      "sha256": "sha256:eb4c4d5a8dd94c02148d787b15461e3d62d08e7551579cc88d6b4c1c12290d0a",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 11312,
+      "path": "src/indusbench/nmfa_x_model_core.py",
+      "sha256": "sha256:a176e4760f6656a6ad78c02b9972a76daf071325a767748f2de449f292e2f060",
+      "verification": "runtime_and_ci"
+    },
+    {
+      "bytes": 12588,
+      "path": "src/indusbench/nmfa_y_rational_core.py",
+      "sha256": "sha256:aa38e727be3d92c46b9db781318018449166c8939fa312a7ffeaca20b2f729ba",
+      "verification": "runtime_and_ci"
+    }
+  ],
+  "format_version": "1.0.0",
+  "runtime_profile": {
+    "canonical_encoder": "indusbench.io:encode_json",
+    "dependencies": {
+      "jsonschema": "4.26.0"
+    },
+    "dependency_requirement": "jsonschema[format]==4.26.0",
+    "dependency_scope": "direct_declared_requirement_only_runtime_environment_not_attested",
+    "entrypoints": [
+      "indusbench.nmfa_measurement_common:load_installed_nmfa_measurement_plan",
+      "indusbench.nmfa_measurement_common:validate_nmfa_gf_roster",
+      "indusbench.nmfa_measurement_common:validate_nmfa_metric_roster",
+      "indusbench.nmfa_x_model_core:score_nmfa_x_batch",
+      "indusbench.nmfa_x_model_core:verify_nmfa_score_receipt",
+      "indusbench.nmfa_y_rational_core:normalize_nmfa_y_batch",
+      "indusbench.nmfa_y_rational_core:verify_nmfa_target_receipt",
+      "indusbench.nmfa_rank_statistics_core:evaluate_nmfa_rank_metrics",
+      "indusbench.nmfa_rank_statistics_core:doubled_midranks_integers",
+      "indusbench.nmfa_rank_statistics_core:exact_nmfa_spearman_at_least",
+      "indusbench.nmfa_rank_statistics_core:verify_nmfa_metric_receipt"
+    ],
+    "implementation": "CPython",
+    "integer_arithmetic": "checked_inputs_and_arbitrary_precision_intermediates",
+    "supported_python_minors": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ]
+  },
+  "security_boundary": {
+    "activation_or_source_authority_included": false,
+    "complete_execution_bundle": false,
+    "external_roster_or_digest_origin_verified": false,
+    "network_clock_random_or_file_write_used": false,
+    "protected_input_or_receipt_included": false,
+    "real_source_or_target_values_included": false,
+    "runtime_environment_attested": false,
+    "scientific_result": false
+  }
+}

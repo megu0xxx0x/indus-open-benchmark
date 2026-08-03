@@ -1,0 +1,334 @@
+{
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-measurement-core-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "algorithms": {
+      "batch_alignment": {
+        "assignment_roster_digest_domain": "indusbench:nmfa:assignment-roster:v1",
+        "individual_identity_uniqueness": "g_id_and_primary_f_id_are_each_individually_unique",
+        "join_key": [
+          "g_id",
+          "primary_f_id"
+        ],
+        "policy": "X_and_Y_must_have_identical_complete_sorted_unique_join_key_rosters_claim_binding_selector_assignment_raw_sha256_and_assignment_roster_sha256",
+        "selector_assignment_roster_origin_verified_here": false
+      },
+      "digest_framing": {
+        "canonical_payload": "UTF8_JSON_ensure_ascii_false_allow_nan_false_indent_2_sort_keys_true_terminal_LF",
+        "construction": "SHA256_UTF8_domain_without_NUL_then_0x00_then_canonical_payload",
+        "domains": {
+          "assignment_roster": "indusbench:nmfa:assignment-roster:v1",
+          "doubled_ranks": "indusbench:nmfa:doubled-ranks:v1",
+          "metric_receipt": "indusbench:nmfa:metric-state:v1",
+          "metric_roster": "indusbench:nmfa:metric-roster:v1",
+          "model": "indusbench:nmfa:x-model:v1",
+          "model_class": "indusbench:nmfa:model-class:v1",
+          "score_receipt": "indusbench:nmfa:score-state:v1",
+          "target_contract": "indusbench:nmfa:target-contract:v1",
+          "target_receipt": "indusbench:nmfa:target-state:v1",
+          "x_batch": "indusbench:nmfa:x-batch:v1",
+          "y_batch": "indusbench:nmfa:y-batch:v1"
+        },
+        "raw_digest": "SHA256_raw_bytes_without_domain_prefix",
+        "wire_format": "lowercase_sha256_colon_64_hex"
+      },
+      "doubled_midranks": {
+        "output": "one_positive_integer_per_input_row_in_original_roster_order",
+        "rational_order": "exact_cross_multiplication_only",
+        "tie_rule": "for_one_based_tie_block_a_through_b_assign_a_plus_b",
+        "unstable_or_floating_comparison": false
+      },
+      "fixed_point_display": {
+        "decision_use": "display_only_not_decision_bearing_future_gate_delta_bootstrap_and_control_ordering_require_separately_frozen_exact_algorithms",
+        "rounding": "round_half_even_by_integer_square_comparison",
+        "scale": 1000000000000,
+        "undefined_representation": "status_specific_sentinel_with_scaled_integer_and_decimal_fields_omitted",
+        "zero_representation": "0.000000000000"
+      },
+      "metric_subset": {
+        "origin_verified_here": false,
+        "policy": "a_separately_supplied_closed_metric_roster_must_bind_the_full_assignment_roster_and_select_a_sorted_unique_nonempty_subset_without_partition_cell_or_outcome_fields",
+        "selection_performed_here": false
+      },
+      "model": {
+        "class_identity_domain": "indusbench:nmfa:model-class:v1",
+        "class_members": "sorted_unique_projected_token_or_allograph_ids",
+        "class_order": "ascending_class_id",
+        "class_range": [
+          1,
+          8
+        ],
+        "excluded_token_policy": "every_source_ordered_token_has_one_closed_disposition_and_only_included_tokens_contribute",
+        "gcd_of_weights": 1,
+        "length_distinct": "count_distinct_length_identity_id_among_included_tokens",
+        "length_total": "count_included_tokens",
+        "model_digest_domain": "indusbench:nmfa:x-model:v1",
+        "model_digest_origin_verified_here": false,
+        "pairwise_disjoint_expanded_classes": true,
+        "score": "sum_class_weight_times_included_projected_identity_count",
+        "score_direction": "positive",
+        "score_zero_allowed": true,
+        "weight_range": [
+          1,
+          16
+        ]
+      },
+      "ordering": {
+        "line_id_uniqueness": "globally_unique_across_the_complete_X_batch",
+        "line_indices": "zero_based_contiguous_and_equal_to_array_position_within_each_side",
+        "side_id_uniqueness": "globally_unique_across_the_complete_X_batch",
+        "side_indices": "zero_based_contiguous_and_equal_to_array_position_within_each_physical_original",
+        "side_record_semantics": "one_eligible_physical_side_or_inscription_surface_in_frozen_source_order",
+        "token_indices": "zero_based_contiguous_and_equal_to_array_position_within_each_line",
+        "unit_order": "ascending_g_id_then_primary_f_id",
+        "whole_x_order": "unit_then_side_then_line_then_token_array_order"
+      },
+      "rational_target": {
+        "canonical_form": "nonnegative_numerator_and_strictly_positive_denominator_with_gcd_one_and_zero_encoded_as_0_over_1",
+        "conversion": "source_value_times_positive_irreducible_source_to_canonical_multiplier_then_reduce_without_rounding",
+        "conversion_digest_domain": "indusbench:nmfa:target-contract:v1",
+        "conversion_digest_origin_verified_here": false,
+        "conversion_order": "ascending_source_unit_id_with_source_unit_ids_individually_unique",
+        "count_rule": "direct_count_source_and_canonical_values_are_integers_greater_than_or_equal_to_zero_zero_is_allowed",
+        "mass_capacity_rule": "source_and_canonical_values_are_strictly_positive",
+        "offsets": "forbidden",
+        "required_canonical_identity_conversion": "canonical_unit_has_exact_multiplier_1_over_1"
+      },
+      "receipt_commitments": {
+        "joint_input_receipt_digest_origin_verified": false,
+        "metric_domain": "indusbench:nmfa:metric-state:v1",
+        "metric_shared_target_invariants": "all_three_metrics_have_identical_n_distinct_target_levels_and_target_doubled_ranks_sha256_and_all_defined_metrics_have_identical_variance_target",
+        "receipt_row_order": "score_and_target_rows_use_ascending_g_id_then_primary_f_id_with_each_g_id_and_primary_f_id_individually_unique",
+        "resource_drift_guard": "all_public_components_and_receipt_decoders_require_the_same_validated_bundle_at_capture_and_return",
+        "score_domain": "indusbench:nmfa:score-state:v1",
+        "score_row_feasible_bounds": "l_total_zero_requires_l_distinct_and_score_zero_otherwise_1_le_l_distinct_le_l_total_and_0_le_score_le_16_times_l_total",
+        "target_domain": "indusbench:nmfa:target-state:v1",
+        "verification": "X_and_Y_require_separate_expected_raw_batch_digests_and_their_verifiers_recompute_from_raw_inputs_while_joint_metrics_recompute_only_from_caller_digest_bound_receipts_and_current_bundle"
+      },
+      "source_binding": {
+        "receipt_exposure": "source_binding_digests_remain_only_in_protected_input_batch_commitments_and_are_not_copied_to_score_target_or_metric_rows",
+        "row_rule": "every_X_and_Y_row_requires_one_checksum_binding_to_its_frozen_source_evidence_record"
+      },
+      "spearman": {
+        "covariance_numerator": "C_equals_n_sum_xy_minus_sum_x_sum_y",
+        "denominator_radicand": "Vx_times_Vy",
+        "doubled_rank_variance_bound": "n_squared_times_n_minus_one_le_Vx_and_Vy_le_n_squared_times_n_squared_minus_one_divided_by_three_for_defined_states",
+        "exact_comparison": "sign_then_squared_integer_cross_multiplication_for_one_defined_rho_against_one_nonnegative_unit_interval_rational_threshold_only",
+        "rho": "C_divided_by_sqrt_Vx_times_Vy",
+        "variance_x_numerator": "Vx_equals_n_sum_x_squared_minus_sum_x_squared",
+        "variance_y_numerator": "Vy_equals_n_sum_y_squared_minus_sum_y_squared"
+      },
+      "undefined_precedence": [
+        "undefined_insufficient_observations",
+        "undefined_zero_variance_both",
+        "undefined_zero_variance_left",
+        "undefined_zero_variance_target",
+        "defined"
+      ]
+    },
+    "assurance_boundary": {
+      "activation_or_source_authority_included": false,
+      "complete_typed_execution_bundle": false,
+      "decipherment_claim_allowed": false,
+      "external_metric_roster_origin_verified": false,
+      "external_model_digest_origin_verified": false,
+      "external_score_receipt_digest_origin_verified": false,
+      "external_selector_assignment_roster_origin_verified": false,
+      "external_target_contract_digest_origin_verified": false,
+      "external_target_receipt_digest_origin_verified": false,
+      "external_x_batch_digest_origin_verified": false,
+      "external_y_batch_digest_origin_verified": false,
+      "numeric_reading_fitted": false,
+      "prize_submission_eligible": false,
+      "process_custody_information_separation_enforced": false,
+      "real_source_or_target_values_included": false,
+      "runtime_environment_attested": false,
+      "scientific_result": false,
+      "x_source_projection_authenticated": false,
+      "y_target_provenance_authenticated": false
+    },
+    "bindings": {
+      "gate_plan_sha256": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "parent_protocol_sha256": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "selector_bundle_sha256": "sha256:c8aa0101a5e0396dbd7a577154302e1823235d31075bd2407247a8fbe0209eb6",
+      "selector_plan_sha256": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190"
+    },
+    "compiled_blockers": [
+      "CLAIM_BINDING_ORIGIN_UNBOUND",
+      "SELECTOR_ASSIGNMENT_ROSTER_ORIGIN_UNBOUND",
+      "METRIC_ROSTER_ORIGIN_UNBOUND",
+      "MODEL_DIGEST_ORIGIN_UNBOUND",
+      "TARGET_CONTRACT_DIGEST_ORIGIN_UNBOUND",
+      "X_BATCH_DIGEST_ORIGIN_UNBOUND",
+      "Y_BATCH_DIGEST_ORIGIN_UNBOUND",
+      "SCORE_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+      "TARGET_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+      "PROCESS_CUSTODY_INFORMATION_SEPARATION_UNBOUND",
+      "X_SOURCE_PROJECTION_ORIGIN_UNBOUND",
+      "Y_TARGET_PROVENANCE_ORIGIN_UNBOUND",
+      "MODEL_SELECTION_AND_FREEZE_ORCHESTRATOR_UNBOUND",
+      "MULTIRADICAL_DELTA_ORDERING_UNBOUND",
+      "HMAC_COUNTER_STREAM_UNBOUND",
+      "BOOTSTRAP_RUNNER_UNBOUND",
+      "N1_N2_RUNNER_UNBOUND",
+      "CONFIRMATORY_GATE_ORCHESTRATOR_UNBOUND",
+      "PROSPECTIVE_EVALUATOR_UNBOUND",
+      "TERMINAL_ORCHESTRATOR_UNBOUND",
+      "ACTIVATION_WRAPPER_UNBOUND",
+      "COMPLETE_EXECUTION_BUNDLE_UNBOUND"
+    ],
+    "created_at": "2026-08-03T01:10:00Z",
+    "decision": {
+      "contract_errors_are_scientific_results": false,
+      "metric_state": "EXACT_RANK_METRIC_STATE_ONLY",
+      "scientific_gate_evaluated": false,
+      "score_state": "EXACT_X_SCORE_STATE_ONLY",
+      "target_state": "EXACT_CANONICAL_TARGET_STATE_ONLY"
+    },
+    "fixed_vectors": {
+      "class_identity": {
+        "expected_class_id": "sha256:99f8f35e63cb5d719fbdce42131cf6cf0d1b2b68f2ac97c474a393e971b37d58",
+        "member_token_ids": [
+          "hmac-sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "hmac-sha256:2222222222222222222222222222222222222222222222222222222222222222"
+        ]
+      },
+      "doubled_midranks": {
+        "expected": [
+          2,
+          5,
+          5,
+          8
+        ],
+        "values": [
+          0,
+          1,
+          1,
+          3
+        ]
+      },
+      "half_even": [
+        {
+          "denominator_radicand": 4,
+          "expected": 0,
+          "numerator": 1,
+          "scale": 1
+        },
+        {
+          "denominator_radicand": 4,
+          "expected": 2,
+          "numerator": 3,
+          "scale": 1
+        },
+        {
+          "denominator_radicand": 4,
+          "expected": -2,
+          "numerator": -3,
+          "scale": 1
+        }
+      ],
+      "rational_conversion": {
+        "expected": {
+          "denominator": 2,
+          "numerator": 3
+        },
+        "multiplier": {
+          "denominator": 1000,
+          "numerator": 1
+        },
+        "source": {
+          "denominator": 1,
+          "numerator": 1500
+        }
+      },
+      "spearman_tied": {
+        "covariance_numerator": "60",
+        "denominator_radicand": "5184",
+        "expected_decimal": "0.833333333333",
+        "expected_scaled_integer": 833333333333,
+        "variance_x_numerator": "72",
+        "variance_y_numerator": "72",
+        "x_doubled_ranks": [
+          3,
+          3,
+          6,
+          8
+        ],
+        "y_doubled_ranks": [
+          2,
+          5,
+          5,
+          8
+        ]
+      }
+    },
+    "format_version": "1.0.0",
+    "limits": {
+      "max_classes": 8,
+      "max_conversion_rows": 512,
+      "max_exact_metric_operand_bits": 256,
+      "max_integer_input": 9223372036854775807,
+      "max_json_bytes": 67108864,
+      "max_json_depth": 64,
+      "max_json_nodes": 2000000,
+      "max_json_string_length": 16384,
+      "max_lines_per_side": 4096,
+      "max_model_member_ids": 20000,
+      "max_sides_per_unit": 256,
+      "max_tokens_per_line": 20000,
+      "max_total_tokens": 2000000,
+      "max_units": 20000,
+      "min_full_assignment_units": 160
+    },
+    "plan_id": "nmfa-measurement-core-plan-v1",
+    "privacy": {
+      "metric_receipt_has_item_rows": false,
+      "protected_receipts_may_be_committed": false,
+      "real_X_or_Y_may_be_committed": false,
+      "repr_discloses_protected_values": false,
+      "score_receipt_contains_token_or_class_ids": false,
+      "target_receipt_contains_source_unit_ids_or_raw_values": false
+    },
+    "scope": {
+      "included": [
+        "closed_canonical_X_batch_parser",
+        "per_row_X_and_Y_source_evidence_binding",
+        "source_order_and_closed_token_disposition_validation",
+        "positive_additive_model_validation_and_scoring",
+        "L_total_and_L_distinct",
+        "closed_canonical_Y_batch_parser",
+        "exact_positive_scale_conversion_to_irreducible_canonical_rationals_with_zero_count_exception",
+        "doubled_integer_midranks",
+        "exact_spearman_covariance_variance_state",
+        "integer_square_root_round_half_even_display",
+        "display_only_Q12_metric_projection_and_exact_single_rho_threshold_comparator",
+        "exact_score_target_roster_alignment",
+        "separate_expected_raw_digests_for_full_roster_X_Y_metric_and_upstream_receipts",
+        "declared_metric_subset_score_total_length_and_distinct_length_states",
+        "protected_receipts_X_and_Y_exact_reexecution_and_metric_receipt_recomputation"
+      ],
+      "omitted": [
+        "real_source_X_or_Y_access",
+        "selector_assignment_origin_authentication",
+        "model_training_selection_or_external_freeze_authentication",
+        "target_contract_external_freeze_authentication",
+        "score_and_target_receipt_digest_origin_authentication",
+        "process_level_or_custodial_X_Y_information_separation",
+        "numeric_S_to_Y_reading",
+        "partition_cell_or_subset_selection",
+        "rho_length_selection_and_delta",
+        "exact_multiradical_delta_and_metric_ordering",
+        "cell_metric_states",
+        "bootstrap_schedules_or_confidence_intervals",
+        "N1_matching_or_runs",
+        "N2_permutation_schedules_or_runs",
+        "confirmatory_gate_decision",
+        "prospective_evaluation",
+        "scientific_terminal_orchestration",
+        "external_activation_or_runtime_attestation"
+      ],
+      "status": "development_component_not_complete_E"
+    }
+  },
+  "title": "NMFA exact measurement core plan V1"
+}

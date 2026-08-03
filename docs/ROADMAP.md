@@ -433,6 +433,16 @@ Current assets:
   split and does not authenticate digest/claim origins, nonce provenance or
   one-use, relation-universe completeness, X/Y, metrics, controls, or
   activation.
+- [x] Implement the second non-operational executor component,
+  [NMFA exact measurement core V1](NMFA_MEASUREMENT_CORE_V1.md): individually
+  unique full G/F rosters, separate raw X/Y commitments, target-blind positive
+  additive scoring, X-blind exact rational normalization, protected score and
+  target receipts, declared metric subsets, doubled midranks, exact Spearman
+  state, display-only Q12, exact single-rho threshold comparison, and isolated
+  installed-wheel reexecution. It does not authenticate external digest
+  origins or process separation and does not implement delta ordering,
+  bootstrap, N1/N2 runs, gates, prospective evaluation, terminals, or
+  activation.
 - [ ] After that typed executor is audited, freeze a successor preflight and
   activation wrapper that authenticate the complete external inventory and
   relation universe, authority and rights evidence, provider-byte separation,

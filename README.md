@@ -211,6 +211,19 @@ digest/claim binding nor nonce provenance, one-use, or relation evidence, and
 it has no X, Y, model, metric, randomization-run, prospective, or activation
 surface.
 
+The second additive component is the source-free
+[NMFA exact measurement core V1](docs/NMFA_MEASUREMENT_CORE_V1.md). It keeps X
+scoring, Y rational normalization, and joint rank statistics in separate
+closed interfaces; requires a complete 160-or-more-row unique G/F roster and
+separate expected raw digests; implements the one positive-additive score,
+exact canonical-unit conversion, doubled midranks, exact Spearman state, and
+integer round-half-even display; and reexecutes protected receipts exactly.
+The Q12 value is display-only. Upstream digest origins, process/custody
+separation, model selection, exact delta ordering, bootstrap, N1/N2 runs,
+confirmatory/prospective orchestration, terminal decisions, and activation
+remain blocked. Synthetic arithmetic success is not a scientific result or
+evidence of decipherment.
+
 The first real MTAAC control subsequently returned `NO_GO`, principally
 because its fixed mild settlement-name recall gate failed. Its evaluator also
 relies on gold-derived target eligibility, which cannot transfer to unknown

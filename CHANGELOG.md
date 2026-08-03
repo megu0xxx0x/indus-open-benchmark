@@ -8,6 +8,18 @@ immutable content-addressed identifiers for corpus and split releases.
 ### Added
 
 - A source-free
+  [NMFA exact measurement core V1](docs/NMFA_MEASUREMENT_CORE_V1.md) with
+  separate X scoring, Y rational normalization, and joint exact-rank modules;
+  closed canonical plans, schemas, and protected receipts; individually unique
+  160-or-more-row G/F rosters; exact positive-additive scoring and length
+  proxies; exact canonical-unit conversion; doubled midranks; exact Spearman
+  state; display-only round-half-even Q12; exact single-rho threshold checks;
+  resource and drift guards; focused adversarial tests; and isolated installed-
+  wheel reexecution. It authenticates no external digest origin or process
+  separation and remains blocked from real-source use, complete execution,
+  scientific claims, decipherment, submission, or prize eligibility.
+
+- A source-free
   [NMFA activation preflight companion V1](docs/NMFA_ACTIVATION_PREFLIGHT_V1.md)
   that leaves the frozen parent/gate V1 bytes unchanged. It packages closed
   plan, external-trust, PREMETADATA/PREVALUE request, and private-report

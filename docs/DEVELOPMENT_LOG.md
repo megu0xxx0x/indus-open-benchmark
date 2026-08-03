@@ -1448,3 +1448,48 @@ relation/source completeness, access authority, execution, scientific result,
 reading, decipherment, or prize eligibility. Next implement the separate exact
 X/Y/statistics and deterministic bootstrap/N1/N2 components, then
 confirmatory/prospective orchestration and a final audited `E` bundle.
+
+## 2026-08-03T11:17:36+09:00 — NMFA exact measurement core V1 recorded
+
+- Added a source-free, additive measurement component without modifying the
+  immutable parent protocol, candidate gate, activation preflight, or selector
+  bytes.
+- The full assignment projection now requires at least 160 rows, sorted and
+  individually unique G and primary-F identities. X, Y, score, and target
+  rosters are complete; a separate value-free metric roster selects only the
+  rows used by one aggregate calculation.
+- X validates frozen side/line/token order, closed token dispositions, one
+  positive-additive model, score, total length, and distinct frozen length
+  identity. Y converts direct count, mass, or capacity to exact irreducible
+  canonical-unit rationals without floating point or rounding.
+- The joint module computes doubled midranks and exact Spearman covariance and
+  variances. Its 12-place value is display-only; exact future delta and metric
+  ordering remains unbound.
+- All raw roster, X, Y, metric-roster, and upstream receipt identities are
+  separately caller-bound. Their external origin is not authenticated here.
+  Protected bytes are not an access-control mechanism, so process/custody
+  separation remains a mandatory future layer.
+- Independent AI-agent engineering review (not human or external review) found
+  and closed duplicate-G/F acceptance, rounded schema maxima, Q12 decision
+  ambiguity, undefined-state vocabulary drift, impossible Spearman-state
+  acceptance, lone-surrogate and wrong-type input error leakage, missing raw
+  X/Y commitments, weak undefined receipt branches, and stale bundle/resource
+  commitments during refreeze.
+- Focused semantic, distribution-policy, publication-boundary, canonical
+  schema, lint, formatting, type, source/wheel build, and isolated installed-
+  wheel checks pass at this checkpoint. Publication and public CI are still
+  pending.
+- At 2026-08-03 12:04 JST, three independent read-only AI-agent
+  engineering audits (not human or external scientific review) converged with
+  no open P0, P1, P2, or P3 finding. Final pre-publication hardening normalized
+  malformed installed-bundle JSON to the fixed package-resource error; bundle
+  parity, adversarial arithmetic checks, and isolated-wheel reexecution were
+  then repeated successfully.
+- At 2026-08-03 12:30 JST, the authoritative Linux reference-environment run
+  completed 1,301 tests in 1,234.517 seconds with zero failures and 19 expected
+  source-dependent or environment-dependent skips. Elapsed wall time was
+  1,237.51 seconds. This closes full reference-environment validation for the
+  frozen measurement slice; publication and public CI remain separate gates.
+- No real source, inventory, transcription, target, model choice, split,
+  prediction, scientific result, reading, decipherment, submission, or prize
+  state was created.

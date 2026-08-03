@@ -1,0 +1,99 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "registry_id": {
+      "pattern": "^registry-id:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-metric-roster.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignment_roster_raw_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "assignment_roster_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "claim_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_family_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "claim_slot_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "predecessor_chain_head_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_family_id",
+        "claim_slot_id",
+        "experiment_instance_id",
+        "predecessor_chain_head_sha256"
+      ],
+      "type": "object"
+    },
+    "format_version": {
+      "const": "1.0.0",
+      "type": "string"
+    },
+    "measurement_plan_sha256": {
+      "const": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+      "type": "string"
+    },
+    "record_kind": {
+      "const": "nmfa_metric_roster",
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "g_id": {
+            "$ref": "#/$defs/checksum"
+          },
+          "primary_f_id": {
+            "$ref": "#/$defs/opaque_id"
+          }
+        },
+        "required": [
+          "g_id",
+          "primary_f_id"
+        ],
+        "type": "object"
+      },
+      "maxItems": 20000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "selector_assignment_raw_sha256": {
+      "$ref": "#/$defs/checksum"
+    }
+  },
+  "required": [
+    "assignment_roster_raw_sha256",
+    "assignment_roster_sha256",
+    "claim_binding",
+    "format_version",
+    "measurement_plan_sha256",
+    "record_kind",
+    "rows",
+    "selector_assignment_raw_sha256"
+  ],
+  "title": "NMFA protected declared metric subset roster",
+  "type": "object"
+}

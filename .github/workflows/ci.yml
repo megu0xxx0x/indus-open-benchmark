@@ -66,3 +66,4 @@ jobs:
           uv run python tests/verify_nmfa_preregistration_installed_distribution.py dist/*.whl
           uv run python tests/verify_nmfa_preflight_installed_distribution.py dist/*.whl
           uv run python tests/verify_nmfa_selector_installed_distribution.py dist/*.whl
+          uv run python tests/verify_nmfa_measurement_installed_distribution.py dist/*.whl

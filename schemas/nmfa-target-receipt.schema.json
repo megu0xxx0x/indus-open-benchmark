@@ -1,0 +1,243 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "claim_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_family_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "claim_slot_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "predecessor_chain_head_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_family_id",
+        "claim_slot_id",
+        "experiment_instance_id",
+        "predecessor_chain_head_sha256"
+      ],
+      "type": "object"
+    },
+    "denominator_string": {
+      "pattern": "^[1-9][0-9]{0,37}$",
+      "type": "string"
+    },
+    "numerator_string": {
+      "pattern": "^(0|[1-9][0-9]{0,37})$",
+      "type": "string"
+    },
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "registry_id": {
+      "pattern": "^registry-id:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-target-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assurance_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "scientific_result": {
+          "const": false,
+          "type": "boolean"
+        },
+        "selector_assignment_roster_origin_verified": {
+          "const": false,
+          "type": "boolean"
+        },
+        "target_contract_digest_origin_verified": {
+          "const": false,
+          "type": "boolean"
+        },
+        "target_provenance_authenticated": {
+          "const": false,
+          "type": "boolean"
+        },
+        "y_batch_digest_origin_verified": {
+          "const": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "scientific_result",
+        "selector_assignment_roster_origin_verified",
+        "target_contract_digest_origin_verified",
+        "target_provenance_authenticated",
+        "y_batch_digest_origin_verified"
+      ],
+      "type": "object"
+    },
+    "bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "assignment_roster_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "gate_plan_sha256": {
+          "const": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+          "type": "string"
+        },
+        "measurement_bundle_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "measurement_plan_sha256": {
+          "const": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+          "type": "string"
+        },
+        "parent_protocol_sha256": {
+          "const": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+          "type": "string"
+        },
+        "selector_assignment_raw_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "selector_plan_sha256": {
+          "const": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+          "type": "string"
+        },
+        "target_contract_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "y_batch_raw_sha256": {
+          "$ref": "#/$defs/checksum"
+        },
+        "y_batch_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "assignment_roster_sha256",
+        "gate_plan_sha256",
+        "measurement_bundle_sha256",
+        "measurement_plan_sha256",
+        "parent_protocol_sha256",
+        "selector_assignment_raw_sha256",
+        "selector_plan_sha256",
+        "target_contract_sha256",
+        "y_batch_raw_sha256",
+        "y_batch_sha256"
+      ],
+      "type": "object"
+    },
+    "canonical_unit_id": {
+      "$ref": "#/$defs/opaque_id"
+    },
+    "claim_binding": {
+      "$ref": "#/$defs/claim_binding"
+    },
+    "compiled_blockers": {
+      "const": [
+        "CLAIM_BINDING_ORIGIN_UNBOUND",
+        "SELECTOR_ASSIGNMENT_ROSTER_ORIGIN_UNBOUND",
+        "METRIC_ROSTER_ORIGIN_UNBOUND",
+        "MODEL_DIGEST_ORIGIN_UNBOUND",
+        "TARGET_CONTRACT_DIGEST_ORIGIN_UNBOUND",
+        "X_BATCH_DIGEST_ORIGIN_UNBOUND",
+        "Y_BATCH_DIGEST_ORIGIN_UNBOUND",
+        "SCORE_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+        "TARGET_RECEIPT_DIGEST_ORIGIN_UNBOUND",
+        "PROCESS_CUSTODY_INFORMATION_SEPARATION_UNBOUND",
+        "X_SOURCE_PROJECTION_ORIGIN_UNBOUND",
+        "Y_TARGET_PROVENANCE_ORIGIN_UNBOUND",
+        "MODEL_SELECTION_AND_FREEZE_ORCHESTRATOR_UNBOUND",
+        "MULTIRADICAL_DELTA_ORDERING_UNBOUND",
+        "HMAC_COUNTER_STREAM_UNBOUND",
+        "BOOTSTRAP_RUNNER_UNBOUND",
+        "N1_N2_RUNNER_UNBOUND",
+        "CONFIRMATORY_GATE_ORCHESTRATOR_UNBOUND",
+        "PROSPECTIVE_EVALUATOR_UNBOUND",
+        "TERMINAL_ORCHESTRATOR_UNBOUND",
+        "ACTIVATION_WRAPPER_UNBOUND",
+        "COMPLETE_EXECUTION_BUNDLE_UNBOUND"
+      ],
+      "type": "array"
+    },
+    "format_version": {
+      "const": "1.0.0",
+      "type": "string"
+    },
+    "record_kind": {
+      "const": "nmfa_protected_target_state",
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "canonical_value": {
+            "additionalProperties": false,
+            "properties": {
+              "denominator": {
+                "$ref": "#/$defs/denominator_string"
+              },
+              "numerator": {
+                "$ref": "#/$defs/numerator_string"
+              }
+            },
+            "required": [
+              "denominator",
+              "numerator"
+            ],
+            "type": "object"
+          },
+          "g_id": {
+            "$ref": "#/$defs/checksum"
+          },
+          "primary_f_id": {
+            "$ref": "#/$defs/opaque_id"
+          }
+        },
+        "required": [
+          "canonical_value",
+          "g_id",
+          "primary_f_id"
+        ],
+        "type": "object"
+      },
+      "maxItems": 20000,
+      "minItems": 160,
+      "type": "array"
+    },
+    "target_family": {
+      "enum": [
+        "capacity",
+        "direct_count",
+        "mass"
+      ],
+      "type": "string"
+    },
+    "terminal_state": {
+      "const": "EXACT_CANONICAL_TARGET_STATE_ONLY",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assurance_boundary",
+    "bindings",
+    "canonical_unit_id",
+    "claim_binding",
+    "compiled_blockers",
+    "format_version",
+    "record_kind",
+    "rows",
+    "target_family",
+    "terminal_state"
+  ],
+  "title": "NMFA protected exact canonical target state",
+  "type": "object"
+}

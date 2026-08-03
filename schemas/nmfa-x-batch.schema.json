@@ -1,0 +1,293 @@
+{
+  "$defs": {
+    "checksum": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "claim_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_family_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "claim_slot_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "experiment_instance_id": {
+          "$ref": "#/$defs/registry_id"
+        },
+        "predecessor_chain_head_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "claim_family_id",
+        "claim_slot_id",
+        "experiment_instance_id",
+        "predecessor_chain_head_sha256"
+      ],
+      "type": "object"
+    },
+    "model_class": {
+      "additionalProperties": false,
+      "properties": {
+        "class_id": {
+          "$ref": "#/$defs/checksum"
+        },
+        "member_token_ids": {
+          "items": {
+            "$ref": "#/$defs/opaque_id"
+          },
+          "maxItems": 20000,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "weight": {
+          "maximum": 16,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "class_id",
+        "member_token_ids",
+        "weight"
+      ],
+      "type": "object"
+    },
+    "opaque_id": {
+      "pattern": "^hmac-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "registry_id": {
+      "pattern": "^registry-id:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "token": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "included",
+            "excluded_damage_policy",
+            "excluded_non_token",
+            "excluded_segmentation_policy"
+          ],
+          "type": "string"
+        },
+        "length_identity_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "scoring_identity_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "token_index": {
+          "maximum": 19999,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "disposition",
+        "length_identity_id",
+        "scoring_identity_id",
+        "token_index"
+      ],
+      "type": "object"
+    },
+    "unit": {
+      "additionalProperties": false,
+      "properties": {
+        "all_sides_complete_declared": {
+          "const": true,
+          "type": "boolean"
+        },
+        "g_id": {
+          "$ref": "#/$defs/checksum"
+        },
+        "primary_f_id": {
+          "$ref": "#/$defs/opaque_id"
+        },
+        "sides": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "lines": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "line_id": {
+                      "$ref": "#/$defs/opaque_id"
+                    },
+                    "line_index": {
+                      "maximum": 4095,
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "tokens": {
+                      "items": {
+                        "$ref": "#/$defs/token"
+                      },
+                      "maxItems": 20000,
+                      "minItems": 1,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "line_id",
+                    "line_index",
+                    "tokens"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 4096,
+                "minItems": 1,
+                "type": "array"
+              },
+              "side_id": {
+                "$ref": "#/$defs/opaque_id"
+              },
+              "side_index": {
+                "maximum": 255,
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "lines",
+              "side_id",
+              "side_index"
+            ],
+            "type": "object"
+          },
+          "maxItems": 256,
+          "minItems": 1,
+          "type": "array"
+        },
+        "source_binding_sha256": {
+          "$ref": "#/$defs/checksum"
+        }
+      },
+      "required": [
+        "all_sides_complete_declared",
+        "g_id",
+        "primary_f_id",
+        "sides",
+        "source_binding_sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://example.org/indus-open-benchmark/schemas/nmfa-x-batch.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignment_roster_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "claim_binding": {
+      "$ref": "#/$defs/claim_binding"
+    },
+    "format_version": {
+      "const": "1.0.0",
+      "type": "string"
+    },
+    "gate_plan_sha256": {
+      "const": "sha256:dfea30b6cc0635e98d6fc1c0125e428df454bfbb4f22ba464923801db01273af",
+      "type": "string"
+    },
+    "measurement_plan_sha256": {
+      "const": "sha256:d7907ec8e9edbdd04e2904c8fc28007facf27c177e33994df20472025567e267",
+      "type": "string"
+    },
+    "model": {
+      "additionalProperties": false,
+      "properties": {
+        "classes": {
+          "items": {
+            "$ref": "#/$defs/model_class"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "type": "array"
+        },
+        "policy_commitments": {
+          "additionalProperties": false,
+          "properties": {
+            "allograph_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "damage_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "direction_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "length_identity_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "segmentation_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            },
+            "surface_order_policy_sha256": {
+              "$ref": "#/$defs/checksum"
+            }
+          },
+          "required": [
+            "allograph_policy_sha256",
+            "damage_policy_sha256",
+            "direction_policy_sha256",
+            "length_identity_policy_sha256",
+            "segmentation_policy_sha256",
+            "surface_order_policy_sha256"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "classes",
+        "policy_commitments"
+      ],
+      "type": "object"
+    },
+    "parent_protocol_sha256": {
+      "const": "sha256:b4e175ee3506a8f46883428937236bc5353f26bbe32db64ad98d72eca4692307",
+      "type": "string"
+    },
+    "record_kind": {
+      "const": "nmfa_x_model_batch",
+      "type": "string"
+    },
+    "selector_assignment_raw_sha256": {
+      "$ref": "#/$defs/checksum"
+    },
+    "selector_plan_sha256": {
+      "const": "sha256:f4c80a15804c4dffcef4f850d597f54836b44c3444af811f1c686814f39c5190",
+      "type": "string"
+    },
+    "units": {
+      "items": {
+        "$ref": "#/$defs/unit"
+      },
+      "maxItems": 20000,
+      "minItems": 160,
+      "type": "array"
+    }
+  },
+  "required": [
+    "claim_binding",
+    "format_version",
+    "gate_plan_sha256",
+    "measurement_plan_sha256",
+    "model",
+    "parent_protocol_sha256",
+    "record_kind",
+    "selector_plan_sha256",
+    "units",
+    "assignment_roster_sha256",
+    "selector_assignment_raw_sha256"
+  ],
+  "title": "NMFA protected X and positive-additive model batch",
+  "type": "object"
+}

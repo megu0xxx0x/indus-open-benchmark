@@ -4,6 +4,9 @@ import json
 import unittest
 from pathlib import Path
 
+from tests.verify_nmfa_measurement_installed_distribution import (
+    metadata_preserves_exact_requirements as measurement_requirements_valid,
+)
 from tests.verify_nmfa_preflight_installed_distribution import (
     metadata_preserves_exact_requirements as preflight_requirements_valid,
 )
@@ -46,6 +49,7 @@ class NMFADistributionPolicyTest(unittest.TestCase):
             preflight_requirements_valid,
             preregistration_requirements_valid,
             selector_requirements_valid,
+            measurement_requirements_valid,
         ):
             self.assertTrue(validator(valid, expected))
             for metadata in invalid[1:]:
