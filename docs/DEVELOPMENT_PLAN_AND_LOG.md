@@ -3002,3 +3002,40 @@ recomputation, retain every abstention and competing separator path, and audit
 the resulting private artifact without promoting ranks or sequences. Reserved
 future-row execution, publication of generated artifacts, translation claims,
 and prize submission remain outside this checkpoint.
+
+## KP1979 template-only matcher V3 calibration protocol candidate — 2026-08-08
+
+Public source now contains a separate V3 calibration implementation without
+changing the V2 matcher, V2 calibration module, row matcher, or row-proposal
+schema. V3 directly reuses the exact V2 synthetic control cases, control
+identities, domain-separated construction, fold assignment, and bounded
+integer grid.
+
+V3 separates two calibration-only evidence tiers. Tier A is the existing
+fully stable matcher proposal. Tier B is present only when boundary, unknown-
+ink, absolute-cost, different-rank-margin, joint-path-margin, and normalization-
+shift gates pass and speck-ablation stability is the sole failed matcher gate.
+Tier B is explicitly `provisional_speck_sensitive` and is not accepted. Wrong
+rank and single-glyph split outcomes in either tier remain disqualifying.
+
+The predeclared candidate-ranking floors use Tier A plus Tier B correct
+retrieval at 99/100 for identity controls, 19/20 for other-view controls, and
+4/5 for concatenation controls. A separate 3/4 positive-control aggregate
+must remain correct in stable Tier A, and every cross-rank collision identity
+must abstain. Selection first requires zero wrong-rank and split outcomes and
+all floors, then maximizes Tier A correct retrieval, then combined Tier A plus
+Tier B correct retrieval, followed by the unchanged V2 strictness order.
+
+The held-out validation partition cannot participate in configuration
+selection or diagnostics. It is evaluated only after one calibration
+configuration has been selected, once per case; failure cannot select a
+runner-up, revise a floor, or retune the protocol. Canonical structural and
+exact-recomputation validators cover both frozen and `no_go` plans. Reference
+and case-local-cache paths are required to produce byte-identical plans.
+
+This is a public template-only protocol and synthetic-test checkpoint, not an
+owner-private execution report. It records no private inventory or result and
+does not execute a real row. It claims no speck robustness, open-set
+generalization, real-row performance, accepted identity or sequence,
+transcription, reading direction, language, meaning, translation,
+decipherment, prize eligibility, submission, or award.
