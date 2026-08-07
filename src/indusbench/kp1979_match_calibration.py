@@ -23,6 +23,9 @@ from .kp1979_glyph_match import (
     BinaryMask,
     MatcherConfig,
     TemplateIndex,
+    _match_row_sequence_from_workspace,
+    _prepare_row_match_workspace,
+    _RowMatchWorkspace,
     build_template_index,
     match_row_sequence,
     parse_canonical_pbm,
@@ -331,6 +334,27 @@ def calibrate_matcher_plan(
     exactly once after selection.  LOVO cannot make the plan eligible.
     """
 
+    return _calibrate_matcher_plan(template_pbms, grid=grid, use_workspace=True)
+
+
+def _calibrate_matcher_plan_reference(
+    template_pbms: Iterable[TemplatePBM],
+    *,
+    grid: CalibrationGrid | None = None,
+) -> dict[str, Any]:
+    """Retain the V2 uncached execution path for byte-exact differential tests."""
+
+    return _calibrate_matcher_plan(template_pbms, grid=grid, use_workspace=False)
+
+
+def _calibrate_matcher_plan(
+    template_pbms: Iterable[TemplatePBM],
+    *,
+    grid: CalibrationGrid | None,
+    use_workspace: bool,
+) -> dict[str, Any]:
+    """Run the unchanged V2 protocol with either cached or reference matching."""
+
     selected_grid = grid if grid is not None else CalibrationGrid()
     sources = _materialize_sources(template_pbms)
     index = build_template_index(
@@ -347,15 +371,15 @@ def calibrate_matcher_plan(
     if not calibration_cases or not validation_cases:
         raise KP1979MatchCalibrationError("hash folds did not populate both control partitions")
 
-    evaluations: list[ThresholdEvaluation] = []
-    for max_token_cost, (cut_support, cut_penalty), rank_margin in product(
-        selected_grid.max_token_costs,
-        selected_grid.cut_policies,
-        selected_grid.min_different_rank_margins,
-    ):
-        # Path margin changes only the final joint-path gate.  Evaluate every
-        # other final gate once, then share that result across path thresholds.
-        probe = _config(
+    probe_specs = tuple(
+        product(
+            selected_grid.max_token_costs,
+            selected_grid.cut_policies,
+            selected_grid.min_different_rank_margins,
+        )
+    )
+    probes = tuple(
+        _config(
             max_token_cost=max_token_cost,
             rank_margin=rank_margin,
             path_margin=0,
@@ -364,10 +388,51 @@ def calibrate_matcher_plan(
             grid=selected_grid,
             stability=True,
         )
-        calibration_observations = tuple(
-            _observe(case, index=index, config=probe, require_proposed_status=True)
-            for case in calibration_cases
+        for max_token_cost, (cut_support, cut_penalty), rank_margin in probe_specs
+    )
+    if use_workspace:
+        observation_lists: list[list[_Observation]] = [[] for _ in probes]
+        for case in calibration_cases:
+            workspace = _prepare_row_match_workspace(
+                row_id=_safe_case_row_id(case.case_id),
+                row_pbm=case.row_pbm,
+                sign_region_bbox=None,
+                index=index,
+                config=probes[0],
+            )
+            for position, probe in enumerate(probes):
+                observation_lists[position].append(
+                    _observe(
+                        case,
+                        index=index,
+                        config=probe,
+                        require_proposed_status=True,
+                        workspace=workspace,
+                    )
+                )
+        observations_by_probe = tuple(tuple(values) for values in observation_lists)
+    else:
+        observations_by_probe = tuple(
+            tuple(
+                _observe(case, index=index, config=probe, require_proposed_status=True)
+                for case in calibration_cases
+            )
+            for probe in probes
         )
+
+    evaluations: list[ThresholdEvaluation] = []
+    observations_by_evaluation: list[tuple[_Observation, ...]] = []
+    for (
+        max_token_cost,
+        (cut_support, cut_penalty),
+        rank_margin,
+    ), calibration_observations in zip(
+        probe_specs,
+        observations_by_probe,
+        strict=True,
+    ):
+        # Path margin changes only the final joint-path gate.  Evaluate every
+        # other final gate once, then share that result across path thresholds.
         for path_margin in selected_grid.min_path_margins:
             config = _config(
                 max_token_cost=max_token_cost,
@@ -379,6 +444,7 @@ def calibrate_matcher_plan(
                 stability=True,
             )
             evaluations.append(_aggregate_observations(calibration_observations, config=config))
+            observations_by_evaluation.append(calibration_observations)
 
     selected = select_threshold_evaluation(evaluations)
     plan_status = "no_go"
@@ -389,10 +455,18 @@ def calibrate_matcher_plan(
     lovo_metrics = _empty_lovo_metrics()
     if selected is not None:
         selected_config = selected.config
-        calibration_observations = tuple(
-            _observe(case, index=index, config=selected_config, require_proposed_status=True)
-            for case in calibration_cases
-        )
+        if use_workspace:
+            selected_position = next(
+                position
+                for position, evaluation in enumerate(evaluations)
+                if evaluation is selected
+            )
+            calibration_observations = observations_by_evaluation[selected_position]
+        else:
+            calibration_observations = tuple(
+                _observe(case, index=index, config=selected_config, require_proposed_status=True)
+                for case in calibration_cases
+            )
         validation_observations = tuple(
             _observe(case, index=index, config=selected_config, require_proposed_status=True)
             for case in validation_cases
@@ -922,15 +996,25 @@ def _observe(
     index: TemplateIndex,
     config: MatcherConfig,
     require_proposed_status: bool = False,
+    workspace: _RowMatchWorkspace | None = None,
 ) -> _Observation:
-    row = parse_canonical_pbm(case.row_pbm)
-    result = match_row_sequence(
-        row_id=_safe_case_row_id(case.case_id),
-        row_pbm=case.row_pbm,
-        sign_region_bbox=(0, 0, row.width, row.height),
-        index=index,
-        config=config,
-    )
+    row_id = _safe_case_row_id(case.case_id)
+    if workspace is None:
+        row = parse_canonical_pbm(case.row_pbm)
+        result = match_row_sequence(
+            row_id=row_id,
+            row_pbm=case.row_pbm,
+            sign_region_bbox=(0, 0, row.width, row.height),
+            index=index,
+            config=config,
+        )
+    else:
+        if (
+            workspace.row_id != row_id
+            or workspace.row_pbm_sha256 != hashlib.sha256(case.row_pbm).digest()
+        ):
+            raise KP1979MatchCalibrationError("row match workspace belongs to another case")
+        result = _match_row_sequence_from_workspace(workspace, index=index, config=config)
     paths = result["candidate_paths"]
     if not paths:
         return _Observation(

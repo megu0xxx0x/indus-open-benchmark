@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+import json
 import unittest
+from dataclasses import FrozenInstanceError, replace
 from typing import Any
+from unittest.mock import patch
 
+import indusbench.kp1979_glyph_match as matcher_module
 from indusbench.kp1979_glyph_match import (
     KP1979GlyphMatchError,
     MatcherConfig,
     TemplateIndex,
+    _match_row_sequence_from_workspace,
+    _prepare_row_match_workspace,
     build_template_index,
     match_row_sequence,
     parse_canonical_pbm,
@@ -367,6 +373,264 @@ class JointGlyphMatchTests(unittest.TestCase):
                 index=index,
                 config=loose_config(),
             )
+
+    def test_prepared_workspace_matches_reference_dict_and_path_order_across_boundaries(
+        self,
+    ) -> None:
+        base_index = build_template_index(
+            [("cross", 1, CROSS), ("box", 2, BOX), ("bars", 3, TWO_BARS)]
+        )
+        tied_index = build_template_index(
+            [("same-1", 1, CROSS), ("same-2", 2, CROSS), ("box", 3, BOX)]
+        )
+        combined = pbm(
+            "..#.......#####",
+            "..#.......#...#",
+            "#####.....#...#",
+            "..#.......#...#",
+            "..#.......#####",
+        )
+        padded_combined = pbm(
+            ".................",
+            *[
+                f".{row}."
+                for row in (
+                    "..#.......#####",
+                    "..#.......#...#",
+                    "#####.....#...#",
+                    "..#.......#...#",
+                    "..#.......#####",
+                )
+            ],
+            ".................",
+        )
+        segmentation_index = build_template_index(
+            [("cross", 1, CROSS), ("box", 2, BOX), ("combined", 3, combined)]
+        )
+        blank = pbm(".....", ".....", ".....")
+        specked = pbm(
+            ".......",
+            ".#.....",
+            "...#...",
+            "...#...",
+            ".#####.",
+            "...#...",
+            "...#...",
+            ".......",
+        )
+        offset_cross = pbm(
+            ".........",
+            ".........",
+            "....#....",
+            "....#....",
+            "..#####..",
+            "....#....",
+            "....#....",
+            ".........",
+            ".........",
+        )
+        padded_dot = pbm("...", ".#.", "...")
+        dot_index = build_template_index([("dot", 1, pbm("#")), ("cross", 2, CROSS)])
+        cases = (
+            ("prepared-exact", PADDED_CROSS, (0, 0, 7, 7), base_index),
+            ("prepared-joint", padded_combined, (0, 0, 17, 7), segmentation_index),
+            ("prepared-tie", PADDED_CROSS, (0, 0, 7, 7), tied_index),
+            ("prepared-blank", blank, (0, 0, 5, 3), base_index),
+            ("prepared-boundary", CROSS, (0, 0, 5, 5), base_index),
+            ("prepared-speck", specked, (0, 0, 7, 8), base_index),
+            ("prepared-offset", offset_cross, (1, 1, 8, 8), base_index),
+            ("prepared-speck-empty", padded_dot, (0, 0, 3, 3), dot_index),
+        )
+        configs = (
+            loose_config(),
+            loose_config(
+                max_token_cost=0,
+                min_different_rank_margin=0,
+                min_path_margin=0,
+                cut_gap_support_ppm=0,
+                max_cut_penalty=0,
+                require_speck_stability=True,
+                require_shift_stability=True,
+            ),
+            loose_config(
+                max_token_cost=500_000,
+                min_different_rank_margin=100_000,
+                min_path_margin=100_000,
+                require_speck_stability=True,
+                require_shift_stability=True,
+            ),
+        )
+        for row_id, row_pbm, bbox, index in cases:
+            workspace = _prepare_row_match_workspace(
+                row_id=row_id,
+                row_pbm=row_pbm,
+                sign_region_bbox=bbox,
+                index=index,
+                config=configs[0],
+            )
+            for matcher_config in configs:
+                with self.subTest(row_id=row_id, config=matcher_config):
+                    reference = match_row_sequence(
+                        row_id=row_id,
+                        row_pbm=row_pbm,
+                        sign_region_bbox=bbox,
+                        index=index,
+                        config=matcher_config,
+                    )
+                    prepared = _match_row_sequence_from_workspace(
+                        workspace,
+                        index=index,
+                        config=matcher_config,
+                    )
+                    self.assertEqual(reference, prepared)
+                    self.assertEqual(
+                        json.dumps(reference, separators=(",", ":"), sort_keys=False),
+                        json.dumps(prepared, separators=(",", ":"), sort_keys=False),
+                    )
+                    if row_id == "prepared-speck-empty" and matcher_config.require_speck_stability:
+                        self.assertFalse(prepared["gates"]["speck_ablation_stability_passed"])
+
+    def test_workspace_cache_is_immutable_index_bound_and_aspect_safe(self) -> None:
+        near_square_a = pbm(*(["#" * 55] * 56))
+        near_square_b = pbm(*(["#" * 56] * 57))
+        index = build_template_index(
+            [("near-a", 1, near_square_a), ("near-b", 2, near_square_b), ("cross", 3, CROSS)]
+        )
+        content_rows = ["#" * 55 + "." * 5 + "#" * 56 for _ in range(56)]
+        content_rows.append("." * 60 + "#" * 56)
+        row = pbm("." * 118, *[f".{value}." for value in content_rows], "." * 118)
+        matcher_config = loose_config()
+        workspace = _prepare_row_match_workspace(
+            row_id="aspect-isolation",
+            row_pbm=row,
+            sign_region_bbox=(0, 0, 118, 59),
+            index=index,
+            config=matcher_config,
+        )
+        reference = match_row_sequence(
+            row_id="aspect-isolation",
+            row_pbm=row,
+            sign_region_bbox=(0, 0, 118, 59),
+            index=index,
+            config=matcher_config,
+        )
+        prepared = _match_row_sequence_from_workspace(
+            workspace,
+            index=index,
+            config=matcher_config,
+        )
+        self.assertEqual(reference, prepared)
+        with self.assertRaises(FrozenInstanceError):
+            workspace.__setattr__("row_id", "changed")
+        forged_workspace = replace(workspace, boundary_contact=not workspace.boundary_contact)
+        with self.assertRaisesRegex(KP1979GlyphMatchError, "provenance"):
+            _match_row_sequence_from_workspace(
+                forged_workspace,
+                index=index,
+                config=matcher_config,
+            )
+
+        equal_but_distinct_index = build_template_index(
+            [("near-a", 1, near_square_a), ("near-b", 2, near_square_b), ("cross", 3, CROSS)]
+        )
+        self.assertEqual(index, equal_but_distinct_index)
+        with self.assertRaisesRegex(KP1979GlyphMatchError, "another template index"):
+            _match_row_sequence_from_workspace(
+                workspace,
+                index=equal_but_distinct_index,
+                config=matcher_config,
+            )
+        with self.assertRaisesRegex(KP1979GlyphMatchError, "candidate configuration"):
+            _match_row_sequence_from_workspace(
+                workspace,
+                index=index,
+                config=loose_config(candidate_aspect_slack_ppm=0),
+            )
+
+    def test_workspace_performs_base_cleaned_and_four_shift_distance_work_once(self) -> None:
+        index = build_template_index([("cross", 1, CROSS), ("box", 2, BOX), ("bars", 3, TWO_BARS)])
+        matcher_config = loose_config(
+            require_speck_stability=True,
+            require_shift_stability=True,
+        )
+        original = matcher_module._rank_candidates
+        with patch.object(matcher_module, "_rank_candidates", wraps=original) as scorer:
+            workspace = _prepare_row_match_workspace(
+                row_id="distance-cache",
+                row_pbm=PADDED_CROSS,
+                sign_region_bbox=(0, 0, 7, 7),
+                index=index,
+                config=matcher_config,
+            )
+            preparation_calls = scorer.call_count
+            offsets = {call.kwargs["normalization_offset"] for call in scorer.call_args_list}
+            cache_keys = {
+                (call.args[0], call.kwargs["normalization_offset"])
+                for call in scorer.call_args_list
+            }
+            self.assertEqual(5, preparation_calls)
+            self.assertEqual(preparation_calls, len(cache_keys))
+            self.assertEqual(
+                {(0, 0), (-1, 0), (1, 0), (0, -1), (0, 1)},
+                offsets,
+            )
+            for max_cost, rank_margin, path_margin in (
+                (0, 0, 0),
+                (500_000, 1, 1),
+                (1_250_000, 100_000, 250_000),
+            ):
+                _match_row_sequence_from_workspace(
+                    workspace,
+                    index=index,
+                    config=loose_config(
+                        max_token_cost=max_cost,
+                        min_different_rank_margin=rank_margin,
+                        min_path_margin=path_margin,
+                        require_speck_stability=True,
+                        require_shift_stability=True,
+                    ),
+                )
+            self.assertEqual(preparation_calls, scorer.call_count)
+
+    def test_workspace_aspect_prefilter_is_exact_at_the_integer_cutoff(self) -> None:
+        index = build_template_index([("square", 1, CROSS)])
+        wide_row = pbm(
+            ".......",
+            ".#####.",
+            ".#####.",
+            ".#####.",
+            ".#####.",
+            ".......",
+        )
+        at_cutoff = loose_config(candidate_aspect_slack_ppm=250_000)
+        one_below = loose_config(candidate_aspect_slack_ppm=249_999)
+        for label, matcher_config, expected_candidate in (
+            ("at-cutoff", at_cutoff, True),
+            ("one-ppm-over-cutoff", one_below, False),
+        ):
+            with self.subTest(label=label):
+                workspace = _prepare_row_match_workspace(
+                    row_id=f"aspect-{label}",
+                    row_pbm=wide_row,
+                    sign_region_bbox=(0, 0, 7, 6),
+                    index=index,
+                    config=matcher_config,
+                )
+                self.assertEqual(expected_candidate, bool(workspace.candidate_spans[0]))
+                self.assertEqual(
+                    match_row_sequence(
+                        row_id=f"aspect-{label}",
+                        row_pbm=wide_row,
+                        sign_region_bbox=(0, 0, 7, 6),
+                        index=index,
+                        config=matcher_config,
+                    ),
+                    _match_row_sequence_from_workspace(
+                        workspace,
+                        index=index,
+                        config=matcher_config,
+                    ),
+                )
 
     def test_forged_template_index_derived_bound_is_rejected(self) -> None:
         index = build_template_index([("cross", 1, CROSS), ("box", 2, BOX)])

@@ -8,7 +8,9 @@ the source-pixel and development-partition boundary.
 
 from __future__ import annotations
 
+import hashlib
 import re
+import weakref
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any
@@ -31,6 +33,7 @@ MAX_TEMPLATE_COLUMN_RUNS = 16
 MAX_PRIMITIVE_RUNS = 128
 MAX_CANDIDATE_RUN_SPAN = 16
 MATCHER_ALGORITHM_ID = "kp1979-shape-only-joint-segmentation-v1"
+_STABILITY_NORMALIZATION_OFFSETS = ((-1, 0), (1, 0), (0, -1), (0, 1))
 
 _PBM_HEADER = re.compile(rb"\AP4\n([1-9][0-9]*) ([1-9][0-9]*)\n")
 _VARIANT_ID = re.compile(r"\A[A-Za-z0-9][A-Za-z0-9:._-]{0,127}\Z")
@@ -277,11 +280,71 @@ class _RankCandidate:
 
 
 @dataclass(frozen=True, slots=True)
+class _StabilityEvidence:
+    cleaned_candidates: tuple[_RankCandidate, ...]
+    shifted_candidates: tuple[tuple[_RankCandidate, ...], ...]
+
+
+@dataclass(frozen=True, slots=True)
+class _PreparedUnknownSpan:
+    bbox: tuple[int, int, int, int]
+    source_mask: BinaryMask
+
+
+@dataclass(frozen=True, slots=True)
+class _PreparedCandidateSpan:
+    end: int
+    bbox: tuple[int, int, int, int]
+    source_mask: BinaryMask
+    candidates: tuple[_RankCandidate, ...]
+    stability: _StabilityEvidence
+
+
+class _WorkspaceProvenance:
+    """Bind one prepared workspace to the exact object created by this module."""
+
+    __slots__ = ("_owner",)
+
+    def __init__(self) -> None:
+        self._owner: weakref.ReferenceType[Any] | None = None
+
+    def bind(self, workspace: _RowMatchWorkspace) -> None:
+        if self._owner is not None:
+            raise KP1979GlyphMatchError("row match workspace provenance is already bound")
+        self._owner = weakref.ref(workspace)
+
+    def owns(self, workspace: _RowMatchWorkspace) -> bool:
+        return self._owner is not None and self._owner() is workspace
+
+
+@dataclass(frozen=True, slots=True, weakref_slot=True)
+class _RowMatchWorkspace:
+    """One immutable, index-bound cache of all distance work for one row."""
+
+    row_id: str
+    row_pbm_sha256: bytes
+    region_bbox: tuple[int, int, int, int]
+    boundary_contact: bool
+    tight_mask: BinaryMask | None
+    runs: tuple[tuple[int, int], ...]
+    offset_x: int
+    offset_y: int
+    gap_reference_height: int
+    unknown_spans: tuple[_PreparedUnknownSpan, ...]
+    candidate_spans: tuple[tuple[_PreparedCandidateSpan, ...], ...]
+    index: TemplateIndex = field(repr=False)
+    candidate_aspect_slack_ppm: int
+    top_ranks_per_span: int
+    _provenance: _WorkspaceProvenance = field(repr=False, compare=False)
+
+
+@dataclass(frozen=True, slots=True)
 class _Segment:
     bbox: tuple[int, int, int, int]
     candidate: _RankCandidate | None
     source_mask: BinaryMask
     segment_cost: int
+    stability: _StabilityEvidence | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -385,6 +448,196 @@ def build_template_index(
     return TemplateIndex(tuple(templates), max_internal_white_runs, max_aspect_ppm)
 
 
+def _prepare_row_match_workspace(
+    *,
+    row_id: str,
+    row_pbm: bytes,
+    sign_region_bbox: Sequence[int] | None,
+    index: TemplateIndex,
+    config: MatcherConfig,
+) -> _RowMatchWorkspace:
+    """Prepare one immutable, case-local cache for repeated threshold probes."""
+
+    if not isinstance(row_id, str) or _ROW_ID.fullmatch(row_id) is None:
+        raise KP1979GlyphMatchError("row ID is invalid")
+    if len(row_pbm) > MAX_ROW_PBM_BYTES:
+        raise KP1979GlyphMatchError("row PBM byte size exceeds its limit")
+    row_mask = parse_canonical_pbm(row_pbm)
+    row_pbm_sha256 = hashlib.sha256(row_pbm).digest()
+    if row_mask.width > MAX_ROW_WIDTH or row_mask.height > MAX_ROW_HEIGHT:
+        raise KP1979GlyphMatchError("row PBM dimensions exceed their limit")
+    if sign_region_bbox is None:
+        region_bbox = (0, 0, row_mask.width, row_mask.height)
+    else:
+        if len(sign_region_bbox) != 4 or any(
+            not isinstance(value, int) or isinstance(value, bool) for value in sign_region_bbox
+        ):
+            raise KP1979GlyphMatchError("sign-region bbox must contain four integers")
+        x0, y0, x1, y1 = sign_region_bbox
+        region_bbox = (x0, y0, x1, y1)
+    x0, y0, x1, y1 = region_bbox
+    if not 0 <= x0 < x1 <= row_mask.width or not 0 <= y0 < y1 <= row_mask.height:
+        raise KP1979GlyphMatchError("sign-region bbox lies outside the row crop")
+    region = row_mask.crop(region_bbox)
+    boundary_contact = _has_boundary_ink(region)
+    tight_bbox = region.tight_bbox()
+    if tight_bbox is None:
+        workspace = _RowMatchWorkspace(
+            row_id=row_id,
+            row_pbm_sha256=row_pbm_sha256,
+            region_bbox=region_bbox,
+            boundary_contact=boundary_contact,
+            tight_mask=None,
+            runs=(),
+            offset_x=0,
+            offset_y=0,
+            gap_reference_height=region.height,
+            unknown_spans=(),
+            candidate_spans=(),
+            index=index,
+            candidate_aspect_slack_ppm=config.candidate_aspect_slack_ppm,
+            top_ranks_per_span=config.top_ranks_per_span,
+            _provenance=_WorkspaceProvenance(),
+        )
+        workspace._provenance.bind(workspace)
+        return workspace
+
+    tight = region.crop(tight_bbox)
+    runs = tuple(_ink_column_runs(tight))
+    if len(runs) > MAX_PRIMITIVE_RUNS:
+        raise KP1979GlyphMatchError("row contains too many separated column runs")
+    offset_x = x0 + tight_bbox[0]
+    offset_y = y0 + tight_bbox[1]
+    max_span_runs = min(index.max_internal_white_runs + 3, MAX_CANDIDATE_RUN_SPAN)
+    max_candidate_aspect = index.max_aspect_ppm + (
+        index.max_aspect_ppm * config.candidate_aspect_slack_ppm // SCORE_SCALE
+    )
+    distance_cache: dict[tuple[BinaryMask, tuple[int, int]], tuple[_RankCandidate, ...]] = {}
+
+    def cached_candidates(
+        mask: BinaryMask,
+        *,
+        limit: int,
+        normalization_offset: tuple[int, int] = (0, 0),
+    ) -> tuple[_RankCandidate, ...]:
+        key = (mask, normalization_offset)
+        cached = distance_cache.get(key)
+        if cached is None:
+            cached = tuple(
+                _rank_candidates(
+                    mask,
+                    index=index,
+                    limit=config.top_ranks_per_span,
+                    normalization_offset=normalization_offset,
+                )
+            )
+            distance_cache[key] = cached
+        return cached[:limit]
+
+    unknown_spans: list[_PreparedUnknownSpan] = []
+    candidate_spans: list[tuple[_PreparedCandidateSpan, ...]] = []
+    for start in range(len(runs)):
+        unknown_bbox = _tight_span_bbox(tight, runs[start][0], runs[start][1])
+        unknown_spans.append(
+            _PreparedUnknownSpan(
+                bbox=_offset_bbox(unknown_bbox, offset_x, offset_y),
+                source_mask=tight.crop(unknown_bbox),
+            )
+        )
+        prepared_for_start: list[_PreparedCandidateSpan] = []
+        for end in range(start + 1, min(len(runs), start + max_span_runs) + 1):
+            span_bbox = _tight_span_bbox(tight, runs[start][0], runs[end - 1][1])
+            span_mask = tight.crop(span_bbox)
+            aspect_ppm = span_mask.width * SCORE_SCALE // span_mask.height
+            if aspect_ppm > max_candidate_aspect:
+                continue
+            candidates = cached_candidates(span_mask, limit=config.top_ranks_per_span)
+            cleaned_tight = _tight_mask(_drop_isolated_pixels(span_mask))
+            cleaned_candidates = (
+                () if cleaned_tight is None else cached_candidates(cleaned_tight, limit=1)
+            )
+            shifted_candidates = tuple(
+                cached_candidates(span_mask, limit=1, normalization_offset=offset)
+                for offset in _STABILITY_NORMALIZATION_OFFSETS
+            )
+            prepared_for_start.append(
+                _PreparedCandidateSpan(
+                    end=end,
+                    bbox=_offset_bbox(span_bbox, offset_x, offset_y),
+                    source_mask=span_mask,
+                    candidates=candidates,
+                    stability=_StabilityEvidence(
+                        cleaned_candidates=cleaned_candidates,
+                        shifted_candidates=shifted_candidates,
+                    ),
+                )
+            )
+        candidate_spans.append(tuple(prepared_for_start))
+    workspace = _RowMatchWorkspace(
+        row_id=row_id,
+        row_pbm_sha256=row_pbm_sha256,
+        region_bbox=region_bbox,
+        boundary_contact=boundary_contact,
+        tight_mask=tight,
+        runs=runs,
+        offset_x=offset_x,
+        offset_y=offset_y,
+        gap_reference_height=region.height,
+        unknown_spans=tuple(unknown_spans),
+        candidate_spans=tuple(candidate_spans),
+        index=index,
+        candidate_aspect_slack_ppm=config.candidate_aspect_slack_ppm,
+        top_ranks_per_span=config.top_ranks_per_span,
+        _provenance=_WorkspaceProvenance(),
+    )
+    workspace._provenance.bind(workspace)
+    return workspace
+
+
+def _match_row_sequence_from_workspace(
+    workspace: _RowMatchWorkspace,
+    *,
+    index: TemplateIndex,
+    config: MatcherConfig,
+) -> dict[str, Any]:
+    """Match one row using exact distance evidence bound to its source index."""
+
+    if not isinstance(workspace, _RowMatchWorkspace):
+        raise KP1979GlyphMatchError("row match workspace has an invalid type")
+    if not workspace._provenance.owns(workspace):
+        raise KP1979GlyphMatchError("row match workspace provenance is invalid")
+    if workspace.index is not index:
+        raise KP1979GlyphMatchError("row match workspace belongs to another template index")
+    if (
+        workspace.candidate_aspect_slack_ppm != config.candidate_aspect_slack_ppm
+        or workspace.top_ranks_per_span != config.top_ranks_per_span
+    ):
+        raise KP1979GlyphMatchError("row match workspace differs from candidate configuration")
+    base = {
+        "row_id": workspace.row_id,
+        "visual_order": "left_to_right_coordinate_order_not_reading_direction",
+        "sign_region_bbox": list(workspace.region_bbox),
+    }
+    if workspace.tight_mask is None:
+        return {
+            **base,
+            "proposal_status": "no_match",
+            "abstention_code": "no_ink_in_sign_region",
+            "candidate_paths": [],
+            "gates": _gate_mapping(False, False, False, False, False),
+        }
+    paths = _joint_paths_from_workspace(workspace, config=config)
+    return _finalize_match_result(
+        base=base,
+        paths=paths,
+        total_row_ink=workspace.tight_mask.ink_count,
+        boundary_contact=workspace.boundary_contact,
+        index=index,
+        config=config,
+        prepared_stability=True,
+    )
+
+
 def match_row_sequence(
     *,
     row_id: str,
@@ -439,6 +692,27 @@ def match_row_sequence(
         offset_y=region_offset_y,
         gap_reference_height=region.height,
     )
+    return _finalize_match_result(
+        base=base,
+        paths=paths,
+        total_row_ink=tight.ink_count,
+        boundary_contact=boundary_contact,
+        index=index,
+        config=config,
+        prepared_stability=False,
+    )
+
+
+def _finalize_match_result(
+    *,
+    base: dict[str, Any],
+    paths: Sequence[_Path],
+    total_row_ink: int,
+    boundary_contact: bool,
+    index: TemplateIndex,
+    config: MatcherConfig,
+    prepared_stability: bool,
+) -> dict[str, Any]:
     if not paths:
         return {
             **base,
@@ -449,7 +723,6 @@ def match_row_sequence(
         }
 
     best = paths[0]
-    total_row_ink = tight.ink_count
     next_margin = (
         (paths[1].total_loss - best.total_loss) // total_row_ink
         if len(paths) > 1
@@ -467,7 +740,10 @@ def match_row_sequence(
         for segment in matched_segments
     )
     path_margin_gate = next_margin >= config.min_path_margin
-    speck_gate, shift_gate = _stability_gates(best, index=index, config=config)
+    if prepared_stability:
+        speck_gate, shift_gate = _stability_gates_from_evidence(best, config=config)
+    else:
+        speck_gate, shift_gate = _stability_gates(best, index=index, config=config)
     if contains_unknown or boundary_contact:
         proposal_status = "unknown_damage"
         abstention_code = (
@@ -514,6 +790,73 @@ def match_row_sequence(
             not boundary_contact,
         ),
     }
+
+
+def _joint_paths_from_workspace(
+    workspace: _RowMatchWorkspace,
+    *,
+    config: MatcherConfig,
+) -> list[_Path]:
+    mask = workspace.tight_mask
+    if mask is None:
+        raise KP1979GlyphMatchError("row match workspace has no ink")
+    runs = workspace.runs
+    paths_at: list[list[_Path]] = [[] for _ in range(len(runs) + 1)]
+    paths_at[0] = [_Path(0, ())]
+    total_row_ink = mask.ink_count
+    for start in range(len(runs)):
+        if not paths_at[start]:
+            continue
+        boundary_cost = _boundary_cut_cost(
+            workspace.gap_reference_height,
+            runs,
+            start,
+            config,
+        )
+        unknown = workspace.unknown_spans[start]
+        unknown_segment = _Segment(
+            unknown.bbox,
+            None,
+            unknown.source_mask,
+            config.unknown_edge_cost,
+        )
+        _extend_paths(
+            paths_at[start + 1],
+            paths_at[start],
+            segment=unknown_segment,
+            edge_loss=(
+                config.unknown_edge_cost * unknown.source_mask.ink_count
+                + boundary_cost * total_row_ink
+            ),
+            keep=config.top_paths,
+        )
+        for prepared in workspace.candidate_spans[start]:
+            for candidate in prepared.candidates:
+                if candidate.emission_cost > config.max_token_cost:
+                    continue
+                segment = _Segment(
+                    prepared.bbox,
+                    candidate,
+                    prepared.source_mask,
+                    candidate.emission_cost,
+                    prepared.stability,
+                )
+                _extend_paths(
+                    paths_at[prepared.end],
+                    paths_at[start],
+                    segment=segment,
+                    edge_loss=(
+                        candidate.emission_cost * prepared.source_mask.ink_count
+                        + boundary_cost * total_row_ink
+                    ),
+                    keep=config.top_paths,
+                )
+    distinct: dict[tuple[object, ...], _Path] = {}
+    for path in sorted(paths_at[-1], key=_path_sort_key):
+        key = _path_distinct_key(path)
+        if key not in distinct:
+            distinct[key] = path
+    return sorted(distinct.values(), key=_path_sort_key)[: config.top_paths]
 
 
 def _joint_paths(
@@ -710,13 +1053,44 @@ def _stability_gates(
                 ):
                     speck_stable = False
         if config.require_shift_stability:
-            for offset in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            for offset in _STABILITY_NORMALIZATION_OFFSETS:
                 shifted = _rank_candidates(
                     segment.source_mask,
                     index=index,
                     limit=1,
                     normalization_offset=offset,
                 )
+                if not _stable_rank_candidate(
+                    shifted,
+                    expected_rank=expected_rank,
+                    config=config,
+                ):
+                    shift_stable = False
+                    break
+    return speck_stable, shift_stable
+
+
+def _stability_gates_from_evidence(
+    path: _Path,
+    *,
+    config: MatcherConfig,
+) -> tuple[bool, bool]:
+    speck_stable = True
+    shift_stable = True
+    for segment in path.segments:
+        if segment.candidate is None:
+            continue
+        if segment.stability is None:
+            raise KP1979GlyphMatchError("matched segment lacks prepared stability evidence")
+        expected_rank = segment.candidate.catalog_rank
+        if config.require_speck_stability and not _stable_rank_candidate(
+            segment.stability.cleaned_candidates,
+            expected_rank=expected_rank,
+            config=config,
+        ):
+            speck_stable = False
+        if config.require_shift_stability:
+            for shifted in segment.stability.shifted_candidates:
                 if not _stable_rank_candidate(
                     shifted,
                     expected_rank=expected_rank,

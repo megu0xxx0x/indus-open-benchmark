@@ -316,6 +316,52 @@ class ThresholdSelectionTests(unittest.TestCase):
 
 
 class MatcherPlanTests(unittest.TestCase):
+    def test_cached_plan_is_byte_exact_reference_across_grids_rosters_and_no_go(
+        self,
+    ) -> None:
+        richer_grid = CalibrationGrid(
+            max_token_costs=(500_000, 1_250_000),
+            min_different_rank_margins=(1, 100_000),
+            min_path_margins=(1, 100_000),
+            cut_policies=((0, 0), (125_000, 250_000)),
+        )
+        fixtures = (
+            ("synthetic-small", SYNTHETIC_TEMPLATES, SMALL_GRID),
+            ("synthetic-reversed-rich", tuple(reversed(SYNTHETIC_TEMPLATES)), richer_grid),
+            ("collision-rich", COLLISION_TEMPLATES, richer_grid),
+            ("single-template-no-go", (BOUND_TEMPLATES[0],), SMALL_GRID),
+        )
+        for label, template_pbms, grid in fixtures:
+            with self.subTest(label=label):
+                reference = calibration_module._calibrate_matcher_plan_reference(
+                    template_pbms,
+                    grid=grid,
+                )
+                optimized = calibrate_matcher_plan(template_pbms, grid=grid)
+                self.assertEqual(reference, optimized)
+                self.assertEqual(encode_json(reference), encode_json(optimized))
+
+    def test_workspace_is_bound_to_exact_case_pixels(self) -> None:
+        cases = build_closed_set_control_cases(SYNTHETIC_TEMPLATES)
+        case = cases[0]
+        other = next(value for value in cases[1:] if value.row_pbm != case.row_pbm)
+        index = build_template_index(SYNTHETIC_TEMPLATES)
+        matcher_config = config()
+        wrong_workspace = calibration_module._prepare_row_match_workspace(
+            row_id=calibration_module._safe_case_row_id(case.case_id),
+            row_pbm=other.row_pbm,
+            sign_region_bbox=None,
+            index=index,
+            config=matcher_config,
+        )
+        with self.assertRaisesRegex(KP1979MatchCalibrationError, "another case"):
+            calibration_module._observe(
+                case,
+                index=index,
+                config=matcher_config,
+                workspace=wrong_workspace,
+            )
+
     def test_template_only_plan_freezes_with_predeclared_coverage_in_both_partitions(self) -> None:
         with patch("builtins.open", side_effect=AssertionError("filesystem read attempted")):
             first = calibrate_matcher_plan(SYNTHETIC_TEMPLATES, grid=SMALL_GRID)
@@ -390,7 +436,15 @@ class MatcherPlanTests(unittest.TestCase):
         calibration_count = sum(case.fold != 4 for case in cases)
         validation_count = len(cases) - calibration_count
         calls: list[tuple[str, int, MatcherConfig]] = []
+        observed_workspaces: list[tuple[int, Any]] = []
+        prepared_workspaces: list[Any] = []
         original = calibration_module._observe
+        original_prepare = calibration_module._prepare_row_match_workspace
+
+        def recording_prepare(**kwargs: Any) -> Any:
+            workspace = original_prepare(**kwargs)
+            prepared_workspaces.append(workspace)
+            return workspace
 
         def recording_observe(
             case: Any,
@@ -398,16 +452,26 @@ class MatcherPlanTests(unittest.TestCase):
             index: Any,
             config: MatcherConfig,
             require_proposed_status: bool = False,
+            workspace: Any = None,
         ) -> Any:
             calls.append((case.case_id, case.fold, config))
+            observed_workspaces.append((case.fold, workspace))
             return original(
                 case,
                 index=index,
                 config=config,
                 require_proposed_status=require_proposed_status,
+                workspace=workspace,
             )
 
-        with patch.object(calibration_module, "_observe", side_effect=recording_observe):
+        with (
+            patch.object(
+                calibration_module,
+                "_prepare_row_match_workspace",
+                side_effect=recording_prepare,
+            ),
+            patch.object(calibration_module, "_observe", side_effect=recording_observe),
+        ):
             plan = calibrate_matcher_plan(SYNTHETIC_TEMPLATES, grid=grid)
 
         self.assertEqual("frozen_closed_template_retrieval_only", plan["status"])
@@ -417,8 +481,18 @@ class MatcherPlanTests(unittest.TestCase):
             * len(grid.min_different_rank_margins)
         )
         self.assertEqual(
-            calibration_count * probe_configurations + len(cases),
+            calibration_count * probe_configurations + validation_count,
             len(calls),
+        )
+        self.assertEqual(calibration_count, len(prepared_workspaces))
+        self.assertEqual(calibration_count, len({id(value) for value in prepared_workspaces}))
+        for workspace in prepared_workspaces:
+            self.assertEqual(
+                probe_configurations,
+                sum(value is workspace for _, value in observed_workspaces),
+            )
+        self.assertTrue(
+            all(workspace is None for fold, workspace in observed_workspaces if fold == 4)
         )
         self.assertTrue(all(call_config.require_speck_stability for _, _, call_config in calls))
         self.assertTrue(all(call_config.require_shift_stability for _, _, call_config in calls))
@@ -427,7 +501,7 @@ class MatcherPlanTests(unittest.TestCase):
         self.assertTrue(all(count == 1 for count in Counter(validation_calls).values()))
         calibration_calls = [case_id for case_id, fold, _ in calls if fold != 4]
         self.assertTrue(
-            all(count == probe_configurations + 1 for count in Counter(calibration_calls).values())
+            all(count == probe_configurations for count in Counter(calibration_calls).values())
         )
 
     def test_collision_identity_is_required_negative_and_structural_inventory_is_exact(
