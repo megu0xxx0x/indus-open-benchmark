@@ -73,6 +73,11 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   deterministic candidate paths. It does not accept row geometry, sign
   sequences, reading direction, interpretation, evaluation admission, or a
   decipherment.
+- `schemas/kp1979-row-match-proposal-v2.schema.json` (v0.2.0) — a separate
+  closed development-only envelope bound to an exactly recomputed V3
+  candidate-ranking plan. Tier B remains provisional and nonaccepted, speck
+  robustness and real-row tiers are not claimed, and no sign sequence or
+  interpretation is accepted.
 - `schemas/kp1979-label-reference-assignment.schema.json` (v0.1.0) — a
   proposal-free, six-page reviewer assignment for exactly one fixed KP1979
   development or future-evaluation partition. It binds source pixels and

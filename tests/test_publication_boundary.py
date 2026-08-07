@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 KP1979_MATCHER_SCHEMA_FILES = (
     ROOT / "schemas" / "kp1979-row-match-proposal.schema.json",
+    ROOT / "schemas" / "kp1979-row-match-proposal-v2.schema.json",
     ROOT / "schemas" / "kp1979-sign-template-roster.schema.json",
 )
 KP1979_MATCHER_CODE_FILES = (
@@ -16,12 +17,14 @@ KP1979_MATCHER_CODE_FILES = (
     ROOT / "src" / "indusbench" / "kp1979_match_calibration.py",
     ROOT / "src" / "indusbench" / "kp1979_match_calibration_v3.py",
     ROOT / "src" / "indusbench" / "kp1979_row_matcher.py",
+    ROOT / "src" / "indusbench" / "kp1979_row_matcher_v3.py",
     ROOT / "src" / "indusbench" / "kp1979_row_separator.py",
     ROOT / "src" / "indusbench" / "kp1979_sign_template_roster.py",
     ROOT / "tests" / "test_kp1979_glyph_match.py",
     ROOT / "tests" / "test_kp1979_match_calibration.py",
     ROOT / "tests" / "test_kp1979_match_calibration_v3.py",
     ROOT / "tests" / "test_kp1979_row_matcher.py",
+    ROOT / "tests" / "test_kp1979_row_matcher_v3.py",
     ROOT / "tests" / "test_kp1979_row_separator.py",
     ROOT / "tests" / "test_kp1979_sign_template_roster.py",
     ROOT / "tests" / "test_kp1979_sign_template_roster_cli.py",

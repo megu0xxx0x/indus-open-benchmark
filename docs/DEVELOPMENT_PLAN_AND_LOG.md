@@ -1,8 +1,8 @@
 # Public development plan and status
 
-**Status date:** 2026-08-07
+**Status date:** 2026-08-08
 
-**Last source-level update:** 2026-08-07
+**Last source-level update:** 2026-08-08
 
 **Project:** Open Indus Benchmark
 
@@ -3039,3 +3039,31 @@ does not execute a real row. It claims no speck robustness, open-set
 generalization, real-row performance, accepted identity or sequence,
 transcription, reading direction, language, meaning, translation,
 decipherment, prize eligibility, submission, or award.
+
+## KP1979 V3-plan-bound row proposal integration candidate — 2026-08-08
+
+Public source now contains an additive V3-plan-bound row proposal adapter and
+a separate closed V2 proposal envelope. The original row matcher, separator,
+glyph matcher, V2 calibration module, and V1 proposal schema remain unchanged.
+The new adapter obtains a runtime matcher configuration only through raw-glyph
+exact recomputation of a frozen V3 plan against the compiled default grid. A
+structural state, plan-reported configuration, caller-supplied configuration,
+alternate grid, V2 plan, tampered plan, or `no_go` plan cannot authorize row
+loading.
+
+The existing development allowlist remains public PDF pages 22 through 77.
+Plan and glyph verification complete before a development row loader can be
+invoked, and the reserved future page remains outside the loader boundary.
+The row separator is unchanged and uncalibrated by this protocol.
+
+Tier B remains calibration-only `provisional_speck_sensitive` evidence and is
+explicitly nonaccepted. The speck stability gate remains enabled at row time,
+and a speck-failed matcher result remains ambiguous rather than becoming a
+proposal. The output assigns no real-row Tier A or Tier B label.
+
+This source checkpoint uses public synthetic fixtures only. It records no
+owner-private plan, roster, row, path, commitment, inventory, or execution
+result and establishes no real-row performance, accepted identity or sequence,
+transcription, reading direction, language, meaning, translation,
+decipherment, public-release authority, evaluation admission, prize
+eligibility, submission, or award.

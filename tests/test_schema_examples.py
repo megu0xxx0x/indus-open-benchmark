@@ -28,6 +28,7 @@ SCHEMA_FILES = (
     "kp1979-page-map.schema.json",
     "kp1979-row-assignment.schema.json",
     "kp1979-row-match-proposal.schema.json",
+    "kp1979-row-match-proposal-v2.schema.json",
     "kp1979-sign-template-roster.schema.json",
     "kp1982-batch0-source.schema.json",
     "kp1982-bootstrap-assignment.schema.json",
@@ -83,6 +84,7 @@ class SchemaContractTests(unittest.TestCase):
                     if filename
                     in {
                         "museum-review.schema.json",
+                        "kp1979-row-match-proposal-v2.schema.json",
                         "kp1979-label-reference-review.schema.json",
                         "private-corpus-policy.schema.json",
                         "private-corpus-readiness.schema.json",
@@ -116,6 +118,7 @@ class SchemaContractTests(unittest.TestCase):
     def test_kp1979_matcher_schemas_are_explicitly_non_attesting(self) -> None:
         for filename in (
             "kp1979-row-match-proposal.schema.json",
+            "kp1979-row-match-proposal-v2.schema.json",
             "kp1979-sign-template-roster.schema.json",
         ):
             with self.subTest(filename=filename):
