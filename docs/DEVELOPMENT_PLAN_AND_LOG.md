@@ -1,8 +1,8 @@
 # Public development plan and status
 
-**Status date:** 2026-08-02
+**Status date:** 2026-08-07
 
-**Last source-level update:** 2026-08-02
+**Last source-level update:** 2026-08-07
 
 **Project:** Open Indus Benchmark
 
@@ -127,6 +127,28 @@ Before any public push, also:
 
 Do not paste private command output into this document. A public verification
 record should state only the source-level result needed by contributors.
+
+## Current continuation checkpoint — 2026-08-07
+
+An owner-only, source-bound image pass reached a machine/AI-provisional
+KP1979 sign-list rank roster and exposed an edition-transfer boundary error.
+The private proposal was corrected against the KP1979 pixels and reproduced
+deterministically. Its inventories, item values, paths, digests, review images,
+and receipts remain outside Git. This is not a human-reviewed or accepted
+transcription and supplies no reading, meaning, language, translation,
+decipherment, scientific result, or prize eligibility.
+
+The highest-information next implementation is now an abstaining, pixel-only
+matcher from verified sign-list variants to the already source-bound KP1979
+row crops. It must jointly score segmentation and glyph shape, retain competing
+paths, avoid language or frequency priors, and preserve the existing reserved
+future-evaluation boundary until code and thresholds are frozen. Identifier and
+printed-code transcription follows the image-only sequence proposal stage.
+
+The isolated N2 control implementation remains unmerged and synthetic-only.
+Real NMFA joined inputs are still absent, so N2 execution is not on the current
+critical path. Do not mistake another source-free run or control bundle for a
+new empirical result.
 
 ## Current development plan
 
