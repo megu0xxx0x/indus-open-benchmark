@@ -16,7 +16,7 @@ import shutil
 import stat
 import sys
 import tempfile
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager, suppress
 from dataclasses import asdict, dataclass, is_dataclass
 from datetime import UTC, date, datetime
@@ -91,6 +91,26 @@ from indusbench.kp1979_row_assignment import (
     KP1979RowAssignmentError,
     build_row_assignment,
     verify_row_assignment_bytes,
+)
+from indusbench.kp1979_sign_template_roster import (
+    MAX_CATALOG_BYTES as KP1979_MAX_SIGN_TEMPLATE_CATALOG_BYTES,
+)
+from indusbench.kp1979_sign_template_roster import (
+    MAX_GEOMETRY_MANIFEST_BYTES as KP1979_MAX_SIGN_TEMPLATE_GEOMETRY_BYTES,
+)
+from indusbench.kp1979_sign_template_roster import (
+    MAX_INPUT_ITEMS as KP1979_MAX_SIGN_TEMPLATE_INPUT_ITEMS,
+)
+from indusbench.kp1979_sign_template_roster import (
+    MAX_TEMPLATE_PBM_BYTES as KP1979_MAX_SIGN_TEMPLATE_PBM_BYTES,
+)
+from indusbench.kp1979_sign_template_roster import (
+    MAX_TEMPLATE_ROSTER_BYTES as KP1979_MAX_SIGN_TEMPLATE_ROSTER_BYTES,
+)
+from indusbench.kp1979_sign_template_roster import (
+    KP1979SignTemplateRosterError,
+    build_sign_template_roster,
+    verify_sign_template_roster_bytes,
 )
 from indusbench.kp1979_synthetic_control import (
     TARGET_ALGORITHM_ID as KP1979_SYNTHETIC_TARGET_ALGORITHM_ID,
@@ -724,18 +744,16 @@ def _read_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
             os.close(descriptor)
 
 
-def _read_private_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
-    """Read one stable owner-only file through a pinned physical parent."""
+def _read_private_regular_bytes_at(
+    parent_descriptor: int,
+    name: str,
+    *,
+    max_bytes: int,
+) -> bytes:
+    """Read one stable owner-only file relative to a pinned private directory."""
 
-    absolute = Path(os.path.abspath(path))
-    if (
-        not absolute.name
-        or absolute.name in {".", ".."}
-        or "/" in absolute.name
-        or "\x00" in absolute.name
-    ):
+    if not name or name in {".", ".."} or "/" in name or "\x00" in name:
         raise ValueError("private input filename is invalid")
-    pinned = _open_pinned_directory(absolute.parent, private_target=True)
     descriptor: int | None = None
     try:
         flags = (
@@ -744,7 +762,7 @@ def _read_private_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
             | getattr(os, "O_NOFOLLOW", 0)
             | getattr(os, "O_NONBLOCK", 0)
         )
-        descriptor = os.open(absolute.name, flags, dir_fd=pinned.descriptor)
+        descriptor = os.open(name, flags, dir_fd=parent_descriptor)
         before = os.fstat(descriptor)
         if (
             not stat.S_ISREG(before.st_mode)
@@ -767,8 +785,8 @@ def _read_private_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
             chunks.append(chunk)
         after = os.fstat(descriptor)
         namespace = os.stat(
-            absolute.name,
-            dir_fd=pinned.descriptor,
+            name,
+            dir_fd=parent_descriptor,
             follow_symlinks=False,
         )
         fingerprint_fields = (
@@ -790,14 +808,38 @@ def _read_private_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
             or _descriptor_has_extended_acl(descriptor)
         ):
             raise ValueError("private input changed during its bounded read")
-        _verify_pinned_directory(pinned)
         return b"".join(chunks)
-    except (OSError, PrivateReadinessError) as error:
+    except OSError as error:
         raise ValueError("private input could not be read safely") from error
     finally:
         if descriptor is not None:
             with suppress(OSError):
                 os.close(descriptor)
+
+
+def _read_private_regular_bytes(path: Path, *, max_bytes: int) -> bytes:
+    """Read one stable owner-only file through a pinned physical parent."""
+
+    absolute = Path(os.path.abspath(path))
+    if (
+        not absolute.name
+        or absolute.name in {".", ".."}
+        or "/" in absolute.name
+        or "\x00" in absolute.name
+    ):
+        raise ValueError("private input filename is invalid")
+    pinned = _open_pinned_directory(absolute.parent, private_target=True)
+    try:
+        raw_bytes = _read_private_regular_bytes_at(
+            pinned.descriptor,
+            absolute.name,
+            max_bytes=max_bytes,
+        )
+        _verify_pinned_directory(pinned)
+        return raw_bytes
+    except PrivateReadinessError as error:
+        raise ValueError("private input could not be read safely") from error
+    finally:
         _close_pinned_directory(pinned)
 
 
@@ -4261,6 +4303,211 @@ def _command_verify_kp1979_row_assignment(args: argparse.Namespace) -> int:
     return 0
 
 
+_KP1979_SIGN_TEMPLATE_CELL_ID = re.compile(r"\AKP1979:P(?:20|21):L[0-9]{2}:R[0-9]{2}\Z")
+_KP1979_MAX_SIGN_TEMPLATE_TOTAL_GLYPH_BYTES = 256 * 1024 * 1024
+
+
+@contextmanager
+def _kp1979_sign_template_glyph_loader(
+    directory: Path,
+) -> Iterator[Callable[[str], bytes]]:
+    """Yield one bounded loader over a pinned owner-only glyph directory."""
+
+    absolute = Path(os.path.abspath(directory))
+    pinned = _open_pinned_directory(absolute, private_target=True)
+    requested: set[str] = set()
+    total_bytes = 0
+
+    def load(cell_id: str) -> bytes:
+        nonlocal total_bytes
+        if not isinstance(cell_id, str) or _KP1979_SIGN_TEMPLATE_CELL_ID.fullmatch(cell_id) is None:
+            raise ValueError("KP1979 sign-template glyph ID is invalid")
+        if cell_id in requested:
+            raise ValueError("KP1979 sign-template glyph was requested more than once")
+        if len(requested) >= KP1979_MAX_SIGN_TEMPLATE_INPUT_ITEMS:
+            raise ValueError("KP1979 sign-template glyph request limit was exceeded")
+        requested.add(cell_id)
+        glyph_bytes = _read_private_regular_bytes_at(
+            pinned.descriptor,
+            f"{cell_id}.pbm",
+            max_bytes=KP1979_MAX_SIGN_TEMPLATE_PBM_BYTES,
+        )
+        total_bytes += len(glyph_bytes)
+        if total_bytes > _KP1979_MAX_SIGN_TEMPLATE_TOTAL_GLYPH_BYTES:
+            raise ValueError("KP1979 sign-template glyph aggregate limit was exceeded")
+        return glyph_bytes
+
+    try:
+        yield load
+        _verify_pinned_directory(pinned)
+    finally:
+        _close_pinned_directory(pinned)
+
+
+def _kp1979_sign_template_roster_summary(
+    *,
+    valid: bool,
+    private_storage_verified: bool,
+    roster_canonical_bytes_verified: bool,
+    written: bool | None = None,
+    **state: bool | str,
+) -> dict[str, bool | str]:
+    """Return a fixed count-, value-, identity-, digest-, and path-free summary."""
+
+    summary: dict[str, bool | str] = {
+        "valid": valid,
+        "claim_class": "private_kp1979_sign_template_roster_only",
+        "counts_disclosed": False,
+        "private_values_disclosed": False,
+        "record_ids_disclosed": False,
+        "digests_disclosed": False,
+        "paths_disclosed": False,
+        "private_storage_verified": private_storage_verified,
+        "catalog_geometry_raw_bytes_bound": roster_canonical_bytes_verified,
+        "catalog_geometry_item_join_verified": roster_canonical_bytes_verified,
+        "glyph_crop_commitments_verified": roster_canonical_bytes_verified,
+        "roster_canonical_bytes_verified": roster_canonical_bytes_verified,
+        "machine_provisional_graphic_identity_only": roster_canonical_bytes_verified,
+        "catalog_values_accepted": False,
+        "sign_identity_accepted": False,
+        "human_review_complete": False,
+        "public_release_authorized": False,
+        "evaluation_admissible": False,
+        "decipherment": False,
+        "prize_submission_eligible": False,
+    }
+    if written is not None:
+        summary["written"] = written
+    if set(state).intersection(summary):
+        raise KP1979SignTemplateRosterError(
+            "KP1979 sign-template roster summary state cannot replace a fixed assurance"
+        )
+    summary.update(state)
+    return summary
+
+
+def _require_kp1979_sign_template_roster_summary(
+    summary: dict[str, bool | str],
+) -> None:
+    required_true = (
+        "valid",
+        "catalog_geometry_raw_bytes_bound",
+        "catalog_geometry_item_join_verified",
+        "glyph_crop_commitments_verified",
+        "roster_canonical_bytes_verified",
+    )
+    required_false = (
+        "catalog_values_accepted",
+        "sign_identity_accepted",
+        "human_review_complete",
+        "public_release_authorized",
+        "evaluation_admissible",
+        "decipherment",
+        "prize_submission_eligible",
+    )
+    if any(summary.get(field) is not True for field in required_true) or any(
+        summary.get(field) is not False for field in required_false
+    ):
+        raise KP1979SignTemplateRosterError(
+            "KP1979 sign-template roster verifier returned an incomplete assurance state"
+        )
+
+
+def _command_prepare_kp1979_sign_template_roster(args: argparse.Namespace) -> int:
+    try:
+        catalog_bytes = _read_private_regular_bytes(
+            args.catalog,
+            max_bytes=KP1979_MAX_SIGN_TEMPLATE_CATALOG_BYTES,
+        )
+        geometry_manifest_bytes = _read_private_regular_bytes(
+            args.geometry_manifest,
+            max_bytes=KP1979_MAX_SIGN_TEMPLATE_GEOMETRY_BYTES,
+        )
+        with _kp1979_sign_template_glyph_loader(args.glyph_pbm_dir) as glyph_loader:
+            roster = build_sign_template_roster(
+                catalog_bytes,
+                geometry_manifest_bytes,
+                glyph_loader,
+            )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1979SignTemplateRosterError(
+            "KP1979 sign-template roster preparation failed"
+        ) from error
+
+    try:
+        durability_confirmed, content_verified = _write_private_json_no_replace(
+            args.output,
+            roster,
+        )
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1979SignTemplateRosterError(
+            "private KP1979 sign-template roster could not be created safely"
+        ) from error
+    if not durability_confirmed or not content_verified:
+        _print_json(
+            _kp1979_sign_template_roster_summary(
+                valid=False,
+                written=False,
+                private_storage_verified=False,
+                roster_canonical_bytes_verified=content_verified,
+                output_content_verified=content_verified,
+                durability_confirmed=durability_confirmed,
+                destination_may_exist=True,
+                postcondition=(
+                    "committed_content_verified_durability_unknown"
+                    if content_verified
+                    else "committed_content_unknown"
+                ),
+            )
+        )
+        return 1
+    _print_json(
+        _kp1979_sign_template_roster_summary(
+            valid=True,
+            written=True,
+            private_storage_verified=True,
+            roster_canonical_bytes_verified=True,
+        )
+    )
+    return 0
+
+
+def _command_verify_kp1979_sign_template_roster(args: argparse.Namespace) -> int:
+    try:
+        catalog_bytes = _read_private_regular_bytes(
+            args.catalog,
+            max_bytes=KP1979_MAX_SIGN_TEMPLATE_CATALOG_BYTES,
+        )
+        geometry_manifest_bytes = _read_private_regular_bytes(
+            args.geometry_manifest,
+            max_bytes=KP1979_MAX_SIGN_TEMPLATE_GEOMETRY_BYTES,
+        )
+        roster_bytes = _read_private_regular_bytes(
+            args.roster,
+            max_bytes=KP1979_MAX_SIGN_TEMPLATE_ROSTER_BYTES,
+        )
+        with _kp1979_sign_template_glyph_loader(args.glyph_pbm_dir) as glyph_loader:
+            core_summary = verify_sign_template_roster_bytes(
+                catalog_bytes,
+                geometry_manifest_bytes,
+                glyph_loader,
+                roster_bytes,
+            )
+        _require_kp1979_sign_template_roster_summary(core_summary)
+    except (OSError, PrivateReadinessError, ValueError) as error:
+        raise KP1979SignTemplateRosterError(
+            "KP1979 sign-template roster verification failed"
+        ) from error
+    _print_json(
+        _kp1979_sign_template_roster_summary(
+            valid=True,
+            private_storage_verified=True,
+            roster_canonical_bytes_verified=True,
+        )
+    )
+    return 0
+
+
 def _read_regular_bytes_at(
     parent_descriptor: int,
     name: str,
@@ -7699,6 +7946,66 @@ def build_parser() -> argparse.ArgumentParser:
         help="closed checked-in KP1979 native-page map",
     )
     kp1979_row_verify_parser.set_defaults(handler=_command_verify_kp1979_row_assignment)
+
+    kp1979_sign_template_prepare_parser = subparsers.add_parser(
+        "prepare-kp1979-sign-template-roster",
+        help="create a private machine-provisional KP1979 sign-template roster",
+    )
+    kp1979_sign_template_prepare_parser.add_argument(
+        "catalog",
+        type=_path,
+        help="canonical 0600 resolved catalog under a physical owner-only directory",
+    )
+    kp1979_sign_template_prepare_parser.add_argument(
+        "geometry_manifest",
+        type=_path,
+        help="bound 0600 sign-list geometry manifest under a physical owner-only directory",
+    )
+    kp1979_sign_template_prepare_parser.add_argument(
+        "glyph_pbm_dir",
+        type=_path,
+        help=(
+            "physical owner-only directory containing catalog/geometry-bound provisional glyph PBMs"
+        ),
+    )
+    kp1979_sign_template_prepare_parser.add_argument(
+        "output",
+        type=_path,
+        help="new 0600 roster under a pre-existing physical 0700 directory",
+    )
+    kp1979_sign_template_prepare_parser.set_defaults(
+        handler=_command_prepare_kp1979_sign_template_roster
+    )
+
+    kp1979_sign_template_verify_parser = subparsers.add_parser(
+        "verify-kp1979-sign-template-roster",
+        help="recompute a private machine-provisional KP1979 sign-template roster",
+    )
+    kp1979_sign_template_verify_parser.add_argument(
+        "catalog",
+        type=_path,
+        help="canonical 0600 resolved catalog under a physical owner-only directory",
+    )
+    kp1979_sign_template_verify_parser.add_argument(
+        "geometry_manifest",
+        type=_path,
+        help="bound 0600 sign-list geometry manifest under a physical owner-only directory",
+    )
+    kp1979_sign_template_verify_parser.add_argument(
+        "glyph_pbm_dir",
+        type=_path,
+        help=(
+            "physical owner-only directory containing catalog/geometry-bound provisional glyph PBMs"
+        ),
+    )
+    kp1979_sign_template_verify_parser.add_argument(
+        "roster",
+        type=_path,
+        help="canonical 0600 roster under a physical owner-only directory",
+    )
+    kp1979_sign_template_verify_parser.set_defaults(
+        handler=_command_verify_kp1979_sign_template_roster
+    )
 
     kp1979_label_reference_prepare_parser = subparsers.add_parser(
         "prepare-kp1979-label-reference-assignment",

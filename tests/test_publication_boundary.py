@@ -6,6 +6,26 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+KP1979_MATCHER_SCHEMA_FILES = (
+    ROOT / "schemas" / "kp1979-row-match-proposal.schema.json",
+    ROOT / "schemas" / "kp1979-sign-template-roster.schema.json",
+)
+KP1979_MATCHER_CODE_FILES = (
+    ROOT / "src" / "indusbench" / "cli.py",
+    ROOT / "src" / "indusbench" / "kp1979_glyph_match.py",
+    ROOT / "src" / "indusbench" / "kp1979_match_calibration.py",
+    ROOT / "src" / "indusbench" / "kp1979_row_matcher.py",
+    ROOT / "src" / "indusbench" / "kp1979_row_separator.py",
+    ROOT / "src" / "indusbench" / "kp1979_sign_template_roster.py",
+    ROOT / "tests" / "test_kp1979_glyph_match.py",
+    ROOT / "tests" / "test_kp1979_match_calibration.py",
+    ROOT / "tests" / "test_kp1979_row_matcher.py",
+    ROOT / "tests" / "test_kp1979_row_separator.py",
+    ROOT / "tests" / "test_kp1979_sign_template_roster.py",
+    ROOT / "tests" / "test_kp1979_sign_template_roster_cli.py",
+)
+KP1979_MATCHER_PUBLIC_SURFACE = KP1979_MATCHER_SCHEMA_FILES + KP1979_MATCHER_CODE_FILES
+
 PUBLIC_TEXT_FILES = (
     ROOT / "AGENTS.md",
     ROOT / "CHANGELOG.md",
@@ -22,8 +42,10 @@ PUBLIC_TEXT_FILES = (
     ROOT / "benchmark" / "nmfa-measurement-core-plan-v1.json",
     ROOT / "benchmark" / "nmfa-resampling-core-evaluator-bundle-v1.json",
     ROOT / "benchmark" / "nmfa-resampling-core-plan-v1.json",
+    *KP1979_MATCHER_SCHEMA_FILES,
 )
 PUBLIC_CODE_FILES = (
+    *KP1979_MATCHER_CODE_FILES,
     ROOT / "src" / "indusbench" / "nmfa_bootstrap_core.py",
     ROOT / "src" / "indusbench" / "nmfa_counter_stream.py",
     ROOT / "src" / "indusbench" / "nmfa_exact_order.py",
@@ -96,6 +118,10 @@ def public_text_paths() -> list[Path]:
 
 
 class PublicationBoundaryTests(unittest.TestCase):
+    def test_kp1979_matcher_public_surface_is_present_and_scanned(self) -> None:
+        self.assertTrue(all(path.is_file() for path in KP1979_MATCHER_PUBLIC_SURFACE))
+        self.assertLessEqual(set(KP1979_MATCHER_PUBLIC_SURFACE), set(public_text_paths()))
+
     def test_public_text_has_no_machine_or_credential_metadata(self) -> None:
         findings: list[str] = []
         for path in public_text_paths():

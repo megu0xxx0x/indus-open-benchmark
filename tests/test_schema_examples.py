@@ -27,6 +27,8 @@ SCHEMA_FILES = (
     "kp1979-label-reference-review.schema.json",
     "kp1979-page-map.schema.json",
     "kp1979-row-assignment.schema.json",
+    "kp1979-row-match-proposal.schema.json",
+    "kp1979-sign-template-roster.schema.json",
     "kp1982-batch0-source.schema.json",
     "kp1982-bootstrap-assignment.schema.json",
     "kp1982-bootstrap-review.schema.json",
@@ -110,6 +112,18 @@ class SchemaContractTests(unittest.TestCase):
                     ref for ref in local_refs if ref.removeprefix("#/$defs/") not in definitions
                 }
                 self.assertEqual(missing, set())
+
+    def test_kp1979_matcher_schemas_are_explicitly_non_attesting(self) -> None:
+        for filename in (
+            "kp1979-row-match-proposal.schema.json",
+            "kp1979-sign-template-roster.schema.json",
+        ):
+            with self.subTest(filename=filename):
+                schema = json.loads((SCHEMA_DIR / filename).read_text(encoding="utf-8"))
+                self.assertIn(
+                    "schema validity alone does not attest",
+                    schema["description"].lower(),
+                )
 
     def test_synthetic_jsonl_obeys_cross_record_invariants(self) -> None:
         records = [

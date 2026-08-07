@@ -1,0 +1,653 @@
+{
+  "$id": "https://example.org/indus-open-benchmark/kp1979-row-match-proposal.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Closed storage shape for development-only machine shape proposals intended for owner-only handling. Schema validity alone does not attest input bytes, matcher-plan recomputation, row pixels, separator correctness, sign sequences, page isolation, or scientific acceptance; the canonical exact-byte verifier and caller-enforced loaders are required.",
+  "additionalProperties": false,
+  "properties": {
+    "assurances": {
+      "const": {
+        "catalog_values_accepted": false,
+        "decipherment": false,
+        "development_row_crop_commitments_verified": true,
+        "evaluation_admissible": false,
+        "human_review_complete": false,
+        "independent_replication_complete": false,
+        "language_assigned": false,
+        "matcher_plan_freeze_and_scope_gates_verified": true,
+        "matcher_plan_exact_template_only_recomputation_verified": true,
+        "matcher_plan_raw_bytes_bound": true,
+        "matcher_plan_structure_and_canonical_bytes_verified": true,
+        "meaning_assigned": false,
+        "prize_submission_eligible": false,
+        "public_release_authorized": false,
+        "reading_direction_assigned": false,
+        "reserved_future_rows_loaded": false,
+        "row_assignment_raw_bytes_bound": true,
+        "row_assignment_schema_and_canonical_bytes_verified": true,
+        "row_assignment_source_pixels_recomputed": false,
+        "row_geometry_accepted": false,
+        "sign_identity_accepted": false,
+        "sign_sequences_accepted": false,
+        "template_glyph_crop_commitments_reverified": true,
+        "template_roster_raw_bytes_bound": true,
+        "template_roster_schema_and_canonical_bytes_verified": true,
+        "template_roster_source_inputs_recomputed": false,
+        "translations_assigned": false
+      }
+    },
+    "calibration_scope": {
+      "const": {
+        "closed_set_validation_zero_accepted_single_glyph_splits": true,
+        "closed_set_validation_zero_false_accepts": true,
+        "closed_set_validation_gate_applies_to": "glyph_matcher_core_only",
+        "closed_template_near_exact_retrieval_only": true,
+        "configuration_and_metrics_recomputed_from_committed_template_pbms": true,
+        "development_rows_consumed_by_calibration": false,
+        "future_evaluation_pixels_consumed_by_calibration": false,
+        "matcher_plan_status": "frozen_closed_template_retrieval_only",
+        "open_set_allograph_generalization_claimed": false,
+        "predeclared_stratified_coverage_floors_verified": true,
+        "real_row_performance_claimed": false,
+        "row_separator_calibration_claimed": false,
+        "threshold_state": "frozen",
+        "thresholds_selected_from_open_set_lovo": false,
+        "trusted_compiled_calibration_grid_bound": true
+      }
+    },
+    "input_bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "matcher_plan": {
+          "$ref": "#/$defs/inputBinding"
+        },
+        "row_assignment": {
+          "$ref": "#/$defs/inputBinding"
+        },
+        "template_roster": {
+          "$ref": "#/$defs/inputBinding"
+        }
+      },
+      "required": [
+        "matcher_plan",
+        "row_assignment",
+        "template_roster"
+      ],
+      "type": "object"
+    },
+    "manifest_id": {
+      "const": "KP1979:BASE:DEVELOPMENT:ROW-MATCH-PROPOSAL:V1"
+    },
+    "matching_policy": {
+      "const": {
+        "language_or_frequency_prior_used": false,
+        "matcher_algorithm_id": "kp1979-shape-only-joint-segmentation-v1",
+        "maximum_retained_paths": 3,
+        "separator_method": "maximal-full-height-white-gap-locator-neighbours-shape-comparison-v2",
+        "template_scope": "closed_machine_provisional_signlist_variants_only",
+        "visual_order": "left_to_right_coordinate_order_not_reading_direction"
+      }
+    },
+    "partition_policy": {
+      "const": {
+        "caller_selectable_partition": false,
+        "included_pdf_page_boundary": "public_pdf_pages_22_through_77",
+        "reserved_future_pdf_page": 78,
+        "reserved_future_rows_loaded": false,
+        "role": "private_development_only"
+      }
+    },
+    "record_state": {
+      "const": "private_owner_only_development_proposal"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/row"
+      },
+      "maxItems": 5000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "scientific_scope": {
+      "const": "language-blind shape proposals intended for owner-only storage for the KP1979 development rows; catalog ranks, segmentation paths, row geometry, and sign sequences are unaccepted, the future evaluation page is reserved and this matcher run does not load its row pixels, and no reading direction, language, meaning, translation, decipherment, or prize claim is present"
+    },
+    "status": {
+      "const": "private_development_shape_proposals_require_independent_validation"
+    },
+    "withheld_fields": {
+      "const": [
+        "all_identifier_values",
+        "all_code_values",
+        "all_reading_direction_values",
+        "all_language_values",
+        "all_meaning_values",
+        "all_translation_values",
+        "all_accepted_sign_sequences",
+        "all_evaluation_values"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "record_state",
+    "status",
+    "scientific_scope",
+    "input_bindings",
+    "partition_policy",
+    "matching_policy",
+    "calibration_scope",
+    "withheld_fields",
+    "rows",
+    "assurances"
+  ],
+  "title": "Private development-only KP1979 row shape proposals",
+  "type": "object",
+  "$defs": {
+    "absoluteBbox": {
+      "items": false,
+      "maxItems": 4,
+      "minItems": 4,
+      "prefixItems": [
+        {
+          "maximum": 16384,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "maximum": 16384,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "maximum": 16384,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "maximum": 16384,
+          "minimum": 1,
+          "type": "integer"
+        }
+      ],
+      "type": "array"
+    },
+    "abstentionCode": {
+      "enum": [
+        "none",
+        "no_full_height_white_gap_intersects_locator",
+        "no_separator_candidate_path",
+        "competing_separator_alternatives",
+        "no_ink_in_sign_region",
+        "no_candidate_path",
+        "sign_region_boundary_contains_ink",
+        "best_path_contains_unmatched_ink",
+        "shape_or_rank_stability_gate_failed",
+        "joint_segmentation_path_margin_gate_failed",
+        "joint_rank_path_margin_gate_failed"
+      ],
+      "type": "string"
+    },
+    "assignmentLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "proposed_label_bbox": {
+          "$ref": "#/$defs/absoluteBbox"
+        },
+        "proposed_row_bbox": {
+          "$ref": "#/$defs/absoluteBbox"
+        },
+        "relative_proposed_label_bbox": {
+          "$ref": "#/$defs/rowBbox"
+        }
+      },
+      "required": [
+        "proposed_row_bbox",
+        "proposed_label_bbox",
+        "relative_proposed_label_bbox"
+      ],
+      "type": "object"
+    },
+    "candidatePath": {
+      "additionalProperties": false,
+      "properties": {
+        "margin_from_best": {
+          "maximum": 1000000000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "matcher_abstention_code": {
+          "$ref": "#/$defs/abstentionCode"
+        },
+        "matcher_gates": {
+          "$ref": "#/$defs/matcherGates"
+        },
+        "matcher_path_index": {
+          "maximum": 2,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "matcher_proposal_status": {
+          "$ref": "#/$defs/proposalStatus"
+        },
+        "path_index": {
+          "maximum": 2,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/segment"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "type": "array"
+        },
+        "separator_provenance": {
+          "$ref": "#/$defs/separatorProvenance"
+        },
+        "total_cost": {
+          "maximum": 1000000000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path_index",
+        "total_cost",
+        "margin_from_best",
+        "separator_provenance",
+        "matcher_path_index",
+        "matcher_proposal_status",
+        "matcher_abstention_code",
+        "matcher_gates",
+        "segments"
+      ],
+      "type": "object"
+    },
+    "inputBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_size": {
+          "maximum": 134217728,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/taggedSha256"
+        }
+      },
+      "required": [
+        "id",
+        "sha256",
+        "byte_size"
+      ],
+      "type": "object"
+    },
+    "matcherGates": {
+      "additionalProperties": false,
+      "properties": {
+        "absolute_shape_cost_passed": {
+          "type": "boolean"
+        },
+        "different_rank_margin_passed": {
+          "type": "boolean"
+        },
+        "joint_path_margin_passed": {
+          "type": "boolean"
+        },
+        "normalization_shift_stability_passed": {
+          "type": "boolean"
+        },
+        "sign_region_boundary_clear": {
+          "type": "boolean"
+        },
+        "speck_ablation_stability_passed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "absolute_shape_cost_passed",
+        "different_rank_margin_passed",
+        "joint_path_margin_passed",
+        "speck_ablation_stability_passed",
+        "normalization_shift_stability_passed",
+        "sign_region_boundary_clear"
+      ],
+      "type": "object"
+    },
+    "proposal": {
+      "additionalProperties": false,
+      "properties": {
+        "abstention_code": {
+          "$ref": "#/$defs/abstentionCode"
+        },
+        "candidate_paths": {
+          "items": {
+            "$ref": "#/$defs/candidatePath"
+          },
+          "maxItems": 3,
+          "type": "array"
+        },
+        "gates": {
+          "additionalProperties": false,
+          "properties": {
+            "best_matcher_proposed": {
+              "type": "boolean"
+            },
+            "separator_consensus_passed": {
+              "type": "boolean"
+            },
+            "separator_found": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "separator_found",
+            "separator_consensus_passed",
+            "best_matcher_proposed"
+          ],
+          "type": "object"
+        },
+        "proposal_status": {
+          "$ref": "#/$defs/proposalStatus"
+        },
+        "proposed_label_bbox": {
+          "$ref": "#/$defs/rowBbox"
+        },
+        "row_id": {
+          "$ref": "#/$defs/developmentRowId"
+        },
+        "separator_method": {
+          "const": "maximal-full-height-white-gap-locator-neighbours-shape-comparison-v2"
+        },
+        "visual_order": {
+          "const": "left_to_right_coordinate_order_not_reading_direction"
+        }
+      },
+      "required": [
+        "row_id",
+        "visual_order",
+        "proposed_label_bbox",
+        "separator_method",
+        "proposal_status",
+        "abstention_code",
+        "candidate_paths",
+        "gates"
+      ],
+      "type": "object"
+    },
+    "proposalStatus": {
+      "enum": [
+        "proposed",
+        "no_match",
+        "ambiguous",
+        "segmentation_ambiguous",
+        "unknown_damage"
+      ],
+      "type": "string"
+    },
+    "rankProposalSegment": {
+      "additionalProperties": false,
+      "properties": {
+        "aspect_cost": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "best_variant_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9:._-]*$",
+            "type": "string"
+          },
+          "maxItems": 1024,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "catalog_rank": {
+          "maximum": 1000000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "different_rank_margin": {
+          "maximum": 5000000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "emission_cost": {
+          "maximum": 5000000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "overlap_cost": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "segment_bbox": {
+          "$ref": "#/$defs/rowBbox"
+        },
+        "segment_kind": {
+          "const": "rank_proposal"
+        }
+      },
+      "required": [
+        "segment_kind",
+        "segment_bbox",
+        "catalog_rank",
+        "best_variant_ids",
+        "overlap_cost",
+        "aspect_cost",
+        "emission_cost",
+        "different_rank_margin"
+      ],
+      "type": "object"
+    },
+    "row": {
+      "additionalProperties": false,
+      "properties": {
+        "assignment_locator": {
+          "$ref": "#/$defs/assignmentLocator"
+        },
+        "lane_index": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "page_index": {
+          "maximum": 76,
+          "minimum": 21,
+          "type": "integer"
+        },
+        "pdf_page_number": {
+          "maximum": 77,
+          "minimum": 22,
+          "type": "integer"
+        },
+        "proposal": {
+          "$ref": "#/$defs/proposal"
+        },
+        "row_crop": {
+          "$ref": "#/$defs/rowCrop"
+        },
+        "row_id": {
+          "$ref": "#/$defs/developmentRowId"
+        },
+        "visual_row_index": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "row_id",
+        "page_index",
+        "pdf_page_number",
+        "lane_index",
+        "visual_row_index",
+        "assignment_locator",
+        "row_crop",
+        "proposal"
+      ],
+      "type": "object"
+    },
+    "rowBbox": {
+      "items": false,
+      "maxItems": 4,
+      "minItems": 4,
+      "prefixItems": [
+        {
+          "maximum": 4096,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "maximum": 512,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "maximum": 4096,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "maximum": 512,
+          "minimum": 0,
+          "type": "integer"
+        }
+      ],
+      "type": "array"
+    },
+    "rowCrop": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_size": {
+          "maximum": 1048576,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "height": {
+          "maximum": 512,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "sha256": {
+          "$ref": "#/$defs/taggedSha256"
+        },
+        "width": {
+          "maximum": 4096,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sha256",
+        "byte_size",
+        "width",
+        "height"
+      ],
+      "type": "object"
+    },
+    "developmentRowId": {
+      "maxLength": 18,
+      "minLength": 18,
+      "pattern": "^KP1979:P0(?:2[2-9]|[3-6][0-9]|7[0-7]):L[01]:V[0-9]{2}$",
+      "type": "string"
+    },
+    "segment": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/rankProposalSegment"
+        },
+        {
+          "$ref": "#/$defs/unmatchedSegment"
+        }
+      ]
+    },
+    "separatorProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_index": {
+          "maximum": 63,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cut_x": {
+          "maximum": 4096,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "full_height_white_gap_bbox": {
+          "$ref": "#/$defs/rowBbox"
+        },
+        "locator_intersection_bbox": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/rowBbox"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "locator_relation": {
+          "enum": [
+            "left_edge_contact",
+            "positive_overlap",
+            "nearest_left",
+            "right_edge_contact",
+            "nearest_right"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_index",
+        "full_height_white_gap_bbox",
+        "locator_relation",
+        "locator_intersection_bbox",
+        "cut_x"
+      ],
+      "type": "object"
+    },
+    "taggedSha256": {
+      "maxLength": 71,
+      "minLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "unmatchedSegment": {
+      "additionalProperties": false,
+      "properties": {
+        "segment_bbox": {
+          "$ref": "#/$defs/rowBbox"
+        },
+        "segment_kind": {
+          "const": "unmatched_ink"
+        },
+        "unknown_cost": {
+          "maximum": 5000000,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "segment_kind",
+        "segment_bbox",
+        "unknown_cost"
+      ],
+      "type": "object"
+    }
+  }
+}

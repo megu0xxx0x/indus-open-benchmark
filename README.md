@@ -860,6 +860,34 @@ reviewers, but only eligible independent human-reference evidence can promote
 geometry or support detector scoring. The command will not overwrite an
 existing output and requires a physical owner-only parent directory.
 
+The public CLI also exposes preparation and exact verification of the
+catalog/geometry-bound, machine-provisional sign-template roster. The following
+names are placeholders for owner-controlled inputs; do not substitute public
+paths or commit the generated roster:
+
+```bash
+install -d -m 700 "$KP1979_TEMPLATE_STATE_DIR"
+uv run indusbench prepare-kp1979-sign-template-roster \
+  "$KP1979_PROVISIONAL_CATALOG" \
+  "$KP1979_PROVISIONAL_GEOMETRY" \
+  "$KP1979_PROVISIONAL_GLYPH_PBM_DIR" \
+  "$KP1979_TEMPLATE_STATE_DIR/sign-template-roster.json"
+uv run indusbench verify-kp1979-sign-template-roster \
+  "$KP1979_PROVISIONAL_CATALOG" \
+  "$KP1979_PROVISIONAL_GEOMETRY" \
+  "$KP1979_PROVISIONAL_GLYPH_PBM_DIR" \
+  "$KP1979_TEMPLATE_STATE_DIR/sign-template-roster.json"
+```
+
+Each input file must already be an owner-owned, single-link `0600` regular
+file below a physical `0700` directory; both glyph and output directories are
+pinned and owner-only. Preparation is no-replace, verification rebuilds from
+the exact catalog, geometry, and raw PBM bytes, and the CLI summary discloses
+no counts, private values, record IDs, digests, or paths. This roster is still
+provisional and does not accept a sign identity or transcription. Row-proposal
+builders currently have no public CLI entrypoint, so no command is implied
+here; callers of the pure functions remain responsible for owner-only storage.
+
 Create and verify the separate proposal-free assignments. Keep development
 and future evaluation in different owner-only directories, and do not show the
 57-page proposal-bearing assignment to a reference reviewer:

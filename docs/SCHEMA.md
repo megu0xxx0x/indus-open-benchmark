@@ -63,6 +63,16 @@ The repository defines the following JSON Schema Draft 2020-12 contracts:
   assignment for proposal-only label and row-context crops on the 57
   identifier-order pages; OCR, identifiers, codes, signs, occupancy,
   direction, interpretation, and external manual values are withheld.
+- `schemas/kp1979-sign-template-roster.schema.json` (v0.1.0) — a closed
+  private, catalog/geometry-bound machine-provisional roster of committed
+  canonical glyph PBMs and shape-class ranks. It contains no accepted sign
+  identity, row transcription, reading, language, meaning, or translation.
+- `schemas/kp1979-row-match-proposal.schema.json` (v0.1.0) — a closed
+  development-only envelope for language-blind row-shape proposals, their
+  raw input commitments, observed separator provenance, and at most three
+  deterministic candidate paths. It does not accept row geometry, sign
+  sequences, reading direction, interpretation, evaluation admission, or a
+  decipherment.
 - `schemas/kp1979-label-reference-assignment.schema.json` (v0.1.0) — a
   proposal-free, six-page reviewer assignment for exactly one fixed KP1979
   development or future-evaluation partition. It binds source pixels and
@@ -151,6 +161,59 @@ Schema validation alone is not an evidence attestation. Relationships among a
 slot ID, page, lane, rectangles, pixels, and crop commitments require the
 canonical verifier; only exact reconstruction from the fixed PDF and PBMs may
 return a valid assignment summary.
+
+## KP1979 provisional templates and development-only row matching
+
+The sign-template roster binds one canonical machine-provisional catalog, its
+catalog/geometry manifest, and each manifest-addressed canonical raw PBM glyph.
+The builder checks the catalog/geometry join, the committed PBM byte size and
+digest, exact P4 encoding, dimensions, and nonempty ink before recording a
+variant and provisional shape-class rank. Multiple variants may share a rank;
+the matcher scores only the best variant per rank so a rank gains no bonus from
+having more variants. Neither a roster field nor schema validity makes the
+catalog rank final, proves the source pages, accepts geometry, or establishes a
+sign identity. The canonical roster builder/verifier must recompute these
+relationships from the supplied raw bytes.
+
+The template-only matcher plan is a canonical structure containing its
+protocol and matcher identities, roster commitment, integer configuration,
+claim scope, fold protocol, selection rule, closed-set control summaries,
+open-set leave-one-variant-out negative control, normalized-equality report,
+and fixed-false assurances. Before any development row loader is called, the
+row-proposal builder reloads every roster-addressed raw glyph PBM, verifies its
+commitment, rebuilds the template index, recomputes the complete matcher plan
+from those exact PBM bytes, and requires canonical byte equality with the
+supplied plan. It then rechecks the frozen identity and scope gates. Merely
+matching the plan's JSON shape or repeating its recorded metrics is
+insufficient. The frozen claim is limited to closed-template near-exact
+retrieval; the open-set control is not used for threshold selection and does
+not demonstrate allograph generalization or real-row performance.
+
+The row-proposal builder consumes an already-created canonical row assignment;
+it binds those raw assignment bytes but deliberately does not call the
+assignment's source-pixel recomputing verifier. For each allowed development
+slot, the caller-supplied row loader must return bytes matching the assignment's
+row-crop commitment and dimensions. Separation never treats a proposed label
+rectangle edge as observed truth. It compares maximal full-height white gaps
+that overlap or contact the locator plus its nearest observed neighbours,
+retains deterministic global top-three shape paths with separator provenance,
+and abstains when different separator candidates support different best path
+signatures. These remain machine proposals, not transcriptions.
+
+The development allowlist covers only public PDF pages 22–77. The canonical
+row assignment may also contain the reserved page 78, but this matcher run
+filters its slot IDs before creating or invoking the row loader; therefore this
+specific run does not load page-78 row pixels. That narrow property does not
+claim that page 78, its source file, or its pixels were inaccessible to other
+tools or earlier assignment construction, and it does not by itself establish
+blind evaluation.
+
+Roster and row-proposal artifacts contain private commitments and provisional
+values. Generated files should be kept in owner-only storage and must not be
+published without a separate disclosure review. The pure Python builders
+return objects and cannot enforce storage permissions; the roster CLI adds
+physical-directory, owner-permission, no-replace, and exact-byte checks. No
+public row-proposal CLI is documented unless such an entrypoint exists.
 
 ## KP1982 fixed source and transcription bootstrap
 

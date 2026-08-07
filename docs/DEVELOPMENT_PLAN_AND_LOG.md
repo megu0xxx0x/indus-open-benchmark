@@ -2956,3 +2956,49 @@ checkpoint as any of those states.
 The next concrete coding task is therefore the source-free N2 full-context
 stratum and permutation core, not publication of a claim and not an attempted
 translation.
+
+## KP1979 template-only matcher implementation checkpoint
+
+The KP1979 row-shape work is at a synthetic implementation stage. Public code
+now defines a catalog/geometry-bound machine-provisional glyph roster, a
+language-blind packed-bitmap matcher, observed white-gap separator comparison,
+template-only plan calibration, and a development-only row-proposal envelope.
+Closed schemas and focused synthetic tests cover canonical PBM parsing,
+provisional rank/variant binding, exact recomputation, joint segmentation,
+conservative separator abstention, deterministic top-path retention, malformed
+inputs, and the reserved-row loader boundary. This checkpoint records software
+behavior only and contains no private row value or run result.
+
+The roster builder binds canonical catalog and geometry bytes to committed raw
+glyph PBMs while retaining provisional shape-class ranks. The row builder
+recomputes the complete matcher plan from those exact glyph PBMs before any
+development row is loaded; a supplied plan's structure or recorded metrics are
+not trusted by themselves. Its calibration claim remains limited to
+closed-template near-exact retrieval. Open-set leave-one-variant-out behavior
+is a negative control, not threshold evidence or proof of real-row allograph
+generalization.
+
+The row proposal is restricted to the development boundary. Although the
+upstream canonical row assignment may include a reserved future-page slot, this
+matcher filters that slot before constructing or invoking its row loader. The
+resulting statement is only that this matcher invocation does not load that
+reserved row's pixels; it does not establish broader file inaccessibility,
+prior nonexposure, external blinding, or evaluation admissibility. Returned
+rosters and proposals contain private commitments and provisional values and
+should be saved only in owner-controlled storage. Pure functions cannot enforce
+filesystem permissions, while the existing roster CLI adds owner-permission,
+no-replace, and exact-byte checks.
+
+No identifier or code has been accepted from these proposals. Rows have not
+been accepted as transcriptions, no reading direction has been established,
+and no language, meaning, or translation has been assigned. The Indus script
+has not been deciphered by this implementation. There is no scientific result,
+evaluation admission, prize eligibility, prize application, award, or basis to
+claim any of them.
+
+The next safe engineering step is to keep calibration and matcher-plan inputs
+frozen, exercise only the owner-private development boundary through exact
+recomputation, retain every abstention and competing separator path, and audit
+the resulting private artifact without promoting ranks or sequences. Reserved
+future-row execution, publication of generated artifacts, translation claims,
+and prize submission remain outside this checkpoint.

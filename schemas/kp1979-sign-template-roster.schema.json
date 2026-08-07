@@ -1,0 +1,239 @@
+{
+  "$id": "https://example.org/indus-open-benchmark/kp1979-sign-template-roster.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Closed storage shape for a catalog/geometry-bound machine-provisional glyph roster. Schema validity alone does not attest source-page pixels, catalog ranks, geometry, glyph bytes, sign identity, review, or scientific acceptance; the exact-byte builder and verifier must recompute the bound relationships.",
+  "additionalProperties": false,
+  "properties": {
+    "assurances": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_geometry_item_join_verified": {
+          "const": true
+        },
+        "catalog_geometry_raw_bytes_bound": {
+          "const": true
+        },
+        "catalog_resolution_inputs_reverified": {
+          "const": false
+        },
+        "catalog_values_accepted": {
+          "const": false
+        },
+        "decipherment": {
+          "const": false
+        },
+        "evaluation_admissible": {
+          "const": false
+        },
+        "geometry_accepted": {
+          "const": false
+        },
+        "glyph_crop_commitments_verified": {
+          "const": true
+        },
+        "human_review_complete": {
+          "const": false
+        },
+        "prize_submission_eligible": {
+          "const": false
+        },
+        "public_release_authorized": {
+          "const": false
+        },
+        "sign_identity_accepted": {
+          "const": false
+        },
+        "signlist_source_pages_reverified": {
+          "const": false
+        }
+      },
+      "required": [
+        "catalog_geometry_item_join_verified",
+        "catalog_geometry_raw_bytes_bound",
+        "catalog_resolution_inputs_reverified",
+        "catalog_values_accepted",
+        "decipherment",
+        "evaluation_admissible",
+        "geometry_accepted",
+        "glyph_crop_commitments_verified",
+        "human_review_complete",
+        "prize_submission_eligible",
+        "public_release_authorized",
+        "sign_identity_accepted",
+        "signlist_source_pages_reverified"
+      ],
+      "type": "object"
+    },
+    "input_bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "geometry_manifest": {
+          "$ref": "#/$defs/inputCommitment"
+        },
+        "resolved_catalog": {
+          "$ref": "#/$defs/inputCommitment"
+        }
+      },
+      "required": [
+        "geometry_manifest",
+        "resolved_catalog"
+      ],
+      "type": "object"
+    },
+    "manifest_id": {
+      "const": "KP1979:SIGN-TEMPLATE-ROSTER:MACHINE-PROVISIONAL:V1"
+    },
+    "record_state": {
+      "const": "machine_provisional_private"
+    },
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "scientific_scope": {
+      "const": "private machine-provisional KP1979 sign-list glyph roster for language-blind shape comparison only; no accepted sign identity, reading, language, meaning, translation, row transcription, evaluation result, or decipherment inference is present"
+    },
+    "status": {
+      "const": "private_machine_provisional_templates_require_independent_validation"
+    },
+    "template_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_rank_role": {
+          "const": "machine_provisional_shape_class_only_not_accepted_sign_identity"
+        },
+        "glyph_encoding": {
+          "const": "canonical_raw_P4_MSB_first_zero_unused_low_bits"
+        },
+        "membership_authority": {
+          "const": "catalog_geometry_bound_machine_provisional_occupancy"
+        },
+        "rank_scoring": {
+          "const": "minimum_cost_variant_per_rank_without_variant_count_bonus"
+        },
+        "variant_identity": {
+          "const": "catalog_geometry_bound_provisional_cell_id"
+        }
+      },
+      "required": [
+        "catalog_rank_role",
+        "glyph_encoding",
+        "membership_authority",
+        "rank_scoring",
+        "variant_identity"
+      ],
+      "type": "object"
+    },
+    "templates": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "catalog_rank": {
+            "maximum": 1000000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "glyph": {
+            "additionalProperties": false,
+            "properties": {
+              "byte_size": {
+                "maximum": 262144,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "height": {
+                "maximum": 512,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "sha256": {
+                "$ref": "#/$defs/taggedSha256"
+              },
+              "width": {
+                "maximum": 512,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "byte_size",
+              "height",
+              "sha256",
+              "width"
+            ],
+            "type": "object"
+          },
+          "variant_id": {
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9:._-]*$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "catalog_rank",
+          "glyph",
+          "variant_id"
+        ],
+        "type": "object"
+      },
+      "maxItems": 1024,
+      "minItems": 1,
+      "type": "array"
+    },
+    "withheld_fields": {
+      "const": [
+        "all_ocr_output",
+        "all_reading_values",
+        "all_language_values",
+        "all_meaning_values",
+        "all_translation_values",
+        "all_row_transcriptions",
+        "all_accepted_sign_identities",
+        "all_evaluation_values"
+      ],
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "record_state",
+    "status",
+    "scientific_scope",
+    "input_bindings",
+    "template_policy",
+    "withheld_fields",
+    "templates",
+    "assurances"
+  ],
+  "title": "KP1979 private machine-provisional sign template roster",
+  "type": "object",
+  "$defs": {
+    "inputCommitment": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_size": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/taggedSha256"
+        }
+      },
+      "required": [
+        "byte_size",
+        "id",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "taggedSha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  }
+}
