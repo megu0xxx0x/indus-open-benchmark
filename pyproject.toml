@@ -25,7 +25,7 @@ classifiers = [
 ]
 dependencies = [
   "attrs==26.1.0",
-  "cffi==2.1.0",
+  "cffi==2.1.1",
   "cryptography==50.0.0",
   "jsonschema[format]==4.26.0",
   "jsonschema-specifications==2025.9.1",
