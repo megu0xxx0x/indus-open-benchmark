@@ -32,7 +32,7 @@ dependencies = [
   "pycparser==3.0",
   "referencing==0.37.0",
   "rfc3339-validator==0.1.4",
-  "rpds-py==2026.6.3",
+  "rpds-py==2026.9.1",
   "six==1.17.0",
   "typing-extensions==4.16.0; python_version < '3.13'",
 ]
