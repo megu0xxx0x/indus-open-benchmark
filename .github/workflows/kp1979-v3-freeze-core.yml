@@ -179,7 +179,7 @@ jobs:
           printf 'subject_path=%s\n' "$subject_path" >> "$GITHUB_OUTPUT"
 
       - name: Retain this source replica
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: kp1979-v3-${{ inputs.freeze_kind }}-${{ inputs.source_commit }}-${{ matrix.replica }}
           path: ${{ steps.build_subject.outputs.subject_path }}
@@ -311,7 +311,7 @@ jobs:
           printf 'bundle_path=%s\n' "$bundle_path" >> "$GITHUB_OUTPUT"
 
       - name: Retain the attestation bundle
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: kp1979-v3-attestation-${{ inputs.freeze_kind }}-${{ inputs.source_commit }}
           path: ${{ steps.verify_attestation.outputs.bundle_path }}
